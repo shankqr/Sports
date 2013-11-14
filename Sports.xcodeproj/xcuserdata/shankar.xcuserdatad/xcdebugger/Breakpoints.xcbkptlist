@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "1.0">
+   <FileBreakpoints>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "Classes/BidView.m"
+         timestampString = "394888512.05059"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
+         landmarkName = "-sendClicked:"
+         landmarkType = "5">
+      </FileBreakpoint>
+   </FileBreakpoints>
+   <SymbolicBreakpoints>
+      <SymbolicBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "malloc_error_break"
+         moduleName = "">
+      </SymbolicBreakpoint>
+      <SymbolicBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "objc_exception_throw"
+         moduleName = "">
+      </SymbolicBreakpoint>
+      <SymbolicBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "[NSException raise]"
+         moduleName = "">
+      </SymbolicBreakpoint>
+   </SymbolicBreakpoints>
+</Bucket>
