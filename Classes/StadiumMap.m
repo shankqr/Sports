@@ -7,6 +7,8 @@
 //
 
 #import "StadiumMap.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation StadiumMap
 @synthesize mainView;
@@ -145,7 +147,7 @@
 - (void)moveImage:(UIImageView *)image animID:(NSString *)animID
          duration:(NSTimeInterval)duration curve:(int)curve x:(CGFloat)x y:(CGFloat)y
 {
-    [UIView beginAnimations:animID context:NULL];
+    [UIView beginAnimations:animID context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:duration];
     [UIView setAnimationDelegate:self];
@@ -205,7 +207,7 @@
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/CurrentTime", WS_URL];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+    NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
     
     returnValue = [NSString stringWithFormat:@"%@ -0000", returnValue];
     NSDate *serverDateTime = [serverFormat dateFromString:returnValue];
@@ -541,7 +543,7 @@
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/HarvestNew/%@/%d/%.0f", 
                        WS_URL, [[Globals i] UID], type, timeInterval];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+    NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
     if([returnValue isEqualToString:@"1"])
     {
         if([[Globals i] updateClubData])

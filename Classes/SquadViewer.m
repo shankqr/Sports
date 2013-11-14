@@ -7,6 +7,8 @@
 //
 
 #import "SquadViewer.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation SquadViewer
 @synthesize mainView;

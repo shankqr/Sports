@@ -5,7 +5,6 @@
 //  Created by Shankar Nathan on 3/24/10.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-#import "MainCell.h"
 
 @class MainCell;
 @interface LeagueSlide : UIViewController 

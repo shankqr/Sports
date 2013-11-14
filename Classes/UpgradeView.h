@@ -5,10 +5,8 @@
 //  Created by Shankar Nathan on 5/26/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-#import "Globals.h"
-#import "MainView.h"
-#import "StadiumMap.h"
 
+@class MainView;
 @interface UpgradeView : UIViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;

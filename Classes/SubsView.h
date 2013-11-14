@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
 #import "SquadSelectView.h"
-#import "MainView.h"
 
+@class MainView;
+@class SquadSelectView;
 @interface SubsView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

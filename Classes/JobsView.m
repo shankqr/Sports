@@ -7,6 +7,10 @@
 //
 
 #import "JobsView.h"
+#import "JobsCell.h"
+#import "MainView.h"
+#import "Globals.h"
+#import "Header.h"
 
 @implementation JobsView
 @synthesize mainView;
@@ -26,14 +30,7 @@
 - (IBAction)rookie_tap:(id)sender
 {
 	[mainView buttonSound];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [bgImage setImage:[UIImage imageNamed:@"job_rookie.png"]];
-    }
-    else
-    {
-        [bgImage setImage:[UIImage imageNamed:@"job_rookie.png"]];
-    }
+    [bgImage setImage:[UIImage imageNamed:@"job_rookie.png"]];
 	table.hidden = NO;
     offset = 0;
     unlockLabel.text = @"";
@@ -47,14 +44,7 @@
     int level = [[Globals i] getLevel];
     if(level > 49)
     {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_amateur.png"]];
-        }
-        else
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_amateur.png"]];
-        }
+        [bgImage setImage:[UIImage imageNamed:@"job_amateur.png"]];
         table.hidden = NO;
         offset = 8;
         unlockLabel.text = @"";
@@ -62,14 +52,7 @@
     }
     else
     {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_amateur_locked.png"]];
-        }
-        else
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_amateur_locked.png"]];
-        }
+        [bgImage setImage:[UIImage imageNamed:@"job_amateur_locked.png"]];
         table.hidden = YES;
         unlockLabel.text = @"UNLOCK AT LEVEL 50";
         [self.view setNeedsDisplay];
@@ -83,14 +66,7 @@
     int level = [[Globals i] getLevel];
     if(level > 99)
     {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_pro.png"]];
-        }
-        else
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_pro.png"]];
-        }
+        [bgImage setImage:[UIImage imageNamed:@"job_pro.png"]];
         table.hidden = NO;
         offset = 16;
         unlockLabel.text = @"";
@@ -98,14 +74,7 @@
     }
     else
     {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_pro_locked.png"]];
-        }
-        else
-        {
-            [bgImage setImage:[UIImage imageNamed:@"job_pro_locked.png"]];
-        }
+        [bgImage setImage:[UIImage imageNamed:@"job_pro_locked.png"]];
         table.hidden = YES;
         unlockLabel.text = @"UNLOCK AT LEVEL 100";
         [self.view setNeedsDisplay];
@@ -280,16 +249,8 @@
 	cell.rankLabel.text = [NSString stringWithFormat:@"Level %@: %@%%", rowData[@"Level"], rowData[@"Percent"]];
 	cell.rankProgress.progress = [rowData[@"Percent"] floatValue]/100;
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.trainImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", rowData[@"Pos"]]]];
-        [cell.descImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_word.png", rowData[@"Pos"]]]];
-    }
-    else
-    {
-        [cell.trainImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", rowData[@"Pos"]]]];
-        [cell.descImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_word.png", rowData[@"Pos"]]]];
-    }
+    [cell.trainImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", rowData[@"Pos"]]]];
+    [cell.descImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@_word.png", rowData[@"Pos"]]]];
 	
     if (row > 0) 
     {

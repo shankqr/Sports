@@ -7,6 +7,11 @@
 //
 
 #import "StoreOthersView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "ProductCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation StoreOthersView
 @synthesize mainView;

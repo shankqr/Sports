@@ -6,6 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 #import "StadiumView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation StadiumView
 @synthesize mainView;

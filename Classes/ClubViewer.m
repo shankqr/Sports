@@ -7,6 +7,8 @@
 //
 
 #import "ClubViewer.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation ClubViewer
 @synthesize mainView;

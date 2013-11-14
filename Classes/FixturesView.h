@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "FixtureCell.h"
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @interface FixturesView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

@@ -16,7 +16,6 @@
 @synthesize latitude;
 @synthesize badge_path;
 
-
 - (id)initWithDictionary:(NSDictionary *)aDictionary 
 {
     self = [super init];

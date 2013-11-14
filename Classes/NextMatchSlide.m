@@ -8,6 +8,7 @@
 
 #import "NextMatchSlide.h"
 #import "Globals.h"
+#import "MainCell.h"
 
 @implementation NextMatchSlide
 @synthesize mainView;
@@ -17,13 +18,9 @@
 @synthesize matchMonth;
 @synthesize matchDay;
 
-
-
 - (void)viewDidLoad 
 {
     [self updateView];
-	
-    [super viewDidLoad];
 }
 
 - (void)updateView
@@ -45,57 +42,21 @@
 		
 		if ([rowData[@"match_type_id"] isEqualToString:@"1"])
 		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_league.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_league.png"]];
-            }
-		}
-		else if ([rowData[@"match_type_id"] isEqualToString:@"2"])
-		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_cup.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_cup.png"]];
-            }
+            [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_league.png"]];
 		}
 		else
 		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_friendly.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_friendly.png"]];
-            }
+            [matchtypeImage setImage:[UIImage imageNamed:@"slide_next_cup.png"]];
 		}
 	}
 	else
 	{
-		clubName.text = @"UNKNOWN FC";
-		rivalName.text = @"UNKNOWN FC";
-		matchMonth.text = @"JAN";
-		matchDay.text = @"1";
+		clubName.text = @"";
+		rivalName.text = @"";
+		matchMonth.text = @"";
+		matchDay.text = @"";
+        [matchtypeImage setImage:nil];
 	}
-}
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 

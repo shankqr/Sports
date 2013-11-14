@@ -7,6 +7,12 @@
 //
 
 #import "MatchView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "MainView.h"
+#import "MatchCell.h"
+#import "Globals.h"
+#import "ChallengeView.h"
 
 @implementation MatchView
 @synthesize mainView;
@@ -151,7 +157,7 @@
 				case 1: //View challenge
 				{
 					[Globals i].challengeMatchId = selected_matchid;
-                    if (challengeBox == NULL) 
+                    if (challengeBox == nil) 
                     {
                         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
                         challengeBox.mainView = self.mainView;
@@ -224,13 +230,13 @@
 		CGRect frame = CGRectMake(MatchView_frame_x, 18*SCALE_IPAD, MatchView_frame_width, 21*SCALE_IPAD);
 		UILabel* label = [[UILabel alloc] initWithFrame:frame];
 		label.numberOfLines = 1;
-		label.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD];
+		label.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_BIG_SIZE];
 		label.backgroundColor = [UIColor clearColor];
 		
 		CGRect frame2 = CGRectMake(MatchView_frame2_x, 18*SCALE_IPAD, MatchView_frame2_width, 21*SCALE_IPAD);
 		UILabel* label2 = [[UILabel alloc] initWithFrame:frame2];
 		label2.numberOfLines = 1;
-		label2.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD];
+		label2.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_BIG_SIZE];
 		label2.backgroundColor = [UIColor clearColor];
 		label2.adjustsFontSizeToFitWidth = YES;
 		label2.minimumScaleFactor = 0.5f;
@@ -238,7 +244,7 @@
 		CGRect frame1 = CGRectMake(MatchView_frame1_x, MatchView_frame1_y, 100*SCALE_IPAD, 16*SCALE_IPAD);
 		UILabel* label1 = [[UILabel alloc] initWithFrame:frame1];
 		label1.numberOfLines = 1;
-		label1.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:14*SCALE_IPAD];
+		label1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 		label1.backgroundColor = [UIColor clearColor];
 		
 		if(isHome)
@@ -309,47 +315,19 @@
 	
 	if ([rowData[@"match_type_id"] isEqualToString:@"1"]) 
 	{
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchleague.png"]];
-        }
-        else
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchleague.png"]];
-        }
+        [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchleague.png"]];
 	}
 	else if ([rowData[@"match_type_id"] isEqualToString:@"2"]) 
 	{
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchcup.png"]];
-        }
-        else
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchcup.png"]];
-        }
+        [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchcup.png"]];
 	}
 	else if ([rowData[@"match_type_id"] isEqualToString:@"3"])
 	{
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchfriendly.png"]];
-        }
-        else
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchfriendly.png"]];
-        }
+        [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchfriendly.png"]];
 	}
     else
 	{
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchstar.png"]];
-        }
-        else
-        {
-            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchstar.png"]];
-        }
+        [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchstar.png"]];
 	}
 	
 	NSArray *chunks;

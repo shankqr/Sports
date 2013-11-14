@@ -74,7 +74,7 @@
         [pitch addChild:headerImage];
         
         highlightTextField = [SPTextField textFieldWithText:@" "];
-		highlightTextField.fontName = @"Febrotesk 4F Unicase Bold";
+		highlightTextField.fontName = DEFAULT_FONT;
 		highlightTextField.x = 10;
 		highlightTextField.y = PITCH_HEIGHT + HIGHLIGHT_OFFSET;
 		highlightTextField.vAlign = SPVAlignCenter;
@@ -88,7 +88,7 @@
         goalsAway = 0;
         
 		scoreTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%d : %d", goalsHome, goalsAway]];
-		scoreTextField.fontName = @"Febrotesk 4F Unicase Bold";
+		scoreTextField.fontName = DEFAULT_FONT;
 		scoreTextField.x = 46;
 		scoreTextField.y = 2;
 		scoreTextField.vAlign = SPVAlignTop;
@@ -98,7 +98,7 @@
 		[pitch addChild:scoreTextField];
 		
 		clockTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%d:%d", 90, 00]];
-		clockTextField.fontName = @"Febrotesk 4F Unicase Bold";
+		clockTextField.fontName = DEFAULT_FONT;
 		clockTextField.x = (PITCH_WIDTH/2) - CLOCK_OFFSET;
 		clockTextField.y = -1;
 		clockTextField.vAlign = SPVAlignTop;
@@ -204,7 +204,7 @@
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClub/%@", WS_URL, club_home_uid];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    NSDictionary *wsClubHome = NULL;
+    NSDictionary *wsClubHome = nil;
     if([wsResponse count] > 0)
     {
         wsClubHome = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
@@ -224,7 +224,7 @@
     {
         if (![rowData[@"player_id"] isEqualToString:@"0"])
         {
-            Player *p = NULL;
+            Player *p = nil;
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"gk"]])
             {
                 GK_total = GK_total + 1;
@@ -296,7 +296,7 @@
                 p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue] number:14 jersey:[wsClubHome[@"home_pic"] intValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
-            if (p != NULL)
+            if (p != nil)
             {
                 [playerRowforID setValue:@(player_row) forKey:rowData[@"player_id"]];
                 [self.players addObject:p];
@@ -358,7 +358,7 @@
     {
         if (![rowData[@"player_id"] isEqualToString:@"0"])
         {
-            Player *p = NULL;
+            Player *p = nil;
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"gk"]])
             {
                 GK_total = GK_total + 1;
@@ -430,7 +430,7 @@
                 p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue] number:14 jersey:[wsClubAway[@"away_pic"] intValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
-            if (p != NULL)
+            if (p != nil)
             {
                 [playerRowforID setValue:@(player_row) forKey:rowData[@"player_id"]];
                 [self.players addObject:p];

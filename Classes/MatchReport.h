@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "MainView.h"
-#import "Globals.h"
-
+@class MainView;
 @interface MatchReport : UIViewController
 {
 	MainView *mainView;

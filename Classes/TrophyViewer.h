@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
-#import "TrophyCell.h"
-#import "MainView.h"
-
+@class MainView;
 @interface TrophyViewer : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

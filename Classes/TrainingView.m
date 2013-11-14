@@ -7,6 +7,9 @@
 //
 
 #import "TrainingView.h"
+#import "CoachCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation TrainingView
 @synthesize mainView;
@@ -28,32 +31,12 @@
 - (void)updateView
 {
 	NSDictionary *wsClubData = [[Globals i] getClubData];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
-    }
-    else
-    {
-        [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
-    }
+    [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
 	teamspirit.text = [NSString stringWithFormat:@"%d", [wsClubData[@"teamspirit"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
-    }
-    else
-    {
-        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
-    }
+    [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
+
 	confidence.text = [NSString stringWithFormat:@"%d", [wsClubData[@"confidence"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
-    }
-    else
-    {
-        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
-    }
+    [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
 	
 	NSDictionary *row1 = @{@"coach_id": wsClubData[@"coach_id"],
                         @"coach_name": wsClubData[@"coach_name"],
@@ -100,14 +83,7 @@
 			{
 				case 0:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
 						
                         [[Globals i] changeTraining:@"1"];
                         
@@ -119,14 +95,7 @@
 				}
 				case 1:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
 						[[Globals i] changeTraining:@"2"];
                         
 						NSString *message = @"I have just changed my team training.";
@@ -137,14 +106,7 @@
 				}
 				case 2:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
 						[[Globals i] changeTraining:@"3"];
                         
 						NSString *message = @"I have just changed my team training.";
@@ -155,14 +117,7 @@
 				}
 				case 3:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
 						[[Globals i] changeTraining:@"4"];
                         
 						NSString *message = @"I have just changed my team training.";
@@ -173,14 +128,7 @@
 				}
 				case 4:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
 						[[Globals i] changeTraining:@"5"];
                         
 						NSString *message = @"I have just changed my team training.";
@@ -191,14 +139,7 @@
 				}
 				case 5:
 				{
-                        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
-                        }
-                        else
-                        {
-                            [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
-                        }
+                        [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
 						[[Globals i] changeTraining:@"6"];
                         
 						NSString *message = @"I have just changed my team training.";
@@ -250,24 +191,10 @@
 	cell.coachDesc.text = desc;
 	
 	cell.skill.text = [NSString stringWithFormat:@"LEVEL %d", [rowData[@"coach_skill"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbskill setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_skill"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbskill setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_skill"] intValue]/10]]];
-    }
+    [cell.pbskill setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_skill"] intValue]/10]]];
     
 	cell.leadership.text = [NSString stringWithFormat:@"LEVEL %d", [rowData[@"coach_leadership"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_leadership"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_leadership"] intValue]/10]]];
-    }
+    [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_leadership"] intValue]/10]]];
     
 	int f = ([coach_id intValue] % 12) + 1;
 	NSString *fname = [NSString stringWithFormat:@"s%d.png", f];

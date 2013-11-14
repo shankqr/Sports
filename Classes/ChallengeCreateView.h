@@ -6,8 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "MainView.h"
-
+@class MainView;
 @interface ChallengeCreateView : UIViewController <UIActionSheetDelegate, UITextViewDelegate>
 {
 	MainView *mainView;

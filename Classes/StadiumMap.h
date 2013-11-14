@@ -5,9 +5,8 @@
 //  Created by Shankar on 7/26/11.
 //  Copyright 2011 TAPFANTASY. All rights reserved.
 //
-#import "Globals.h"
-#import "MainView.h"
 
+@class MainView;
 @interface StadiumMap : UIViewController 
 {
     MainView *mainView;

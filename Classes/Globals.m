@@ -137,7 +137,7 @@ static NSString *GameId = @"0";
 
 - (void)createDialogBox
 {
-    if (dialogBox == NULL)
+    if (dialogBox == nil)
     {
         dialogBox = [[DialogBoxView2 alloc] initWithNibName:@"DialogBoxView2" bundle:nil];
     }
@@ -145,7 +145,7 @@ static NSString *GameId = @"0";
 
 - (void)removeDialogBox
 {
-	if(dialogBox != NULL)
+	if(dialogBox != nil)
 	{
 		[dialogBox.view removeFromSuperview];
 	}
@@ -458,54 +458,19 @@ static NSString *GameId = @"0";
 	cell.playerValue.text = [NSString stringWithFormat:@"$%@/week (Value: $%@)", salary, mvalue];
 	
 	cell.keeper.text = [NSString stringWithFormat:@"%d", [rowData[@"keeper"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"keeper"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"keeper"] intValue]/10]]];
-    }
+    [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"keeper"] intValue]/10]]];
     
 	cell.defending.text = [NSString stringWithFormat:@"%d", [rowData[@"defend"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"defend"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"defend"] intValue]/10]]];
-    }
+    [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"defend"] intValue]/10]]];
     
 	cell.playmaking.text = [NSString stringWithFormat:@"%d", [rowData[@"playmaking"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"playmaking"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"playmaking"] intValue]/10]]];
-    }
+    [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"playmaking"] intValue]/10]]];
     
 	cell.passing.text = [NSString stringWithFormat:@"%d", [rowData[@"passing"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"passing"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"passing"] intValue]/10]]];
-    }
+    [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"passing"] intValue]/10]]];
     
 	cell.scoring.text = [NSString stringWithFormat:@"%d", [rowData[@"attack"] intValue]/2];
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"attack"] intValue]/10]]];
-    }
-    else
-    {
-        [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"attack"] intValue]/10]]];
-    }
+    [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"attack"] intValue]/10]]];
     
 	cell.stamina.text = [NSString stringWithFormat:@"%d%%", [rowData[@"fitness"] intValue]/2];
 
@@ -547,24 +512,10 @@ static NSString *GameId = @"0";
 	switch([rowData[@"player_condition"] intValue])
 	{
 		case 1:
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
-            }
-            else
-            {
-                [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
-            }
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
 			break;
 		case 2:
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"injured.png"]];
-            }
-            else
-            {
-                [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"injured.png"]];
-            }
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"injured.png"]];
 			break;
 		default:
 			cell.injuredbruisedImage.image = nil;
@@ -581,8 +532,8 @@ static NSString *GameId = @"0";
     }
 	
 	int pid = [player_id intValue];
-	int f = (pid % 12) + 1;
-	NSString *fname = [NSString stringWithFormat:@"s%d.png", f];
+	int f = (pid % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
 	int g = [rowData[@"player_goals"] intValue];
@@ -775,7 +726,7 @@ static NSString *GameId = @"0";
 
 + (NSString *)urlEncode:(NSString *)str
 {
-	NSString *result = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR(":/?#[]@!$&’()*+,;=\""), kCFStringEncodingUTF8));
+	NSString *result = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, nil, CFSTR(":/?#[]@!$&’()*+,;=\""), kCFStringEncodingUTF8));
 	return result;
 }
 
@@ -854,7 +805,7 @@ static NSString *GameId = @"0";
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ImportFacebook/%@/%@/%@/%@/%@/%@", 
 					   WS_URL, self.UID, fb_uid, nm, pic, fb_sex, mail];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	[NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+	[NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 	
 }
 
@@ -912,7 +863,7 @@ static NSString *GameId = @"0";
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoChat/%@/%@/%@", 
                        WS_URL, club_id, encodedClubName, encodedMessage];
     
-    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:NULL];
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
 - (NSString *) doPost:(NSString *)message
@@ -925,7 +876,7 @@ static NSString *GameId = @"0";
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AlliancePost/%@/%@/%@/%@",
                        WS_URL, a_id, club_id, encodedClubName, encodedMessage];
     
-    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:NULL];
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
 - (NSString *)doBid:(NSString *)player_id :(NSString *)value
@@ -937,7 +888,7 @@ static NSString *GameId = @"0";
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@", 
                        WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
     
-    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:NULL];
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
 - (void) challengeAccept: (NSString *) match_id

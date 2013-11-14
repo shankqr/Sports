@@ -7,10 +7,9 @@
 //
 
 #import "DialogBoxView.h"
-#import "LeagueCell.h"
-#import "Globals.h"
-#import "MainView.h"
 
+@class MainView;
+@class DialogBoxView;
 @interface LeagueView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, DialogBoxDelegate>
 {
 	MainView *mainView;

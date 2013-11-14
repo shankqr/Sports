@@ -1,7 +1,5 @@
-#import "MainView.h"
-#import "Globals.h"
-#import "BidCell.h"
 
+@class MainView;
 @interface BidView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {

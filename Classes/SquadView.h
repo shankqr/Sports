@@ -6,10 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
-#import "MainView.h"
-#import "PlayerView.h"
-
+@class MainView;
+@class PlayerView;
 @interface SquadView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

@@ -8,9 +8,7 @@
 
 #import "FixtureCell.h"
 
-
 @implementation FixtureCell
-
 @synthesize matchDay;
 @synthesize matchDate;
 @synthesize matchMonth;
@@ -18,7 +16,6 @@
 @synthesize matchClubName1;
 @synthesize matchClubName2;
 @synthesize matchClubLogo1;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -35,6 +32,5 @@
 
     // Configure the view for the selected state
 }
-
 
 @end

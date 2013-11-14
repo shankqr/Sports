@@ -8,13 +8,11 @@
 
 #import "SimplePlayerCell.h"
 
-
 @implementation SimplePlayerCell
 @synthesize faceImage;
 @synthesize playerName;
 @synthesize playerValue;
 @synthesize position;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

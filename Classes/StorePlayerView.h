@@ -6,12 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-#import "Globals.h"
-#import "MainView.h"
-#import "BidView.h"
-
+@class MainView;
+@class BidView;
 @interface StorePlayerView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

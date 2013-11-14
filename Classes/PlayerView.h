@@ -1,9 +1,9 @@
-#import "MainView.h"
-#import "Globals.h"
+
 #import "DialogBoxView.h"
 
 @class SquadView;
-
+@class MainView;
+@class DialogBoxView;
 @interface PlayerView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, DialogBoxDelegate>
 {

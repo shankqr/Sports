@@ -5,12 +5,8 @@
 //  Created by Shankar on 3/24/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-
-#import "Globals.h"
-#import "MainView.h"
-#import "AchievementsCell.h"
-#import "DialogBoxView.h"
-
+@class MainView;
+@class DialogBoxView;
 @interface AchievementsView : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
 	MainView *mainView;
@@ -24,6 +20,6 @@
 @property (nonatomic,strong) DialogBoxView *dialogBox;
 - (void)updateView;
 - (IBAction)cancelButton_tap:(id)sender;
--(void)createDialogBox;
--(void)removeDialogBox;
+- (void)createDialogBox;
+- (void)removeDialogBox;
 @end

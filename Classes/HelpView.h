@@ -6,9 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "MainView.h"
-#import "Globals.h"
-
+@class MainView;
 @interface HelpView : UIViewController <UIWebViewDelegate>
 {
 	MainView *mainView;

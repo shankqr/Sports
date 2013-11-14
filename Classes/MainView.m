@@ -394,7 +394,7 @@
 						   WS_URL, [[Globals i] UID], text];
 		NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-		returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+		returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		
 	}
 	
@@ -504,7 +504,7 @@
 		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DeclineChallenge/%@/%@",
 						   WS_URL, [Globals i].challengeMatchId, [[Globals i] UID]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+		NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		if([returnValue isEqualToString:@"1"])
 		{
 			//Delete success
@@ -529,7 +529,7 @@
 		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AcceptChallenge/%@/%@", 
 						   WS_URL, [Globals i].challengeMatchId, [[Globals i] UID]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+		NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		if([returnValue isEqualToString:@"1"])
 		{
 			//UPDATE match list
@@ -546,7 +546,7 @@
 		}
 		else 
 		{
-			returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+			returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 			if([returnValue isEqualToString:@"1"])
 			{
 				//UPDATE match list
@@ -690,7 +690,7 @@
 
 - (void)createDialogBox
 {
-    if (dialogBox == NULL)
+    if (dialogBox == nil)
     {
         dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
         dialogBox.delegate = self;
@@ -699,7 +699,7 @@
 
 - (void)removeDialogBox
 {
-	if(dialogBox != NULL)
+	if(dialogBox != nil)
 	{
 		[dialogBox.view removeFromSuperview];
 	}
@@ -715,7 +715,7 @@
 
 -(void)showWelcome
 {
-    if (welcomeView == NULL)
+    if (welcomeView == nil)
     {
         welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
         welcomeView.mainView = self;
@@ -726,10 +726,10 @@
 
 -(void)removeWelcome
 {
-    if (welcomeView != NULL)
+    if (welcomeView != nil)
     {
         [welcomeView.view removeFromSuperview];
-        //welcomeView = NULL;
+        //welcomeView = nil;
     }
 }
 
@@ -737,7 +737,7 @@
 {
     [self hideHeader];
         
-    if (achievementsView == NULL) 
+    if (achievementsView == nil) 
     {
         achievementsView = [[AchievementsView alloc] initWithNibName:@"AchievementsView" bundle:nil];
         achievementsView.mainView = self;
@@ -750,7 +750,7 @@
 {
     [self hideHeader];
     
-    if (allianceView == NULL)
+    if (allianceView == nil)
     {
         allianceView = [[AllianceView alloc] initWithNibName:@"AllianceView" bundle:nil];
         allianceView.mainView = self;
@@ -763,7 +763,7 @@
 {
     [self hideHeader];
     
-    if (allianceDetail == NULL)
+    if (allianceDetail == nil)
     {
         allianceDetail = [[AllianceDetail alloc] initWithNibName:@"AllianceDetail" bundle:nil];
         allianceDetail.mainView = self;
@@ -786,7 +786,7 @@
 {
     NSString *alertMsg;
     
-    if( userInfo[@"aps"][@"alert"] != NULL)
+    if( userInfo[@"aps"][@"alert"] != nil)
     {
         alertMsg = userInfo[@"aps"][@"alert"]; 
     }
@@ -804,7 +804,7 @@
 
 - (void)removeStore
 {
-    if ((activeView != NULL) && (activeView == storeTabBarController.view))
+    if ((activeView != nil) && (activeView == storeTabBarController.view))
     {
         if (storeTabBarController.selectedIndex == 0)
         {
@@ -814,7 +814,7 @@
     }
     else
     {
-        if (activeView == NULL)
+        if (activeView == nil)
         {
             activeView = self.view;
         }
@@ -823,7 +823,7 @@
 
 - (void)showChallengeBox
 {
-    if (challengeBox == NULL)
+    if (challengeBox == nil)
     {
         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
         challengeBox.mainView = self;
@@ -837,7 +837,7 @@
 
 - (void)addFunds
 {
-	if (menu0 == NULL) 
+	if (menu0 == nil) 
     {
         menu0 = [[Menu0 alloc] initWithNibName:@"Menu0" bundle:nil];
         menu0.mainView = self;
@@ -849,7 +849,7 @@
 
 - (void)addDiamonds
 {
-	if (menu0 == NULL)
+	if (menu0 == nil)
     {
         menu0 = [[Menu0 alloc] initWithNibName:@"Menu0" bundle:nil];
         menu0.mainView = self;
@@ -991,7 +991,7 @@
 	NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
 	NSString *welcomeFooter = wsSeasonData[@"footer"];
 
-    if (footerView == NULL)
+    if (footerView == nil)
     {
         footerView = [[Footer alloc] initWithTitle:@"Welcome Back" message:welcomeFooter];
     }
@@ -1036,7 +1036,7 @@
 		
 		NSString *m = [NSString stringWithFormat:@"Your club is in division %@ and ranked %@ out of 10 in the league. There are %@ weeks still to play. Focus on the game, switch between your tactics, keep your players trained and try to make some transfer offers, in order for your club to reach 1st position", div, rank, leagueRound];
 		
-        if (welcomeView == NULL)
+        if (welcomeView == nil)
         {
             welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
             welcomeView.mainView = self;
@@ -1283,7 +1283,7 @@
         [self hideFooter];
         [self hideHeader];
         [self hideMarquee];
-        if (helpView == NULL) 
+        if (helpView == nil) 
         {
             helpView = [[HelpView alloc] initWithNibName:@"HelpView" bundle:nil];
             helpView.mainView = self;
@@ -1399,7 +1399,7 @@
 {
 	if(activeView != jobsView.view && posxView==SCREEN_WIDTH)
 	{
-        if (jobsView == NULL)
+        if (jobsView == nil)
         {
             jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
             jobsView.mainView = self;
@@ -1469,7 +1469,7 @@
 
 - (void)jumpToChallenge:(NSString *)club_id
 {
-    if(challengeCreate == NULL)
+    if(challengeCreate == nil)
     {
         challengeCreate = [[ChallengeCreateView alloc] initWithNibName:@"ChallengeCreateView" bundle:nil];
     }
@@ -1974,7 +1974,7 @@
 	lblMarquee.text = @"";
 	lblMarquee.backgroundColor = [UIColor grayColor];
     lblMarquee.textColor = [UIColor whiteColor];
-    lblMarquee.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:Marquee_font];
+    lblMarquee.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
     lblMarquee.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     
     UIPanGestureRecognizer *gesture = [[UIPanGestureRecognizer alloc] 
@@ -1984,7 +1984,7 @@
     
     //Chat labels
     lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chat_height, SCREEN_WIDTH, Chat_height)];
-    lblChat1.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:Chat_font];
+    lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
     lblChat1.textAlignment = NSTextAlignmentCenter;
     lblChat1.textColor = [UIColor grayColor];
     lblChat1.backgroundColor = [UIColor whiteColor];

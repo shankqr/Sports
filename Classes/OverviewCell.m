@@ -12,7 +12,6 @@
 @synthesize divisionLabel;
 @synthesize markerLabel;
 
-
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];

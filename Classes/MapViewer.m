@@ -7,6 +7,12 @@
 //
 
 #import "MapViewer.h"
+#import <QuartzCore/QuartzCore.h>
+#import <CoreLocation/CoreLocation.h>
+#import "ClubObject.h"
+#import "Globals.h"
+#import "CSMapAnnotation.h"
+#import "MainView.h"
 
 @implementation MapViewer
 @synthesize mainView;

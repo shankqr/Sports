@@ -6,12 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-#import "MainView.h"
-#import "Globals.h"
-#import "FinanceCell.h"
-
+@class MainView;
 @interface FinanceView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

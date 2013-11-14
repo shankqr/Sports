@@ -9,12 +9,10 @@
 #import "NewsCell.h"
 
 @implementation NewsCell
-
 @synthesize newsDay;
 @synthesize newsDate;
 @synthesize newsMonth;
 @synthesize newsHeader;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
 {

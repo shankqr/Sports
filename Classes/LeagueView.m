@@ -7,6 +7,9 @@
 //
 
 #import "LeagueView.h"
+#import "LeagueCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation LeagueView
 @synthesize mainView;
@@ -24,7 +27,7 @@
 
 - (void)createDialogBox
 {
-    if (dialogBox == NULL)
+    if (dialogBox == nil)
     {
         dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
         dialogBox.delegate = self;
@@ -33,7 +36,7 @@
 
 - (void)removeDialogBox
 {
-	if(dialogBox != NULL)
+	if(dialogBox != nil)
 	{
 		[dialogBox.view removeFromSuperview];
 	}

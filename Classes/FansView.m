@@ -7,6 +7,10 @@
 //
 
 #import "FansView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation FansView
 @synthesize mainView;
@@ -14,7 +18,6 @@
 @synthesize moodLabel;
 @synthesize expectationLabel;
 @synthesize sponsorLabel;
-
 
 - (void)didReceiveMemoryWarning 
 {

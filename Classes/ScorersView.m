@@ -7,6 +7,9 @@
 //
 
 #import "ScorersView.h"
+#import "SimplePlayerCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation ScorersView
 @synthesize mainView;
@@ -15,7 +18,6 @@
 @synthesize selected_clubid;
 @synthesize curDivision;
 @synthesize curSeries;
-
 
 - (void)didReceiveMemoryWarning 
 {
@@ -97,8 +99,8 @@
 	
 	cell.position.text = [NSString stringWithFormat:@"(Total Goals: %@)", goals];
 	
-	int f = ([player_id intValue] % 12) + 1;
-	NSString *fname = [NSString stringWithFormat:@"s%d.png", f];
+	int f = ([player_id intValue] % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
 	return cell;

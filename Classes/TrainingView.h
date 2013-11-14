@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "CoachCell.h"
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @interface TrainingView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

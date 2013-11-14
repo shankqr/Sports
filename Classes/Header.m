@@ -95,7 +95,7 @@
 
 - (void)showJobRefill
 {
-    if (jobRefill == NULL) 
+    if (jobRefill == nil) 
     {
         jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
         jobRefill.mainView = self.mainView;
@@ -107,7 +107,7 @@
 
 - (void)showJobComplete:(NSInteger)xp_gain
 {
-    if (jobComplete == NULL) 
+    if (jobComplete == nil) 
     {
         jobComplete = [[JobComplete alloc] initWithNibName:@"JobComplete" bundle:nil];
         jobComplete.mainView = self.mainView;
@@ -119,7 +119,7 @@
 
 - (void)showLevelUp
 {
-    if (jobLevelup == NULL)
+    if (jobLevelup == nil)
     {
         jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
         jobLevelup.mainView = self.mainView;
@@ -142,7 +142,7 @@
 		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoJobNew/%@/%d/%.0f", 
 						   WS_URL, [[Globals i] UID], xp_gain, timeInterval];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		
 		if([returnValue isEqualToString:@"1"])
 		{

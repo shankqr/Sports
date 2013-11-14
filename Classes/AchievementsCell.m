@@ -8,7 +8,6 @@
 
 #import "AchievementsCell.h"
 
-
 @implementation AchievementsCell
 @synthesize taskImage;
 @synthesize doneImage;

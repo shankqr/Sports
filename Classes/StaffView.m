@@ -7,6 +7,11 @@
 //
 
 #import "StaffView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "StaffCell.h"
+#import "MainView.h"
+#import "Globals.h"
 
 @implementation StaffView
 @synthesize mainView;
@@ -15,7 +20,6 @@
 @synthesize staff;
 @synthesize iden;
 @synthesize hireCost;
-
 
 - (void)didReceiveMemoryWarning 
 {
@@ -216,8 +220,8 @@
 	cell.staffEmployed.text = [NSString stringWithFormat:@"Total: %@", rowData[@"Employed"]];
 	cell.staffCost.text = rowData[@"Desc"];
 	
-	cell.staffPos.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:16*SCALE_IPAD];
-	cell.staffEmployed.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:16*SCALE_IPAD];
+	cell.staffPos.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+	cell.staffEmployed.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	
 	NSString *fname = [NSString stringWithFormat:@"%@.png", rowData[@"Position"]];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];

@@ -7,6 +7,11 @@
 //
 
 #import "StorePlayerView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "Globals.h"
+#import "MainView.h"
+#import "BidView.h"
 
 @implementation StorePlayerView
 @synthesize mainView;
@@ -100,7 +105,7 @@
     [mainView hideFooter];
     [mainView hideHeader];
     [mainView hideMarquee];
-    if(bidView == NULL)
+    if(bidView == nil)
     {
         bidView = [[BidView alloc] initWithNibName:@"BidView" bundle:nil];
         bidView.mainView = self.mainView;

@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "NewsCell.h"
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @interface NewsView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

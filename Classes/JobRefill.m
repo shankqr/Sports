@@ -8,6 +8,7 @@
 
 #import "JobRefill.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation JobRefill
 @synthesize mainView;

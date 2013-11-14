@@ -7,6 +7,9 @@
 //
 
 #import "FixturesView.h"
+#import "FixtureCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation FixturesView
 @synthesize mainView;
@@ -16,7 +19,6 @@
 @synthesize curDivision;
 @synthesize curSeries;
 @synthesize selected_clubid;
-
 
 - (void)didReceiveMemoryWarning 
 {

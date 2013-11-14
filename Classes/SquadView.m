@@ -7,6 +7,9 @@
 //
 
 #import "SquadView.h"
+#import "Globals.h"
+#import "MainView.h"
+#import "PlayerView.h"
 
 @implementation SquadView
 @synthesize mainView;
@@ -22,7 +25,6 @@
 @synthesize selectedRow;
 @synthesize filter;
 @synthesize playerView;
-
 
 - (void)didReceiveMemoryWarning 
 {
@@ -146,7 +148,7 @@
     [mainView hideFooter];
     [mainView hideHeader];
     [mainView hideMarquee];
-    if(playerView == NULL)
+    if(playerView == nil)
     {
         playerView = [[PlayerView alloc] initWithNibName:@"PlayerView" bundle:nil];
         playerView.mainView = self.mainView;

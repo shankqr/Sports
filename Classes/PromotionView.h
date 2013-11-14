@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "LeagueCell.h"
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @interface PromotionView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

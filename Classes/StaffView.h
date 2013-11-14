@@ -6,12 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-#import "StaffCell.h"
-#import "MainView.h"
-#import "Globals.h"
-
+@class MainView;
 @interface StaffView : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

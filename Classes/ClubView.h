@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
-#import "ImageHelper.h"
-#import "MainView.h"
-
+@class MainView;
 @interface ClubView : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
 	MainView *mainView;

@@ -8,6 +8,7 @@
 
 #import "ChallengeCreateView.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation ChallengeCreateView
 @synthesize mainView;

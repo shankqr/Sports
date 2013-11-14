@@ -55,7 +55,7 @@
 
 - (void)createAchievementBadges
 {
-    if (achievementsBadge == NULL)
+    if (achievementsBadge == nil)
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
@@ -87,7 +87,7 @@
 
 - (void)removeAchievementBadges
 {
-	if(achievementsBadge != NULL)
+	if(achievementsBadge != nil)
 	{
 		[achievementsBadge removeFromSuperview];
 	}
@@ -236,7 +236,7 @@
 
 - (void)hideSlide
 {
-    if(activeSlide != NULL)
+    if(activeSlide != nil)
     {
         [activeSlide removeFromSuperview];
     }

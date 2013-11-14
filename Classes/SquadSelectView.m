@@ -7,6 +7,8 @@
 //
 
 #import "SquadSelectView.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation SquadSelectView
 @synthesize delegate;
@@ -17,7 +19,6 @@
 @synthesize filter;
 @synthesize sel_player_id;
 @synthesize sel_player_name;
-
 
 - (void)didReceiveMemoryWarning 
 {
@@ -50,7 +51,7 @@
 - (IBAction)cancelButton_tap:(id)sender
 {
 	[mainView backSound];
-	if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(playerSelected:)])
+	if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 	{
 		[delegate playerSelected:@"0"];
 	}
@@ -110,7 +111,7 @@
 {
 	if(buttonIndex == 1)
 	{
-		if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(playerSelected:)])
+		if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 		{
 			[delegate playerSelected:self.sel_player_id];
 		}

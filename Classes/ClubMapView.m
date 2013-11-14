@@ -7,6 +7,11 @@
 //
 
 #import "ClubMapView.h"
+#import <QuartzCore/QuartzCore.h>
+#import "ClubObject.h"
+#import "Globals.h"
+#import "CSMapAnnotation.h"
+#import "MainView.h"
 
 @implementation ClubMapView
 @synthesize mainView;
@@ -19,8 +24,6 @@
 - (void)dealloc
 {
     mapViewer.delegate = nil;
-    
-    
 }
 
 - (void)didReceiveMemoryWarning 

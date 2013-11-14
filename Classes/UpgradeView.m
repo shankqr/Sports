@@ -6,6 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 #import "UpgradeView.h"
+#import "Globals.h"
+#import "MainView.h"
+#import "StadiumMap.h"
 
 @implementation UpgradeView
 @synthesize mainView;
@@ -137,7 +140,7 @@
         NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade/%@/%d", 
 						   WS_URL, [[Globals i] UID], buildingType];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		
 		if([returnValue isEqualToString:@"1"])
 		{

@@ -6,13 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
-#import "ClubObject.h"
-#import "Globals.h"
-#import "CSMapAnnotation.h"
-#import "MainView.h"
 
+@class MainView;
 @interface ClubMapView : UIViewController <MKMapViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

@@ -7,6 +7,8 @@
 //
 
 #import "MatchReport.h"
+#import "MainView.h"
+#import "Globals.h"
 
 @implementation MatchReport
 @synthesize mainView;
@@ -15,7 +17,6 @@
 @synthesize headerLabel;
 @synthesize dateLabel;
 @synthesize matchReport;
-
 
 - (void)didReceiveMemoryWarning 
 {

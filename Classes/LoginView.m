@@ -138,7 +138,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
                                     WS_URL, uid, email, @"0", [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
                  NSURL *url = [[NSURL alloc] initWithString:wsurl];
-                 NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+                 NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
                  
                  int retval = [returnValue intValue];
                  
@@ -164,7 +164,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                                                               WS_URL, [[Globals i] GameId], uid, @"0", fid, email, name, username, gender, timezone, [[Globals i] getDevicetoken]];
                      NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                      NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
-                     returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:NULL];
+                     returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:nil];
                      
                      if([returnValue isEqualToString:@"1"]) //Register new uid success
                      {
@@ -267,7 +267,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
                            WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
         NSURL *url = [[NSURL alloc] initWithString:wsurl];
-        NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+        NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
         int retval = [returnValue intValue];
         
@@ -322,7 +322,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                               WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDevicetoken]];
         NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
-        NSString *returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:NULL];
+        NSString *returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:nil];
         
         if([returnValue isEqualToString:@"1"]) //Register new uid success
         {
@@ -433,7 +433,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                                     WS_URL, [[Globals i] GameId], uid, text];
                  NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                  NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-                 returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+                 returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
              }
              else
              {

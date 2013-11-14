@@ -7,6 +7,9 @@
 //
 
 #import "NewsView.h"
+#import "NewsCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation NewsView
 @synthesize mainView;
@@ -59,7 +62,7 @@
 		cell = (NewsCell *)nib[0];
 		[[cell subviews][0] setTag:111];
 	}
-	cell.newsHeader.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:16*SCALE_IPAD];
+	cell.newsHeader.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	cell.newsHeader.text = rowData[@"headline"];
 
 	NSArray *chunks = [rowData[@"news_datetime"] componentsSeparatedByString: @", "];

@@ -8,6 +8,7 @@
 
 #import "JobLevelup.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation JobLevelup
 @synthesize mainView;

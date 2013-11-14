@@ -8,6 +8,7 @@
 
 #import "RankingSlide.h"
 #import "Globals.h"
+#import "MainCell.h"
 
 @implementation RankingSlide
 @synthesize mainView;
@@ -16,31 +17,9 @@
 @synthesize positionLabel;
 @synthesize undefeatedLabel;
 
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
 - (void)viewDidLoad
 {
     [self updateView];
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-	NSDictionary *wsClubData = [[Globals i] getClubData];
-	divisionLabel.text = wsClubData[@"division"];
-	seriesLabel.text = wsClubData[@"series"];
-	positionLabel.text = wsClubData[@"league_ranking"];
-	undefeatedLabel.text = wsClubData[@"undefeated_counter"];
 }
 
 - (void)updateView

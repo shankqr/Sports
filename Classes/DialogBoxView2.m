@@ -60,7 +60,7 @@
         {
             [self.view removeFromSuperview];
             
-            if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(returnText:)])
+            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
             {
                 [delegate returnText:inputText.text];
             }
@@ -296,7 +296,7 @@
 							  otherButtonTitles:nil];
 		[alert show];
 	}
-	else if (self.delegate != NULL && [self.delegate respondsToSelector:@selector(returnText:)])
+	else if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
 	{
 		[delegate returnText:inputText.text];
 	}

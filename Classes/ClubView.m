@@ -6,6 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 #import "ClubView.h"
+#import "Globals.h"
+#import "ImageHelper.h"
+#import "MainView.h"
 
 @implementation ClubView
 @synthesize mainView;

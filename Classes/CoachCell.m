@@ -8,7 +8,6 @@
 
 #import "CoachCell.h"
 
-
 @implementation CoachCell
 @synthesize faceImage;
 @synthesize star1;

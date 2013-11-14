@@ -107,6 +107,11 @@
 #define WS_URL CORE_URL "/football"
 #define SPORTS_TYPE @"football"
 
+#define DEFAULT_FONT @"Febrotesk 4F Unicase Bold"
+#define DEFAULT_FONT_SIZE 18.0f * SCALE_IPAD
+#define DEFAULT_FONT_SMALL_SIZE 14.0f * SCALE_IPAD
+#define DEFAULT_FONT_BIG_SIZE 20.0f * SCALE_IPAD
+
 #import "PlayerCell.h"
 #import "MBProgressHUD.h"
 #import "DialogBoxView2.h"

@@ -7,6 +7,11 @@
 //
 
 #import "OverView.h"
+#import "Globals.h"
+#import "MainView.h"
+#import "OverviewCell.h"
+#import "OverfirstCell.h"
+#import "LeagueslideCell.h"
 
 @implementation OverView
 @synthesize mainView;
@@ -14,7 +19,6 @@
 @synthesize maxDivision;
 @synthesize curDivision;
 @synthesize curSeries;
-
 
 - (void)didReceiveMemoryWarning 
 {

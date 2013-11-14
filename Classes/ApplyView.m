@@ -135,7 +135,7 @@
                            WS_URL, selected_aid, selected_clubid, selected_clubname];
         NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-        returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+        returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
         if([returnValue isEqualToString:@"0"])
         {
@@ -167,7 +167,7 @@
                            WS_URL, selected_aid, selected_clubid, selected_clubname];
         NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-        returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+        returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
         if([returnValue isEqualToString:@"0"])
         {
@@ -196,7 +196,7 @@
 
 - (void)createDialogBox
 {
-    if (dialogBox == NULL)
+    if (dialogBox == nil)
     {
         dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
         //dialogBox.delegate = self;
@@ -205,7 +205,7 @@
 
 - (void)removeDialogBox
 {
-	if(dialogBox != NULL)
+	if(dialogBox != nil)
 	{
 		[dialogBox.view removeFromSuperview];
 	}

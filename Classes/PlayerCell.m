@@ -8,7 +8,6 @@
 
 #import "PlayerCell.h"
 
-
 @implementation PlayerCell
 @synthesize faceImage;
 @synthesize injuredbruisedImage;

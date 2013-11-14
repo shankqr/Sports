@@ -6,12 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
-#import "MainView.h"
-#import "OverviewCell.h"
-#import "OverfirstCell.h"
-#import "LeagueslideCell.h"
-
+@class MainView;
 @interface OverView : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
 	MainView *mainView;

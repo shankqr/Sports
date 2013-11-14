@@ -8,6 +8,7 @@
 
 #import "LastMatchSlide.h"
 #import "Globals.h"
+#import "MainCell.h"
 
 @implementation LastMatchSlide
 @synthesize mainView;
@@ -19,12 +20,9 @@
 @synthesize clubScore;
 @synthesize rivalScore;
 
-
 - (void)viewDidLoad
 {
     [self updateView];
-	
-	[super viewDidLoad];
 }
 
 - (void)updateView
@@ -48,59 +46,27 @@
 		
 		if ([rowData[@"match_type_id"] isEqualToString:@"1"])
 		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_league.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_league.png"]];
-            }
+            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_league.png"]];
 		}
-		else if ([rowData[@"match_type_id"] isEqualToString:@"2"])
+		else if ([rowData[@"match_type_id"] isEqualToString:@"3"])
 		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_cup.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_cup.png"]];
-            }
+            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_friendly.png"]];
 		}
 		else
 		{
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_friendly.png"]];
-            }
-            else
-            {
-                [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_friendly.png"]];
-            }
+            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_cup.png"]];
 		}
 	}
 	else
 	{
-		clubName.text = @"UNKNOWN FC";
-		rivalName.text = @"UNKNOWN FC";
-		clubScore.text = @"0";
-		rivalScore.text = @"0";
-		matchMonth.text = @"JAN";
-		matchDay.text = @"1";
+		clubName.text = @"";
+		rivalName.text = @"";
+		clubScore.text = @"";
+		rivalScore.text = @"";
+		matchMonth.text = @"";
+		matchDay.text = @"";
+        [matchtypeImage setImage:nil];
 	}
-}
-
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 

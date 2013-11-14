@@ -6,11 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "JobsCell.h"
-#import "MainView.h"
-#import "Globals.h"
-#import "Header.h"
-
+@class MainView;
 @interface JobsView : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

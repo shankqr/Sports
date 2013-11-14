@@ -299,7 +299,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 	self.showStarted = [NSDate date];
 	// Fade in
 	if (animated) {
-		[UIView beginAnimations:nil context:NULL];
+		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.30];
 		self.alpha = 1.0f;
 		if (animationType == MBProgressHUDAnimationZoomIn || animationType == MBProgressHUDAnimationZoomOut) {
@@ -315,7 +315,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 - (void)hideUsingAnimation:(BOOL)animated {
 	// Fade out
 	if (animated && showStarted) {
-		[UIView beginAnimations:nil context:NULL];
+		[UIView beginAnimations:nil context:nil];
 		[UIView setAnimationDuration:0.30];
 		[UIView setAnimationDelegate:self];
 		[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
@@ -350,7 +350,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 #if NS_BLOCKS_AVAILABLE
 	if (self.completionBlock) {
 		self.completionBlock();
-		self.completionBlock = NULL;
+		self.completionBlock = nil;
 	}
 #endif
 	if (removeFromSuperViewOnHide) {
@@ -375,7 +375,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 
 - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block {
 	dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-	[self showAnimated:animated whileExecutingBlock:block onQueue:queue completionBlock:NULL];
+	[self showAnimated:animated whileExecutingBlock:block onQueue:queue completionBlock:nil];
 }
 
 - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block completionBlock:(void (^)())completion {
@@ -384,7 +384,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 }
 
 - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue {
-	[self showAnimated:animated whileExecutingBlock:block onQueue:queue	completionBlock:NULL];
+	[self showAnimated:animated whileExecutingBlock:block onQueue:queue	completionBlock:nil];
 }
 
 - (void)showAnimated:(BOOL)animated whileExecutingBlock:(dispatch_block_t)block onQueue:(dispatch_queue_t)queue
@@ -633,7 +633,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 
 - (void)registerForKVO {
 	for (NSString *keyPath in [self observableKeypaths]) {
-		[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
+		[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 }
 
@@ -845,7 +845,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
 
 - (void)registerForKVO {
 	for (NSString *keyPath in [self observableKeypaths]) {
-		[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:NULL];
+		[self addObserver:self forKeyPath:keyPath options:NSKeyValueObservingOptionNew context:nil];
 	}
 }
 

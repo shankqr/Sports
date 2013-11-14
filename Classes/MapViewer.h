@@ -5,15 +5,10 @@
 //  Created by Shankar on 7/17/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-
-#import <QuartzCore/QuartzCore.h>
 #import <MapKit/MapKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import "ClubObject.h"
-#import "Globals.h"
-#import "CSMapAnnotation.h"
-#import "MainView.h"
 
+@class MainView;
+@class CSMapAnnotation;
 @interface MapViewer : UIViewController <MKMapViewDelegate>
 {
 	MainView *mainView;

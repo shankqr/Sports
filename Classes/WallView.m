@@ -44,7 +44,7 @@
 
 - (void)resizeViewControllerToFitScreen 
 {
-    [UIView beginAnimations:nil context:NULL];
+    [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     

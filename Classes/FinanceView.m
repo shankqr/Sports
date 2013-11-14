@@ -7,6 +7,11 @@
 //
 
 #import "FinanceView.h"
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "MainView.h"
+#import "Globals.h"
+#import "FinanceCell.h"
 
 @implementation FinanceView
 @synthesize mainView;
@@ -93,8 +98,8 @@
 	
 	cell.item.text = rowData[@"Item"];
 	cell.cost1.text = rowData[@"Cost"];
-	cell.item.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:16*SCALE_IPAD];
-	cell.cost1.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:16*SCALE_IPAD];
+	cell.item.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+	cell.cost1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 
 	return cell;
 }

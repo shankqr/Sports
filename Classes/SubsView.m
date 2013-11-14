@@ -7,6 +7,8 @@
 //
 
 #import "SubsView.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation SubsView
 @synthesize mainView;
@@ -187,14 +189,7 @@
                                        imagePressed:buttonBackgroundPressed
                                       darkTextColor:YES];
 	
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        [button setImage:[UIImage imageNamed:@"jerseypos.png"] forState:UIControlStateNormal];
-	}
-    else
-    {
-        [button setImage:[UIImage imageNamed:@"jerseypos.png"] forState:UIControlStateNormal];
-    }
+    [button setImage:[UIImage imageNamed:@"jerseypos.png"] forState:UIControlStateNormal];
     
 	button.tag = tag;
     if (chunks.count > 1)
@@ -238,7 +233,7 @@
 {
 	[self.mainView hideHeader];
 	[self.mainView hideFooter];
-    if (squadSelecter == NULL) 
+    if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
         squadSelecter.mainView = self.mainView;

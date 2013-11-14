@@ -6,12 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-#import "ProductCell.h"
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @interface StoreOthersView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

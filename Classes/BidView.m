@@ -1,4 +1,8 @@
+
 #import "BidView.h"
+#import "MainView.h"
+#import "Globals.h"
+#import "BidCell.h"
 
 @implementation BidView
 @synthesize mainView;
@@ -96,7 +100,7 @@
     {
         [self stopTimer];
         [messageList reloadData];
-        NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+        NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
         if([returnValue isEqualToString:@"0"])
         {
@@ -132,7 +136,7 @@
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/CurrentTime", WS_URL];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:NULL];
+    NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
     
     returnValue = [NSString stringWithFormat:@"%@ -0000", returnValue];
     NSDate *serverDateTime = [serverFormat dateFromString:returnValue];
@@ -204,7 +208,7 @@
 
 - (void)resizeViewControllerToFitScreen 
 {
-    [UIView beginAnimations:nil context:NULL];
+    [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     

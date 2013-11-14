@@ -8,7 +8,6 @@
 
 #import "TrophyCell.h"
 
-
 @implementation TrophyCell
 @synthesize productImage;
 @synthesize star1;
@@ -19,7 +18,6 @@
 @synthesize productName;
 @synthesize productValue;
 @synthesize productDesc;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

@@ -53,7 +53,7 @@
         if (self.team == T_AWAY) 
         {
             myTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%d", self.player_number]];
-            myTextField.fontName = @"Febrotesk 4F Unicase Bold";
+            myTextField.fontName = DEFAULT_FONT;
             myTextField.x = -myTextField.width/2;
             myTextField.y = -myTextField.height/2 - 2;
             myTextField.vAlign = SPVAlignCenter;
@@ -62,7 +62,7 @@
         }
         
         nameTextField = [SPTextField textFieldWithText:@""];
-        nameTextField.fontName = @"Febrotesk 4F Unicase Bold";
+        nameTextField.fontName = DEFAULT_FONT;
         nameTextField.x = -myTextField.width/2;
         nameTextField.y = -myTextField.height/2 - PLAYER_NAME;
         nameTextField.vAlign = SPVAlignCenter;

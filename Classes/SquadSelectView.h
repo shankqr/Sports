@@ -6,9 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
-#import "MainView.h"
-
+@class MainView;
 @protocol SquadSelectDelegate <NSObject>
 @optional
 - (void)playerSelected:(NSString *)player;

@@ -8,6 +8,7 @@
 
 #import "LeagueSlide.h"
 #import "Globals.h"
+#import "MainCell.h"
 
 @implementation LeagueSlide
 @synthesize mainView;
@@ -16,7 +17,6 @@
 @synthesize leagueStartDay;
 @synthesize leagueEndMonth;
 @synthesize leagueEndDay;
-
 
 - (void)viewDidLoad
 {
@@ -47,23 +47,9 @@
 	leagueEndDay.text = daymonth;
 }
 
-- (void)didReceiveMemoryWarning {
-	// Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-	
-	// Release any cached data, images, etc that aren't in use.
-}
-
-- (void)viewDidUnload {
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
 	[mainView changeSlideNow];
 }
-
-
 
 @end

@@ -7,6 +7,9 @@
 //
 
 #import "PromotionView.h"
+#import "LeagueCell.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation PromotionView
 @synthesize mainView;

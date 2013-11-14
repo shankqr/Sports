@@ -6,13 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-#import "MainView.h"
-#import "MatchCell.h"
-#import "Globals.h"
-#import "ChallengeView.h"
-
+@class MainView;
+@class MatchLive;
+@class ChallengeView;
 @interface MatchView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

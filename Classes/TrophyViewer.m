@@ -7,6 +7,9 @@
 //
 
 #import "TrophyViewer.h"
+#import "Globals.h"
+#import "TrophyCell.h"
+#import "MainView.h"
 
 @implementation TrophyViewer
 @synthesize mainView;

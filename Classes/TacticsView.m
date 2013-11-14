@@ -7,6 +7,8 @@
 //
 
 #import "TacticsView.h"
+#import "Globals.h"
+#import "MainView.h"
 
 @implementation TacticsView
 @synthesize mainView;
@@ -15,7 +17,6 @@
 @synthesize scrollView;
 @synthesize pageControl;
 @synthesize viewControllers;
-
 
 - (void)didReceiveMemoryWarning 
 {
@@ -59,14 +60,7 @@
 		frame.origin.x = (scrollView.frame.size.width * page) + TacticsView_frame_offset;
 		frame.origin.y = TacticsView_frame_y;
 		controller.frame = frame;
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            [controller setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tactic_%d.png", page]]];
-        }
-        else
-        {
-            [controller setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tactic_%d.png", page]]];
-        }
+        [controller setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tactic_%d.png", page]]];
 		viewControllers[page] = controller;
 		
 		int level = [[Globals i] getLevel];
@@ -82,18 +76,11 @@
 			frame1.origin.x = (scrollView.frame.size.width * page) + TacticsView_frame_offset;
 			frame1.origin.y = TacticsView_frame_y;
 			lockedLogo.frame = frame1;
-            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-            {
-                [lockedLogo setImage:[UIImage imageNamed:@"tactic_locked.png"]];
-            }
-            else
-            {
-                [lockedLogo setImage:[UIImage imageNamed:@"tactic_locked.png"]];
-            }
+            [lockedLogo setImage:[UIImage imageNamed:@"tactic_locked.png"]];
 		
 			UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*SCALE_IPAD, 180*SCALE_IPAD, 205*SCALE_IPAD, 30*SCALE_IPAD)];
 			myLabel.text = [NSString stringWithFormat:@"UNLOCK AT LEVEL %d", unlocklevel];
-			[myLabel setFont:[UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD]];
+			[myLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_BIG_SIZE]];
 			myLabel.backgroundColor = [UIColor clearColor];
 			//myLabel.shadowColor = [UIColor grayColor];
 			//myLabel.shadowOffset = CGSizeMake(1,1);
@@ -111,14 +98,7 @@
 			if ([[[Globals i] getClubData][@"tactic"] intValue] != page)
 			{
 				UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-                if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-                {
-                    [button setImage:[UIImage imageNamed:@"button_accept.png"] forState:UIControlStateNormal];
-                }
-                else
-                {
-                    [button setImage:[UIImage imageNamed:@"button_accept.png"] forState:UIControlStateNormal];
-                }
+                [button setImage:[UIImage imageNamed:@"button_accept.png"] forState:UIControlStateNormal];
 				CGRect buttonFrame = CGRectMake(65*SCALE_IPAD, 260*SCALE_IPAD, 90*SCALE_IPAD, 30*SCALE_IPAD);
 				[button setFrame:buttonFrame];
 				button.tag = page;
@@ -132,7 +112,7 @@
 			{
 				UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(60*SCALE_IPAD, 260*SCALE_IPAD, 100*SCALE_IPAD, 30*SCALE_IPAD)];
 				myLabel.text = @"USING";
-				[myLabel setFont:[UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD]];
+				[myLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_BIG_SIZE]];
 				myLabel.backgroundColor = [UIColor redColor];
 				myLabel.textColor = [UIColor whiteColor];
 				myLabel.textAlignment = NSTextAlignmentCenter;

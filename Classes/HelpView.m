@@ -7,11 +7,12 @@
 //
 
 #import "HelpView.h"
+#import "MainView.h"
+#import "Globals.h"
 
 @implementation HelpView
 @synthesize mainView;
 @synthesize webView;
-
 
 - (void)didReceiveMemoryWarning 
 {

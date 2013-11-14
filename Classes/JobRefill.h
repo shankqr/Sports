@@ -6,10 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "MainView.h"
-
 @class MainView;
-
 @interface JobRefill : UIViewController
 {
 	MainView *mainView;
