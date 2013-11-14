@@ -1,0 +1,456 @@
+//
+//  Match.m
+//  FFC
+//
+//  Created by Shankar on 4/2/09.
+//  Copyright 2010 Tapfantasy. All rights reserved.	
+//
+
+#import "MatchView.h"
+
+@implementation MatchView
+@synthesize mainView;
+@synthesize table;
+@synthesize matches;
+@synthesize filter;
+@synthesize selected_clubid;
+@synthesize selected_matchid;
+@synthesize matchLive;
+@synthesize challengeBox;
+
+
+- (void)didReceiveMemoryWarning 
+{
+    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
+    // Release anything that's not essential, such as cached data
+}
+
+- (void)viewDidLoad
+{
+
+}
+
+-(void)updateView
+{
+	if ([filter isEqualToString:@"Future"])
+	{
+
+	}
+	else if ([filter isEqualToString:@"Played"])
+	{
+
+	}
+	else if ([filter isEqualToString:@"Challenge"])
+	{
+		self.matches = [[Globals i] getChallengesData];
+	}
+	else if ([filter isEqualToString:@"Invite"])
+	{
+		
+	}
+	else
+	{
+		self.filter = @"Played";
+		self.matches = [[Globals i] getMatchPlayedData];
+	}
+	[table reloadData];
+}
+
+- (IBAction)segmentTap:(id)sender
+{
+	switch([sender selectedSegmentIndex])
+	{
+		case 0: //Played
+		{
+			[mainView buttonSound];
+			self.filter = @"Played";
+			self.matches = [[Globals i] getMatchPlayedData];
+			[table reloadData];
+			break;
+		}
+		case 1: //Future
+		{
+			[mainView buttonSound];
+			self.filter = @"Future";
+			self.matches = [[Globals i] getMatchData];
+			[table reloadData];
+			break;
+		}
+		case 2: //Challenge
+		{
+			[mainView buttonSound];
+			self.filter = @"Challenge";
+            [[Globals i] updateChallengesData];
+			self.matches = [[Globals i] getChallengesData];
+			[table reloadData];
+			break;
+		}
+		case 3: //Invite
+		{
+			[mainView buttonSound];
+			self.filter = @"Invite";
+			self.matches = [[Globals i] getChallengedData];
+			[table reloadData];
+			break;
+		}
+	}
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	switch(actionSheet.tag)
+	{
+		case 1: //Upcoming
+		{
+			switch(buttonIndex)
+			{
+				case 0:
+				{
+					[self.mainView jumpToClubViewer:selected_clubid];
+					break;
+				}
+                case 1: //Challenge
+                {
+                    [self.mainView jumpToChallenge:selected_clubid];
+                    break;
+                }
+			}
+			break;	
+		}
+			
+		case 2: //Played
+		{
+			switch(buttonIndex)
+			{
+				case 0:
+				{
+					[self.mainView jumpToClubViewer:selected_clubid];
+					break;
+				}
+				case 1: //Match Report
+				{
+                    [Globals i].challengeMatchId = selected_matchid;
+                    [mainView hideFooter];
+                    [mainView hideHeader];
+                    [mainView reportMatch];
+					break;
+				}
+			}
+			break;	
+		}
+			
+		case 3: //Challenge
+		{
+			switch(buttonIndex)
+			{
+				case 0:
+				{
+					[self.mainView jumpToClubViewer:selected_clubid];
+					break;
+				}
+				case 1: //View challenge
+				{
+					[Globals i].challengeMatchId = selected_matchid;
+                    if (challengeBox == NULL) 
+                    {
+                        challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
+                        challengeBox.mainView = self.mainView;
+                    }
+					[[self.view superview] addSubview:challengeBox.view];
+					[challengeBox viewChallenge:selected_row];
+					break;
+				}
+			}
+			break;	
+		}
+			
+		case 4: //Invite
+		{
+			switch(buttonIndex)
+			{
+				case 0:
+				{
+					[self.mainView jumpToClubViewer:selected_clubid];
+					break;
+				}
+			}
+			break;	
+		}
+
+	}
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
+{
+	if(buttonIndex == 1)
+	{
+        [[Globals i] settPurchasedProduct:@"14"];
+		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+	}
+}
+
+-(void)getInviteData
+{
+	@autoreleasepool {
+
+		self.filter = @"Invite";
+		[[Globals i] updateChallengedData];
+		self.matches = [[Globals i] getChallengedData];
+		[table reloadData];
+		[[Globals i] removeLoadingAlert:self.view];
+	
+	}
+}
+
+#pragma mark Table Data Source Methods
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+	static NSString *CellIdentifier = @"MatchCell";
+	MatchCell *cell = (MatchCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
+	if (cell == nil)  
+	{
+		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MatchCell" owner:self options:nil];
+		cell = (MatchCell *)nib[0];
+		[[cell subviews][0] setTag:111];
+	}
+	
+	NSUInteger row = [indexPath row];
+	NSDictionary *rowData = (self.matches)[row];
+	
+	BOOL isHome = [rowData[@"club_home"] isEqualToString:[[Globals i] getClubData][@"club_id"]];
+	
+	if ([filter isEqualToString:@"Played"]) 
+	{
+		CGRect frame = CGRectMake(MatchView_frame_x, 18*SCALE_IPAD, MatchView_frame_width, 21*SCALE_IPAD);
+		UILabel* label = [[UILabel alloc] initWithFrame:frame];
+		label.numberOfLines = 1;
+		label.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD];
+		label.backgroundColor = [UIColor clearColor];
+		
+		CGRect frame2 = CGRectMake(MatchView_frame2_x, 18*SCALE_IPAD, MatchView_frame2_width, 21*SCALE_IPAD);
+		UILabel* label2 = [[UILabel alloc] initWithFrame:frame2];
+		label2.numberOfLines = 1;
+		label2.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:18*SCALE_IPAD];
+		label2.backgroundColor = [UIColor clearColor];
+		label2.adjustsFontSizeToFitWidth = YES;
+		label2.minimumScaleFactor = 0.5f;
+		
+		CGRect frame1 = CGRectMake(MatchView_frame1_x, MatchView_frame1_y, 100*SCALE_IPAD, 16*SCALE_IPAD);
+		UILabel* label1 = [[UILabel alloc] initWithFrame:frame1];
+		label1.numberOfLines = 1;
+		label1.font = [UIFont fontWithName:@"Febrotesk 4F Unicase Bold" size:14*SCALE_IPAD];
+		label1.backgroundColor = [UIColor clearColor];
+		
+		if(isHome)
+		{
+			label.text = [[rowData[@"home_score"] stringByAppendingString:@"-"] stringByAppendingString:rowData[@"away_score"]];
+			label2.text = rowData[@"club_away_name"];
+			
+			if ([rowData[@"home_score"] intValue] > [rowData[@"away_score"] intValue]) 
+			{
+				label.textColor = [UIColor greenColor];
+				label1.textColor = [UIColor greenColor];
+				label1.text = @"WIN";
+			}
+			else if ([rowData[@"home_score"] intValue] == [rowData[@"away_score"] intValue])
+			{
+				label.textColor = [UIColor yellowColor];
+				label1.textColor = [UIColor yellowColor];
+				label1.text = @"DRAW";
+			}
+			else 
+			{
+				label.textColor = [UIColor redColor];
+				label1.textColor = [UIColor redColor];
+				label1.text = @"LOSE";
+			}
+
+		}
+		else
+		{
+			label.text = [[rowData[@"away_score"] stringByAppendingString:@"-"] stringByAppendingString:rowData[@"home_score"]];
+			label2.text = rowData[@"club_home_name"];
+			
+			if ([rowData[@"away_score"] intValue] > [rowData[@"home_score"] intValue]) 
+			{
+				label.textColor = [UIColor greenColor];
+				label1.textColor = [UIColor greenColor];
+				label1.text = @"WIN";
+			}
+			else if ([rowData[@"home_score"] intValue] == [rowData[@"away_score"] intValue])
+			{
+				label.textColor = [UIColor yellowColor];
+				label1.textColor = [UIColor yellowColor];
+				label1.text = @"DRAW";
+			}
+			else 
+			{
+				label.textColor = [UIColor redColor];
+				label1.textColor = [UIColor redColor];
+				label1.text = @"LOSE";
+			}
+		}
+		
+		[cell insertSubview:label atIndex:5];
+		[cell insertSubview:label1 atIndex:5];
+		[cell insertSubview:label2 atIndex:5];
+	}
+	else 
+	{
+		if(isHome)
+		{
+			cell.matchClubName1.text = rowData[@"club_away_name"];
+		}
+		else
+		{
+			cell.matchClubName1.text = rowData[@"club_home_name"];
+		}
+	}
+	
+	if ([rowData[@"match_type_id"] isEqualToString:@"1"]) 
+	{
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchleague.png"]];
+        }
+        else
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchleague.png"]];
+        }
+	}
+	else if ([rowData[@"match_type_id"] isEqualToString:@"2"]) 
+	{
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchcup.png"]];
+        }
+        else
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchcup.png"]];
+        }
+	}
+	else if ([rowData[@"match_type_id"] isEqualToString:@"3"])
+	{
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchfriendly.png"]];
+        }
+        else
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchfriendly.png"]];
+        }
+	}
+    else
+	{
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchstar.png"]];
+        }
+        else
+        {
+            [cell.matchClubLogo1 setImage:[UIImage imageNamed:@"matchstar.png"]];
+        }
+	}
+	
+	NSArray *chunks;
+	if ([filter isEqualToString:@"Challenge"] || [filter isEqualToString:@"Invite"])
+	{
+		chunks = [rowData[@"challenge_datetime"] componentsSeparatedByString: @", "];
+	}
+	else
+	{
+		chunks = [rowData[@"match_datetime"] componentsSeparatedByString: @", "];
+	}
+	
+	NSString *dayweek = chunks[0];
+	//NSString *dayweekshort = [dayweek substringWithRange:NSMakeRange(0,3)];
+	NSArray *chunks2 = [chunks[1] componentsSeparatedByString: @" "];
+	NSString *monthfull = chunks2[0];
+	NSString *monthshort = [monthfull substringWithRange:NSMakeRange(0,3)];
+	NSString *daymonth = chunks2[1];
+	//NSString *year = [chunks objectAtIndex: 2];
+	
+	cell.matchDay.text = dayweek;
+	cell.matchDate.text = daymonth;
+	cell.matchMonth.text = [monthshort uppercaseString];
+	
+	return cell;
+}
+
+#pragma mark Table View Delegate Methods
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	NSDictionary *rowData = (self.matches)[indexPath.row];
+	BOOL isHome = [rowData[@"club_home"] isEqualToString:[[Globals i] getClubData][@"club_id"]];
+	if(isHome)
+	{
+		selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_away"] stringByReplacingOccurrencesOfString:@"," withString:@""]];	
+	}
+	else
+	{
+		selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_home"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+	}
+	
+	selected_matchid = [[NSString alloc] initWithString: [rowData[@"match_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+	
+    selected_row = indexPath.row;
+    
+	if ([filter isEqualToString:@"Future"]) 
+	{
+		UIActionSheet *actionSheet = [[UIActionSheet alloc]
+									  initWithTitle:@"Options"
+									  delegate:self
+									  cancelButtonTitle:@"Cancel"
+									  destructiveButtonTitle:nil
+									  otherButtonTitles:@"Club Info", @"Challenge", nil];
+		actionSheet.tag = 1;
+		[actionSheet showInView:self.view];
+	}
+	else if ([filter isEqualToString:@"Played"]) 
+	{
+		UIActionSheet *actionSheet = [[UIActionSheet alloc]
+									  initWithTitle:@"View"
+									  delegate:self
+									  cancelButtonTitle:@"Cancel"
+									  destructiveButtonTitle:nil
+									  otherButtonTitles:@"Club Info", @"Match Report", nil];
+		actionSheet.tag = 2;
+		[actionSheet showInView:self.view];
+	}
+	else if ([filter isEqualToString:@"Challenge"]) 
+	{
+		UIActionSheet *actionSheet = [[UIActionSheet alloc]
+									  initWithTitle:@"View"
+									  delegate:self
+									  cancelButtonTitle:@"Cancel"
+									  destructiveButtonTitle:nil
+									  otherButtonTitles:@"Club Info", @"View Challenge", nil];
+		actionSheet.tag = 3;
+		[actionSheet showInView:self.view];
+	}
+	else if ([filter isEqualToString:@"Invite"]) 
+	{
+		UIActionSheet *actionSheet = [[UIActionSheet alloc]
+									  initWithTitle:@"View"
+									  delegate:self
+									  cancelButtonTitle:@"Cancel"
+									  destructiveButtonTitle:nil
+									  otherButtonTitles:@"Club Info", nil];
+		actionSheet.tag = 4;
+		[actionSheet showInView:self.view];
+	}
+	
+	return nil;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return [self.matches count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return 60*SCALE_IPAD;
+}
+
+@end

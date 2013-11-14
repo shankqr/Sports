@@ -1,0 +1,40 @@
+//
+//  StoreOthersView.h
+//  FFC
+//
+//  Created by Shankar on 7/11/09.
+//  Copyright 2010 TapFantasy. All rights reserved.
+//
+
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import "ProductCell.h"
+#import "Globals.h"
+#import "MainView.h"
+
+@interface StoreOthersView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+{
+	MainView *mainView;
+	UITableView *table;
+	NSString *filter;
+	NSMutableArray *products;
+	NSString *sold_product_id;
+	NSString *sel_product_id;
+	NSString *sel_product_value;
+    NSString *sel_product_real;
+	NSString *sel_product_star;
+}
+@property (nonatomic, strong) MainView *mainView;
+@property (nonatomic, strong) IBOutlet UITableView *table;
+@property (nonatomic, strong) NSString *filter;
+@property (nonatomic, strong) NSMutableArray *products;
+@property (nonatomic, strong) NSString *sold_product_id;
+@property (nonatomic, strong) NSString *sel_product_id;
+@property (nonatomic, strong) NSString *sel_product_value;
+@property (nonatomic, strong) NSString *sel_product_real;
+@property (nonatomic, strong) NSString *sel_product_star;
+- (void)updateView;
+- (void)getProducts;
+- (void)purchaseWithFunds;
+- (void)purchaseWithDiamonds;
+@end
