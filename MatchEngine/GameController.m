@@ -26,7 +26,7 @@
     [SPAudioEngine start];
     
     [self startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
-    
+    //get the game instance
     game = (Game *)[self root];
     
     game.mainView = self.mainView;
