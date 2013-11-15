@@ -46,14 +46,12 @@
 #define LOGO1_OFFSET (iPad ? 0.0f : 10.0f)
 #define LOGO2_OFFSET (iPad ? 140.0f : 100.0f)
 
-@class MainView;
 @class Ball;
 @class Player;
 @class Goal;
 
 @interface Game : SPSprite
 {
-    MainView *mainView;
 	SPTextField *scoreTextField;
 	SPTextField *clockTextField;
     SPTextField *highlightTextField;
@@ -96,7 +94,6 @@
     BOOL finished;
     BOOL paused;
 }
-@property (nonatomic, strong) MainView *mainView;
 @property (nonatomic) BOOL played;
 @property (nonatomic) double proportion;
 @property (nonatomic, strong) Ball *ball;

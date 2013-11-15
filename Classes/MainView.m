@@ -47,12 +47,13 @@
 #import "AllianceView.h"
 #import "AllianceDetail.h"
 #import "Menu0.h"
-#import "GameController.h"
 #import "FriendProtocols.h"
 #import "NSString+HMAC.h"
 #import "MainCell.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
+#import "Sparrow.h"
+#import "Game.h"
 
 @implementation MainView
 @synthesize gameSession;
@@ -582,13 +583,11 @@
 	[self hideFooter];
     [lblMarquee removeFromSuperview];
     
-    if(sparrowView == nil)
-	{
-        sparrowView = [[GameController alloc] init];
-    }
+    [SPAudioEngine start];
     
-    sparrowView.mainView = self;
-    [sparrowView startGame];
+    sparrowView = [[SPViewController alloc] init];
+    sparrowView.multitouchEnabled = YES;
+    [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
     
 	[superView insertSubview:sparrowView.view atIndex:3];
 }
@@ -896,6 +895,11 @@
 {
 	activeView = self.view;
 	posxView = SCREEN_WIDTH;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeLiveMatch)
+                                                 name:@"ExitLiveMatch"
+                                               object:nil];
 	
 	Header *headerViewController = [[Header alloc] initWithNibName:@"Header" bundle:nil];
 	headerViewController.mainView = self;

@@ -8,7 +8,6 @@
 #import "MainView.h"
 
 @implementation Game
-@synthesize mainView;
 @synthesize played;
 @synthesize proportion;
 @synthesize attackingGoal;
@@ -139,6 +138,9 @@
 
         [self addEventListener:@selector(onTouch:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
     }
+    
+    [self loadClub];
+    [self startHighlight];
 		
 	return self;
 }
@@ -1121,7 +1123,11 @@
 
 - (void)exitGame
 {
-    [mainView removeLiveMatch];
+    [SPAudioEngine stop];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ExitLiveMatch"
+     object:self];
 }
 
 - (void)playSoundShoot

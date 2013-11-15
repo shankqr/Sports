@@ -44,6 +44,7 @@
 @class Footer;
 @class Menu0;
 @class MainCell;
+@class SPViewController;
 
 @interface MainView : UIViewController 
 <DialogBoxDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver, 
@@ -86,7 +87,7 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	ChallengeView *challengeBox;
     ChallengeCreateView *challengeCreate;
     ChatView *chatView;
-    GameController *sparrowView;
+    SPViewController *sparrowView;
     AchievementsView *achievementsView;
     AllianceView *allianceView;
     AllianceDetail *allianceDetail;
@@ -169,7 +170,7 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) Menu0 *menu0;
 @property (nonatomic, strong) MainCell *cell;
-@property (nonatomic, strong) GameController *sparrowView;
+@property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) IBOutlet UITabBarController *storeTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *cupTabBarController;
