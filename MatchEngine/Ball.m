@@ -25,7 +25,6 @@
 @synthesize xx;
 @synthesize yy;
 
-
 - (id)init
 {
     if (self = [super init])

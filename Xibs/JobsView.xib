@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="job_bg.png" id="52" userLabel="Image View - background1_405.png">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="background1_405.png" id="52" userLabel="Image View - background1_405.png">
                     <rect key="frame" x="0.0" y="74" width="320" height="494"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -84,7 +84,7 @@
         </view>
     </objects>
     <resources>
-        <image name="job_bg.png" width="640" height="810"/>
+        <image name="background1_405.png" width="640" height="796"/>
         <image name="job_rookie.png" width="640" height="810"/>
     </resources>
 </document>
