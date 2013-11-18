@@ -10,6 +10,7 @@
 #import "Globals.h"
 #import "MainView.h"
 #import "PlayerView.h"
+#import "PlayerCell.h"
 
 @implementation SquadView
 @synthesize mainView;
@@ -39,7 +40,7 @@
 	if([Globals i].workingSquad == 0)
 	{	
 		[table removeFromSuperview];
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 	}
 }
@@ -47,7 +48,7 @@
 -(void)forceUpdate
 {
 	[table removeFromSuperview];
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 }
 
@@ -73,7 +74,7 @@
 		{
 			[self.view addSubview:table];
 			[table reloadData];
-			[[Globals i] removeLoadingAlert:self.view];
+			[[Globals i] removeLoadingAlert];
 		}
 	
 	}

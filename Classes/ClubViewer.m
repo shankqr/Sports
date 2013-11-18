@@ -80,7 +80,7 @@
 	[self clearView];
 	clubid = [[NSString alloc] initWithString:ClubID];
 	[Globals i].selectedClubId = clubid;
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getClubInfoData) toTarget:self withObject:nil];
 }
 
@@ -88,7 +88,7 @@
 {
 	[self clearView];
 	fb_name = [[NSString alloc] initWithString:fb_id];
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getClubInfoDataFb) toTarget:self withObject:nil];
 }
 
@@ -99,7 +99,7 @@
 		[[Globals i] updateClubInfoData:clubid];
 		[self drawView];
 		
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 
@@ -110,7 +110,7 @@
 		[[Globals i] updateClubInfoFb:fb_name];
 		[self drawView];
 		
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 

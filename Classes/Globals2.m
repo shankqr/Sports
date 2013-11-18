@@ -6,9 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "Globals.h"
+#import "Globals2.h"
+#import "PlayerCell.h"
 
-@implementation Globals
+@implementation Globals2
 @synthesize activityIndicator;
 @synthesize wsProductIdentifiers;
 @synthesize wsClubData;

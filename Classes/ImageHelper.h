@@ -6,12 +6,13 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@interface ImageHelper : NSObject {
+@interface ImageHelper : NSObject
+{
 
 }
 
 +(NSString *)getImagePath:(NSString *)imageName;
-+(void)saveImage:(UIImage *)imageUI :(NSString *)imageName;
++(void)saveImage:(UIImage *)uiimage :(NSString *)imageName;
 +(UIImage *)getImage:(NSString *)imageName;
 
 @end

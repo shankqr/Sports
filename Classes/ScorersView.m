@@ -54,7 +54,7 @@
 		{
 			self.curDivision = [[Globals i] selectedDivision];
 			self.curSeries = [[Globals i] selectedSeries];
-			[[Globals i] showLoadingAlert:self.view];
+			[[Globals i] showLoadingAlert];
 			[NSThread detachNewThreadSelector: @selector(getLeagueScorersData) toTarget:self withObject:nil];
 		}
 	}
@@ -67,7 +67,7 @@
 		[[Globals i] updateLeagueScorersData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", 10]];
 		self.players = [NSMutableArray arrayWithArray:[[Globals i] getLeagueScorersData]];
 		[table reloadData];
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 		workingLeagueScorers = NO;
 	}
 }

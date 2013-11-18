@@ -203,7 +203,7 @@
 		[[Globals i] updateChallengedData];
 		self.matches = [[Globals i] getChallengedData];
 		[table reloadData];
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	
 	}
 }

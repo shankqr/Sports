@@ -38,7 +38,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView 
 {
-	//[[Globals i] removeLoadingAlert:self.view];
+	//[[Globals i] removeLoadingAlert];
 }
 
 - (void)closeHelp

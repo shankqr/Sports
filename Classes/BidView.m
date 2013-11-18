@@ -3,6 +3,7 @@
 #import "MainView.h"
 #import "Globals.h"
 #import "BidCell.h"
+#import "PlayerCell.h"
 
 @implementation BidView
 @synthesize mainView;

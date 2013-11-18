@@ -43,7 +43,7 @@
 - (void)updateView:(NSString*)MatchID
 {
 	matchid = [[NSString alloc] initWithString:MatchID];
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getMatchInfoData) toTarget:self withObject:nil];
 }
 
@@ -142,7 +142,7 @@
 	}
 	
 	matchReport.text = report;
-	[[Globals i] removeLoadingAlert:self.view];
+	[[Globals i] removeLoadingAlert];
 }
 
 - (void)endMatch
@@ -208,9 +208,7 @@
         //Display to gamer
         if(![challenge_money isEqualToString:@"0"])
         {
-            [self.mainView showAlert:GAME_NAME
-                            subtitle:@"Accountant Says:"
-                             message:challenge_money];
+            [[Globals i] showDialog:challenge_money];
         }
     }
 }

@@ -43,7 +43,7 @@
 {
 	if([[[Globals i] getProducts] count] < 1)
 	{
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getProducts) toTarget:self withObject:nil];
 	}
 }
@@ -55,7 +55,7 @@
 		[[Globals i] updateProducts];
 		self.products = [[Globals i] getProducts];
 		[table reloadData];
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	
 	}
 }

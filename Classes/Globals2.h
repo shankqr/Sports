@@ -93,13 +93,15 @@
 #define DEFAULT_FONT_SMALL_SIZE 14.0f * SCALE_IPAD
 #define DEFAULT_FONT_BIG_SIZE 20.0f * SCALE_IPAD
 
-#import "PlayerCell.h"
-#import "MBProgressHUD.h"
-#import "DialogBoxView2.h"
 
-@interface Globals : NSObject 
+#import "MMProgressHUD.h"
+#import "DialogBoxView.h"
+
+@class PlayerCell;
+
+@interface Globals2 : NSObject
 {
-    DialogBoxView2 *dialogBox;
+    DialogBoxView *dialogBox;
 	UIActivityIndicatorView *activityIndicator;
 	NSDictionary *wsProductIdentifiers;
 	NSDictionary *wsClubData;
@@ -182,7 +184,7 @@
 	BOOL workingCupScorers;
     BOOL workingAllianceCupFixtures;
 }
-@property (nonatomic, strong) DialogBoxView2 *dialogBox;
+@property (nonatomic, strong) DialogBoxView *dialogBox;
 @property (nonatomic, strong) NSString *purchasedProductString;
 @property (nonatomic, strong) UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) NSDictionary *wsProductIdentifiers;
@@ -244,7 +246,7 @@
 @property (readwrite) NSInteger energy;
 @property (readwrite) NSTimeInterval offsetServerTimeInterval;
 @property (readwrite) BOOL workingAllClubs;
-+ (Globals *)i;
++ (Globals2 *)i;
 - (NSString *)GameId;
 - (NSString *)GameType;
 - (NSString *)GameUrl;

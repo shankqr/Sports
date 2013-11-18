@@ -3,6 +3,7 @@
 #import "SquadView.h"
 #import "MainView.h"
 #import "Globals.h"
+#import "PlayerCell.h"
 
 @implementation PlayerView
 @synthesize mainView;

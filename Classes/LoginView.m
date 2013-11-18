@@ -52,12 +52,12 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)showLoadingAlert
 {
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 }
 
 - (void)removeLoadingAlert
 {
-    [[Globals i] removeLoadingAlert:self.view];
+    [[Globals i] removeLoadingAlert];
 }
 
 #pragma mark - FBLoginViewDelegate

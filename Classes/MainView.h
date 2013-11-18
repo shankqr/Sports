@@ -6,12 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <GameKit/GameKit.h>
 #import <StoreKit/StoreKit.h>
 #import <StoreKit/SKPaymentTransaction.h>
 #import <AVFoundation/AVFoundation.h>
-#import "DialogBoxView.h"
-#import "WelcomeViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 
 @class AboutView;
@@ -37,7 +34,7 @@
 @class HelpView;
 @class MatchReport;
 @class ChatView;
-@class GameController;
+@class WelcomeViewController;
 @class AchievementsView;
 @class AllianceView;
 @class AllianceDetail;
@@ -47,7 +44,7 @@
 @class SPViewController;
 
 @interface MainView : UIViewController 
-<DialogBoxDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver, 
+<SKProductsRequestDelegate, SKPaymentTransactionObserver,
 UITabBarControllerDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, 
 AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 {
@@ -58,7 +55,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
     AVAudioPlayer *loseAudio;
 	UIButton *imageButton;
 	UIButton *backButton;
-    GKSession *gameSession;
 	UIView *activeView;
 	UIView *previousView;
 	UIView *superView;
@@ -81,7 +77,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	MatchLive *matchLive;
 	HelpView *helpView;
 	MatchReport *matchReport;
-	DialogBoxView *dialogBox;
 	WelcomeViewController *welcomeView;
 	AboutView *aboutBox;
 	ChallengeView *challengeBox;
@@ -127,7 +122,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) AVAudioPlayer *winAudio;
 @property (nonatomic, strong) AVAudioPlayer *loseAudio;
 @property (nonatomic, strong) UIAlertView *alertLoading;
-@property (nonatomic, strong) GKSession	 *gameSession;
 @property (nonatomic, strong) UIView *activeView;
 @property (nonatomic, strong) UIView *previousView;
 @property (nonatomic, strong) UIView *superView;
@@ -150,7 +144,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) MatchLive *matchLive;
 @property (nonatomic, strong) HelpView *helpView;
 @property (nonatomic, strong) MatchReport *matchReport;
-@property (nonatomic, strong) DialogBoxView *dialogBox;
 @property (nonatomic, strong) WelcomeViewController *welcomeView;
 @property (nonatomic, strong) AboutView *aboutBox;
 @property (nonatomic, strong) ChallengeView *challengeBox;
@@ -173,11 +166,9 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) IBOutlet UITabBarController *storeTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *tacticsTabBarController;
-@property (nonatomic, strong) IBOutlet UITabBarController *cupTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *myclubTabBarController;
-- (void)showAlert:(NSString*)title subtitle:(NSString*)subtitle message:(NSString*)message;
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo;
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
 - (void)failedTransaction:(SKPaymentTransaction *)transaction;
@@ -259,8 +250,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 - (void)showLoadingAlert;
 - (void)removeLoadingAlert;
 - (void)reloadClubFromOutside;
-- (void)createDialogBox;
-- (void)removeDialogBox;
 - (void)updateAchievementBadges;
 - (void)showAlliance;
 - (void)showAllianceDetail:(int)aid;

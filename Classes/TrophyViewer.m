@@ -39,7 +39,7 @@
 
 -(void)updateView
 {
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getTrophyData) toTarget:self withObject:nil];
 }
 
@@ -59,7 +59,7 @@
         self.trophies = nil;
         [table reloadData];
     }
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	
 	}
 }

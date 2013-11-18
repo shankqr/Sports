@@ -43,7 +43,7 @@
 		{
 			self.curDivision = [[Globals i] selectedDivision];
 			self.curSeries = [[Globals i] selectedSeries];
-			[[Globals i] showLoadingAlert:self.view];
+			[[Globals i] showLoadingAlert];
 			[NSThread detachNewThreadSelector: @selector(getMatchFixturesData) toTarget:self withObject:nil];
 		}
 	}
@@ -57,7 +57,7 @@
 		[[Globals i] updateMatchFixturesData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", curSeries]];
 		[self getTotalRound];
 		[table reloadData];
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 		workingLeagueFixtures = NO;
 	
 	}

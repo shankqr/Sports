@@ -80,8 +80,8 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [mainView removeDialogBox];
-    [mainView removeLoadingAlert];
+    [[Globals i] removeDialogBox];
+    [[Globals i] removeLoadingAlert];
     
     [FBSession.activeSession handleDidBecomeActive];
     

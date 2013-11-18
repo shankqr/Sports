@@ -9,6 +9,7 @@
 #import "SquadViewer.h"
 #import "Globals.h"
 #import "MainView.h"
+#import "PlayerCell.h"
 
 @implementation SquadViewer
 @synthesize mainView;
@@ -53,7 +54,7 @@
 	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
 	if(![selected_clubid isEqualToString:wsClubData[@"club_id"]]) //Check for redundent page load for same id
 	{
-        [[Globals i] showLoadingAlert:self.view];
+        [[Globals i] showLoadingAlert];
         [NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 				
         selected_clubid = wsClubData[@"club_id"];
@@ -83,7 +84,7 @@
 		{
 			[self.view addSubview:table];
 			[table reloadData];
-			[[Globals i] removeLoadingAlert:self.view];
+			[[Globals i] removeLoadingAlert];
 		}
 	
 	}

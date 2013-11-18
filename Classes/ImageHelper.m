@@ -10,7 +10,7 @@
 
 @implementation ImageHelper
 
-+(NSString *)getImagePath:(NSString *)imageName
++ (NSString *)getImagePath:(NSString *)imageName
 {
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = paths[0];
@@ -19,22 +19,17 @@
 	return imagePath;
 }
 
-+(void)saveImage:(UIImage *)imageUI :(NSString *)imageName
++ (void)saveImage:(UIImage *)uiimage :(NSString *)imageName
 {
 	NSString *imagePath = [ImageHelper getImagePath: imageName];
-	NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(imageUI)];
+	NSData *imageData = [NSData dataWithData:UIImagePNGRepresentation(uiimage)];
 	[imageData writeToFile:imagePath atomically:YES];
 }
 
-+(UIImage *)getImage:(NSString *)imageName
++ (UIImage *)getImage:(NSString *)imageName
 {
 	NSString *imagePath = [ImageHelper getImagePath: imageName];
 	return [UIImage imageWithContentsOfFile:imagePath];
-}
-
-+(void)uploadImage 
-{
-
 }
 
 @end

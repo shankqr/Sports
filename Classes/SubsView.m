@@ -68,7 +68,7 @@
 
 		[[Globals i] changePlayerFormation:self.nwPlayer :self.selectedPos];
 		[self updateView];
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 
@@ -253,7 +253,7 @@
 	}
 	else
 	{
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(animateChangePos) toTarget:self withObject:nil];
 	}
 }

@@ -27,7 +27,7 @@
 {
 	if([[[Globals i] getNewsData] count] < 1)
 	{
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getNewsData) toTarget:self withObject:nil];
 	}
 }
@@ -44,7 +44,7 @@
 		self.news = [[Globals i] getNewsData];
 		[table reloadData];
 		
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 

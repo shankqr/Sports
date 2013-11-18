@@ -44,11 +44,9 @@
 #import "ChatView.h"
 #import "MatchReport.h"
 #import "AchievementsView.h"
-#import "AllianceView.h"
-#import "AllianceDetail.h"
-#import "Menu0.h"
-#import "FriendProtocols.h"
+#import "WelcomeViewController.h"
 #import "NSString+HMAC.h"
+#import "FriendProtocols.h"
 #import "MainCell.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
@@ -57,7 +55,6 @@
 #import "Game_hockey.h"
 
 @implementation MainView
-@synthesize gameSession;
 @synthesize activeView;
 @synthesize previousView;
 @synthesize superView;
@@ -80,7 +77,6 @@
 @synthesize clubTabBarController;
 @synthesize storeTabBarController;
 @synthesize tacticsTabBarController;
-@synthesize cupTabBarController;
 @synthesize leagueTabBarController;
 @synthesize achievementsView;
 @synthesize allianceView;
@@ -89,7 +85,6 @@
 @synthesize helpView;
 @synthesize chatView;
 @synthesize matchReport;
-@synthesize dialogBox;
 @synthesize welcomeView;
 @synthesize challengeBox;
 @synthesize challengeCreate;
@@ -164,17 +159,6 @@
     [defaults synchronize];
 }
 
-- (void)showAlert:(NSString*)title subtitle:(NSString*)subtitle message:(NSString*)message
-{
-    [self createDialogBox];
-	dialogBox.titleText = title;
-	dialogBox.whiteText = subtitle;
-    dialogBox.promptText = message;
-	dialogBox.dialogType = 1;
-	[[activeView superview] insertSubview:dialogBox.view atIndex:7];
-	[dialogBox updateView];
-}
-
 #pragma mark StoreKit Methods
 - (void)buyProduct:(NSString *)product
 {
@@ -242,25 +226,23 @@
 	
 	if (transaction.error.code != SKErrorPaymentCancelled)
 	{
-        [self showAlert:GAME_NAME
-               subtitle:@"Server was Busy"
-                message:@"Please try again now."];
+        [[Globals i] showDialog:@"Please try again now."];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[self removeDialogBox];
+	[[Globals i] removeDialogBox];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[self removeDialogBox];
+	[[Globals i] removeDialogBox];
 	[self doTransaction:transaction];
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[self removeDialogBox];
+	[[Globals i] removeDialogBox];
 	[self doTransaction:transaction];
 }
 
@@ -280,16 +262,12 @@
         if([[Globals i] updateClubData])
         {
             [self updateHeader];
-            [self showAlert:GAME_NAME
-                   subtitle:@"Purchase Success!"
-                    message:@"Thank you for supporting our Games!"];
+            [[Globals i] showDialog:@"Thank you for supporting our Games!"];
         }
         else
         {
             //Update failed
-            [self showAlert:GAME_NAME
-                   subtitle:@"Purchase Success!"
-                    message:@"Please restart device to take effect."];
+            [[Globals i] showDialog:@"Please restart device to take effect."];
             
         }
     }
@@ -333,9 +311,7 @@
 {
 	[[Globals i] buyProduct:@"9":virtualMoney:json];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Congratulations!"
-            message:@"You have upgraded your stadium."];
+    [[Globals i] showDialog:@"You have upgraded your stadium."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
@@ -355,9 +331,7 @@
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:virtualMoney:json];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Congratulations!"
-            message:@"You have just hired a staff."];
+    [[Globals i] showDialog:@"You have just hired a staff."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
@@ -373,17 +347,19 @@
 {
 	[[Globals i] buyProduct:@"10":virtualMoney:json];
     
+    /*
     [self createDialogBox];
 	dialogBox.titleText = @"RENAME CLUB";
 	dialogBox.whiteText = @"Enter a new name for your club.";
 	dialogBox.dialogType = 4;
 	[[activeView superview] insertSubview:dialogBox.view atIndex:7];
 	[dialogBox updateView];
+     */
 }
 
 - (void)returnText:(NSString *)text
 {
-	[self removeDialogBox];
+	[[Globals i] removeDialogBox];
 	
 	NSString *returnValue = @"0";
 	if([text isEqualToString:@""])
@@ -405,9 +381,7 @@
 		[[Globals i] updateClubData];
 		[self updateHeader];
         
-        [self showAlert:GAME_NAME
-               subtitle:@"New Club Name"
-                message:@"Your club name has been changed successfully."];
+        [[Globals i] showDialog:@"Your club name has been changed successfully."];
 		
 		NSString *message = [NSString stringWithFormat:@"I have just renamed my club to %@", text];
 		NSString *extra_desc = @"You can rename your club anytime you feel like it, but make sure to inform your friends. ";
@@ -416,12 +390,14 @@
 	}
 	else
 	{
+        /*
         [self createDialogBox];
 		dialogBox.titleText = @"NAME EXIST OR NOT VALID";
 		dialogBox.whiteText = @"Enter another name.";
 		dialogBox.dialogType = 4;
 		[[activeView superview] insertSubview:dialogBox.view atIndex:7];
 		[dialogBox updateView];
+         */
 	}
 }
 
@@ -429,9 +405,7 @@
 {
 	[[Globals i] buyCoach: [Globals i].purchasedCoachId];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Congratulations!"
-            message:@"A new coach has been assigned to your club."];
+    [[Globals i] showDialog:@"A new coach has been assigned to your club."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
@@ -450,9 +424,7 @@
 	[[Globals i] updateClubData];
 	[self updateHeader];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Club Reset"
-            message:@"Your club has been reset successfully."];
+    [[Globals i] showDialog:@"Your club has been reset successfully."];
 	
 	NSString *message = @"I have just reset my club!";
 	NSString *extra_desc = @"You can reset your club if you want to start again from scratch. ";
@@ -465,9 +437,7 @@
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:@"1":@"0"];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Congratulations!"
-            message:@"Purchase and upgrades for your club is completed."];
+    [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
@@ -479,9 +449,7 @@
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:@"2":@"0"];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Congratulations!"
-            message:@"Purchase and upgrades for your club is completed."];
+    [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
@@ -565,13 +533,11 @@
 			}
 			else 
 			{
-            [self showAlert:GAME_NAME
-                   subtitle:@"Match in Progress"
-                    message:@"Club is playing a match now, try accept again."];
+            [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
 			}
 		}
 		
-		[self removeDialogBox];
+		[[Globals i] removeDialogBox];
 	
 	}
 }
@@ -695,29 +661,14 @@
 
 - (void)showWaitingBox
 {
+    /*
     [self createDialogBox];
 	dialogBox.titleText = @"PROCESSING...";
 	dialogBox.whiteText = @"- Please Wait -";
 	dialogBox.dialogType = 0;
 	[[activeView superview] insertSubview:dialogBox.view atIndex:5];
 	[dialogBox updateView];
-}
-
-- (void)createDialogBox
-{
-    if (dialogBox == nil)
-    {
-        dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
-        dialogBox.delegate = self;
-    }
-}
-
-- (void)removeDialogBox
-{
-	if(dialogBox != nil)
-	{
-		[dialogBox.view removeFromSuperview];
-	}
+     */
 }
 
 -(void)showLogin //Back to login view
@@ -763,31 +714,12 @@
 
 -(void)showAlliance
 {
-    [self hideHeader];
-    
-    if (allianceView == nil)
-    {
-        allianceView = [[AllianceView alloc] initWithNibName:@"AllianceView" bundle:nil];
-        allianceView.mainView = self;
-    }
-    [allianceView updateView];
-    [superView insertSubview:allianceView.view atIndex:4];
+
 }
 
 -(void)showAllianceDetail:(int)aid
 {
-    [self hideHeader];
-    
-    if (allianceDetail == nil)
-    {
-        allianceDetail = [[AllianceDetail alloc] initWithNibName:@"AllianceDetail" bundle:nil];
-        allianceDetail.mainView = self;
-    }
-    allianceDetail.a_id = aid;
-    [allianceDetail drawView];
-    [superView insertSubview:allianceDetail.view atIndex:4];
-    allianceDetail.a_id = aid;
-    [allianceDetail updateView];
+
 }
 
 -(void)removeAchievements
@@ -812,9 +744,7 @@
     
     [NSThread detachNewThreadSelector:@selector(reloadClub) toTarget:self withObject:nil];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Assistant Manager"
-            message:alertMsg];
+    [[Globals i] showDialog:alertMsg];
 }
 
 - (void)removeStore
@@ -852,26 +782,12 @@
 
 - (void)addFunds
 {
-	if (menu0 == nil) 
-    {
-        menu0 = [[Menu0 alloc] initWithNibName:@"Menu0" bundle:nil];
-        menu0.mainView = self;
-    }
-    [[activeView superview] insertSubview:menu0.view atIndex:3];
-    menu0.currencyType = YES;
-    [menu0 updateView];
+
 }
 
 - (void)addDiamonds
 {
-	if (menu0 == nil)
-    {
-        menu0 = [[Menu0 alloc] initWithNibName:@"Menu0" bundle:nil];
-        menu0.mainView = self;
-    }
-    [[activeView superview] insertSubview:menu0.view atIndex:3];
-    menu0.currencyType = NO;
-    [menu0 updateView];
+
 }
 
 - (void)initSound
@@ -1001,8 +917,6 @@
 	((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
 	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
 	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
-    
-    [mainTableView setFrame:CGRectMake(0, Header_height, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chat_height-Header_height)];
 }
 
 - (void)showFooterMessage
@@ -1218,7 +1132,7 @@
 
 - (void)updateChatView
 {
-    [chatView updateView];
+
 }
 
 - (void)updateTacticsView
@@ -1314,19 +1228,7 @@
 
 - (void)showChat
 {
-	if(posxView==SCREEN_WIDTH)
-	{
-        [self hideFooter];
-        [self hideHeader];
-        [self hideMarquee];
-        if(chatView == nil)
-        {
-            chatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
-            chatView.mainView = self;
-        }
-        [chatView updateView];
-        [[activeView superview] insertSubview:chatView.view atIndex:5];
-	}
+
 }
 
 - (void)fblogin
@@ -1513,6 +1415,7 @@
 {
 	[self hideHeader];
 	[self hideFooter];
+    
 	[superView insertSubview:clubTabBarController.view atIndex:3];
 	[(ClubViewer*)[clubTabBarController viewControllers][0] updateViewFb:fb_id];
 	clubTabBarController.selectedIndex = 0;
@@ -2003,7 +1906,7 @@
 	[lblMarquee addGestureRecognizer:gesture];
     
     //Chat labels
-    lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chat_height, SCREEN_WIDTH, Chat_height)];
+    lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-100, SCREEN_WIDTH, 320)];
     lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
     lblChat1.textAlignment = NSTextAlignmentCenter;
     lblChat1.textColor = [UIColor grayColor];
@@ -2141,9 +2044,7 @@
     
     [self FallbackPublishStory:message :caption :picture];
     
-    [self showAlert:GAME_NAME
-           subtitle:@"Assistant Manager"
-            message:@"Thank you for sharing this App with your friends. Challenge your friends and level up even faster!"];
+    [[Globals i] showDialog:@"Thank you for sharing this App with your friends. Challenge your friends and level up even faster!"];
 }
 
 - (void)FallbackPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
@@ -2175,12 +2076,12 @@
 
 - (void)showLoadingAlert
 {
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 }
 
 - (void)removeLoadingAlert
 {
-	[[Globals i] removeLoadingAlert:self.view];
+	[[Globals i] removeLoadingAlert];
 }
 
 @end

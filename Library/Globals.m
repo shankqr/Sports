@@ -9,7 +9,7 @@
 #import "Globals.h"
 #import "FriendProtocols.h"
 #import "BuyView.h"
-#import "WorldsView.h"
+#import "PlayerCell.h"
 #import "DAAppsViewController.h"
 #import "MMProgressHUD.h"
 #import "JCNotificationCenter.h"
@@ -56,13 +56,59 @@
 @synthesize wsWorldData;
 @synthesize wsWorldsData;
 @synthesize worldsView;
-@synthesize loginView;
+//@synthesize loginView;
 @synthesize lastReportId;
 @synthesize lastMailId;
 @synthesize chatView;
 @synthesize allianceChatView;
 @synthesize mailCompose;
 @synthesize loginNotification;
+
+@synthesize wsSquadData;
+@synthesize wsMySquadData;
+@synthesize wsMatchData;
+@synthesize wsMatchPlayedData;
+@synthesize wsMatchHighlightsData;
+@synthesize wsChallengesData;
+@synthesize wsChallengedData;
+@synthesize wsLeagueData;
+@synthesize wsMatchFixturesData;
+@synthesize wsNewsData;
+@synthesize wsMarqueeData;
+@synthesize wsFriendsData;
+@synthesize wsCurrentSeasonData;
+@synthesize wsPlayerInfoData;
+@synthesize wsMatchInfoData;
+@synthesize wsLeagueScorersData;
+@synthesize wsPromotionData;
+@synthesize wsCupScorersData;
+@synthesize wsCupFixturesData;
+@synthesize wsAllClubsData;
+@synthesize wsWallData;
+@synthesize wsEventsData;
+@synthesize wsDonationsData;
+@synthesize wsAppliedData;
+@synthesize wsMembersData;
+@synthesize wsAllianceCupFixturesData;
+@synthesize wsMapClubsData;
+@synthesize wsNearClubsData;
+@synthesize wsPlayerSaleData;
+@synthesize wsCoachData;
+@synthesize wsProductsData;
+@synthesize wsTrophyData;
+@synthesize wsAllianceData;
+@synthesize challengeMatchId;
+@synthesize selectedPos;
+@synthesize selectedPlayer;
+@synthesize selectedDivision;
+@synthesize selectedSeries;
+@synthesize purchasedPlayerId;
+@synthesize purchasedCoachId;
+@synthesize workingSquad;
+@synthesize wsCupRounds;
+@synthesize workingAllClubs;
+@synthesize energy;
+@synthesize acceptedMatch;
 
 static Globals *_i;
 static NSString *GameId = @"1";
@@ -216,7 +262,17 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString	*)GameId
 {
-	return GameId;
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_ID"];
+}
+
+- (NSString	*)GameType
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_TYPE"];
+}
+
+- (NSString	*)GameUrl
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
 }
 
 - (NSString	*)UID
@@ -575,22 +631,6 @@ static NSOperationQueue *connectionQueue;
     }
     
     [self showTemplate:@[buyView] :@"Buy Diamonds" :1];
-    
-    //Disable the Buy button
-    templateView.buyButton.hidden = YES;
-    templateView.currencyLabel.hidden = YES;
-}
-
-- (void)showWorlds
-{
-    if (worldsView == nil)
-    {
-        worldsView = [[WorldsView alloc] initWithStyle:UITableViewStylePlain];
-        worldsView.title = @"Select World 1";
-        [worldsView updateView];
-    }
-
-    [self showTemplate:@[worldsView] :@"Select World" :1];
     
     //Disable the Buy button
     templateView.buyButton.hidden = YES;
@@ -1052,6 +1092,7 @@ static NSOperationQueue *connectionQueue;
     [[self peekViewControllerStack] dismissViewControllerAnimated:YES completion:nil];
 }
 
+/*
 - (void)showLogin:(LoginBlock)block
 {
     if (loginView == nil)
@@ -1070,6 +1111,7 @@ static NSOperationQueue *connectionQueue;
     
     [loginView updateView];
 }
+*/
 
 - (void)shareButton
 {
@@ -1433,7 +1475,7 @@ static NSOperationQueue *connectionQueue;
     [[NSUserDefaults standardUserDefaults] setObject:wsWorldData forKey:@"WorldData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [self.loginView updateWorldLabel];
+    //[self.loginView updateWorldLabel];
 }
 
 - (NSString *)gettSelectedBaseId
@@ -2135,6 +2177,1408 @@ static NSOperationQueue *connectionQueue;
     {
         [self addMailReply:mail_id :wsMailReply];
     }
+}
+
+// SPORTS GLOBAL
+
+- (NSString *)PlayerSkill1
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Keeper";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Keeper";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Footwork";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Catching";
+    }
+    else
+    {
+        return @"Keeper";
+    }
+}
+
+- (NSString *)PlayerSkill2
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Defend";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Defend";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Defensive";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Running";
+    }
+    else
+    {
+        return @"Defend";
+    }
+}
+
+- (NSString *)PlayerSkill3
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Playmaking";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Playmaking";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Dribbling";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Pitching";
+    }
+    else
+    {
+        return @"Playmaking";
+    }
+}
+
+- (NSString *)PlayerSkill4
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Attack";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Attack";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Shooting";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Hitting";
+    }
+    else
+    {
+        return @"Attack";
+    }
+}
+
+- (NSString *)PlayerSkill5
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Throwing";
+    }
+    else
+    {
+        return @"Passing";
+    }
+}
+
+- (NSString *)PlayerSkill6
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Fitness";
+    }
+    else
+    {
+        return @"Fitness";
+    }
+}
+
+- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message
+{
+	UIAlertView *alert = [[UIAlertView alloc]
+						  initWithTitle:title
+						  message:message
+						  delegate:self
+						  cancelButtonTitle:@"OK"
+						  otherButtonTitles:nil];
+	[alert show];
+}
+
+- (void)showDialog:(UIView *)view :(NSString *)l1 :(NSString *)l2 :(NSString *)l3 :(NSInteger)type :(DialogBlock)block
+{
+    [self createDialogBox];
+    dialogBox.titleText = l1;
+    dialogBox.whiteText = l2;
+    dialogBox.promptText = l3;
+    dialogBox.dialogType = type;
+    [view addSubview:dialogBox.view];
+    dialogBox.dialogBlock = block;
+    [dialogBox updateView];
+}
+
+- (NSUInteger)getMaxSeries:(NSUInteger)division
+{
+	if(division == 1)
+		return 1;
+	if(division == 2)
+		return 5;
+	if(division == 3)
+		return 25;
+	if(division == 4)
+		return 125;
+	if(division > 4)
+		return 625;
+	
+	return 1;
+}
+
+- (NSString *)gettAccepted
+{
+    acceptedMatch = [[NSUserDefaults standardUserDefaults] objectForKey:@"AcceptedMatch"];
+    if (acceptedMatch == Nil)
+    {
+        acceptedMatch = @"0";
+    }
+    
+    return acceptedMatch;
+}
+
+- (void)settAccepted:(NSString *)match_id
+{
+    acceptedMatch = match_id;
+    [[NSUserDefaults standardUserDefaults] setObject:acceptedMatch forKey:@"AcceptedMatch"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void)setOffsetTime:(NSTimeInterval)serverTime
+{
+    NSDate *localdatetime = [NSDate date];
+    self.offsetServerTimeInterval = [localdatetime timeIntervalSince1970] - serverTime;
+}
+
+- (void)storeEnergy
+{
+    int energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    int energy_togo = energy_max - energy;
+    if (energy_togo > 0)
+    {
+        [self scheduleNotification:[[NSDate date] dateByAddingTimeInterval:energy_togo*180] :@"Your energy is full! Train your players and level up now!"];
+    }
+}
+
+- (NSInteger)retrieveEnergy
+{
+	self.energy = [[wsClubData[@"e"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+	[self storeEnergy];
+	
+	return self.energy;
+}
+
+- (PlayerCell *)playerCellHandler:(UITableView *)tableView
+						indexPath:(NSIndexPath *)indexPath
+					  playerArray:(NSMutableArray *)players
+						 checkPos:(BOOL)checkPos
+{
+	static NSString *CellIdentifier = @"PlayerCell";
+	PlayerCell *cell = (PlayerCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
+	if (cell == nil)
+	{
+		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"PlayerCell" owner:self options:nil];
+		cell = (PlayerCell *)nib[0];
+		[[cell subviews][0] setTag:111];
+	}
+	
+	NSUInteger row = [indexPath row];
+	NSDictionary *rowData = players[row];
+	NSString *row_player_id = rowData[@"player_id"];
+	NSString *player_id = [row_player_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+	NSString *name = rowData[@"player_name"];
+	NSString *age = rowData[@"player_age"];
+	cell.playerName.text = [NSString stringWithFormat:@"%@ (Age: %@)", name, age];
+	
+	NSString *salary = [[Globals i] numberFormat:rowData[@"player_salary"]];
+	NSString *mvalue = [[Globals i] numberFormat:rowData[@"player_value"]];
+	cell.playerValue.text = [NSString stringWithFormat:@"$%@/week (Value: $%@)", salary, mvalue];
+	
+	cell.keeper.text = [NSString stringWithFormat:@"%d", [rowData[@"keeper"] intValue]/2];
+    [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"keeper"] intValue]/10]]];
+    
+	cell.defending.text = [NSString stringWithFormat:@"%d", [rowData[@"defend"] intValue]/2];
+    [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"defend"] intValue]/10]]];
+    
+	cell.playmaking.text = [NSString stringWithFormat:@"%d", [rowData[@"playmaking"] intValue]/2];
+    [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"playmaking"] intValue]/10]]];
+    
+	cell.passing.text = [NSString stringWithFormat:@"%d", [rowData[@"passing"] intValue]/2];
+    [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"passing"] intValue]/10]]];
+    
+	cell.scoring.text = [NSString stringWithFormat:@"%d", [rowData[@"attack"] intValue]/2];
+    [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"attack"] intValue]/10]]];
+    
+	cell.stamina.text = [NSString stringWithFormat:@"%d%%", [rowData[@"fitness"] intValue]/2];
+    
+    if ([rowData[@"fitness"] intValue] < 80)
+    {
+        cell.stamina.textColor = [UIColor redColor];
+    }
+    else if ([rowData[@"fitness"] intValue] < 150)
+    {
+        cell.stamina.textColor = [UIColor yellowColor];
+    }
+    else
+    {
+        cell.stamina.textColor = [UIColor greenColor];
+    }
+	
+	cell.card1.backgroundColor = [UIColor clearColor];
+	cell.card2.backgroundColor = [UIColor clearColor];
+	
+	if([rowData[@"card_red"] intValue] == 1)
+	{
+		cell.card1.backgroundColor = [UIColor redColor];
+	}
+	else if([rowData[@"card_yellow"] intValue] == 2)
+	{
+		cell.card1.backgroundColor = [UIColor yellowColor];
+		cell.card2.backgroundColor = [UIColor yellowColor];
+	}
+	else if([rowData[@"card_yellow"] intValue] == 1)
+	{
+		cell.card1.backgroundColor = [UIColor yellowColor];
+	}
+	else
+    {
+		cell.card1.backgroundColor = [UIColor clearColor];
+		cell.card2.backgroundColor = [UIColor clearColor];
+	}
+	
+	switch([rowData[@"player_condition"] intValue])
+	{
+		case 1:
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
+			break;
+		case 2:
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"injured.png"]];
+			break;
+		default:
+			cell.injuredbruisedImage.image = nil;
+			break;
+	}
+    
+    if ([rowData[@"player_condition_days"] intValue] > 0)
+    {
+        cell.condition.text = [NSString stringWithFormat:@"%@ Days", rowData[@"player_condition_days"]];
+    }
+    else
+    {
+        cell.condition.text = @"";
+    }
+	
+	int pid = [player_id intValue];
+	int f = (pid % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];
+	[cell.faceImage setImage:[UIImage imageNamed:fname]];
+	
+	int g = [rowData[@"player_goals"] intValue];
+	switch(g)
+	{
+		case 0:
+			cell.star5.image = nil;
+			cell.star4.image = nil;
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 1:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			cell.star4.image = nil;
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 2:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star4.image = nil;
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 3:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 4:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 5:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 6:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+		case 7:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star2 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star1.image = nil;
+			break;
+		case 8:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star2 setImage:[UIImage imageNamed:STAR_FULL]];
+			cell.star1.image = nil;
+			break;
+		case 9:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star2 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star1 setImage:[UIImage imageNamed:STAR_FULL]];
+			break;
+		case 10:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star4 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star3 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star2 setImage:[UIImage imageNamed:STAR_FULL]];
+			[cell.star1 setImage:[UIImage imageNamed:STAR_FULL]];
+			break;
+		default:
+			[cell.star5 setImage:[UIImage imageNamed:STAR_HALF]];
+			cell.star4.image = nil;
+			cell.star3.image = nil;
+			cell.star2.image = nil;
+			cell.star1.image = nil;
+			break;
+	}
+	
+	if(checkPos)
+	{
+        if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+        {
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(GK)";
+            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+                cell.position.text = @"(WNG1)";
+            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+                cell.position.text = @"(WNG2)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(DEF1)";
+            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(DEF2)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR1)";
+            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR2)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(FWD1)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(FWD2)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.GK)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.DEF)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.CTR)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.FWD)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.WING)";
+            else
+                cell.position.text = @" ";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+        {
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(PG)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(SG)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(PF)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SF)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.PG)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.SG)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.CTR)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.PF)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.SF)";
+            else
+                cell.position.text = @" ";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+        {
+            if([[wsClubData objectForKey:@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(C)";
+            else if([[wsClubData objectForKey:@"rb"] isEqualToString:row_player_id])
+                cell.position.text = @"(RF)";
+            else if([[wsClubData objectForKey:@"lb"] isEqualToString:row_player_id])
+                cell.position.text = @"(LF)";
+            else if([[wsClubData objectForKey:@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CF)";
+            else if([[wsClubData objectForKey:@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SS)";
+            else if([[wsClubData objectForKey:@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(P)";
+            else if([[wsClubData objectForKey:@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(1B)";
+            else if([[wsClubData objectForKey:@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(2B)";
+            else if([[wsClubData objectForKey:@"fw3"] isEqualToString:row_player_id])
+                cell.position.text = @"(3B)";
+            else if([[wsClubData objectForKey:@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 1)";
+            else if([[wsClubData objectForKey:@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 2";
+            else if([[wsClubData objectForKey:@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 3)";
+            else if([[wsClubData objectForKey:@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 4)";
+            else if([[wsClubData objectForKey:@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 5)";
+            else
+                cell.position.text = @" ";
+        }
+        else
+        {
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(GK)";
+            else if([wsClubData[@"rb"] isEqualToString:row_player_id])
+                cell.position.text = @"(DR)";
+            else if([wsClubData[@"lb"] isEqualToString:row_player_id])
+                cell.position.text = @"(DL)";
+            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+                cell.position.text = @"(MR)";
+            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+                cell.position.text = @"(ML)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC1)";
+            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC2)";
+            else if([wsClubData[@"cd3"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC3)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC1)";
+            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC2)";
+            else if([wsClubData[@"im3"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC3)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC1)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC2)";
+            else if([wsClubData[@"fw3"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC3)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.GK)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.DCLR)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.MC)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.SC)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.MLR)";
+            else
+                cell.position.text = @" ";
+        }
+	}
+	else
+	{
+		cell.position.text = rowData[@"position"];
+	}
+	
+	return cell;
+}
+
+- (UIButton *)buttonWithTitle:(NSString *)title
+					   target:(id)target
+					 selector:(SEL)selector
+						frame:(CGRect)frame
+						image:(UIImage *)image
+				 imagePressed:(UIImage *)imagePressed
+				darkTextColor:(BOOL)darkTextColor
+{
+	UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	
+	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	
+	[button setTitle:title forState:UIControlStateNormal];
+	if (darkTextColor)
+	{
+		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	}
+	else
+	{
+		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	}
+	
+	UIImage *newImage = [image stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setBackgroundImage:newImage forState:UIControlStateNormal];
+	
+	UIImage *newPressedImage = [imagePressed stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
+	
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+	
+    // in case the parent view draws with a custom color or gradient, use a transparent color
+	button.backgroundColor = [UIColor clearColor];
+	
+	return button;
+}
+
++ (NSString *)urlEncode:(NSString *)str
+{
+	NSString *result = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, nil, CFSTR(":/?#[]@!$&’()*+,;=\""), kCFStringEncodingUTF8));
+	return result;
+}
+
+- (NSString *)urlEnc:(NSString *)str
+{
+	NSString *escaped = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	escaped = [escaped stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
+	escaped = [escaped stringByReplacingOccurrencesOfString:@"/" withString:@"="];
+	escaped = [escaped stringByReplacingOccurrencesOfString:@":" withString:@";"];
+	escaped = [escaped stringByReplacingOccurrencesOfString:@"?" withString:@","];
+	
+	return escaped;
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void)buyProduct:(NSString *)productId :(NSString *)isVirtualMoney :(NSString *)json
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/BuyProductNew/%@/%@/%@/%@",
+					   WS_URL, isVirtualMoney, productId, self.UID, json];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void) importFacebook:(NSString *) fb_uid
+					   :(NSString *) fb_name
+					   :(NSString *) fb_pic
+					   :(NSString *) fb_sex
+					   :(NSString *) fb_email
+{
+	NSString *pic = [self urlEnc:fb_pic];
+	NSString *nm = [self urlEnc:fb_name];
+	NSString *mail = [self urlEnc:fb_email];
+	
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ImportFacebook/%@/%@/%@/%@/%@/%@",
+					   WS_URL, self.UID, fb_uid, nm, pic, fb_sex, mail];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
+	
+}
+
+- (void) changeTraining: (NSString *) trainingId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeTraining/%@/%@",
+					   WS_URL, self.UID, trainingId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+	[self updateClubData];
+}
+
+- (void) changeFormation: (NSString *) formationId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeFormation/%@/%@",
+					   WS_URL, self.UID, formationId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+	[self updateClubData];
+}
+
+- (void) changeTactic: (NSString *) tacticId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeTactic/%@/%@",
+					   WS_URL, self.UID, tacticId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+	[self updateClubData];
+}
+
+- (void)changePlayerFormation:(NSString *)player_id :(NSString *)formation_pos
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangePlayerFormation/%@/%@/%@",
+					   WS_URL, self.UID, player_id, formation_pos];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+	[self updateClubData];
+}
+
+- (void)challengeClub:(NSString *)home :(NSString *)away :(NSString *)win :(NSString *)lose :(NSString *)draw :(NSString *)note
+{
+	NSString *encodedNote = [self urlEnc:note];
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/CreateChallenge/%@/%@/%@/%@/%@/%@",
+					   WS_URL, self.UID, away, win, lose, draw, encodedNote];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (NSString *) doChat:(NSString *)message
+{
+	NSString *encodedMessage = [self urlEnc:message];
+    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
+    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoChat/%@/%@/%@",
+                       WS_URL, club_id, encodedClubName, encodedMessage];
+    
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
+}
+
+- (NSString *) doPost:(NSString *)message
+{
+	NSString *encodedMessage = [self urlEnc:message];
+    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
+    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    NSString *a_id = [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AlliancePost/%@/%@/%@/%@",
+                       WS_URL, a_id, club_id, encodedClubName, encodedMessage];
+    
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
+}
+
+- (NSString *)doBid:(NSString *)player_id :(NSString *)value
+{
+	NSString *encodedValue = [self urlEnc:value];
+    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
+    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@",
+                       WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
+    
+    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
+}
+
+- (void) challengeAccept: (NSString *) match_id
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AcceptChallenge/%@/%@",
+					   WS_URL, match_id, self.UID];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void)sellPlayer:(NSString *)player_value :(NSString *)player_id
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/SellPlayers/%@/%@/%@",
+					   WS_URL, self.UID, player_value, player_id];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void) healPlayer: (NSString *) player_id
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/HealPlayer/%@/%@",
+					   WS_URL, self.UID, player_id];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void) energizePlayer: (NSString *) player_id
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/EnergizePlayer/%@/%@",
+					   WS_URL, self.UID, player_id];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void) buyCoach: (NSString *) coach_id
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/BuyCoachs/%@/%@",
+					   WS_URL, self.UID, coach_id];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+- (void) resetClub
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ResetClub/%@",
+					   WS_URL, self.UID];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	[NSArray arrayWithContentsOfURL:url];
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+- (void) updateCurrentSeasonData
+{
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCurrentSeason",
+					   WS_URL];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	wsCurrentSeasonData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *) getCurrentSeasonData
+{
+	return wsCurrentSeasonData;
+}
+
+- (NSDictionary *) getProductIdentifiers
+{
+	return wsProductIdentifiers;
+}
+
+- (NSDictionary *) getClubData
+{
+	return wsClubData;
+}
+
+- (NSDictionary *) getClubInfoData
+{
+	return wsClubInfoData;
+}
+
+- (void) updateAllClubsData
+{
+	if(!workingAllClubs)
+	{
+		workingAllClubs = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubsSearch", WS_URL];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsAllClubsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingAllClubs = NO;
+	}
+}
+
+- (NSMutableArray *) getAllClubsData
+{
+	return wsAllClubsData;
+}
+
+- (void) updateMapClubsData
+{
+	if(!workingMapClubs)
+	{
+		workingMapClubs = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsMapClubsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingMapClubs = NO;
+	}
+}
+
+- (NSMutableArray *) getMapClubsData
+{
+	return wsMapClubsData;
+}
+
+- (void) updateSquadData: (NSString *) clubId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
+                       WS_URL, clubId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsSquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getSquadData
+{
+	return wsSquadData;
+}
+
+- (void) updateMySquadData
+{
+	workingSquad = 1;
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
+					   WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsMySquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	workingSquad = 0;
+}
+
+- (NSMutableArray *) getMySquadData
+{
+	return wsMySquadData;
+}
+
+- (NSMutableArray *) getMyAchievementsData
+{
+	return wsMyAchievementsData;
+}
+
+- (void) updateAllianceData
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAlliance",
+					   WS_URL];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsAllianceData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getAllianceData
+{
+	return wsAllianceData;
+}
+
+- (NSInteger)getAchievementsBadge
+{
+	int count = 0;
+	
+	if([wsMyAchievementsData count] > 0)
+	{
+		for(NSDictionary *rowData in wsMyAchievementsData)
+		{
+			if(![rowData[@"club_id"] isEqualToString:@"0"])
+			{
+                if([rowData[@"claimed"] isEqualToString:@"False"])
+                {
+                    count = count + 1;
+                }
+			}
+		}
+	}
+	
+	return count;
+}
+
+- (void) updateProducts
+{
+	if(!workingProducts)
+	{
+		workingProducts = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetProducts", WS_URL];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsProductsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingProducts = NO;
+	}
+}
+
+- (NSMutableArray *) getProducts
+{
+	return wsProductsData;
+}
+
+- (void) updatePlayerSaleData
+{
+	if(!workingPlayerSale)
+	{
+		workingPlayerSale = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayersBid", WS_URL];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsPlayerSaleData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingPlayerSale = NO;
+	}
+}
+
+- (NSMutableArray *) getPlayerSaleData
+{
+	return wsPlayerSaleData;
+}
+
+- (void) updateCoachData
+{
+	if(!workingCoach)
+	{
+		workingCoach = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCoaches", WS_URL];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsCoachData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingCoach = NO;
+	}
+}
+
+- (NSMutableArray *) getCoachData
+{
+	return wsCoachData;
+}
+
+- (void) updatePlayerInfoData: (NSString *) playerId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayerInfo/%@",
+					   WS_URL, playerId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	wsPlayerInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *) getPlayerInfoData
+{
+	return wsPlayerInfoData;
+}
+
+- (void) updateMatchInfoData: (NSString *) matchId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchInfo/%@",
+					   WS_URL, matchId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	wsMatchInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *) getMatchInfoData
+{
+	return wsMatchInfoData;
+}
+
+- (void) updateMatchData
+{
+	if(!workingMatchFuture)
+	{
+		workingMatchFuture = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchUpcomings/%@",
+                           WS_URL, self.UID];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsMatchData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingMatchFuture = NO;
+	}
+}
+
+- (NSMutableArray *) getMatchData
+{
+	return wsMatchData;
+}
+
+- (void) updateMatchPlayedData
+{
+	if(!workingMatchPlayed)
+	{
+		workingMatchPlayed = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchPlayeds/%@",
+                           WS_URL, self.UID];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsMatchPlayedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingMatchPlayed = NO;
+	}
+}
+
+- (NSMutableArray *) getMatchPlayedData
+{
+	return wsMatchPlayedData;
+}
+
+- (void) updateMatchHighlightsData: (NSString *) matchId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchHighlights/%@",
+					   WS_URL, matchId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsMatchHighlightsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getMatchHighlightsData
+{
+	return wsMatchHighlightsData;
+}
+
+- (void) updateChallengesData
+{
+	if(!workingChallenges)
+	{
+		workingChallenges = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallenge/%@",
+                           WS_URL, self.UID];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsChallengesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingChallenges = NO;
+	}
+}
+
+- (NSMutableArray *) getChallengesData
+{
+	return wsChallengesData;
+}
+
+- (void) updateChallengedData
+{
+	if(!workingChallenged)
+	{
+		workingChallenged = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallengeds/%@",
+                           WS_URL, self.UID];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsChallengedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingChallenged = NO;
+	}
+}
+
+- (NSMutableArray *) getChallengedData
+{
+	return wsChallengedData;
+}
+
+- (void) updateLeagueData: (NSString *) division : (NSString *) series
+{
+	if(!workingLeague)
+	{
+		workingLeague = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetSeries/%@/%@",
+                           WS_URL, division, series];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsLeagueData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingLeague = NO;
+	}
+}
+
+- (NSMutableArray *) getLeagueData
+{
+	return wsLeagueData;
+}
+
+- (void) updatePromotionData: (NSString *) division
+{
+	if(!workingPromotion)
+	{
+		workingPromotion = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeaguePromotion/%@",
+                           WS_URL, division];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsPromotionData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingPromotion = NO;
+	}
+}
+
+- (NSMutableArray *) getPromotionData
+{
+	return wsPromotionData;
+}
+
+- (void) updateLeagueScorersData: (NSString *) division : (NSString *) top
+{
+	if(!workingLeagueScorers)
+	{
+		workingLeagueScorers = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeagueTopScorers/%@/%@",
+                           WS_URL, division, top];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsLeagueScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingLeagueScorers = NO;
+	}
+}
+
+- (NSMutableArray *) getLeagueScorersData
+{
+	return wsLeagueScorersData;
+}
+
+- (void) updateMatchFixturesData: (NSString *) division : (NSString *) series
+{
+	if(!workingLeagueFixtures)
+	{
+		workingLeagueFixtures = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchFixtures/%@/%@",
+                           WS_URL, division, series];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsMatchFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingLeagueFixtures = NO;
+	}
+}
+
+- (NSMutableArray *) getMatchFixturesData
+{
+	return wsMatchFixturesData;
+}
+
+- (void) updateCupRounds
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupRounds", WS_URL];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	wsCupRounds = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *) getCupRounds
+{
+	return wsCupRounds;
+}
+
+- (void) updateCupFixturesData:(NSString *)round
+{
+	if(!workingCupFixtures)
+	{
+		workingCupFixtures = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupFixtures/%@",
+						   WS_URL, round];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingCupFixtures = NO;
+	}
+}
+
+- (NSMutableArray *) getCupFixturesData
+{
+	return wsCupFixturesData;
+}
+
+- (void) updateAllianceCupFixturesData:(NSString *)round
+{
+	if(!workingAllianceCupFixtures)
+	{
+		workingAllianceCupFixtures = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
+						   WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], round];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingAllianceCupFixtures = NO;
+	}
+}
+
+- (NSMutableArray *) getAllianceCupFixturesData
+{
+	return wsAllianceCupFixturesData;
+}
+
+- (void) updateCupScorersData: (NSString *) top
+{
+	if(!workingCupScorers)
+	{
+		workingCupScorers = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupTopScorers/%@",
+                           WS_URL, top];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsCupScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingCupScorers = NO;
+	}
+}
+
+- (NSMutableArray *) getCupScorersData
+{
+	return wsCupScorersData;
+}
+
+- (void) updateTrophyData: (NSString *) clubId
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetTrophy/%@",
+					   WS_URL, clubId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsTrophyData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getTrophyData
+{
+	return wsTrophyData;
+}
+
+- (NSString *) getLast1Chat
+{
+    int i = [wsChatFullData count];
+    if (i==0)
+    {
+        return @"0"; //tells server to fetch most current
+    }
+    else
+    {
+        NSDictionary *rowData = wsChatFullData[i-1];
+        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
+                             rowData[@"club_name"],
+                             rowData[@"message"]];
+        return message;
+    }
+}
+
+- (NSString *) getLast2Chat
+{
+    int i = [wsChatFullData count];
+    if (i<2)
+    {
+        return @"0"; //tells server to fetch most current
+    }
+    else
+    {
+        NSDictionary *rowData = wsChatFullData[i-2];
+        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
+                             rowData[@"club_name"],
+                             rowData[@"message"]];
+        rowData = wsChatFullData[i-1];
+        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
+                   message,
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
+        return message;
+    }
+}
+
+- (NSString *) getLast3Chat
+{
+    int i = [wsChatFullData count];
+    if (i<3)
+    {
+        return @"0"; //tells server to fetch most current
+    }
+    else
+    {
+        NSDictionary *rowData = wsChatFullData[i-3];
+        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
+                             rowData[@"club_name"],
+                             rowData[@"message"]];
+        rowData = wsChatFullData[i-2];
+        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
+                   message,
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
+        rowData = wsChatFullData[i-1];
+        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
+                   message,
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
+        return message;
+    }
+}
+
+- (NSMutableArray *) getChatData
+{
+	return wsChatData;
+}
+
+- (void) updateNewsData: (NSString *) division : (NSString *) series : (NSString *) playing_cup
+{
+	if(!workingNews)
+	{
+		workingNews = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
+                           WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingNews = NO;
+	}
+}
+
+- (NSMutableArray *) getNewsData
+{
+	return wsNewsData;
+}
+
+- (void) updateWallData
+{
+	if(!workingWall)
+	{
+		workingWall = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
+                           WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingWall = NO;
+	}
+}
+
+- (NSMutableArray *) getWallData
+{
+	return wsWallData;
+}
+
+- (void) updateEventsData
+{
+	if(!workingEvents)
+	{
+		workingEvents = YES;
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
+                           WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+		NSURL *url = [[NSURL alloc] initWithString:wsurl];
+		wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+		workingEvents = NO;
+	}
+}
+
+- (NSMutableArray *) getEventsData
+{
+	return wsEventsData;
+}
+
+- (void) updateDonationsData
+{
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceDonations/%@",
+                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getDonationsData
+{
+	return wsDonationsData;
+}
+
+- (void) updateAppliedData
+{
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceApply/%@",
+                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getAppliedData
+{
+	return wsAppliedData;
+}
+
+- (void) updateMembersData
+{
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceMembers/%@",
+                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getMembersData
+{
+	return wsMembersData;
+}
+
+- (void) updateMarqueeData: (NSString *) division : (NSString *) series : (NSString *) playing_cup
+{
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMarquee/%@/%@/%@/%@",
+                       WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
+
+- (NSMutableArray *) getMarqueeData
+{
+	return wsMarqueeData;
 }
 
 @end

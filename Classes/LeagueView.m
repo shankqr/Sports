@@ -51,7 +51,7 @@
     
 	if(([Globals i].selectedDivision == 0)&&([Globals i].selectedSeries == 0))
 	{	
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getHomeLeagueData) toTarget:self withObject:nil];
 	}
     else
@@ -85,7 +85,7 @@
 	if(!(([Globals i].selectedDivision == [[[Globals i] getClubData][@"division"] intValue])&&
 		 ([Globals i].selectedSeries == [[[Globals i] getClubData][@"series"] intValue])))
 	{	
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getHomeLeagueData) toTarget:self withObject:nil];
 	}
 }
@@ -113,7 +113,7 @@
 			if(!(([Globals i].selectedDivision == dialogDivision)&&
 				 ([Globals i].selectedSeries == dialogSeries)))
 			{
-				[[Globals i] showLoadingAlert:self.view];
+				[[Globals i] showLoadingAlert];
 				[Globals i].selectedDivision = dialogDivision;
 				[Globals i].selectedSeries = dialogSeries;
 				[NSThread detachNewThreadSelector: @selector(getLeagueData) toTarget:self withObject:nil];
@@ -155,7 +155,7 @@
 		maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
 		[table reloadData];
 		
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 
@@ -170,7 +170,7 @@
 		maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
 		[table reloadData];
 		
-		[[Globals i] removeLoadingAlert:self.view];
+		[[Globals i] removeLoadingAlert];
 	}
 }
 

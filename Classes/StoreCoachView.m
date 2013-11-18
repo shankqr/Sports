@@ -42,14 +42,14 @@
 {    
 	if([[[Globals i] getCoachData] count] < 1)
 	{
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getProductCoach) toTarget:self withObject:nil];
 	}
 }
 
 - (void)forceUpdate
 {
-	[[Globals i] showLoadingAlert:self.view];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getProductCoach) toTarget:self withObject:nil];
 }
 
@@ -73,7 +73,7 @@
 			[discardedItems removeAllObjects];
 		
 			[table reloadData];
-			[[Globals i] removeLoadingAlert:self.view];
+			[[Globals i] removeLoadingAlert];
 		}
 	
 	}

@@ -12,6 +12,7 @@
 #import "Globals.h"
 #import "MainView.h"
 #import "BidView.h"
+#import "PlayerCell.h"
 
 @implementation StorePlayerView
 @synthesize mainView;
@@ -46,7 +47,7 @@
 	if(!workingPlayerSale)
 	{
 		[table removeFromSuperview];
-		[[Globals i] showLoadingAlert:self.view];
+		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getProductPlayer) toTarget:self withObject:nil];
 	}
 }
@@ -62,7 +63,7 @@
 		{
 			[self.view addSubview:table];
 			[table reloadData];
-			[[Globals i] removeLoadingAlert:self.view];
+			[[Globals i] removeLoadingAlert];
 		}
 		workingPlayerSale = NO;
 	
