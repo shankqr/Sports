@@ -13,18 +13,12 @@
 @implementation FormationView
 @synthesize mainView;
 @synthesize segment;
+@synthesize ivBackground;
 @synthesize fid;
 @synthesize squadSelecter;
 @synthesize selectedPlayer;
 @synthesize nwPlayer;
 @synthesize selectedPos;
-
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
 
 -(void)updateView
 {
@@ -36,8 +30,33 @@
 	{
 		[[Globals i] updateMySquadData];
 	}
+    
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [self showFormation];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        //TODO: Construct segment limit to 3 pos type
+        
+        [self showFormation];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        [segment setEnabled:NO];
+        [segment setHidden:YES];
+        
+        [self createPos1];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        [segment setEnabled:NO];
+        [segment setHidden:YES];
+        
+        [self createPos1];
+    }
 	
-	[self showFormation];
+	
 }
 
 - (void)showFormation
@@ -285,90 +304,131 @@
 
 - (void)createPos1 //4-4-2
 {
-	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-    
-    [self addPosButton:@"rb" label:@"DR" tag:2 posx:Subs_x2 posy:Pos_y2];
-	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x3 posy:Pos_y2];
-	[self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x4 posy:Pos_y2];
-	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Subs_x5 posy:Pos_y2];
-    
-    [self addPosButton:@"rw" label:@"MR" tag:7 posx:Subs_x2 posy:Pos_y3];
-	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x3 posy:Pos_y3];
-	[self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x4 posy:Pos_y3];
-	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Subs_x5 posy:Pos_y3];
-	
-	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x3 posy:Pos_y4];
-	[self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x4 posy:Pos_y4];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
+        [self addPosButton:@"rb" label:@"DR" tag:2 posx:Subs_x2 posy:Pos_y2];
+        [self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x3 posy:Pos_y2];
+        [self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x4 posy:Pos_y2];
+        [self addPosButton:@"lb" label:@"DL" tag:6 posx:Subs_x5 posy:Pos_y2];
+        [self addPosButton:@"rw" label:@"MR" tag:7 posx:Subs_x2 posy:Pos_y3];
+        [self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x3 posy:Pos_y3];
+        [self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x4 posy:Pos_y3];
+        [self addPosButton:@"lw" label:@"ML" tag:11 posx:Subs_x5 posy:Pos_y3];
+        [self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x3 posy:Pos_y4];
+        [self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x4 posy:Pos_y4];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1_hockey posy:Pos_y1_hockey];
+        [self addPosButton:@"cd1" label:@"DEF1" tag:3 posx:Subs_x3_hockey posy:Pos_y2_hockey];
+        [self addPosButton:@"cd2" label:@"DEF2" tag:4 posx:Subs_x4_hockey posy:Pos_y2_hockey];
+        [self addPosButton:@"im1" label:@"CENTER" tag:8 posx:Subs_x1_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"fw1" label:@"FWD1" tag:12 posx:Subs_x3_hockey posy:Pos_y4_hockey];
+        [self addPosButton:@"fw2" label:@"FWD2" tag:13 posx:Subs_x4_hockey posy:Pos_y4_hockey];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        [self addPosButton:@"gk" label:@"Point Guard" tag:1 posx:136*SCALE_IPAD posy:290*SCALE_IPAD];
+        [self addPosButton:@"cd1" label:@"Shooting Guard" tag:2 posx:236*SCALE_IPAD posy:240*SCALE_IPAD];
+        [self addPosButton:@"im1" label:@"Center" tag:3 posx:56*SCALE_IPAD posy:190*SCALE_IPAD];
+        [self addPosButton:@"fw1" label:@"Power Forward" tag:4 posx:236*SCALE_IPAD posy:138*SCALE_IPAD];
+        [self addPosButton:@"fw2" label:@"Small Forward" tag:5 posx:35*SCALE_IPAD posy:110*SCALE_IPAD];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        [self addPosButton:@"gk" label:@"" tag:1 posx:Pos_x1_baseball posy:Pos_y1_baseball];
+        [self addPosButton:@"fw3" label:@"" tag:2 posx:Pos_x2_baseball posy:Pos_y2_baseball];
+        [self addPosButton:@"im1" label:@"" tag:3 posx:Pos_x1_baseball posy:Pos_y2_baseball];
+        [self addPosButton:@"fw1" label:@"" tag:4 posx:Pos_x3_baseball posy:Pos_y2_baseball];
+        [self addPosButton:@"cd2" label:@"" tag:5 posx:Pos_x4_baseball posy:Pos_y3_baseball];
+        [self addPosButton:@"fw2" label:@"" tag:6 posx:Pos_x5_baseball posy:Pos_y3_baseball];
+        [self addPosButton:@"lb" label:@"" tag:7 posx:Pos_x6_baseball posy:Pos_y4_baseball];
+        [self addPosButton:@"rb" label:@"" tag:8 posx:Pos_x7_baseball posy:Pos_y4_baseball];
+        [self addPosButton:@"cd1" label:@"" tag:9 posx:Pos_x1_baseball posy:Pos_y5_baseball];
+    }
 }
 
 - (void)createPos2 //4-3-3
 {
-	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
-    [self addPosButton:@"rb" label:@"DR" tag:2 posx:Subs_x2 posy:Pos_y2];
-	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x3 posy:Pos_y2];
-	[self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x4 posy:Pos_y2];
-	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Subs_x5 posy:Pos_y2];
-	
-	[self addPosButton:@"rw" label:@"MR" tag:7 posx:Pos_x1 posy:Pos_y3];
-	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x1 posy:Pos_y3];
-	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Pos_x2 posy:Pos_y3];
-	
-	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Pos_x1 posy:Pos_y4];
-	[self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x1 posy:Pos_y4];
-	[self addPosButton:@"fw3" label:@"SC3" tag:14 posx:Pos_x2 posy:Pos_y4];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
+        [self addPosButton:@"rb" label:@"DR" tag:2 posx:Subs_x2 posy:Pos_y2];
+        [self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x3 posy:Pos_y2];
+        [self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x4 posy:Pos_y2];
+        [self addPosButton:@"lb" label:@"DL" tag:6 posx:Subs_x5 posy:Pos_y2];
+        [self addPosButton:@"rw" label:@"MR" tag:7 posx:Pos_x1 posy:Pos_y3];
+        [self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x1 posy:Pos_y3];
+        [self addPosButton:@"lw" label:@"ML" tag:11 posx:Pos_x2 posy:Pos_y3];
+        [self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Pos_x1 posy:Pos_y4];
+        [self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x1 posy:Pos_y4];
+        [self addPosButton:@"fw3" label:@"SC3" tag:14 posx:Pos_x2 posy:Pos_y4];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1_hockey posy:Pos_y1_hockey];
+        [self addPosButton:@"cd1" label:@"DEFENCE" tag:3 posx:Subs_x1_hockey posy:Pos_y2_hockey];
+        [self addPosButton:@"im1" label:@"CTR1" tag:8 posx:Subs_x3_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"im2" label:@"CTR2" tag:9 posx:Subs_x4_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"fw1" label:@"FWD1" tag:12 posx:Subs_x3_hockey posy:Pos_y4_hockey];
+        [self addPosButton:@"fw2" label:@"FWD2" tag:13 posx:Subs_x4_hockey posy:Pos_y4_hockey];
+    }
 }
 
 - (void)createPos3 //3-4-3
 {
-	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
-	[self addPosButton:@"rb" label:@"DR" tag:2 posx:Pos_x1 posy:Pos_y2];
-	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x1 posy:Pos_y2];
-	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Pos_x2 posy:Pos_y2];
-	
-    [self addPosButton:@"rw" label:@"MR" tag:7 posx:Subs_x2 posy:Pos_y3];
-	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x3 posy:Pos_y3];
-	[self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x4 posy:Pos_y3];
-	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Subs_x5 posy:Pos_y3];
-	
-	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Pos_x1 posy:Pos_y4];
-	[self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x1 posy:Pos_y4];
-	[self addPosButton:@"fw3" label:@"SC3" tag:14 posx:Pos_x2 posy:Pos_y4];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
+        [self addPosButton:@"rb" label:@"DR" tag:2 posx:Pos_x1 posy:Pos_y2];
+        [self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x1 posy:Pos_y2];
+        [self addPosButton:@"lb" label:@"DL" tag:6 posx:Pos_x2 posy:Pos_y2];
+        [self addPosButton:@"rw" label:@"MR" tag:7 posx:Subs_x2 posy:Pos_y3];
+        [self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x3 posy:Pos_y3];
+        [self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x4 posy:Pos_y3];
+        [self addPosButton:@"lw" label:@"ML" tag:11 posx:Subs_x5 posy:Pos_y3];
+        [self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Pos_x1 posy:Pos_y4];
+        [self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x1 posy:Pos_y4];
+        [self addPosButton:@"fw3" label:@"SC3" tag:14 posx:Pos_x2 posy:Pos_y4];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1_hockey posy:Pos_y1_hockey];
+        [self addPosButton:@"cd1" label:@"DEFENCE" tag:3 posx:Subs_x1_hockey posy:Pos_y2_hockey];
+        [self addPosButton:@"rw" label:@"WNG1" tag:7 posx:Subs_x2_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"im1" label:@"CTR1" tag:8 posx:Subs_x3_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"im2" label:@"CTR2" tag:9 posx:Subs_x4_hockey posy:Pos_y3_hockey];
+        [self addPosButton:@"lw" label:@"WNG2" tag:11 posx:Subs_x5_hockey posy:Pos_y3_hockey];
+    }
 }
 
 - (void)createPos4 //5-4-1
 {
 	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
 	[self addPosButton:@"rb" label:@"DR" tag:2 posx:Pos_x3 posy:Pos_y2];
 	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Pos_x4 posy:Pos_y2];
 	[self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x1 posy:Pos_y2];
 	[self addPosButton:@"cd3" label:@"DC3" tag:5 posx:Pos_x5 posy:Pos_y2];
 	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Pos_x6 posy:Pos_y2];
-	
     [self addPosButton:@"rw" label:@"MR" tag:7 posx:Subs_x2 posy:Pos_y3];
 	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x3 posy:Pos_y3];
 	[self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x4 posy:Pos_y3];
 	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Subs_x5 posy:Pos_y3];
-	
 	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x1 posy:Pos_y4];
 }
 
 - (void)createPos5 //5-3-2
 {
 	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
 	[self addPosButton:@"rb" label:@"DR" tag:2 posx:Pos_x3 posy:Pos_y2];
 	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Pos_x4 posy:Pos_y2];
 	[self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x1 posy:Pos_y2];
 	[self addPosButton:@"cd3" label:@"DC3" tag:5 posx:Pos_x5 posy:Pos_y2];
 	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Pos_x6 posy:Pos_y2];
-	
 	[self addPosButton:@"rw" label:@"MR" tag:7 posx:Pos_x1 posy:Pos_y3];
 	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Subs_x1 posy:Pos_y3];
 	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Pos_x2 posy:Pos_y3];
-	
 	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x3 posy:Pos_y4];
 	[self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x4 posy:Pos_y4];
 }
@@ -376,17 +436,14 @@
 - (void)createPos6 //3-5-2
 {
 	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
 	[self addPosButton:@"rb" label:@"DR" tag:2 posx:Pos_x1 posy:Pos_y2];
 	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x1 posy:Pos_y2];
 	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Pos_x2 posy:Pos_y2];
-	
 	[self addPosButton:@"rw" label:@"MR" tag:7 posx:Pos_x3 posy:Pos_y3];
 	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Pos_x4 posy:Pos_y3];
 	[self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x1 posy:Pos_y3];
 	[self addPosButton:@"im3" label:@"MC3" tag:10 posx:Pos_x5 posy:Pos_y3];
 	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Pos_x6 posy:Pos_y3];
-	
 	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x3 posy:Pos_y4];
 	[self addPosButton:@"fw2" label:@"SC2" tag:13 posx:Subs_x4 posy:Pos_y4];
 }
@@ -394,18 +451,15 @@
 - (void)createPos7 //4-5-1
 {
 	[self addPosButton:@"gk" label:@"GK" tag:1 posx:Subs_x1 posy:Pos_y1];
-	
     [self addPosButton:@"rb" label:@"DR" tag:2 posx:Subs_x2 posy:Pos_y2];
 	[self addPosButton:@"cd1" label:@"DC1" tag:3 posx:Subs_x3 posy:Pos_y2];
 	[self addPosButton:@"cd2" label:@"DC2" tag:4 posx:Subs_x4 posy:Pos_y2];
 	[self addPosButton:@"lb" label:@"DL" tag:6 posx:Subs_x5 posy:Pos_y2];
-	
 	[self addPosButton:@"rw" label:@"MR" tag:7 posx:Pos_x3 posy:Pos_y3];
 	[self addPosButton:@"im1" label:@"MC1" tag:8 posx:Pos_x4 posy:Pos_y3];
 	[self addPosButton:@"im2" label:@"MC2" tag:9 posx:Subs_x1 posy:Pos_y3];
 	[self addPosButton:@"im3" label:@"MC3" tag:10 posx:Pos_x5 posy:Pos_y3];
 	[self addPosButton:@"lw" label:@"ML" tag:11 posx:Pos_x6 posy:Pos_y3];
-	
 	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x1 posy:Pos_y4];
 }
 

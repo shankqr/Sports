@@ -93,14 +93,13 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
     AllianceDetail *allianceDetail;
     Footer *footerView;
     Menu0 *menu0;
+    MainCell *cell;
 	UITabBarController *storeTabBarController;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *cupTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
 	UITabBarController *myclubTabBarController;
-    BOOL showedFooter;
-	BOOL showedChallenge;
 	UITextField *tf;
 	CGFloat posxView;
 	NSTimer *animateViewTimer;
@@ -117,8 +116,9 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	UIAlertView *alertLoading;
     UIButton *loginButton;
     UITableView *mainTableView;
-    MainCell *cell;
     NSInteger currMatchIndex;
+    BOOL showedFooter;
+	BOOL showedChallenge;
 }
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
 @property (nonatomic, strong) AVAudioPlayer *buttonAudio;

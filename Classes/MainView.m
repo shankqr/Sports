@@ -54,6 +54,7 @@
 #import <Accounts/Accounts.h>
 #import "Sparrow.h"
 #import "Game.h"
+#import "Game_hockey.h"
 
 @implementation MainView
 @synthesize gameSession;
@@ -343,7 +344,7 @@
     
     [self.stadiumView.view removeFromSuperview];
 	
-	NSString *message = [NSString stringWithFormat:@"I have just upgraded my %@ arena. Come over and play a match with me.", SPORTS_TYPE];
+	NSString *message = @"I have just upgraded my arena. Come over and play a match with me.";
 	NSString *extra_desc = @"A big portion of club revenue comes from ticket sales of matches played at your stadium. Upgrade your stadium to increase seating capacity and average ticket price per match. ";
 	NSString *imagename = @"upgrade_stadium.png";
 	[self FallbackPublishStory:message:extra_desc:imagename];
@@ -362,7 +363,7 @@
 	[self updateHeader];
 	[self.staffView updateView];
 	
-	NSString *message = [NSString stringWithFormat:@"I have just hired more staff for my %@ club. Come over and play a match with me.", SPORTS_TYPE];
+	NSString *message = @"I have just hired more staff for my club. Come over and play a match with me.";
 	NSString *extra_desc = @"You can hire managers, scouts, assistant coaches, accountant1, spokesperson1, psychologist1, physiotherapist1, doctor1. ";
 	NSString *imagename = @"hire_staff.png";
 	[self FallbackPublishStory:message:extra_desc:imagename];
@@ -581,15 +582,30 @@
     
     [self hideHeader];
 	[self hideFooter];
-    [lblMarquee removeFromSuperview];
     
-    [SPAudioEngine start];
-    
-    sparrowView = [[SPViewController alloc] init];
-    sparrowView.multitouchEnabled = YES;
-    [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
-    
-	[superView insertSubview:sparrowView.view atIndex:3];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [lblMarquee removeFromSuperview];
+        [SPAudioEngine start];
+        sparrowView = [[SPViewController alloc] init];
+        sparrowView.multitouchEnabled = YES;
+        [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
+        [superView insertSubview:sparrowView.view atIndex:3];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [lblMarquee removeFromSuperview];
+        [SPAudioEngine start];
+        sparrowView = [[SPViewController alloc] init];
+        sparrowView.multitouchEnabled = YES;
+        [sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:YES];
+        [superView insertSubview:sparrowView.view atIndex:3];
+    }
+    else
+    {
+        [superView insertSubview:matchReport.view atIndex:3];
+        [matchReport redrawView];
+    }
 }
 
 - (void)removeLiveMatch

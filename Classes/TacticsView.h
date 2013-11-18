@@ -15,16 +15,15 @@
     UIPageControl *pageControl;
     NSMutableArray *viewControllers;
 	UIImageView *unlockLogo;
+    NSInteger total_tactics;
     BOOL pageControlUsed;
 }
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) NSString *tid;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
-@property (nonatomic, strong) IBOutlet UIImageView *tacticsLogo;
+@property (readwrite) NSInteger total_tactics;
 @property (nonatomic, strong) IBOutlet UIPageControl *pageControl;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 - (IBAction)changePage:(id)sender;
 - (void)updateView;
-- (void)showTactics;
-- (void)loadScrollViewWithPage:(int)page;
 @end

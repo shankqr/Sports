@@ -47,7 +47,7 @@
     webView.autoresizesSubviews = YES;
     webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
     [webView setDelegate:self];
-    NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@/%@_files/footer.html", CORE_URL, SPORTS_TYPE];
+    NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@_files/footer.html", WS_URL];
     NSURL *url = [NSURL URLWithString:urlAddress];
     NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
     [webView loadRequest:requestObj];

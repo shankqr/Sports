@@ -1,4 +1,5 @@
 
+#import "Defines_hockey.h"
 #import "Goal_hockey.h"
 #import "Player_hockey.h"
 #import "Ball_hockey.h"

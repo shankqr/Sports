@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>Football 11</string>
+	<string>Football</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
@@ -35,6 +35,12 @@
 	<string>5.1</string>
 	<key>FacebookAppID</key>
 	<string>284002820045</string>
+	<key>GAME_ID</key>
+	<string>0</string>
+	<key>GAME_TYPE</key>
+	<string>football</string>
+	<key>GAME_URL</key>
+	<string>http://football.tapfantasy.com/football</string>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
 	<key>NSMainNibFile</key>

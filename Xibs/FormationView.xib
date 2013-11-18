@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FormationView">
             <connections>
+                <outlet property="ivBackground" destination="34" id="U0N-hT-jFM"/>
                 <outlet property="segment" destination="35" id="38"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
@@ -26,8 +27,8 @@
                     <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <items>
                         <barButtonItem style="plain" id="36">
-                            <segmentedControl key="customView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="35" userLabel="Segmented Control - 442, 433, 343, 541, 532, 352, 451">
-                                <rect key="frame" x="16" y="7" width="300" height="30"/>
+                            <segmentedControl key="customView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="35">
+                                <rect key="frame" x="16" y="8" width="300" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="442"/>

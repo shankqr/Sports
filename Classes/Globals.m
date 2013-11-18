@@ -73,10 +73,8 @@
 @synthesize dialogBox;
 
 static Globals *_i;
-static NSString *GameId = @"0";
 
-
-- (id) init
+- (id)init
 {
 	if (self = [super init])
 	{
@@ -85,7 +83,7 @@ static NSString *GameId = @"0";
 	return self;
 }
 
-+ (Globals *) i
++ (Globals *)i
 {
 	if (!_i)
 	{
@@ -95,15 +93,24 @@ static NSString *GameId = @"0";
 	return _i;
 }
 
-- (NSString	*) GameId
+- (NSString	*)GameId
 {
-	return GameId;
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_ID"];
 }
 
-- (NSString	*) UID
+- (NSString	*)GameType
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_TYPE"];
+}
+
+- (NSString	*)GameUrl
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
+}
+
+- (NSString	*)UID
 {
     uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserUID"];
-    
     return uid;
 }
 
@@ -112,6 +119,150 @@ static NSString *GameId = @"0";
     uid = user_uid;
     [[NSUserDefaults standardUserDefaults] setObject:uid forKey:@"UserUID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)PlayerSkill1
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Keeper";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Keeper";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Footwork";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Catching";
+    }
+    else
+    {
+        return @"Keeper";
+    }
+}
+
+- (NSString *)PlayerSkill2
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Defend";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Defend";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Defensive";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Running";
+    }
+    else
+    {
+        return @"Defend";
+    }
+}
+
+- (NSString *)PlayerSkill3
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Playmaking";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Playmaking";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Dribbling";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Pitching";
+    }
+    else
+    {
+        return @"Playmaking";
+    }
+}
+
+- (NSString *)PlayerSkill4
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Attack";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Attack";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Shooting";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Hitting";
+    }
+    else
+    {
+        return @"Attack";
+    }
+}
+
+- (NSString *)PlayerSkill5
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Passing";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Throwing";
+    }
+    else
+    {
+        return @"Passing";
+    }
+}
+
+- (NSString *)PlayerSkill6
+{
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        return @"Fitness";
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        return @"Fitness";
+    }
+    else
+    {
+        return @"Fitness";
+    }
 }
 
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message
@@ -627,47 +778,139 @@ static NSString *GameId = @"0";
 	
 	if(checkPos)
 	{
-        if([wsClubData[@"gk"] isEqualToString:row_player_id])
-            cell.position.text = @"(GK)";
-        else if([wsClubData[@"rb"] isEqualToString:row_player_id])
-            cell.position.text = @"(DR)";
-        else if([wsClubData[@"lb"] isEqualToString:row_player_id])
-            cell.position.text = @"(DL)";
-        else if([wsClubData[@"rw"] isEqualToString:row_player_id])
-            cell.position.text = @"(MR)";
-        else if([wsClubData[@"lw"] isEqualToString:row_player_id])
-            cell.position.text = @"(ML)";
-        else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
-            cell.position.text = @"(DC1)";
-        else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
-            cell.position.text = @"(DC2)";
-        else if([wsClubData[@"cd3"] isEqualToString:row_player_id])
-            cell.position.text = @"(DC3)";
-        else if([wsClubData[@"im1"] isEqualToString:row_player_id])
-            cell.position.text = @"(MC1)";
-        else if([wsClubData[@"im2"] isEqualToString:row_player_id])
-            cell.position.text = @"(MC2)";
-        else if([wsClubData[@"im3"] isEqualToString:row_player_id])
-            cell.position.text = @"(MC3)";
-        else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
-            cell.position.text = @"(SC1)";
-        else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
-            cell.position.text = @"(SC2)";
-        else if([wsClubData[@"fw3"] isEqualToString:row_player_id])
-            cell.position.text = @"(SC3)";
-        else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
-            cell.position.text = @"(Sub.GK)";
-        else if([wsClubData[@"sd"] isEqualToString:row_player_id])
-            cell.position.text = @"(Sub.DCLR)";
-        else if([wsClubData[@"sim"] isEqualToString:row_player_id])
-            cell.position.text = @"(Sub.MC)";
-        else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
-            cell.position.text = @"(Sub.SC)";
-        else if([wsClubData[@"sw"] isEqualToString:row_player_id])
-            cell.position.text = @"(Sub.MLR)";
+        if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+        {
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(GK)";
+            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+                cell.position.text = @"(WNG1)";
+            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+                cell.position.text = @"(WNG2)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(DEF1)";
+            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(DEF2)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR1)";
+            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR2)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(FWD1)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(FWD2)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.GK)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.DEF)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.CTR)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.FWD)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.WING)";
+            else
+                cell.position.text = @" ";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+        {
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(PG)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(SG)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CTR)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(PF)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SF)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.PG)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.SG)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.CTR)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.PF)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(B.SF)";
+            else
+                cell.position.text = @" ";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+        {
+            if([[wsClubData objectForKey:@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(C)";
+            else if([[wsClubData objectForKey:@"rb"] isEqualToString:row_player_id])
+                cell.position.text = @"(RF)";
+            else if([[wsClubData objectForKey:@"lb"] isEqualToString:row_player_id])
+                cell.position.text = @"(LF)";
+            else if([[wsClubData objectForKey:@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(CF)";
+            else if([[wsClubData objectForKey:@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SS)";
+            else if([[wsClubData objectForKey:@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(P)";
+            else if([[wsClubData objectForKey:@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(1B)";
+            else if([[wsClubData objectForKey:@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(2B)";
+            else if([[wsClubData objectForKey:@"fw3"] isEqualToString:row_player_id])
+                cell.position.text = @"(3B)";
+            else if([[wsClubData objectForKey:@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 1)";
+            else if([[wsClubData objectForKey:@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 2";
+            else if([[wsClubData objectForKey:@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 3)";
+            else if([[wsClubData objectForKey:@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 4)";
+            else if([[wsClubData objectForKey:@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Bench 5)";
+            else
+                cell.position.text = @" ";
+        }
         else
         {
-            cell.position.text = @" ";
+            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+                cell.position.text = @"(GK)";
+            else if([wsClubData[@"rb"] isEqualToString:row_player_id])
+                cell.position.text = @"(DR)";
+            else if([wsClubData[@"lb"] isEqualToString:row_player_id])
+                cell.position.text = @"(DL)";
+            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+                cell.position.text = @"(MR)";
+            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+                cell.position.text = @"(ML)";
+            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC1)";
+            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC2)";
+            else if([wsClubData[@"cd3"] isEqualToString:row_player_id])
+                cell.position.text = @"(DC3)";
+            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC1)";
+            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC2)";
+            else if([wsClubData[@"im3"] isEqualToString:row_player_id])
+                cell.position.text = @"(MC3)";
+            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC1)";
+            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC2)";
+            else if([wsClubData[@"fw3"] isEqualToString:row_player_id])
+                cell.position.text = @"(SC3)";
+            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.GK)";
+            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.DCLR)";
+            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.MC)";
+            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.SC)";
+            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+                cell.position.text = @"(Sub.MLR)";
+            else
+                cell.position.text = @" ";
         }
 	}
 	else
@@ -958,7 +1201,7 @@ static NSString *GameId = @"0";
 - (void) updateProductIdentifiers
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ProductIdentifiers/%@", 
-					   WS_URL, GameId];
+					   WS_URL, [self GameId]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
 	wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];

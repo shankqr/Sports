@@ -97,7 +97,22 @@
 	NSString *mvalue = [[Globals i] numberFormat:rowData[@"player_value"]]; 
 	cell.playerValue.text = [NSString stringWithFormat:@"$%@/week (Market Value: $%@)", salary, mvalue];
 	
-	cell.position.text = [NSString stringWithFormat:@"(Total Goals: %@)", goals];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        cell.position.text = [NSString stringWithFormat:@"(Total Goals: %@)", goals];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        cell.position.text = [NSString stringWithFormat:@"(Total Goals: %@)", goals];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        cell.position.text = [NSString stringWithFormat:@"(Total Points: %@)", goals];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        cell.position.text = [NSString stringWithFormat:@"(Total Runs: %@)", goals];
+    }
 	
 	int f = ([player_id intValue] % 1000);
 	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];

@@ -5,7 +5,7 @@
 //  Created by Shankar on 6/9/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-#define TACTICS_TOTAL 9
+
 #define ARC4RANDOM_MAX 0x100000000LL
 #define iPad    UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define STAR_FULL (iPad ? @"star.png" : @"star.png")
@@ -71,28 +71,9 @@
 #define LeagueView_cellheight (iPad ? 56.0f : 25.0f)
 #define TacticsView_frame_offset (iPad ? 150.0f : 47.0f)
 #define TacticsView_frame_y (iPad ? 100.0f : 15.0f)
-#define Subs_x1 (iPad ? 324.0f : 130.0f)
-#define Subs_x2 (iPad ? 70.0f : 10.0f)
-#define Subs_x3 (iPad ? 230.0f : 90.0f)
-#define Subs_x4 (iPad ? 400.0f : 170.0f)
-#define Subs_x5 (iPad ? 560.0f : 250.0f)
-#define Subs_y1 (iPad ? 630.0f : 265.0f)
-#define Subs_y2 (iPad ? 780.0f : 340.0f)
-#define Subs_y3 (iPad ? 380.0f : 150.0f)
-#define Pos_y1 (iPad ? 310.0f : 95.0f)
-#define Pos_y2 (iPad ? 460.0f : 170.0f)
-#define Pos_y3 (iPad ? 610.0f : 245.0f)
-#define Pos_y4 (iPad ? 760.0f : 320.0f)
-#define Pos_x1 (iPad ? 164.0f : 50.0f)
-#define Pos_x2 (iPad ? 484.0f : 210.0f)
-#define Pos_x3 (iPad ? 10.0f : 2.0f)
-#define Pos_x4 (iPad ? 164.0f : 66.0f)
-#define Pos_x5 (iPad ? 484.0f : 194.0f)
-#define Pos_x6 (iPad ? 640.0f : 258.0f)
 #define BID_CEILING (iPad ? 381.0f : 191.0f)
 #define BID_BUTTON_WIDTH (iPad ? 144.0f : 72.0f)
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
-#define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
 #define PBAR_SMALL (iPad ? 20.0f : 10.0f)
 #define PBAR_BIG (iPad ? 120.0f : 60.0f)
 #define PBAR1_X (iPad ? 45.0f : 20.0f)
@@ -103,9 +84,9 @@
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
 #define POSX_DECREASE (iPad ? 48.0f : 4.0f)
 #define ARRAY_FLAGS [NSArray arrayWithObjects: @" ", @"Afghanistan", @"Aland Islands", @"Albania", @"Algeria", @"American Samoa", @"Andorra", @"Angola", @"Anguilla", @"Antarctica", @"Antigua and Barbuda", @"Argentina", @"Armenia", @"Aruba", @"Australia", @"Austria", @"Azerbaijan", @"Bahamas", @"Bahrain", @"Bangladesh", @"Barbados", @"Belarus", @"Belgium", @"Belize", @"Benin", @"Bermuda", @"Bhutan", @"BIOT", @"Bolivia", @"Bosnian", @"Botswana", @"Bouvet Island", @"Brazil", @"British Antarctic Territory", @"British Virgin Islands", @"Brunei", @"Bulgaria", @"Burkina Faso", @"Burma", @"Burundi", @"Cambodia", @"Cameroon", @"Canada", @"Cape Verde", @"Cayman Islands", @"CentralAfricanRepublic", @"Chad", @"Chile", @"China", @"Christmas Island", @"Cocos Islands", @"Colombia", @"Comoros", @"Congo", @"Congo Kinshasa", @"Cook Islands", @"Costa Rica", @"Croatian", @"Cuba", @"Cyprus", @"Czech Republic", @"Denmark", @"Djibouti", @"Dominican Republic", @"Dominicana", @"East Timor", @"Ecuador", @"Egypt", @"El Salvador", @"England", @"Equatorial Guinea", @"Eritrea", @"Estonia", @"Ethiopia", @"European Union", @"Ex Yugoslavia", @"Falkland Islands", @"Faroe Islands", @"Fiji", @"Finland", @"France", @"French Polynesia", @"French Southern Territories", @"Gabon", @"Gambia", @"Georgia", @"Germany", @"Ghana", @"Gibraltar", @"Greece", @"Greenland", @"Grenada", @"Guadeloupe", @"Guam", @"Guatemala", @"Guernsey", @"Guinea Bissau", @"Guinea", @"Guyana", @"Haiti", @"Holy see", @"Honduras", @"Hong Kong", @"Hungary", @"Iceland", @"India", @"Indonesia", @"Iran", @"Iraq", @"Ireland", @"Isle of Man", @"Israel", @"Italy", @"Ivory Coast", @"Jamaica", @"Jan Mayen", @"Japan", @"Jarvis Island", @"Jersey", @"Jordan", @"Kazakhstan", @"Kenya", @"Kiribati", @"Korea", @"Kosovo", @"Kuwait", @"Kyrgyzstan", @"Laos", @"Latvia", @"Lebanon", @"Lesotho", @"Liberia", @"Libya", @"Liechtenstein", @"Lithuania", @"Luxembourg", @"Macau", @"Macedonia", @"Madagascar", @"Malawi", @"Malaysia", @"Maldives", @"Mali", @"Malta", @"Marshall Islands", @"Martinique", @"Mauritania", @"Mauritius", @"Mayotte", @"Mexico", @"Micronesia", @"Moldova", @"Monaco", @"Mongolia", @"Montenegro", @"Montserrat", @"Morocco", @"Mozambique", @"Myanmar", @"Namibia", @"Nauru", @"Nepal", @"Netherlands Antilles", @"Netherlands", @"New Caledonia", @"New Zealand", @"Nicaragua", @"Niger", @"Nigeria", @"Niue", @"Norfolk Island", @"North Korea", @"Northern Ireland", @"Northern Mariana Islands", @"Norway", @"Oman", @"Pakistan", @"Palau", @"Palestinian Territory", @"Panama", @"Papua New Guinea", @"Paraguay", @"Peru", @"Philippines", @"Pitcairn", @"Poland", @"Portugal", @"Puerto Rico", @"Qatar", @"Reunion", @"Romania", @"Russia", @"Rwanda", @"Saint Pierre and Miquelon", @"Saint Vincent and the Grenadines", @"Saint Barthelemy", @"Saint Helena Dependencies", @"Saint Helena", @"Saint Kitts and Nevis", @"Saint Lucia", @"Saint Martin", @"Samoa", @"San Marino", @"Sao Tome and Principe", @"Saudi Arabia", @"Scotland", @"Senegal", @"Serbia", @"Seychelles", @"Sierra Leone", @"Singapore", @"Slovakia", @"Slovenia", @"SMOM", @"Solomon Islands", @"Somalia", @"South Africa", @"South Georgia", @"Spain", @"SPM", @"Sri Lanka", @"Sudan", @"Suriname", @"Svalbard", @"SVG", @"Swaziland", @"Sweden", @"Switzerland", @"Syria", @"Taiwan", @"Tajikistan", @"Tanzania", @"Thailand", @"Timor Leste", @"Togo", @"Tokelau", @"Tonga", @"Trinidad and Tobago", @"Tunisia", @"Turkey", @"Turkmenistan", @"Turks and Caicos Islands", @"Tuvalu", @"Uganda", @"Ukraine", @"United Arab Emirates", @"United Kingdom", @"United States", @"Uruguay", @"Uzbekistan", @"Vanuatu", @"Vatican City", @"Venezuela", @"Vietnam", @"Virgin Islands", @"Wales", @"Wallis and Futuna", @"Western Sahara", @"Yemen", @"Zambia", @"Zimbabwe", nil]
-#define CORE_URL @"http://football.tapfantasy.com"
-#define WS_URL CORE_URL "/football"
-#define SPORTS_TYPE @"football"
+#define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
+
+#define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
 #define DEFAULT_FONT @"Febrotesk 4F Unicase Bold"
 #define DEFAULT_FONT_SIZE 18.0f * SCALE_IPAD
@@ -263,9 +244,17 @@
 @property (readwrite) NSInteger energy;
 @property (readwrite) NSTimeInterval offsetServerTimeInterval;
 @property (readwrite) BOOL workingAllClubs;
-+ (Globals *) i;
-- (NSString *) GameId;
-- (NSString *) UID;
++ (Globals *)i;
+- (NSString *)GameId;
+- (NSString *)GameType;
+- (NSString *)GameUrl;
+- (NSString *)UID;
+- (NSString *)PlayerSkill1;
+- (NSString *)PlayerSkill2;
+- (NSString *)PlayerSkill3;
+- (NSString *)PlayerSkill4;
+- (NSString *)PlayerSkill5;
+- (NSString *)PlayerSkill6;
 - (void)setUID:(NSString *)user_uid;
 - (void)showAlertWithTitle:(NSString*)title message:(NSString*)message;
 - (void)showLoadingAlert:(UIView *)view;

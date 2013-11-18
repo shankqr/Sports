@@ -30,7 +30,7 @@
     [webView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
     
 	webView.delegate = self;
-	NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@/%@_files/help.html", CORE_URL, SPORTS_TYPE];
+	NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@_files/help.html", WS_URL];
 	NSURL *url = [NSURL URLWithString:urlAddress];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[webView loadRequest:requestObj];

@@ -13,17 +13,15 @@
 	UITableView *table;
 	NSMutableArray *coaches;
 	UIImageView *trainingImage;
-	UILabel *trainingType;
 	UILabel *teamspirit;
 	UIImageView *pbteamspirit;
 	UILabel *confidence;
 	UIImageView *pbconfidence;
 }
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSMutableArray *coaches;
+@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UIImageView *trainingImage;
-@property (nonatomic, strong) IBOutlet UILabel *trainingType;
 @property (nonatomic, strong) IBOutlet UILabel *teamspirit;
 @property (nonatomic, strong) IBOutlet UIImageView *pbteamspirit;
 @property (nonatomic, strong) IBOutlet UILabel *confidence;

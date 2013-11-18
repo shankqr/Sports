@@ -90,7 +90,26 @@
 {
     [mainView buttonSound];
     
-    if((squadView.players.count > 11) && (![squadView.sold_player_id isEqualToString:squadView.sel_player_id]))
+    NSInteger minimum_player = 11;
+    
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        minimum_player = 11;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        minimum_player = 6;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        minimum_player = 5;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        minimum_player = 9;
+    }
+    
+    if((squadView.players.count > minimum_player) && (![squadView.sold_player_id isEqualToString:squadView.sel_player_id]))
     {
         if([Globals i].energy > 9)
         {
@@ -131,7 +150,7 @@
         [self createDialogBox];
         dialogBox.titleText = @"Assistant Manager";
         dialogBox.whiteText = @"Not enough players";
-        dialogBox.promptText = @"You must have at least 11 players left on your team.";
+        dialogBox.promptText = [NSString stringWithFormat:@"You must have at least %d players left on your team.", minimum_player];
         dialogBox.dialogType = 1;
         [self.view insertSubview:dialogBox.view atIndex:17];
         [dialogBox updateView];
@@ -484,23 +503,23 @@
                 
                 if([returnValue isEqualToString:@"1"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his Defend skills.", squadView.sel_player_name];
+                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill2]];
                 }
                 else if([returnValue isEqualToString:@"2"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his Playmaking skills.", squadView.sel_player_name];
+                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill3]];
                 }
                 else if([returnValue isEqualToString:@"3"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his Attack skills.", squadView.sel_player_name];
+                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill4]];
                 }
                 else if([returnValue isEqualToString:@"4"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his Passing skills.", squadView.sel_player_name];
+                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill5]];
                 }
                 else if([returnValue isEqualToString:@"5"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his Keeper skills.", squadView.sel_player_name];
+                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill1]];
                 }
                 
                 dialogBox.titleText = @"Player Improved";

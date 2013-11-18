@@ -107,9 +107,8 @@
 		NSData *data = [NSData dataWithContentsOfURL:url];
 		UIImage *img = [[UIImage alloc] initWithData:data];
 		[logoImage setImage:img forState:UIControlStateNormal];
-
 	}
-	else 
+	else
 	{
 		NSString *fname = [NSString stringWithFormat:@"c%@.png", logo_url];
 		[logoImage setImage:[UIImage imageNamed:fname] forState:UIControlStateNormal];

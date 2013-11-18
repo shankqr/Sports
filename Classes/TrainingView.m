@@ -16,17 +16,10 @@
 @synthesize table;
 @synthesize coaches;
 @synthesize trainingImage;
-@synthesize trainingType;
 @synthesize teamspirit;
 @synthesize confidence;
 @synthesize pbteamspirit;
 @synthesize pbconfidence;
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
 
 - (void)updateView
 {
@@ -68,13 +61,17 @@
 								  delegate:self
 								  cancelButtonTitle:@"Cancel"
 								  destructiveButtonTitle:nil
-								  otherButtonTitles:@"Keeper", @"Defend", @"Playmaking", @"Attack", @"Passing", @"Fitness", nil];
+								  otherButtonTitles:[[Globals i] PlayerSkill1], [[Globals i] PlayerSkill2], [[Globals i] PlayerSkill3], [[Globals i] PlayerSkill4], [[Globals i] PlayerSkill5], [[Globals i] PlayerSkill6], nil];
 	actionSheet.tag = 0;
 	[actionSheet showInView:self.view];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSString *message = @"I have just changed my team training.";
+    NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
+    NSString *imagename = @"change_training.png";
+    
 	switch(actionSheet.tag)
 	{
 		case 0:
@@ -84,12 +81,7 @@
 				case 0:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
-						
                         [[Globals i] changeTraining:@"1"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}
@@ -97,10 +89,6 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
 						[[Globals i] changeTraining:@"2"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}
@@ -108,10 +96,6 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
 						[[Globals i] changeTraining:@"3"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}
@@ -119,10 +103,6 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
 						[[Globals i] changeTraining:@"4"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}
@@ -130,10 +110,6 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
 						[[Globals i] changeTraining:@"5"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}
@@ -141,10 +117,6 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
 						[[Globals i] changeTraining:@"6"];
-                        
-						NSString *message = @"I have just changed my team training.";
-						NSString *extra_desc = @"Every week you can set what type of training your team should focus on. ";
-						NSString *imagename = @"change_training.png";
 						[mainView FallbackPublishStory:message:extra_desc:imagename];
 					break;
 				}

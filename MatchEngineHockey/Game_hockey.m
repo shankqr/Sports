@@ -1,4 +1,5 @@
 
+#import "Defines_hockey.h"
 #import "Game_hockey.h"
 #import "Player_hockey.h"
 #import "Ball_hockey.h"
@@ -386,7 +387,7 @@
     
     SPTexture *texturename;
     
-    texturename = [SPTexture textureWithContentsOfFile:[NSString stringWithFormat:@"c%@_hockey.png", wsClubHome[@"logo_pic"]]];
+    texturename = [SPTexture textureWithContentsOfFile:[NSString stringWithFormat:@"c%@.png", wsClubHome[@"logo_pic"]]];
     homeLogo = [SPButton buttonWithUpState:texturename];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
@@ -402,7 +403,7 @@
     homeLogo.y = 0;
     [pitch addChild:homeLogo];
     
-    texturename = [SPTexture textureWithContentsOfFile:[NSString stringWithFormat:@"c%@_hockey.png", wsClubAway[@"logo_pic"]]];
+    texturename = [SPTexture textureWithContentsOfFile:[NSString stringWithFormat:@"c%@.png", wsClubAway[@"logo_pic"]]];
     awayLogo = [SPButton buttonWithUpState:texturename];
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {

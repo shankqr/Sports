@@ -13,20 +13,32 @@
 @implementation TacticsView
 @synthesize mainView;
 @synthesize tid;
-@synthesize tacticsLogo;
 @synthesize scrollView;
 @synthesize pageControl;
 @synthesize viewControllers;
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
+@synthesize total_tactics;
 
 - (void)viewDidLoad
 {
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        total_tactics = 9;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        total_tactics = 9;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        total_tactics = 15;
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        total_tactics = 15;
+    }
+    
 	NSMutableArray *controllers = [[NSMutableArray alloc] init];
-    for(unsigned i = 0; i < TACTICS_TOTAL; i++)
+    for(unsigned i = 0; i < total_tactics; i++)
 	{
         [controllers addObject:[NSNull null]];
     }
@@ -34,12 +46,12 @@
 	
     //a page is the width of the scroll view
     scrollView.pagingEnabled = YES;
-    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * TACTICS_TOTAL, scrollView.frame.size.height);
+    scrollView.contentSize = CGSizeMake(scrollView.frame.size.width * total_tactics, scrollView.frame.size.height);
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
     scrollView.scrollsToTop = NO;
     scrollView.delegate = self;
-    pageControl.numberOfPages = TACTICS_TOTAL;	
+    pageControl.numberOfPages = total_tactics;
 }
 
 -(void)updateView
@@ -50,7 +62,7 @@
 - (void)loadScrollViewWithPage:(int)page 
 {
     if (page < 0) return;
-    if (page >= TACTICS_TOTAL) return;
+    if (page >= total_tactics) return;
 	
     UIImageView *controller = viewControllers[page];
     if ((NSNull *)controller == [NSNull null])
@@ -190,7 +202,7 @@
     [[Globals i] updateClubData];
 		
 		NSMutableArray *controllers = [[NSMutableArray alloc] init];
-		for(unsigned i = 0; i < TACTICS_TOTAL; i++)
+		for(unsigned i = 0; i < total_tactics; i++)
 		{
 			[controllers addObject:[NSNull null]];
 		}

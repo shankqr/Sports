@@ -12,6 +12,7 @@
 
 @implementation SubsView
 @synthesize mainView;
+@synthesize ivBackground;
 @synthesize fid;
 @synthesize squadSelecter;
 @synthesize selectedPlayer;
@@ -20,48 +21,51 @@
 
 - (void)createSub
 {
-	[self addPosButton:@"sgk" label:@"GK" tag:1 posx:Subs_x1 posy:Subs_y1];
-	[self addPosButton:@"sd" label:@"Defend" tag:2 posx:Subs_x2 posy:Subs_y2];
-	[self addPosButton:@"sim" label:@"Center" tag:3 posx:Subs_x3 posy:Subs_y2];
-	[self addPosButton:@"sfw" label:@"Forward" tag:4 posx:Subs_x4 posy:Subs_y2];
-	[self addPosButton:@"sw" label:@"Winger" tag:5 posx:Subs_x5 posy:Subs_y2];
-	[self addPosButton:@"captain" label:@"Captain" tag:6 posx:Subs_x2 posy:Subs_y3];
-	[self addPosButton:@"penalty" label:@"Penalty" tag:7 posx:Subs_x3 posy:Subs_y3];
-	[self addPosButton:@"freekick" label:@"Free Kick" tag:8 posx:Subs_x4 posy:Subs_y3];
-	[self addPosButton:@"cornerkick" label:@"Corner Kick" tag:9 posx:Subs_x5 posy:Subs_y3];
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [self addPosButton:@"sgk" label:@"GK" tag:1 posx:Subs_x1 posy:Subs_y1];
+        [self addPosButton:@"sd" label:@"Defend" tag:2 posx:Subs_x2 posy:Subs_y2];
+        [self addPosButton:@"sim" label:@"Center" tag:3 posx:Subs_x3 posy:Subs_y2];
+        [self addPosButton:@"sfw" label:@"Forward" tag:4 posx:Subs_x4 posy:Subs_y2];
+        [self addPosButton:@"sw" label:@"Winger" tag:5 posx:Subs_x5 posy:Subs_y2];
+        [self addPosButton:@"captain" label:@"Captain" tag:6 posx:Subs_x2 posy:Subs_y3];
+        [self addPosButton:@"penalty" label:@"Penalty" tag:7 posx:Subs_x3 posy:Subs_y3];
+        [self addPosButton:@"freekick" label:@"Free Kick" tag:8 posx:Subs_x4 posy:Subs_y3];
+        [self addPosButton:@"cornerkick" label:@"Corner Kick" tag:9 posx:Subs_x5 posy:Subs_y3];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [self addPosButton:@"sgk" label:@"GK" tag:1 posx:Subs_x1_hockey posy:Subs_y1_hockey];
+        [self addPosButton:@"sd" label:@"Defend" tag:2 posx:Subs_x2_hockey posy:Subs_y2_hockey];
+        [self addPosButton:@"sim" label:@"Center" tag:3 posx:Subs_x3_hockey posy:Subs_y2_hockey];
+        [self addPosButton:@"sfw" label:@"Forward" tag:4 posx:Subs_x4_hockey posy:Subs_y2_hockey];
+        [self addPosButton:@"sw" label:@"Winger" tag:5 posx:Subs_x5_hockey posy:Subs_y2_hockey];
+        [self addPosButton:@"captain" label:@"Captain" tag:6 posx:Subs_x2_hockey posy:Subs_y3_hockey];
+        [self addPosButton:@"penalty" label:@"Penalty" tag:7 posx:Subs_x3_hockey posy:Subs_y3_hockey];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        [self addPosButton:@"sgk" label:@"Point Guard" tag:1 posx:136*SCALE_IPAD posy:290*SCALE_IPAD];
+        [self addPosButton:@"sd" label:@"Shooting Guard" tag:2 posx:236*SCALE_IPAD posy:240*SCALE_IPAD];
+        [self addPosButton:@"sim" label:@"Center" tag:3 posx:56*SCALE_IPAD posy:190*SCALE_IPAD];
+        [self addPosButton:@"sfw" label:@"Power Forward" tag:4 posx:236*SCALE_IPAD posy:138*SCALE_IPAD];
+        [self addPosButton:@"sw" label:@"Small Forward" tag:5 posx:35*SCALE_IPAD posy:110*SCALE_IPAD];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        [self addPosButton:@"sgk" label:@"Bench 1" tag:1 posx:Subs_x1_baseball posy:Subs_y1_baseball];
+        [self addPosButton:@"sd" label:@"Bench 2" tag:2 posx:Subs_x2_baseball posy:Subs_y2_baseball];
+        [self addPosButton:@"sim" label:@"Bench 3" tag:3 posx:Subs_x3_baseball posy:Subs_y2_baseball];
+        [self addPosButton:@"sfw" label:@"Bench 4" tag:4 posx:Subs_x4_baseball posy:Subs_y2_baseball];
+        [self addPosButton:@"sw" label:@"Bench 5" tag:5 posx:Subs_x5_baseball posy:Subs_y2_baseball];
+        [self addPosButton:@"captain" label:@"Captain" tag:6 posx:Subs_x2_baseball posy:Subs_y3_baseball];
+    }
 }
 
 - (void)animateChangePos
 {
 	@autoreleasepool {
-	/*
-	if ([self.selectedPos isEqualToString:@"sgk"] || 
-		[self.selectedPos isEqualToString:@"sd"] || 
-		[self.selectedPos isEqualToString:@"sim"] || 
-		[self.selectedPos isEqualToString:@"sfw"] || 
-		[self.selectedPos isEqualToString:@"sw"])
-	{
-		[self swapPos:@"gk"];
-		[self swapPos:@"rb"];
-		[self swapPos:@"cd1"];
-		[self swapPos:@"cd2"];
-		[self swapPos:@"cd3"];
-		[self swapPos:@"lb"];
-		[self swapPos:@"rw"];
-		[self swapPos:@"im1"];
-		[self swapPos:@"im2"];
-		[self swapPos:@"im3"];
-		[self swapPos:@"lw"];
-		[self swapPos:@"fw1"];
-		[self swapPos:@"fw2"];
-		[self swapPos:@"fw3"];
-		[self swapPos:@"sgk"];
-		[self swapPos:@"sd"];
-		[self swapPos:@"sim"];
-		[self swapPos:@"sfw"];
-		[self swapPos:@"sw"];
-	}
-	*/
+
 		[[Globals i] changePlayerFormation:self.nwPlayer :self.selectedPos];
 		[self updateView];
 		[[Globals i] removeLoadingAlert:self.view];
@@ -117,13 +121,6 @@
 	self.selectedPlayer = [self.selectedPlayer stringByReplacingOccurrencesOfString:@"," withString:@""];
 	
 	[self launchSquadSelect];
-}
-
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
 }
 
 -(void)updateView
