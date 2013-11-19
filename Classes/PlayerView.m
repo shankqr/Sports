@@ -74,10 +74,9 @@
 
 - (void)close
 {
-    [self.mainView backSound];
-	[self.mainView showHeader];
-	[self.mainView showFooter];
-	[self.mainView updateHeader];
+	[mainView showHeader];
+	[mainView showFooter];
+	[mainView updateHeader];
     
 	[self.view removeFromSuperview];
 }
@@ -89,8 +88,6 @@
 
 -(IBAction)sellButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     NSInteger minimum_player = 11;
     
     if ([[[Globals i] GameType] isEqualToString:@"football"])
@@ -160,8 +157,6 @@
 
 -(IBAction)energizeButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     if([Globals i].energy > 9)
     {
         [self createDialogBox];
@@ -191,8 +186,6 @@
 
 -(IBAction)healButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     if([Globals i].energy > 9)
     {
         [self createDialogBox];
@@ -222,8 +215,6 @@
 
 -(IBAction)renameButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
     
     if(totalDiamonds > 9)
@@ -281,7 +272,7 @@
         NSString *message = [[NSString alloc] initWithFormat:@"I have just renamed my player %@ to %@", squadView.sel_player_name, text];
         NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might sign up the next super star.";
         NSString *imagename = @"rename_player.png";
-        [mainView FallbackPublishStory:message:extra_desc:imagename];
+        [[Globals i] fbPublishStory:message :extra_desc :imagename];
         
         [dialogBox.view removeFromSuperview];
         [self close];
@@ -308,8 +299,6 @@
 
 - (IBAction)improveButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
     
     if(totalDiamonds > 4)
@@ -343,8 +332,6 @@
 
 - (IBAction)moraleButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
     
     if(totalDiamonds > 2)
@@ -395,7 +382,7 @@
             NSString *message = [[NSString alloc] initWithFormat:@"I have just sold my player %@ for $%@", squadView.sel_player_name, squadView.sel_player_halfvalue];
             NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might buy the next super star.";
             NSString *imagename = @"sold_player.png";
-            [mainView FallbackPublishStory:message:extra_desc:imagename];
+            [[Globals i] fbPublishStory:message :extra_desc :imagename];
             
             [dialogBox.view removeFromSuperview];
             [self close];
@@ -458,7 +445,7 @@
     {
         if (tag == 5) //Yes
         {
-            [mainView addDiamonds];
+            [[Globals i] showBuy];
             [dialogBox.view removeFromSuperview];
             [self close];
         }
@@ -495,7 +482,7 @@
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just sent my player %@ to special training.", squadView.sel_player_name];
                 NSString *extra_desc = @"One of your player skill will level up after special training.";
                 NSString *imagename = @"special_training.png";
-                [mainView FallbackPublishStory:message:extra_desc:imagename];
+                [[Globals i] fbPublishStory:message :extra_desc :imagename];
                 
                 [self updateView:(squadView.players)[squadView.selectedRow]];
                 [dialogBox.view removeFromSuperview];
@@ -564,7 +551,7 @@
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just gave my player %@ a Morale Boost.", squadView.sel_player_name];
                 NSString *extra_desc = @"Your player's morale will increase by 5 after giving a Morale Boost.";
                 NSString *imagename = @"morale_boost.png";
-                [mainView FallbackPublishStory:message:extra_desc:imagename];
+                [[Globals i] fbPublishStory:message :extra_desc :imagename];
                 
                 [self updateView:(squadView.players)[squadView.selectedRow]];
                 [dialogBox.view removeFromSuperview];

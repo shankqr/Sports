@@ -94,8 +94,6 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	
-	[mainView buttonSound];
-	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];
 	//NSString *name = [rowData objectForKey:@"player_name"];

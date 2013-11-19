@@ -68,7 +68,6 @@
 	{
 		case 0: //Played
 		{
-			[mainView buttonSound];
 			self.filter = @"Played";
 			self.matches = [[Globals i] getMatchPlayedData];
 			[table reloadData];
@@ -76,7 +75,6 @@
 		}
 		case 1: //Future
 		{
-			[mainView buttonSound];
 			self.filter = @"Future";
 			self.matches = [[Globals i] getMatchData];
 			[table reloadData];
@@ -84,7 +82,7 @@
 		}
 		case 2: //Challenge
 		{
-			[mainView buttonSound];
+			
 			self.filter = @"Challenge";
             [[Globals i] updateChallengesData];
 			self.matches = [[Globals i] getChallengesData];
@@ -93,7 +91,7 @@
 		}
 		case 3: //Invite
 		{
-			[mainView buttonSound];
+			
 			self.filter = @"Invite";
 			self.matches = [[Globals i] getChallengedData];
 			[table reloadData];
@@ -112,12 +110,12 @@
 			{
 				case 0:
 				{
-					[self.mainView jumpToClubViewer:selected_clubid];
+					[mainView jumpToClubViewer:selected_clubid];
 					break;
 				}
                 case 1: //Challenge
                 {
-                    [self.mainView jumpToChallenge:selected_clubid];
+                    [mainView jumpToChallenge:selected_clubid];
                     break;
                 }
 			}
@@ -130,7 +128,7 @@
 			{
 				case 0:
 				{
-					[self.mainView jumpToClubViewer:selected_clubid];
+					[mainView jumpToClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //Match Report
@@ -138,6 +136,7 @@
                     [Globals i].challengeMatchId = selected_matchid;
                     [mainView hideFooter];
                     [mainView hideHeader];
+                    
                     [mainView reportMatch];
 					break;
 				}
@@ -151,7 +150,7 @@
 			{
 				case 0:
 				{
-					[self.mainView jumpToClubViewer:selected_clubid];
+					[mainView jumpToClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //View challenge
@@ -176,7 +175,7 @@
 			{
 				case 0:
 				{
-					[self.mainView jumpToClubViewer:selected_clubid];
+					[mainView jumpToClubViewer:selected_clubid];
 					break;
 				}
 			}

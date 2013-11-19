@@ -68,20 +68,19 @@
 	{
 		case 0: //Club Info
 		{
-			[self.mainView jumpToClubViewer:selected_clubid];
+			[mainView jumpToClubViewer:selected_clubid];
 			break;
 		}
         case 1: //Challenge
 		{
-			[self.mainView jumpToChallenge:selected_clubid];
+			[mainView jumpToChallenge:selected_clubid];
 			break;
 		}
 	}
 }
 
 -(IBAction)homeButton_tap:(id)sender
-{	
-	[mainView buttonSound];
+{
 	if(!(([Globals i].selectedDivision == [[[Globals i] getClubData][@"division"] intValue])&&
 		 ([Globals i].selectedSeries == [[[Globals i] getClubData][@"series"] intValue])))
 	{	
@@ -92,7 +91,7 @@
 
 -(IBAction)divisionButton_tap:(id)sender
 {
-	[mainView buttonSound];
+	
     [self createDialogBox];
 	dialogBox.titleText = @"Division #";
 	dialogBox.whiteText = @"Please keyin a division number";
@@ -235,7 +234,7 @@
 									  destructiveButtonTitle:nil
 									  otherButtonTitles:@"Club Info", @"Challenge", nil];
 		actionSheet.tag = 1;
-		[actionSheet showFromTabBar:[[self.mainView leagueTabBarController] tabBar]];
+		[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
 	}
 	return nil;
 }

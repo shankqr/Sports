@@ -45,7 +45,7 @@
 	<false/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
-	<key>ReplacementFonts</key>
+	<key>IBCustomFonts</key>
 	<dict>
 		<key>Helvetica</key>
 		<string>Febrotesk 4F Unicase Bold</string>

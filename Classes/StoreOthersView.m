@@ -227,8 +227,6 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	
-	[mainView buttonSound];
-	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.products)[row];
 	NSString *name = rowData[@"name"];
@@ -338,7 +336,7 @@
                               otherButtonTitles:nil];
         [alert show];
         
-        [mainView addFunds];
+        [[Globals i] showBuy];
     }
     else
     {
@@ -362,7 +360,7 @@
                               otherButtonTitles:nil];
         [alert show];
         
-        [mainView addDiamonds];
+        [[Globals i] showBuy];
     }
     else
     {

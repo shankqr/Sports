@@ -46,10 +46,10 @@
 
 - (IBAction)closeButton_tap:(id)sender
 {
-	[mainView backSound];
-	[self.mainView showHeader];
-	[self.mainView showFooter];
-	[self.mainView removeClubViewer];
+	[mainView showHeader];
+	[mainView showFooter];
+    
+	[mainView removeClubViewer];
 }
 
 - (void)clearView
@@ -200,8 +200,8 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-	[mainView buttonSound];
-	[self.mainView jumpToChallenge:[Globals i].selectedClubId];
+	
+	[mainView jumpToChallenge:[Globals i].selectedClubId];
 }
 
 @end

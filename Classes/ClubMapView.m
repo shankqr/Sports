@@ -128,7 +128,7 @@
 	if(annotation.club_id != nil)
 	{
 		NSString *my_club_id = [annotation.club_id stringByReplacingOccurrencesOfString:@"," withString:@""];
-		[self.mainView jumpToClubViewer:my_club_id];
+		[mainView jumpToClubViewer:my_club_id];
 	}
 }
 

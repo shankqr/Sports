@@ -9,11 +9,14 @@
 #import "Globals.h"
 #import "FriendProtocols.h"
 #import "BuyView.h"
+#import "WorldsView.h"
 #import "PlayerCell.h"
 #import "DAAppsViewController.h"
 #import "MMProgressHUD.h"
 #import "JCNotificationCenter.h"
 #import "JCNotificationBannerPresenterSmokeStyle.h"
+#import <Social/Social.h>
+#import <Accounts/Accounts.h>
 
 @implementation Globals
 @synthesize viewControllerStack;
@@ -56,7 +59,7 @@
 @synthesize wsWorldData;
 @synthesize wsWorldsData;
 @synthesize worldsView;
-//@synthesize loginView;
+@synthesize loginView;
 @synthesize lastReportId;
 @synthesize lastMailId;
 @synthesize chatView;
@@ -466,7 +469,6 @@ static NSOperationQueue *connectionQueue;
                         [UIImage imageNamed:@"g1_5.png"]];
     
     [[MMProgressHUD sharedHUD] setOverlayMode:MMProgressHUDWindowOverlayModeLinear];
-    //[[MMProgressHUD sharedHUD] setOverlayMode:MMProgressHUDWindowOverlayModeGradient];
     [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleFade];
     [MMProgressHUD showWithTitle:nil status:nil images:images];
 }
@@ -619,6 +621,22 @@ static NSOperationQueue *connectionQueue;
     [[self peekViewControllerStack].view removeFromSuperview];
     
     [self popViewControllerStack];
+}
+
+- (void)showWorlds
+{
+    if (worldsView == nil)
+    {
+        worldsView = [[WorldsView alloc] initWithStyle:UITableViewStylePlain];
+        worldsView.title = @"Select World 1";
+        [worldsView updateView];
+    }
+    
+    [self showTemplate:@[worldsView] :@"Select World" :1];
+    
+    //Disable the Buy button
+    templateView.buyButton.hidden = YES;
+    templateView.currencyLabel.hidden = YES;
 }
 
 - (void)showBuy
@@ -861,12 +879,12 @@ static NSOperationQueue *connectionQueue;
 
 - (void)buttonSound
 {
-	//[buttonAudio play];
+	[buttonAudio play];
 }
 
 - (void)backSound
 {
-	//[backAudio play];
+	[backAudio play];
 }
 
 - (void)toasterSound
@@ -1092,7 +1110,6 @@ static NSOperationQueue *connectionQueue;
     [[self peekViewControllerStack] dismissViewControllerAnimated:YES completion:nil];
 }
 
-/*
 - (void)showLogin:(LoginBlock)block
 {
     if (loginView == nil)
@@ -1111,115 +1128,31 @@ static NSOperationQueue *connectionQueue;
     
     [loginView updateView];
 }
-*/
 
-- (void)shareButton
+- (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
 {
-    [[Globals i] buttonSound];
-    
-    //NSString *message = @"Check out this very cool App!";
-	//NSString *caption = @"Come on and join in the fun.";
-	//NSString *picture = @"Icon-72.png";
-    
-    //[self NativePublishStory:message :caption :picture];
-    
-    [self showDialog:@"Thank you for sharing this App with your friends."];
-}
-
-// will attempt different approaches depending upon configuration.
-- (void)postStatusUpdate:(NSString *)message
-{
-    // Post a status update to the user's feed via the Graph API, and display an alert view
-    // with the results or an error.
-    
-    NSURL *urlToShare = [NSURL URLWithString:@"http://www.tapfantasy.com/kingdom"];
-    
-    // This code demonstrates 3 different ways of sharing using the Facebook SDK.
-    // The first method tries to share via the Facebook app. This allows sharing without
-    // the user having to authorize your app, and is available as long as the user has the
-    // correct Facebook app installed. This publish will result in a fast-app-switch to the
-    // Facebook app.
-    // The second method tries to share via Facebook's iOS6 integration, which also
-    // allows sharing without the user having to authorize your app, and is available as
-    // long as the user has linked their Facebook account with iOS6. This publish will
-    // result in a popup iOS6 dialog.
-    // The third method tries to share via a Graph API request. This does require the user
-    // to authorize your app. They must also grant your app publish permissions. This
-    // allows the app to publish without any user interaction.
-    
-    // If it is available, we will first try to post using the share dialog in the Facebook app
-    FBAppCall *appCall = [FBDialogs presentShareDialogWithLink:urlToShare
-                                                          name:@"TapFantasy Inc."
-                                                       caption:nil
-                                                   description:message
-                                                       picture:nil
-                                                   clientState:nil
-                                                       handler:^(FBAppCall *call, NSDictionary *results, NSError *error)
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
-                                                           if (error)
-                                                           {
-                                                               NSLog(@"Error: %@", error.description);
-                                                           }
-                                                           else
-                                                           {
-                                                               NSLog(@"Success!");
-                                                           }
-                                                       }];
-    
-    if (!appCall)
-    {
-        // Next try to post using Facebook's iOS6 integration
-        BOOL displayedNativeDialog = [FBDialogs presentOSIntegratedShareDialogModallyFrom:[self peekViewControllerStack]
-                                                                              initialText:message
-                                                                                    image:nil
-                                                                                      url:urlToShare
-                                                                                  handler:nil];
+        SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        [mySLComposerSheet setInitialText:message];
+        [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
+        [mySLComposerSheet addURL:[NSURL URLWithString:@"https://www.tapfantasy.com"]];
+        [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
+         {
+             switch (result)
+             {
+                 case SLComposeViewControllerResultCancelled:
+                     NSLog(@"Post Canceled");
+                     break;
+                 case SLComposeViewControllerResultDone:
+                     NSLog(@"Post Sucessful");
+                     break;
+                 default:
+                     break;
+             }
+         }];
         
-        if (!displayedNativeDialog)
-        {
-            // Lastly, fall back on a request for permissions and a direct post using the Graph API
-            [self performPublishAction:^{
-                FBRequestConnection *connection = [[FBRequestConnection alloc] init];
-                
-                connection.errorBehavior = FBRequestConnectionErrorBehaviorReconnectSession
-                | FBRequestConnectionErrorBehaviorAlertUser
-                | FBRequestConnectionErrorBehaviorRetry;
-                
-                [connection addRequest:[FBRequest requestForPostStatusUpdate:message]
-                     completionHandler:^(FBRequestConnection *connection, id result, NSError *error)
-                {
-                         //Post was successfull or failed!
-                     }];
-                [connection start];
-            }];
-        }
-    }
-}
-
-// Convenience method to perform some action that requires the "publish_actions" permissions.
-- (void)performPublishAction:(void (^)(void))action
-{
-    // we defer request for permission to post to the moment of post, then we check for the permission
-    if ([FBSession.activeSession.permissions indexOfObject:@"publish_actions"] == NSNotFound)
-    {
-        // if we don't already have the permission, then we request it now
-        [FBSession.activeSession requestNewPublishPermissions:@[@"publish_actions"]
-                                              defaultAudience:FBSessionDefaultAudienceFriends
-                                            completionHandler:^(FBSession *session, NSError *error)
-        {
-                                                if (!error)
-                                                {
-                                                    action();
-                                                }
-                                                else if (error.fberrorCategory != FBErrorCategoryUserCancelled)
-                                                {
-                                                    [self showDialog:@"Unable to get permission to post"];
-                                                }
-                                            }];
-    }
-    else
-    {
-        action();
+        [[self peekViewControllerStack] presentViewController:mySLComposerSheet animated:YES completion:nil];
     }
 }
 
@@ -1344,7 +1277,7 @@ static NSOperationQueue *connectionQueue;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"MailData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    //[self.mainView updateMailBadge];
+    //[mainView updateMailBadge];
 }
 
 - (void)addLocalMailData:(NSMutableArray *)rd
@@ -1431,7 +1364,7 @@ static NSOperationQueue *connectionQueue;
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"ReportData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    //[self.mainView updateReportBadge];
+    //[mainView updateReportBadge];
 }
 
 - (void)addLocalReportData:(NSMutableArray *)rd
@@ -1763,7 +1696,7 @@ static NSOperationQueue *connectionQueue;
 {
     [self settSelectedBaseId:base_id];
     [self updateBaseData];
-    //[self.mainView updateView];
+    //[mainView updateView];
 }
 
 - (void)checkVersion:(UIView *)view
@@ -2325,29 +2258,6 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-- (void)showAlertWithTitle:(NSString*)title message:(NSString*)message
-{
-	UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:title
-						  message:message
-						  delegate:self
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
-	[alert show];
-}
-
-- (void)showDialog:(UIView *)view :(NSString *)l1 :(NSString *)l2 :(NSString *)l3 :(NSInteger)type :(DialogBlock)block
-{
-    [self createDialogBox];
-    dialogBox.titleText = l1;
-    dialogBox.whiteText = l2;
-    dialogBox.promptText = l3;
-    dialogBox.dialogType = type;
-    [view addSubview:dialogBox.view];
-    dialogBox.dialogBlock = block;
-    [dialogBox updateView];
-}
-
 - (NSUInteger)getMaxSeries:(NSUInteger)division
 {
 	if(division == 1)
@@ -2782,12 +2692,6 @@ static NSOperationQueue *connectionQueue;
 	return button;
 }
 
-+ (NSString *)urlEncode:(NSString *)str
-{
-	NSString *result = (NSString *) CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, nil, CFSTR(":/?#[]@!$&’()*+,;=\""), kCFStringEncodingUTF8));
-	return result;
-}
-
 - (NSString *)urlEnc:(NSString *)str
 {
 	NSString *escaped = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -2799,8 +2703,6 @@ static NSOperationQueue *connectionQueue;
 	return escaped;
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 - (void)buyProduct:(NSString *)productId :(NSString *)isVirtualMoney :(NSString *)json
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/BuyProductNew/%@/%@/%@/%@",
@@ -2809,24 +2711,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (void) importFacebook:(NSString *) fb_uid
-					   :(NSString *) fb_name
-					   :(NSString *) fb_pic
-					   :(NSString *) fb_sex
-					   :(NSString *) fb_email
-{
-	NSString *pic = [self urlEnc:fb_pic];
-	NSString *nm = [self urlEnc:fb_name];
-	NSString *mail = [self urlEnc:fb_email];
-	
-	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ImportFacebook/%@/%@/%@/%@/%@/%@",
-					   WS_URL, self.UID, fb_uid, nm, pic, fb_sex, mail];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	[NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-	
-}
-
-- (void) changeTraining: (NSString *) trainingId
+- (void)changeTraining:(NSString *)trainingId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeTraining/%@/%@",
 					   WS_URL, self.UID, trainingId];
@@ -2835,7 +2720,7 @@ static NSOperationQueue *connectionQueue;
 	[self updateClubData];
 }
 
-- (void) changeFormation: (NSString *) formationId
+- (void)changeFormation:(NSString *)formationId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeFormation/%@/%@",
 					   WS_URL, self.UID, formationId];
@@ -2844,7 +2729,7 @@ static NSOperationQueue *connectionQueue;
 	[self updateClubData];
 }
 
-- (void) changeTactic: (NSString *) tacticId
+- (void)changeTactic:(NSString *)tacticId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ChangeTactic/%@/%@",
 					   WS_URL, self.UID, tacticId];
@@ -2871,7 +2756,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (NSString *) doChat:(NSString *)message
+- (NSString *)doChat:(NSString *)message
 {
 	NSString *encodedMessage = [self urlEnc:message];
     NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
@@ -2883,7 +2768,7 @@ static NSOperationQueue *connectionQueue;
     return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
-- (NSString *) doPost:(NSString *)message
+- (NSString *)doPost:(NSString *)message
 {
 	NSString *encodedMessage = [self urlEnc:message];
     NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
@@ -2908,7 +2793,7 @@ static NSOperationQueue *connectionQueue;
     return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
-- (void) challengeAccept: (NSString *) match_id
+- (void)challengeAccept:(NSString *)match_id
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AcceptChallenge/%@/%@",
 					   WS_URL, match_id, self.UID];
@@ -2924,7 +2809,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (void) healPlayer: (NSString *) player_id
+- (void)healPlayer:(NSString *)player_id
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/HealPlayer/%@/%@",
 					   WS_URL, self.UID, player_id];
@@ -2932,7 +2817,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (void) energizePlayer: (NSString *) player_id
+- (void)energizePlayer:(NSString *)player_id
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/EnergizePlayer/%@/%@",
 					   WS_URL, self.UID, player_id];
@@ -2940,7 +2825,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (void) buyCoach: (NSString *) coach_id
+- (void)buyCoach:(NSString *)coach_id
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/BuyCoachs/%@/%@",
 					   WS_URL, self.UID, coach_id];
@@ -2948,7 +2833,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (void) resetClub
+- (void)resetClub
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ResetClub/%@",
 					   WS_URL, self.UID];
@@ -2956,9 +2841,7 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-- (void) updateCurrentSeasonData
+- (void)updateCurrentSeasonData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCurrentSeason",
 					   WS_URL];
@@ -2967,27 +2850,27 @@ static NSOperationQueue *connectionQueue;
 	wsCurrentSeasonData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
-- (NSDictionary *) getCurrentSeasonData
+- (NSDictionary *)getCurrentSeasonData
 {
 	return wsCurrentSeasonData;
 }
 
-- (NSDictionary *) getProductIdentifiers
+- (NSDictionary *)getProductIdentifiers
 {
 	return wsProductIdentifiers;
 }
 
-- (NSDictionary *) getClubData
+- (NSDictionary *)getClubData
 {
 	return wsClubData;
 }
 
-- (NSDictionary *) getClubInfoData
+- (NSDictionary *)getClubInfoData
 {
 	return wsClubInfoData;
 }
 
-- (void) updateAllClubsData
+- (void)updateAllClubsData
 {
 	if(!workingAllClubs)
 	{
@@ -2999,12 +2882,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getAllClubsData
+- (NSMutableArray *)getAllClubsData
 {
 	return wsAllClubsData;
 }
 
-- (void) updateMapClubsData
+- (void)updateMapClubsData
 {
 	if(!workingMapClubs)
 	{
@@ -3016,12 +2899,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getMapClubsData
+- (NSMutableArray *)getMapClubsData
 {
 	return wsMapClubsData;
 }
 
-- (void) updateSquadData: (NSString *) clubId
+- (void)updateSquadData:(NSString *)clubId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
                        WS_URL, clubId];
@@ -3029,12 +2912,12 @@ static NSOperationQueue *connectionQueue;
 	wsSquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getSquadData
+- (NSMutableArray *)getSquadData
 {
 	return wsSquadData;
 }
 
-- (void) updateMySquadData
+- (void)updateMySquadData
 {
 	workingSquad = 1;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
@@ -3044,17 +2927,17 @@ static NSOperationQueue *connectionQueue;
 	workingSquad = 0;
 }
 
-- (NSMutableArray *) getMySquadData
+- (NSMutableArray *)getMySquadData
 {
 	return wsMySquadData;
 }
 
-- (NSMutableArray *) getMyAchievementsData
+- (NSMutableArray *)getMyAchievementsData
 {
 	return wsMyAchievementsData;
 }
 
-- (void) updateAllianceData
+- (void)updateAllianceData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAlliance",
 					   WS_URL];
@@ -3062,7 +2945,7 @@ static NSOperationQueue *connectionQueue;
 	wsAllianceData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getAllianceData
+- (NSMutableArray *)getAllianceData
 {
 	return wsAllianceData;
 }
@@ -3088,7 +2971,7 @@ static NSOperationQueue *connectionQueue;
 	return count;
 }
 
-- (void) updateProducts
+- (void)updateProducts
 {
 	if(!workingProducts)
 	{
@@ -3100,12 +2983,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getProducts
+- (NSMutableArray *)getProducts
 {
 	return wsProductsData;
 }
 
-- (void) updatePlayerSaleData
+- (void)updatePlayerSaleData
 {
 	if(!workingPlayerSale)
 	{
@@ -3117,12 +3000,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getPlayerSaleData
+- (NSMutableArray *)getPlayerSaleData
 {
 	return wsPlayerSaleData;
 }
 
-- (void) updateCoachData
+- (void)updateCoachData
 {
 	if(!workingCoach)
 	{
@@ -3134,12 +3017,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getCoachData
+- (NSMutableArray *)getCoachData
 {
 	return wsCoachData;
 }
 
-- (void) updatePlayerInfoData: (NSString *) playerId
+- (void)updatePlayerInfoData:(NSString *)playerId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayerInfo/%@",
 					   WS_URL, playerId];
@@ -3148,12 +3031,12 @@ static NSOperationQueue *connectionQueue;
 	wsPlayerInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
-- (NSDictionary *) getPlayerInfoData
+- (NSDictionary *)getPlayerInfoData
 {
 	return wsPlayerInfoData;
 }
 
-- (void) updateMatchInfoData: (NSString *) matchId
+- (void)updateMatchInfoData:(NSString *)matchId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchInfo/%@",
 					   WS_URL, matchId];
@@ -3162,12 +3045,12 @@ static NSOperationQueue *connectionQueue;
 	wsMatchInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
-- (NSDictionary *) getMatchInfoData
+- (NSDictionary *)getMatchInfoData
 {
 	return wsMatchInfoData;
 }
 
-- (void) updateMatchData
+- (void)updateMatchData
 {
 	if(!workingMatchFuture)
 	{
@@ -3180,12 +3063,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getMatchData
+- (NSMutableArray *)getMatchData
 {
 	return wsMatchData;
 }
 
-- (void) updateMatchPlayedData
+- (void)updateMatchPlayedData
 {
 	if(!workingMatchPlayed)
 	{
@@ -3198,12 +3081,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getMatchPlayedData
+- (NSMutableArray *)getMatchPlayedData
 {
 	return wsMatchPlayedData;
 }
 
-- (void) updateMatchHighlightsData: (NSString *) matchId
+- (void)updateMatchHighlightsData:(NSString *)matchId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchHighlights/%@",
 					   WS_URL, matchId];
@@ -3211,12 +3094,12 @@ static NSOperationQueue *connectionQueue;
 	wsMatchHighlightsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getMatchHighlightsData
+- (NSMutableArray *)getMatchHighlightsData
 {
 	return wsMatchHighlightsData;
 }
 
-- (void) updateChallengesData
+- (void)updateChallengesData
 {
 	if(!workingChallenges)
 	{
@@ -3229,12 +3112,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getChallengesData
+- (NSMutableArray *)getChallengesData
 {
 	return wsChallengesData;
 }
 
-- (void) updateChallengedData
+- (void)updateChallengedData
 {
 	if(!workingChallenged)
 	{
@@ -3247,12 +3130,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getChallengedData
+- (NSMutableArray *)getChallengedData
 {
 	return wsChallengedData;
 }
 
-- (void) updateLeagueData: (NSString *) division : (NSString *) series
+- (void)updateLeagueData:(NSString *)division : (NSString *)series
 {
 	if(!workingLeague)
 	{
@@ -3265,12 +3148,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getLeagueData
+- (NSMutableArray *)getLeagueData
 {
 	return wsLeagueData;
 }
 
-- (void) updatePromotionData: (NSString *) division
+- (void)updatePromotionData:(NSString *)division
 {
 	if(!workingPromotion)
 	{
@@ -3283,12 +3166,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getPromotionData
+- (NSMutableArray *)getPromotionData
 {
 	return wsPromotionData;
 }
 
-- (void) updateLeagueScorersData: (NSString *) division : (NSString *) top
+- (void)updateLeagueScorersData:(NSString *)division :(NSString *)top
 {
 	if(!workingLeagueScorers)
 	{
@@ -3301,12 +3184,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getLeagueScorersData
+- (NSMutableArray *)getLeagueScorersData
 {
 	return wsLeagueScorersData;
 }
 
-- (void) updateMatchFixturesData: (NSString *) division : (NSString *) series
+- (void)updateMatchFixturesData:(NSString *)division :(NSString *)series
 {
 	if(!workingLeagueFixtures)
 	{
@@ -3319,43 +3202,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getMatchFixturesData
+- (NSMutableArray *)getMatchFixturesData
 {
 	return wsMatchFixturesData;
 }
 
-- (void) updateCupRounds
-{
-	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupRounds", WS_URL];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsCupRounds = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-}
-
-- (NSDictionary *) getCupRounds
-{
-	return wsCupRounds;
-}
-
-- (void) updateCupFixturesData:(NSString *)round
-{
-	if(!workingCupFixtures)
-	{
-		workingCupFixtures = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupFixtures/%@",
-						   WS_URL, round];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingCupFixtures = NO;
-	}
-}
-
-- (NSMutableArray *) getCupFixturesData
-{
-	return wsCupFixturesData;
-}
-
-- (void) updateAllianceCupFixturesData:(NSString *)round
+- (void)updateAllianceCupFixturesData:(NSString *)round
 {
 	if(!workingAllianceCupFixtures)
 	{
@@ -3368,30 +3220,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getAllianceCupFixturesData
+- (NSMutableArray *)getAllianceCupFixturesData
 {
 	return wsAllianceCupFixturesData;
 }
 
-- (void) updateCupScorersData: (NSString *) top
-{
-	if(!workingCupScorers)
-	{
-		workingCupScorers = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCupTopScorers/%@",
-                           WS_URL, top];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsCupScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingCupScorers = NO;
-	}
-}
-
-- (NSMutableArray *) getCupScorersData
-{
-	return wsCupScorersData;
-}
-
-- (void) updateTrophyData: (NSString *) clubId
+- (void)updateTrophyData:(NSString *)clubId
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetTrophy/%@",
 					   WS_URL, clubId];
@@ -3399,12 +3233,12 @@ static NSOperationQueue *connectionQueue;
 	wsTrophyData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getTrophyData
+- (NSMutableArray *)getTrophyData
 {
 	return wsTrophyData;
 }
 
-- (NSString *) getLast1Chat
+- (NSString *)getLast1Chat
 {
     int i = [wsChatFullData count];
     if (i==0)
@@ -3421,7 +3255,7 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-- (NSString *) getLast2Chat
+- (NSString *)getLast2Chat
 {
     int i = [wsChatFullData count];
     if (i<2)
@@ -3443,7 +3277,7 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-- (NSString *) getLast3Chat
+- (NSString *)getLast3Chat
 {
     int i = [wsChatFullData count];
     if (i<3)
@@ -3470,12 +3304,12 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-- (NSMutableArray *) getChatData
+- (NSMutableArray *)getChatData
 {
 	return wsChatData;
 }
 
-- (void) updateNewsData: (NSString *) division : (NSString *) series : (NSString *) playing_cup
+- (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
 	if(!workingNews)
 	{
@@ -3488,12 +3322,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getNewsData
+- (NSMutableArray *)getNewsData
 {
 	return wsNewsData;
 }
 
-- (void) updateWallData
+- (void)updateWallData
 {
 	if(!workingWall)
 	{
@@ -3506,12 +3340,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getWallData
+- (NSMutableArray *)getWallData
 {
 	return wsWallData;
 }
 
-- (void) updateEventsData
+- (void)updateEventsData
 {
 	if(!workingEvents)
 	{
@@ -3524,12 +3358,12 @@ static NSOperationQueue *connectionQueue;
 	}
 }
 
-- (NSMutableArray *) getEventsData
+- (NSMutableArray *)getEventsData
 {
 	return wsEventsData;
 }
 
-- (void) updateDonationsData
+- (void)updateDonationsData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceDonations/%@",
                        WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
@@ -3537,12 +3371,12 @@ static NSOperationQueue *connectionQueue;
     wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getDonationsData
+- (NSMutableArray *)getDonationsData
 {
 	return wsDonationsData;
 }
 
-- (void) updateAppliedData
+- (void)updateAppliedData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceApply/%@",
                        WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
@@ -3550,12 +3384,12 @@ static NSOperationQueue *connectionQueue;
     wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getAppliedData
+- (NSMutableArray *)getAppliedData
 {
 	return wsAppliedData;
 }
 
-- (void) updateMembersData
+- (void)updateMembersData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceMembers/%@",
                        WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
@@ -3563,12 +3397,12 @@ static NSOperationQueue *connectionQueue;
     wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getMembersData
+- (NSMutableArray *)getMembersData
 {
 	return wsMembersData;
 }
 
-- (void) updateMarqueeData: (NSString *) division : (NSString *) series : (NSString *) playing_cup
+- (void)updateMarqueeData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMarquee/%@/%@/%@/%@",
                        WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
@@ -3576,7 +3410,7 @@ static NSOperationQueue *connectionQueue;
 	wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (NSMutableArray *) getMarqueeData
+- (NSMutableArray *)getMarqueeData
 {
 	return wsMarqueeData;
 }

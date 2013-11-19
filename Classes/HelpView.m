@@ -43,16 +43,15 @@
 
 - (void)closeHelp
 {
-	[self.mainView showHeader];
-	[self.mainView showFooter];
-	[self.mainView showMarquee];
-	[self.mainView updateHeader];
+	[mainView showHeader];
+	[mainView showFooter];
+	[mainView showMarquee];
+	[mainView updateHeader];
 	[self.view removeFromSuperview];
 }
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
 	[self closeHelp];
 }
 

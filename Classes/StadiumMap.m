@@ -576,20 +576,20 @@
                 [[Globals i] scheduleNotification:[[NSDate date] dateByAddingTimeInterval:1*3600] :@"Manager Office is Ready for Collection!"];
             }
             [UIView commitAnimations];
-            [mainView moneySound];
+            [[Globals i] moneySound];
             
             [mainView updateHeader];
             [self updateView];
         }
         else
         {
-            [mainView showLogin];
+            //[mainView showLogin];
         }
     }
     else
     {
         //Webservice failed
-        [mainView showLogin];
+        //[mainView showLogin];
     }
 }
 
@@ -697,7 +697,7 @@
 
 - (IBAction)changeButton_tap:(id)sender
 {
-    [self.mainView showStadiumUpgrade];
+    [mainView showStadiumUpgrade];
 }
 
 - (IBAction)building1_tap:(id)sender
@@ -710,7 +710,7 @@
     }
     else
     {
-        [self.mainView showBuildingUpgrade:1];
+        [mainView showBuildingUpgrade:1];
     }
 }
 
@@ -723,7 +723,7 @@
     }
     else
     {
-        [self.mainView showBuildingUpgrade:2];
+        [mainView showBuildingUpgrade:2];
     }
 }
 
@@ -736,16 +736,15 @@
     }
     else
     {
-        [self.mainView showBuildingUpgrade:3];
+        [mainView showBuildingUpgrade:3];
     }
 }
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
-	[self.mainView showHeader];
-	[self.mainView showFooter];
-    [self.mainView showMarquee];
+	[mainView showHeader];
+	[mainView showFooter];
+    [mainView showMarquee];
     
 	[self.view removeFromSuperview];
 }

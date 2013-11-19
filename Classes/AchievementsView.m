@@ -46,7 +46,6 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
     [mainView showHeader];
     [self.view removeFromSuperview];
 }
@@ -137,7 +136,7 @@
 
 - (void)buttonPressed:(id)sender
 {
-    [mainView moneySound];
+    [[Globals i] moneySound];
     
     int i = [sender tag];
     NSDictionary *rowData = (self.tasks)[i];
@@ -177,7 +176,7 @@
         NSString *message = [[NSString alloc] initWithFormat:@"I have just completed an achievement called %@ - %@.", name, description];
         NSString *extra_desc = tutorial;
         NSString *imagename = [NSString stringWithFormat:@"achievement/%@.png", image_url];
-        [mainView FallbackPublishStory:message:extra_desc:imagename];
+        [[Globals i] fbPublishStory:message :extra_desc :imagename];
         
         [self createDialogBox];
         dialogBox.titleText = @"Claim Successful!";
@@ -187,7 +186,7 @@
         [self.view insertSubview:dialogBox.view atIndex:17];
         [dialogBox updateView];
         
-        [mainView winSound];
+        [[Globals i] winSound];
     }
 
 }

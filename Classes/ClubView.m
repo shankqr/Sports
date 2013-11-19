@@ -168,8 +168,6 @@
 
 -(IBAction)logoButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     sourceActionSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
                          delegate:self
@@ -182,8 +180,6 @@
 
 -(IBAction)homeButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     sourceActionSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
                          delegate:self
@@ -196,8 +192,6 @@
 
 -(IBAction)awayButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     sourceActionSheet = [[UIActionSheet alloc]
                          initWithTitle:@""
                          delegate:self
@@ -210,8 +204,6 @@
 
 -(IBAction)managerImageButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
 	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
 	{
 		sourceActionSheet = [[UIActionSheet alloc]
@@ -326,7 +318,6 @@
 
 -(IBAction)clubnameButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	[self confirmPurchase];
 }
 
@@ -396,7 +387,7 @@
 
 -(IBAction)resetButton_tap:(id)sender
 {
-	[mainView buttonSound];
+	
     [[Globals i] settPurchasedProduct:@"13"];
 	[mainView buyProduct:[[Globals i] getProductIdentifiers][@"reset"]];
 }

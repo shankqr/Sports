@@ -17,13 +17,6 @@
 @synthesize bonusImage;
 @synthesize bonusLabel;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
-
 -(void)updateView
 {
 	promptLabel.text = promptText;
@@ -45,8 +38,7 @@
 
 - (IBAction)okButton_tap:(id)sender
 {
-    [mainView buttonSound];
-	[self.mainView removeWelcome];
+	[mainView removeWelcome];
 }
 
 @end

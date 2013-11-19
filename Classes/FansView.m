@@ -42,14 +42,12 @@
 
 -(IBAction)hireButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	[self confirmPurchase];
 }
 
 - (IBAction)addfunds_tap:(id)sender
 {
-    [mainView buttonSound];
-    [mainView addFunds];
+    [[Globals i] showBuy];
 }
 
 - (void)confirmPurchase

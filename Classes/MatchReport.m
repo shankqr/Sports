@@ -30,12 +30,10 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
-    
     [self endMatch];
 	
-    [self.mainView showHeader];
-	[self.mainView showFooter];
+    [mainView showHeader];
+	[mainView showFooter];
 	[mainView updateHeader];
 	[self.view removeFromSuperview];
 }
@@ -187,7 +185,7 @@
                 challenge_money = [NSString stringWithFormat:@"They paid us $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_win]];
                 extra_desc = [extra_desc stringByAppendingString:challenge_money];
             }
-            [mainView winSound];
+            [[Globals i] winSound];
         }
         if(my_club_score < enemy_club_score) //LOSE
         {
@@ -198,10 +196,10 @@
                 challenge_money = [NSString stringWithFormat:@"We paid them $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_lose]];
                 extra_desc = [extra_desc stringByAppendingString:challenge_money];
             }
-            [mainView loseSound];
+            [[Globals i] loseSound];
         }
         
-        [self.mainView FallbackPublishStory:message:extra_desc:@"match_friendly.png"];
+        [[Globals i] fbPublishStory:message :extra_desc :@"match_friendly.png"];
         
         [[Globals i] updateClubData];
         

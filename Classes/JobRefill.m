@@ -46,7 +46,6 @@
 
 - (IBAction)ok_tap:(id)sender
 {
-	[mainView buttonSound];
     [[Globals i] settPurchasedProduct:@"14"];
 	[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
 	[self.view removeFromSuperview];
@@ -54,7 +53,6 @@
 
 - (IBAction)close_tap:(id)sender
 {
-	[mainView backSound];
 	[self.view removeFromSuperview];
 }
 

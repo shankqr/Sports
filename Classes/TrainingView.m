@@ -49,13 +49,11 @@
 
 -(IBAction)coachButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	[mainView jumpToCoachStore];
 }
 
 -(IBAction)trainingButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
 								  initWithTitle:@"Training Type"
 								  delegate:self
@@ -82,42 +80,42 @@
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
                         [[Globals i] changeTraining:@"1"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 1:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
 						[[Globals i] changeTraining:@"2"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 2:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
 						[[Globals i] changeTraining:@"3"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 3:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
 						[[Globals i] changeTraining:@"4"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 4:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
 						[[Globals i] changeTraining:@"5"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 5:
 				{
                         [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
 						[[Globals i] changeTraining:@"6"];
-						[mainView FallbackPublishStory:message:extra_desc:imagename];
+						[[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 			}

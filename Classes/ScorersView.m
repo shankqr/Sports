@@ -31,7 +31,7 @@
 	{
 		case 0: //Club Info
 		{
-			[self.mainView jumpToClubViewer:selected_clubid];
+			[mainView jumpToClubViewer:selected_clubid];
 			break;
 		}
 	}
@@ -134,7 +134,7 @@
 								  destructiveButtonTitle:nil
 								  otherButtonTitles:@"Club Info", nil];
 	actionSheet.tag = 1;
-	[actionSheet showFromTabBar:[[self.mainView leagueTabBarController] tabBar]];
+	[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
 	
 	return nil;
 }

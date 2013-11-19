@@ -244,15 +244,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
-	[self.mainView showHeader];
-	[self.mainView showFooter];
-	[self.mainView updateHeader];
+	[mainView showHeader];
+	[mainView showFooter];
+	[mainView updateHeader];
 	[self.view removeFromSuperview];
 }
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
 	[self close];
 }
 
@@ -268,8 +267,6 @@
 
 - (IBAction)messageText_tap:(id)sender
 {
-    [mainView buttonSound];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
@@ -278,7 +275,7 @@
 
 - (IBAction)sendClicked:(id)sender
 {
-    [mainView buttonSound];
+    
     
     if([self.wsBidList count] > 0) //Player has been bidded before
     {
@@ -453,12 +450,12 @@
         if(buttonIndex == 1)
         {
             [messageText resignFirstResponder];
-            [self.mainView jumpToClubViewer:selected_clubid];
+            [mainView jumpToClubViewer:selected_clubid];
         }
         if(buttonIndex == 2)
         {
             [messageText resignFirstResponder];
-            [self.mainView jumpToChallenge:selected_clubid];
+            [mainView jumpToChallenge:selected_clubid];
         }
     }
     
@@ -466,7 +463,7 @@
     {
         if(buttonIndex == 1)
         {
-            [mainView addFunds];
+            [[Globals i] showBuy];
             [self close];
         }
     }

@@ -107,8 +107,6 @@
 
 - (IBAction)segmentTap:(id)sender
 {
-    [mainView buttonSound];
-    
 	[self removeAllPos];
 	switch([sender selectedSegmentIndex])
 	{
@@ -169,7 +167,7 @@
 								  destructiveButtonTitle:nil
 								  otherButtonTitles:@"Confirm", nil];
 		actionSheet.tag = 0;
-		[actionSheet showFromTabBar:[[self.mainView tacticsTabBarController] tabBar]];
+		[actionSheet showFromTabBar:[[mainView tacticsTabBarController] tabBar]];
 	}
 }
 
@@ -465,8 +463,6 @@
 
 -(IBAction)posButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
 	int theTag = [sender tag];//( ( UIControl * )sender ).tag;
 	
 	switch(theTag)
@@ -536,8 +532,8 @@
 
 - (void)launchSquadSelect
 {
-	[self.mainView hideHeader];
-	[self.mainView hideFooter];
+	[mainView hideHeader];
+	[mainView hideFooter];
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
@@ -551,8 +547,8 @@
 - (void)playerSelected:(NSString *)player
 {
 	[squadSelecter.view removeFromSuperview];
-	[self.mainView showHeader];
-	[self.mainView showFooter];
+	[mainView showHeader];
+	[mainView showFooter];
 	self.nwPlayer = player;
 	
 	if([player isEqualToString:@"0"] || [player isEqualToString:self.selectedPlayer])

@@ -11,7 +11,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <FacebookSDK/FacebookSDK.h>
 
-@class AboutView;
 @class ChallengeView;
 @class ChallengeCreateView;
 @class Header;
@@ -24,7 +23,6 @@
 @class FinanceView;
 @class StaffView;
 @class MatchView;
-@class ClubSearchView;
 @class FriendsView;
 @class ClubMapView;
 @class SquadView;
@@ -33,26 +31,18 @@
 @class MatchLive;
 @class HelpView;
 @class MatchReport;
-@class ChatView;
 @class WelcomeViewController;
 @class AchievementsView;
 @class AllianceView;
 @class AllianceDetail;
-@class Footer;
-@class Menu0;
 @class MainCell;
 @class SPViewController;
 
 @interface MainView : UIViewController 
-<SKProductsRequestDelegate, SKPaymentTransactionObserver,
-UITabBarControllerDelegate, UIAlertViewDelegate, CLLocationManagerDelegate, 
-AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
+<SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
+UIAlertViewDelegate, CLLocationManagerDelegate,AVAudioPlayerDelegate,
+UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 {
-	AVAudioPlayer *buttonAudio;
-	AVAudioPlayer *backAudio;
-    AVAudioPlayer *moneyAudio;
-    AVAudioPlayer *winAudio;
-    AVAudioPlayer *loseAudio;
 	UIButton *imageButton;
 	UIButton *backButton;
 	UIView *activeView;
@@ -68,7 +58,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	FinanceView *financeView;
 	StaffView *staffView;
 	MatchView *matchView;
-	ClubSearchView *clubSearchView;
 	ClubMapView *clubMapView;
 	SquadView *squadView;
 	TrainingView *trainingView;
@@ -78,16 +67,12 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	HelpView *helpView;
 	MatchReport *matchReport;
 	WelcomeViewController *welcomeView;
-	AboutView *aboutBox;
 	ChallengeView *challengeBox;
     ChallengeCreateView *challengeCreate;
-    ChatView *chatView;
     SPViewController *sparrowView;
     AchievementsView *achievementsView;
     AllianceView *allianceView;
     AllianceDetail *allianceDetail;
-    Footer *footerView;
-    Menu0 *menu0;
     MainCell *cell;
 	UITabBarController *storeTabBarController;
 	UITabBarController *tacticsTabBarController;
@@ -108,7 +93,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	NSInteger rowMarquee;
     NSInteger speedMarquee;
 	CGSize textSizeMarquee;
-	UIAlertView *alertLoading;
     UIButton *loginButton;
     UITableView *mainTableView;
     NSInteger currMatchIndex;
@@ -116,12 +100,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 	BOOL showedChallenge;
 }
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
-@property (nonatomic, strong) AVAudioPlayer *buttonAudio;
-@property (nonatomic, strong) AVAudioPlayer *backAudio;
-@property (nonatomic, strong) AVAudioPlayer *moneyAudio;
-@property (nonatomic, strong) AVAudioPlayer *winAudio;
-@property (nonatomic, strong) AVAudioPlayer *loseAudio;
-@property (nonatomic, strong) UIAlertView *alertLoading;
 @property (nonatomic, strong) UIView *activeView;
 @property (nonatomic, strong) UIView *previousView;
 @property (nonatomic, strong) UIView *superView;
@@ -135,7 +113,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) FinanceView *financeView;
 @property (nonatomic, strong) StaffView *staffView;
 @property (nonatomic, strong) MatchView *matchView;
-@property (nonatomic, strong) ClubSearchView *clubSearchView;
 @property (nonatomic, strong) ClubMapView *clubMapView;
 @property (nonatomic, strong) SquadView *squadView;
 @property (nonatomic, strong) TrainingView *trainingView;
@@ -145,14 +122,11 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) HelpView *helpView;
 @property (nonatomic, strong) MatchReport *matchReport;
 @property (nonatomic, strong) WelcomeViewController *welcomeView;
-@property (nonatomic, strong) AboutView *aboutBox;
 @property (nonatomic, strong) ChallengeView *challengeBox;
 @property (nonatomic, strong) ChallengeCreateView *challengeCreate;
-@property (nonatomic, strong) ChatView *chatView;
 @property (nonatomic, strong) AchievementsView *achievementsView;
 @property (nonatomic, strong) AllianceView *allianceView;
 @property (nonatomic, strong) AllianceDetail *allianceDetail;
-@property (nonatomic, strong) Footer *footerView;
 @property (nonatomic, strong) NSTimer *animateViewTimer;
 @property (nonatomic, strong) NSTimer *marqueeTimer;
 @property (nonatomic, strong) NSTimer *chatTimer;
@@ -161,7 +135,6 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) UILabel* lblChat1;
 @property (nonatomic, strong) UILabel* lblChat2;
 @property (nonatomic, strong) UIButton *backButton;
-@property (nonatomic, strong) Menu0 *menu0;
 @property (nonatomic, strong) MainCell *cell;
 @property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) IBOutlet UITabBarController *storeTabBarController;
@@ -169,20 +142,23 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 @property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *myclubTabBarController;
-- (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo;
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions;
-- (void)failedTransaction:(SKPaymentTransaction *)transaction;
-- (void)restoreTransaction:(SKPaymentTransaction *)transaction;
-- (void)completeTransaction:(SKPaymentTransaction *)transaction;
-- (void)doTransaction:(SKPaymentTransaction *)transaction;
+
+- (void)buyProduct:(NSString *)product;
 - (void)buyStadiumSuccess:(NSString *)virtualMoney :(NSString *)json;
 - (void)buyStaffSuccess:(NSString *)virtualMoney :(NSString *)json;
-- (void)buyOthersSuccess;
 - (void)renameClubPurchaseSuccess:(NSString *)virtualMoney :(NSString *)json;
 - (void)buyCoachSuccess;
-- (void)startLiveMatch;
-- (void)showHelp;
-- (void)showChat;
+- (void)buyOthersSuccess;
+- (void)buyOthersSuccessWithDiamonds;
+- (void)jumpToChallenge:(NSString *)club_id;
+- (void)jumpToClubViewer:(NSString *)club_id;
+- (void)jumpToPlayerStore;
+- (void)jumpToCoachStore;
+- (void)jumpToOthersStore;
+- (void)jumpToClub;
+- (void)reportMatch;
+- (void)removeClubViewer;
+- (void)removeWelcome;
 - (void)updateHeader;
 - (void)hideHeader;
 - (void)hideFooter;
@@ -190,69 +166,15 @@ AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate, FBFriendPicke
 - (void)showFooter;
 - (void)showMarquee;
 - (void)hideMarquee;
-- (void)slideView:(UIView *)coming go:(UIView *)going;
-- (void)switchView:(UIView *)coming go:(UIView *)going dir:(NSUInteger)direction;
-- (void)switchJobsView:(NSUInteger)direction;
-- (void)updateTacticsView;
-- (void)jumpToPlayerStore;
-- (void)jumpToCoachStore;
-- (void)jumpToOthersStore;
-- (void)jumpToChallenge:(NSString *)club_id;
-- (void)jumpToClubViewer:(NSString *)club_id;
-- (void)jumpToFBClubViewer:(NSString *)fb_id;
-- (void)removeClubViewer;
-- (void)resetClubImages;
-- (void)showWaitingBox;
-- (void)createBackButton;
-- (void)jumpToFinance;
-- (void)jumpToFans;
-- (void)jumpToTrain;
-- (void)jumpToNews;
-- (void)jumpToClub;
-- (void)buyProduct:(NSString *)product;
-- (void)buyResetClub;
-- (void)liveMatch;
-- (void)showWelcome;
-- (void)removeWelcome;
-- (void)showAchievements;
-- (void)removeAchievements;
-- (void)buttonSound;
-- (void)trainingSound;
-- (void)stopTrainingSound;
-- (void)initSound;
-- (void)backSound;
-- (void)moneySound;
-- (void)winSound;
-- (void)loseSound;
-- (void)showLogin;
-- (void)addFunds;
-- (void)reportMatch;
-- (void)removeLiveMatch;
-- (void)removeStore;
+- (void)updateAchievementBadges;
+- (void)updateChallenge;
+- (void)DeclineChallenge;
+- (void)startLiveMatch;
 - (void)showStadiumUpgrade;
 - (void)showBuildingUpgrade:(int)type;
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error;
-- (void)fblogin;
-- (void)addDiamonds;
+
 - (void)menuButton_tap:(int)sender;
-- (void)DeclineChallenge;
-- (void)DeclineChallengeServer;
-- (void)updateChallenge;
-- (void)saveLocation;
-- (void)logoutButton;
-- (void)shareButton;
-- (void)reloadViewFull;
-- (void)FallbackPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
-- (void)showFooterMessage;
-- (void)reloadClub;
-- (void)refillEnergySuccess:(NSString *)virtualMoney :(NSString *)json;
-- (void)showLoadingAlert;
-- (void)removeLoadingAlert;
-- (void)reloadClubFromOutside;
-- (void)updateAchievementBadges;
-- (void)showAlliance;
-- (void)showAllianceDetail:(int)aid;
-- (void)buyOthersSuccessWithDiamonds;
-- (void)checkAccepted;
+- (void)reloadView;
+- (void)startUp;
+
 @end

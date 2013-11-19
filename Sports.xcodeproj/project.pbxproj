@@ -32,9 +32,7 @@
 		902B8BFD138173B5006DAE27 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902B8BFC138173B5006DAE27 /* CoreLocation.framework */; };
 		902B8BFF138173D1006DAE27 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902B8BFE138173D1006DAE27 /* MapKit.framework */; };
 		902B8C01138173DD006DAE27 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 902B8C00138173DD006DAE27 /* StoreKit.framework */; };
-		902EA8E6161FFEA500BFE29D /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 902EA8E5161FFEA500BFE29D /* LoginView.m */; };
 		902EEAC41011FECF00F18195 /* ClubObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 902EEAC31011FECF00F18195 /* ClubObject.m */; };
-		9038569612E59376007D4EE3 /* FFCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9038569512E59376007D4EE3 /* FFCAppDelegate.m */; };
 		903B3F0813D7250200AE7B1C /* AchievementsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 903B3F0713D7250200AE7B1C /* AchievementsView.m */; };
 		903B3F1313D7265100AE7B1C /* AchievementsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 903B3F1213D7265000AE7B1C /* AchievementsCell.m */; };
 		9043AB951402D66300A394A1 /* sound_cash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 9043AB941402D66300A394A1 /* sound_cash.caf */; };
@@ -45,6 +43,14 @@
 		905C114C1667524000476D8B /* PlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 905C114B1667524000476D8B /* PlayerView.m */; };
 		9066412410821173008A1944 /* SquadSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9066412210821173008A1944 /* SquadSelectView.m */; };
 		906D93D812C5C0300084B127 /* TrophyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 906D93D612C5C0300084B127 /* TrophyCell.m */; };
+		906DC7B1183B3FEE004AD180 /* KingdomAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 906DC7AE183B3FEE004AD180 /* KingdomAppDelegate.m */; };
+		906DC7B2183B3FEE004AD180 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7AF183B3FEE004AD180 /* MainWindow.xib */; };
+		906DC7B3183B3FEE004AD180 /* MainWindow~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7B0183B3FEE004AD180 /* MainWindow~ipad.xib */; };
+		906DC7B9183B52AA004AD180 /* LoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 906DC7B6183B52AA004AD180 /* LoginView.m */; };
+		906DC7BA183B52AA004AD180 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7B7183B52AA004AD180 /* LoginView.xib */; };
+		906DC7BB183B52AA004AD180 /* LoginView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7B8183B52AA004AD180 /* LoginView~ipad.xib */; };
+		906DC7BD183B5353004AD180 /* button_facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7BC183B5353004AD180 /* button_facebook.png */; };
+		906DC7C1183B5D27004AD180 /* WorldsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 906DC7C0183B5D27004AD180 /* WorldsView.m */; };
 		90701A0C164D2523002CA0C2 /* OverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90701A0B164D2523002CA0C2 /* OverView.m */; };
 		9071578313FF4FC90042E939 /* UpgradeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9071578213FF4FC90042E939 /* UpgradeView.m */; };
 		90737E65162078C0007EBBAE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E62162078BF007EBBAE /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -196,12 +202,8 @@
 		9093A6D91837F86E005D60E2 /* MainView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6D51837F86E005D60E2 /* MainView~ipad.xib */; };
 		9093A6DC1837F99C005D60E2 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DA1837F99C005D60E2 /* Header.xib */; };
 		9093A6DD1837F99C005D60E2 /* Header~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DB1837F99C005D60E2 /* Header~ipad.xib */; };
-		9093A6E01837F9C7005D60E2 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DE1837F9C7005D60E2 /* MainWindow.xib */; };
-		9093A6E11837F9C7005D60E2 /* MainWindow~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DF1837F9C7005D60E2 /* MainWindow~ipad.xib */; };
 		9093A6EC1837FA12005D60E2 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6E61837FA12005D60E2 /* WelcomeViewController.xib */; };
 		9093A6ED1837FA12005D60E2 /* WelcomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6E71837FA12005D60E2 /* WelcomeViewController~ipad.xib */; };
-		9093A6F01837FA25005D60E2 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6EE1837FA25005D60E2 /* LoginView.xib */; };
-		9093A6F11837FA25005D60E2 /* LoginView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6EF1837FA25005D60E2 /* LoginView~ipad.xib */; };
 		9093A70E183800B8005D60E2 /* PlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A704183800B8005D60E2 /* PlayerCell.xib */; };
 		9093A70F183800B8005D60E2 /* PlayerCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A705183800B8005D60E2 /* PlayerCell~ipad.xib */; };
 		9093A710183800B8005D60E2 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A706183800B8005D60E2 /* ProductCell.xib */; };
@@ -611,6 +613,14 @@
 		90C93F73100641E7002A2610 /* LeagueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90C93F72100641E7002A2610 /* LeagueCell.m */; };
 		90D4B11D10A67583003A6512 /* CoachCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4B11B10A67583003A6512 /* CoachCell.m */; };
 		90D4DA4610197973005946C7 /* MatchReport.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D4DA4310197973005946C7 /* MatchReport.m */; };
+		90D630DB183B78D20045B437 /* AllianceApplicants.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630CC183B78D20045B437 /* AllianceApplicants.m */; };
+		90D630DC183B78D20045B437 /* AllianceCreate.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630CE183B78D20045B437 /* AllianceCreate.m */; };
+		90D630DD183B78D20045B437 /* AllianceDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630D0183B78D20045B437 /* AllianceDetail.m */; };
+		90D630DE183B78D20045B437 /* AllianceDonations.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630D2183B78D20045B437 /* AllianceDonations.m */; };
+		90D630DF183B78D20045B437 /* AllianceEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630D4183B78D20045B437 /* AllianceEvents.m */; };
+		90D630E0183B78D20045B437 /* AllianceMembers.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630D6183B78D20045B437 /* AllianceMembers.m */; };
+		90D630E1183B78D20045B437 /* AllianceObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630D8183B78D20045B437 /* AllianceObject.m */; };
+		90D630E2183B78D20045B437 /* AllianceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90D630DA183B78D20045B437 /* AllianceView.m */; };
 		90DA07591398C43E003855E7 /* sound_crowd_goal.caf in Resources */ = {isa = PBXBuildFile; fileRef = 90DA07541398C43E003855E7 /* sound_crowd_goal.caf */; };
 		90DA075A1398C43E003855E7 /* sound_crowd0.caf in Resources */ = {isa = PBXBuildFile; fileRef = 90DA07551398C43E003855E7 /* sound_crowd0.caf */; };
 		90DB78D817F1FFB300B31B0C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 90DB78D717F1FFB300B31B0C /* Images.xcassets */; };
@@ -2123,7 +2133,6 @@
 		90E92CB31836A6D300DFA9FB /* button_close2.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E925051836A6D300DFA9FB /* button_close2.png */; };
 		90E92CB41836A6D300DFA9FB /* button_close3.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E925061836A6D300DFA9FB /* button_close3.png */; };
 		90E92CB51836A6D300DFA9FB /* button_decline.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E925071836A6D300DFA9FB /* button_decline.png */; };
-		90E92CB61836A6D300DFA9FB /* button_facebooklog.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E925081836A6D300DFA9FB /* button_facebooklog.png */; };
 		90E92CB71836A6D300DFA9FB /* button_fans.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E925091836A6D300DFA9FB /* button_fans.png */; };
 		90E92CB81836A6D300DFA9FB /* button_funds.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E9250A1836A6D300DFA9FB /* button_funds.png */; };
 		90E92CB91836A6D300DFA9FB /* button_green.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E9250B1836A6D300DFA9FB /* button_green.png */; };
@@ -2362,12 +2371,8 @@
 		902B8BFC138173B5006DAE27 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		902B8BFE138173D1006DAE27 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		902B8C00138173DD006DAE27 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		902EA8E4161FFEA500BFE29D /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
-		902EA8E5161FFEA500BFE29D /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
 		902EEAC21011FECF00F18195 /* ClubObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClubObject.h; sourceTree = "<group>"; };
 		902EEAC31011FECF00F18195 /* ClubObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClubObject.m; sourceTree = "<group>"; };
-		9038569412E59376007D4EE3 /* FFCAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFCAppDelegate.h; sourceTree = "<group>"; };
-		9038569512E59376007D4EE3 /* FFCAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFCAppDelegate.m; sourceTree = "<group>"; };
 		903B3F0613D7250200AE7B1C /* AchievementsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementsView.h; sourceTree = "<group>"; };
 		903B3F0713D7250200AE7B1C /* AchievementsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AchievementsView.m; sourceTree = "<group>"; };
 		903B3F1113D7265000AE7B1C /* AchievementsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AchievementsCell.h; sourceTree = "<group>"; };
@@ -2387,6 +2392,17 @@
 		9066412210821173008A1944 /* SquadSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquadSelectView.m; sourceTree = "<group>"; };
 		906D93D512C5C0300084B127 /* TrophyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrophyCell.h; sourceTree = "<group>"; };
 		906D93D612C5C0300084B127 /* TrophyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrophyCell.m; sourceTree = "<group>"; };
+		906DC7AD183B3FEE004AD180 /* KingdomAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KingdomAppDelegate.h; sourceTree = "<group>"; };
+		906DC7AE183B3FEE004AD180 /* KingdomAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KingdomAppDelegate.m; sourceTree = "<group>"; };
+		906DC7AF183B3FEE004AD180 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		906DC7B0183B3FEE004AD180 /* MainWindow~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "MainWindow~ipad.xib"; sourceTree = "<group>"; };
+		906DC7B5183B52AA004AD180 /* LoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginView.h; sourceTree = "<group>"; };
+		906DC7B6183B52AA004AD180 /* LoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginView.m; sourceTree = "<group>"; };
+		906DC7B7183B52AA004AD180 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginView.xib; sourceTree = "<group>"; };
+		906DC7B8183B52AA004AD180 /* LoginView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LoginView~ipad.xib"; sourceTree = "<group>"; };
+		906DC7BC183B5353004AD180 /* button_facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_facebook.png; sourceTree = "<group>"; };
+		906DC7BF183B5D27004AD180 /* WorldsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldsView.h; sourceTree = "<group>"; };
+		906DC7C0183B5D27004AD180 /* WorldsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldsView.m; sourceTree = "<group>"; };
 		90701A0A164D2523002CA0C2 /* OverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverView.h; sourceTree = "<group>"; };
 		90701A0B164D2523002CA0C2 /* OverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverView.m; sourceTree = "<group>"; };
 		9071578113FF4FC90042E939 /* UpgradeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeView.h; sourceTree = "<group>"; };
@@ -2570,12 +2586,8 @@
 		9093A6D51837F86E005D60E2 /* MainView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainView~ipad.xib"; path = "Xibs/MainView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6DA1837F99C005D60E2 /* Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Header.xib; path = Xibs/Header.xib; sourceTree = SOURCE_ROOT; };
 		9093A6DB1837F99C005D60E2 /* Header~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Header~ipad.xib"; path = "Xibs/Header~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6DE1837F9C7005D60E2 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MainWindow.xib; path = Xibs/MainWindow.xib; sourceTree = SOURCE_ROOT; };
-		9093A6DF1837F9C7005D60E2 /* MainWindow~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainWindow~ipad.xib"; path = "Xibs/MainWindow~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6E61837FA12005D60E2 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WelcomeViewController.xib; path = Xibs/WelcomeViewController.xib; sourceTree = SOURCE_ROOT; };
 		9093A6E71837FA12005D60E2 /* WelcomeViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "WelcomeViewController~ipad.xib"; path = "Xibs/WelcomeViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6EE1837FA25005D60E2 /* LoginView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginView.xib; path = Xibs/LoginView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6EF1837FA25005D60E2 /* LoginView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "LoginView~ipad.xib"; path = "Xibs/LoginView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A704183800B8005D60E2 /* PlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerCell.xib; path = Xibs/PlayerCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A705183800B8005D60E2 /* PlayerCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "PlayerCell~ipad.xib"; path = "Xibs/PlayerCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A706183800B8005D60E2 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProductCell.xib; path = Xibs/ProductCell.xib; sourceTree = SOURCE_ROOT; };
@@ -3040,6 +3052,22 @@
 		90D4B11B10A67583003A6512 /* CoachCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoachCell.m; sourceTree = "<group>"; };
 		90D4DA4210197973005946C7 /* MatchReport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchReport.h; sourceTree = "<group>"; };
 		90D4DA4310197973005946C7 /* MatchReport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchReport.m; sourceTree = "<group>"; };
+		90D630CB183B78D20045B437 /* AllianceApplicants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceApplicants.h; sourceTree = "<group>"; };
+		90D630CC183B78D20045B437 /* AllianceApplicants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceApplicants.m; sourceTree = "<group>"; };
+		90D630CD183B78D20045B437 /* AllianceCreate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceCreate.h; sourceTree = "<group>"; };
+		90D630CE183B78D20045B437 /* AllianceCreate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceCreate.m; sourceTree = "<group>"; };
+		90D630CF183B78D20045B437 /* AllianceDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceDetail.h; sourceTree = "<group>"; };
+		90D630D0183B78D20045B437 /* AllianceDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceDetail.m; sourceTree = "<group>"; };
+		90D630D1183B78D20045B437 /* AllianceDonations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceDonations.h; sourceTree = "<group>"; };
+		90D630D2183B78D20045B437 /* AllianceDonations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceDonations.m; sourceTree = "<group>"; };
+		90D630D3183B78D20045B437 /* AllianceEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceEvents.h; sourceTree = "<group>"; };
+		90D630D4183B78D20045B437 /* AllianceEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceEvents.m; sourceTree = "<group>"; };
+		90D630D5183B78D20045B437 /* AllianceMembers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceMembers.h; sourceTree = "<group>"; };
+		90D630D6183B78D20045B437 /* AllianceMembers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceMembers.m; sourceTree = "<group>"; };
+		90D630D7183B78D20045B437 /* AllianceObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceObject.h; sourceTree = "<group>"; };
+		90D630D8183B78D20045B437 /* AllianceObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceObject.m; sourceTree = "<group>"; };
+		90D630D9183B78D20045B437 /* AllianceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllianceView.h; sourceTree = "<group>"; };
+		90D630DA183B78D20045B437 /* AllianceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllianceView.m; sourceTree = "<group>"; };
 		90DA07541398C43E003855E7 /* sound_crowd_goal.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound_crowd_goal.caf; sourceTree = "<group>"; };
 		90DA07551398C43E003855E7 /* sound_crowd0.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound_crowd0.caf; sourceTree = "<group>"; };
 		90DB78D717F1FFB300B31B0C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = FFC/Images.xcassets; sourceTree = "<group>"; };
@@ -4556,7 +4584,6 @@
 		90E925051836A6D300DFA9FB /* button_close2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_close2.png; sourceTree = "<group>"; };
 		90E925061836A6D300DFA9FB /* button_close3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_close3.png; sourceTree = "<group>"; };
 		90E925071836A6D300DFA9FB /* button_decline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_decline.png; sourceTree = "<group>"; };
-		90E925081836A6D300DFA9FB /* button_facebooklog.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_facebooklog.png; sourceTree = "<group>"; };
 		90E925091836A6D300DFA9FB /* button_fans.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_fans.png; sourceTree = "<group>"; };
 		90E9250A1836A6D300DFA9FB /* button_funds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_funds.png; sourceTree = "<group>"; };
 		90E9250B1836A6D300DFA9FB /* button_green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_green.png; sourceTree = "<group>"; };
@@ -4752,8 +4779,6 @@
 			isa = PBXGroup;
 			children = (
 				9094F84C183A85BE00931A9A /* Library */,
-				9081C9690FF4B85700E97D01 /* Startup */,
-				90CD611A183011F3006CC548 /* Login */,
 				909A7B841032A436003802A9 /* Main */,
 				9094F824183A6CEB00931A9A /* MatchEngineHockey */,
 				90E92D3F1836A72C00DFA9FB /* MatchEngine */,
@@ -4923,6 +4948,37 @@
 			name = Achievements;
 			sourceTree = "<group>";
 		};
+		906DC7AC183B3FEE004AD180 /* Startup */ = {
+			isa = PBXGroup;
+			children = (
+				906DC7AD183B3FEE004AD180 /* KingdomAppDelegate.h */,
+				906DC7AE183B3FEE004AD180 /* KingdomAppDelegate.m */,
+				906DC7AF183B3FEE004AD180 /* MainWindow.xib */,
+				906DC7B0183B3FEE004AD180 /* MainWindow~ipad.xib */,
+			);
+			path = Startup;
+			sourceTree = "<group>";
+		};
+		906DC7B4183B52AA004AD180 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				906DC7B5183B52AA004AD180 /* LoginView.h */,
+				906DC7B6183B52AA004AD180 /* LoginView.m */,
+				906DC7B7183B52AA004AD180 /* LoginView.xib */,
+				906DC7B8183B52AA004AD180 /* LoginView~ipad.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		906DC7BE183B5D27004AD180 /* Worlds */ = {
+			isa = PBXGroup;
+			children = (
+				906DC7BF183B5D27004AD180 /* WorldsView.h */,
+				906DC7C0183B5D27004AD180 /* WorldsView.m */,
+			);
+			path = Worlds;
+			sourceTree = "<group>";
+		};
 		907E9314100A5E73002FA234 /* ClubViewer */ = {
 			isa = PBXGroup;
 			children = (
@@ -4951,17 +5007,6 @@
 				9093A6331837F648005D60E2 /* MatchReport~ipad.xib */,
 			);
 			name = MatchReport;
-			sourceTree = "<group>";
-		};
-		9081C9690FF4B85700E97D01 /* Startup */ = {
-			isa = PBXGroup;
-			children = (
-				9038569412E59376007D4EE3 /* FFCAppDelegate.h */,
-				9038569512E59376007D4EE3 /* FFCAppDelegate.m */,
-				9093A6DE1837F9C7005D60E2 /* MainWindow.xib */,
-				9093A6DF1837F9C7005D60E2 /* MainWindow~ipad.xib */,
-			);
-			name = Startup;
 			sourceTree = "<group>";
 		};
 		90866C800FF4BBAF00EC6AB7 /* Club */ = {
@@ -5220,6 +5265,9 @@
 		9094F84C183A85BE00931A9A /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				906DC7AC183B3FEE004AD180 /* Startup */,
+				906DC7B4183B52AA004AD180 /* Login */,
+				906DC7BE183B5D27004AD180 /* Worlds */,
 				9094F84D183A85BE00931A9A /* Chat */,
 				9094F852183A85BE00931A9A /* DAAppsViewController */,
 				9094F85A183A85BE00931A9A /* DialogBox */,
@@ -5230,6 +5278,7 @@
 				9094F887183A85BE00931A9A /* Mail */,
 				9094F890183A85BE00931A9A /* MMProgressHUD */,
 				9094F8AB183A85BE00931A9A /* TemplateView */,
+				90D630CA183B78D20045B437 /* Alliance */,
 				9094F8E5183A951900931A9A /* Globals.h */,
 				9094F8E6183A951900931A9A /* Globals.m */,
 			);
@@ -5835,17 +5884,6 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		90CD611A183011F3006CC548 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				902EA8E4161FFEA500BFE29D /* LoginView.h */,
-				902EA8E5161FFEA500BFE29D /* LoginView.m */,
-				9093A6EE1837FA25005D60E2 /* LoginView.xib */,
-				9093A6EF1837FA25005D60E2 /* LoginView~ipad.xib */,
-			);
-			name = Login;
-			sourceTree = "<group>";
-		};
 		90D33351108EB8EA00778AFA /* Store */ = {
 			isa = PBXGroup;
 			children = (
@@ -5902,6 +5940,29 @@
 				9093A69D1837F7C1005D60E2 /* JobsCell~ipad.xib */,
 			);
 			name = Jobs;
+			sourceTree = "<group>";
+		};
+		90D630CA183B78D20045B437 /* Alliance */ = {
+			isa = PBXGroup;
+			children = (
+				90D630CB183B78D20045B437 /* AllianceApplicants.h */,
+				90D630CC183B78D20045B437 /* AllianceApplicants.m */,
+				90D630CD183B78D20045B437 /* AllianceCreate.h */,
+				90D630CE183B78D20045B437 /* AllianceCreate.m */,
+				90D630CF183B78D20045B437 /* AllianceDetail.h */,
+				90D630D0183B78D20045B437 /* AllianceDetail.m */,
+				90D630D1183B78D20045B437 /* AllianceDonations.h */,
+				90D630D2183B78D20045B437 /* AllianceDonations.m */,
+				90D630D3183B78D20045B437 /* AllianceEvents.h */,
+				90D630D4183B78D20045B437 /* AllianceEvents.m */,
+				90D630D5183B78D20045B437 /* AllianceMembers.h */,
+				90D630D6183B78D20045B437 /* AllianceMembers.m */,
+				90D630D7183B78D20045B437 /* AllianceObject.h */,
+				90D630D8183B78D20045B437 /* AllianceObject.m */,
+				90D630D9183B78D20045B437 /* AllianceView.h */,
+				90D630DA183B78D20045B437 /* AllianceView.m */,
+			);
+			path = Alliance;
 			sourceTree = "<group>";
 		};
 		90DBE9FD126CBDA3003844EE /* Slides */ = {
@@ -7521,6 +7582,7 @@
 		90E924F01836A6D200DFA9FB /* Skins */ = {
 			isa = PBXGroup;
 			children = (
+				906DC7BC183B5353004AD180 /* button_facebook.png */,
 				90E924F11836A6D200DFA9FB /* a1.png */,
 				90E924F21836A6D200DFA9FB /* background1_405.png */,
 				90E924F31836A6D200DFA9FB /* background1_430.png */,
@@ -7544,7 +7606,6 @@
 				90E925051836A6D300DFA9FB /* button_close2.png */,
 				90E925061836A6D300DFA9FB /* button_close3.png */,
 				90E925071836A6D300DFA9FB /* button_decline.png */,
-				90E925081836A6D300DFA9FB /* button_facebooklog.png */,
 				90E925091836A6D300DFA9FB /* button_fans.png */,
 				90E9250A1836A6D300DFA9FB /* button_funds.png */,
 				90E9250B1836A6D300DFA9FB /* button_green.png */,
@@ -8074,7 +8135,6 @@
 				90E9273D1836A6D300DFA9FB /* flag_115.png in Resources */,
 				90E92B451836A6D300DFA9FB /* z688.png in Resources */,
 				90E926A61836A6D300DFA9FB /* x15.png in Resources */,
-				9093A6F01837FA25005D60E2 /* LoginView.xib in Resources */,
 				90E929761836A6D300DFA9FB /* z270.png in Resources */,
 				90E92A7A1836A6D300DFA9FB /* z504.png in Resources */,
 				90E927851836A6D300DFA9FB /* flag_180.png in Resources */,
@@ -8563,6 +8623,7 @@
 				9093A6481837F68B005D60E2 /* TacticsView.xib in Resources */,
 				90E92C131836A6D300DFA9FB /* z873.png in Resources */,
 				90E926A51836A6D300DFA9FB /* x14.png in Resources */,
+				906DC7B3183B3FEE004AD180 /* MainWindow~ipad.xib in Resources */,
 				90AAA20718392459007DE5B1 /* c71.png in Resources */,
 				9093A62D1837F602005D60E2 /* PromotionView~ipad.xib in Resources */,
 				90E928AB1836A6D300DFA9FB /* pbar17.png in Resources */,
@@ -8624,7 +8685,6 @@
 				9093A6011837F348005D60E2 /* HelpView~ipad.xib in Resources */,
 				90E92CAB1836A6D300DFA9FB /* button_blank.png in Resources */,
 				90AAA1E318392459007DE5B1 /* c39.png in Resources */,
-				90E92CB61836A6D300DFA9FB /* button_facebooklog.png in Resources */,
 				90E9293C1836A6D300DFA9FB /* z218.png in Resources */,
 				90AAA21F18392459007DE5B1 /* c93.png in Resources */,
 				90E9279D1836A6D300DFA9FB /* flag_201.png in Resources */,
@@ -8716,6 +8776,7 @@
 				9093A6581837F6C9005D60E2 /* SimplePlayerCell.xib in Resources */,
 				90E929C31836A6D300DFA9FB /* z34.png in Resources */,
 				90E92BE51836A6D300DFA9FB /* z831.png in Resources */,
+				906DC7BD183B5353004AD180 /* button_facebook.png in Resources */,
 				90E92A2A1836A6D300DFA9FB /* z432.png in Resources */,
 				90E92ACC1836A6D300DFA9FB /* z579.png in Resources */,
 				90E92A661836A6D300DFA9FB /* z487.png in Resources */,
@@ -8743,6 +8804,7 @@
 				90E92BA41836A6D300DFA9FB /* z773.png in Resources */,
 				90E929811836A6D300DFA9FB /* z280.png in Resources */,
 				90E92B821836A6D300DFA9FB /* z742.png in Resources */,
+				906DC7B2183B3FEE004AD180 /* MainWindow.xib in Resources */,
 				90AAA25518392459007DE5B1 /* training_07_word.png in Resources */,
 				9093A6691837F6F7005D60E2 /* StaffView~ipad.xib in Resources */,
 				90E92B3A1836A6D300DFA9FB /* z678.png in Resources */,
@@ -8847,7 +8909,6 @@
 				90E92A4F1836A6D300DFA9FB /* z466.png in Resources */,
 				90E9285A1836A6D300DFA9FB /* job_amateur.png in Resources */,
 				90E926AA1836A6D300DFA9FB /* x19.png in Resources */,
-				9093A6E11837F9C7005D60E2 /* MainWindow~ipad.xib in Resources */,
 				90E92B331836A6D300DFA9FB /* z671.png in Resources */,
 				90E927F51836A6D300DFA9FB /* flag_45.png in Resources */,
 				90E929601836A6D300DFA9FB /* z250.png in Resources */,
@@ -9111,7 +9172,6 @@
 				90E92AD21836A6D300DFA9FB /* z584.png in Resources */,
 				90AAA19B18392459007DE5B1 /* c18.png in Resources */,
 				90E92CD81836A6D300DFA9FB /* matchcup.png in Resources */,
-				9093A6F11837FA25005D60E2 /* LoginView~ipad.xib in Resources */,
 				90E9290E1836A6D300DFA9FB /* z177.png in Resources */,
 				90E9284D1836A6D300DFA9FB /* j25.png in Resources */,
 				90E92C381836A6D300DFA9FB /* z906.png in Resources */,
@@ -9205,6 +9265,7 @@
 				90E9276D1836A6D300DFA9FB /* flag_159.png in Resources */,
 				90AAA14718392459007DE5B1 /* c103.png in Resources */,
 				90E928291836A6D300DFA9FB /* flag_92.png in Resources */,
+				906DC7BA183B52AA004AD180 /* LoginView.xib in Resources */,
 				90E92B911836A6D300DFA9FB /* z756.png in Resources */,
 				90E929771836A6D300DFA9FB /* z271.png in Resources */,
 				90E927131836A6D300DFA9FB /* car501.png in Resources */,
@@ -9261,7 +9322,6 @@
 				90E926A71836A6D300DFA9FB /* x16.png in Resources */,
 				90E927C31836A6D300DFA9FB /* flag_236.png in Resources */,
 				90E92BED1836A6D300DFA9FB /* z839.png in Resources */,
-				9093A6E01837F9C7005D60E2 /* MainWindow.xib in Resources */,
 				90E92AB01836A6D300DFA9FB /* z553.png in Resources */,
 				90E9284C1836A6D300DFA9FB /* j24.png in Resources */,
 				90E929011836A6D300DFA9FB /* z165.png in Resources */,
@@ -9304,6 +9364,7 @@
 				90E928B31836A6D300DFA9FB /* pbar6.png in Resources */,
 				90E9281C1836A6D300DFA9FB /* flag_80.png in Resources */,
 				90E92CB01836A6D300DFA9FB /* button_changetraining.png in Resources */,
+				906DC7BB183B52AA004AD180 /* LoginView~ipad.xib in Resources */,
 				90AAA20418392459007DE5B1 /* c69.png in Resources */,
 				90E929041836A6D300DFA9FB /* z168.png in Resources */,
 				90E92A301836A6D300DFA9FB /* z438.png in Resources */,
@@ -10048,6 +10109,7 @@
 				90C93F73100641E7002A2610 /* LeagueCell.m in Sources */,
 				9094F8DC183A85BE00931A9A /* MMVectorImage.m in Sources */,
 				907A798D100864F0008D990D /* FixtureCell.m in Sources */,
+				90D630E1183B78D20045B437 /* AllianceObject.m in Sources */,
 				90813D291008C93300581AAC /* PromotionView.m in Sources */,
 				90813D361008C9BD00581AAC /* ScorersView.m in Sources */,
 				90BC744D100B49010061B573 /* ClubViewer.m in Sources */,
@@ -10057,10 +10119,12 @@
 				9049269A100F997B00347935 /* SimplePlayerCell.m in Sources */,
 				9094F8D8183A85BE00931A9A /* MMProgressHUDOverlayView.m in Sources */,
 				9094F8B6183A85BE00931A9A /* DAAppObject.m in Sources */,
+				906DC7B1183B3FEE004AD180 /* KingdomAppDelegate.m in Sources */,
 				9094F8C7183A85BE00931A9A /* JCNotificationBannerPresenterSmokeStyle.m in Sources */,
 				90E92D601836A72C00DFA9FB /* Game.m in Sources */,
 				902EEAC41011FECF00F18195 /* ClubObject.m in Sources */,
 				9009D9161013FFE30060D741 /* ClubMapView.m in Sources */,
+				90D630DE183B78D20045B437 /* AllianceDonations.m in Sources */,
 				90C841A81014E67B00FEFFFB /* CSMapAnnotation.m in Sources */,
 				90D4DA4610197973005946C7 /* MatchReport.m in Sources */,
 				909A7B891032A51D003802A9 /* Header.m in Sources */,
@@ -10070,14 +10134,18 @@
 				90084327108DD70400B363E6 /* FormationView.m in Sources */,
 				905B2CF8108F1AED00E6C76B /* ProductCell.m in Sources */,
 				9094F8E7183A951900931A9A /* Globals.m in Sources */,
+				906DC7B9183B52AA004AD180 /* LoginView.m in Sources */,
 				905B2CFD108F1B0700E6C76B /* StorePlayerView.m in Sources */,
 				90DBB9BA108F6EFC00E82777 /* StoreCoachView.m in Sources */,
 				90DBB9BF108F6F0F00E82777 /* StoreOthersView.m in Sources */,
+				90D630DD183B78D20045B437 /* AllianceDetail.m in Sources */,
 				90D4B11D10A67583003A6512 /* CoachCell.m in Sources */,
 				9094F8D4183A85BE00931A9A /* MMLinearProgressView.m in Sources */,
 				9081EBCB10F620E500A87D39 /* ChallengeView.m in Sources */,
 				9094F8C5183A85BE00931A9A /* JCNotificationBanner.m in Sources */,
 				9054BD0D11BA9E1B00290C03 /* SubsView.m in Sources */,
+				90D630E2183B78D20045B437 /* AllianceView.m in Sources */,
+				90D630E0183B78D20045B437 /* AllianceMembers.m in Sources */,
 				901971E911C2548200C23F24 /* WelcomeViewController.m in Sources */,
 				9094F8D1183A85BE00931A9A /* MailReply.m in Sources */,
 				9004002A11C42DFA00EF405B /* JobsCell.m in Sources */,
@@ -10085,6 +10153,7 @@
 				9084994B1207446E000D8CA0 /* SquadViewer.m in Sources */,
 				90E98B92120C5C42003181FC /* MapViewer.m in Sources */,
 				9094F845183A6CEC00931A9A /* Player_hockey.m in Sources */,
+				906DC7C1183B5D27004AD180 /* WorldsView.m in Sources */,
 				909A30151236BE84006CF705 /* ChallengeCreateView.m in Sources */,
 				9016D794123798B3001C6066 /* HelpView.m in Sources */,
 				9092E4E6126CC299003CCB06 /* main.m in Sources */,
@@ -10094,8 +10163,8 @@
 				90DEEE7D12C4EF7B006F7EF1 /* TrophyViewer.m in Sources */,
 				9094F8D2183A85BE00931A9A /* MailView.m in Sources */,
 				906D93D812C5C0300084B127 /* TrophyCell.m in Sources */,
-				9038569612E59376007D4EE3 /* FFCAppDelegate.m in Sources */,
 				9094F8DA183A85BE00931A9A /* MMProgressHUDWindow.m in Sources */,
+				90D630DC183B78D20045B437 /* AllianceCreate.m in Sources */,
 				90E92D631836A72C00DFA9FB /* Player.m in Sources */,
 				9094F8C8183A85BE00931A9A /* JCNotificationBannerView.m in Sources */,
 				907F08E513C309920026B5EB /* LastMatchSlide.m in Sources */,
@@ -10115,10 +10184,10 @@
 				9094F8D3183A85BE00931A9A /* MMHud.m in Sources */,
 				90B5C9401611A7AA002A1201 /* MainCell.m in Sources */,
 				9094F8BA183A85BE00931A9A /* DialogBoxView.m in Sources */,
-				902EA8E6161FFEA500BFE29D /* LoginView.m in Sources */,
 				90701A0C164D2523002CA0C2 /* OverView.m in Sources */,
 				90E04D40165CD9CD0041D537 /* OverviewCell.m in Sources */,
 				90249A81165F7DF7008A587F /* OverfirstCell.m in Sources */,
+				90D630DF183B78D20045B437 /* AllianceEvents.m in Sources */,
 				90A0E29E16628CF700D8E25F /* LeagueslideCell.m in Sources */,
 				9094F8EA183AA26700931A9A /* ImageHelper.m in Sources */,
 				905C114C1667524000476D8B /* PlayerView.m in Sources */,
@@ -10127,6 +10196,7 @@
 				9094F8CF183A85BE00931A9A /* MailCompose.m in Sources */,
 				9094F8DB183A85BE00931A9A /* MMRadialProgressView.m in Sources */,
 				9094F8C0183A85BE00931A9A /* NSString+HMAC.m in Sources */,
+				90D630DB183B78D20045B437 /* AllianceApplicants.m in Sources */,
 				9094F8C2183A85BE00931A9A /* UIColor+Crayola.m in Sources */,
 				9094F8B3183A85BE00931A9A /* ChatView.m in Sources */,
 				9094F838183A6CEC00931A9A /* Ball_hockey.m in Sources */,

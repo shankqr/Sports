@@ -31,8 +31,7 @@
 
 - (IBAction)addfunds_tap:(id)sender
 {
-    [mainView buttonSound];
-    [mainView addFunds];
+    [[Globals i] showBuy];
 }
 
 - (void)viewDidLoad

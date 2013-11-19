@@ -29,7 +29,6 @@
 
 - (IBAction)rookie_tap:(id)sender
 {
-	[mainView buttonSound];
     [bgImage setImage:[UIImage imageNamed:@"job_rookie.png"]];
 	table.hidden = NO;
     offset = 0;
@@ -39,8 +38,6 @@
 
 - (IBAction)amateur_tap:(id)sender
 {
-	[mainView buttonSound];
-    
     int level = [[Globals i] getLevel];
     if(level > 49)
     {
@@ -61,8 +58,6 @@
 
 - (IBAction)pro_tap:(id)sender
 {
-	[mainView buttonSound];
-    
     int level = [[Globals i] getLevel];
     if(level > 99)
     {
@@ -187,8 +182,6 @@
 
 - (void)buttonPressed:(id)sender
 {
-    [mainView buttonSound];
-    
     int row = [sender tag];
 	int reqmatch = [(self.jobs)[row][@"Friendly"] intValue];
 	
@@ -204,7 +197,7 @@
 	}
 	else
 	{
-		if([[self.mainView header] doJob:[(self.jobs)[row][@"Energy"] intValue]:[(self.jobs)[row][@"Reward"] intValue]])
+		if([[mainView header] doJob:[(self.jobs)[row][@"Energy"] intValue]:[(self.jobs)[row][@"Reward"] intValue]])
 		{
 			int lvl = [(self.jobs)[row][@"Level"] intValue];
 			int percentincrease = 40 - (lvl*5);

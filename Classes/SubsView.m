@@ -74,8 +74,6 @@
 
 -(IBAction)posButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
 	int theTag = [sender tag];//( ( UIControl * )sender ).tag;
 	
 	switch(theTag)
@@ -228,8 +226,8 @@
 
 - (void)launchSquadSelect
 {
-	[self.mainView hideHeader];
-	[self.mainView hideFooter];
+	[mainView hideHeader];
+	[mainView hideFooter];
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
@@ -243,8 +241,8 @@
 - (void)playerSelected:(NSString *)player
 {
 	[squadSelecter.view removeFromSuperview];
-	[self.mainView showHeader];
-	[self.mainView showFooter];
+	[mainView showHeader];
+	[mainView showFooter];
 	self.nwPlayer = player;
 	
 	if([player isEqualToString:@"0"] || [player isEqualToString:self.selectedPlayer])

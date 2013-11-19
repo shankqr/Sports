@@ -51,7 +51,6 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
 	if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 	{
 		[delegate playerSelected:@"0"];
@@ -77,8 +76,6 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	[mainView buttonSound];
-	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];
 	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];

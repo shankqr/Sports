@@ -112,14 +112,11 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
 	[self.view removeFromSuperview];
 }
 
 -(IBAction)upgradeButton_tap:(id)sender
 {
-	[mainView buttonSound];
-	
     int cost = 0;
     if (buildingType==1) 
     {
@@ -156,19 +153,19 @@
                 NSString *message = @"I have just build a new building in my city.";
                 NSString *extra_desc = @"Buildings generates revenue and fans for your club.";
                 NSString *imagename = @"upgrade_building.png";
-                [mainView FallbackPublishStory:message:extra_desc:imagename];
+                [[Globals i] fbPublishStory:message :extra_desc :imagename];
                 
                 [self.view removeFromSuperview];
 			}
 			else
 			{
-				[self.mainView showLogin];
+				//[mainView showLogin];
 			}
 		}
 		else
 		{
 			//Webservice failed
-			[self.mainView showLogin];
+			//[mainView showLogin];
 		}
     }
     else
@@ -187,7 +184,7 @@
 {
 	if(buttonIndex == 1)
 	{
-        [mainView addFunds];
+        [[Globals i] showBuy];
 	}
 }
 

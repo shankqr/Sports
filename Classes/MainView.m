@@ -8,7 +8,6 @@
 
 #import "MainView.h"
 #import "Globals.h"
-#import "FFCAppDelegate.h"
 #import "Header.h"
 #import "JobsView.h"
 #import "ClubView.h"
@@ -41,15 +40,14 @@
 #import "ClubViewer.h"
 #import "SquadViewer.h"
 #import "MapViewer.h"
-#import "ChatView.h"
 #import "MatchReport.h"
 #import "AchievementsView.h"
 #import "WelcomeViewController.h"
 #import "NSString+HMAC.h"
 #import "FriendProtocols.h"
 #import "MainCell.h"
-#import <Social/Social.h>
-#import <Accounts/Accounts.h>
+#import "AllianceView.h"
+#import "AllianceDetail.h"
 #import "Sparrow.h"
 #import "Game.h"
 #import "Game_hockey.h"
@@ -68,7 +66,6 @@
 @synthesize financeView;
 @synthesize staffView;
 @synthesize matchView;
-@synthesize clubSearchView;
 @synthesize clubMapView;
 @synthesize squadView;
 @synthesize trainingView;
@@ -83,12 +80,10 @@
 @synthesize allianceDetail;
 @synthesize matchLive;
 @synthesize helpView;
-@synthesize chatView;
 @synthesize matchReport;
 @synthesize welcomeView;
 @synthesize challengeBox;
 @synthesize challengeCreate;
-@synthesize aboutBox;
 @synthesize animateViewTimer;
 @synthesize marqueeTimer;
 @synthesize chatTimer;
@@ -96,19 +91,104 @@
 @synthesize lblChat2;
 @synthesize marquee;
 @synthesize lblMarquee;
-@synthesize alertLoading;
 @synthesize myclubTabBarController;
-@synthesize buttonAudio;
-@synthesize backAudio;
-@synthesize moneyAudio;
-@synthesize winAudio;
-@synthesize loseAudio;
 @synthesize backButton;
 @synthesize sparrowView;
-@synthesize footerView;
-@synthesize menu0;
 @synthesize mainTableView;
 @synthesize cell;
+
+- (void)startUp //Called when app opens for the first time
+{
+    //isShowingLogin = NO;
+    [[Globals i] pushViewControllerStack:self];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"GotoLogin"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"GotoAlliance"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateClubData"
+                                               object:nil];
+}
+
+- (void)notificationReceived:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"GotoLogin"])
+    {
+        [self gotoLogin:NO];
+    }
+    
+    if ([[notification name] isEqualToString:@"GotoAlliance"])
+    {
+        [self showAlliance];
+    }
+    
+    if ([[notification name] isEqualToString:@"UpdateClubData"])
+    {
+        //lblCurrencyFirst.text = [[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_first"]];
+    }
+}
+
+- (void)reloadView //Called after login and when app becomes active from background
+{
+    [self gotoLogin:YES];
+}
+
+- (void)gotoLogin:(BOOL)autoLogin //Open the Login View
+{
+    if (!autoLogin)
+    {
+        [[Globals i] setUID:@""];
+    }
+    /*
+    if (!isShowingLogin)
+    {
+        isShowingLogin = YES;
+        
+        [[Globals i] showLogin:^(NSInteger status)
+         {
+             if(status == 1) //Login Success
+             {
+                 isShowingLogin = NO;
+                 
+                 [self loadAllData];
+             }
+         }];
+    }
+     */
+}
+
+- (void)loadAllData
+{
+    [[Globals i] showLoadingAlert];
+    
+    if(![[Globals i] updateClubData])
+	{
+		[self gotoLogin:NO];
+	}
+	else if(![[Globals i] updateWorldClubData])
+    {
+        [self gotoLogin:NO];
+    }
+    else
+    {
+        [[Globals i] updateBaseData];
+        
+        //Updates product identifiers and display dialog if need to upgrade app
+        [[Globals i] checkVersion:self.view];
+        
+        //[self updateView];
+    }
+    
+    [[Globals i] removeLoadingAlert];
+}
 
 - (void)saveLocation
 {
@@ -323,7 +403,7 @@
 	NSString *message = @"I have just upgraded my arena. Come over and play a match with me.";
 	NSString *extra_desc = @"A big portion of club revenue comes from ticket sales of matches played at your stadium. Upgrade your stadium to increase seating capacity and average ticket price per match. ";
 	NSString *imagename = @"upgrade_stadium.png";
-	[self FallbackPublishStory:message:extra_desc:imagename];
+	[[Globals i] fbPublishStory:message :extra_desc :imagename];
 }
 
 - (void)buyStaffSuccess:(NSString *)virtualMoney :(NSString *)json
@@ -340,7 +420,7 @@
 	NSString *message = @"I have just hired more staff for my club. Come over and play a match with me.";
 	NSString *extra_desc = @"You can hire managers, scouts, assistant coaches, accountant1, spokesperson1, psychologist1, physiotherapist1, doctor1. ";
 	NSString *imagename = @"hire_staff.png";
-	[self FallbackPublishStory:message:extra_desc:imagename];
+	[[Globals i] fbPublishStory:message:extra_desc:imagename];
 }
 
 - (void)renameClubPurchaseSuccess:(NSString *)virtualMoney :(NSString *)json
@@ -386,7 +466,7 @@
 		NSString *message = [NSString stringWithFormat:@"I have just renamed my club to %@", text];
 		NSString *extra_desc = @"You can rename your club anytime you feel like it, but make sure to inform your friends. ";
 		NSString *imagename = @"rename_club.png";
-		[self FallbackPublishStory:message:extra_desc:imagename];
+		[[Globals i] fbPublishStory:message:extra_desc:imagename];
 	}
 	else
 	{
@@ -415,7 +495,7 @@
 	NSString *message = @"I have just signed up a new Coach.";
 	NSString *extra_desc = @"Keep an eye on the job board for new coaches. A good coach improves the training of your team significantly. ";
 	NSString *imagename = @"new_coach.png";
-	[self FallbackPublishStory:message:extra_desc:imagename];
+	[[Globals i] fbPublishStory:message:extra_desc:imagename];
 }
 
 - (void)buyResetClub
@@ -429,7 +509,7 @@
 	NSString *message = @"I have just reset my club!";
 	NSString *extra_desc = @"You can reset your club if you want to start again from scratch. ";
 	NSString *imagename = @"rename_club.png";
-	[self FallbackPublishStory:message:extra_desc:imagename];
+	[[Globals i] fbPublishStory:message:extra_desc:imagename];
 }
 
 - (void)buyOthersSuccess
@@ -635,12 +715,9 @@
 
 - (void)confirmViewMatch:(NSMutableArray *)a
 {
-    [[Globals i] showDialog:self.view
-                           :@""
-                           :@"Assistant Manager"
-                           :[NSString stringWithFormat:@"%@ has accepted your Challenge. View the match report?", a[currMatchIndex][@"club_away_name"]]
-                           :2
-                           :^(NSInteger index, NSString *text)
+    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"%@ has accepted your Challenge. View the match report?", a[currMatchIndex][@"club_away_name"]]
+                                :2
+                                :^(NSInteger index, NSString *text)
      {
          if (index == 1)
          {
@@ -669,14 +746,6 @@
 	[[activeView superview] insertSubview:dialogBox.view atIndex:5];
 	[dialogBox updateView];
      */
-}
-
--(void)showLogin //Back to login view
-{
-    [FBSession.activeSession closeAndClearTokenInformation];
-    
-    FFCAppDelegate *delegate = [[UIApplication sharedApplication]delegate];
-    [delegate gotoLogin];
 }
 
 -(void)showWelcome
@@ -712,9 +781,31 @@
     [superView insertSubview:achievementsView.view atIndex:4];
 }
 
--(void)showAlliance
+- (void)showAlliance
 {
-
+    if([[[Globals i] wsWorldClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
+    {
+        if (allianceView == nil)
+        {
+            allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
+        }
+        [allianceView updateView];
+        allianceView.title = @"Alliances";
+        
+        [[Globals i] showTemplate:@[allianceView] :@"Alliance" :1];
+    }
+    else
+    {
+        if (allianceDetail == nil)
+        {
+            allianceDetail = [[AllianceDetail alloc] initWithStyle:UITableViewStylePlain];
+        }
+        allianceDetail.aAlliance = nil;
+        [allianceDetail updateView];
+        allianceDetail.title = @"My Alliance";
+        
+        [[Globals i] showTemplate:@[allianceDetail] :@"Alliance" :1];
+    }
 }
 
 -(void)showAllianceDetail:(int)aid
@@ -790,39 +881,6 @@
 
 }
 
-- (void)initSound
-{	
-	//Setup button sound
-	NSURL *url1 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_button.aif", [[NSBundle mainBundle] resourcePath]]];
-	buttonAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url1 error:nil];
-    buttonAudio.numberOfLoops = 0;
-    buttonAudio.volume = 1.0;
-	
-	//Setup back sound
-	NSURL *url2 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_back.aif", [[NSBundle mainBundle] resourcePath]]];
-	backAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url2 error:nil];
-	backAudio.numberOfLoops = 0;
-    backAudio.volume = 1.0;
-    
-    //Setup money sound
-	NSURL *url4 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_cash.caf", [[NSBundle mainBundle] resourcePath]]];
-	moneyAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url4 error:nil];
-	moneyAudio.numberOfLoops = 0;
-    moneyAudio.volume = 1.0;
-    
-    //Setup win sound
-	NSURL *url5 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd_goal.caf", [[NSBundle mainBundle] resourcePath]]];
-	winAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url5 error:nil];
-	winAudio.numberOfLoops = 0;
-    winAudio.volume = 1.0;
-    
-    //Setup lose sound
-	NSURL *url6 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd0.caf", [[NSBundle mainBundle] resourcePath]]];
-	loseAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url6 error:nil];
-	loseAudio.numberOfLoops = 0;
-    loseAudio.volume = 1.0;
-}
-
 - (void)viewDidLoad
 {
 	activeView = self.view;
@@ -836,8 +894,6 @@
 	Header *headerViewController = [[Header alloc] initWithNibName:@"Header" bundle:nil];
 	headerViewController.mainView = self;
 	self.header = headerViewController;
-	
-	[self initSound];
 	
 	[Globals i].selectedClubId = @"0";
 	[Globals i].workingUrl = @"0";
@@ -924,13 +980,6 @@
     /*
 	NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
 	NSString *welcomeFooter = wsSeasonData[@"footer"];
-
-    if (footerView == nil)
-    {
-        footerView = [[Footer alloc] initWithTitle:@"Welcome Back" message:welcomeFooter];
-    }
-	[[self.view superview] addSubview:footerView.view];
-	[footerView showMsgWithDelay:15];
     */
 }
 
@@ -1005,7 +1054,7 @@
 {
     if(![[Globals i] updateClubData])
 	{
-		[self showLogin];
+		//[self showLogin];
         
 		return;
 	}
@@ -1073,12 +1122,7 @@
 							   withObject:nil
 							waitUntilDone:YES];
 	}
-	else
-	{
-		[self performSelectorOnMainThread:@selector(showLogin)
-							   withObject:nil
-							waitUntilDone:YES];
-	}
+
         
         [self performSelectorOnMainThread:@selector(removeLoadingAlert)
                                withObject:nil
@@ -1094,40 +1138,8 @@
 
 - (void)getChat
 {
-    @autoreleasepool {
-    
-        [[Globals i] updateChatData];
-        if(chatView != nil)
-        {
-            [self performSelectorOnMainThread:@selector(updateChatView)
-                                   withObject:nil
-                                waitUntilDone:NO];
-        }
-        
-        if ([[[Globals i] getLast3Chat] isEqualToString:@"0"]) 
-        {
-            if ([[[Globals i] getLast2Chat] isEqualToString:@"0"]) 
-            {
-                if ([[[Globals i] getLast1Chat] isEqualToString:@"0"]) 
-                {
-                    lblChat1.text = @" ";
-                }
-                else
-                {
-                    lblChat1.text = [[Globals i] getLast1Chat];
-                }
-            }
-            else
-            {
-                lblChat1.text = [[Globals i] getLast2Chat];
-            }
-        }
-        else
-        {
-            lblChat1.text = [[Globals i] getLast3Chat];
-        }
-    
-    }
+    [[Globals i] updateChatData];
+    lblChat1.text = [[Globals i] getLastChatString];
 }
 
 - (void)updateChatView
@@ -1270,8 +1282,6 @@
  
 - (void)facebookViewControllerCancelWasPressed:(id)sender
 {
-    [self backSound];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
     
     [self showHeader];
@@ -1280,8 +1290,6 @@
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
 {
-    [self buttonSound];
-    
     FBFriendPickerViewController *fpc = (FBFriendPickerViewController *)sender;
     
     for (id<FBGraphUser> user in fpc.selection)
@@ -1448,7 +1456,6 @@
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-	[self buttonSound];
 	//MyClub
 	if([viewController.tabBarItem.title isEqualToString:@"My Club"])
 	{
@@ -1520,7 +1527,6 @@
 
 -(void)menuButton_tap:(int)sender
 {
-	[self buttonSound];
 	if(posxView==SCREEN_WIDTH)
 	{
 	switch(sender)
@@ -1684,8 +1690,6 @@
 
 - (void)actionBackButton:(id)sender
 {
-	[self backSound];
-    
     [backButton removeFromSuperview];
 	if (activeView == self.jobsView.view) 
 	{
@@ -1919,41 +1923,6 @@
     [self.view addSubview:lblChat1];
 }
 
-- (void)buttonSound
-{
-	[buttonAudio play];
-}
-
-- (void)backSound
-{
-	[backAudio play];
-}
-
-- (void)moneySound
-{
-	[moneyAudio play];
-}
-
-- (void)winSound
-{
-	[winAudio play];
-}
-
-- (void)loseSound
-{
-	[loseAudio play];
-}
-
-- (void)trainingSound
-{
-
-}
-
-- (void)stopTrainingSound
-{
-
-}
-
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag 
 {
 	if (flag) 
@@ -2010,8 +1979,6 @@
 
 - (void)logoutButton
 {
-    [self buttonSound];
-    
 	UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:@"Assistant Manager"
 						  message:@"Do you want to logout?"
@@ -2030,48 +1997,19 @@
 	
 	if(buttonIndex == 1)
 	{
-        [self showLogin];
+        //[self showLogin];
     }
 }
 
 - (void)shareButton
 {
-    [self buttonSound];
-    
     NSString *message = @"Check out this very cool App!";
 	NSString *caption = @"Come on and join in the fun.";
 	NSString *picture = @"Icon-72.png";
     
-    [self FallbackPublishStory:message :caption :picture];
+    [[Globals i] fbPublishStory:message :caption :picture];
     
     [[Globals i] showDialog:@"Thank you for sharing this App with your friends. Challenge your friends and level up even faster!"];
-}
-
-- (void)FallbackPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
-{
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-    {
-        SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        [mySLComposerSheet setInitialText:message];
-        [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
-        [mySLComposerSheet addURL:[NSURL URLWithString:@"https://www.tapfantasy.com"]];
-        [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
-        {
-            switch (result)
-            {
-                case SLComposeViewControllerResultCancelled:
-                    NSLog(@"Post Canceled");
-                    break;
-                case SLComposeViewControllerResultDone:
-                    NSLog(@"Post Sucessful");
-                    break;
-                default:
-                    break;
-            }
-        }];
-        
-        [self presentViewController:mySLComposerSheet animated:YES completion:nil];
-    }
 }
 
 - (void)showLoadingAlert

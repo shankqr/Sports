@@ -22,12 +22,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 @synthesize ivFlag;
 @synthesize lblWorld;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
     if([string isEqualToString:@"\n"])

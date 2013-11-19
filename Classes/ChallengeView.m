@@ -37,7 +37,6 @@
     [Globals i].challengeMatchId = selected_matchid;
     [mainView DeclineChallenge];
     
-	[mainView buttonSound];
 	currMatchIndex = currMatchIndex+1;
 	[self updateView];
 }
@@ -106,7 +105,6 @@
 
 - (IBAction)okButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	[self confirmPurchase];
 }
 
@@ -136,15 +134,15 @@
 {
 	if(buttonIndex == 1)
 	{
-		[mainView addFunds];
+		[[Globals i] showBuy];
 	}
 }
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-    [mainView buttonSound];
     
-	[self.mainView jumpToChallenge:(self.matches)[currMatchIndex][@"club_home"]];
+    
+	[mainView jumpToChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;
     [self.view removeFromSuperview];

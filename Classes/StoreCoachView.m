@@ -226,8 +226,6 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {	
-	[mainView buttonSound];
-	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.coaches)[row];
 	NSString *name = rowData[@"coach_name"];
@@ -249,7 +247,7 @@
 {
 	if(buttonIndex == 1)
 	{
-        [mainView addFunds];
+        [[Globals i] showBuy];
 	}
 	
 	if(buttonIndex == 2)

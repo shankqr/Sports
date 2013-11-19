@@ -65,7 +65,7 @@
 	{
 		case 0: //Promotion
 		{
-			[mainView buttonSound];
+			
 			self.filter = @"Promotion";
 			posOffset = 0;
 			if([Globals i].selectedDivision > 5)
@@ -89,7 +89,6 @@
 		}
 		case 1: //Demotion
 		{
-			[mainView buttonSound];
 			self.filter = @"Demotion";
 			posOffset = [self.leagues count]/2;
 			totalRow = [self.leagues count]/2;
@@ -105,12 +104,12 @@
 	{
 		case 0: //Club Info
 		{
-			[self.mainView jumpToClubViewer:selected_clubid];
+			[mainView jumpToClubViewer:selected_clubid];
 			break;
 		}
         case 1: //Challenge
 		{
-			[self.mainView jumpToChallenge:selected_clubid];
+			[mainView jumpToChallenge:selected_clubid];
 			break;
 		}
 	}
@@ -177,7 +176,7 @@
 									  destructiveButtonTitle:nil
 									  otherButtonTitles:@"Club Info", @"Challenge", nil];
 		actionSheet.tag = 1;
-		[actionSheet showFromTabBar:[[self.mainView leagueTabBarController] tabBar]];
+		[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
 	}
 	return nil;
 }

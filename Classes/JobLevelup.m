@@ -49,11 +49,10 @@
 
 - (IBAction)ok_tap:(id)sender
 {
-    [mainView buttonSound];
 	[self.view removeFromSuperview];
 	
-	[self.mainView showHeader];
-	[self.mainView showFooter];
+	[mainView showHeader];
+	[mainView showFooter];
 }
 
 @end

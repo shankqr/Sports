@@ -194,8 +194,6 @@
 
 - (void)buttonPressed:(id)sender
 {
-    [mainView buttonSound];
-    
     int rowOfButton=[sender tag];
     tid = [NSString stringWithFormat:@"%d", rowOfButton];
     [[Globals i] changeTactic:tid];

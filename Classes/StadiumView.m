@@ -41,14 +41,11 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView backSound];
-    
 	[self.view removeFromSuperview];
 }
 
 -(IBAction)upgradeButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	int cost = [[levelLabel.text stringByReplacingOccurrencesOfString:@"," withString:@""] intValue]*5000;
 	NSNumber* number = @(cost);
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];

@@ -37,25 +37,21 @@
 
 - (IBAction)club_tap:(id)sender
 {
-    [mainView buttonSound];
 	[mainView jumpToClub];
 }
 
 - (IBAction)gold_tap:(id)sender
 {
-    [mainView buttonSound];
-	[mainView addFunds];
+	[[Globals i] showBuy];
 }
 
 - (IBAction)diamond_tap:(id)sender
 {
-    [mainView buttonSound];
-	[mainView addDiamonds];
+	[[Globals i] showBuy];
 }
 
 - (IBAction)energy_tap:(id)sender
 {
-    [mainView buttonSound];
 	[self showJobRefill];
 }
 
@@ -135,7 +131,6 @@
 {
 	if([Globals i].energy >= energy_used)
 	{
-		[self.mainView trainingSound];
 		[NSThread detachNewThreadSelector:@selector(showJobAnimation) toTarget:self withObject:nil];
 		
 		NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
@@ -148,8 +143,8 @@
 		{
 			if([[Globals i] updateClubData])
 			{
-				[self.mainView hideHeader];
-				[self.mainView hideFooter];
+				[mainView hideHeader];
+				[mainView hideFooter];
 				
 				[Globals i].energy = [Globals i].energy - energy_used;
 				[[Globals i] storeEnergy];
@@ -161,21 +156,18 @@
 				{
 					level = level + 1;
 					[self showLevelUp];
-                    [mainView winSound];
+                    [[Globals i] winSound];
 				}
 				else 
 				{
 					[self showJobComplete:xp_gain];
 				}
 				
-				[self.mainView stopTrainingSound];
-				
 				return YES;
 			}
 			else
 			{
-				[self.mainView stopTrainingSound];
-				[self.mainView showLogin];
+				//[mainView showLogin];
 				
 				return NO;
 			}
@@ -183,8 +175,7 @@
 		else
 		{
 			//Webservice failed
-			[self.mainView stopTrainingSound];
-			[self.mainView showLogin];
+			//[mainView showLogin];
 			
 			return NO;
 		}

@@ -63,8 +63,6 @@
 
 - (IBAction)winButton_tap:(id)sender
 {
-    [mainView buttonSound];
-    
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
 								  initWithTitle:@"Select Amount"
 								  delegate:self
@@ -77,7 +75,7 @@
 
 - (IBAction)loseButton_tap:(id)sender
 {
-    [mainView buttonSound];
+    
     
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
 								  initWithTitle:@"Select Amount"
@@ -185,13 +183,12 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[mainView buttonSound];
 	[self.view removeFromSuperview];
 }
 
 - (IBAction)okButton_tap:(id)sender
 {
-	[mainView buttonSound];
+	
     
 	[self confirmPurchase];
 }
@@ -261,7 +258,7 @@
     {
         if(buttonIndex == 1)
         {
-            [mainView addFunds];
+            [[Globals i] showBuy];
         }
     }
 }
