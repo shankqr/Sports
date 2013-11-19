@@ -1906,7 +1906,7 @@
 	[lblMarquee addGestureRecognizer:gesture];
     
     //Chat labels
-    lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-100, SCREEN_WIDTH, 320)];
+    lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-40, SCREEN_WIDTH, 320)];
     lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
     lblChat1.textAlignment = NSTextAlignmentCenter;
     lblChat1.textColor = [UIColor grayColor];
