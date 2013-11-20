@@ -18,11 +18,6 @@
 @synthesize dateLabel;
 @synthesize matchReport;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -32,8 +27,8 @@
 {
     [self endMatch];
 	
-    [mainView showHeader];
-	[mainView showFooter];
+    
+	
 	[mainView updateHeader];
 	[self.view removeFromSuperview];
 }

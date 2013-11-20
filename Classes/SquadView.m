@@ -27,12 +27,6 @@
 @synthesize filter;
 @synthesize playerView;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 -(void)updateView
 {
     [table setFrame:CGRectMake(0, HeaderSquad_height, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-HeaderSquad_height)];
@@ -144,9 +138,6 @@
 	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
 	self.sel_player_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
     
-    [mainView hideFooter];
-    [mainView hideHeader];
-    [mainView hideMarquee];
     if(playerView == nil)
     {
         playerView = [[PlayerView alloc] initWithNibName:@"PlayerView" bundle:nil];

@@ -1,53 +1,59 @@
 //
 //  AchievementsView.m
-//  FFC
+//  Kingdom Game
 //
 //  Created by Shankar on 3/24/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
 #import "AchievementsView.h"
-#import "AchievementsCell.h"
 #import "Globals.h"
-#import "MainView.h"
-#import "DialogBoxView.h"
+#import "AchievementsCell.h"
 
 @implementation AchievementsView
-@synthesize mainView;
-@synthesize table;
 @synthesize tasks;
-@synthesize dialogBox;
-
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
 
 - (void)viewDidLoad
 {
-	self.wantsFullScreenLayout = YES;
+	[super viewDidLoad];
     
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
--(void)updateView
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent
+{
+	[super willMoveToParentViewController:parent];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+	[super didMoveToParentViewController:parent];
+}
+
+- (void)updateView
 {
     [[Globals i] updateMyAchievementsData];
-	self.tasks = [[Globals i] getMyAchievementsData];
-	[table reloadData];
+	self.tasks = [[Globals i] wsMyAchievementsData];
+	[self.tableView reloadData];
     
-    [mainView updateAchievementBadges];
-}
-
-- (IBAction)cancelButton_tap:(id)sender
-{
-    [mainView showHeader];
-    [self.view removeFromSuperview];
+    //[mainView updateAchievementBadges];
 }
 
 #pragma mark Table Data Source Methods
@@ -143,52 +149,23 @@
     NSString *achievement_type_id = rowData[@"achievement_type_id"];
     NSString *achievement_id = rowData[@"achievement_id"];
     NSString *club_id = rowData[@"club_id"];
-    NSString *name = rowData[@"name"];
-    NSString *image_url = rowData[@"image_url"];
-    NSString *description = rowData[@"description"];
-    NSString *tutorial = rowData[@"tutorial"];
     
-    NSString *returnValue = @"0";
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ClaimAchievement/%@/%@/%@",
-                       WS_URL, club_id, achievement_id, achievement_type_id];
-    NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-    returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
+    NSString *wsurl = [NSString stringWithFormat:@"%@/ClaimAchievement/%@/%@/%@",
+                       [[Globals i] world_url], club_id, achievement_id, achievement_type_id];
     
-    
-    if([returnValue isEqualToString:@"0"])
-    {
-        [self createDialogBox];
-        dialogBox.titleText = @"CLAIM NOT VALID";
-        dialogBox.whiteText = @"Please try again.";
-        dialogBox.promptText = @"";
-        dialogBox.dialogType = 1;
-        [self.view insertSubview:dialogBox.view atIndex:17];
-        [dialogBox updateView];
-    }
-    else
-    {
-        [self updateView];
-        //Update Header
-        [[Globals i] updateClubData];
-        [mainView updateHeader];
-        
-        NSString *message = [[NSString alloc] initWithFormat:@"I have just completed an achievement called %@ - %@.", name, description];
-        NSString *extra_desc = tutorial;
-        NSString *imagename = [NSString stringWithFormat:@"achievement/%@.png", image_url];
-        [[Globals i] fbPublishStory:message :extra_desc :imagename];
-        
-        [self createDialogBox];
-        dialogBox.titleText = @"Claim Successful!";
-        dialogBox.whiteText = name;
-        dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! You have been rewarded $%@ for completing this Achievement.", [[Globals i] numberFormat:returnValue]];
-        dialogBox.dialogType = 1;
-        [self.view insertSubview:dialogBox.view atIndex:17];
-        [dialogBox updateView];
-        
-        [[Globals i] winSound];
-    }
-
+    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             [self updateView];
+             
+             [[Globals i] updateWorldClubData];
+             [[Globals i] winSound];
+             
+             //Update Header
+             //[mainView updateHeader];
+         }
+     }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -204,6 +181,7 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /*
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.tasks)[row];
 	NSString *task_name = rowData[@"name"];
@@ -211,32 +189,15 @@
     NSString *task_tutorial = rowData[@"tutorial"];
     NSString *reward = rowData[@"reward"];
     
-    [self createDialogBox];
     dialogBox.titleText = task_name;
     dialogBox.whiteText = task_desc;
     dialogBox.promptText = [NSString stringWithFormat:@"%@ Reward: $%@ ", task_tutorial, [[Globals i] numberFormat:reward]];
     dialogBox.dialogType = 1;
-    [self.view insertSubview:dialogBox.view atIndex:17];
+    [self.view addSubview:dialogBox.view];
     [dialogBox updateView];
+    */
     
 	return nil;
-}
-
-- (void)createDialogBox
-{
-    if (dialogBox == nil)
-    {
-        dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
-        //dialogBox.delegate = self;
-    }
-}
-
-- (void)removeDialogBox
-{
-	if(dialogBox != nil)
-	{
-		[dialogBox.view removeFromSuperview];
-	}
 }
 
 @end

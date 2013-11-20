@@ -19,12 +19,6 @@
 @synthesize selected_matchid;
 @synthesize matches;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad
 {
 	winButton.enabled = NO;
@@ -35,7 +29,7 @@
 - (IBAction)cancelButton_tap:(id)sender
 {
     [Globals i].challengeMatchId = selected_matchid;
-    [mainView DeclineChallenge];
+    [mainView declineChallenge];
     
 	currMatchIndex = currMatchIndex+1;
 	[self updateView];
@@ -142,7 +136,7 @@
 {
     
     
-	[mainView jumpToChallenge:(self.matches)[currMatchIndex][@"club_home"]];
+	[mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;
     [self.view removeFromSuperview];

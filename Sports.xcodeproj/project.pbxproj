@@ -184,8 +184,6 @@
 		9093A6B11837F7DD005D60E2 /* BidView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6AD1837F7DD005D60E2 /* BidView~ipad.xib */; };
 		9093A6B61837F7EC005D60E2 /* AchievementsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6B21837F7EC005D60E2 /* AchievementsCell.xib */; };
 		9093A6B71837F7EC005D60E2 /* AchievementsCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6B31837F7EC005D60E2 /* AchievementsCell~ipad.xib */; };
-		9093A6B81837F7EC005D60E2 /* AchievementsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6B41837F7EC005D60E2 /* AchievementsView.xib */; };
-		9093A6B91837F7EC005D60E2 /* AchievementsView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6B51837F7EC005D60E2 /* AchievementsView~ipad.xib */; };
 		9093A6BE1837F7FC005D60E2 /* ChallengeCreateView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6BA1837F7FC005D60E2 /* ChallengeCreateView.xib */; };
 		9093A6BF1837F7FC005D60E2 /* ChallengeCreateView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6BB1837F7FC005D60E2 /* ChallengeCreateView~ipad.xib */; };
 		9093A6C01837F7FC005D60E2 /* ChallengeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6BC1837F7FC005D60E2 /* ChallengeView.xib */; };
@@ -2568,8 +2566,6 @@
 		9093A6AD1837F7DD005D60E2 /* BidView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "BidView~ipad.xib"; path = "Xibs/BidView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6B21837F7EC005D60E2 /* AchievementsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AchievementsCell.xib; path = Xibs/AchievementsCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6B31837F7EC005D60E2 /* AchievementsCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "AchievementsCell~ipad.xib"; path = "Xibs/AchievementsCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6B41837F7EC005D60E2 /* AchievementsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AchievementsView.xib; path = Xibs/AchievementsView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6B51837F7EC005D60E2 /* AchievementsView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "AchievementsView~ipad.xib"; path = "Xibs/AchievementsView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6BA1837F7FC005D60E2 /* ChallengeCreateView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChallengeCreateView.xib; path = Xibs/ChallengeCreateView.xib; sourceTree = SOURCE_ROOT; };
 		9093A6BB1837F7FC005D60E2 /* ChallengeCreateView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ChallengeCreateView~ipad.xib"; path = "Xibs/ChallengeCreateView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6BC1837F7FC005D60E2 /* ChallengeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ChallengeView.xib; path = Xibs/ChallengeView.xib; sourceTree = SOURCE_ROOT; };
@@ -4780,6 +4776,7 @@
 			children = (
 				9094F84C183A85BE00931A9A /* Library */,
 				909A7B841032A436003802A9 /* Main */,
+				90D5B1D711C42ABE00A815A6 /* Jobs */,
 				9094F824183A6CEB00931A9A /* MatchEngineHockey */,
 				90E92D3F1836A72C00DFA9FB /* MatchEngine */,
 				90DBE9FD126CBDA3003844EE /* Slides */,
@@ -4787,7 +4784,6 @@
 				903B3F0513D723AD00AE7B1C /* Achievements */,
 				908C2C7213C467550083D69F /* Bid */,
 				90D33351108EB8EA00778AFA /* Store */,
-				90D5B1D711C42ABE00A815A6 /* Jobs */,
 				90866C800FF4BBAF00EC6AB7 /* Club */,
 				907E9314100A5E73002FA234 /* ClubViewer */,
 				90866CB60FF4BD5F00EC6AB7 /* Coach */,
@@ -4938,8 +4934,6 @@
 			children = (
 				903B3F0613D7250200AE7B1C /* AchievementsView.h */,
 				903B3F0713D7250200AE7B1C /* AchievementsView.m */,
-				9093A6B41837F7EC005D60E2 /* AchievementsView.xib */,
-				9093A6B51837F7EC005D60E2 /* AchievementsView~ipad.xib */,
 				903B3F1113D7265000AE7B1C /* AchievementsCell.h */,
 				903B3F1213D7265000AE7B1C /* AchievementsCell.m */,
 				9093A6B21837F7EC005D60E2 /* AchievementsCell.xib */,
@@ -8239,7 +8233,6 @@
 				90E92BEC1836A6D300DFA9FB /* z838.png in Resources */,
 				90E92AD11836A6D300DFA9FB /* z583.png in Resources */,
 				90E928621836A6D300DFA9FB /* job_levelup.png in Resources */,
-				9093A6B91837F7EC005D60E2 /* AchievementsView~ipad.xib in Resources */,
 				9093A6931837F793005D60E2 /* TrophyCell~ipad.xib in Resources */,
 				90E92CEA1836A6D300DFA9FB /* timer.png in Resources */,
 				90E92CBF1836A6D300DFA9FB /* button_ok1.png in Resources */,
@@ -10020,7 +10013,6 @@
 				90AAA1D418392459007DE5B1 /* c25.png in Resources */,
 				90E929081836A6D300DFA9FB /* z171.png in Resources */,
 				90E929D11836A6D300DFA9FB /* z352.png in Resources */,
-				9093A6B81837F7EC005D60E2 /* AchievementsView.xib in Resources */,
 				90E92A7C1836A6D300DFA9FB /* z506.png in Resources */,
 				90AAA1E818392459007DE5B1 /* c43.png in Resources */,
 				90AAA24F18392459007DE5B1 /* training_04_word.png in Resources */,

@@ -23,11 +23,6 @@
 @synthesize yesButton;
 @synthesize noButton;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (IBAction)closeButton_tap:(id)sender
 {
     if (self.dialogBlock != nil)

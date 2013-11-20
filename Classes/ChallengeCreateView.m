@@ -22,12 +22,6 @@
 @synthesize draw;
 @synthesize matches;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad
 {
 	managerNote.delegate = self;

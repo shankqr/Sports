@@ -24,13 +24,6 @@
 @synthesize matchLive;
 @synthesize challengeBox;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (void)viewDidLoad
 {
 
@@ -110,12 +103,12 @@
 			{
 				case 0:
 				{
-					[mainView jumpToClubViewer:selected_clubid];
+					[mainView showClubViewer:selected_clubid];
 					break;
 				}
                 case 1: //Challenge
                 {
-                    [mainView jumpToChallenge:selected_clubid];
+                    [mainView showChallenge:selected_clubid];
                     break;
                 }
 			}
@@ -128,15 +121,12 @@
 			{
 				case 0:
 				{
-					[mainView jumpToClubViewer:selected_clubid];
+					[mainView showClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //Match Report
 				{
                     [Globals i].challengeMatchId = selected_matchid;
-                    [mainView hideFooter];
-                    [mainView hideHeader];
-                    
                     [mainView reportMatch];
 					break;
 				}
@@ -150,7 +140,7 @@
 			{
 				case 0:
 				{
-					[mainView jumpToClubViewer:selected_clubid];
+					[mainView showClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //View challenge
@@ -161,7 +151,7 @@
                         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
                         challengeBox.mainView = self.mainView;
                     }
-					[[self.view superview] addSubview:challengeBox.view];
+					[self.view addSubview:challengeBox.view];
 					[challengeBox viewChallenge:selected_row];
 					break;
 				}
@@ -175,7 +165,7 @@
 			{
 				case 0:
 				{
-					[mainView jumpToClubViewer:selected_clubid];
+					[mainView showClubViewer:selected_clubid];
 					break;
 				}
 			}

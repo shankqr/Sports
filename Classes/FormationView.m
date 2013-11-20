@@ -532,8 +532,6 @@
 
 - (void)launchSquadSelect
 {
-	[mainView hideHeader];
-	[mainView hideFooter];
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
@@ -541,14 +539,14 @@
         squadSelecter.delegate = self;
     }
 	[squadSelecter updateView];
-	[[[[self.view superview] superview] superview] insertSubview:squadSelecter.view atIndex:3];
+	[self.view insertSubview:squadSelecter.view atIndex:3];
 }
 
 - (void)playerSelected:(NSString *)player
 {
 	[squadSelecter.view removeFromSuperview];
-	[mainView showHeader];
-	[mainView showFooter];
+	
+	
 	self.nwPlayer = player;
 	
 	if([player isEqualToString:@"0"] || [player isEqualToString:self.selectedPlayer])

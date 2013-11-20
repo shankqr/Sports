@@ -22,12 +22,6 @@
 @synthesize serverFormat;
 @synthesize b1s;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -244,8 +238,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
-	[mainView showHeader];
-	[mainView showFooter];
+	
+	
 	[mainView updateHeader];
 	[self.view removeFromSuperview];
 }
@@ -450,12 +444,12 @@
         if(buttonIndex == 1)
         {
             [messageText resignFirstResponder];
-            [mainView jumpToClubViewer:selected_clubid];
+            [mainView showClubViewer:selected_clubid];
         }
         if(buttonIndex == 2)
         {
             [messageText resignFirstResponder];
-            [mainView jumpToChallenge:selected_clubid];
+            [mainView showChallenge:selected_clubid];
         }
     }
     

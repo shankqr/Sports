@@ -40,14 +40,9 @@
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
-UIAlertViewDelegate, CLLocationManagerDelegate,AVAudioPlayerDelegate,
+UIAlertViewDelegate, CLLocationManagerDelegate,
 UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 {
-	UIButton *imageButton;
-	UIButton *backButton;
-	UIView *activeView;
-	UIView *previousView;
-	UIView *superView;
 	Header *header;
 	JobsView *jobsView;
 	ClubView *clubView;
@@ -80,29 +75,19 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
 	UITabBarController *myclubTabBarController;
-	UITextField *tf;
-	CGFloat posxView;
-	NSTimer *animateViewTimer;
+    UITableView *mainTableView;
+    NSInteger currMatchIndex;
 	NSTimer *marqueeTimer;
-    NSTimer *chatTimer;
-    UILabel* lblChat1;
-    UILabel* lblChat2;
-	NSMutableArray *marquee;
+    NSMutableArray *marquee;
 	UILabel *lblMarquee;
 	CGFloat posxMarquee;
 	NSInteger rowMarquee;
     NSInteger speedMarquee;
 	CGSize textSizeMarquee;
-    UIButton *loginButton;
-    UITableView *mainTableView;
-    NSInteger currMatchIndex;
-    BOOL showedFooter;
-	BOOL showedChallenge;
+    NSTimer *chatTimer;
+    UILabel* lblChat1;
 }
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
-@property (nonatomic, strong) UIView *activeView;
-@property (nonatomic, strong) UIView *previousView;
-@property (nonatomic, strong) UIView *superView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
 @property (nonatomic, strong) ClubView *clubView;
@@ -127,14 +112,11 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 @property (nonatomic, strong) AchievementsView *achievementsView;
 @property (nonatomic, strong) AllianceView *allianceView;
 @property (nonatomic, strong) AllianceDetail *allianceDetail;
-@property (nonatomic, strong) NSTimer *animateViewTimer;
 @property (nonatomic, strong) NSTimer *marqueeTimer;
 @property (nonatomic, strong) NSTimer *chatTimer;
 @property (nonatomic, strong) NSMutableArray *marquee;
 @property (nonatomic, strong) UILabel* lblMarquee;
 @property (nonatomic, strong) UILabel* lblChat1;
-@property (nonatomic, strong) UILabel* lblChat2;
-@property (nonatomic, strong) UIButton *backButton;
 @property (nonatomic, strong) MainCell *cell;
 @property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) IBOutlet UITabBarController *storeTabBarController;
@@ -142,7 +124,8 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 @property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *myclubTabBarController;
-
+- (void)startUp;
+- (void)reloadView;
 - (void)buyProduct:(NSString *)product;
 - (void)buyStadiumSuccess:(NSString *)virtualMoney :(NSString *)json;
 - (void)buyStaffSuccess:(NSString *)virtualMoney :(NSString *)json;
@@ -150,31 +133,19 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 - (void)buyCoachSuccess;
 - (void)buyOthersSuccess;
 - (void)buyOthersSuccessWithDiamonds;
-- (void)jumpToChallenge:(NSString *)club_id;
-- (void)jumpToClubViewer:(NSString *)club_id;
-- (void)jumpToPlayerStore;
-- (void)jumpToCoachStore;
-- (void)jumpToOthersStore;
-- (void)jumpToClub;
+- (void)showChallenge:(NSString *)club_id;
+- (void)showClubViewer:(NSString *)club_id;
+- (void)showPlayerStore;
+- (void)showCoachStore;
+- (void)showOthersStore;
+- (void)showClub;
 - (void)reportMatch;
-- (void)removeClubViewer;
-- (void)removeWelcome;
 - (void)updateHeader;
-- (void)hideHeader;
-- (void)hideFooter;
-- (void)showHeader;
-- (void)showFooter;
-- (void)showMarquee;
-- (void)hideMarquee;
 - (void)updateAchievementBadges;
 - (void)updateChallenge;
-- (void)DeclineChallenge;
+- (void)declineChallenge;
 - (void)startLiveMatch;
 - (void)showStadiumUpgrade;
 - (void)showBuildingUpgrade:(int)type;
-
 - (void)menuButton_tap:(int)sender;
-- (void)reloadView;
-- (void)startUp;
-
 @end

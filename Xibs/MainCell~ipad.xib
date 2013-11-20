@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MainCell" id="2" customClass="MainCell">
-            <rect key="frame" x="0.0" y="0.0" width="768" height="1460"/>
+        <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MainCell" rowHeight="1297" id="2" customClass="MainCell">
+            <rect key="frame" x="0.0" y="0.0" width="768" height="1300"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" tableViewCell="2" id="Lws-KV-EZo">
-                <rect key="frame" x="0.0" y="0.0" width="768" height="1459"/>
+                <rect key="frame" x="0.0" y="0.0" width="768" height="1299"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="117">
@@ -331,7 +331,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="148">
-                        <rect key="frame" x="58" y="1006" width="124" height="150"/>
+                        <rect key="frame" x="586" y="1006" width="124" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <state key="normal" backgroundImage="button_help.png">
@@ -346,7 +346,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="150">
-                        <rect key="frame" x="322" y="1006" width="124" height="150"/>
+                        <rect key="frame" x="454" y="848" width="124" height="150"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <state key="normal" backgroundImage="button_club.png">
@@ -375,14 +375,6 @@
                             <action selector="button22:" destination="2" eventType="touchUpInside" id="173"/>
                         </connections>
                     </button>
-                    <webView contentMode="scaleToFill" id="123">
-                        <rect key="frame" x="0.0" y="1299" width="768" height="160"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="delegate" destination="2" id="125"/>
-                        </connections>
-                    </webView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </tableViewCellContentView>
@@ -390,7 +382,6 @@
             <connections>
                 <outlet property="fbLogoutButton" destination="117" id="119"/>
                 <outlet property="fbShareButton" destination="120" id="122"/>
-                <outlet property="webView" destination="123" id="124"/>
             </connections>
         </tableViewCell>
     </objects>

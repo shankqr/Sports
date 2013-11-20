@@ -7,8 +7,6 @@
 //
 
 #import "FansView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "Globals.h"
 #import "MainView.h"
 
@@ -18,12 +16,6 @@
 @synthesize moodLabel;
 @synthesize expectationLabel;
 @synthesize sponsorLabel;
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
 
 - (void)updateView
 {

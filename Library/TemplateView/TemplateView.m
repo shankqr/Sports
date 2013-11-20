@@ -277,7 +277,9 @@ static const NSInteger TagOffset = 1000;
 	}
     
 	if ([self isViewLoaded])
+    {
 		[self reloadTabButtons];
+    }
 }
 
 - (void)setSelectedIndex:(NSUInteger)newSelectedIndex

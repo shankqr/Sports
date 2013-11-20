@@ -23,13 +23,6 @@
 @synthesize sel_coach_value;
 @synthesize sel_coach_star;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (void)viewDidLoad
 {
     if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)

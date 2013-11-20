@@ -226,8 +226,6 @@
 
 - (void)launchSquadSelect
 {
-	[mainView hideHeader];
-	[mainView hideFooter];
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
@@ -241,8 +239,8 @@
 - (void)playerSelected:(NSString *)player
 {
 	[squadSelecter.view removeFromSuperview];
-	[mainView showHeader];
-	[mainView showFooter];
+	
+	
 	self.nwPlayer = player;
 	
 	if([player isEqualToString:@"0"] || [player isEqualToString:self.selectedPlayer])

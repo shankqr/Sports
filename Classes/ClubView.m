@@ -41,12 +41,6 @@
 	[super viewDidLoad];
 }
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (void)updateView
 {
 	NSDictionary *wsClubData = [[Globals i] getClubData];
@@ -239,7 +233,7 @@
 			}
             else // Online Store
 			{
-				[mainView jumpToOthersStore];
+				[mainView showOthersStore];
 			}
 		}
 		if(buttonIndex == 1) //Go to store or load facebook pic
@@ -262,8 +256,6 @@
 			{
 				picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 				[self presentViewController:picker animated:YES completion:nil];
-				[mainView hideHeader];
-				[mainView hideFooter];
 			}
 		}
 	}
@@ -274,8 +266,8 @@
 	//self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
-	[mainView showHeader];
-	[mainView showFooter];
+	
+	
 	[mainView updateHeader];
 	
 	UIImage *image = info[@"UIImagePickerControllerEditedImage"];
@@ -305,14 +297,9 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-	//mainView.previousView = self.view;
-	//self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
-	[mainView showHeader];
-	[mainView showFooter];
 	[mainView updateHeader];
-	
 	[self updateView];
 }
 

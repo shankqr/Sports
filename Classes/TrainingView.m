@@ -49,7 +49,7 @@
 
 -(IBAction)coachButton_tap:(id)sender
 {
-	[mainView jumpToCoachStore];
+	[mainView showCoachStore];
 }
 
 -(IBAction)trainingButton_tap:(id)sender

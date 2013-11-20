@@ -28,16 +28,9 @@
 @synthesize btnEnergy;
 @synthesize btnGold;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (IBAction)club_tap:(id)sender
 {
-	[mainView jumpToClub];
+	[mainView showClub];
 }
 
 - (IBAction)gold_tap:(id)sender
@@ -143,9 +136,6 @@
 		{
 			if([[Globals i] updateClubData])
 			{
-				[mainView hideHeader];
-				[mainView hideFooter];
-				
 				[Globals i].energy = [Globals i].energy - energy_used;
 				[[Globals i] storeEnergy];
 				xp = xp + xp_gain;

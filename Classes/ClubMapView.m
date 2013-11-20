@@ -26,12 +26,6 @@
     mapViewer.delegate = nil;
 }
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (void)viewDidLoad
 {
     mapViewer = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
@@ -44,8 +38,6 @@
 - (void)updateView
 {
     mapViewer.delegate = self;
-    [mainView hideHeader];
-    [mainView.backButton setFrame:CGRectMake(-1*SCALE_IPAD, BACK_y-30, 50*SCALE_IPAD, 40*SCALE_IPAD)];
     
 	if([[[Globals i] getMapClubsData] count] < 1)
 	{
@@ -128,7 +120,7 @@
 	if(annotation.club_id != nil)
 	{
 		NSString *my_club_id = [annotation.club_id stringByReplacingOccurrencesOfString:@"," withString:@""];
-		[mainView jumpToClubViewer:my_club_id];
+		[mainView showClubViewer:my_club_id];
 	}
 }
 

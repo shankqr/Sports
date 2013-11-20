@@ -49,7 +49,7 @@
 #define HeaderFinance_height (iPad ? 268.0f : 118.0f)
 #define Header_height (iPad ? 180.0f : 75.0f)
 #define Webfooter_y (iPad ? 1370.0f : 780.0f)
-#define Maintable_height (iPad ? 1460.0f : 905.0f)
+#define Maintable_height (iPad ? 1300.0f : 730.0f)
 #define SLIDE_x (iPad ? 64.0f : 0.0f)
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
 #define SLIDE_width (iPad ? 640.0f : 320.0f)

@@ -11,7 +11,6 @@
                 <outlet property="leagueTabBarController" destination="23" id="35"/>
                 <outlet property="mainTableView" destination="122" id="125"/>
                 <outlet property="myclubTabBarController" destination="105" id="114"/>
-                <outlet property="storeTabBarController" destination="69" id="78"/>
                 <outlet property="tacticsTabBarController" destination="41" id="47"/>
                 <outlet property="view" destination="1" id="8"/>
             </connections>
@@ -106,52 +105,6 @@
             </viewControllers>
             <connections>
                 <outlet property="delegate" destination="-1" id="100"/>
-            </connections>
-        </tabBarController>
-        <tabBarController id="69">
-            <extendedEdge key="edgesForExtendedLayout"/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-            <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="70">
-                <rect key="frame" x="0.0" y="519" width="320" height="49"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            </tabBar>
-            <viewControllers>
-                <viewController title="Players" id="71" customClass="StorePlayerView">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Players" image="squad1.png" id="74"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <nil key="simulatedDestinationMetrics"/>
-                </viewController>
-                <viewController title="Coaches" id="72" customClass="StoreCoachView">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Coaches" image="stopwatch1.png" id="73"/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <nil key="simulatedDestinationMetrics"/>
-                </viewController>
-                <viewController title="Others" id="75" customClass="StoreOthersView">
-                    <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Others" image="beermug1.png" id="76"/>
-                    <toolbarItems/>
-                    <nil key="simulatedStatusBarMetrics"/>
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-                    <nil key="simulatedDestinationMetrics"/>
-                </viewController>
-            </viewControllers>
-            <connections>
-                <outlet property="delegate" destination="-1" id="77"/>
             </connections>
         </tabBarController>
         <tabBarController id="41">
@@ -299,7 +252,6 @@
         </viewController>
     </objects>
     <resources>
-        <image name="beermug1.png" width="22" height="27"/>
         <image name="calendar.png" width="23" height="25"/>
         <image name="house.png" width="22" height="22"/>
         <image name="leaderboard.png" width="35" height="17"/>
@@ -308,7 +260,6 @@
         <image name="runner.png" width="18" height="25"/>
         <image name="skin_menu.png" width="640" height="960"/>
         <image name="squad1.png" width="24" height="24"/>
-        <image name="stopwatch1.png" width="22" height="26"/>
         <image name="tactics.png" width="28" height="28"/>
         <image name="trophy.png" width="24" height="24"/>
     </resources>

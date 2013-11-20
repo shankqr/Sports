@@ -11,7 +11,6 @@
 #import "Globals.h"
 
 @implementation WelcomeViewController
-@synthesize mainView;
 @synthesize promptLabel;
 @synthesize promptText;
 @synthesize bonusImage;
@@ -34,11 +33,6 @@
     }
     
     [self.view setNeedsDisplay];
-}
-
-- (IBAction)okButton_tap:(id)sender
-{
-	[mainView removeWelcome];
 }
 
 @end

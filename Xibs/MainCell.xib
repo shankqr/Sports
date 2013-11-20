@@ -7,11 +7,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MainCell" id="2" customClass="MainCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="905"/>
+        <tableViewCell opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MainCell" rowHeight="726" id="2" customClass="MainCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="730"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2" id="H4n-Le-6qy">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="904"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="729"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="117">
@@ -226,7 +226,7 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="138">
-                        <rect key="frame" x="66" y="590" width="62" height="75"/>
+                        <rect key="frame" x="193" y="507" width="62" height="75"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <state key="normal" image="button_friends.png">
@@ -375,14 +375,6 @@
                             <action selector="button22:" destination="2" eventType="touchUpInside" id="201"/>
                         </connections>
                     </button>
-                    <webView contentMode="scaleToFill" id="151">
-                        <rect key="frame" x="0.0" y="744" width="320" height="160"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                        <connections>
-                            <outlet property="delegate" destination="2" id="206"/>
-                        </connections>
-                    </webView>
                 </subviews>
             </tableViewCellContentView>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -410,7 +402,6 @@
                 <outlet property="buttonTrain" destination="125" id="175"/>
                 <outlet property="fbLogoutButton" destination="117" id="120"/>
                 <outlet property="fbShareButton" destination="121" id="123"/>
-                <outlet property="webView" destination="151" id="152"/>
             </connections>
         </tableViewCell>
     </objects>

@@ -16,12 +16,6 @@
 @synthesize nationLabel;
 @synthesize moraleLabel;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -74,8 +68,8 @@
 
 - (void)close
 {
-	[mainView showHeader];
-	[mainView showFooter];
+	
+	
 	[mainView updateHeader];
     
 	[self.view removeFromSuperview];

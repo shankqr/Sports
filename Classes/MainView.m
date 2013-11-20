@@ -53,9 +53,6 @@
 #import "Game_hockey.h"
 
 @implementation MainView
-@synthesize activeView;
-@synthesize previousView;
-@synthesize superView;
 @synthesize header;
 @synthesize jobsView;
 @synthesize clubView;
@@ -84,15 +81,12 @@
 @synthesize welcomeView;
 @synthesize challengeBox;
 @synthesize challengeCreate;
-@synthesize animateViewTimer;
 @synthesize marqueeTimer;
 @synthesize chatTimer;
 @synthesize lblChat1;
-@synthesize lblChat2;
 @synthesize marquee;
 @synthesize lblMarquee;
 @synthesize myclubTabBarController;
-@synthesize backButton;
 @synthesize sparrowView;
 @synthesize mainTableView;
 @synthesize cell;
@@ -188,6 +182,27 @@
     }
     
     [[Globals i] removeLoadingAlert];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
+    self.header.mainView = self;
+	[self.view addSubview:header.view];
+    
+	[self showMarquee];
+    
+    //Create Chat
+    if(!chatTimer.isValid)
+    {
+        chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
+    }
+    
+    [self createFloatings];
+    
+    [self showAchievements];
+    
+    [self showChallengeBox];
 }
 
 - (void)saveLocation
@@ -542,12 +557,12 @@
     [matchView updateView];
 }
 
-- (void)DeclineChallenge
+- (void)declineChallenge
 {
-	[NSThread detachNewThreadSelector: @selector(DeclineChallengeServer) toTarget:self withObject:nil];
+	[NSThread detachNewThreadSelector: @selector(declineChallengeServer) toTarget:self withObject:nil];
 }
 
-- (void)DeclineChallengeServer
+- (void)declineChallengeServer
 {
 	@autoreleasepool {
 	
@@ -566,7 +581,6 @@
 - (void)startLiveMatch
 {
     [self removeAchievements];
-    [self removeWelcome];
     
 	[self showWaitingBox];
 	[NSThread detachNewThreadSelector: @selector(liveMatchServer) toTarget:self withObject:nil];
@@ -626,9 +640,6 @@
 {
     [[Globals i] updateMatchHighlightsData:[Globals i].challengeMatchId];
     
-    [self hideHeader];
-	[self hideFooter];
-    
     if ([[[Globals i] GameType] isEqualToString:@"football"])
     {
         [lblMarquee removeFromSuperview];
@@ -636,7 +647,8 @@
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
         [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
-        [superView insertSubview:sparrowView.view atIndex:3];
+        
+        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :0];
     }
     else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
     {
@@ -645,11 +657,12 @@
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
         [sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:YES];
-        [superView insertSubview:sparrowView.view atIndex:3];
+        
+        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :0];
     }
     else
     {
-        [superView insertSubview:matchReport.view atIndex:3];
+        [[Globals i] showTemplate:@[matchReport] :@"Match Report" :1];
         [matchReport redrawView];
     }
 }
@@ -659,20 +672,18 @@
 	if(sparrowView != nil)
 	{
 		[sparrowView.view removeFromSuperview];
+        [[Globals i] closeTemplate];
         
-        [superView insertSubview:lblMarquee atIndex:2];
-        [superView insertSubview:matchReport.view atIndex:3];
+        [[Globals i] showTemplate:@[matchReport] :@"Match Report" :1];
         [matchReport redrawView];
     }
 }
 
 - (void)reportMatch
 {
-    [self hideHeader];
-	[self hideFooter];
-    
 	[matchReport updateView:[Globals i].challengeMatchId];
-	[superView insertSubview:matchReport.view atIndex:3];
+    [[Globals i] showTemplate:@[matchReport] :@"Match Report" :1];
+    [matchReport redrawView];
 }
 
 - (void)checkAccepted
@@ -748,37 +759,26 @@
      */
 }
 
--(void)showWelcome
+- (void)showWelcome
 {
     if (welcomeView == nil)
     {
         welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
-        welcomeView.mainView = self;
     }
-
-    [superView insertSubview:welcomeView.view atIndex:5];
+    
+    [[Globals i] showTemplate:@[welcomeView] :@"Welcome" :0];
 }
 
--(void)removeWelcome
+- (void)showAchievements
 {
-    if (welcomeView != nil)
-    {
-        [welcomeView.view removeFromSuperview];
-        //welcomeView = nil;
-    }
-}
-
--(void)showAchievements
-{
-    [self hideHeader];
-        
     if (achievementsView == nil) 
     {
-        achievementsView = [[AchievementsView alloc] initWithNibName:@"AchievementsView" bundle:nil];
-        achievementsView.mainView = self;
+        achievementsView = [[AchievementsView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [achievementsView updateView];
-    [superView insertSubview:achievementsView.view atIndex:4];
+    achievementsView.title = @"Achievements 1";
+    
+    //[achievementsView updateView];
+    [[Globals i] showTemplate:@[achievementsView] :@"Achievements" :0];
 }
 
 - (void)showAlliance
@@ -808,14 +808,8 @@
     }
 }
 
--(void)showAllianceDetail:(int)aid
-{
-
-}
-
 -(void)removeAchievements
 {
-    [self showHeader];
     [achievementsView.view removeFromSuperview];
 }
 
@@ -838,25 +832,6 @@
     [[Globals i] showDialog:alertMsg];
 }
 
-- (void)removeStore
-{
-    if ((activeView != nil) && (activeView == storeTabBarController.view))
-    {
-        if (storeTabBarController.selectedIndex == 0)
-        {
-            [backButton removeFromSuperview];
-            [self switchView:self.view go:activeView dir:2];
-        }
-    }
-    else
-    {
-        if (activeView == nil)
-        {
-            activeView = self.view;
-        }
-    }
-}
-
 - (void)showChallengeBox
 {
     if (challengeBox == nil)
@@ -865,93 +840,54 @@
         challengeBox.mainView = self;
     }
     
-    [superView insertSubview:challengeBox.view atIndex:17];
+    [[Globals i] showTemplate:@[challengeBox] :@"Challenge" :0];
 	[challengeBox updateView];
     
     [self checkAccepted];
 }
 
-- (void)addFunds
-{
-
-}
-
-- (void)addDiamonds
-{
-
-}
-
 - (void)viewDidLoad
 {
-	activeView = self.view;
-	posxView = SCREEN_WIDTH;
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(removeLiveMatch)
                                                  name:@"ExitLiveMatch"
                                                object:nil];
-	
-	Header *headerViewController = [[Header alloc] initWithNibName:@"Header" bundle:nil];
-	headerViewController.mainView = self;
-	self.header = headerViewController;
 	
 	[Globals i].selectedClubId = @"0";
 	[Globals i].workingUrl = @"0";
 	[Globals i].challengeMatchId = @"0";
 	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
-	[self createBackButton];
+    [self createChat];
+    
+	[self createMarquee];
         
     matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
 	matchReport.mainView = self;
 	
-	ClubView *clubViewController = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
-	clubViewController.mainView = self;
-	self.clubView = clubViewController;
+	self.clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
 	
-	StadiumView *stadiumViewController = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
-	stadiumViewController.mainView = self;
-	self.stadiumView = stadiumViewController;
+	self.stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
     
-    UpgradeView *upgradeViewController = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
-	upgradeViewController.mainView = self;
-	self.upgradeView = upgradeViewController;
+    self.upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
     
-    StadiumMap *stadiumMapController = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
-	stadiumMapController.mainView = self;
-	self.stadiumMap = stadiumMapController;
+    self.stadiumMap = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
 	
-	FansView *fansViewController = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
-	fansViewController.mainView = self;
-	self.fansView = fansViewController;
+	self.fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
 	
-	FinanceView *financeViewController = [[FinanceView alloc] initWithNibName:@"FinanceView" bundle:nil];
-	financeViewController.mainView = self;
-	self.financeView = financeViewController;
+	self.financeView = [[FinanceView alloc] initWithNibName:@"FinanceView" bundle:nil];
 	
-	StaffView *staffViewController = [[StaffView alloc] initWithNibName:@"StaffView" bundle:nil];
-	staffViewController.mainView = self;
-	self.staffView = staffViewController;
+	self.staffView = [[StaffView alloc] initWithNibName:@"StaffView" bundle:nil];
 	
-	MatchView *matchViewController = [[MatchView alloc] initWithNibName:@"MatchView" bundle:nil];
-	matchViewController.mainView = self;
-	self.matchView = matchViewController;
+	self.matchView = [[MatchView alloc] initWithNibName:@"MatchView" bundle:nil];
 	
-	ClubMapView *clubMapViewController = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
-	clubMapViewController.mainView = self;
-	self.clubMapView = clubMapViewController;
+	self.clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
 	
-	SquadView *squadViewController = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
-	squadViewController.mainView = self;
-	self.squadView = squadViewController;
+	self.squadView = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
 	
-	TrainingView *trainingViewController = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
-	trainingViewController.mainView = self;
-	self.trainingView = trainingViewController;
+	self.trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
 	
-	NewsView *newsViewController = [[NewsView alloc] initWithNibName:@"NewsView" bundle:nil];
-	newsViewController.mainView = self;
-	self.newsView = newsViewController;
+	self.newsView = [[NewsView alloc] initWithNibName:@"NewsView" bundle:nil];
 	
 	((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
 	
@@ -1022,32 +958,12 @@
         if (welcomeView == nil)
         {
             welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
-            welcomeView.mainView = self;
         }
         welcomeView.promptText = m;
-		[superView insertSubview:welcomeView.view atIndex:5];
+        
+		[[Globals i] showTemplate:@[welcomeView] :@"Welcome" :0];
 		[welcomeView updateView];
 	}
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    superView = [self.view superview];
-	[superView insertSubview:header.view atIndex:2];
-    
-    [self createFloatings];
-    
-	[self showMarquee];
-    
-    //Create Chat
-    if(!chatTimer.isValid)
-    {
-        chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
-    }
-    
-    [self showAchievements];
-    
-    [self showChallengeBox];
 }
 
 - (void)reloadViewFull
@@ -1087,7 +1003,6 @@
 - (void)updateAchievementBadges
 {
     [cell updateAchievementBadges];
-
     [mainTableView reloadData];
 }
 
@@ -1142,100 +1057,39 @@
     lblChat1.text = [[Globals i] getLastChatString];
 }
 
-- (void)updateChatView
-{
-
-}
-
-- (void)updateTacticsView
-{
-	[(FormationView*)[tacticsTabBarController viewControllers][0] updateView];
-}
-
 - (void)updateHeader
 {
 	[header updateView];
 }
 
-- (void)hideHeader
-{
-	[header.view removeFromSuperview];
-}
-
-- (void)showHeader
-{
-    if ((activeView == self.stadiumMap.view) || (activeView == self.clubMapView.view))
-	{
-        
-    }
-    else
-    {
-        [superView insertSubview:header.view atIndex:2];
-        [header updateView];
-    }
-}
-
 - (void)showMarquee
 {
-	if(activeView == self.view)
-	{
-        speedMarquee = 1;
-        self.marquee = [[Globals i] getMarqueeData];
-        [superView insertSubview:lblMarquee atIndex:2];
-        if((!marqueeTimer.isValid) && (self.marquee.count > 0))
-        {
-            rowMarquee = [self.marquee count]-1;
-            NSDictionary *rowData = [[Globals i] getMarqueeData][rowMarquee];
-            lblMarquee.text = rowData[@"headline"];
-            textSizeMarquee = [[lblMarquee text] sizeWithFont:[lblMarquee font]];
-            
-            marqueeTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(onTimerMarquee) userInfo:nil repeats:YES];
-            NSRunLoop *runloop = [NSRunLoop currentRunLoop];
-            [runloop addTimer:marqueeTimer forMode:NSRunLoopCommonModes];
-            [runloop addTimer:marqueeTimer forMode:UITrackingRunLoopMode];
-            [[NSRunLoop mainRunLoop] addTimer:marqueeTimer forMode: NSRunLoopCommonModes];
-        }
+	speedMarquee = 1;
+    self.marquee = [[Globals i] getMarqueeData];
+    [self.view addSubview:lblMarquee];
+    if((!marqueeTimer.isValid) && (self.marquee.count > 0))
+    {
+        rowMarquee = [self.marquee count]-1;
+        NSDictionary *rowData = [[Globals i] getMarqueeData][rowMarquee];
+        lblMarquee.text = rowData[@"headline"];
+        textSizeMarquee = [[lblMarquee text] sizeWithFont:[lblMarquee font]];
+        
+        marqueeTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(onTimerMarquee) userInfo:nil repeats:YES];
+        NSRunLoop *runloop = [NSRunLoop currentRunLoop];
+        [runloop addTimer:marqueeTimer forMode:NSRunLoopCommonModes];
+        [runloop addTimer:marqueeTimer forMode:UITrackingRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:marqueeTimer forMode: NSRunLoopCommonModes];
     }
-}
-
-- (void)hideMarquee
-{
-	if(activeView == self.view)
-	{
-        [lblMarquee removeFromSuperview];
-	}
-}
-
-- (void)hideFooter
-{
-	if(activeView != self.view)
-	{
-		[backButton removeFromSuperview];
-	}
-}
-
-- (void)showFooter
-{
-	if(activeView != self.view)
-	{
-		[superView addSubview:backButton];
-	}
 }
 
 - (void)showHelp
 {
-	if(posxView==SCREEN_WIDTH)
-	{
-        [self hideFooter];
-        [self hideHeader];
-        [self hideMarquee];
-        if (helpView == nil) 
-        {
-            helpView = [[HelpView alloc] initWithNibName:@"HelpView" bundle:nil];
-            helpView.mainView = self;
-        }
-        [[activeView superview] insertSubview:helpView.view atIndex:5];
-	}
+	if (helpView == nil)
+    {
+        helpView = [[HelpView alloc] initWithNibName:@"HelpView" bundle:nil];
+        helpView.mainView = self;
+    }
+    [[Globals i] showTemplate:@[helpView] :@"Help" :0];
 }
 
 - (void)showChat
@@ -1245,9 +1099,6 @@
 
 - (void)fblogin
 {
-    [self hideHeader];
-    [self hideMarquee];
-    
     FBFriendPickerViewController *friendPickerController = [[FBFriendPickerViewController alloc] init];
     
     // Configure the picker ...
@@ -1283,9 +1134,6 @@
 - (void)facebookViewControllerCancelWasPressed:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
-    
-    [self showHeader];
-	[self showMarquee];
 }
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
@@ -1298,98 +1146,69 @@
         NSString *secret        = @"year2000";
         NSString *hexHmac       = [strToEncrypt HMACWithSecret:secret];
         
-        [self jumpToFBClubViewer:hexHmac];
+        [self showFBClubViewer:hexHmac];
     }
     
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showFinance
+{
+	[[Globals i] showTemplate:@[financeView] :@"Finance" :1];
+    [self.financeView updateView];
+}
+
+- (void)showFans
+{
+	[[Globals i] showTemplate:@[fansView] :@"Fans" :1];
+    [self.fansView updateView];
+}
+
+- (void)showTrain
+{
+	if (jobsView == nil)
+    {
+        jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
+    }
     
-    [self showHeader];
-	[self showMarquee];
+    [[Globals i] showTemplate:@[jobsView] :@"Jobs" :1];
+    [self.jobsView updateView];
 }
 
-- (void)jumpToFinance
+- (void)showNews
 {
-	if(activeView != financeView.view && posxView==SCREEN_WIDTH)
-	{
-        [self switchView:financeView.view go:activeView dir:1];
-        [self.financeView updateView];
-	}
+	[[Globals i] showTemplate:@[newsView] :@"News" :1];
+    [self.newsView updateView];
 }
 
-- (void)jumpToFans
+- (void)showPlayerStore
 {
-	if(activeView != fansView.view && posxView==SCREEN_WIDTH)
-	{
-        [self switchView:fansView.view go:activeView dir:1];
-        [self.fansView updateView];
-	}
+	[[Globals i] showTemplate:@[storeTabBarController] :@"Transfers" :1];
+    [(StorePlayerView*)[storeTabBarController viewControllers][0] updateView];
+    storeTabBarController.selectedIndex = 0;
 }
 
-- (void)jumpToTrain
+- (void)showCoachStore
 {
-	if(activeView != jobsView.view && posxView==SCREEN_WIDTH)
-	{
-        if (jobsView == nil)
-        {
-            jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
-            jobsView.mainView = self;
-            [self.jobsView updateView];
-        }
-        
-		[self switchJobsView:0];
-		[self.jobsView updateView];
-	}
+	[[Globals i] showTemplate:@[storeTabBarController] :@"Coach" :1];
+    [(StoreCoachView*)[storeTabBarController viewControllers][1] updateView];
+    storeTabBarController.selectedIndex = 1;
 }
 
-- (void)jumpToNews
+- (void)showOthersStore
 {
-	if(activeView != newsView.view && posxView==SCREEN_WIDTH)
-	{
-        [self switchView:newsView.view go:activeView dir:1];
-        [self.newsView updateView];
-	}
+	[[Globals i] showTemplate:@[storeTabBarController] :@"Store" :1];
+    [(StoreOthersView*)[storeTabBarController viewControllers][2] updateView];
+    storeTabBarController.selectedIndex = 2;
 }
 
-- (void)jumpToPlayerStore
+- (void)showClub
 {
-	if(posxView==SCREEN_WIDTH)
-	{
-        [self switchView:storeTabBarController.view go:activeView dir:1];
-        [(StorePlayerView*)[storeTabBarController viewControllers][0] updateView];
-        storeTabBarController.selectedIndex = 0;
-	}
-}
-
-- (void)jumpToCoachStore
-{
-	if(posxView==SCREEN_WIDTH)
-	{
-        [self switchView:storeTabBarController.view go:activeView dir:1];
-        [(StoreCoachView*)[storeTabBarController viewControllers][1] updateView];
-        storeTabBarController.selectedIndex = 1;
-	}
-}
-
-- (void)jumpToOthersStore
-{
-	if(posxView==SCREEN_WIDTH)
-	{
-        [self switchView:storeTabBarController.view go:activeView dir:1];
-        [(StoreOthersView*)[storeTabBarController viewControllers][2] updateView];
-        storeTabBarController.selectedIndex = 2;
-	}
-}
-
-- (void)jumpToClub
-{
-	if(activeView!=myclubTabBarController.view && posxView==SCREEN_WIDTH)
-	{
-		[(ClubView*)[myclubTabBarController viewControllers][0] updateView];
-		[self switchView:myclubTabBarController.view go:activeView dir:1];
-		((TrophyViewer*)[myclubTabBarController viewControllers][1]).selected_trophy = [[[Globals i] wsClubData][@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-		[(ClubView*)[myclubTabBarController viewControllers][0] updateView];
-		myclubTabBarController.selectedIndex = 0;
-	}
+	[(ClubView*)[myclubTabBarController viewControllers][0] updateView];
+    [[Globals i] showTemplate:@[myclubTabBarController] :@"Club Details" :1];
+    ((TrophyViewer*)[myclubTabBarController viewControllers][1]).selected_trophy = [[[Globals i] wsClubData][@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    [(ClubView*)[myclubTabBarController viewControllers][0] updateView];
+    myclubTabBarController.selectedIndex = 0;
 }
 
 - (void)resetClubImages
@@ -1397,7 +1216,7 @@
 	[self.clubView resetImages];
 }
 
-- (void)jumpToChallenge:(NSString *)club_id
+- (void)showChallenge:(NSString *)club_id
 {
     if(challengeCreate == nil)
     {
@@ -1406,39 +1225,30 @@
     [Globals i].selectedClubId = [club_id stringByReplacingOccurrencesOfString:@"," withString:@""];
 	challengeCreate.mainView = self;
     [challengeCreate updateView];
-    [superView insertSubview:challengeCreate.view atIndex:7];
+
+    [[Globals i] showTemplate:@[challengeCreate] :@"Challenge" :0];
 }
 
-- (void)jumpToClubViewer:(NSString *)club_id
+- (void)showClubViewer:(NSString *)club_id
 {
-	[self hideHeader];
-	[self hideFooter];
-	[superView insertSubview:clubTabBarController.view atIndex:6];
+    [[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :0];
+    
 	((TrophyViewer*)[clubTabBarController viewControllers][3]).selected_trophy = club_id;
 	[(ClubViewer*)[clubTabBarController viewControllers][0] updateViewId:club_id];
 	clubTabBarController.selectedIndex = 0;
 }
 
-- (void)jumpToFBClubViewer:(NSString *)fb_id
+- (void)showFBClubViewer:(NSString *)fb_id
 {
-	[self hideHeader];
-	[self hideFooter];
+	[[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :0];
     
-	[superView insertSubview:clubTabBarController.view atIndex:3];
 	[(ClubViewer*)[clubTabBarController viewControllers][0] updateViewFb:fb_id];
 	clubTabBarController.selectedIndex = 0;
 }
 
-- (void)removeClubViewer
-{
-	[clubTabBarController.view removeFromSuperview];
-}
-
 - (void)showStadiumMap
 {
-    [self hideHeader];
-    
-    [self switchView:stadiumMap.view go:self.view dir:1];
+    [[Globals i] showTemplate:@[stadiumMap] :@"Stadium" :1];
     [self.stadiumMap updateView];
 }
 
@@ -1527,68 +1337,64 @@
 
 -(void)menuButton_tap:(int)sender
 {
-	if(posxView==SCREEN_WIDTH)
-	{
 	switch(sender)
 	{
 		case 1:
 		{
-			[self switchView:matchView.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[matchView] :@"Match" :1];
 			[self.matchView updateView];
 			break;
 		}		
 		case 2:
 		{
-			[self switchView:leagueTabBarController.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[leagueTabBarController] :@"League" :1];
 			[(LeagueView*)[leagueTabBarController viewControllers][0] updateView];
 			break;
 		}
 		case 3:
 		{
-			//[self switchView:cupTabBarController.view go:self.view dir:1];
-			//[(CupMainView*)[cupTabBarController viewControllers][0] updateView];
 			break;
 		}
 		case 4:
 		{
-			[self switchView:squadView.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[squadView] :@"Players" :1];
 			[self.squadView updateView];
 			break;
 		}
 		case 5:
 		{
-			[self switchView:tacticsTabBarController.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[tacticsTabBarController] :@"Tactics" :1];
 			[(FormationView*)[tacticsTabBarController viewControllers][0] updateView];
 			break;
 		}			
 		case 6:
 		{
-			[self switchView:trainingView.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[trainingView] :@"Coach" :1];
 			[self.trainingView updateView];
 			break;
 		}
 		case 7:
 		{
-			[self switchView:storeTabBarController.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[storeTabBarController] :@"Store" :1];
 			[(StorePlayerView*)[storeTabBarController viewControllers][0] updateView];
 			storeTabBarController.selectedIndex = 0;
 			break;
 		}
         case 8:
 		{
-			[self switchView:staffView.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[staffView] :@"Staff" :1];
 			[self.staffView updateView];
 			break;
 		}
 		case 9:
 		{
-			[self switchView:clubMapView.view go:self.view dir:1];
+			[[Globals i] showTemplate:@[clubMapView] :@"Map" :1];
 			[self.clubMapView updateView];
 			break;
 		}
 		case 10:
 		{
-			//[self jumpToSearch];
+			//[self showSearch];
 			break;
 		}
         case 11:
@@ -1598,22 +1404,22 @@
 		}
         case 12:
 		{
-			[self jumpToFinance];
+			[self showFinance];
 			break;
 		}
 		case 13:
 		{
-			[self jumpToFans];
+			[self showFans];
             break;
 		}
         case 14:
 		{
-			[self jumpToOthersStore];
+			[self showOthersStore];
 			break;
 		}
 		case 15:
 		{
-			[self jumpToNews];
+			[self showNews];
 			break;
 		}
 		case 16:
@@ -1643,7 +1449,7 @@
 		}
         case 21:
 		{
-			[self jumpToClub];
+			[self showClub];
             break;
 		}
         case 22:
@@ -1658,7 +1464,7 @@
 		}
 		case 24:
 		{
-			[self jumpToTrain];
+			[self showTrain];
 			break;
 		}
         case 25:
@@ -1673,172 +1479,9 @@
 		}
         case 27:
 		{
-            int alliance_id = [[[[Globals i] getClubData][@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-            if (alliance_id > 0)
-            {
-                [self showAllianceDetail:alliance_id];
-            }
-            else
-            {
-                [self showAlliance];
-            }
+            [self showAlliance];
 			break;
 		}
-	}
-	}
-}
-
-- (void)actionBackButton:(id)sender
-{
-    [backButton removeFromSuperview];
-	if (activeView == self.jobsView.view) 
-	{
-		[self switchJobsView:1];
-        activeView = self.view;
-	}
-    else if (activeView == self.clubMapView.view)
-	{
-        self.clubMapView.mapViewer.delegate = nil;
-        [self.backButton setFrame:CGRectMake(-1*SCALE_IPAD, BACK_y, 50*SCALE_IPAD, 40*SCALE_IPAD)];
-        [self switchView:self.view go:activeView dir:2];
-		[self showHeader];
-	}
-    else if (activeView == self.stadiumMap.view)
-	{
-        [self switchView:self.view go:activeView dir:2];
-		[self showHeader];
-	}
-	else 
-	{
-		[self switchView:self.view go:activeView dir:2];
-	}
-}
-
-- (void)slideView:(UIView *)coming go:(UIView *)going
-{
-	[self.view addSubview:coming];
-	[going removeFromSuperview];
-}
-
-- (void)switchView:(UIView *)coming go:(UIView *)going dir:(NSUInteger)direction
-{
-	[superView insertSubview:coming atIndex:1];
-	previousView = going;
-	
-	if(going == self.view)
-	{
-		[self hideMarquee];
-		animateViewTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer2) userInfo:nil repeats:YES];
-	}
-	else 
-	{
-		if(coming == self.view)
-		{
-			animateViewTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer3) userInfo:nil repeats:YES];
-		}
-		else 
-		{
-			[self hideMarquee];
-			animateViewTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer2) userInfo:nil repeats:YES];		
-		}
-	}
-	activeView = coming;
-}
-
--(void)onTimer2
-{
-	posxView = posxView-POSX_DECREASE;
-	if(posxView < 0)
-	{
-		@try {
-			[animateViewTimer invalidate];
-		}@catch (NSException *exception) { }
-		
-		[self showFooter];
-        //[previousView removeFromSuperview];
-		posxView = SCREEN_WIDTH;
-	}
-	else
-	{
-		activeView.frame = CGRectMake(posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-		previousView.frame = CGRectMake(posxView-SCREEN_WIDTH, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-	}
-}
-
--(void)onTimer3
-{
-	posxView = posxView-POSX_DECREASE;
-	if(posxView < 0)
-	{
-		@try {
-			[animateViewTimer invalidate];
-		}@catch (NSException *exception) { }
-		
-		[self showMarquee];
-		posxView = SCREEN_WIDTH;
-	}
-	else
-	{
-		self.view.frame = CGRectMake(-posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-		previousView.frame = CGRectMake(SCREEN_WIDTH-posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-	}
-}
-
-- (void)switchJobsView:(NSUInteger)direction
-{
-	if(direction == 0)
-	{
-		[self hideMarquee];
-		[superView insertSubview:self.jobsView.view atIndex:1];
-		previousView = self.view;
-		activeView = self.jobsView.view;
-		animateViewTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer4) userInfo:nil repeats:YES];
-	}
-	else 
-	{
-		[superView insertSubview:self.view atIndex:1];
-		previousView = self.jobsView.view;
-		activeView = self.view;
-		animateViewTimer = [NSTimer scheduledTimerWithTimeInterval:0.01 target:self selector:@selector(onTimer5) userInfo:nil repeats:YES];
-	}
-}
-
--(void)onTimer4
-{
-	posxView = posxView-POSX_DECREASE;
-	if(posxView < 0)
-	{
-		@try {
-			[animateViewTimer invalidate];
-		}@catch (NSException *exception) { }
-		
-		[self showFooter];
-        //[previousView removeFromSuperview];
-		posxView = SCREEN_WIDTH;
-	}
-	else
-	{
-		activeView.frame = CGRectMake(-posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-		previousView.frame = CGRectMake(SCREEN_WIDTH-posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-	}
-}
-
--(void)onTimer5
-{
-	posxView = posxView-POSX_DECREASE;
-	if(posxView < 0)
-	{
-		@try {
-			[animateViewTimer invalidate];
-		}@catch (NSException *exception) { }
-		
-		[self showMarquee];
-		posxView = SCREEN_WIDTH;
-	}
-	else
-	{
-		self.view.frame = CGRectMake(posxView, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
-		previousView.frame = CGRectMake(posxView-SCREEN_WIDTH, 0.0f, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height);
 	}
 }
 
@@ -1868,31 +1511,15 @@
 	UILabel *label = (UILabel *)gesture.view;
 	CGPoint translation = [gesture translationInView:label];
     
-	// move label
     speedMarquee = 0;
     posxMarquee = posxMarquee + 1 + translation.x;
-	//label.center = CGPointMake(label.center.x + translation.x, label.center.y);
-    
-	// reset translation
+
 	[gesture setTranslation:CGPointZero inView:label];
     speedMarquee = 1;
 }
 
-- (void)createBackButton
-{	
-	//Back button
-	UIImage *buttonBackground = [UIImage imageNamed:@""];
-	UIImage *buttonBackgroundPressed = [UIImage imageNamed:@""];
-	CGRect frame = CGRectMake(-1*SCALE_IPAD, BACK_y, 50.0f*SCALE_IPAD, 40.0f*SCALE_IPAD);
-	backButton = [[Globals i] buttonWithTitle:@""
-													target:self
-												  selector:@selector(actionBackButton:)
-													 frame:frame
-													 image:buttonBackground
-											  imagePressed:buttonBackgroundPressed
-											 darkTextColor:YES];
-    [backButton setImage:[UIImage imageNamed:@"button_back1.png"] forState:UIControlStateNormal];
-    //Marquee label
+- (void)createMarquee
+{
 	posxMarquee = SCREEN_WIDTH;
 	CGRect lblRect = CGRectMake(posxMarquee, UIScreen.mainScreen.bounds.size.height-Marquee_height, SCREEN_WIDTH, Marquee_height);
 	lblMarquee = [[UILabel alloc] initWithFrame:lblRect];
@@ -1908,8 +1535,10 @@
                                         initWithTarget:self 
                                         action:@selector(labelDragged:)];
 	[lblMarquee addGestureRecognizer:gesture];
-    
-    //Chat labels
+}
+
+- (void)createChat
+{
     lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-40, SCREEN_WIDTH, 320)];
     lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
     lblChat1.textAlignment = NSTextAlignmentCenter;
@@ -1921,23 +1550,6 @@
     lblChat1.tag = 999;
     lblChat1.userInteractionEnabled = YES;
     [self.view addSubview:lblChat1];
-}
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag 
-{
-	if (flag) 
-    {
-		NSLog(@"Did finish playing");
-	} 
-    else 
-    {
-		NSLog(@"Did NOT finish playing");
-	}
-}
-
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error 
-{
-	NSLog(@"%@", [error description]);
 }
 
 #pragma mark Table Data Source Methods
@@ -2010,16 +1622,6 @@
     [[Globals i] fbPublishStory:message :caption :picture];
     
     [[Globals i] showDialog:@"Thank you for sharing this App with your friends. Challenge your friends and level up even faster!"];
-}
-
-- (void)showLoadingAlert
-{
-	[[Globals i] showLoadingAlert];
-}
-
-- (void)removeLoadingAlert
-{
-	[[Globals i] removeLoadingAlert];
 }
 
 @end

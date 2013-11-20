@@ -68,12 +68,12 @@
 	{
 		case 0: //Club Info
 		{
-			[mainView jumpToClubViewer:selected_clubid];
+			[mainView showClubViewer:selected_clubid];
 			break;
 		}
         case 1: //Challenge
 		{
-			[mainView jumpToChallenge:selected_clubid];
+			[mainView showChallenge:selected_clubid];
 			break;
 		}
 	}

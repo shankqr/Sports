@@ -33,12 +33,6 @@
 @synthesize home_url;
 @synthesize away_url;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
@@ -46,10 +40,7 @@
 
 - (IBAction)closeButton_tap:(id)sender
 {
-	[mainView showHeader];
-	[mainView showFooter];
-    
-	[mainView removeClubViewer];
+
 }
 
 - (void)clearView
@@ -201,7 +192,7 @@
 - (IBAction)challengeButton_tap:(id)sender
 {
 	
-	[mainView jumpToChallenge:[Globals i].selectedClubId];
+	[mainView showChallenge:[Globals i].selectedClubId];
 }
 
 @end

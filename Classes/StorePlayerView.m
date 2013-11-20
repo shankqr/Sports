@@ -25,13 +25,6 @@
 @synthesize sel_player_star;
 @synthesize bidView;
 
-
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (void)viewDidLoad
 {
     self.wantsFullScreenLayout = YES;
@@ -101,9 +94,6 @@
 	self.sel_player_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
 	self.sel_player_star = rowData[@"player_goals"];
     
-    [mainView hideFooter];
-    [mainView hideHeader];
-    [mainView hideMarquee];
     if(bidView == nil)
     {
         bidView = [[BidView alloc] initWithNibName:@"BidView" bundle:nil];

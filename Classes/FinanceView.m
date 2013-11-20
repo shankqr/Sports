@@ -23,12 +23,6 @@
 @synthesize selectedRow;
 @synthesize table;
 
-- (void)didReceiveMemoryWarning 
-{
-    [super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
-    // Release anything that's not essential, such as cached data
-}
-
 - (IBAction)addfunds_tap:(id)sender
 {
     [[Globals i] showBuy];
@@ -312,12 +306,12 @@
 			}
 			case 4:
 			{
-				[mainView jumpToPlayerStore];
+				[mainView showPlayerStore];
 				break;
 			}
 			case 12:
 			{
-				[mainView jumpToCoachStore];
+				[mainView showCoachStore];
 				break;
 			}
 			case 13:

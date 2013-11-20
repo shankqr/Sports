@@ -9,7 +9,6 @@
 @class MainView;
 @interface JobsView : UIViewController  <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 {
-	MainView *mainView;
 	UITableView *table;
 	NSMutableArray *jobs;
 	UIImageView *bgImage;
@@ -17,7 +16,6 @@
     NSInteger offset;
 }
 @property (nonatomic, strong) NSMutableArray *jobs;
-@property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UIImageView *bgImage;
 @property (nonatomic, strong) IBOutlet UILabel *unlockLabel;
