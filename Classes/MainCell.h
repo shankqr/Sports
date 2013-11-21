@@ -5,21 +5,15 @@
 //  Created by Shankar on 8/18/12.
 //  Copyright (c) 2012 TAPFANTASY. All rights reserved.
 //
-#import "Globals.h"
-#import "MainView.h"
-#import "LeagueSlide.h"
-#import "NextMatchSlide.h"
-#import "RankingSlide.h"
-#import "LastMatchSlide.h"
-#import "CustomBadge.h"
 
 @class MainView;
 @class LeagueSlide;
 @class RankingSlide;
 @class NextMatchSlide;
 @class LastMatchSlide;
+@class CustomBadge;
 
-@interface MainCell : UITableViewCell <UIWebViewDelegate>
+@interface MainCell : UITableViewCell
 {
     MainView *mainView;
     UIView *activeSlide;
@@ -29,7 +23,6 @@
 	LastMatchSlide *lastmatchSlide;
     NSTimer *slidesTimer;
     NSInteger timerIndex;
-    UIWebView *webView;
     UIButton *fbLogoutButton;
     UIButton *fbShareButton;
     CustomBadge *achievementsBadge;
@@ -43,7 +36,6 @@
 @property (strong, nonatomic) NSTimer *slidesTimer;
 @property (strong, nonatomic) CustomBadge *achievementsBadge;
 @property (readwrite) NSInteger timerIndex;
-@property (strong, nonatomic) IBOutlet UIWebView *webView;
 @property (strong, nonatomic) IBOutlet UIButton *fbLogoutButton;
 @property (strong, nonatomic) IBOutlet UIButton *fbShareButton;
 @property (strong, nonatomic) IBOutlet UIButton *buttonTrain;
@@ -71,7 +63,6 @@
 @property (strong, nonatomic) IBOutlet UIButton *button22;
 @property (strong, nonatomic) IBOutlet UIButton *button23;
 - (void)createSlides;
-- (void)createWebView;
 - (void)showSlide;
 - (void)hideSlide;
 - (void)changeSlide;

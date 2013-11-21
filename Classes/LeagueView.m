@@ -180,7 +180,26 @@
 	LeagueCell *cell = (LeagueCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
 	if (cell == nil)  
 	{
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"LeagueCell" owner:self options:nil];
+        NSString *nibName = @"LeagueCell";
+        
+        if ([[[Globals i] GameType] isEqualToString:@"football"])
+        {
+            nibName = @"LeagueCell";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+        {
+            nibName = @"LeagueCell";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+        {
+            nibName = @"LeagueCell_baseball";
+        }
+        else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+        {
+            nibName = @"LeagueCell_baseball";
+        }
+        
+		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:nibName owner:self options:nil];
 		cell = (LeagueCell *)nib[0];
 		[[cell subviews][0] setTag:111];
 	}

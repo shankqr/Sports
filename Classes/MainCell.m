@@ -7,6 +7,13 @@
 //
 
 #import "MainCell.h"
+#import "Globals.h"
+#import "MainView.h"
+#import "LeagueSlide.h"
+#import "NextMatchSlide.h"
+#import "RankingSlide.h"
+#import "LastMatchSlide.h"
+#import "CustomBadge.h"
 
 @implementation MainCell
 @synthesize mainView;
@@ -17,11 +24,9 @@
 @synthesize lastmatchSlide;
 @synthesize slidesTimer;
 @synthesize timerIndex;
-@synthesize webView;
 @synthesize fbLogoutButton;
 @synthesize fbShareButton;
 @synthesize achievementsBadge;
-
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -39,18 +44,6 @@
 
     // Configure the view for the selected state
     [self createSlides];
-    [self createWebView];
-}
-
-- (void)createWebView
-{
-    webView.autoresizesSubviews = YES;
-    webView.autoresizingMask = (UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth);
-    [webView setDelegate:self];
-    NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@_files/footer.html", WS_URL];
-    NSURL *url = [NSURL URLWithString:urlAddress];
-    NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
-    [webView loadRequest:requestObj];
 }
 
 - (void)createAchievementBadges

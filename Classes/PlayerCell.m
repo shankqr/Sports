@@ -34,7 +34,11 @@
 @synthesize scoring;
 @synthesize pbscoring;
 @synthesize condition;
-
+@synthesize skill1;
+@synthesize skill2;
+@synthesize skill3;
+@synthesize skill4;
+@synthesize skill5;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
 {

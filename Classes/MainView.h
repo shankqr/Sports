@@ -37,6 +37,9 @@
 @class AllianceDetail;
 @class MainCell;
 @class SPViewController;
+@class StorePlayerView;
+@class StoreCoachView;
+@class StoreOthersView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -69,9 +72,10 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
     AllianceView *allianceView;
     AllianceDetail *allianceDetail;
     MainCell *cell;
-	UITabBarController *storeTabBarController;
+    StorePlayerView *storePlayer;
+    StoreCoachView *storeCoach;
+    StoreOthersView *storeOthers;
 	UITabBarController *tacticsTabBarController;
-	UITabBarController *cupTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
 	UITabBarController *myclubTabBarController;
@@ -86,6 +90,7 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 	CGSize textSizeMarquee;
     NSTimer *chatTimer;
     UILabel* lblChat1;
+    BOOL isShowingLogin;
 }
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
 @property (nonatomic, strong) Header *header;
@@ -119,7 +124,9 @@ UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
 @property (nonatomic, strong) UILabel* lblChat1;
 @property (nonatomic, strong) MainCell *cell;
 @property (nonatomic, strong) SPViewController *sparrowView;
-@property (nonatomic, strong) IBOutlet UITabBarController *storeTabBarController;
+@property (nonatomic, strong) StorePlayerView *storePlayer;
+@property (nonatomic, strong) StoreCoachView *storeCoach;
+@property (nonatomic, strong) StoreOthersView *storeOthers;
 @property (nonatomic, strong) IBOutlet UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;

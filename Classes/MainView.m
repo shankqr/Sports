@@ -69,7 +69,6 @@
 @synthesize newsView;
 @synthesize friendsView;
 @synthesize clubTabBarController;
-@synthesize storeTabBarController;
 @synthesize tacticsTabBarController;
 @synthesize leagueTabBarController;
 @synthesize achievementsView;
@@ -90,10 +89,13 @@
 @synthesize sparrowView;
 @synthesize mainTableView;
 @synthesize cell;
+@synthesize storePlayer;
+@synthesize storeCoach;
+@synthesize storeOthers;
 
 - (void)startUp //Called when app opens for the first time
 {
-    //isShowingLogin = NO;
+    isShowingLogin = NO;
     [[Globals i] pushViewControllerStack:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -109,6 +111,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"UpdateClubData"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeLiveMatch)
+                                                 name:@"ExitLiveMatch"
                                                object:nil];
 }
 
@@ -141,7 +148,7 @@
     {
         [[Globals i] setUID:@""];
     }
-    /*
+
     if (!isShowingLogin)
     {
         isShowingLogin = YES;
@@ -156,7 +163,6 @@
              }
          }];
     }
-     */
 }
 
 - (void)loadAllData
@@ -167,42 +173,142 @@
 	{
 		[self gotoLogin:NO];
 	}
-	else if(![[Globals i] updateWorldClubData])
-    {
-        [self gotoLogin:NO];
-    }
     else
     {
-        [[Globals i] updateBaseData];
-        
         //Updates product identifiers and display dialog if need to upgrade app
         [[Globals i] checkVersion:self.view];
         
-        //[self updateView];
+        [[Globals i] retrieveEnergy];
+        [header updateView];
+        
+        [[Globals i] updateProductIdentifiers];
+        
+        NSDictionary *wsClubData = [[Globals i] getClubData];
+        
+        [[Globals i] updateMarqueeData
+         :wsClubData[@"division"]
+         :wsClubData[@"series"]
+         :[[Globals i] BoolToBit:wsClubData[@"playing_cup"]]
+         ];
+        
+        [[Globals i] updateCurrentSeasonData];
+        [[Globals i] updateMatchData];
+        [[Globals i] updateMatchPlayedData];
+        [[Globals i] updateChallengesData];
+        [[Globals i] updateChallengedData];
+        
+        [self saveLocation]; //causes reload again if NO is selected to share location
+        
+        self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
+        self.header.mainView = self;
+        [self.view addSubview:header.view];
+        
+        [self showMarquee];
+        
+        //Create Chat
+        if(!chatTimer.isValid)
+        {
+            chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
+        }
+        
+        [self firstTimeWelcome];
+        
+        [self showChallengeBox];
     }
     
     [[Globals i] removeLoadingAlert];
 }
 
-- (void)viewDidAppear:(BOOL)animated
+-(void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
-    self.header.mainView = self;
-	[self.view addSubview:header.view];
+    NSString *alertMsg;
     
-	[self showMarquee];
-    
-    //Create Chat
-    if(!chatTimer.isValid)
+    if( userInfo[@"aps"][@"alert"] != nil)
     {
-        chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
+        alertMsg = userInfo[@"aps"][@"alert"];
+        [[Globals i] showDialog:alertMsg];
+    }
+    else
+    {
+        alertMsg = @"{no alert message in dictionary}";
     }
     
-    [self createFloatings];
+    [NSThread detachNewThreadSelector:@selector(reloadNotification) toTarget:self withObject:nil];
+}
+
+- (void)reloadNotification
+{
+	@autoreleasepool {
+        
+        if([[Globals i] updateClubData])
+        {
+            [header updateView];
+            
+            [[Globals i] updateChallengesData];
+            [[Globals i] updateMatchPlayedData];
+            
+            [self performSelectorOnMainThread:@selector(showChallengeBox)
+                                   withObject:nil
+                                waitUntilDone:YES];
+        }
+    }
+}
+
+- (void)viewDidLoad
+{
+	[Globals i].selectedClubId = @"0";
+	[Globals i].workingUrl = @"0";
+	[Globals i].challengeMatchId = @"0";
     
-    [self showAchievements];
+	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
-    [self showChallengeBox];
+    [self createChat];
+    
+	[self createMarquee];
+    
+    matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
+	matchReport.mainView = self;
+	
+	self.clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
+	
+	self.stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
+    
+    self.upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
+    
+    self.stadiumMap = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
+	
+	self.fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
+	
+	self.financeView = [[FinanceView alloc] initWithNibName:@"FinanceView" bundle:nil];
+	
+	self.staffView = [[StaffView alloc] initWithNibName:@"StaffView" bundle:nil];
+	
+	self.matchView = [[MatchView alloc] initWithNibName:@"MatchView" bundle:nil];
+	
+	self.clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
+	
+	self.squadView = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
+	
+	self.trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
+	
+	self.newsView = [[NewsView alloc] initWithNibName:@"NewsView" bundle:nil];
+	
+	((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
+	
+	((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
+	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
+	((SquadViewer*)[clubTabBarController viewControllers][2]).mainView = self;
+	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
+    
+    ((OverView*)[leagueTabBarController viewControllers][0]).mainView = self;
+	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
+	((FixturesView*)[leagueTabBarController viewControllers][2]).mainView = self;
+	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
+	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
+	
+	((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
+	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
+	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
 }
 
 - (void)saveLocation
@@ -244,14 +350,6 @@
        didFailWithError:(NSError *)error
 {
 	NSLog(@"%@", error);
-}
-
-- (void)storeAuthData:(NSString *)accessToken expiresAt:(NSDate *)expiresAt 
-{
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:accessToken forKey:@"FBAccessTokenKey"];
-    [defaults setObject:expiresAt forKey:@"FBExpirationDateKey"];
-    [defaults synchronize];
 }
 
 #pragma mark StoreKit Methods
@@ -498,14 +596,14 @@
 
 - (void)buyCoachSuccess
 {
-	[[Globals i] buyCoach: [Globals i].purchasedCoachId];
+	[[Globals i] buyCoach:[Globals i].purchasedCoachId];
     
     [[Globals i] showDialog:@"A new coach has been assigned to your club."];
 	
 	[[Globals i] updateClubData];
 	[self updateHeader];
-	//[(StoreCoachView*)[[storeTabBarController viewControllers] objectAtIndex:1] updateView];
-	[(StoreCoachView*)[storeTabBarController viewControllers][1] forceUpdate];
+
+	[self.storeCoach forceUpdate];
 	
 	NSString *message = @"I have just signed up a new Coach.";
 	NSString *extra_desc = @"Keep an eye on the job board for new coaches. A good coach improves the training of your team significantly. ";
@@ -580,8 +678,6 @@
 
 - (void)startLiveMatch
 {
-    [self removeAchievements];
-    
 	[self showWaitingBox];
 	[NSThread detachNewThreadSelector: @selector(liveMatchServer) toTarget:self withObject:nil];
 }
@@ -808,30 +904,6 @@
     }
 }
 
--(void)removeAchievements
-{
-    [achievementsView.view removeFromSuperview];
-}
-
-#pragma mark PushNotification
--(void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSString *alertMsg;
-    
-    if( userInfo[@"aps"][@"alert"] != nil)
-    {
-        alertMsg = userInfo[@"aps"][@"alert"]; 
-    }
-    else
-    {    
-        alertMsg = @"{no alert message in dictionary}";
-    }
-    
-    [NSThread detachNewThreadSelector:@selector(reloadClub) toTarget:self withObject:nil];
-    
-    [[Globals i] showDialog:alertMsg];
-}
-
 - (void)showChallengeBox
 {
     if (challengeBox == nil)
@@ -846,80 +918,7 @@
     [self checkAccepted];
 }
 
-- (void)viewDidLoad
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(removeLiveMatch)
-                                                 name:@"ExitLiveMatch"
-                                               object:nil];
-	
-	[Globals i].selectedClubId = @"0";
-	[Globals i].workingUrl = @"0";
-	[Globals i].challengeMatchId = @"0";
-	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
-    [self createChat];
-    
-	[self createMarquee];
-        
-    matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
-	matchReport.mainView = self;
-	
-	self.clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
-	
-	self.stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
-    
-    self.upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
-    
-    self.stadiumMap = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
-	
-	self.fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
-	
-	self.financeView = [[FinanceView alloc] initWithNibName:@"FinanceView" bundle:nil];
-	
-	self.staffView = [[StaffView alloc] initWithNibName:@"StaffView" bundle:nil];
-	
-	self.matchView = [[MatchView alloc] initWithNibName:@"MatchView" bundle:nil];
-	
-	self.clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
-	
-	self.squadView = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
-	
-	self.trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
-	
-	self.newsView = [[NewsView alloc] initWithNibName:@"NewsView" bundle:nil];
-	
-	((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
-	
-	((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
-	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
-	((SquadViewer*)[clubTabBarController viewControllers][2]).mainView = self;
-	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
-	
-	((StorePlayerView*)[storeTabBarController viewControllers][0]).mainView = self;
-	((StoreCoachView*)[storeTabBarController viewControllers][1]).mainView = self;
-	((StoreOthersView*)[storeTabBarController viewControllers][2]).mainView = self;
-
-    ((OverView*)[leagueTabBarController viewControllers][0]).mainView = self;
-	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
-	((FixturesView*)[leagueTabBarController viewControllers][2]).mainView = self;
-	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
-	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
-	
-	((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
-	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
-	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
-}
-
-- (void)showFooterMessage
-{
-    /*
-	NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
-	NSString *welcomeFooter = wsSeasonData[@"footer"];
-    */
-}
-
-- (void)createFloatings
+- (void)firstTimeWelcome
 {
 	//Show welcome if first time
 	NSArray *savePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -941,109 +940,12 @@
 		
 		[self showWelcome];
 	}
-	else
-	{
-        NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
-		NSString *leagueRound = wsSeasonData[@"league_round"];
-		NSDictionary *wsClubData = [[Globals i] getClubData];
-		NSString *rank = wsClubData[@"league_ranking"];
-		NSString *div = wsClubData[@"division"];
-		
-		int lr = [leagueRound intValue];
-		int balRound = 18-lr;
-		leagueRound = [NSString stringWithFormat:@"%d", balRound];
-		
-		NSString *m = [NSString stringWithFormat:@"Your club is in division %@ and ranked %@ out of 10 in the league. There are %@ weeks still to play. Focus on the game, switch between your tactics, keep your players trained and try to make some transfer offers, in order for your club to reach 1st position", div, rank, leagueRound];
-		
-        if (welcomeView == nil)
-        {
-            welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
-        }
-        welcomeView.promptText = m;
-        
-		[[Globals i] showTemplate:@[welcomeView] :@"Welcome" :0];
-		[welcomeView updateView];
-	}
-}
-
-- (void)reloadViewFull
-{
-    if(![[Globals i] updateClubData])
-	{
-		//[self showLogin];
-        
-		return;
-	}
-	else
-    {
-        [[Globals i] retrieveEnergy];
-        [header updateView];
-        
-        [[Globals i] updateProductIdentifiers];
-	
-        NSDictionary *wsClubData = [[Globals i] getClubData];
-	
-        [[Globals i] updateMarqueeData
-         :wsClubData[@"division"]
-         :wsClubData[@"series"]
-         :[[Globals i] BoolToBit:wsClubData[@"playing_cup"]]
-         ];
-        [[Globals i] updateCurrentSeasonData];
-        [[Globals i] updateMatchData];
-        [[Globals i] updateMatchPlayedData];
-        [[Globals i] updateChallengesData];
-        [[Globals i] updateChallengedData];
-    
-        [self saveLocation]; //causes reload again if NO is selected to share location
-    
-        [self showFooterMessage];
-    }
 }
 
 - (void)updateAchievementBadges
 {
     [cell updateAchievementBadges];
     [mainTableView reloadData];
-}
-
-- (void)reloadClubFromOutside
-{
-    [NSThread detachNewThreadSelector:@selector(reloadClub) toTarget:self withObject:nil];
-}
-
-- (void)reloadClub
-{
-	@autoreleasepool {
-    
-        [self performSelectorOnMainThread:@selector(showLoadingAlert)
-                               withObject:nil
-                            waitUntilDone:YES];
-	
-	if([[Globals i] updateClubData])
-	{
-            [[Globals i] retrieveEnergy];
-            [header updateView];
-            
-		[[Globals i] updateProductIdentifiers];
-		[[Globals i] updateMatchData];
-		[[Globals i] updateMatchPlayedData];
-		[[Globals i] updateChallengesData];
-		[[Globals i] updateChallengedData];
-            
-        [[Globals i] updateMyAchievementsData];
-        [cell updateAchievementBadges];
-		
-		[self performSelectorOnMainThread:@selector(showChallengeBox)
-							   withObject:nil
-							waitUntilDone:YES];
-	}
-
-        
-        [self performSelectorOnMainThread:@selector(removeLoadingAlert)
-                               withObject:nil
-                            waitUntilDone:YES];
-	
-	}
 }
 
 - (void)onTimerChat
@@ -1092,66 +994,6 @@
     [[Globals i] showTemplate:@[helpView] :@"Help" :0];
 }
 
-- (void)showChat
-{
-
-}
-
-- (void)fblogin
-{
-    FBFriendPickerViewController *friendPickerController = [[FBFriendPickerViewController alloc] init];
-    
-    // Configure the picker ...
-    friendPickerController.title = @"Select a Friend";
-    // Set this view controller as the friend picker delegate
-    friendPickerController.delegate = self;
-    // Ask for friend device data
-    friendPickerController.fieldsForRequest = [NSSet setWithObjects:@"installed", nil];
-    
-    friendPickerController.allowsMultipleSelection = NO;
-    
-    // Fetch the data
-    [friendPickerController loadData];
-    
-    // iOS 5+
-    [self presentViewController:friendPickerController
-                       animated:YES
-                     completion:nil];
-}
-
-- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
-                 shouldIncludeUser:(id<FBGraphUserExtraFields>)user
-{
-    if (user.installed)
-    {
-        return YES;
-    }
-    
-    // Friend is not an iOS user, do not include them
-    return NO;
-}
- 
-- (void)facebookViewControllerCancelWasPressed:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)facebookViewControllerDoneWasPressed:(id)sender
-{
-    FBFriendPickerViewController *fpc = (FBFriendPickerViewController *)sender;
-    
-    for (id<FBGraphUser> user in fpc.selection)
-    {
-        NSString *strToEncrypt  = user.id;
-        NSString *secret        = @"year2000";
-        NSString *hexHmac       = [strToEncrypt HMACWithSecret:secret];
-        
-        [self showFBClubViewer:hexHmac];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
 - (void)showFinance
 {
 	[[Globals i] showTemplate:@[financeView] :@"Finance" :1];
@@ -1183,23 +1025,35 @@
 
 - (void)showPlayerStore
 {
-	[[Globals i] showTemplate:@[storeTabBarController] :@"Transfers" :1];
-    [(StorePlayerView*)[storeTabBarController viewControllers][0] updateView];
-    storeTabBarController.selectedIndex = 0;
+    if (storePlayer == nil)
+    {
+        storePlayer = [[StorePlayerView alloc] initWithNibName:@"StorePlayerView" bundle:nil];
+    }
+    
+	[[Globals i] showTemplate:@[storePlayer] :@"Transfers" :1];
+    [self.storePlayer updateView];
 }
 
 - (void)showCoachStore
 {
-	[[Globals i] showTemplate:@[storeTabBarController] :@"Coach" :1];
-    [(StoreCoachView*)[storeTabBarController viewControllers][1] updateView];
-    storeTabBarController.selectedIndex = 1;
+    if (storeCoach == nil)
+    {
+        storeCoach = [[StoreCoachView alloc] initWithNibName:@"StoreCoachView" bundle:nil];
+    }
+    
+	[[Globals i] showTemplate:@[storeCoach] :@"Job Board" :1];
+    [self.storeCoach updateView];
 }
 
 - (void)showOthersStore
 {
-	[[Globals i] showTemplate:@[storeTabBarController] :@"Store" :1];
-    [(StoreOthersView*)[storeTabBarController viewControllers][2] updateView];
-    storeTabBarController.selectedIndex = 2;
+    if (storeOthers == nil)
+    {
+        storeOthers = [[StoreOthersView alloc] initWithNibName:@"StoreOthersView" bundle:nil];
+    }
+    
+	[[Globals i] showTemplate:@[storeOthers] :@"Store" :1];
+    [self.storeOthers updateView];
 }
 
 - (void)showClub
@@ -1299,6 +1153,7 @@
 	{
 		[(StoreOthersView*)viewController updateView];
 	}
+    
 	//Tactics
 	else if([viewController.tabBarItem.title isEqualToString:@"Formation"])
 	{
@@ -1312,6 +1167,7 @@
 	{
 		[(TacticsView*)viewController updateView];
 	}
+    
 	//League
     else if([viewController.tabBarItem.title isEqualToString:@"Overview"])
 	{
@@ -1375,9 +1231,7 @@
 		}
 		case 7:
 		{
-			[[Globals i] showTemplate:@[storeTabBarController] :@"Store" :1];
-			[(StorePlayerView*)[storeTabBarController viewControllers][0] updateView];
-			storeTabBarController.selectedIndex = 0;
+			[self showPlayerStore];
 			break;
 		}
         case 8:
@@ -1399,7 +1253,7 @@
 		}
         case 11:
 		{
-            [self fblogin];
+            [[Globals i] fblogin];
 			break;
 		}
         case 12:
@@ -1429,7 +1283,7 @@
 		}
         case 17:
 		{
-            [self showChat];
+            [[Globals i] showChat];
 			break;
 		}
 		case 18:
@@ -1585,7 +1439,7 @@
     UITouch *touch = [[event allTouches] anyObject];
     if (CGRectContainsPoint([lblChat1 frame], [touch locationInView:self.view]))
     {
-        [self showChat];
+        [[Globals i] showChat];
     }
 }
 

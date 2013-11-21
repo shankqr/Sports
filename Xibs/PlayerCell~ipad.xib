@@ -252,6 +252,11 @@
                 <outlet property="playmaking" destination="26" id="67"/>
                 <outlet property="position" destination="61" id="75"/>
                 <outlet property="scoring" destination="35" id="83"/>
+                <outlet property="skill1" destination="50" id="tDC-K8-tv0"/>
+                <outlet property="skill2" destination="22" id="r7r-xv-qDx"/>
+                <outlet property="skill3" destination="25" id="7tQ-JM-Apk"/>
+                <outlet property="skill4" destination="34" id="nIB-M5-AxS"/>
+                <outlet property="skill5" destination="31" id="w7e-A9-nk1"/>
                 <outlet property="stamina" destination="29" id="85"/>
                 <outlet property="star1" destination="56" id="91"/>
                 <outlet property="star2" destination="57" id="90"/>

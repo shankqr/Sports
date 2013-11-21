@@ -33,6 +33,11 @@
 	UILabel *scoring;
 	UIImageView *pbscoring;
     UILabel *condition;
+    UILabel *skill1;
+    UILabel *skill2;
+    UILabel *skill3;
+    UILabel *skill4;
+    UILabel *skill5;
 }
 @property (nonatomic, strong) IBOutlet UIImageView *faceImage;
 @property (nonatomic, strong) IBOutlet UIImageView *injuredbruisedImage;
@@ -59,4 +64,9 @@
 @property (nonatomic, strong) IBOutlet UILabel *scoring;
 @property (nonatomic, strong) IBOutlet UIImageView *pbscoring;
 @property (nonatomic, strong) IBOutlet UILabel *condition;
+@property (nonatomic, strong) IBOutlet UILabel *skill1;
+@property (nonatomic, strong) IBOutlet UILabel *skill2;
+@property (nonatomic, strong) IBOutlet UILabel *skill3;
+@property (nonatomic, strong) IBOutlet UILabel *skill4;
+@property (nonatomic, strong) IBOutlet UILabel *skill5;
 @end

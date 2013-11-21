@@ -2651,6 +2651,12 @@ static NSOperationQueue *connectionQueue;
 	{
 		cell.position.text = rowData[@"position"];
 	}
+    
+    cell.skill1.text = [self PlayerSkill1];
+    cell.skill2.text = [self PlayerSkill2];
+    cell.skill3.text = [self PlayerSkill3];
+    cell.skill4.text = [self PlayerSkill4];
+    cell.skill5.text = [self PlayerSkill5];
 	
 	return cell;
 }
