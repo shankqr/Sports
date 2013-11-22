@@ -71,7 +71,7 @@ static const NSInteger TagOffset = 1000;
 {
     if ([[notification name] isEqualToString:@"UpdateClubData"])
     {
-        [currencyLabel setText:[[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_first"]]];
+        [currencyLabel setText:[[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_second"]]];
     }
 }
 
@@ -84,7 +84,7 @@ static const NSInteger TagOffset = 1000;
     }
     
     [titleLabel setText:self.title];
-    [currencyLabel setText:[[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_first"]]];
+    [currencyLabel setText:[[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_second"]]];
     
     pushedViewController = [[NSMutableArray alloc] initWithCapacity:[self.viewControllers count]];
     for (NSUInteger i=0; i < [self.viewControllers count]; i++)

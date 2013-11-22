@@ -409,7 +409,7 @@
          if (index == 1) //OK button is clicked
          {
              int number = [text intValue];
-             int bal = [[[Globals i] wsClubData][@"currency_first"] intValue];
+             int bal = [[[Globals i] wsClubData][@"currency_second"] intValue];
              
              if ((number > 0) && (bal >= number))
              {

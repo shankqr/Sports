@@ -36,7 +36,7 @@
         self.date_found = [aDictionary valueForKey:@"date_found"];
 		self.total_members = [aDictionary valueForKey:@"total_members"];
         self.alliance_level = [aDictionary valueForKey:@"alliance_level"];
-        self.currency_first = [aDictionary valueForKey:@"currency_first"];
+        self.currency_first = [aDictionary valueForKey:@"currency_second"];
         //self.currency_second = [aDictionary valueForKey:@"currency_second"];
         self.rank = [aDictionary valueForKey:@"rank"];
 		self.score = [aDictionary valueForKey:@"score"];

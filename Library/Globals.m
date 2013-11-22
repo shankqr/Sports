@@ -1699,7 +1699,7 @@ static NSOperationQueue *connectionQueue;
     //[mainView updateView];
 }
 
-- (void)checkVersion:(UIView *)view
+- (void)checkVersion
 {
     NSInteger count = [self.wsProductIdentifiers count];
     

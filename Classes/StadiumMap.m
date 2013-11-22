@@ -568,7 +568,6 @@
             [UIView commitAnimations];
             [[Globals i] moneySound];
             
-            [mainView updateHeader];
             [self updateView];
         }
         else

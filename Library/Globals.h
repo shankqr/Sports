@@ -378,7 +378,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSString *)getLastAllianceChatID;
 - (void)updateChatData;
 - (void)updateAllianceChatData;
-- (void)checkVersion:(UIView *)view;
+- (void)checkVersion;
 - (void)updateProductIdentifiers;
 - (NSString *)gettSelectedBaseId;
 - (void)settSelectedBaseId:(NSString *)bid;

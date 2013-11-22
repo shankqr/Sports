@@ -47,54 +47,13 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (BOOL)updateView
 {
-    [[Globals i] updateWorldsData];
-    
-    //Check if world still exist and what row is it
-    NSInteger count = [[Globals i].wsWorldsData count];
-    
-    if (count == 0) //No internet on launch
+    if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
-        launchWithInternet = NO;
-        
-        [[Globals i] setUID:@""]; //Have to login manually from now on
-        
-        [[Globals i] showDialogError];
-        
-        return NO;
+        [self LoadMainView];
     }
     else
     {
-        launchWithInternet = YES;
-        
-        NSInteger worldIndex = -1;
-        for (int i = 0; i < count; i++)
-        {
-            NSDictionary *world = [[Globals i].wsWorldsData objectAtIndex:i];
-            NSDictionary *myworld = [[Globals i] gettSelectedWorldData];
-            if([myworld[@"world_id"] isEqualToString: world[@"world_id"]])
-            {
-                worldIndex = i;
-            }
-        }
-        
-        if (worldIndex > -1) //World still exist, update it
-        {
-            [[Globals i] settSelectedWorldData:[Globals i].wsWorldsData[worldIndex]];
-        }
-        else //World no longer exist, so select most top world
-        {
-            [[Globals i] settSelectedWorldData:[Globals i].wsWorldsData[0]];
-            [[Globals i] settSelectedBaseId:@"0"];
-        }
-        
-        if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
-        {
-            [self LoadMainView];
-        }
-        else
-        {
-            [FBSession.activeSession closeAndClearTokenInformation];
-        }
+        [FBSession.activeSession closeAndClearTokenInformation];
     }
     
     return YES;
@@ -285,7 +244,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
                  NSString *email = user[@"email"];
                  
-                 NSString *wsurl = [NSString stringWithFormat:@"%@/LoginFacebook/%@/%@/%@/%@/%@",
+                 NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/0/%@/%@/%@",
                                     WS_URL, uid, email, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
                  NSURL *url = [[NSURL alloc] initWithString:wsurl];
                  NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
@@ -310,7 +269,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      NSString *gender = user[@"gender"];
                      NSString *timezone = user[@"timezone"];
                      
-                     NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
+                     NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
                                                               WS_URL, [[Globals i] GameId], uid, @"0", fid, email, name, username, gender, timezone, [[Globals i] getDevicetoken]];
                      NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                      NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
@@ -394,7 +353,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString *email = emailText.text;
         NSString* hexPassword = [self stringToHex:passwordText.text];
         
-        NSString *wsurl = [NSString stringWithFormat:@"%@/LoginEmail/%@/%@/%@/%@/%@/%@",
+        NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
                            WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
         NSURL *url = [[NSURL alloc] initWithString:wsurl];
         NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
@@ -438,7 +397,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString *email = emailText.text;
         NSString* hexPassword = [self stringToHex:passwordText.text];
         
-        NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
+        NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
                               WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDevicetoken]];
         NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];

@@ -102,7 +102,7 @@
     else
     {
         NSString *r1 = rowData[@"club_name"];
-        NSString *c1 = [[Globals i] numberFormat:rowData[@"currency_first"]];
+        NSString *c1 = [[Globals i] numberFormat:rowData[@"currency_second"]];
         
         return @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row], @"r1": r1, @"c1": c1};
     }

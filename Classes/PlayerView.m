@@ -261,7 +261,6 @@
         
         //Update Header
         [[Globals i] updateClubData];
-        [mainView updateHeader];
         
         NSString *message = [[NSString alloc] initWithFormat:@"I have just renamed my player %@ to %@", squadView.sel_player_name, text];
         NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might sign up the next super star.";
@@ -371,7 +370,6 @@
             
             //Update Header
             [[Globals i] updateClubData];
-            [mainView updateHeader];
             
             NSString *message = [[NSString alloc] initWithFormat:@"I have just sold my player %@ for $%@", squadView.sel_player_name, squadView.sel_player_halfvalue];
             NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might buy the next super star.";
@@ -408,9 +406,9 @@
             [[Globals i] energizePlayer: squadView.sel_player_id];
             
             [squadView normalUpdate];
+            
             //Update Header
             [[Globals i] updateClubData];
-            [mainView updateHeader];
             
             [self updateView:(squadView.players)[squadView.selectedRow]];
             
@@ -426,9 +424,9 @@
             [[Globals i] healPlayer: squadView.sel_player_id];
             
             [squadView normalUpdate];
+            
             //Update Header
             [[Globals i] updateClubData];
-            [mainView updateHeader];
             
             [self updateView:(squadView.players)[squadView.selectedRow]];
             
@@ -469,9 +467,9 @@
             else
             {
                 [squadView normalUpdate];
+                
                 //Update Header
                 [[Globals i] updateClubData];
-                [mainView updateHeader];
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just sent my player %@ to special training.", squadView.sel_player_name];
                 NSString *extra_desc = @"One of your player skill will level up after special training.";
@@ -538,9 +536,9 @@
             else
             {
                 [squadView normalUpdate];
+                
                 //Update Header
                 [[Globals i] updateClubData];
-                [mainView updateHeader];
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just gave my player %@ a Morale Boost.", squadView.sel_player_name];
                 NSString *extra_desc = @"Your player's morale will increase by 5 after giving a Morale Boost.";

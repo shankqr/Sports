@@ -43,8 +43,7 @@
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
-UIAlertViewDelegate, CLLocationManagerDelegate,
-UITableViewDataSource, UITableViewDelegate, FBFriendPickerDelegate>
+UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 {
 	Header *header;
 	JobsView *jobsView;
