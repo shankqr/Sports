@@ -38,10 +38,10 @@
                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="121">
-                        <rect key="frame" x="163" y="607" width="151" height="43"/>
+                        <rect key="frame" x="170" y="607" width="130" height="40"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                        <state key="normal" image="button_login.png">
+                        <state key="normal" image="button_share.png">
                             <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -53,13 +53,6 @@
                             <action selector="buttonShare:" destination="2" eventType="touchUpInside" id="205"/>
                         </connections>
                     </button>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="SHARE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="122">
-                        <rect key="frame" x="217" y="618" width="86" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="124">
                         <rect key="frame" x="261" y="181" width="59" height="230"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -389,6 +382,7 @@
         <image name="button_map.png" width="124" height="150"/>
         <image name="button_match.png" width="124" height="150"/>
         <image name="button_news.png" width="124" height="150"/>
+        <image name="button_share.png" width="130" height="40"/>
         <image name="button_squad.png" width="124" height="150"/>
         <image name="button_staff.png" width="124" height="150"/>
         <image name="button_store.png" width="124" height="150"/>

@@ -25,7 +25,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48">
-                    <rect key="frame" x="637" y="528" width="216" height="216"/>
+                    <rect key="frame" x="675" y="561" width="140" height="140"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_upgradestadium.png">
@@ -95,7 +95,7 @@
     </objects>
     <resources>
         <image name="button_close2.png" width="48" height="48"/>
-        <image name="button_upgradestadium.png" width="216" height="216"/>
+        <image name="button_upgradestadium.png" width="140" height="140"/>
         <image name="skin_stadium.png" width="320" height="405"/>
     </resources>
 </document>

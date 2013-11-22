@@ -8,10 +8,9 @@
 
 @class MainView;
 @class BidView;
-@interface StorePlayerView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface StorePlayerView : UITableViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;
-	UITableView *table;
 	NSString *filter;
 	NSMutableArray *players;
 	NSString *sold_player_id;
@@ -22,7 +21,6 @@
     BidView *bidView;
 }
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSString *sold_player_id;

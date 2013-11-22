@@ -135,7 +135,7 @@
     </objects>
     <resources>
         <image name="button_cancel.png" width="178" height="60"/>
-        <image name="button_ok.png" width="178" height="60"/>
+        <image name="button_ok.png" width="130" height="40"/>
         <image name="skin_menu.png" width="640" height="960"/>
     </resources>
 </document>

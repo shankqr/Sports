@@ -66,7 +66,7 @@
                     <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54">
-                    <rect key="frame" x="246" y="853" width="300" height="80"/>
+                    <rect key="frame" x="302" y="888" width="164" height="62"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="mapviewer_challangebutton.png">
@@ -88,7 +88,7 @@
     <resources>
         <image name="background2.png" width="640" height="972"/>
         <image name="button_close3.png" width="116" height="48"/>
-        <image name="mapviewer_challangebutton.png" width="256" height="80"/>
+        <image name="mapviewer_challangebutton.png" width="164" height="62"/>
         <image name="mapviewer_clip.png" width="76" height="62"/>
         <image name="mapviewer_id.png" width="398" height="224"/>
     </resources>

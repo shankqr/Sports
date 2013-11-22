@@ -228,7 +228,7 @@
 	level = [[Globals i] getLevel];
 	xp = [[Globals i] getXp];
 	xp_max = [[Globals i] getXpMax];
-	lblGold.text = [[Globals i] numberFormat:wsClubData[@"balance"]];
+	lblGold.text = [[Globals i] shortNumberFormat:wsClubData[@"balance"]];
 	if(gold > 0)
 	{
 		lblGold.textColor = [UIColor blackColor];

@@ -287,7 +287,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString	*)world_url
 {
-    return [NSString stringWithFormat:@"http://%@/%@", wsWorldData[@"server_ip"], wsWorldData[@"server_webservice"]];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
 }
 
 - (void)setUID:(NSString *)user_uid
@@ -1780,6 +1780,9 @@ static NSOperationQueue *connectionQueue;
 	{
 		return NO;
 	}
+    
+    //Only for sports game
+    wsWorldClubData = wsClubData;
 }
 
 - (BOOL)updateWorldClubData
@@ -1834,7 +1837,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateMyAchievementsData
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAchievements/%@", 
-					   [self world_url], wsWorldClubData[@"club_id"]];
+					   [self world_url], wsClubData[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMyAchievementsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }

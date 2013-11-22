@@ -60,7 +60,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48">
-                    <rect key="frame" x="280" y="204" width="108" height="108"/>
+                    <rect key="frame" x="295" y="230" width="70" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_upgradestadium.png">
@@ -97,7 +97,7 @@
     </objects>
     <resources>
         <image name="button_close2.png" width="48" height="48"/>
-        <image name="button_upgradestadium.png" width="216" height="216"/>
+        <image name="button_upgradestadium.png" width="140" height="140"/>
         <image name="skin_stadium.png" width="320" height="405"/>
     </resources>
 </document>

@@ -139,8 +139,8 @@
         </view>
     </objects>
     <resources>
-        <image name="button_rename.png" width="130" height="130"/>
-        <image name="button_reset.png" width="130" height="130"/>
+        <image name="button_rename.png" width="140" height="140"/>
+        <image name="button_reset.png" width="140" height="140"/>
         <image name="skin_club.png" width="640" height="810"/>
     </resources>
 </document>

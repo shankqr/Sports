@@ -32,7 +32,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="14">
-                    <rect key="frame" x="1" y="437" width="90" height="30"/>
+                    <rect key="frame" x="7" y="436" width="82" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_decline.png">
@@ -47,7 +47,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15">
-                    <rect key="frame" x="230" y="437" width="90" height="30"/>
+                    <rect key="frame" x="232" y="436" width="82" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_accept.png">
@@ -154,7 +154,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="34">
-                    <rect key="frame" x="95" y="432" width="130" height="40"/>
+                    <rect key="frame" x="119" y="436" width="82" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="mapviewer_challangebutton.png">
@@ -174,9 +174,9 @@
         </view>
     </objects>
     <resources>
-        <image name="button_accept.png" width="178" height="60"/>
+        <image name="button_accept.png" width="164" height="62"/>
         <image name="button_decline.png" width="178" height="60"/>
-        <image name="mapviewer_challangebutton.png" width="256" height="80"/>
+        <image name="mapviewer_challangebutton.png" width="164" height="62"/>
         <image name="skin_menu.png" width="640" height="960"/>
     </resources>
 </document>

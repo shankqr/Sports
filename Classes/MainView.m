@@ -877,8 +877,18 @@
     }
     achievementsView.title = @"Achievements 1";
     
-    //[achievementsView updateView];
-    [[Globals i] showTemplate:@[achievementsView] :@"Achievements" :0];
+    [[Globals i] showTemplate:@[achievementsView] :@"Achievements" :1];
+    [achievementsView updateView];
+}
+
+- (void)showPlayerStore
+{
+    if (storePlayer == nil)
+    {
+        storePlayer = [[StorePlayerView alloc] initWithStyle:UITableViewStylePlain];
+    }
+	[[Globals i] showTemplate:@[storePlayer] :@"Transfers" :1];
+    [self.storePlayer updateView];
 }
 
 - (void)showAlliance
@@ -1037,16 +1047,6 @@
     }
 	[[Globals i] showTemplate:@[newsView] :@"News" :1];
     [self.newsView updateView];
-}
-
-- (void)showPlayerStore
-{
-    if (storePlayer == nil)
-    {
-        storePlayer = [[StorePlayerView alloc] initWithNibName:@"StorePlayerView" bundle:nil];
-    }
-	[[Globals i] showTemplate:@[storePlayer] :@"Transfers" :1];
-    [self.storePlayer updateView];
 }
 
 - (void)showCoachStore

@@ -7,8 +7,6 @@
 //
 
 #import "StorePlayerView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "Globals.h"
 #import "MainView.h"
 #import "BidView.h"
@@ -16,7 +14,6 @@
 
 @implementation StorePlayerView
 @synthesize mainView;
-@synthesize table;
 @synthesize players;
 @synthesize filter;
 @synthesize sold_player_id;
@@ -27,19 +24,42 @@
 
 - (void)viewDidLoad
 {
-    self.wantsFullScreenLayout = YES;
+	[super viewDidLoad];
     
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent
+{
+	[super willMoveToParentViewController:parent];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+	[super didMoveToParentViewController:parent];
 }
 
 - (void)updateView
 {
 	if(!workingPlayerSale)
 	{
-		[table removeFromSuperview];
 		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getProductPlayer) toTarget:self withObject:nil];
 	}
@@ -54,12 +74,12 @@
 		self.players = [[Globals i] getPlayerSaleData];
 		if(self.players.count > 0)
 		{
-			[self.view addSubview:table];
-			[table reloadData];
-			[[Globals i] removeLoadingAlert];
+			//[self.view addSubview:table];
+			[self.tableView reloadData];
 		}
 		workingPlayerSale = NO;
-	
+        
+        [[Globals i] removeLoadingAlert];
 	}
 }
 
@@ -67,11 +87,6 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
 	return [[Globals i] playerCellHandler:tableView indexPath:indexPath playerArray:self.players checkPos:NO];
-}
-
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return @"PLAYERS ON TRANSFER LIST";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

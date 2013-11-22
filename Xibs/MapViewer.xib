@@ -45,7 +45,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54">
-                    <rect key="frame" x="99" y="383" width="148" height="40"/>
+                    <rect key="frame" x="119" y="388" width="82" height="31"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="mapviewer_challangebutton.png">
@@ -88,7 +88,7 @@
     <resources>
         <image name="background2.png" width="640" height="972"/>
         <image name="button_close3.png" width="116" height="48"/>
-        <image name="mapviewer_challangebutton.png" width="256" height="80"/>
+        <image name="mapviewer_challangebutton.png" width="164" height="62"/>
         <image name="mapviewer_clip.png" width="76" height="62"/>
         <image name="mapviewer_id.png" width="398" height="224"/>
     </resources>

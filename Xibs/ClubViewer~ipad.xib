@@ -163,7 +163,7 @@
     </objects>
     <resources>
         <image name="button_close3.png" width="116" height="48"/>
-        <image name="mapviewer_challangebutton.png" width="256" height="80"/>
+        <image name="mapviewer_challangebutton.png" width="164" height="62"/>
         <image name="viewer_club.png" width="640" height="860"/>
     </resources>
 </document>

@@ -111,7 +111,7 @@
 			{
 				UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 [button setImage:[UIImage imageNamed:@"button_accept.png"] forState:UIControlStateNormal];
-				CGRect buttonFrame = CGRectMake(65*SCALE_IPAD, 260*SCALE_IPAD, 90*SCALE_IPAD, 30*SCALE_IPAD);
+				CGRect buttonFrame = CGRectMake(65*SCALE_IPAD, 260*SCALE_IPAD, 82*SCALE_IPAD, 31*SCALE_IPAD);
 				[button setFrame:buttonFrame];
 				button.tag = page;
 				[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];

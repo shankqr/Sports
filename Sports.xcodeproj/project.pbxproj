@@ -374,6 +374,8 @@
 		9071578313FF4FC90042E939 /* UpgradeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9071578213FF4FC90042E939 /* UpgradeView.m */; };
 		90737E65162078C0007EBBAE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E62162078BF007EBBAE /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		90737E67162078C0007EBBAE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E64162078C0007EBBAE /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9077360F183F7E3F00D9CEAE /* button_claim.png in Resources */ = {isa = PBXBuildFile; fileRef = 9077360D183F7E3F00D9CEAE /* button_claim.png */; };
+		90773610183F7E3F00D9CEAE /* button_share.png in Resources */ = {isa = PBXBuildFile; fileRef = 9077360E183F7E3F00D9CEAE /* button_share.png */; };
 		907A31F41834C386002DCAA1 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A31F31834C386002DCAA1 /* GLKit.framework */; };
 		907A31F81834C404002DCAA1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A31F71834C404002DCAA1 /* libz.dylib */; };
 		907A798D100864F0008D990D /* FixtureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A798C100864F0008D990D /* FixtureCell.m */; };
@@ -529,8 +531,6 @@
 		9093A713183800B8005D60E2 /* StoreCoachView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A709183800B8005D60E2 /* StoreCoachView~ipad.xib */; };
 		9093A714183800B8005D60E2 /* StoreOthersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70A183800B8005D60E2 /* StoreOthersView.xib */; };
 		9093A715183800B8005D60E2 /* StoreOthersView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70B183800B8005D60E2 /* StoreOthersView~ipad.xib */; };
-		9093A716183800B8005D60E2 /* StorePlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70C183800B8005D60E2 /* StorePlayerView.xib */; };
-		9093A717183800B8005D60E2 /* StorePlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70D183800B8005D60E2 /* StorePlayerView~ipad.xib */; };
 		9093A71A1838010C005D60E2 /* CoachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A7181838010C005D60E2 /* CoachCell.xib */; };
 		9093A71B1838010C005D60E2 /* CoachCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A7191838010C005D60E2 /* CoachCell~ipad.xib */; };
 		9094F838183A6CEC00931A9A /* Ball_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F826183A6CEB00931A9A /* Ball_hockey.m */; };
@@ -1060,8 +1060,6 @@
 		90E928551836A6D300DFA9FB /* j8.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A11836A6C800DFA9FB /* j8.png */; };
 		90E928561836A6D300DFA9FB /* j9.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A21836A6C800DFA9FB /* j9.png */; };
 		90E928571836A6D300DFA9FB /* button_buy.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A41836A6C800DFA9FB /* button_buy.png */; };
-		90E928581836A6D300DFA9FB /* energy_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A51836A6C800DFA9FB /* energy_button.png */; };
-		90E928591836A6D300DFA9FB /* fan_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A61836A6C800DFA9FB /* fan_button.png */; };
 		90E9285A1836A6D300DFA9FB /* job_amateur.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A71836A6C800DFA9FB /* job_amateur.png */; };
 		90E9285B1836A6D300DFA9FB /* job_amateur_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920A81836A6C800DFA9FB /* job_amateur_locked.png */; };
 		90E9285D1836A6D300DFA9FB /* job_button_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AA1836A6C800DFA9FB /* job_button_normal.png */; };
@@ -1073,7 +1071,6 @@
 		90E928631836A6D300DFA9FB /* job_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B01836A6C800DFA9FB /* job_pro.png */; };
 		90E928641836A6D300DFA9FB /* job_pro_locked.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B11836A6C800DFA9FB /* job_pro_locked.png */; };
 		90E928651836A6D300DFA9FB /* job_rookie.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B21836A6C800DFA9FB /* job_rookie.png */; };
-		90E928661836A6D300DFA9FB /* money_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B31836A6C800DFA9FB /* money_button.png */; };
 		90E928671836A6D300DFA9FB /* g1_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B51836A6C800DFA9FB /* g1_0.png */; };
 		90E928681836A6D300DFA9FB /* g1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B61836A6C800DFA9FB /* g1_1.png */; };
 		90E928691836A6D300DFA9FB /* g1_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B71836A6C800DFA9FB /* g1_2.png */; };
@@ -2719,6 +2716,8 @@
 		9071578213FF4FC90042E939 /* UpgradeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeView.m; sourceTree = "<group>"; };
 		90737E62162078BF007EBBAE /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		90737E64162078C0007EBBAE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9077360D183F7E3F00D9CEAE /* button_claim.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_claim.png; sourceTree = "<group>"; };
+		9077360E183F7E3F00D9CEAE /* button_share.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_share.png; sourceTree = "<group>"; };
 		907A31F31834C386002DCAA1 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		907A31F71834C404002DCAA1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		907A798B100864F0008D990D /* FixtureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixtureCell.h; sourceTree = "<group>"; };
@@ -2904,8 +2903,6 @@
 		9093A709183800B8005D60E2 /* StoreCoachView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StoreCoachView~ipad.xib"; path = "Xibs/StoreCoachView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A70A183800B8005D60E2 /* StoreOthersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StoreOthersView.xib; path = Xibs/StoreOthersView.xib; sourceTree = SOURCE_ROOT; };
 		9093A70B183800B8005D60E2 /* StoreOthersView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StoreOthersView~ipad.xib"; path = "Xibs/StoreOthersView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A70C183800B8005D60E2 /* StorePlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StorePlayerView.xib; path = Xibs/StorePlayerView.xib; sourceTree = SOURCE_ROOT; };
-		9093A70D183800B8005D60E2 /* StorePlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StorePlayerView~ipad.xib"; path = "Xibs/StorePlayerView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A7181838010C005D60E2 /* CoachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CoachCell.xib; path = Xibs/CoachCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A7191838010C005D60E2 /* CoachCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "CoachCell~ipad.xib"; path = "Xibs/CoachCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9094F825183A6CEB00931A9A /* Ball_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball_hockey.h; sourceTree = "<group>"; };
@@ -3502,8 +3499,6 @@
 		90E920A11836A6C800DFA9FB /* j8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = j8.png; sourceTree = "<group>"; };
 		90E920A21836A6C800DFA9FB /* j9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = j9.png; sourceTree = "<group>"; };
 		90E920A41836A6C800DFA9FB /* button_buy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_buy.png; sourceTree = "<group>"; };
-		90E920A51836A6C800DFA9FB /* energy_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = energy_button.png; sourceTree = "<group>"; };
-		90E920A61836A6C800DFA9FB /* fan_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fan_button.png; sourceTree = "<group>"; };
 		90E920A71836A6C800DFA9FB /* job_amateur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_amateur.png; sourceTree = "<group>"; };
 		90E920A81836A6C800DFA9FB /* job_amateur_locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_amateur_locked.png; sourceTree = "<group>"; };
 		90E920AA1836A6C800DFA9FB /* job_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_button_normal.png; sourceTree = "<group>"; };
@@ -3515,7 +3510,6 @@
 		90E920B01836A6C800DFA9FB /* job_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_pro.png; sourceTree = "<group>"; };
 		90E920B11836A6C800DFA9FB /* job_pro_locked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_pro_locked.png; sourceTree = "<group>"; };
 		90E920B21836A6C800DFA9FB /* job_rookie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_rookie.png; sourceTree = "<group>"; };
-		90E920B31836A6C800DFA9FB /* money_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = money_button.png; sourceTree = "<group>"; };
 		90E920B51836A6C800DFA9FB /* g1_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g1_0.png; sourceTree = "<group>"; };
 		90E920B61836A6C800DFA9FB /* g1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g1_1.png; sourceTree = "<group>"; };
 		90E920B71836A6C800DFA9FB /* g1_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = g1_2.png; sourceTree = "<group>"; };
@@ -5830,8 +5824,6 @@
 			children = (
 				905B2CFA108F1B0700E6C76B /* StorePlayerView.h */,
 				905B2CFB108F1B0700E6C76B /* StorePlayerView.m */,
-				9093A70C183800B8005D60E2 /* StorePlayerView.xib */,
-				9093A70D183800B8005D60E2 /* StorePlayerView~ipad.xib */,
 				90DBB9BC108F6F0F00E82777 /* StoreOthersView.h */,
 				90DBB9BD108F6F0F00E82777 /* StoreOthersView.m */,
 				9093A70A183800B8005D60E2 /* StoreOthersView.xib */,
@@ -6454,8 +6446,6 @@
 			isa = PBXGroup;
 			children = (
 				90E920A41836A6C800DFA9FB /* button_buy.png */,
-				90E920A51836A6C800DFA9FB /* energy_button.png */,
-				90E920A61836A6C800DFA9FB /* fan_button.png */,
 				90E920A71836A6C800DFA9FB /* job_amateur.png */,
 				90E920A81836A6C800DFA9FB /* job_amateur_locked.png */,
 				90E920AA1836A6C800DFA9FB /* job_button_normal.png */,
@@ -6467,7 +6457,6 @@
 				90E920B01836A6C800DFA9FB /* job_pro.png */,
 				90E920B11836A6C800DFA9FB /* job_pro_locked.png */,
 				90E920B21836A6C800DFA9FB /* job_rookie.png */,
-				90E920B31836A6C800DFA9FB /* money_button.png */,
 			);
 			path = Jobs;
 			sourceTree = "<group>";
@@ -7523,6 +7512,8 @@
 		90E924F01836A6D200DFA9FB /* Skins */ = {
 			isa = PBXGroup;
 			children = (
+				9077360D183F7E3F00D9CEAE /* button_claim.png */,
+				9077360E183F7E3F00D9CEAE /* button_share.png */,
 				906DC7BC183B5353004AD180 /* button_facebook.png */,
 				90E924F11836A6D200DFA9FB /* a1.png */,
 				90E924F21836A6D200DFA9FB /* background1_405.png */,
@@ -7930,7 +7921,6 @@
 				9093A71A1838010C005D60E2 /* CoachCell.xib in Resources */,
 				90E927C91836A6D300DFA9FB /* flag_241.png in Resources */,
 				90E928C81836A6D300DFA9FB /* z113.png in Resources */,
-				9093A716183800B8005D60E2 /* StorePlayerView.xib in Resources */,
 				90E927E01836A6D300DFA9FB /* flag_262.png in Resources */,
 				9093A6281837F503005D60E2 /* FixturesView.xib in Resources */,
 				90E92D561836A72C00DFA9FB /* engine_ball.png in Resources */,
@@ -8746,6 +8736,7 @@
 				90E926E81836A6D300DFA9FB /* building_hotel3~ipad.png in Resources */,
 				90E92A4B1836A6D300DFA9FB /* z462.png in Resources */,
 				90E92B6E1836A6D300DFA9FB /* z724.png in Resources */,
+				90773610183F7E3F00D9CEAE /* button_share.png in Resources */,
 				90E9283D1836A6D300DFA9FB /* j10.png in Resources */,
 				90E92CFD1836A6D300DFA9FB /* m110.png in Resources */,
 				90E926B21836A6D300DFA9FB /* x26.png in Resources */,
@@ -9186,7 +9177,6 @@
 				90E926AE1836A6D300DFA9FB /* x22.png in Resources */,
 				90E92AE71836A6D300DFA9FB /* z602.png in Resources */,
 				901E0279183E7BA70092152F /* c193.png in Resources */,
-				9093A717183800B8005D60E2 /* StorePlayerView~ipad.xib in Resources */,
 				90E927FB1836A6D300DFA9FB /* flag_50.png in Resources */,
 				901E0255183E7BA70092152F /* c160.png in Resources */,
 				901E0288183E7BA70092152F /* c206.png in Resources */,
@@ -9408,6 +9398,7 @@
 				90E927911836A6D300DFA9FB /* flag_191.png in Resources */,
 				90E92C4E1836A6D300DFA9FB /* z926.png in Resources */,
 				901E021C183E7BA70092152F /* c109.png in Resources */,
+				9077360F183F7E3F00D9CEAE /* button_claim.png in Resources */,
 				90E92B661836A6D300DFA9FB /* z717.png in Resources */,
 				90E927611836A6D300DFA9FB /* flag_148.png in Resources */,
 				90E92C9C1836A6D300DFA9FB /* z997.png in Resources */,
@@ -9457,7 +9448,6 @@
 				9093A60D1837F496005D60E2 /* OverfirstCell~ipad.xib in Resources */,
 				90E9296C1836A6D300DFA9FB /* z261.png in Resources */,
 				90E92B2C1836A6D300DFA9FB /* z665.png in Resources */,
-				90E928661836A6D300DFA9FB /* money_button.png in Resources */,
 				90E92D191836A6D300DFA9FB /* m138.png in Resources */,
 				90E9285B1836A6D300DFA9FB /* job_amateur_locked.png in Resources */,
 				90E92C611836A6D300DFA9FB /* z943.png in Resources */,
@@ -9646,7 +9636,6 @@
 				901E030B183E7BA70092152F /* skin_menu.png in Resources */,
 				90E92C6E1836A6D300DFA9FB /* z955.png in Resources */,
 				90E92C7D1836A6D300DFA9FB /* z969.png in Resources */,
-				90E928591836A6D300DFA9FB /* fan_button.png in Resources */,
 				90E92CDF1836A6D300DFA9FB /* skin_club.png in Resources */,
 				902504461679159200F68D9F /* sound_button.aif in Resources */,
 				90E92C9F1836A6D300DFA9FB /* a1.png in Resources */,
@@ -9810,7 +9799,6 @@
 				901E02F0183E7BA70092152F /* c95.png in Resources */,
 				90E927C41836A6D300DFA9FB /* flag_237.png in Resources */,
 				90E92C1A1836A6D300DFA9FB /* z88.png in Resources */,
-				90E928581836A6D300DFA9FB /* energy_button.png in Resources */,
 				90E92C1F1836A6D300DFA9FB /* z884.png in Resources */,
 				9093A6891837F761005D60E2 /* SquadViewer~ipad.xib in Resources */,
 				901E02AE183E7BA70092152F /* c35.png in Resources */,

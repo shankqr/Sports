@@ -28,7 +28,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="14">
-                    <rect key="frame" x="115" y="401" width="90" height="30"/>
+                    <rect key="frame" x="115" y="394" width="90" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_ok.png">
@@ -48,7 +48,7 @@
         </view>
     </objects>
     <resources>
-        <image name="button_ok.png" width="178" height="60"/>
+        <image name="button_ok.png" width="130" height="40"/>
         <image name="job_complete.png" width="620" height="800"/>
     </resources>
 </document>

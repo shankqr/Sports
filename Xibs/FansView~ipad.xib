@@ -67,7 +67,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="30">
-                    <rect key="frame" x="289" y="924" width="306" height="70"/>
+                    <rect key="frame" x="372" y="875" width="140" height="140"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_fans.png">
@@ -86,7 +86,7 @@
         </view>
     </objects>
     <resources>
-        <image name="button_fans.png" width="306" height="70"/>
+        <image name="button_fans.png" width="140" height="140"/>
         <image name="button_sponsor.png" width="306" height="70"/>
         <image name="skin_fans.png" width="320" height="405"/>
     </resources>

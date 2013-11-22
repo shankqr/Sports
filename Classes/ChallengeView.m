@@ -56,7 +56,7 @@
 		[loseButton setTitle:[NSString stringWithFormat:@"$ %@", [[Globals i] numberFormat:rowData[@"challenge_lose"]]] forState:UIControlStateNormal];
 		[self.view setNeedsDisplay];
 	}
-	else 
+	else
 	{
 		currMatchIndex = 0;
         [mainView updateChallenge];
