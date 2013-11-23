@@ -30,15 +30,14 @@
 @synthesize home_url;
 @synthesize away_url;
 
-
 - (void)viewDidLoad 
 {
+    [super viewDidLoad];
+    
 	UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
     imagePickerController.delegate = self;
 	imagePickerController.allowsEditing = YES;
 	self.picker = imagePickerController;
-	
-	[super viewDidLoad];
 }
 
 - (void)updateView

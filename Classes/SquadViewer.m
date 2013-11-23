@@ -24,11 +24,6 @@
 @synthesize totalfilter;
 @synthesize filter;
 
-- (IBAction)closeButton_tap:(id)sender
-{
-
-}
-
 - (void)viewDidLoad
 {
 	selected_clubid = @"0";

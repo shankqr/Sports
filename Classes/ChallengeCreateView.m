@@ -182,8 +182,6 @@
 
 - (IBAction)okButton_tap:(id)sender
 {
-	
-    
 	[self confirmPurchase];
 }
 

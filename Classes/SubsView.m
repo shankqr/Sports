@@ -232,8 +232,8 @@
         squadSelecter.mainView = self.mainView;
         squadSelecter.delegate = self;
     }
+    [[Globals i] showTemplate:@[squadSelecter] :@"" :0];
 	[squadSelecter updateView];
-	[[[[self.view superview] superview] superview] insertSubview:squadSelecter.view atIndex:3];
 }
 
 - (void)playerSelected:(NSString *)player

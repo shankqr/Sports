@@ -145,7 +145,7 @@
         playerView.squadView = self;
     }
     
-    [[mainView.view superview] insertSubview:playerView.view atIndex:4];
+    [[Globals i] showTemplate:@[playerView] :@"" :0];
     [playerView updateView:rowData];
     
 	return nil;

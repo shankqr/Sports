@@ -38,11 +38,6 @@
     [super viewDidLoad];
 }
 
-- (IBAction)closeButton_tap:(id)sender
-{
-
-}
-
 - (void)clearView
 {
 	clubNameLabel.text = @"";

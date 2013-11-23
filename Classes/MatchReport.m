@@ -23,14 +23,11 @@
     [super viewDidLoad];
 }
 
-- (IBAction)cancelButton_tap:(id)sender
+- (void)viewDidDisappear:(BOOL)animated
 {
-    [self endMatch];
-	
+	[super viewDidDisappear:animated];
     
-	
-	[mainView updateHeader];
-	[self.view removeFromSuperview];
+    [self endMatch];
 }
 
 - (void)updateView:(NSString*)MatchID
@@ -205,6 +202,5 @@
         }
     }
 }
-
 
 @end

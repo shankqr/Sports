@@ -91,7 +91,6 @@
 
 -(IBAction)divisionButton_tap:(id)sender
 {
-	
     [self createDialogBox];
 	dialogBox.titleText = @"Division #";
 	dialogBox.whiteText = @"Please keyin a division number";

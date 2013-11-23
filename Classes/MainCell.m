@@ -74,7 +74,8 @@
             
             [achievementsBadge setFrame:CGRectMake(66, 507, achievementsBadge.frame.size.width, achievementsBadge.frame.size.height)];
         }
-        [self insertSubview:achievementsBadge atIndex:200];
+        
+        [self addSubview:achievementsBadge];
     }
 }
 
@@ -129,7 +130,7 @@
         [aBadge setFrame:CGRectMake(250, 5, aBadge.frame.size.width, aBadge.frame.size.height)];
     }
     
-    [self insertSubview:aBadge atIndex:210];
+    [self addSubview:aBadge];
 }
 
 - (void)createSlides

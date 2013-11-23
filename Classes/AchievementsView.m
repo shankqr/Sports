@@ -159,7 +159,7 @@
          {
              [self updateView];
              
-             [[Globals i] updateWorldClubData];
+             [[Globals i] updateClubData];
              [[Globals i] winSound];
              
              //Update Header
@@ -181,21 +181,15 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    /*
+
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.tasks)[row];
-	NSString *task_name = rowData[@"name"];
-    NSString *task_desc = rowData[@"description"];
+	//NSString *task_name = rowData[@"name"];
+    //NSString *task_desc = rowData[@"description"];
     NSString *task_tutorial = rowData[@"tutorial"];
     NSString *reward = rowData[@"reward"];
     
-    dialogBox.titleText = task_name;
-    dialogBox.whiteText = task_desc;
-    dialogBox.promptText = [NSString stringWithFormat:@"%@ Reward: $%@ ", task_tutorial, [[Globals i] numberFormat:reward]];
-    dialogBox.dialogType = 1;
-    [self.view addSubview:dialogBox.view];
-    [dialogBox updateView];
-    */
+    [[Globals i] showDialog:[NSString stringWithFormat:@"%@ Reward: $%@ ", task_tutorial, [[Globals i] numberFormat:reward]]];
     
 	return nil;
 }

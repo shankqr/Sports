@@ -343,7 +343,7 @@
          {
              if (success)
              {
-                 [[Globals i] updateWorldClubData];
+                 [[Globals i] updateClubData];
                  [[Globals i] showDialog:@"A request to join has been sent to the Leader. You will be informed once accepted."];
              }
          }];
@@ -386,7 +386,7 @@
               {
                   if(index == 0) //OK
                   {
-                      [[Globals i] updateWorldClubData]; //alliance id = 0 updated
+                      [[Globals i] updateClubData]; //alliance id = 0 updated
                       
                       [[Globals i] backTemplate];
                       [[Globals i] closeTemplate];

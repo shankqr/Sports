@@ -7,15 +7,12 @@
 //
 
 #import "StoreOthersView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "ProductCell.h"
 #import "Globals.h"
 #import "MainView.h"
 
 @implementation StoreOthersView
 @synthesize mainView;
-@synthesize table;
 @synthesize products;
 @synthesize filter;
 @synthesize sold_product_id;
@@ -26,10 +23,36 @@
 
 - (void)viewDidLoad
 {
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
+	[super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent
+{
+	[super willMoveToParentViewController:parent];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+	[super didMoveToParentViewController:parent];
 }
 
 - (void)updateView
@@ -47,9 +70,8 @@
 	
 		[[Globals i] updateProducts];
 		self.products = [[Globals i] getProducts];
-		[table reloadData];
+        [self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
-	
 	}
 }
 
@@ -203,11 +225,6 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return @"ONLINE STORE";
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 	return [self.products count];

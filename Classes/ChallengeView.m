@@ -61,7 +61,7 @@
 		currMatchIndex = 0;
         [mainView updateChallenge];
         
-		[self.view removeFromSuperview];
+		[[Globals i] closeTemplate];
 	}
 }
 
@@ -108,9 +108,10 @@
 	int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
 	if(bal > pval)
 	{
-		[self.view removeFromSuperview];
 		[Globals i].challengeMatchId = selected_matchid;
 		[mainView startLiveMatch];
+        
+        [[Globals i] closeTemplate];
 	}
 	else
 	{
@@ -134,12 +135,11 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-    
-    
 	[mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;
-    [self.view removeFromSuperview];
+    
+    [[Globals i] closeTemplate];
 }
 
 @end

@@ -78,44 +78,44 @@
 			{
 				case 0:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
-                        [[Globals i] changeTraining:@"1"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training1.png"]];
+                    [[Globals i] changeTraining:@"1"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 1:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
-						[[Globals i] changeTraining:@"2"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training2.png"]];
+                    [[Globals i] changeTraining:@"2"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 2:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
-						[[Globals i] changeTraining:@"3"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training3.png"]];
+                    [[Globals i] changeTraining:@"3"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 3:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
-						[[Globals i] changeTraining:@"4"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training4.png"]];
+                    [[Globals i] changeTraining:@"4"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 4:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
-						[[Globals i] changeTraining:@"5"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training5.png"]];
+                    [[Globals i] changeTraining:@"5"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 				case 5:
 				{
-                        [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
-						[[Globals i] changeTraining:@"6"];
-						[[Globals i] fbPublishStory:message :extra_desc :imagename];
+                    [trainingImage setImage:[UIImage imageNamed:@"training6.png"]];
+                    [[Globals i] changeTraining:@"6"];
+                    [[Globals i] fbPublishStory:message :extra_desc :imagename];
 					break;
 				}
 			}

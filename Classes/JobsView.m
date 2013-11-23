@@ -8,9 +8,8 @@
 
 #import "JobsView.h"
 #import "JobsCell.h"
-#import "MainView.h"
+#import "JobLevelup.h"
 #import "Globals.h"
-#import "Header.h"
 
 @implementation JobsView
 @synthesize table;
@@ -18,6 +17,8 @@
 @synthesize bgImage;
 @synthesize unlockLabel;
 @synthesize offset;
+@synthesize jobComplete;
+@synthesize jobLevelup;
 
 - (IBAction)rookie_tap:(id)sender
 {
@@ -72,6 +73,72 @@
 {
     self.wantsFullScreenLayout = YES;
 	offset = 0;
+}
+
+- (void)showLevelUp
+{
+    if (jobLevelup == nil)
+    {
+        jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
+    }
+	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%d", [[Globals i] getLevel]*1000];
+	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%d", [[Globals i] getLevel]*10];
+	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
+    [[Globals i] showTemplate:@[jobLevelup] :@"" :0];
+	[jobLevelup updateView];
+}
+
+- (void)doJob:(NSInteger)energy_used :(NSInteger)xp_gain :(NSInteger)row
+{
+	if([Globals i].energy >= energy_used)
+	{
+		NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoJobNew/%@/%d/%.0f",
+						   WS_URL, [[Globals i] UID], xp_gain, timeInterval];
+		
+        [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+         {
+             if (success)
+             {
+                 if([[Globals i] updateClubData])
+                 {
+                     [Globals i].energy = [Globals i].energy - energy_used;
+                     [[Globals i] storeEnergy];
+                     
+                     NSInteger xp = [[Globals i] getXp];
+                     NSInteger xp_max = [[Globals i] getXpMax];
+                     
+                     if(xp >= xp_max)
+                     {
+                         [self showLevelUp];
+                         [[Globals i] winSound];
+                     }
+                     else
+                     {
+                         [[Globals i] showToast:[NSString stringWithFormat:@"+ %d XP", xp_gain]
+                                  optionalTitle:@"Training Completed!"
+                                  optionalImage:@"tick_yes"];
+                     }
+                     
+                     int lvl = [(self.jobs)[row][@"Level"] intValue];
+                     int percentincrease = 40 - (lvl*5);
+                     if (percentincrease < 5)
+                     {
+                         percentincrease = 5;
+                     }
+                     [self safeRow:row:percentincrease];
+                     [table reloadData];
+                     [self.view setNeedsDisplay];
+                 }
+             }
+         }];
+	}
+	else
+	{
+		[[NSNotificationCenter defaultCenter]
+         postNotificationName:@"GotoRefillEnergy"
+         object:self];
+	}
 }
 
 - (NSInteger)getTotalFriendlyMatch
@@ -166,16 +233,13 @@
 	}
 	[rowData setValue:[[NSString alloc] initWithFormat:@"%d", p] forKey:@"Percent"];
 	
-	//[self.jobs replaceObjectAtIndex:row withObject:rowData]; //PROBLEM
-	//[rowData release];
-	
 	[[NSUserDefaults standardUserDefaults] setObject:self.jobs forKey:@"jobs1"];
 }
 
 - (void)buttonPressed:(id)sender
 {
-    int row = [sender tag];
-	int reqmatch = [(self.jobs)[row][@"Friendly"] intValue];
+    NSInteger row = [sender tag];
+	NSInteger reqmatch = [(self.jobs)[row][@"Friendly"] integerValue];
 	
 	if(reqmatch > self.getTotalFriendlyMatch)
 	{
@@ -189,20 +253,7 @@
 	}
 	else
 	{
-        /*
-		if([[mainView header] doJob:[(self.jobs)[row][@"Energy"] intValue]:[(self.jobs)[row][@"Reward"] intValue]])
-		{
-			int lvl = [(self.jobs)[row][@"Level"] intValue];
-			int percentincrease = 40 - (lvl*5);
-			if (percentincrease<5)
-			{
-				percentincrease=5;
-			}
-			[self safeRow:row:percentincrease];
-			[table reloadData];
-			[self.view setNeedsDisplay];
-		}
-        */
+		[self doJob:[(self.jobs)[row][@"Energy"] intValue] :[(self.jobs)[row][@"Reward"] intValue] :row];
 	}
 }
 

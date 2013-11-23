@@ -47,13 +47,7 @@
 @property (nonatomic, strong) NSString *away_url;
 @property (readwrite) NSInteger pickerTag;
 - (void)updateView;
-- (void)setImages;
 - (void)resetImages;
-- (void)loadLogo;
-- (void)loadHome;
-- (void)loadAway;
-- (void)loadOwner;
-- (void)confirmPurchase;
 - (IBAction)resetButton_tap:(id)sender;
 - (IBAction)clubnameButton_tap:(id)sender;
 - (IBAction)logoButton_tap:(id)sender;

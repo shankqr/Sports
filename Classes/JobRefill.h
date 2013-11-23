@@ -22,5 +22,4 @@
 @property (nonatomic, strong) NSString *promptText;
 - (void)updateView;
 - (IBAction)ok_tap:(id)sender;
-- (IBAction)close_tap:(id)sender;
 @end

@@ -29,5 +29,4 @@
 @property (nonatomic, strong) NSString *sel_player_star;
 @property (nonatomic, strong) BidView *bidView;
 - (void)updateView;
-- (void)getProductPlayer;
 @end

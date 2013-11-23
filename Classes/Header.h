@@ -6,22 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import "MainView.h"
-#import "Globals.h"
-#import "JobComplete.h"
-#import "JobLevelup.h"
-#import "JobRefill.h"
-
-@class MainView;
-
 @interface Header : UIViewController
 {
-	MainView *mainView;
-	JobComplete *jobComplete;
-	JobLevelup *jobLevelup;
-	JobRefill *jobRefill;
-    UIImageView *animation1View;
-    
     NSInteger energy_seconds;
 	UILabel* lblDiamond;
 	UILabel* lblName;
@@ -43,12 +29,6 @@
 	NSInteger xp_max;
 	NSInteger xp;
 }
-@property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) JobComplete *jobComplete;
-@property (nonatomic, strong) JobLevelup *jobLevelup;
-@property (nonatomic, strong) JobRefill *jobRefill;
-@property (nonatomic, strong) UIImageView *animation1View;
-
 @property (nonatomic, strong) IBOutlet UILabel* lblDiamond;
 @property (nonatomic, strong) IBOutlet UILabel* lblName;
 @property (nonatomic, strong) IBOutlet UILabel* lblGold;
@@ -63,14 +43,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *btnEnergy;
 @property (nonatomic, strong) NSTimer *energyTimer;
 - (void)updateView;
-- (void)onTimer;
-- (void)drawView;
-- (void)showJobAnimation;
-- (void)showJobRefill;
-- (void)showJobComplete:(NSInteger)xp_gain;
-- (void)showLevelUp;
 - (void)refillEnergy;
-- (BOOL)doJob:(NSInteger)energy_used :(NSInteger)xp_gain;
 - (IBAction)club_tap:(id)sender;
 - (IBAction)gold_tap:(id)sender;
 - (IBAction)diamond_tap:(id)sender;

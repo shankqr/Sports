@@ -7,13 +7,9 @@
 //
 
 #import "Header.h"
+#import "Globals.h"
 
 @implementation Header
-@synthesize mainView;
-@synthesize jobComplete;
-@synthesize jobLevelup;
-@synthesize jobRefill;
-@synthesize animation1View;
 @synthesize lblDiamond;
 @synthesize lblName;
 @synthesize lblGold;
@@ -30,7 +26,9 @@
 
 - (IBAction)club_tap:(id)sender
 {
-	[mainView showClub];
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"GotoClub"
+     object:self];
 }
 
 - (IBAction)gold_tap:(id)sender
@@ -45,137 +43,14 @@
 
 - (IBAction)energy_tap:(id)sender
 {
-	[self showJobRefill];
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"GotoRefillEnergy"
+     object:self];
 }
 
 - (void)viewDidLoad
 {
 	energy_seconds = 180;
-	
-	//Prepare animation 1
-	animation1View = [[UIImageView alloc] initWithFrame:CGRectMake((SCREEN_WIDTH-Animation_x1)/2, (UIScreen.mainScreen.bounds.size.height-Animation_y1)/2, Animation_x1, Animation_y1)];
-	NSMutableArray *image1Array  = [[NSMutableArray alloc] init];
-	for(NSInteger i = 0; i < 6; i++)
-	{
-        NSString *fileName = [[NSString alloc] initWithFormat:@"g1_%d.png", i];
-        UIImage *img = [UIImage imageNamed:fileName];
-        [image1Array addObject:img];
-    }
-	animation1View.animationImages = image1Array;
-	animation1View.animationDuration = 1.0;
-	animation1View.animationRepeatCount = 50;
-}
-
-- (void)showJobAnimation
-{
-	@autoreleasepool {
-	
-        [[mainView.view superview] insertSubview:animation1View atIndex:7];
-        [animation1View startAnimating];
-    
-	}
-}
-
-- (void)removeJobAnimation
-{
-	[animation1View removeFromSuperview];
-	[animation1View stopAnimating];
-}
-
-- (void)showJobRefill
-{
-    if (jobRefill == nil) 
-    {
-        jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
-        jobRefill.mainView = self.mainView;
-        jobRefill.titleText = @"REFILL ENERGY?";
-    }
-	[[mainView.view superview] insertSubview:jobRefill.view atIndex:5];
-	[jobRefill updateView];
-}
-
-- (void)showJobComplete:(NSInteger)xp_gain
-{
-    if (jobComplete == nil) 
-    {
-        jobComplete = [[JobComplete alloc] initWithNibName:@"JobComplete" bundle:nil];
-        jobComplete.mainView = self.mainView;
-    }
-	jobComplete.titleText = [NSString stringWithFormat:@"+ %d XP", xp_gain];
-	[[mainView.view superview] insertSubview:jobComplete.view atIndex:5];
-	[jobComplete updateView];
-}
-
-- (void)showLevelUp
-{
-    if (jobLevelup == nil)
-    {
-        jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
-        jobLevelup.mainView = self.mainView;
-    }
-	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%d", level*1000];
-	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%d", level*10];
-	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
-	[[mainView.view superview] insertSubview:jobLevelup.view atIndex:4];
-	[jobLevelup updateView];
-}
-
-- (BOOL)doJob:(NSInteger)energy_used :(NSInteger)xp_gain
-{
-	if([Globals i].energy >= energy_used)
-	{
-		[NSThread detachNewThreadSelector:@selector(showJobAnimation) toTarget:self withObject:nil];
-		
-		NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoJobNew/%@/%d/%.0f", 
-						   WS_URL, [[Globals i] UID], xp_gain, timeInterval];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-		
-		if([returnValue isEqualToString:@"1"])
-		{
-			if([[Globals i] updateClubData])
-			{
-				[Globals i].energy = [Globals i].energy - energy_used;
-				[[Globals i] storeEnergy];
-				xp = xp + xp_gain;
-				
-				[self removeJobAnimation];
-				
-				if(xp >= xp_max)
-				{
-					level = level + 1;
-					[self showLevelUp];
-                    [[Globals i] winSound];
-				}
-				else 
-				{
-					[self showJobComplete:xp_gain];
-				}
-				
-				return YES;
-			}
-			else
-			{
-				//[mainView showLogin];
-				
-				return NO;
-			}
-		}
-		else
-		{
-			//Webservice failed
-			//[mainView showLogin];
-			
-			return NO;
-		}
-	}
-	else 
-	{
-		[self showJobRefill];
-		return NO;
-	}
-
 }
 
 - (void)refillEnergy
@@ -214,7 +89,6 @@
 		{
 			energy_seconds = energy_seconds-1;
 		}
-		//lblEnergyTimer.text = [NSString stringWithFormat:@"%ds", energy_seconds];
 	}
     [self drawView];
 }

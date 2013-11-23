@@ -8,7 +8,7 @@
 
 @class MainView;
 @class PlayerView;
-@interface SquadView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SquadView : UITableViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;
 	UITableView *table;

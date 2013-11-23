@@ -151,7 +151,7 @@
                         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
                         challengeBox.mainView = self.mainView;
                     }
-					[self.view addSubview:challengeBox.view];
+					[[Globals i] showTemplate:@[challengeBox] :@"Challenge" :0];
 					[challengeBox viewChallenge:selected_row];
 					break;
 				}
@@ -286,9 +286,9 @@
 			}
 		}
 		
-		[cell insertSubview:label atIndex:5];
-		[cell insertSubview:label1 atIndex:5];
-		[cell insertSubview:label2 atIndex:5];
+		[cell addSubview:label];
+		[cell addSubview:label1];
+		[cell addSubview:label2];
 	}
 	else 
 	{

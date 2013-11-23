@@ -32,7 +32,7 @@
     mapViewer.mapType = MKMapTypeStandard;
     mapViewer.showsUserLocation = YES;
     mapViewer.scrollEnabled = YES;
-    [self.view insertSubview:mapViewer atIndex:0];
+    [self.view addSubview:mapViewer];
 }
 
 - (void)updateView

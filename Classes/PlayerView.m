@@ -120,7 +120,7 @@
             dialogBox.whiteText = squadView.sel_player_name;
             dialogBox.promptText = [NSString stringWithFormat:@"Are you sure you want to sell %@ half the value for $%@?", squadView.sel_player_name, squadView.sel_player_halfvalue];
             
-            [self.view insertSubview:dialogBox.view atIndex:17];
+            [self.view addSubview:dialogBox.view];
             [dialogBox updateView];
         }
         else
@@ -133,7 +133,7 @@
             dialogBox.whiteText = @"Not enough energy";
             dialogBox.promptText = @"10 energy is required to sell any player. Refill to full Energy?";
             
-            [self.view insertSubview:dialogBox.view atIndex:17];
+            [self.view addSubview:dialogBox.view];
             [dialogBox updateView];
         }
     }
@@ -144,7 +144,7 @@
         dialogBox.whiteText = @"Not enough players";
         dialogBox.promptText = [NSString stringWithFormat:@"You must have at least %d players left on your team.", minimum_player];
         dialogBox.dialogType = 1;
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }
@@ -160,7 +160,7 @@
         dialogBox.whiteText = squadView.sel_player_name;
         dialogBox.promptText = [NSString stringWithFormat:@"Energize %@ for 10 Energy? %@'s Fitness will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
     else
@@ -173,7 +173,7 @@
         dialogBox.whiteText = @"Not enough energy";
         dialogBox.promptText = @"10 energy is required to Energize any player. Refill to full Energy?";
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }
@@ -189,7 +189,7 @@
         dialogBox.whiteText = squadView.sel_player_name;
         dialogBox.promptText = [NSString stringWithFormat:@"Heal %@ for 10 Energy? %@'s injury days will decrease by 1.",
                                 squadView.sel_player_name, squadView.sel_player_name];
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
     else
@@ -202,7 +202,7 @@
         dialogBox.whiteText = @"Not enough energy";
         dialogBox.promptText = @"10 energy is required to Energize any player. Refill to full Energy?";
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }
@@ -218,7 +218,7 @@
         dialogBox.whiteText = @"Enter a new name for this player.";
         dialogBox.promptText = @"";
         dialogBox.dialogType = 4;
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
     else
@@ -231,7 +231,7 @@
         dialogBox.whiteText = @"Not enough Diamonds";
         dialogBox.promptText = @"10 Diamonds is required to rename a player. Would you like to buy some diamonds?";
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }

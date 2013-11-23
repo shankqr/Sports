@@ -54,11 +54,4 @@
 @property (nonatomic, strong) NSString *away_url;
 - (void)updateView;
 - (void)updateViewId:(NSString*)ClubID;
-- (void)updateViewFb:(NSString*)fb_id;
-- (void)getClubInfoData;
-- (void)drawView;
-- (void)loadLogo;
-- (void)loadHome;
-- (void)loadAway;
-- (IBAction)closeButton_tap:(id)sender;
 @end

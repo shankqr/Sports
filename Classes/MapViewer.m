@@ -23,11 +23,6 @@
 @synthesize managerLabel;
 @synthesize face_url;
 
-- (IBAction)closeButton_tap:(id)sender
-{
-    
-}
-
 - (void)viewDidLoad
 {
 	selected_clubid = @"0";
@@ -143,7 +138,6 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-	
 	[mainView showChallenge:[Globals i].selectedClubId];
 }
 

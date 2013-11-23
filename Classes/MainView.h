@@ -29,7 +29,6 @@
 @class TrainingView;
 @class NewsView;
 @class MatchLive;
-@class HelpView;
 @class MatchReport;
 @class WelcomeViewController;
 @class AchievementsView;
@@ -40,6 +39,8 @@
 @class StorePlayerView;
 @class StoreCoachView;
 @class StoreOthersView;
+@class JobRefill;
+@class MailView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -47,7 +48,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 {
 	Header *header;
 	JobsView *jobsView;
-	ClubView *clubView;
 	StadiumView *stadiumView;
     UpgradeView *upgradeView;
     StadiumMap *stadiumMap;
@@ -61,7 +61,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 	NewsView *newsView;
 	FriendsView *friendsView;
 	MatchLive *matchLive;
-	HelpView *helpView;
 	MatchReport *matchReport;
 	WelcomeViewController *welcomeView;
 	ChallengeView *challengeBox;
@@ -74,6 +73,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     StorePlayerView *storePlayer;
     StoreCoachView *storeCoach;
     StoreOthersView *storeOthers;
+    JobRefill *jobRefill;
+    MailView *mailView;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
@@ -94,7 +95,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
-@property (nonatomic, strong) ClubView *clubView;
 @property (nonatomic, strong) StadiumView *stadiumView;
 @property (nonatomic, strong) UpgradeView *upgradeView;
 @property (nonatomic, strong) StadiumMap *stadiumMap;
@@ -108,7 +108,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NewsView *newsView;
 @property (nonatomic, strong) FriendsView *friendsView;
 @property (nonatomic, strong) MatchLive *matchLive;
-@property (nonatomic, strong) HelpView *helpView;
 @property (nonatomic, strong) MatchReport *matchReport;
 @property (nonatomic, strong) WelcomeViewController *welcomeView;
 @property (nonatomic, strong) ChallengeView *challengeBox;
@@ -126,6 +125,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) StorePlayerView *storePlayer;
 @property (nonatomic, strong) StoreCoachView *storeCoach;
 @property (nonatomic, strong) StoreOthersView *storeOthers;
+@property (nonatomic, strong) JobRefill *jobRefill;
+@property (nonatomic, strong) MailView *mailView;
 @property (nonatomic, strong) IBOutlet UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;
@@ -151,6 +152,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)updateChallenge;
 - (void)declineChallenge;
 - (void)startLiveMatch;
+- (void)showJobRefill;
 - (void)showStadiumUpgrade;
 - (void)showBuildingUpgrade:(int)type;
 - (void)menuButton_tap:(int)sender;

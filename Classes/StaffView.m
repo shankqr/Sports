@@ -39,8 +39,6 @@
 	NSDictionary *row8 = @{@"Position": @"Doctor", @"Employed": wsClubData[@"doctors"], @"Desc": @"Rehabilitate and heal injured players faster."};
 	self.staff = @[row1, row2, row3, row4, row5, row6, row7, row8];
     
-    //[table setFrame:CGRectMake(0, HeaderStaff_height, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-HeaderStaff_height)];
-	
 	[table reloadData];
 	[self.view setNeedsDisplay];
 }

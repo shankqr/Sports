@@ -7,7 +7,7 @@
 //
 
 @class MainView;
-@interface SquadViewer : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SquadViewer : UITableViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;
 	UITableView *table;
@@ -32,6 +32,5 @@
 @property (nonatomic, strong) NSString *sel_player_value;
 @property (nonatomic, strong) NSString *filter;
 @property NSInteger totalfilter;
-- (IBAction)closeButton_tap:(id)sender;
 - (void)updateView;
 @end

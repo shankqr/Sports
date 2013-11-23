@@ -7,15 +7,12 @@
 //
 
 #import "StoreCoachView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "CoachCell.h"
 #import "Globals.h"
 #import "MainView.h"
 
 @implementation StoreCoachView
 @synthesize mainView;
-@synthesize table;
 @synthesize coaches;
 @synthesize filter;
 @synthesize sold_coach_id;
@@ -25,10 +22,36 @@
 
 - (void)viewDidLoad
 {
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
+	[super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+	[super viewDidDisappear:animated];
+}
+
+- (void)willMoveToParentViewController:(UIViewController *)parent
+{
+	[super willMoveToParentViewController:parent];
+}
+
+- (void)didMoveToParentViewController:(UIViewController *)parent
+{
+	[super didMoveToParentViewController:parent];
 }
 
 - (void)updateView
@@ -65,10 +88,9 @@
 			[self.coaches removeObjectsInArray:discardedItems];
 			[discardedItems removeAllObjects];
 		
-			[table reloadData];
-			[[Globals i] removeLoadingAlert];
+			[self.tableView reloadData];
 		}
-	
+        [[Globals i] removeLoadingAlert];
 	}
 }
 

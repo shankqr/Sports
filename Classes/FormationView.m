@@ -539,7 +539,8 @@
         squadSelecter.delegate = self;
     }
 	[squadSelecter updateView];
-	[self.view insertSubview:squadSelecter.view atIndex:3];
+    
+    [[Globals i] showTemplate:@[squadSelecter] :@"" :0];
 }
 
 - (void)playerSelected:(NSString *)player

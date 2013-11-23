@@ -26,7 +26,6 @@
 @property (nonatomic, strong) IBOutlet UIImageView *managerImage;
 @property (nonatomic, strong) CSMapAnnotation* clubAnnotation;
 @property (nonatomic, strong) NSString *face_url;
-- (IBAction)closeButton_tap:(id)sender;
 - (IBAction)challengeButton_tap:(id)sender;
 - (void)updateView;
 @end

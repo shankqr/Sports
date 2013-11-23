@@ -7,17 +7,14 @@
 //
 
 @class MainView;
-@interface TrophyViewer : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface TrophyViewer : UITableViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;
-	UITableView *table;
 	NSMutableArray *trophies;
 	NSString *selected_trophy;
 }
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSMutableArray *trophies;
 @property (nonatomic, strong) NSString *selected_trophy;
 - (void)updateView;
-- (IBAction)closeButton_tap:(id)sender;
 @end

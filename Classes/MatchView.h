@@ -9,7 +9,7 @@
 @class MainView;
 @class MatchLive;
 @class ChallengeView;
-@interface MatchView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface MatchView : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;
 	UITableView *table;

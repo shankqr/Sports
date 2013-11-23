@@ -7,7 +7,7 @@
 //
 
 @class MainView;
-@interface FinanceView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface FinanceView : UITableViewController <UIAlertViewDelegate>
 {
 	MainView *mainView;
 	NSArray *finance;

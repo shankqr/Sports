@@ -13,18 +13,16 @@
 
 @implementation TrophyViewer
 @synthesize mainView;
-@synthesize table;
 @synthesize trophies;
 @synthesize selected_trophy;
 
-- (IBAction)closeButton_tap:(id)sender
-{
-
-}
-
 - (void)viewDidLoad
 {
-
+	[super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 -(void)updateView
@@ -39,16 +37,11 @@
 	
 		[[Globals i] updateTrophyData:selected_trophy];
 		self.trophies = [[Globals i] getTrophyData];
-		if(self.trophies.count > 0)
-		{
-			//[self.view addSubview:table];
-			[table reloadData];
-		}
-    else
-    {
-        self.trophies = nil;
-        [table reloadData];
-    }
+		if(self.trophies.count < 1)
+        {
+            self.trophies = nil;
+        }
+        [self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
 	
 	}

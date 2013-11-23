@@ -17,17 +17,6 @@
 @synthesize titleText;
 @synthesize promptText;
 
-- (void)viewDidUnload 
-{
-	// Release any retained subviews of the main view.
-	// e.g. self.myOutlet = nil;
-}
-
-- (void)viewDidLoad
-{
-
-}
-
 -(void)updateView
 {
 	titleLabel.text = titleText;
@@ -40,12 +29,8 @@
 {
     [[Globals i] settPurchasedProduct:@"14"];
 	[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-	[self.view removeFromSuperview];
-}
-
-- (IBAction)close_tap:(id)sender
-{
-	[self.view removeFromSuperview];
+    
+	[[Globals i] closeTemplate];
 }
 
 @end

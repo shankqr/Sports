@@ -19,14 +19,12 @@
 #import "FinanceView.h"
 #import "StaffView.h"
 #import "MatchView.h"
-#import "HelpView.h"
 #import "ClubMapView.h"
 #import "SquadView.h"
 #import "FormationView.h"
 #import "SubsView.h"
 #import "TacticsView.h"
 #import "TrainingView.h"
-#import "NewsView.h"
 #import "LeagueView.h"
 #import "ScorersView.h"
 #import "OverView.h"
@@ -42,10 +40,10 @@
 #import "MapViewer.h"
 #import "MatchReport.h"
 #import "AchievementsView.h"
-#import "WelcomeViewController.h"
 #import "MainCell.h"
 #import "AllianceView.h"
 #import "AllianceDetail.h"
+#import "JobRefill.h"
 #import "Sparrow.h"
 #import "Game.h"
 #import "Game_hockey.h"
@@ -53,7 +51,6 @@
 @implementation MainView
 @synthesize header;
 @synthesize jobsView;
-@synthesize clubView;
 @synthesize stadiumView;
 @synthesize upgradeView;
 @synthesize stadiumMap;
@@ -73,7 +70,6 @@
 @synthesize allianceView;
 @synthesize allianceDetail;
 @synthesize matchLive;
-@synthesize helpView;
 @synthesize matchReport;
 @synthesize welcomeView;
 @synthesize challengeBox;
@@ -90,12 +86,19 @@
 @synthesize storePlayer;
 @synthesize storeCoach;
 @synthesize storeOthers;
+@synthesize jobRefill;
+@synthesize mailView;
 
 - (void)startUp //Called when app opens for the first time
 {
     isShowingLogin = NO;
+    
     [[Globals i] pushViewControllerStack:self];
-    [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
+    [Globals i].selectedClubId = @"0";
+	[Globals i].workingUrl = @"0";
+	[Globals i].challengeMatchId = @"0";
+    
+	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
@@ -109,6 +112,16 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
+                                                 name:@"GotoClub"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"GotoRefillEnergy"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
                                                  name:@"UpdateClubData"
                                                object:nil];
     
@@ -116,6 +129,8 @@
                                              selector:@selector(removeLiveMatch)
                                                  name:@"ExitLiveMatch"
                                                object:nil];
+    
+    [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -128,6 +143,16 @@
     if ([[notification name] isEqualToString:@"GotoAlliance"])
     {
         [self showAlliance];
+    }
+    
+    if ([[notification name] isEqualToString:@"GotoClub"])
+    {
+        [self showClub];
+    }
+    
+    if ([[notification name] isEqualToString:@"GotoRefillEnergy"])
+    {
+        [self showJobRefill];
     }
     
     if ([[notification name] isEqualToString:@"UpdateClubData"])
@@ -193,7 +218,6 @@
         if (self.header == nil)
         {
             self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
-            self.header.mainView = self;
             [self.view addSubview:header.view];
         }
         [[Globals i] retrieveEnergy];
@@ -201,13 +225,11 @@
         
         [self showMarquee];
         
-        //Create Chat
+        //Activate Chat
         if(!chatTimer.isValid)
         {
             chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
         }
-        
-        [self firstTimeWelcome];
         
         [self showChallengeBox];
     }
@@ -250,44 +272,15 @@
 
 - (void)viewDidLoad
 {
-	[Globals i].selectedClubId = @"0";
-	[Globals i].workingUrl = @"0";
-	[Globals i].challengeMatchId = @"0";
-    
-	[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
     [self createChat];
     
 	[self createMarquee];
-	
-	self.clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
-
-	self.clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
-	
-	self.squadView = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
-	
-	self.trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
-	
-	((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
-	
-	((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
-	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
-	((SquadViewer*)[clubTabBarController viewControllers][2]).mainView = self;
-	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
-    
-    ((OverView*)[leagueTabBarController viewControllers][0]).mainView = self;
-	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
-	((FixturesView*)[leagueTabBarController viewControllers][2]).mainView = self;
-	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
-	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
-	
-	((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
-	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
-	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
 }
 
 - (void)showClub
 {
+    ((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
+    
 	[(ClubView*)[myclubTabBarController viewControllers][0] updateView];
     [[Globals i] showTemplate:@[myclubTabBarController] :@"Club Details" :1];
     ((TrophyViewer*)[myclubTabBarController viewControllers][1]).selected_trophy = [[[Globals i] wsClubData][@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
@@ -295,8 +288,18 @@
     myclubTabBarController.selectedIndex = 0;
 }
 
+- (void)resetClubImages
+{
+    [(ClubView*)[myclubTabBarController viewControllers][0] resetImages];
+}
+
 - (void)showClubViewer:(NSString *)club_id
 {
+    ((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
+	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
+	((SquadViewer*)[clubTabBarController viewControllers][2]).mainView = self;
+	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
+    
     [[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :0];
     
 	((TrophyViewer*)[clubTabBarController viewControllers][3]).selected_trophy = club_id;
@@ -306,14 +309,29 @@
 
 - (void)showLeague
 {
+    ((OverView*)[leagueTabBarController viewControllers][0]).mainView = self;
+	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
+	((FixturesView*)[leagueTabBarController viewControllers][2]).mainView = self;
+	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
+	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
+    
     [[Globals i] showTemplate:@[leagueTabBarController] :@"League" :1];
     [(LeagueView*)[leagueTabBarController viewControllers][0] updateView];
 }
 
 - (void)showTactics
 {
+    ((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
+	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
+	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
+    
     [[Globals i] showTemplate:@[tacticsTabBarController] :@"Tactics" :1];
     [(FormationView*)[tacticsTabBarController viewControllers][0] updateView];
+}
+
+- (void)updateHeader
+{
+	[header updateView];
 }
 
 #pragma mark StoreKit Methods
@@ -744,7 +762,7 @@
         matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
         matchReport.mainView = self;
     }
-    [[Globals i] showTemplate:@[matchReport] :@"Match Report" :1];
+    [[Globals i] showTemplate:@[matchReport] :@"Match Report" :0];
     [matchReport redrawView];
 }
 
@@ -809,21 +827,22 @@
      }];
 }
 
-- (void)showWelcome
+- (void)showJobRefill
 {
-    if (welcomeView == nil)
+    if (jobRefill == nil)
     {
-        welcomeView = [[WelcomeViewController alloc] initWithNibName:@"WelcomeViewController" bundle:nil];
+        jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
+        jobRefill.titleText = @"REFILL ENERGY?";
     }
-    
-    [[Globals i] showTemplate:@[welcomeView] :@"Welcome" :0];
+    [[Globals i] showTemplate:@[jobRefill] :@"ENERGY" :0];
+	[jobRefill updateView];
 }
 
 - (void)showStaff
 {
     if (staffView == nil)
     {
-        staffView = [[StaffView alloc] initWithNibName:@"StaffView" bundle:nil];
+        staffView = [[StaffView alloc] initWithStyle:UITableViewStylePlain];
     }
     [[Globals i] showTemplate:@[staffView] :@"Staff" :1];
     [self.staffView updateView];
@@ -853,7 +872,7 @@
 {
     if (squadView == nil)
     {
-        squadView = [[SquadView alloc] initWithNibName:@"SquadView" bundle:nil];
+        squadView = [[SquadView alloc] initWithStyle:UITableViewStylePlain];
     }
     [[Globals i] showTemplate:@[squadView] :@"Players" :1];
     [self.squadView updateView];
@@ -863,7 +882,7 @@
 {
     if (matchView == nil)
     {
-        matchView = [[MatchView alloc] initWithNibName:@"MatchView" bundle:nil];
+        matchView = [[MatchView alloc] initWithStyle:UITableViewStylePlain];
     }
     [[Globals i] showTemplate:@[matchView] :@"Match" :1];
     [self.matchView updateView];
@@ -932,87 +951,29 @@
     [self checkAccepted];
 }
 
-- (void)firstTimeWelcome
-{
-	//Show welcome if first time
-	NSArray *savePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSMutableString *savePath = [NSMutableString stringWithString:savePaths[0]];
-	[savePath appendString:@"/firsttime.txt"];
-	NSString *firsttime = [[NSString alloc] initWithContentsOfFile:savePath encoding:NSUTF8StringEncoding error:Nil];
-    
-	if(firsttime == nil)
-    {
-		firsttime = @"1";
-		NSArray *savePaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSMutableString *savePath = [NSMutableString stringWithString:savePaths[0]];
-		[savePath appendString:@"/firsttime.txt"];
-		
-		[firsttime writeToFile: savePath
-					atomically: YES
-					  encoding: NSUTF8StringEncoding
-						 error: nil];
-		
-		[self showWelcome];
-	}
-}
-
 - (void)updateAchievementBadges
 {
     [cell updateAchievementBadges];
     [mainTableView reloadData];
 }
 
-- (void)onTimerChat
-{
-    [NSThread detachNewThreadSelector: @selector(getChat) toTarget:self withObject:nil];
-}
-
-- (void)getChat
-{
-    [[Globals i] updateChatData];
-    lblChat1.text = [[Globals i] getLastChatString];
-}
-
-- (void)updateHeader
-{
-	[header updateView];
-}
-
-- (void)showMarquee
-{
-	speedMarquee = 1;
-    self.marquee = [[Globals i] getMarqueeData];
-    [self.view addSubview:lblMarquee];
-    if((!marqueeTimer.isValid) && (self.marquee.count > 0))
-    {
-        rowMarquee = [self.marquee count]-1;
-        NSDictionary *rowData = [[Globals i] getMarqueeData][rowMarquee];
-        lblMarquee.text = rowData[@"headline"];
-        textSizeMarquee = [[lblMarquee text] sizeWithFont:[lblMarquee font]];
-        
-        marqueeTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(onTimerMarquee) userInfo:nil repeats:YES];
-        NSRunLoop *runloop = [NSRunLoop currentRunLoop];
-        [runloop addTimer:marqueeTimer forMode:NSRunLoopCommonModes];
-        [runloop addTimer:marqueeTimer forMode:UITrackingRunLoopMode];
-        [[NSRunLoop mainRunLoop] addTimer:marqueeTimer forMode: NSRunLoopCommonModes];
-    }
-}
-
 - (void)showHelp
 {
-	if (helpView == nil)
-    {
-        helpView = [[HelpView alloc] initWithNibName:@"HelpView" bundle:nil];
-        helpView.mainView = self;
-    }
-    [[Globals i] showTemplate:@[helpView] :@"Help" :0];
+    UIWebView *webView = [[UIWebView alloc] init];
+    [webView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
+	NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@_files/help.html", WS_URL];
+	NSURL *url = [NSURL URLWithString:urlAddress];
+	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
+	[webView loadRequest:requestObj];
+    
+    [[Globals i] showTemplate:@[webView] :@"Help" :0];
 }
 
 - (void)showFinance
 {
     if (financeView == nil)
     {
-        financeView = [[FinanceView alloc] initWithNibName:@"FinanceView" bundle:nil];
+        financeView = [[FinanceView alloc] initWithStyle:UITableViewStylePlain];
     }
 	[[Globals i] showTemplate:@[financeView] :@"Finance" :1];
     [self.financeView updateView];
@@ -1039,21 +1000,11 @@
     [self.jobsView updateView];
 }
 
-- (void)showNews
-{
-    if (newsView == nil)
-    {
-        newsView = [[NewsView alloc] initWithNibName:@"NewsView" bundle:nil];
-    }
-	[[Globals i] showTemplate:@[newsView] :@"News" :1];
-    [self.newsView updateView];
-}
-
 - (void)showCoachStore
 {
     if (storeCoach == nil)
     {
-        storeCoach = [[StoreCoachView alloc] initWithNibName:@"StoreCoachView" bundle:nil];
+        storeCoach = [[StoreCoachView alloc] initWithStyle:UITableViewStylePlain];
     }
 	[[Globals i] showTemplate:@[storeCoach] :@"Job Board" :1];
     [self.storeCoach updateView];
@@ -1063,15 +1014,22 @@
 {
     if (storeOthers == nil)
     {
-        storeOthers = [[StoreOthersView alloc] initWithNibName:@"StoreOthersView" bundle:nil];
+        storeOthers = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
     }
 	[[Globals i] showTemplate:@[storeOthers] :@"Store" :1];
     [self.storeOthers updateView];
 }
 
-- (void)resetClubImages
+- (void)showMail
 {
-	[self.clubView resetImages];
+    if(mailView == nil)
+    {
+        mailView = [[MailView alloc] initWithStyle:UITableViewStylePlain];
+    }
+    mailView.title = @"Mail";
+    [mailView updateView];
+    
+    [[Globals i] showTemplate:@[mailView] :@"Mail" :1];
 }
 
 - (void)showChallenge:(NSString *)club_id
@@ -1093,7 +1051,7 @@
     {
         stadiumMap = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
     }
-    [[Globals i] showTemplate:@[stadiumMap] :@"Stadium" :1];
+    [[Globals i] showTemplate:@[stadiumMap] :@"Stadium" :0];
     [self.stadiumMap updateView];
 }
 
@@ -1139,18 +1097,6 @@
 	else if([viewController.tabBarItem.title isEqualToString:@"Squad"])
 	{
 		[(SquadViewer*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Players"])
-	{
-		[(StorePlayerView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Coaches"])
-	{
-		[(StoreCoachView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Others"])
-	{
-		[(StoreOthersView*)viewController updateView];
 	}
     
 	//Tactics
@@ -1240,7 +1186,6 @@
 		}
 		case 10:
 		{
-			//[self showSearch];
 			break;
 		}
         case 11:
@@ -1265,7 +1210,8 @@
 		}
 		case 15:
 		{
-			[self showNews];
+            [self showMail];
+            [[Globals i] pushMoreGamesVC];
 			break;
 		}
 		case 16:
@@ -1280,7 +1226,6 @@
 		}
 		case 18:
 		{
-			//[self showAbout];
 			break;
 		}
 		case 19:
@@ -1290,7 +1235,6 @@
 		}
         case 20:
 		{
-			//[self startPicker];
             break;
 		}
         case 21:
@@ -1386,6 +1330,26 @@
     }
 }
 
+- (void)showMarquee
+{
+	speedMarquee = 1;
+    self.marquee = [[Globals i] getMarqueeData];
+    [self.view addSubview:lblMarquee];
+    if((!marqueeTimer.isValid) && (self.marquee.count > 0))
+    {
+        rowMarquee = [self.marquee count]-1;
+        NSDictionary *rowData = [[Globals i] getMarqueeData][rowMarquee];
+        lblMarquee.text = rowData[@"headline"];
+        textSizeMarquee = [[lblMarquee text] sizeWithFont:[lblMarquee font]];
+        
+        marqueeTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(onTimerMarquee) userInfo:nil repeats:YES];
+        NSRunLoop *runloop = [NSRunLoop currentRunLoop];
+        [runloop addTimer:marqueeTimer forMode:NSRunLoopCommonModes];
+        [runloop addTimer:marqueeTimer forMode:UITrackingRunLoopMode];
+        [[NSRunLoop mainRunLoop] addTimer:marqueeTimer forMode: NSRunLoopCommonModes];
+    }
+}
+
 - (void)createChat
 {
     if (lblChat1 == nil)
@@ -1403,6 +1367,17 @@
         
         [self.view addSubview:lblChat1];
     }
+}
+
+- (void)onTimerChat
+{
+    [NSThread detachNewThreadSelector: @selector(getChat) toTarget:self withObject:nil];
+}
+
+- (void)getChat
+{
+    [[Globals i] updateChatData];
+    lblChat1.text = [[Globals i] getLastChatString];
 }
 
 #pragma mark Table Data Source Methods

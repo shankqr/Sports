@@ -25,5 +25,4 @@
 - (void)updateView:(NSString*)MatchID;
 - (void)redrawView;
 - (void)endMatch;
-- (IBAction)cancelButton_tap:(id)sender;
 @end

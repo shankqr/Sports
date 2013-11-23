@@ -73,7 +73,7 @@
     self.carUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d01.png", randomCar]]];
     carUp.frame = CGRectMake(-55*SCALE_IPAD, 180*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carUp.contentMode = UIViewContentModeScaleToFill;
-    [self.view insertSubview:carUp atIndex:1];
+    [self.view addSubview:carUp];
     [self moveImage:carUp animID:@"CarUp" duration:randomSpeed curve:UIViewAnimationCurveLinear x:405.0 y:-55.0];
     
     randomCar = [[Globals i] Random_next:1 to:8];
@@ -82,7 +82,7 @@
     self.carDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d02.png", randomCar]]];
     carDown.frame = CGRectMake(350*SCALE_IPAD, -55*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carDown.contentMode = UIViewContentModeScaleToFill;
-    [self.view insertSubview:carDown atIndex:1];
+    [self.view addSubview:carDown];
     [self moveImage:carDown animID:@"CarDown" duration:randomSpeed curve:UIViewAnimationCurveLinear x:-55.0 y:150.0];
     
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];

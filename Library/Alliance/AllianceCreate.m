@@ -223,7 +223,7 @@
                           if (success)
                           {
                               [[Globals i] updateClubData]; //Balance Diamonds will be updated
-                              [[Globals i] updateWorldClubData]; //New alliance id updated
+                              //[[Globals i] updateWorldClubData]; //New alliance id updated
                                        
                               [[Globals i] backTemplate];
                               [[Globals i] closeTemplate];

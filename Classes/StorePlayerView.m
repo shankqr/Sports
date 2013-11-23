@@ -74,7 +74,6 @@
 		self.players = [[Globals i] getPlayerSaleData];
 		if(self.players.count > 0)
 		{
-			//[self.view addSubview:table];
 			[self.tableView reloadData];
 		}
 		workingPlayerSale = NO;
@@ -115,7 +114,7 @@
         bidView.mainView = self.mainView;
     }
     NSMutableArray *bidPlayer = [[NSMutableArray alloc] initWithObjects:rowData, nil];
-    [[mainView.view superview] insertSubview:bidView.view atIndex:4];
+    [[Globals i] showTemplate:@[bidView] :@"" :0];
     [bidView updateView:bidPlayer];
 
 	return nil;

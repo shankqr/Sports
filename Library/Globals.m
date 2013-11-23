@@ -719,8 +719,7 @@ static NSOperationQueue *connectionQueue;
 
 - (BOOL)mh_tabBarController:(TemplateView *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
 {
-	NSLog(@"mh_tabBarController %@ shouldSelectViewController %@ at index %u", tabBarController, viewController, index);
-    
+	//NSLog(@"mh_tabBarController %@ shouldSelectViewController %@ at index %u", tabBarController, viewController, index);
 	return YES;
 }
 
@@ -1531,7 +1530,7 @@ static NSOperationQueue *connectionQueue;
 
 - (int)getXp
 {
-    int xp = [wsWorldClubData[@"xp"] intValue];
+    int xp = [wsClubData[@"xp"] intValue];
     return xp;
 }
 
@@ -1997,7 +1996,7 @@ static NSOperationQueue *connectionQueue;
 	{
 		workingChat = YES;
         
-        NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat/%@",
+        NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat1/%@",
                            [self world_url], [self getLastChatID]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)

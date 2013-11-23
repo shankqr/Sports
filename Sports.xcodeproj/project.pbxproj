@@ -16,8 +16,6 @@
 		900CB4FC18341FA7009E12A1 /* UAAppReviewManagerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 900CB4DC18341FA7009E12A1 /* UAAppReviewManagerLocalizable.strings */; };
 		90128F6C13DEB44700CF9958 /* StadiumMap.m in Sources */ = {isa = PBXBuildFile; fileRef = 90128F6A13DEB44700CF9958 /* StadiumMap.m */; };
 		9013E34A16A034A700A5E8C5 /* libSparrow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9013E34916A034A700A5E8C5 /* libSparrow.a */; };
-		9016D794123798B3001C6066 /* HelpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9016D792123798B3001C6066 /* HelpView.m */; };
-		901971E911C2548200C23F24 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 901971E711C2548200C23F24 /* WelcomeViewController.m */; };
 		901E020F183E7BA70092152F /* field_half.png in Resources */ = {isa = PBXBuildFile; fileRef = 901EFC7E183E7BA50092152F /* field_half.png */; };
 		901E0210183E7BA70092152F /* jerseypos.png in Resources */ = {isa = PBXBuildFile; fileRef = 901EFC7F183E7BA50092152F /* jerseypos.png */; };
 		901E0211183E7BA70092152F /* c1.png in Resources */ = {isa = PBXBuildFile; fileRef = 901EFC81183E7BA50092152F /* c1.png */; };
@@ -402,19 +400,11 @@
 		90866CDC0FF4BE3700EC6AB7 /* MatchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866CD50FF4BE3700EC6AB7 /* MatchCell.m */; };
 		90866CDF0FF4BE3700EC6AB7 /* MatchView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866CDA0FF4BE3700EC6AB7 /* MatchView.m */; };
 		90866CF30FF4BEBE00EC6AB7 /* LeagueView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866CF00FF4BEBE00EC6AB7 /* LeagueView.m */; };
-		90866CFD0FF4BEE100EC6AB7 /* NewsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866CF60FF4BEE100EC6AB7 /* NewsCell.m */; };
-		90866D000FF4BEE100EC6AB7 /* NewsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866CFB0FF4BEE100EC6AB7 /* NewsView.m */; };
 		90866D060FF4BF0D00EC6AB7 /* FixturesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866D040FF4BF0D00EC6AB7 /* FixturesView.m */; };
 		908A22EB16269C180096B7B4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 908A22EA16269C180096B7B4 /* Security.framework */; };
 		908C2C7F13C4686A0083D69F /* BidCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2C7C13C4686A0083D69F /* BidCell.m */; };
 		908C2C8013C4686A0083D69F /* BidView.m in Sources */ = {isa = PBXBuildFile; fileRef = 908C2C7E13C4686A0083D69F /* BidView.m */; };
 		9092E4E6126CC299003CCB06 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9092E4E5126CC299003CCB06 /* main.m */; };
-		9093A5FA1837F20B005D60E2 /* NewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5F61837F20B005D60E2 /* NewsCell.xib */; };
-		9093A5FB1837F20B005D60E2 /* NewsCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5F71837F20B005D60E2 /* NewsCell~ipad.xib */; };
-		9093A5FC1837F20C005D60E2 /* NewsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5F81837F20B005D60E2 /* NewsView.xib */; };
-		9093A5FD1837F20C005D60E2 /* NewsView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5F91837F20B005D60E2 /* NewsView~ipad.xib */; };
-		9093A6001837F348005D60E2 /* HelpView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5FE1837F348005D60E2 /* HelpView.xib */; };
-		9093A6011837F348005D60E2 /* HelpView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A5FF1837F348005D60E2 /* HelpView~ipad.xib */; };
 		9093A6041837F415005D60E2 /* ClubMapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6021837F415005D60E2 /* ClubMapView.xib */; };
 		9093A6051837F415005D60E2 /* ClubMapView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6031837F415005D60E2 /* ClubMapView~ipad.xib */; };
 		9093A60C1837F496005D60E2 /* OverfirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6061837F496005D60E2 /* OverfirstCell.xib */; };
@@ -443,8 +433,6 @@
 		9093A6351837F648005D60E2 /* MatchReport~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6331837F648005D60E2 /* MatchReport~ipad.xib */; };
 		9093A63A1837F659005D60E2 /* MatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6361837F659005D60E2 /* MatchCell.xib */; };
 		9093A63B1837F659005D60E2 /* MatchCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6371837F659005D60E2 /* MatchCell~ipad.xib */; };
-		9093A63C1837F659005D60E2 /* MatchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6381837F659005D60E2 /* MatchView.xib */; };
-		9093A63D1837F659005D60E2 /* MatchView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6391837F659005D60E2 /* MatchView~ipad.xib */; };
 		9093A6401837F66B005D60E2 /* FormationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A63E1837F66B005D60E2 /* FormationView.xib */; };
 		9093A6411837F66B005D60E2 /* FormationView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A63F1837F66B005D60E2 /* FormationView~ipad.xib */; };
 		9093A6441837F67E005D60E2 /* SubsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6421837F67E005D60E2 /* SubsView.xib */; };
@@ -453,20 +441,12 @@
 		9093A6491837F68B005D60E2 /* TacticsView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6471837F68B005D60E2 /* TacticsView~ipad.xib */; };
 		9093A64C1837F69C005D60E2 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64A1837F69C005D60E2 /* PlayerView.xib */; };
 		9093A64D1837F69C005D60E2 /* PlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64B1837F69C005D60E2 /* PlayerView~ipad.xib */; };
-		9093A6501837F6AC005D60E2 /* SquadView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64E1837F6AC005D60E2 /* SquadView.xib */; };
-		9093A6511837F6AC005D60E2 /* SquadView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64F1837F6AC005D60E2 /* SquadView~ipad.xib */; };
-		9093A6541837F6B8005D60E2 /* SquadSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6521837F6B8005D60E2 /* SquadSelectView.xib */; };
-		9093A6551837F6B8005D60E2 /* SquadSelectView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6531837F6B8005D60E2 /* SquadSelectView~ipad.xib */; };
 		9093A6581837F6C9005D60E2 /* SimplePlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6561837F6C9005D60E2 /* SimplePlayerCell.xib */; };
 		9093A6591837F6C9005D60E2 /* SimplePlayerCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6571837F6C9005D60E2 /* SimplePlayerCell~ipad.xib */; };
 		9093A65E1837F6DF005D60E2 /* FinanceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A65A1837F6DF005D60E2 /* FinanceCell.xib */; };
 		9093A65F1837F6DF005D60E2 /* FinanceCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A65B1837F6DF005D60E2 /* FinanceCell~ipad.xib */; };
-		9093A6601837F6DF005D60E2 /* FinanceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A65C1837F6DF005D60E2 /* FinanceView.xib */; };
-		9093A6611837F6DF005D60E2 /* FinanceView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A65D1837F6DF005D60E2 /* FinanceView~ipad.xib */; };
 		9093A6661837F6F7005D60E2 /* StaffCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6621837F6F7005D60E2 /* StaffCell.xib */; };
 		9093A6671837F6F7005D60E2 /* StaffCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6631837F6F7005D60E2 /* StaffCell~ipad.xib */; };
-		9093A6681837F6F7005D60E2 /* StaffView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6641837F6F7005D60E2 /* StaffView.xib */; };
-		9093A6691837F6F7005D60E2 /* StaffView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6651837F6F7005D60E2 /* StaffView~ipad.xib */; };
 		9093A66C1837F703005D60E2 /* FansView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66A1837F703005D60E2 /* FansView.xib */; };
 		9093A66D1837F703005D60E2 /* FansView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66B1837F703005D60E2 /* FansView~ipad.xib */; };
 		9093A6721837F71D005D60E2 /* StadiumMap.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66E1837F71D005D60E2 /* StadiumMap.xib */; };
@@ -481,16 +461,10 @@
 		9093A6811837F743005D60E2 /* ClubViewer~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A67F1837F743005D60E2 /* ClubViewer~ipad.xib */; };
 		9093A6841837F751005D60E2 /* MapViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6821837F751005D60E2 /* MapViewer.xib */; };
 		9093A6851837F751005D60E2 /* MapViewer~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6831837F751005D60E2 /* MapViewer~ipad.xib */; };
-		9093A6881837F761005D60E2 /* SquadViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6861837F761005D60E2 /* SquadViewer.xib */; };
-		9093A6891837F761005D60E2 /* SquadViewer~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6871837F761005D60E2 /* SquadViewer~ipad.xib */; };
 		9093A68C1837F77C005D60E2 /* ClubView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A68A1837F77C005D60E2 /* ClubView.xib */; };
 		9093A68D1837F77C005D60E2 /* ClubView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A68B1837F77C005D60E2 /* ClubView~ipad.xib */; };
 		9093A6921837F793005D60E2 /* TrophyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A68E1837F793005D60E2 /* TrophyCell.xib */; };
 		9093A6931837F793005D60E2 /* TrophyCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A68F1837F793005D60E2 /* TrophyCell~ipad.xib */; };
-		9093A6941837F793005D60E2 /* TrophyViewer.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6901837F793005D60E2 /* TrophyViewer.xib */; };
-		9093A6951837F793005D60E2 /* TrophyViewer~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6911837F793005D60E2 /* TrophyViewer~ipad.xib */; };
-		9093A6A01837F7C1005D60E2 /* JobComplete.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6961837F7C1005D60E2 /* JobComplete.xib */; };
-		9093A6A11837F7C1005D60E2 /* JobComplete~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6971837F7C1005D60E2 /* JobComplete~ipad.xib */; };
 		9093A6A21837F7C1005D60E2 /* JobLevelup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6981837F7C1005D60E2 /* JobLevelup.xib */; };
 		9093A6A31837F7C1005D60E2 /* JobLevelup~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6991837F7C1005D60E2 /* JobLevelup~ipad.xib */; };
 		9093A6A41837F7C1005D60E2 /* JobRefill.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A69A1837F7C1005D60E2 /* JobRefill.xib */; };
@@ -521,16 +495,10 @@
 		9093A6D91837F86E005D60E2 /* MainView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6D51837F86E005D60E2 /* MainView~ipad.xib */; };
 		9093A6DC1837F99C005D60E2 /* Header.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DA1837F99C005D60E2 /* Header.xib */; };
 		9093A6DD1837F99C005D60E2 /* Header~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6DB1837F99C005D60E2 /* Header~ipad.xib */; };
-		9093A6EC1837FA12005D60E2 /* WelcomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6E61837FA12005D60E2 /* WelcomeViewController.xib */; };
-		9093A6ED1837FA12005D60E2 /* WelcomeViewController~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6E71837FA12005D60E2 /* WelcomeViewController~ipad.xib */; };
 		9093A70E183800B8005D60E2 /* PlayerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A704183800B8005D60E2 /* PlayerCell.xib */; };
 		9093A70F183800B8005D60E2 /* PlayerCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A705183800B8005D60E2 /* PlayerCell~ipad.xib */; };
 		9093A710183800B8005D60E2 /* ProductCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A706183800B8005D60E2 /* ProductCell.xib */; };
 		9093A711183800B8005D60E2 /* ProductCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A707183800B8005D60E2 /* ProductCell~ipad.xib */; };
-		9093A712183800B8005D60E2 /* StoreCoachView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A708183800B8005D60E2 /* StoreCoachView.xib */; };
-		9093A713183800B8005D60E2 /* StoreCoachView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A709183800B8005D60E2 /* StoreCoachView~ipad.xib */; };
-		9093A714183800B8005D60E2 /* StoreOthersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70A183800B8005D60E2 /* StoreOthersView.xib */; };
-		9093A715183800B8005D60E2 /* StoreOthersView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A70B183800B8005D60E2 /* StoreOthersView~ipad.xib */; };
 		9093A71A1838010C005D60E2 /* CoachCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A7181838010C005D60E2 /* CoachCell.xib */; };
 		9093A71B1838010C005D60E2 /* CoachCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A7191838010C005D60E2 /* CoachCell~ipad.xib */; };
 		9094F838183A6CEC00931A9A /* Ball_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F826183A6CEB00931A9A /* Ball_hockey.m */; };
@@ -594,7 +562,6 @@
 		9094F8EC183AACAA00931A9A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9094F8EB183AACAA00931A9A /* SystemConfiguration.framework */; };
 		909A30151236BE84006CF705 /* ChallengeCreateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A30131236BE84006CF705 /* ChallengeCreateView.m */; };
 		909A7B891032A51D003802A9 /* Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 909A7B871032A51D003802A9 /* Header.m */; };
-		909B0C701278723600354A4A /* JobComplete.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B0C6E1278723600354A4A /* JobComplete.m */; };
 		909B0D2112789F2300354A4A /* JobLevelup.m in Sources */ = {isa = PBXBuildFile; fileRef = 909B0D1F12789F2300354A4A /* JobLevelup.m */; };
 		90A0E29E16628CF700D8E25F /* LeagueslideCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90A0E29D16628CF700D8E25F /* LeagueslideCell.m */; };
 		90B5C9401611A7AA002A1201 /* MainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90B5C93F1611A7AA002A1201 /* MainCell.m */; };
@@ -1065,7 +1032,6 @@
 		90E9285D1836A6D300DFA9FB /* job_button_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AA1836A6C800DFA9FB /* job_button_normal.png */; };
 		90E9285E1836A6D300DFA9FB /* job_button_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AB1836A6C800DFA9FB /* job_button_pressed.png */; };
 		90E9285F1836A6D300DFA9FB /* job_cell.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AC1836A6C800DFA9FB /* job_cell.png */; };
-		90E928601836A6D300DFA9FB /* job_complete.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AD1836A6C800DFA9FB /* job_complete.png */; };
 		90E928611836A6D300DFA9FB /* job_energy.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AE1836A6C800DFA9FB /* job_energy.png */; };
 		90E928621836A6D300DFA9FB /* job_levelup.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920AF1836A6C800DFA9FB /* job_levelup.png */; };
 		90E928631836A6D300DFA9FB /* job_pro.png in Resources */ = {isa = PBXBuildFile; fileRef = 90E920B01836A6C800DFA9FB /* job_pro.png */; };
@@ -2340,10 +2306,6 @@
 		90128F6A13DEB44700CF9958 /* StadiumMap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StadiumMap.m; sourceTree = "<group>"; };
 		9013E33D16A0331E00A5E8C5 /* Sparrow.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Sparrow.xcodeproj; sourceTree = SPARROW_SRC; };
 		9013E34916A034A700A5E8C5 /* libSparrow.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSparrow.a; path = "../sparrow/src/build/Release-iphoneos/libSparrow.a"; sourceTree = "<group>"; };
-		9016D791123798B3001C6066 /* HelpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpView.h; sourceTree = "<group>"; };
-		9016D792123798B3001C6066 /* HelpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpView.m; sourceTree = "<group>"; };
-		901971E611C2548200C23F24 /* WelcomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
-		901971E711C2548200C23F24 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		901EF819183E7B3C0092152F /* LeagueCell_baseball.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeagueCell_baseball.xib; path = Xibs/LeagueCell_baseball.xib; sourceTree = SOURCE_ROOT; };
 		901EF81A183E7B3C0092152F /* LeagueCell_baseball~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "LeagueCell_baseball~ipad.xib"; path = "Xibs/LeagueCell_baseball~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		901EFC7E183E7BA50092152F /* field_half.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = field_half.png; sourceTree = "<group>"; };
@@ -2768,10 +2730,6 @@
 		90866CDA0FF4BE3700EC6AB7 /* MatchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = MatchView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		90866CEF0FF4BEBE00EC6AB7 /* LeagueView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueView.h; sourceTree = "<group>"; };
 		90866CF00FF4BEBE00EC6AB7 /* LeagueView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeagueView.m; sourceTree = "<group>"; };
-		90866CF50FF4BEE100EC6AB7 /* NewsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCell.h; sourceTree = "<group>"; };
-		90866CF60FF4BEE100EC6AB7 /* NewsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCell.m; sourceTree = "<group>"; };
-		90866CFA0FF4BEE100EC6AB7 /* NewsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsView.h; sourceTree = "<group>"; };
-		90866CFB0FF4BEE100EC6AB7 /* NewsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = NewsView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		90866D030FF4BF0D00EC6AB7 /* FixturesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixturesView.h; sourceTree = "<group>"; };
 		90866D040FF4BF0D00EC6AB7 /* FixturesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FixturesView.m; sourceTree = "<group>"; };
 		908A22EA16269C180096B7B4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -2781,12 +2739,6 @@
 		908C2C7E13C4686A0083D69F /* BidView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BidView.m; sourceTree = "<group>"; };
 		9092E4E4126CC299003CCB06 /* Sports_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sports_Prefix.pch; sourceTree = "<group>"; };
 		9092E4E5126CC299003CCB06 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9093A5F61837F20B005D60E2 /* NewsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewsCell.xib; path = Xibs/NewsCell.xib; sourceTree = SOURCE_ROOT; };
-		9093A5F71837F20B005D60E2 /* NewsCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "NewsCell~ipad.xib"; path = "Xibs/NewsCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A5F81837F20B005D60E2 /* NewsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewsView.xib; path = Xibs/NewsView.xib; sourceTree = SOURCE_ROOT; };
-		9093A5F91837F20B005D60E2 /* NewsView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "NewsView~ipad.xib"; path = "Xibs/NewsView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A5FE1837F348005D60E2 /* HelpView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HelpView.xib; path = Xibs/HelpView.xib; sourceTree = SOURCE_ROOT; };
-		9093A5FF1837F348005D60E2 /* HelpView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "HelpView~ipad.xib"; path = "Xibs/HelpView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6021837F415005D60E2 /* ClubMapView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClubMapView.xib; path = Xibs/ClubMapView.xib; sourceTree = SOURCE_ROOT; };
 		9093A6031837F415005D60E2 /* ClubMapView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ClubMapView~ipad.xib"; path = "Xibs/ClubMapView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6061837F496005D60E2 /* OverfirstCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverfirstCell.xib; path = Xibs/OverfirstCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2815,8 +2767,6 @@
 		9093A6331837F648005D60E2 /* MatchReport~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MatchReport~ipad.xib"; path = "Xibs/MatchReport~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6361837F659005D60E2 /* MatchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchCell.xib; path = Xibs/MatchCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6371837F659005D60E2 /* MatchCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MatchCell~ipad.xib"; path = "Xibs/MatchCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6381837F659005D60E2 /* MatchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchView.xib; path = Xibs/MatchView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6391837F659005D60E2 /* MatchView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MatchView~ipad.xib"; path = "Xibs/MatchView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A63E1837F66B005D60E2 /* FormationView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FormationView.xib; path = Xibs/FormationView.xib; sourceTree = SOURCE_ROOT; };
 		9093A63F1837F66B005D60E2 /* FormationView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FormationView~ipad.xib"; path = "Xibs/FormationView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6421837F67E005D60E2 /* SubsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SubsView.xib; path = Xibs/SubsView.xib; sourceTree = SOURCE_ROOT; };
@@ -2825,20 +2775,12 @@
 		9093A6471837F68B005D60E2 /* TacticsView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "TacticsView~ipad.xib"; path = "Xibs/TacticsView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A64A1837F69C005D60E2 /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerView.xib; path = Xibs/PlayerView.xib; sourceTree = SOURCE_ROOT; };
 		9093A64B1837F69C005D60E2 /* PlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "PlayerView~ipad.xib"; path = "Xibs/PlayerView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A64E1837F6AC005D60E2 /* SquadView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SquadView.xib; path = Xibs/SquadView.xib; sourceTree = SOURCE_ROOT; };
-		9093A64F1837F6AC005D60E2 /* SquadView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "SquadView~ipad.xib"; path = "Xibs/SquadView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6521837F6B8005D60E2 /* SquadSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SquadSelectView.xib; path = Xibs/SquadSelectView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6531837F6B8005D60E2 /* SquadSelectView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "SquadSelectView~ipad.xib"; path = "Xibs/SquadSelectView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6561837F6C9005D60E2 /* SimplePlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SimplePlayerCell.xib; path = Xibs/SimplePlayerCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6571837F6C9005D60E2 /* SimplePlayerCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "SimplePlayerCell~ipad.xib"; path = "Xibs/SimplePlayerCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A65A1837F6DF005D60E2 /* FinanceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FinanceCell.xib; path = Xibs/FinanceCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A65B1837F6DF005D60E2 /* FinanceCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FinanceCell~ipad.xib"; path = "Xibs/FinanceCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A65C1837F6DF005D60E2 /* FinanceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FinanceView.xib; path = Xibs/FinanceView.xib; sourceTree = SOURCE_ROOT; };
-		9093A65D1837F6DF005D60E2 /* FinanceView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FinanceView~ipad.xib"; path = "Xibs/FinanceView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6621837F6F7005D60E2 /* StaffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StaffCell.xib; path = Xibs/StaffCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6631837F6F7005D60E2 /* StaffCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StaffCell~ipad.xib"; path = "Xibs/StaffCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6641837F6F7005D60E2 /* StaffView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StaffView.xib; path = Xibs/StaffView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6651837F6F7005D60E2 /* StaffView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StaffView~ipad.xib"; path = "Xibs/StaffView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A66A1837F703005D60E2 /* FansView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FansView.xib; path = Xibs/FansView.xib; sourceTree = SOURCE_ROOT; };
 		9093A66B1837F703005D60E2 /* FansView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FansView~ipad.xib"; path = "Xibs/FansView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A66E1837F71D005D60E2 /* StadiumMap.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StadiumMap.xib; path = Xibs/StadiumMap.xib; sourceTree = SOURCE_ROOT; };
@@ -2853,16 +2795,10 @@
 		9093A67F1837F743005D60E2 /* ClubViewer~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ClubViewer~ipad.xib"; path = "Xibs/ClubViewer~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6821837F751005D60E2 /* MapViewer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewer.xib; path = Xibs/MapViewer.xib; sourceTree = SOURCE_ROOT; };
 		9093A6831837F751005D60E2 /* MapViewer~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MapViewer~ipad.xib"; path = "Xibs/MapViewer~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6861837F761005D60E2 /* SquadViewer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SquadViewer.xib; path = Xibs/SquadViewer.xib; sourceTree = SOURCE_ROOT; };
-		9093A6871837F761005D60E2 /* SquadViewer~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "SquadViewer~ipad.xib"; path = "Xibs/SquadViewer~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A68A1837F77C005D60E2 /* ClubView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ClubView.xib; path = Xibs/ClubView.xib; sourceTree = SOURCE_ROOT; };
 		9093A68B1837F77C005D60E2 /* ClubView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ClubView~ipad.xib"; path = "Xibs/ClubView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A68E1837F793005D60E2 /* TrophyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TrophyCell.xib; path = Xibs/TrophyCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A68F1837F793005D60E2 /* TrophyCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "TrophyCell~ipad.xib"; path = "Xibs/TrophyCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6901837F793005D60E2 /* TrophyViewer.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TrophyViewer.xib; path = Xibs/TrophyViewer.xib; sourceTree = SOURCE_ROOT; };
-		9093A6911837F793005D60E2 /* TrophyViewer~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "TrophyViewer~ipad.xib"; path = "Xibs/TrophyViewer~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6961837F7C1005D60E2 /* JobComplete.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobComplete.xib; path = Xibs/JobComplete.xib; sourceTree = SOURCE_ROOT; };
-		9093A6971837F7C1005D60E2 /* JobComplete~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "JobComplete~ipad.xib"; path = "Xibs/JobComplete~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6981837F7C1005D60E2 /* JobLevelup.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobLevelup.xib; path = Xibs/JobLevelup.xib; sourceTree = SOURCE_ROOT; };
 		9093A6991837F7C1005D60E2 /* JobLevelup~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "JobLevelup~ipad.xib"; path = "Xibs/JobLevelup~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A69A1837F7C1005D60E2 /* JobRefill.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = JobRefill.xib; path = Xibs/JobRefill.xib; sourceTree = SOURCE_ROOT; };
@@ -2893,16 +2829,10 @@
 		9093A6D51837F86E005D60E2 /* MainView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MainView~ipad.xib"; path = "Xibs/MainView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6DA1837F99C005D60E2 /* Header.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = Header.xib; path = Xibs/Header.xib; sourceTree = SOURCE_ROOT; };
 		9093A6DB1837F99C005D60E2 /* Header~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "Header~ipad.xib"; path = "Xibs/Header~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6E61837FA12005D60E2 /* WelcomeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = WelcomeViewController.xib; path = Xibs/WelcomeViewController.xib; sourceTree = SOURCE_ROOT; };
-		9093A6E71837FA12005D60E2 /* WelcomeViewController~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "WelcomeViewController~ipad.xib"; path = "Xibs/WelcomeViewController~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A704183800B8005D60E2 /* PlayerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerCell.xib; path = Xibs/PlayerCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A705183800B8005D60E2 /* PlayerCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "PlayerCell~ipad.xib"; path = "Xibs/PlayerCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A706183800B8005D60E2 /* ProductCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProductCell.xib; path = Xibs/ProductCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A707183800B8005D60E2 /* ProductCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ProductCell~ipad.xib"; path = "Xibs/ProductCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A708183800B8005D60E2 /* StoreCoachView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StoreCoachView.xib; path = Xibs/StoreCoachView.xib; sourceTree = SOURCE_ROOT; };
-		9093A709183800B8005D60E2 /* StoreCoachView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StoreCoachView~ipad.xib"; path = "Xibs/StoreCoachView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A70A183800B8005D60E2 /* StoreOthersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StoreOthersView.xib; path = Xibs/StoreOthersView.xib; sourceTree = SOURCE_ROOT; };
-		9093A70B183800B8005D60E2 /* StoreOthersView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StoreOthersView~ipad.xib"; path = "Xibs/StoreOthersView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A7181838010C005D60E2 /* CoachCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CoachCell.xib; path = Xibs/CoachCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A7191838010C005D60E2 /* CoachCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "CoachCell~ipad.xib"; path = "Xibs/CoachCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9094F825183A6CEB00931A9A /* Ball_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball_hockey.h; sourceTree = "<group>"; };
@@ -3011,8 +2941,6 @@
 		909A30131236BE84006CF705 /* ChallengeCreateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeCreateView.m; sourceTree = "<group>"; };
 		909A7B861032A51D003802A9 /* Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		909A7B871032A51D003802A9 /* Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Header.m; sourceTree = "<group>"; };
-		909B0C6D1278723600354A4A /* JobComplete.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobComplete.h; sourceTree = "<group>"; };
-		909B0C6E1278723600354A4A /* JobComplete.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobComplete.m; sourceTree = "<group>"; };
 		909B0D1E12789F2300354A4A /* JobLevelup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JobLevelup.h; sourceTree = "<group>"; };
 		909B0D1F12789F2300354A4A /* JobLevelup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JobLevelup.m; sourceTree = "<group>"; };
 		90A0E29C16628CF700D8E25F /* LeagueslideCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeagueslideCell.h; sourceTree = "<group>"; };
@@ -3504,7 +3432,6 @@
 		90E920AA1836A6C800DFA9FB /* job_button_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_button_normal.png; sourceTree = "<group>"; };
 		90E920AB1836A6C800DFA9FB /* job_button_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_button_pressed.png; sourceTree = "<group>"; };
 		90E920AC1836A6C800DFA9FB /* job_cell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_cell.png; sourceTree = "<group>"; };
-		90E920AD1836A6C800DFA9FB /* job_complete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_complete.png; sourceTree = "<group>"; };
 		90E920AE1836A6C800DFA9FB /* job_energy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_energy.png; sourceTree = "<group>"; };
 		90E920AF1836A6C800DFA9FB /* job_levelup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_levelup.png; sourceTree = "<group>"; };
 		90E920B01836A6C800DFA9FB /* job_pro.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = job_pro.png; sourceTree = "<group>"; };
@@ -4777,8 +4704,6 @@
 				907E9316100A5E9F002FA234 /* MatchReport */,
 				90866CB30FF4BCEF00EC6AB7 /* League */,
 				902424A81014E0E9003C607E /* Map */,
-				9016D79012379897001C6066 /* Help */,
-				90866CB40FF4BCFC00EC6AB7 /* News */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -4841,17 +4766,6 @@
 				900CAD1918341F29009E12A1 /* nasalization.ttf */,
 			);
 			path = Font;
-			sourceTree = "<group>";
-		};
-		9016D79012379897001C6066 /* Help */ = {
-			isa = PBXGroup;
-			children = (
-				9016D791123798B3001C6066 /* HelpView.h */,
-				9016D792123798B3001C6066 /* HelpView.m */,
-				9093A5FE1837F348005D60E2 /* HelpView.xib */,
-				9093A5FF1837F348005D60E2 /* HelpView~ipad.xib */,
-			);
-			name = Help;
 			sourceTree = "<group>";
 		};
 		90170F3C1342CA1200BC846F /* Sound */ = {
@@ -5330,8 +5244,6 @@
 				9093A6831837F751005D60E2 /* MapViewer~ipad.xib */,
 				908499481207446E000D8CA0 /* SquadViewer.h */,
 				908499491207446E000D8CA0 /* SquadViewer.m */,
-				9093A6861837F761005D60E2 /* SquadViewer.xib */,
-				9093A6871837F761005D60E2 /* SquadViewer~ipad.xib */,
 			);
 			name = ClubViewer;
 			sourceTree = "<group>";
@@ -5358,8 +5270,6 @@
 				9093A68B1837F77C005D60E2 /* ClubView~ipad.xib */,
 				90DEEE7A12C4EF7B006F7EF1 /* TrophyViewer.h */,
 				90DEEE7B12C4EF7B006F7EF1 /* TrophyViewer.m */,
-				9093A6901837F793005D60E2 /* TrophyViewer.xib */,
-				9093A6911837F793005D60E2 /* TrophyViewer~ipad.xib */,
 				906D93D512C5C0300084B127 /* TrophyCell.h */,
 				906D93D612C5C0300084B127 /* TrophyCell.m */,
 				9093A68E1837F793005D60E2 /* TrophyCell.xib */,
@@ -5373,8 +5283,6 @@
 			children = (
 				90866C890FF4BC4600EC6AB7 /* StaffView.h */,
 				90866C8A0FF4BC4600EC6AB7 /* StaffView.m */,
-				9093A6641837F6F7005D60E2 /* StaffView.xib */,
-				9093A6651837F6F7005D60E2 /* StaffView~ipad.xib */,
 				90866C860FF4BC4600EC6AB7 /* StaffCell.h */,
 				90866C870FF4BC4600EC6AB7 /* StaffCell.m */,
 				9093A6621837F6F7005D60E2 /* StaffCell.xib */,
@@ -5407,8 +5315,6 @@
 			children = (
 				90866CA20FF4BCA600EC6AB7 /* FinanceView.h */,
 				90866CA30FF4BCA600EC6AB7 /* FinanceView.m */,
-				9093A65C1837F6DF005D60E2 /* FinanceView.xib */,
-				9093A65D1837F6DF005D60E2 /* FinanceView~ipad.xib */,
 				90866C9F0FF4BCA600EC6AB7 /* FinanceCell.h */,
 				90866CA00FF4BCA600EC6AB7 /* FinanceCell.m */,
 				9093A65A1837F6DF005D60E2 /* FinanceCell.xib */,
@@ -5437,12 +5343,8 @@
 				9093A64B1837F69C005D60E2 /* PlayerView~ipad.xib */,
 				90866CCC0FF4BDF200EC6AB7 /* SquadView.h */,
 				90866CCD0FF4BDF200EC6AB7 /* SquadView.m */,
-				9093A64E1837F6AC005D60E2 /* SquadView.xib */,
-				9093A64F1837F6AC005D60E2 /* SquadView~ipad.xib */,
 				9066412110821173008A1944 /* SquadSelectView.h */,
 				9066412210821173008A1944 /* SquadSelectView.m */,
-				9093A6521837F6B8005D60E2 /* SquadSelectView.xib */,
-				9093A6531837F6B8005D60E2 /* SquadSelectView~ipad.xib */,
 				90492697100F997B00347935 /* SimplePlayerCell.h */,
 				90492698100F997B00347935 /* SimplePlayerCell.m */,
 				9093A6561837F6C9005D60E2 /* SimplePlayerCell.xib */,
@@ -5456,8 +5358,6 @@
 			children = (
 				90866CD90FF4BE3700EC6AB7 /* MatchView.h */,
 				90866CDA0FF4BE3700EC6AB7 /* MatchView.m */,
-				9093A6381837F659005D60E2 /* MatchView.xib */,
-				9093A6391837F659005D60E2 /* MatchView~ipad.xib */,
 				90866CD40FF4BE3700EC6AB7 /* MatchCell.h */,
 				90866CD50FF4BE3700EC6AB7 /* MatchCell.m */,
 				9093A6361837F659005D60E2 /* MatchCell.xib */,
@@ -5513,21 +5413,6 @@
 				9093A62F1837F610005D60E2 /* ScorersView~ipad.xib */,
 			);
 			name = League;
-			sourceTree = "<group>";
-		};
-		90866CB40FF4BCFC00EC6AB7 /* News */ = {
-			isa = PBXGroup;
-			children = (
-				90866CFA0FF4BEE100EC6AB7 /* NewsView.h */,
-				90866CFB0FF4BEE100EC6AB7 /* NewsView.m */,
-				9093A5F81837F20B005D60E2 /* NewsView.xib */,
-				9093A5F91837F20B005D60E2 /* NewsView~ipad.xib */,
-				90866CF50FF4BEE100EC6AB7 /* NewsCell.h */,
-				90866CF60FF4BEE100EC6AB7 /* NewsCell.m */,
-				9093A5F61837F20B005D60E2 /* NewsCell.xib */,
-				9093A5F71837F20B005D60E2 /* NewsCell~ipad.xib */,
-			);
-			name = News;
 			sourceTree = "<group>";
 		};
 		90866CB50FF4BD4C00EC6AB7 /* Tactics */ = {
@@ -5787,10 +5672,6 @@
 				909A7B871032A51D003802A9 /* Header.m */,
 				9093A6DA1837F99C005D60E2 /* Header.xib */,
 				9093A6DB1837F99C005D60E2 /* Header~ipad.xib */,
-				901971E611C2548200C23F24 /* WelcomeViewController.h */,
-				901971E711C2548200C23F24 /* WelcomeViewController.m */,
-				9093A6E61837FA12005D60E2 /* WelcomeViewController.xib */,
-				9093A6E71837FA12005D60E2 /* WelcomeViewController~ipad.xib */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -5826,12 +5707,8 @@
 				905B2CFB108F1B0700E6C76B /* StorePlayerView.m */,
 				90DBB9BC108F6F0F00E82777 /* StoreOthersView.h */,
 				90DBB9BD108F6F0F00E82777 /* StoreOthersView.m */,
-				9093A70A183800B8005D60E2 /* StoreOthersView.xib */,
-				9093A70B183800B8005D60E2 /* StoreOthersView~ipad.xib */,
 				90DBB9B7108F6EFC00E82777 /* StoreCoachView.h */,
 				90DBB9B8108F6EFC00E82777 /* StoreCoachView.m */,
-				9093A708183800B8005D60E2 /* StoreCoachView.xib */,
-				9093A709183800B8005D60E2 /* StoreCoachView~ipad.xib */,
 				90866CC70FF4BDF200EC6AB7 /* PlayerCell.h */,
 				90866CC80FF4BDF200EC6AB7 /* PlayerCell.m */,
 				9093A704183800B8005D60E2 /* PlayerCell.xib */,
@@ -5859,10 +5736,6 @@
 				909B0D1F12789F2300354A4A /* JobLevelup.m */,
 				9093A6981837F7C1005D60E2 /* JobLevelup.xib */,
 				9093A6991837F7C1005D60E2 /* JobLevelup~ipad.xib */,
-				909B0C6D1278723600354A4A /* JobComplete.h */,
-				909B0C6E1278723600354A4A /* JobComplete.m */,
-				9093A6961837F7C1005D60E2 /* JobComplete.xib */,
-				9093A6971837F7C1005D60E2 /* JobComplete~ipad.xib */,
 				90FFA4A512973C0E00232CE1 /* JobRefill.h */,
 				90FFA4A612973C0E00232CE1 /* JobRefill.m */,
 				9093A69A1837F7C1005D60E2 /* JobRefill.xib */,
@@ -6451,7 +6324,6 @@
 				90E920AA1836A6C800DFA9FB /* job_button_normal.png */,
 				90E920AB1836A6C800DFA9FB /* job_button_pressed.png */,
 				90E920AC1836A6C800DFA9FB /* job_cell.png */,
-				90E920AD1836A6C800DFA9FB /* job_complete.png */,
 				90E920AE1836A6C800DFA9FB /* job_energy.png */,
 				90E920AF1836A6C800DFA9FB /* job_levelup.png */,
 				90E920B01836A6C800DFA9FB /* job_pro.png */,
@@ -7870,7 +7742,6 @@
 				90E927EF1836A6D300DFA9FB /* flag_4.png in Resources */,
 				90E9274A1836A6D300DFA9FB /* flag_127.png in Resources */,
 				90E928EC1836A6D300DFA9FB /* z146.png in Resources */,
-				9093A6951837F793005D60E2 /* TrophyViewer~ipad.xib in Resources */,
 				90E927291836A6D300DFA9FB /* s8.png in Resources */,
 				90E929A41836A6D300DFA9FB /* z311.png in Resources */,
 				90E92BE21836A6D300DFA9FB /* z829.png in Resources */,
@@ -7969,7 +7840,6 @@
 				90E927061836A6D300DFA9FB /* building_office7~ipad.png in Resources */,
 				90E92B971836A6D300DFA9FB /* z761.png in Resources */,
 				90E92B4A1836A6D300DFA9FB /* z692.png in Resources */,
-				9093A6501837F6AC005D60E2 /* SquadView.xib in Resources */,
 				90E92CE41836A6D300DFA9FB /* skin_report.png in Resources */,
 				901E02EE183E7BA70092152F /* c93.png in Resources */,
 				90E92C031836A6D300DFA9FB /* z859.png in Resources */,
@@ -8012,10 +7882,8 @@
 				90E92D581836A72C00DFA9FB /* engine_goal_left.png in Resources */,
 				90E928FC1836A6D300DFA9FB /* z160.png in Resources */,
 				901E0303183E7BA70092152F /* button_news.png in Resources */,
-				9093A6EC1837FA12005D60E2 /* WelcomeViewController.xib in Resources */,
 				90E9295A1836A6D300DFA9FB /* z245.png in Resources */,
 				90E9290F1836A6D300DFA9FB /* z178.png in Resources */,
-				9093A5FB1837F20B005D60E2 /* NewsCell~ipad.xib in Resources */,
 				90E926B71836A6D300DFA9FB /* x30.png in Resources */,
 				90E92C341836A6D300DFA9FB /* z902.png in Resources */,
 				901E0246183E7BA70092152F /* c147.png in Resources */,
@@ -8024,7 +7892,6 @@
 				90E928471836A6D300DFA9FB /* j2.png in Resources */,
 				9093A68D1837F77C005D60E2 /* ClubView~ipad.xib in Resources */,
 				90E927511836A6D300DFA9FB /* flag_133.png in Resources */,
-				9093A6881837F761005D60E2 /* SquadViewer.xib in Resources */,
 				90E92B851836A6D300DFA9FB /* z745.png in Resources */,
 				90E927391836A6D300DFA9FB /* flag_111.png in Resources */,
 				90E92BAC1836A6D300DFA9FB /* z780.png in Resources */,
@@ -8082,7 +7949,6 @@
 				901E023B183E7BA70092152F /* c137.png in Resources */,
 				90E929EB1836A6D300DFA9FB /* z376.png in Resources */,
 				90E92BBE1836A6D300DFA9FB /* z797.png in Resources */,
-				9093A6941837F793005D60E2 /* TrophyViewer.xib in Resources */,
 				90E92C8F1836A6D300DFA9FB /* z985.png in Resources */,
 				90E92B021836A6D300DFA9FB /* z627.png in Resources */,
 				90E929881836A6D300DFA9FB /* z287.png in Resources */,
@@ -8131,7 +7997,6 @@
 				90E92C811836A6D300DFA9FB /* z972.png in Resources */,
 				90E926D01836A6D300DFA9FB /* building_food2~ipad.png in Resources */,
 				90E92C0E1836A6D300DFA9FB /* z869.png in Resources */,
-				9093A6001837F348005D60E2 /* HelpView.xib in Resources */,
 				90E92AFB1836A6D300DFA9FB /* z620.png in Resources */,
 				9094F839183A6CEC00931A9A /* engine_ball_hockey.png in Resources */,
 				90E927F41836A6D300DFA9FB /* flag_44.png in Resources */,
@@ -8157,7 +8022,6 @@
 				90E929EA1836A6D300DFA9FB /* z375.png in Resources */,
 				90E927381836A6D300DFA9FB /* flag_110.png in Resources */,
 				90E92BBF1836A6D300DFA9FB /* z798.png in Resources */,
-				9093A6541837F6B8005D60E2 /* SquadSelectView.xib in Resources */,
 				901E02B4183E7BA70092152F /* c40.png in Resources */,
 				901E029D183E7BA70092152F /* c225.png in Resources */,
 				90E92BEC1836A6D300DFA9FB /* z838.png in Resources */,
@@ -8212,7 +8076,6 @@
 				90E927ED1836A6D300DFA9FB /* flag_38.png in Resources */,
 				90E92C6F1836A6D300DFA9FB /* z956.png in Resources */,
 				90E927F61836A6D300DFA9FB /* flag_46.png in Resources */,
-				9093A6601837F6DF005D60E2 /* FinanceView.xib in Resources */,
 				90E927871836A6D300DFA9FB /* flag_182.png in Resources */,
 				90E927241836A6D300DFA9FB /* s3.png in Resources */,
 				901E02BD183E7BA70092152F /* c49.png in Resources */,
@@ -8257,7 +8120,6 @@
 				90E926CD1836A6D300DFA9FB /* building_food11~ipad.png in Resources */,
 				90E92B4F1836A6D300DFA9FB /* z697.png in Resources */,
 				90E92A1E1836A6D300DFA9FB /* z421.png in Resources */,
-				9093A6A01837F7C1005D60E2 /* JobComplete.xib in Resources */,
 				901E0218183E7BA70092152F /* c105.png in Resources */,
 				90E92CA01836A6D300DFA9FB /* background1_405.png in Resources */,
 				90E926F71836A6D300DFA9FB /* building_office10~ipad.png in Resources */,
@@ -8281,7 +8143,6 @@
 				90E92B741836A6D300DFA9FB /* z73.png in Resources */,
 				90E929F21836A6D300DFA9FB /* z382.png in Resources */,
 				90E92B4E1836A6D300DFA9FB /* z696.png in Resources */,
-				9093A6511837F6AC005D60E2 /* SquadView~ipad.xib in Resources */,
 				90E92AB51836A6D300DFA9FB /* z558.png in Resources */,
 				90E92A671836A6D300DFA9FB /* z488.png in Resources */,
 				90E9282B1836A6D300DFA9FB /* flag_94.png in Resources */,
@@ -8296,7 +8157,6 @@
 				90E92D2F1836A6D300DFA9FB /* TemplateInactiveTab@2x.png in Resources */,
 				90E926CF1836A6D300DFA9FB /* building_food2.png in Resources */,
 				90E92D2E1836A6D300DFA9FB /* TemplateInactiveTab.png in Resources */,
-				9093A6611837F6DF005D60E2 /* FinanceView~ipad.xib in Resources */,
 				90E92C4A1836A6D300DFA9FB /* z922.png in Resources */,
 				90E92C791836A6D300DFA9FB /* z965.png in Resources */,
 				90E926D81836A6D300DFA9FB /* building_food6~ipad.png in Resources */,
@@ -8442,7 +8302,6 @@
 				9094F8BC183A85BE00931A9A /* DialogBoxView~ipad.xib in Resources */,
 				90E929251836A6D300DFA9FB /* z198.png in Resources */,
 				90E929921836A6D300DFA9FB /* z296.png in Resources */,
-				9093A6551837F6B8005D60E2 /* SquadSelectView~ipad.xib in Resources */,
 				90E92BF81836A6D300DFA9FB /* z849.png in Resources */,
 				90E928AE1836A6D300DFA9FB /* pbar2.png in Resources */,
 				901E022B183E7BA70092152F /* c122.png in Resources */,
@@ -8486,7 +8345,6 @@
 				90E92C371836A6D300DFA9FB /* z905.png in Resources */,
 				90E928371836A6D300DFA9FB /* runner.png in Resources */,
 				90E9296B1836A6D300DFA9FB /* z260.png in Resources */,
-				9093A713183800B8005D60E2 /* StoreCoachView~ipad.xib in Resources */,
 				90E928FE1836A6D300DFA9FB /* z162.png in Resources */,
 				901E02B7183E7BA70092152F /* c43.png in Resources */,
 				90E92A2E1836A6D300DFA9FB /* z436.png in Resources */,
@@ -8552,7 +8410,6 @@
 				90E92BA61836A6D300DFA9FB /* z775.png in Resources */,
 				90E927C81836A6D300DFA9FB /* flag_240.png in Resources */,
 				901E0317183E7BA70092152F /* training_01_word.png in Resources */,
-				9093A6681837F6F7005D60E2 /* StaffView.xib in Resources */,
 				90E92CCC1836A6D300DFA9FB /* icon_diamond2.png in Resources */,
 				90E927161836A6D300DFA9FB /* car602.png in Resources */,
 				9093A6481837F68B005D60E2 /* TacticsView.xib in Resources */,
@@ -8614,7 +8471,6 @@
 				90E92A111836A6D300DFA9FB /* z41.png in Resources */,
 				90E92C681836A6D300DFA9FB /* z95.png in Resources */,
 				90E9294C1836A6D300DFA9FB /* z232.png in Resources */,
-				9093A6011837F348005D60E2 /* HelpView~ipad.xib in Resources */,
 				90E92CAB1836A6D300DFA9FB /* button_blank.png in Resources */,
 				90E9293C1836A6D300DFA9FB /* z218.png in Resources */,
 				90E9279D1836A6D300DFA9FB /* flag_201.png in Resources */,
@@ -8744,7 +8600,6 @@
 				90E929811836A6D300DFA9FB /* z280.png in Resources */,
 				90E92B821836A6D300DFA9FB /* z742.png in Resources */,
 				906DC7B2183B3FEE004AD180 /* MainWindow.xib in Resources */,
-				9093A6691837F6F7005D60E2 /* StaffView~ipad.xib in Resources */,
 				90E92B3A1836A6D300DFA9FB /* z678.png in Resources */,
 				90E92D1D1836A6D300DFA9FB /* map1.png in Resources */,
 				90E92A331836A6D300DFA9FB /* z440.png in Resources */,
@@ -9050,7 +8905,6 @@
 				901E02C6183E7BA70092152F /* c57.png in Resources */,
 				90E92D151836A6D300DFA9FB /* m134.png in Resources */,
 				90E92AC01836A6D300DFA9FB /* z568.png in Resources */,
-				9093A5FC1837F20C005D60E2 /* NewsView.xib in Resources */,
 				90E928A61836A6D300DFA9FB /* pbar12.png in Resources */,
 				90E92B1B1836A6D300DFA9FB /* z65.png in Resources */,
 				90E927781836A6D300DFA9FB /* flag_169.png in Resources */,
@@ -9293,7 +9147,6 @@
 				90E92C2E1836A6D300DFA9FB /* z898.png in Resources */,
 				90E928461836A6D300DFA9FB /* j19.png in Resources */,
 				90E929A71836A6D300DFA9FB /* z314.png in Resources */,
-				9093A63D1837F659005D60E2 /* MatchView~ipad.xib in Resources */,
 				90E92C591836A6D300DFA9FB /* z936.png in Resources */,
 				901E02CF183E7BA70092152F /* c65.png in Resources */,
 				90E92B261836A6D300DFA9FB /* z66.png in Resources */,
@@ -9332,7 +9185,6 @@
 				9093A6C11837F7FC005D60E2 /* ChallengeView~ipad.xib in Resources */,
 				90E92BF41836A6D300DFA9FB /* z845.png in Resources */,
 				9093A6D61837F86E005D60E2 /* MainCell.xib in Resources */,
-				9093A6ED1837FA12005D60E2 /* WelcomeViewController~ipad.xib in Resources */,
 				90E927321836A6D300DFA9FB /* flag_105.png in Resources */,
 				90E92B891836A6D300DFA9FB /* z749.png in Resources */,
 				90E9299E1836A6D300DFA9FB /* z306.png in Resources */,
@@ -9372,7 +9224,6 @@
 				901E02A1183E7BA70092152F /* c23.png in Resources */,
 				9093A71B1838010C005D60E2 /* CoachCell~ipad.xib in Resources */,
 				901E02F7183E7BA70092152F /* button_chat.png in Resources */,
-				9093A63C1837F659005D60E2 /* MatchView.xib in Resources */,
 				90E929901836A6D300DFA9FB /* z294.png in Resources */,
 				90E929A01836A6D300DFA9FB /* z308.png in Resources */,
 				90E92CC61836A6D300DFA9FB /* button_yes.png in Resources */,
@@ -9507,7 +9358,6 @@
 				90E92BA21836A6D300DFA9FB /* z771.png in Resources */,
 				901E0307183E7BA70092152F /* button_tactics.png in Resources */,
 				90E92CED1836A6D300DFA9FB /* slide_next_cup.png in Resources */,
-				9093A6A11837F7C1005D60E2 /* JobComplete~ipad.xib in Resources */,
 				90E92C041836A6D300DFA9FB /* z86.png in Resources */,
 				90E927CE1836A6D300DFA9FB /* flag_246.png in Resources */,
 				90E926F01836A6D300DFA9FB /* building_hotel7~ipad.png in Resources */,
@@ -9616,7 +9466,6 @@
 				90E927BF1836A6D300DFA9FB /* flag_232.png in Resources */,
 				90E9281D1836A6D300DFA9FB /* flag_81.png in Resources */,
 				901E032E183E7BA70092152F /* training_13.png in Resources */,
-				9093A715183800B8005D60E2 /* StoreOthersView~ipad.xib in Resources */,
 				90E928B71836A6D300DFA9FB /* z0.png in Resources */,
 				90E927B71836A6D300DFA9FB /* flag_225.png in Resources */,
 				90E927541836A6D300DFA9FB /* flag_136.png in Resources */,
@@ -9705,11 +9554,9 @@
 				90E92B231836A6D300DFA9FB /* z657.png in Resources */,
 				90E92A181836A6D300DFA9FB /* z416.png in Resources */,
 				9093A6B71837F7EC005D60E2 /* AchievementsCell~ipad.xib in Resources */,
-				9093A5FA1837F20B005D60E2 /* NewsCell.xib in Resources */,
 				901E024B183E7BA70092152F /* c151.png in Resources */,
 				90E927361836A6D300DFA9FB /* flag_109.png in Resources */,
 				901E02DA183E7BA70092152F /* c75.png in Resources */,
-				9093A712183800B8005D60E2 /* StoreCoachView.xib in Resources */,
 				9093A66D1837F703005D60E2 /* FansView~ipad.xib in Resources */,
 				90E92B3D1836A6D300DFA9FB /* z680.png in Resources */,
 				90E92BC71836A6D300DFA9FB /* z804.png in Resources */,
@@ -9717,7 +9564,6 @@
 				90E92BE11836A6D300DFA9FB /* z828.png in Resources */,
 				901E0282183E7BA70092152F /* c200.png in Resources */,
 				901E0293183E7BA70092152F /* c216.png in Resources */,
-				9093A5FD1837F20C005D60E2 /* NewsView~ipad.xib in Resources */,
 				90E929B31836A6D300DFA9FB /* z325.png in Resources */,
 				9093A6A51837F7C1005D60E2 /* JobRefill~ipad.xib in Resources */,
 				90E928CC1836A6D300DFA9FB /* z117.png in Resources */,
@@ -9800,7 +9646,6 @@
 				90E927C41836A6D300DFA9FB /* flag_237.png in Resources */,
 				90E92C1A1836A6D300DFA9FB /* z88.png in Resources */,
 				90E92C1F1836A6D300DFA9FB /* z884.png in Resources */,
-				9093A6891837F761005D60E2 /* SquadViewer~ipad.xib in Resources */,
 				901E02AE183E7BA70092152F /* c35.png in Resources */,
 				90E92AB11836A6D300DFA9FB /* z554.png in Resources */,
 				90E92AA41836A6D300DFA9FB /* z542.png in Resources */,
@@ -9946,7 +9791,6 @@
 				90E929D11836A6D300DFA9FB /* z352.png in Resources */,
 				90E92A7C1836A6D300DFA9FB /* z506.png in Resources */,
 				90E92ABA1836A6D300DFA9FB /* z562.png in Resources */,
-				9093A714183800B8005D60E2 /* StoreOthersView.xib in Resources */,
 				9093A66C1837F703005D60E2 /* FansView.xib in Resources */,
 				901E02CC183E7BA70092152F /* c62.png in Resources */,
 				90E92A071836A6D300DFA9FB /* z400.png in Resources */,
@@ -9972,7 +9816,6 @@
 				90E9285E1836A6D300DFA9FB /* job_button_pressed.png in Resources */,
 				90E929DC1836A6D300DFA9FB /* z362.png in Resources */,
 				90E92AA21836A6D300DFA9FB /* z540.png in Resources */,
-				90E928601836A6D300DFA9FB /* job_complete.png in Resources */,
 				90E927F71836A6D300DFA9FB /* flag_47.png in Resources */,
 				90E92BDE1836A6D300DFA9FB /* z825.png in Resources */,
 				90E92ADC1836A6D300DFA9FB /* z593.png in Resources */,
@@ -10022,8 +9865,6 @@
 				90866CDF0FF4BE3700EC6AB7 /* MatchView.m in Sources */,
 				9094F8C1183A85BE00931A9A /* UAAppReviewManager.m in Sources */,
 				90866CF30FF4BEBE00EC6AB7 /* LeagueView.m in Sources */,
-				90866CFD0FF4BEE100EC6AB7 /* NewsCell.m in Sources */,
-				90866D000FF4BEE100EC6AB7 /* NewsView.m in Sources */,
 				90866D060FF4BF0D00EC6AB7 /* FixturesView.m in Sources */,
 				90E92D551836A72C00DFA9FB /* Ball.m in Sources */,
 				90C93F73100641E7002A2610 /* LeagueCell.m in Sources */,
@@ -10066,7 +9907,6 @@
 				9054BD0D11BA9E1B00290C03 /* SubsView.m in Sources */,
 				90D630E2183B78D20045B437 /* AllianceView.m in Sources */,
 				90D630E0183B78D20045B437 /* AllianceMembers.m in Sources */,
-				901971E911C2548200C23F24 /* WelcomeViewController.m in Sources */,
 				9094F8D1183A85BE00931A9A /* MailReply.m in Sources */,
 				9004002A11C42DFA00EF405B /* JobsCell.m in Sources */,
 				9004002C11C42DFA00EF405B /* JobsView.m in Sources */,
@@ -10075,9 +9915,7 @@
 				9094F845183A6CEC00931A9A /* Player_hockey.m in Sources */,
 				906DC7C1183B5D27004AD180 /* WorldsView.m in Sources */,
 				909A30151236BE84006CF705 /* ChallengeCreateView.m in Sources */,
-				9016D794123798B3001C6066 /* HelpView.m in Sources */,
 				9092E4E6126CC299003CCB06 /* main.m in Sources */,
-				909B0C701278723600354A4A /* JobComplete.m in Sources */,
 				909B0D2112789F2300354A4A /* JobLevelup.m in Sources */,
 				90FFA4A812973C0E00232CE1 /* JobRefill.m in Sources */,
 				90DEEE7D12C4EF7B006F7EF1 /* TrophyViewer.m in Sources */,

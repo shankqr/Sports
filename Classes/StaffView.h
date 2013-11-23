@@ -7,7 +7,7 @@
 //
 
 @class MainView;
-@interface StaffView : UIViewController <UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface StaffView : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;
 	UITableView *table;

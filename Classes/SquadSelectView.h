@@ -12,7 +12,7 @@
 - (void)playerSelected:(NSString *)player;
 @end
 
-@interface SquadSelectView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SquadSelectView : UITableViewController <UIAlertViewDelegate>
 {
 	id<SquadSelectDelegate> __weak delegate;
 	MainView *mainView;
