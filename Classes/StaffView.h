@@ -10,8 +10,6 @@
 @interface StaffView : UITableViewController <UIAlertViewDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;
-	UITableView *table;
-	UILabel *staffDesc;
 	NSArray *staff;
 	NSString *iden;
     NSInteger hireCost;
@@ -19,10 +17,6 @@
 @property (nonatomic, strong) NSArray *staff;
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) NSString *iden;
-@property (nonatomic, strong) IBOutlet UITableView *table;
-@property (nonatomic, strong) IBOutlet UILabel *staffDesc;
 @property (readwrite) NSInteger hireCost;
 - (void)updateView;
-- (void)confirmPurchase:(NSString*)staffType :(NSString*)Desc :(NSString*)Price;
-- (void)purchaseStaff:(NSInteger)staffId;
 @end

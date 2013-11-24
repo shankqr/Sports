@@ -60,7 +60,6 @@
 #import "SquadSelectView.h"
 
 @class MainView;
-@class SquadSelectView;
 @interface FormationView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;

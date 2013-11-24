@@ -8,25 +8,14 @@
 
 #import "OverView.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "OverviewCell.h"
 #import "OverfirstCell.h"
 #import "LeagueslideCell.h"
 
 @implementation OverView
-@synthesize mainView;
-@synthesize table;
 @synthesize maxDivision;
 @synthesize curDivision;
 @synthesize curSeries;
-
-- (void)viewDidLoad
-{
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
-}
 
 - (void)updateView
 {
@@ -140,6 +129,11 @@
 	return maxDivision + 2;
 }
 
+-(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return nil;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.row == 0)
@@ -148,11 +142,11 @@
     }
     else if (indexPath.row == 1)
     {
-        return 560*SCALE_IPAD;
+        return 460*SCALE_IPAD;
     }
     else
     {
-        return 70*SCALE_IPAD;
+        return 60*SCALE_IPAD;
     }
 }
 

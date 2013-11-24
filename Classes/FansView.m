@@ -46,7 +46,6 @@
 {
     [[Globals i] settPurchasedProduct:@"5"];
     [mainView buyProduct:[[Globals i] getProductIdentifiers][@"staff"]];
-
 }
 
 @end

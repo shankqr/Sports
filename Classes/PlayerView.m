@@ -16,21 +16,6 @@
 @synthesize nationLabel;
 @synthesize moraleLabel;
 
-- (void)viewDidLoad 
-{
-    [super viewDidLoad];
-    
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [playerList setFrame:CGRectMake(0, playerList.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-playerList.frame.origin.y)];
-    }
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    
-}
-
 - (void)updateView:(NSDictionary *)player
 {
     self.players = [[NSMutableArray alloc] initWithObjects:player, nil];
@@ -68,16 +53,7 @@
 
 - (void)close
 {
-	
-	
-	[mainView updateHeader];
-    
-	[self.view removeFromSuperview];
-}
-
-- (IBAction)cancelButton_tap:(id)sender
-{
-	[self close];
+	[[Globals i] closeTemplate];
 }
 
 -(IBAction)sellButton_tap:(id)sender

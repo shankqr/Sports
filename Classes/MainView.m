@@ -12,8 +12,6 @@
 #import "JobsView.h"
 #import "ClubView.h"
 #import "TrophyViewer.h"
-#import "StadiumView.h"
-#import "UpgradeView.h"
 #import "StadiumMap.h"
 #import "FansView.h"
 #import "FinanceView.h"
@@ -51,8 +49,6 @@
 @implementation MainView
 @synthesize header;
 @synthesize jobsView;
-@synthesize stadiumView;
-@synthesize upgradeView;
 @synthesize stadiumMap;
 @synthesize fansView;
 @synthesize financeView;
@@ -297,7 +293,6 @@
 {
     ((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
 	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
-	((SquadViewer*)[clubTabBarController viewControllers][2]).mainView = self;
 	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
     
     [[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :0];
@@ -309,9 +304,7 @@
 
 - (void)showLeague
 {
-    ((OverView*)[leagueTabBarController viewControllers][0]).mainView = self;
 	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
-	((FixturesView*)[leagueTabBarController viewControllers][2]).mainView = self;
 	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
 	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
     
@@ -488,10 +481,8 @@
     [[Globals i] showDialog:@"You have upgraded your stadium."];
 	
 	[[Globals i] updateClubData];
-	[self.stadiumView updateView];
-    [self.stadiumMap updateView];
     
-    [self.stadiumView.view removeFromSuperview];
+    [self.stadiumMap updateView];
 	
 	NSString *message = @"I have just upgraded my arena. Come over and play a match with me.";
 	NSString *extra_desc = @"A big portion of club revenue comes from ticket sales of matches played at your stadium. Upgrade your stadium to increase seating capacity and average ticket price per match. ";
@@ -697,12 +688,11 @@
 			}
 			else 
 			{
-            [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
+                [[Globals i] removeDialogBox];
+                
+                [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
 			}
 		}
-		
-		[[Globals i] removeDialogBox];
-	
 	}
 }
 
@@ -712,28 +702,28 @@
     
     if ([[[Globals i] GameType] isEqualToString:@"football"])
     {
-        [lblMarquee removeFromSuperview];
         [SPAudioEngine start];
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
         [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
         
-        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :0];
+        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :2];
     }
     else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
     {
-        [lblMarquee removeFromSuperview];
         [SPAudioEngine start];
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
         [sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:YES];
         
-        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :0];
+        [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :2];
     }
     else
     {
         [self showMatchReport];
     }
+    
+    [[Globals i] removeDialogBox];
 }
 
 - (void)removeLiveMatch
@@ -853,6 +843,7 @@
     if (trainingView == nil)
     {
         trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
+        trainingView.mainView = self;
     }
     [[Globals i] showTemplate:@[trainingView] :@"Coach" :1];
     [self.trainingView updateView];
@@ -863,6 +854,7 @@
     if (clubMapView == nil)
     {
         clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
+        clubMapView.mainView = self;
     }
     [[Globals i] showTemplate:@[clubMapView] :@"Map" :1];
     [self.clubMapView updateView];
@@ -960,13 +952,16 @@
 - (void)showHelp
 {
     UIWebView *webView = [[UIWebView alloc] init];
-    [webView setFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
+    [webView setFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
 	NSString *urlAddress = [[NSString alloc] initWithFormat:@"%@_files/help.html", WS_URL];
 	NSURL *url = [NSURL URLWithString:urlAddress];
 	NSURLRequest *requestObj = [NSURLRequest requestWithURL:url];
 	[webView loadRequest:requestObj];
     
-    [[Globals i] showTemplate:@[webView] :@"Help" :0];
+    UIViewController *controller = [[UIViewController alloc] init];
+    controller.view = webView;
+    
+    [[Globals i] showTemplate:@[controller] :@"Help" :0];
 }
 
 - (void)showFinance
@@ -984,6 +979,7 @@
     if (fansView == nil)
     {
         fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
+        fansView.mainView = self;
     }
 	[[Globals i] showTemplate:@[fansView] :@"Fans" :1];
     [self.fansView updateView];
@@ -995,7 +991,6 @@
     {
         jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
     }
-    
     [[Globals i] showTemplate:@[jobsView] :@"Training" :1];
     [self.jobsView updateView];
 }
@@ -1053,26 +1048,6 @@
     }
     [[Globals i] showTemplate:@[stadiumMap] :@"Stadium" :0];
     [self.stadiumMap updateView];
-}
-
-- (void)showStadiumUpgrade
-{
-    if (stadiumView == nil)
-    {
-        stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
-    }
-    [self.stadiumMap.view addSubview:stadiumView.view];
-    [self.stadiumView updateView];
-}
-
-- (void)showBuildingUpgrade:(int)type;
-{
-    if (upgradeView == nil)
-    {
-        upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
-    }
-    [self.stadiumMap.view addSubview:upgradeView.view];
-    [self.upgradeView updateView:type];
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
@@ -1210,8 +1185,7 @@
 		}
 		case 15:
 		{
-            [self showMail];
-            [[Globals i] pushMoreGamesVC];
+            [[Globals i] showMoreGames];
 			break;
 		}
 		case 16:
@@ -1264,7 +1238,7 @@
 		}
 		case 26:
 		{
-			[self shareButton];
+			[self showMail];
 			break;
 		}
         case 27:
@@ -1442,17 +1416,6 @@
 	{
         [self gotoLogin:NO];
     }
-}
-
-- (void)shareButton
-{
-    NSString *message = @"Check out this very cool App!";
-	NSString *caption = @"Come on and join in the fun.";
-	NSString *picture = @"Icon-72.png";
-    
-    [[Globals i] fbPublishStory:message :caption :picture];
-    
-    [[Globals i] showDialog:@"Thank you for sharing this App with your friends. Challenge your friends and level up even faster!"];
 }
 
 @end

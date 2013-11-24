@@ -705,6 +705,15 @@ static NSOperationQueue *connectionQueue;
     [self pushTemplateNav:appsViewController];
 }
 
+- (void)showMoreGames
+{
+    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
+    NSArray *values = [wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
+    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
+    
+    [self showTemplate:@[appsViewController] :@"More Games" :0];
+}
+
 - (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname
 {
     if(mailCompose == nil)
@@ -1133,6 +1142,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
 {
+    /*
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
     {
         SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
@@ -1156,6 +1166,7 @@ static NSOperationQueue *connectionQueue;
         
         [[self peekViewControllerStack] presentViewController:mySLComposerSheet animated:YES completion:nil];
     }
+    */
 }
 
 - (NSDictionary *)gettLocalMailReply
@@ -2698,6 +2709,8 @@ static NSOperationQueue *connectionQueue;
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
 	[self updateClubData];
+    
+    [self showToast:@"Training Changed for the week" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)changeFormation:(NSString *)formationId
@@ -2707,6 +2720,9 @@ static NSOperationQueue *connectionQueue;
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
 	[self updateClubData];
+    
+    [self showToast:@"Formation Changed" optionalTitle:nil optionalImage:@"tick_yes"];
+
 }
 
 - (void)changeTactic:(NSString *)tacticId
@@ -2716,6 +2732,8 @@ static NSOperationQueue *connectionQueue;
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
 	[self updateClubData];
+    
+    [self showToast:@"Tactics Changed" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)changePlayerFormation:(NSString *)player_id :(NSString *)formation_pos
@@ -2725,6 +2743,8 @@ static NSOperationQueue *connectionQueue;
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
 	[self updateClubData];
+    
+    [self showToast:@"Player is Set" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)challengeClub:(NSString *)home :(NSString *)away :(NSString *)win :(NSString *)lose :(NSString *)draw :(NSString *)note
@@ -2734,6 +2754,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, away, win, lose, draw, encodedNote];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"Club has been challenged" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (NSString *)doPost:(NSString *)message
@@ -2758,6 +2780,9 @@ static NSOperationQueue *connectionQueue;
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@",
                        WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
     
+    
+    [self showToast:@"Bid is successful" optionalTitle:nil optionalImage:@"tick_yes"];
+
     return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
 }
 
@@ -2775,6 +2800,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, player_value, player_id];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"Player Sold" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)healPlayer:(NSString *)player_id
@@ -2783,6 +2810,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, player_id];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"Player Healed" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)energizePlayer:(NSString *)player_id
@@ -2791,6 +2820,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, player_id];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"Player Energized" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)buyCoach:(NSString *)coach_id
@@ -2799,6 +2830,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, coach_id];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"New Coach Hired" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)resetClub
@@ -2807,6 +2840,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
+    
+    [self showToast:@"Club Reset Success" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)updateCurrentSeasonData
@@ -2853,23 +2888,6 @@ static NSOperationQueue *connectionQueue;
 - (NSMutableArray *)getAllClubsData
 {
 	return wsAllClubsData;
-}
-
-- (void)updateMapClubsData
-{
-	if(!workingMapClubs)
-	{
-		workingMapClubs = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsMapClubsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingMapClubs = NO;
-	}
-}
-
-- (NSMutableArray *)getMapClubsData
-{
-	return wsMapClubsData;
 }
 
 - (void)updateSquadData:(NSString *)clubId

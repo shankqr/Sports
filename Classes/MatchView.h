@@ -12,7 +12,6 @@
 @interface MatchView : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 {
 	MainView *mainView;
-	UITableView *table;
 	NSString *filter;
 	NSArray *matches;
 	NSString *selected_clubid;
@@ -23,7 +22,6 @@
     int selected_row;
 }
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) NSString *selected_matchid;
@@ -31,5 +29,4 @@
 @property (nonatomic, strong) MatchLive *matchLive;
 @property (nonatomic, strong) ChallengeView *challengeBox;
 - (void)updateView;
-- (IBAction)segmentTap:(id)sender;
 @end

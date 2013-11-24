@@ -103,11 +103,6 @@
 	[self.view setNeedsDisplay];
 }
 
-- (IBAction)cancelButton_tap:(id)sender
-{
-	[self.view removeFromSuperview];
-}
-
 -(IBAction)upgradeButton_tap:(id)sender
 {
     int cost = 0;
@@ -148,7 +143,7 @@
                 NSString *imagename = @"upgrade_building.png";
                 [[Globals i] fbPublishStory:message :extra_desc :imagename];
                 
-                [self.view removeFromSuperview];
+                [[Globals i] closeTemplate];
 			}
 			else
 			{

@@ -25,7 +25,4 @@
 @property (nonatomic, strong) NSArray *allListContent;
 @property (nonatomic, strong) NSMutableArray *filteredListContent;
 - (void)updateView;
-- (void)setupMap;
-- (void)zoomCurrentLocation;
-- (void)getMapClubsData;
 @end

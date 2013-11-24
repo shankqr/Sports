@@ -8,13 +8,9 @@
 
 #import "SquadViewer.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "PlayerCell.h"
 
 @implementation SquadViewer
-@synthesize mainView;
-@synthesize table;
-@synthesize toolbar;
 @synthesize players;
 @synthesize selected_clubid;
 @synthesize sold_player_id;
@@ -27,11 +23,6 @@
 - (void)viewDidLoad
 {
 	selected_clubid = @"0";
-    
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
 }
 
 -(void)updateView
@@ -44,19 +35,6 @@
 				
         selected_clubid = wsClubData[@"club_id"];
 	}
-	else 
-	{
-		
-	}
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
-	if(buttonIndex == 1)
-	{
-        [[Globals i] settPurchasedProduct:@"14"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-	}
 }
 
 -(void)getSquadData
@@ -67,10 +45,10 @@
 		self.players = [[Globals i] getSquadData];
 		if(self.players.count > 0)
 		{
-			[self.view addSubview:table];
-			[table reloadData];
-			[[Globals i] removeLoadingAlert];
+			[self.tableView reloadData];
 		}
+        
+        [[Globals i] removeLoadingAlert];
 	
 	}
 }

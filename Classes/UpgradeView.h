@@ -24,6 +24,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *cashLabel;
 @property (nonatomic, strong) IBOutlet UILabel *formulaLabel;
 - (IBAction)upgradeButton_tap:(id)sender;
-- (IBAction)cancelButton_tap:(id)sender;
 - (void)updateView:(int)type;
 @end

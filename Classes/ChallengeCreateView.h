@@ -31,9 +31,6 @@
 @property (nonatomic, strong) NSString *draw;
 @property (nonatomic, strong) NSArray *matches;
 - (void)updateView;
-- (void)confirmPurchase;
-- (void)challengeClub;
-- (void)challengeSuccess;
 - (IBAction)winButton_tap:(id)sender;
 - (IBAction)loseButton_tap:(id)sender;
 - (IBAction)okButton_tap:(id)sender;

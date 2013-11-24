@@ -18,11 +18,11 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="field_half.png" id="34">
-                    <rect key="frame" x="0.0" y="74" width="320" height="357"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="357"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="15" userLabel="Toolbar">
-                    <rect key="frame" x="0.0" y="387" width="320" height="44"/>
+                    <rect key="frame" x="0.0" y="313" width="320" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <items>

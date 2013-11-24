@@ -221,28 +221,12 @@
         }
         [[Globals i] challengeClub:my_club_id:enemy_club_id:win:lose:draw:note];
         
-        [self performSelectorOnMainThread:@selector(challengeSuccess)
-						   withObject:nil
-						waitUntilDone:NO];
+        //Refresh invites list
+        [[Globals i] updateChallengedData];
+        //Refresh challenge list
+        [mainView updateChallenge];
     
     }
-}
-
-- (void)challengeSuccess
-{
-    //Refresh invites list
-    [[Globals i] updateChallengedData];
-    //Refresh challenge list
-    [mainView updateChallenge];
-    
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Assistant Manager"
-                          message:@"Your challenge request has been sent to the club manager."
-                          delegate:self
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil];
-    alert.tag = 2;
-    [alert show];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 

@@ -32,11 +32,6 @@
 	[self.view setNeedsDisplay];
 }
 
-- (IBAction)cancelButton_tap:(id)sender
-{
-	[self.view removeFromSuperview];
-}
-
 -(IBAction)upgradeButton_tap:(id)sender
 {
 	int cost = [[levelLabel.text stringByReplacingOccurrencesOfString:@"," withString:@""] intValue]*5000;

@@ -158,8 +158,12 @@
 	[lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
     [lastmatchSlide updateView];
     
-	slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
-	[self changeSlideNow];
+    if(!slidesTimer.isValid)
+    {
+        slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+    }
+    
+    //[self changeSlideNow];
 }
 
 - (void)changeSlide

@@ -14,47 +14,37 @@
 
 @implementation SquadView
 @synthesize mainView;
-@synthesize table;
-@synthesize toolbar;
 @synthesize players;
 @synthesize sold_player_id;
 @synthesize sel_player_id;
 @synthesize sel_player_name;
 @synthesize sel_player_value;
 @synthesize sel_player_halfvalue;
-@synthesize totalfilter;
 @synthesize selectedRow;
-@synthesize filter;
 @synthesize playerView;
 
--(void)updateView
+- (void)updateView
 {
-    [table setFrame:CGRectMake(0, HeaderSquad_height, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-HeaderSquad_height)];
-    
 	if([Globals i].workingSquad == 0)
-	{	
-		[table removeFromSuperview];
+	{
 		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 	}
 }
 
--(void)forceUpdate
+- (void)forceUpdate
 {
-	[table removeFromSuperview];
 	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 }
 
--(void)normalUpdate
+- (void)normalUpdate
 {
-	[table removeFromSuperview];
     [[Globals i] updateMySquadData];
 	self.players = [[Globals i] getMySquadData];
 	if(self.players.count > 0)
 	{
-		[self.view addSubview:table];
-		[table reloadData];
+		[self.tableView reloadData];
 	}
 }
 
@@ -66,41 +56,11 @@
 		self.players = [[Globals i] getMySquadData];
 		if(self.players.count > 0)
 		{
-			[self.view addSubview:table];
-			[table reloadData];
-			[[Globals i] removeLoadingAlert];
+			[self.tableView reloadData];
 		}
 	
+        [[Globals i] removeLoadingAlert];
 	}
-}
-
-- (void)applyFilter
-{
-	NSMutableArray *discardedItems = [NSMutableArray array];
-	if([self.filter isEqualToString:@"Youth"])
-	{
-		self.filter = @"Senior";
-		for(NSDictionary *rowData in self.players)
-		{
-			if([rowData[@"youth_player"] isEqualToString:@"False"])
-			{
-				[discardedItems addObject:rowData];
-			}
-		}
-	}
-	else
-	{
-		self.filter = @"Youth";
-		for(NSDictionary *rowData in self.players)
-		{
-			if([rowData[@"youth_player"] isEqualToString:@"True"])
-			{
-				[discardedItems addObject:rowData];
-			}
-		}
-	}
-	[self.players removeObjectsInArray:discardedItems];
-	[discardedItems removeAllObjects];
 }
 
 - (void)viewDidLoad

@@ -186,7 +186,6 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-	
 	[mainView showChallenge:[Globals i].selectedClubId];
 }
 

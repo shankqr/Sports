@@ -9,24 +9,13 @@
 #import "FixturesView.h"
 #import "FixtureCell.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation FixturesView
-@synthesize mainView;
-@synthesize table;
 @synthesize matches;
 @synthesize filter;
 @synthesize curDivision;
 @synthesize curSeries;
 @synthesize selected_clubid;
-
-- (void)viewDidLoad
-{
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
-}
 
 - (void)updateView
 {
@@ -50,7 +39,7 @@
 		workingLeagueFixtures = YES;
 		[[Globals i] updateMatchFixturesData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", curSeries]];
 		[self getTotalRound];
-		[table reloadData];
+		[self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
 		workingLeagueFixtures = NO;
 	

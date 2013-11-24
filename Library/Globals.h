@@ -193,7 +193,6 @@
 	NSInteger workingSquad;
 	NSInteger energy;
 	BOOL workingAllClubs;
-	BOOL workingMapClubs;
 	BOOL workingNews;
 	BOOL workingProducts;
 	BOOL workingPlayerSale;
@@ -474,8 +473,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSDictionary *)getClubData;
 - (void)updateAllClubsData;
 - (NSMutableArray *)getAllClubsData;
-- (void)updateMapClubsData;
-- (NSMutableArray *)getMapClubsData;
 - (void)updateClubInfoData:(NSString *)clubId;
 - (void)updateClubInfoFb:(NSString *)fb_id;
 - (NSDictionary *)getClubInfoData;
@@ -535,5 +532,5 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSMutableArray *)getMembersData;
 - (void)updateAllianceCupFixturesData:(NSString *)round;
 - (NSMutableArray *)getAllianceCupFixturesData;
-
+- (void)showMoreGames;
 @end

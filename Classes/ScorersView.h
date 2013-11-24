@@ -7,10 +7,9 @@
 //
 
 @class MainView;
-@interface ScorersView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface ScorersView : UITableViewController <UIActionSheetDelegate>
 {
 	MainView *mainView;
-	UITableView *table;
 	NSString *selected_clubid;
 	NSMutableArray *players;
 	NSUInteger curDivision;
@@ -18,7 +17,6 @@
 	BOOL workingLeagueScorers;
 }
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) NSMutableArray *players;
 @property NSUInteger curDivision;

@@ -26,7 +26,6 @@
 @property (nonatomic,strong) IBOutlet UIImageView *flagImageView;
 @property (nonatomic,strong) IBOutlet UILabel *nationLabel;
 @property (nonatomic,strong) IBOutlet UILabel *moraleLabel;
--(IBAction)cancelButton_tap:(id)sender;
 -(IBAction)sellButton_tap:(id)sender;
 -(IBAction)energizeButton_tap:(id)sender;
 -(IBAction)healButton_tap:(id)sender;
@@ -34,8 +33,5 @@
 -(IBAction)improveButton_tap:(id)sender;
 -(IBAction)moraleButton_tap:(id)sender;
 -(void)updateView:(NSDictionary *)player;
--(void)close;
--(void)createDialogBox;
--(void)removeDialogBox;
 @end
 

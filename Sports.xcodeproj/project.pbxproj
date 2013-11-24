@@ -91,8 +91,6 @@
 		9093A6051837F415005D60E2 /* ClubMapView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6031837F415005D60E2 /* ClubMapView~ipad.xib */; };
 		9093A60C1837F496005D60E2 /* OverfirstCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6061837F496005D60E2 /* OverfirstCell.xib */; };
 		9093A60D1837F496005D60E2 /* OverfirstCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6071837F496005D60E2 /* OverfirstCell~ipad.xib */; };
-		9093A60E1837F496005D60E2 /* OverView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6081837F496005D60E2 /* OverView.xib */; };
-		9093A60F1837F496005D60E2 /* OverView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6091837F496005D60E2 /* OverView~ipad.xib */; };
 		9093A6101837F496005D60E2 /* OverviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A60A1837F496005D60E2 /* OverviewCell.xib */; };
 		9093A6111837F496005D60E2 /* OverviewCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A60B1837F496005D60E2 /* OverviewCell~ipad.xib */; };
 		9093A61A1837F4BB005D60E2 /* LeagueCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6121837F4BB005D60E2 /* LeagueCell.xib */; };
@@ -105,12 +103,8 @@
 		9093A6211837F4BB005D60E2 /* LeagueView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6191837F4BB005D60E2 /* LeagueView~ipad.xib */; };
 		9093A6261837F503005D60E2 /* FixtureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6221837F503005D60E2 /* FixtureCell.xib */; };
 		9093A6271837F503005D60E2 /* FixtureCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6231837F503005D60E2 /* FixtureCell~ipad.xib */; };
-		9093A6281837F503005D60E2 /* FixturesView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6241837F503005D60E2 /* FixturesView.xib */; };
-		9093A6291837F503005D60E2 /* FixturesView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6251837F503005D60E2 /* FixturesView~ipad.xib */; };
 		9093A62C1837F602005D60E2 /* PromotionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A62A1837F602005D60E2 /* PromotionView.xib */; };
 		9093A62D1837F602005D60E2 /* PromotionView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A62B1837F602005D60E2 /* PromotionView~ipad.xib */; };
-		9093A6301837F610005D60E2 /* ScorersView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A62E1837F610005D60E2 /* ScorersView.xib */; };
-		9093A6311837F610005D60E2 /* ScorersView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A62F1837F610005D60E2 /* ScorersView~ipad.xib */; };
 		9093A6341837F648005D60E2 /* MatchReport.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6321837F648005D60E2 /* MatchReport.xib */; };
 		9093A6351837F648005D60E2 /* MatchReport~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6331837F648005D60E2 /* MatchReport~ipad.xib */; };
 		9093A63A1837F659005D60E2 /* MatchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6361837F659005D60E2 /* MatchCell.xib */; };
@@ -2425,8 +2419,6 @@
 		9093A6031837F415005D60E2 /* ClubMapView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ClubMapView~ipad.xib"; path = "Xibs/ClubMapView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6061837F496005D60E2 /* OverfirstCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverfirstCell.xib; path = Xibs/OverfirstCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6071837F496005D60E2 /* OverfirstCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "OverfirstCell~ipad.xib"; path = "Xibs/OverfirstCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6081837F496005D60E2 /* OverView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverView.xib; path = Xibs/OverView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6091837F496005D60E2 /* OverView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "OverView~ipad.xib"; path = "Xibs/OverView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A60A1837F496005D60E2 /* OverviewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = OverviewCell.xib; path = Xibs/OverviewCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A60B1837F496005D60E2 /* OverviewCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "OverviewCell~ipad.xib"; path = "Xibs/OverviewCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6121837F4BB005D60E2 /* LeagueCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeagueCell.xib; path = Xibs/LeagueCell.xib; sourceTree = SOURCE_ROOT; };
@@ -2439,12 +2431,8 @@
 		9093A6191837F4BB005D60E2 /* LeagueView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "LeagueView~ipad.xib"; path = "Xibs/LeagueView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6221837F503005D60E2 /* FixtureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FixtureCell.xib; path = Xibs/FixtureCell.xib; sourceTree = SOURCE_ROOT; };
 		9093A6231837F503005D60E2 /* FixtureCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FixtureCell~ipad.xib"; path = "Xibs/FixtureCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6241837F503005D60E2 /* FixturesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FixturesView.xib; path = Xibs/FixturesView.xib; sourceTree = SOURCE_ROOT; };
-		9093A6251837F503005D60E2 /* FixturesView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FixturesView~ipad.xib"; path = "Xibs/FixturesView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A62A1837F602005D60E2 /* PromotionView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PromotionView.xib; path = Xibs/PromotionView.xib; sourceTree = SOURCE_ROOT; };
 		9093A62B1837F602005D60E2 /* PromotionView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "PromotionView~ipad.xib"; path = "Xibs/PromotionView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A62E1837F610005D60E2 /* ScorersView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ScorersView.xib; path = Xibs/ScorersView.xib; sourceTree = SOURCE_ROOT; };
-		9093A62F1837F610005D60E2 /* ScorersView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "ScorersView~ipad.xib"; path = "Xibs/ScorersView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6321837F648005D60E2 /* MatchReport.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchReport.xib; path = Xibs/MatchReport.xib; sourceTree = SOURCE_ROOT; };
 		9093A6331837F648005D60E2 /* MatchReport~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "MatchReport~ipad.xib"; path = "Xibs/MatchReport~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A6361837F659005D60E2 /* MatchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MatchCell.xib; path = Xibs/MatchCell.xib; sourceTree = SOURCE_ROOT; };
@@ -5021,8 +5009,6 @@
 				901EF81A183E7B3C0092152F /* LeagueCell_baseball~ipad.xib */,
 				90701A0A164D2523002CA0C2 /* OverView.h */,
 				90701A0B164D2523002CA0C2 /* OverView.m */,
-				9093A6081837F496005D60E2 /* OverView.xib */,
-				9093A6091837F496005D60E2 /* OverView~ipad.xib */,
 				90E04D3E165CD9CD0041D537 /* OverviewCell.h */,
 				90E04D3F165CD9CD0041D537 /* OverviewCell.m */,
 				9093A60A1837F496005D60E2 /* OverviewCell.xib */,
@@ -5037,16 +5023,12 @@
 				9093A6171837F4BB005D60E2 /* LeagueslideCell~ipad.xib */,
 				90866D030FF4BF0D00EC6AB7 /* FixturesView.h */,
 				90866D040FF4BF0D00EC6AB7 /* FixturesView.m */,
-				9093A6241837F503005D60E2 /* FixturesView.xib */,
-				9093A6251837F503005D60E2 /* FixturesView~ipad.xib */,
 				907A798B100864F0008D990D /* FixtureCell.h */,
 				907A798C100864F0008D990D /* FixtureCell.m */,
 				9093A6221837F503005D60E2 /* FixtureCell.xib */,
 				9093A6231837F503005D60E2 /* FixtureCell~ipad.xib */,
 				90813D331008C9BD00581AAC /* ScorersView.h */,
 				90813D341008C9BD00581AAC /* ScorersView.m */,
-				9093A62E1837F610005D60E2 /* ScorersView.xib */,
-				9093A62F1837F610005D60E2 /* ScorersView~ipad.xib */,
 			);
 			name = League;
 			sourceTree = "<group>";
@@ -7756,7 +7738,6 @@
 				90E9278F1836A6D300DFA9FB /* flag_19.png in Resources */,
 				9093A711183800B8005D60E2 /* ProductCell~ipad.xib in Resources */,
 				90E92AD81836A6D300DFA9FB /* z59.png in Resources */,
-				9093A6291837F503005D60E2 /* FixturesView~ipad.xib in Resources */,
 				90E929711836A6D300DFA9FB /* z266.png in Resources */,
 				90E92D1A1836A6D300DFA9FB /* m139.png in Resources */,
 				90E929201836A6D300DFA9FB /* z193.png in Resources */,
@@ -7791,7 +7772,6 @@
 				90E928C81836A6D300DFA9FB /* z113.png in Resources */,
 				90E927E01836A6D300DFA9FB /* flag_262.png in Resources */,
 				909904461841BC920030AF79 /* c122.png in Resources */,
-				9093A6281837F503005D60E2 /* FixturesView.xib in Resources */,
 				90E92D561836A72C00DFA9FB /* engine_ball.png in Resources */,
 				90E929C91836A6D300DFA9FB /* z345.png in Resources */,
 				90E928081836A6D300DFA9FB /* flag_62.png in Resources */,
@@ -9108,7 +9088,6 @@
 				90E927D61836A6D300DFA9FB /* flag_253.png in Resources */,
 				90E927671836A6D300DFA9FB /* flag_153.png in Resources */,
 				90E92B211836A6D300DFA9FB /* z655.png in Resources */,
-				9093A60F1837F496005D60E2 /* OverView~ipad.xib in Resources */,
 				90E927F11836A6D300DFA9FB /* flag_41.png in Resources */,
 				909905191841BC920030AF79 /* button_help.png in Resources */,
 				90E926A71836A6D300DFA9FB /* x16.png in Resources */,
@@ -9190,7 +9169,6 @@
 				90E92B891836A6D300DFA9FB /* z749.png in Resources */,
 				90E9299E1836A6D300DFA9FB /* z306.png in Resources */,
 				90E926D51836A6D300DFA9FB /* building_food5.png in Resources */,
-				9093A60E1837F496005D60E2 /* OverView.xib in Resources */,
 				90E92B141836A6D300DFA9FB /* z643.png in Resources */,
 				90E92A7F1836A6D300DFA9FB /* z509.png in Resources */,
 				90E92C931836A6D300DFA9FB /* z989.png in Resources */,
@@ -9499,7 +9477,6 @@
 				90E92B421836A6D300DFA9FB /* z685.png in Resources */,
 				90E92AE41836A6D300DFA9FB /* z60.png in Resources */,
 				90E927A21836A6D300DFA9FB /* flag_206.png in Resources */,
-				9093A6301837F610005D60E2 /* ScorersView.xib in Resources */,
 				909904AA1841BC920030AF79 /* c212.png in Resources */,
 				90E926B11836A6D300DFA9FB /* x25.png in Resources */,
 				90E92C221836A6D300DFA9FB /* z887.png in Resources */,
@@ -9684,7 +9661,6 @@
 				90E9299F1836A6D300DFA9FB /* z307.png in Resources */,
 				90E92B1A1836A6D300DFA9FB /* z649.png in Resources */,
 				90E92CAE1836A6D300DFA9FB /* button_cancel1.png in Resources */,
-				9093A6311837F610005D60E2 /* ScorersView~ipad.xib in Resources */,
 				90E929351836A6D300DFA9FB /* z211.png in Resources */,
 				90E92A721836A6D300DFA9FB /* z498.png in Resources */,
 				90E929641836A6D300DFA9FB /* z254.png in Resources */,

@@ -17,17 +17,17 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="field_half.png" id="34">
-                    <rect key="frame" x="0.0" y="180" width="768" height="844"/>
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="844"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
                 <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" id="15">
-                    <rect key="frame" x="0.0" y="980" width="768" height="44"/>
+                    <rect key="frame" x="0.0" y="800" width="768" height="44"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <items>
                         <barButtonItem style="plain" id="26">
                             <segmentedControl key="customView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" id="25">
-                                <rect key="frame" x="7" y="7" width="750" height="30"/>
+                                <rect key="frame" x="16" y="7" width="750" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="442"/>
@@ -50,6 +50,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>

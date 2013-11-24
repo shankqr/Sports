@@ -9,9 +9,13 @@
 #import "StadiumMap.h"
 #import "Globals.h"
 #import "MainView.h"
+#import "StadiumView.h"
+#import "UpgradeView.h"
 
 @implementation StadiumMap
 @synthesize mainView;
+@synthesize stadiumView;
+@synthesize upgradeView;
 @synthesize s0;
 @synthesize s1;
 @synthesize s2;
@@ -123,6 +127,26 @@
 {
     // Return YES for supported orientations
 	return YES;
+}
+
+- (void)showStadiumUpgrade
+{
+    if (stadiumView == nil)
+    {
+        stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
+    }
+    [[Globals i] showTemplate:@[stadiumView] :@"" :0];
+    [self.stadiumView updateView];
+}
+
+- (void)showBuildingUpgrade:(int)type;
+{
+    if (upgradeView == nil)
+    {
+        upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
+    }
+    [[Globals i] showTemplate:@[upgradeView] :@"" :0];
+    [self.upgradeView updateView:type];
 }
 
 - (UIImage *)imageByCropping:(UIImage *)imageToCrop toRect:(CGRect)rect
@@ -686,7 +710,7 @@
 
 - (IBAction)changeButton_tap:(id)sender
 {
-    [mainView showStadiumUpgrade];
+    [self showStadiumUpgrade];
 }
 
 - (IBAction)building1_tap:(id)sender
@@ -699,7 +723,7 @@
     }
     else
     {
-        [mainView showBuildingUpgrade:1];
+        [self showBuildingUpgrade:1];
     }
 }
 
@@ -712,7 +736,7 @@
     }
     else
     {
-        [mainView showBuildingUpgrade:2];
+        [self showBuildingUpgrade:2];
     }
 }
 
@@ -725,13 +749,8 @@
     }
     else
     {
-        [mainView showBuildingUpgrade:3];
+        [self showBuildingUpgrade:3];
     }
-}
-
-- (IBAction)cancelButton_tap:(id)sender
-{
-	[self.view removeFromSuperview];
 }
 
 @end

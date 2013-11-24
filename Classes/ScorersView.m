@@ -13,7 +13,6 @@
 
 @implementation ScorersView
 @synthesize mainView;
-@synthesize table;
 @synthesize players;
 @synthesize selected_clubid;
 @synthesize curDivision;
@@ -29,14 +28,6 @@
 			break;
 		}
 	}
-}
-
-- (void)viewDidLoad
-{
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
 }
 
 - (void)updateView
@@ -60,7 +51,7 @@
 		workingLeagueScorers = YES;
 		[[Globals i] updateLeagueScorersData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", 10]];
 		self.players = [NSMutableArray arrayWithArray:[[Globals i] getLeagueScorersData]];
-		[table reloadData];
+		[self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
 		workingLeagueScorers = NO;
 	}

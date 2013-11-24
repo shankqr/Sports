@@ -21,11 +21,6 @@
 @synthesize filteredListContent;
 @synthesize mapViewer;
 
-- (void)dealloc
-{
-    mapViewer.delegate = nil;
-}
-
 - (void)viewDidLoad
 {
     mapViewer = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
@@ -39,21 +34,15 @@
 {
     mapViewer.delegate = self;
     
-	if([[[Globals i] getMapClubsData] count] < 1)
+	if([[[Globals i] wsMapClubsData] count] < 1)
 	{
 		if(allListContent.count > 0)
 		{
 			[mapViewer removeAnnotations:allListContent];
 			allListContent = [[NSArray alloc] init];
 		}
-		
-		UIAlertView *alert = [[UIAlertView alloc]
-						  initWithTitle:@"Map"
-						  message:@"Only active login clubs will show on map. Clicking OK will take some time to load the map."
-						  delegate:self
-						  cancelButtonTitle:@"OK"
-						  otherButtonTitles:nil];
-		[alert show];
+        
+        [self getMapClubsData];
 	}
 	else 
 	{
@@ -66,16 +55,19 @@
     [self zoomCurrentLocation];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
-	[self getMapClubsData];
-}
-
 -(void)getMapClubsData
 {
-	[[Globals i] updateMapClubsData];
-	self.clubs = [[NSMutableArray alloc] initWithArray:[[Globals i] getMapClubsData] copyItems:YES];
-	[self setupMap];
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
+    
+    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             [Globals i].wsMapClubsData = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+             self.clubs = [[NSMutableArray alloc] initWithArray:[[Globals i] wsMapClubsData] copyItems:YES];
+             [self setupMap];
+         }
+     }];
 }
 
 - (void)setupMap
@@ -105,15 +97,9 @@
 {
     MKCoordinateRegion region = MKCoordinateRegionMake(mapViewer.centerCoordinate, MKCoordinateSpanMake(180, 360));
     [mapViewer setRegion:region animated:YES]; 
-    
 }
 
 #pragma mark mapView delegate functions
-- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
-{
-	
-}
-
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
 	CSMapAnnotation* annotation = (CSMapAnnotation*) view.annotation;
@@ -138,9 +124,7 @@
     {
         pin.annotation = annotation;
     }
-        
-    //pin.animatesDrop = YES;
-    //[pin setEnabled:YES];
+    
     [pin setCanShowCallout:YES];
 	
 	return pin;

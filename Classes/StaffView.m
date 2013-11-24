@@ -7,24 +7,15 @@
 //
 
 #import "StaffView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "StaffCell.h"
 #import "MainView.h"
 #import "Globals.h"
 
 @implementation StaffView
 @synthesize mainView;
-@synthesize table;
-@synthesize staffDesc;
 @synthesize staff;
 @synthesize iden;
 @synthesize hireCost;
-
-- (void)viewDidLoad
-{
-
-}
 
 - (void)updateView
 {
@@ -39,7 +30,7 @@
 	NSDictionary *row8 = @{@"Position": @"Doctor", @"Employed": wsClubData[@"doctors"], @"Desc": @"Rehabilitate and heal injured players faster."};
 	self.staff = @[row1, row2, row3, row4, row5, row6, row7, row8];
     
-	[table reloadData];
+	[self.tableView reloadData];
 	[self.view setNeedsDisplay];
 }
 
@@ -67,9 +58,9 @@
 		
 		if((bal > hireCost) && ([Globals i].energy > 9))
 		{
-			[Globals i].energy=[Globals i].energy-10;
+			[Globals i].energy = [Globals i].energy - 10;
 			[[Globals i] storeEnergy];
-			[mainView buyStaffSuccess:@"1":@"0"];
+			[mainView buyStaffSuccess:@"1" :@"0"];
 		}
 		else
 		{
@@ -90,7 +81,7 @@
 		
 		if(bal > pval)
 		{
-			[mainView buyStaffSuccess:@"2":@"0"];
+			[mainView buyStaffSuccess:@"2" :@"0"];
 		}
 		else
 		{

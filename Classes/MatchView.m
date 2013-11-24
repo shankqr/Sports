@@ -16,18 +16,12 @@
 
 @implementation MatchView
 @synthesize mainView;
-@synthesize table;
 @synthesize matches;
 @synthesize filter;
 @synthesize selected_clubid;
 @synthesize selected_matchid;
 @synthesize matchLive;
 @synthesize challengeBox;
-
-- (void)viewDidLoad
-{
-
-}
 
 -(void)updateView
 {
@@ -52,7 +46,7 @@
 		self.filter = @"Played";
 		self.matches = [[Globals i] getMatchPlayedData];
 	}
-	[table reloadData];
+	[self.tableView reloadData];
 }
 
 - (IBAction)segmentTap:(id)sender
@@ -63,14 +57,14 @@
 		{
 			self.filter = @"Played";
 			self.matches = [[Globals i] getMatchPlayedData];
-			[table reloadData];
+			[self.tableView reloadData];
 			break;
 		}
 		case 1: //Future
 		{
 			self.filter = @"Future";
 			self.matches = [[Globals i] getMatchData];
-			[table reloadData];
+			[self.tableView reloadData];
 			break;
 		}
 		case 2: //Challenge
@@ -79,7 +73,7 @@
 			self.filter = @"Challenge";
             [[Globals i] updateChallengesData];
 			self.matches = [[Globals i] getChallengesData];
-			[table reloadData];
+			[self.tableView reloadData];
 			break;
 		}
 		case 3: //Invite
@@ -87,7 +81,7 @@
 			
 			self.filter = @"Invite";
 			self.matches = [[Globals i] getChallengedData];
-			[table reloadData];
+			[self.tableView reloadData];
 			break;
 		}
 	}
@@ -191,7 +185,7 @@
 		self.filter = @"Invite";
 		[[Globals i] updateChallengedData];
 		self.matches = [[Globals i] getChallengedData];
-		[table reloadData];
+		[self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
 	
 	}

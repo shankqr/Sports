@@ -6,11 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
-@interface FixturesView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+@interface FixturesView : UITableViewController <UIActionSheetDelegate>
 {
-	MainView *mainView;
-	UITableView *table;
 	NSString *filter;
 	NSArray *matches;
 	NSUInteger curDivision;
@@ -20,8 +17,6 @@
 	NSInteger curRound;
 	BOOL workingLeagueFixtures;
 }
-@property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSArray *matches;
 @property (nonatomic, strong) NSString *selected_clubid;

@@ -7,9 +7,13 @@
 //
 
 @class MainView;
+@class StadiumView;
+@class UpgradeView;
 @interface StadiumMap : UIViewController 
 {
     MainView *mainView;
+    StadiumView *stadiumView;
+    UpgradeView *upgradeView;
     NSString *s0;
     NSString *s1;
     NSString *s2;
@@ -59,6 +63,8 @@
     BOOL anim2;
 }
 @property (nonatomic, strong) MainView *mainView;
+@property (nonatomic, strong) StadiumView *stadiumView;
+@property (nonatomic, strong) UpgradeView *upgradeView;
 @property (nonatomic, strong) IBOutlet NSString *s0;
 @property (nonatomic, strong) IBOutlet NSString *s1;
 @property (nonatomic, strong) IBOutlet NSString *s2;
@@ -102,7 +108,6 @@
 @property (readwrite) NSTimeInterval b2s;
 @property (readwrite) NSTimeInterval b3s;
 - (IBAction)changeButton_tap:(id)sender;
-- (IBAction)cancelButton_tap:(id)sender;
 - (IBAction)building1_tap:(id)sender;
 - (IBAction)building2_tap:(id)sender;
 - (IBAction)building3_tap:(id)sender;
@@ -111,7 +116,4 @@
 - (void)updateBuildingTimer;
 - (void)harvestBuilding:(int)type;
 - (void)updateHarverstTimeLeft;
-- (UIImage *)imageByCropping:(UIImage *)imageToCrop toRect:(CGRect)rect;
-- (void)moveImage:(UIImageView *)image animID:(NSString *)animID
-         duration:(NSTimeInterval)duration curve:(int)curve x:(CGFloat)x y:(CGFloat)y;
 @end

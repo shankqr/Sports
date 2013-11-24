@@ -228,7 +228,7 @@
 {
     if (squadSelecter == nil) 
     {
-        squadSelecter = [[SquadSelectView alloc] initWithNibName:@"SquadSelectView" bundle:nil];
+        squadSelecter = [[SquadSelectView alloc] initWithStyle:UITableViewStylePlain];
         squadSelecter.mainView = self.mainView;
         squadSelecter.delegate = self;
     }
@@ -238,9 +238,6 @@
 
 - (void)playerSelected:(NSString *)player
 {
-	[squadSelecter.view removeFromSuperview];
-	
-	
 	self.nwPlayer = player;
 	
 	if([player isEqualToString:@"0"] || [player isEqualToString:self.selectedPlayer])

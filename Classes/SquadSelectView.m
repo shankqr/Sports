@@ -14,41 +14,25 @@
 @implementation SquadSelectView
 @synthesize delegate;
 @synthesize mainView;
-@synthesize table;
 @synthesize players;
-@synthesize totalfilter;
-@synthesize filter;
 @synthesize sel_player_id;
 @synthesize sel_player_name;
 
--(void)updateView
+- (void)viewDidDisappear:(BOOL)animated
 {
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
+	[super viewDidDisappear:animated];
     
-    [table setFrame:CGRectMake(0, HeaderSquadSelect_height, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-HeaderSquadSelect_height)];
-    
-	[Globals i].selectedPlayer = @"0";
-	self.players = [[Globals i] getMySquadData];
-	[table reloadData];
-}
-
-- (void)viewDidLoad
-{
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
-    {
-        [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
-    }
-}
-
-- (IBAction)cancelButton_tap:(id)sender
-{
-	if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
+    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 	{
 		[delegate playerSelected:@"0"];
 	}
+}
+
+-(void)updateView
+{
+	[Globals i].selectedPlayer = @"0";
+	self.players = [[Globals i] getMySquadData];
+	[self.tableView reloadData];
 }
 
 #pragma mark Table Data Source Methods
@@ -103,6 +87,8 @@
 {
 	if(buttonIndex == 1)
 	{
+        [[Globals i] closeTemplate];
+        
 		if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 		{
 			[delegate playerSelected:self.sel_player_id];

@@ -121,6 +121,16 @@ static const NSInteger TagOffset = 1000;
             rect.size.width = self.view.bounds.size.width;
             rect.size.height = UIScreen.mainScreen.bounds.size.height - rect.origin.y - SCREEN_OFFSET_BOTTOM;
         }
+        if (frameType == 2) //Fullscreen and no close button
+        {
+            rect.origin.x = 0;
+            rect.origin.y = 0;
+            rect.size.width = self.view.bounds.size.width;
+            rect.size.height = UIScreen.mainScreen.bounds.size.height;
+            
+            closeButton.enabled = NO;
+            closeButton.hidden = YES;
+        }
         if (frameType == 3) //Dialog box style
         {
             rect.origin.x = 25.0f + CELL_CONTENT_MARGIN;
@@ -246,8 +256,6 @@ static const NSInteger TagOffset = 1000;
 
 - (void)setViewControllers:(NSArray *)newViewControllers
 {
-	//NSAssert([newViewControllers count] >= 2, @"TemplateController requires at least two view controllers");
-    
 	UIViewController *oldSelectedViewController = self.selectedViewController;
     
 	// Remove the old child view controllers.
@@ -263,11 +271,17 @@ static const NSInteger TagOffset = 1000;
 	// re-select the previously selected view controller.
 	NSUInteger newIndex = [_viewControllers indexOfObject:oldSelectedViewController];
 	if (newIndex != NSNotFound)
+    {
 		_selectedIndex = newIndex;
+    }
 	else if (newIndex < [_viewControllers count])
+    {
 		_selectedIndex = newIndex;
+    }
 	else
+    {
 		_selectedIndex = 0;
+    }
     
 	// Add the new child view controllers.
 	for (UIViewController *viewController in _viewControllers)

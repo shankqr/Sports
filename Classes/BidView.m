@@ -238,10 +238,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     
-	
-	
-	[mainView updateHeader];
-	[self.view removeFromSuperview];
+	[[Globals i] closeTemplate];
 }
 
 - (IBAction)cancelButton_tap:(id)sender

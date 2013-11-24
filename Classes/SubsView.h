@@ -36,7 +36,6 @@
 #import "SquadSelectView.h"
 
 @class MainView;
-@class SquadSelectView;
 @interface SubsView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate>
 {
 	MainView *mainView;

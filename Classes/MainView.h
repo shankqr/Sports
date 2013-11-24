@@ -16,8 +16,6 @@
 @class Header;
 @class JobsView;
 @class ClubView;
-@class StadiumView;
-@class UpgradeView;
 @class StadiumMap;
 @class FansView;
 @class FinanceView;
@@ -48,8 +46,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 {
 	Header *header;
 	JobsView *jobsView;
-	StadiumView *stadiumView;
-    UpgradeView *upgradeView;
     StadiumMap *stadiumMap;
 	FansView *fansView;
 	FinanceView *financeView;
@@ -95,8 +91,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) IBOutlet UITableView *mainTableView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
-@property (nonatomic, strong) StadiumView *stadiumView;
-@property (nonatomic, strong) UpgradeView *upgradeView;
 @property (nonatomic, strong) StadiumMap *stadiumMap;
 @property (nonatomic, strong) FansView *fansView;
 @property (nonatomic, strong) FinanceView *financeView;
@@ -153,7 +147,5 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)declineChallenge;
 - (void)startLiveMatch;
 - (void)showJobRefill;
-- (void)showStadiumUpgrade;
-- (void)showBuildingUpgrade:(int)type;
 - (void)menuButton_tap:(int)sender;
 @end

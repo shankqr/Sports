@@ -18,11 +18,6 @@
 @synthesize dateLabel;
 @synthesize matchReport;
 
-- (void)viewDidLoad 
-{
-    [super viewDidLoad];
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
