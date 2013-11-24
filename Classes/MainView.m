@@ -912,7 +912,7 @@
 
 - (void)showAlliance
 {
-    if([[[Globals i] wsWorldClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
+    if([[[Globals i] wsClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
     {
         if (allianceView == nil)
         {
@@ -996,7 +996,7 @@
         jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
     }
     
-    [[Globals i] showTemplate:@[jobsView] :@"Jobs" :1];
+    [[Globals i] showTemplate:@[jobsView] :@"Training" :1];
     [self.jobsView updateView];
 }
 
@@ -1354,14 +1354,14 @@
 {
     if (lblChat1 == nil)
     {
-        lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-40, SCREEN_WIDTH, 320)];
-        lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
-        lblChat1.textAlignment = NSTextAlignmentCenter;
+        lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-(70*SCALE_IPAD), SCREEN_WIDTH, (70*SCALE_IPAD))];
+        lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
+        lblChat1.textAlignment = NSTextAlignmentLeft;
         lblChat1.textColor = [UIColor grayColor];
         lblChat1.backgroundColor = [UIColor whiteColor];
         lblChat1.layer.borderColor = [UIColor blackColor].CGColor;
         lblChat1.layer.borderWidth = 2.0;
-        lblChat1.numberOfLines = 3;
+        lblChat1.numberOfLines = 0;
         lblChat1.tag = 999;
         lblChat1.userInteractionEnabled = YES;
         
@@ -1369,9 +1369,21 @@
     }
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    if ([[Globals i] isCurrentView:self])
+    {
+        UITouch *touch = [[event allTouches] anyObject];
+        if (CGRectContainsPoint([lblChat1 frame], [touch locationInView:self.view]))
+        {
+            [[Globals i] showChat];
+        }
+    }
+}
+
 - (void)onTimerChat
 {
-    [NSThread detachNewThreadSelector: @selector(getChat) toTarget:self withObject:nil];
+    [NSThread detachNewThreadSelector:@selector(getChat) toTarget:self withObject:nil];
 }
 
 - (void)getChat
@@ -1406,15 +1418,6 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return Maintable_height;
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = [[event allTouches] anyObject];
-    if (CGRectContainsPoint([lblChat1 frame], [touch locationInView:self.view]))
-    {
-        [[Globals i] showChat];
-    }
 }
 
 - (void)logoutButton

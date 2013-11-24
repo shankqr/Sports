@@ -14,11 +14,6 @@
 #define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_MAINHEADER_Y 65.0f * SCALE_IPAD
 #define SCREEN_OFFSET_DIALOGHEADER_Y 15.0f * SCALE_IPAD
-#define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
-#define R1_FONT_SIZE 14.0f * SCALE_IPAD
-#define R2_FONT_SIZE 13.0f * SCALE_IPAD
-#define R3_FONT_SIZE 10.0f * SCALE_IPAD
-#define C1_FONT_SIZE 13.0f * SCALE_IPAD
 #define CELL_CONTENT_WIDTH (iPad ? 768.0f : 320.0f)
 #define CELL_CONTENT_MARGIN 10.0f * SCALE_IPAD
 #define CELL_CONTENT_Y 3.0f * SCALE_IPAD
@@ -32,33 +27,17 @@
 #define CELL_DEFAULT_HEIGHT 22.0f * SCALE_IPAD
 #define CELL_EMPTY_HEIGHT 10.0f * SCALE_IPAD
 #define ARRAY_FLAGS [NSArray arrayWithObjects: @" ", @"Afghanistan", @"Aland Islands", @"Albania", @"Algeria", @"American Samoa", @"Andorra", @"Angola", @"Anguilla", @"Antarctica", @"Antigua and Barbuda", @"Argentina", @"Armenia", @"Aruba", @"Australia", @"Austria", @"Azerbaijan", @"Bahamas", @"Bahrain", @"Bangladesh", @"Barbados", @"Belarus", @"Belgium", @"Belize", @"Benin", @"Bermuda", @"Bhutan", @"BIOT", @"Bolivia", @"Bosnian", @"Botswana", @"Bouvet Island", @"Brazil", @"British Antarctic Territory", @"British Virgin Islands", @"Brunei", @"Bulgaria", @"Burkina Faso", @"Burma", @"Burundi", @"Cambodia", @"Cameroon", @"Canada", @"Cape Verde", @"Cayman Islands", @"CentralAfricanRepublic", @"Chad", @"Chile", @"China", @"Christmas Island", @"Cocos Islands", @"Colombia", @"Comoros", @"Congo", @"Congo Kinshasa", @"Cook Islands", @"Costa Rica", @"Croatian", @"Cuba", @"Cyprus", @"Czech Republic", @"Denmark", @"Djibouti", @"Dominican Republic", @"Dominicana", @"East Timor", @"Ecuador", @"Egypt", @"El Salvador", @"England", @"Equatorial Guinea", @"Eritrea", @"Estonia", @"Ethiopia", @"European Union", @"Ex Yugoslavia", @"Falkland Islands", @"Faroe Islands", @"Fiji", @"Finland", @"France", @"French Polynesia", @"French Southern Territories", @"Gabon", @"Gambia", @"Georgia", @"Germany", @"Ghana", @"Gibraltar", @"Greece", @"Greenland", @"Grenada", @"Guadeloupe", @"Guam", @"Guatemala", @"Guernsey", @"Guinea Bissau", @"Guinea", @"Guyana", @"Haiti", @"Holy see", @"Honduras", @"Hong Kong", @"Hungary", @"Iceland", @"India", @"Indonesia", @"Iran", @"Iraq", @"Ireland", @"Isle of Man", @"Israel", @"Italy", @"Ivory Coast", @"Jamaica", @"Jan Mayen", @"Japan", @"Jarvis Island", @"Jersey", @"Jordan", @"Kazakhstan", @"Kenya", @"Kiribati", @"Korea", @"Kosovo", @"Kuwait", @"Kyrgyzstan", @"Laos", @"Latvia", @"Lebanon", @"Lesotho", @"Liberia", @"Libya", @"Liechtenstein", @"Lithuania", @"Luxembourg", @"Macau", @"Macedonia", @"Madagascar", @"Malawi", @"Malaysia", @"Maldives", @"Mali", @"Malta", @"Marshall Islands", @"Martinique", @"Mauritania", @"Mauritius", @"Mayotte", @"Mexico", @"Micronesia", @"Moldova", @"Monaco", @"Mongolia", @"Montenegro", @"Montserrat", @"Morocco", @"Mozambique", @"Myanmar", @"Namibia", @"Nauru", @"Nepal", @"Netherlands Antilles", @"Netherlands", @"New Caledonia", @"New Zealand", @"Nicaragua", @"Niger", @"Nigeria", @"Niue", @"Norfolk Island", @"North Korea", @"Northern Ireland", @"Northern Mariana Islands", @"Norway", @"Oman", @"Pakistan", @"Palau", @"Palestinian Territory", @"Panama", @"Papua New Guinea", @"Paraguay", @"Peru", @"Philippines", @"Pitcairn", @"Poland", @"Portugal", @"Puerto Rico", @"Qatar", @"Reunion", @"Romania", @"Russia", @"Rwanda", @"Saint Pierre and Miquelon", @"Saint Vincent and the Grenadines", @"Saint Barthelemy", @"Saint Helena Dependencies", @"Saint Helena", @"Saint Kitts and Nevis", @"Saint Lucia", @"Saint Martin", @"Samoa", @"San Marino", @"Sao Tome and Principe", @"Saudi Arabia", @"Scotland", @"Senegal", @"Serbia", @"Seychelles", @"Sierra Leone", @"Singapore", @"Slovakia", @"Slovenia", @"SMOM", @"Solomon Islands", @"Somalia", @"South Africa", @"South Georgia", @"Spain", @"SPM", @"Sri Lanka", @"Sudan", @"Suriname", @"Svalbard", @"SVG", @"Swaziland", @"Sweden", @"Switzerland", @"Syria", @"Taiwan", @"Tajikistan", @"Tanzania", @"Thailand", @"Timor Leste", @"Togo", @"Tokelau", @"Tonga", @"Trinidad and Tobago", @"Tunisia", @"Turkey", @"Turkmenistan", @"Turks and Caicos Islands", @"Tuvalu", @"Uganda", @"Ukraine", @"United Arab Emirates", @"United Kingdom", @"United States", @"Uruguay", @"Uzbekistan", @"Vanuatu", @"Vatican City", @"Venezuela", @"Vietnam", @"Virgin Islands", @"Wales", @"Wallis and Futuna", @"Western Sahara", @"Yemen", @"Zambia", @"Zimbabwe", nil]
-#define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
-#define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
-#define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
-#define DEFAULT_FONT @"Febrotesk 4F Unicase Bold"
-#define DEFAULT_FONT_SIZE 18.0f * SCALE_IPAD
-#define DEFAULT_FONT_SMALL_SIZE 14.0f * SCALE_IPAD
-#define DEFAULT_FONT_BIG_SIZE 20.0f * SCALE_IPAD
-
-#define STAR_FULL (iPad ? @"star.png" : @"star.png")
-#define STAR_HALF (iPad ? @"halfstar.png" : @"halfstar.png")
+#define STAR_FULL @"star.png"
+#define STAR_HALF @"halfstar.png"
 #define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
 #define HeaderSquadSelect_height (iPad ? 75.0f : 50.0f)
 #define HeaderSquad_height (iPad ? 180.0f : 75.0f)
-#define HeaderStaff_height (iPad ? 180.0f : 100.0f)
-#define HeaderFinance_height (iPad ? 268.0f : 118.0f)
-#define Header_height (iPad ? 180.0f : 75.0f)
-#define Webfooter_y (iPad ? 1370.0f : 780.0f)
 #define Maintable_height (iPad ? 1300.0f : 730.0f)
 #define SLIDE_x (iPad ? 64.0f : 0.0f)
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
 #define SLIDE_width (iPad ? 640.0f : 320.0f)
 #define SLIDE_height (iPad ? 320.0f : 160.0f)
-#define BACK_y (iPad ? 944.0f : 440.0f)
 #define Marquee_height (iPad ? 40.0f : 15.0f)
-#define Marquee_font (iPad ? 36.0f : 16.0f)
-#define Animation_x1 159*SCALE_IPAD
-#define Animation_y1 180*SCALE_IPAD
 #define MatchView_frame_x (iPad ? 545.0f : 210.0f)
 #define MatchView_frame_width (iPad ? 110.0f : 50.0f)
 #define MatchView_frame1_x (iPad ? 110.0f : 50.0f)
@@ -78,7 +57,20 @@
 #define PBAR2_Y (iPad ? 545.0f : 243.0f)
 #define PBAR3_X (iPad ? 820.0f : 367.0f)
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
-#define POSX_DECREASE (iPad ? 48.0f : 4.0f)
+
+#define DEFAULT_FONT @"MLS 2013"
+#define DEFAULT_FONT_SIZE 22.0f * SCALE_IPAD
+#define DEFAULT_FONT_SMALL_SIZE 18.0f * SCALE_IPAD
+#define DEFAULT_FONT_BIG_SIZE 26.0f * SCALE_IPAD
+#define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
+#define R1_FONT_SIZE 18.0f * SCALE_IPAD
+#define R2_FONT_SIZE 17.0f * SCALE_IPAD
+#define R3_FONT_SIZE 15.0f * SCALE_IPAD
+#define C1_FONT_SIZE 16.0f * SCALE_IPAD
+
+#define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
+#define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
+#define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
 #import "MailView.h"
 #import "MailCompose.h"
@@ -111,7 +103,6 @@
 	NSDictionary *wsClubData;
     NSDictionary *wsBaseData;
     NSDictionary *wsWorldData;
-    NSDictionary *wsWorldClubData;
 	NSDictionary *wsClubInfoData;
 	NSMutableArray *wsReportData;
     NSMutableArray *wsMailData;
@@ -229,7 +220,6 @@
 @property (nonatomic, strong) NSDictionary *wsClubData;
 @property (nonatomic, strong) NSDictionary *wsBaseData;
 @property (nonatomic, strong) NSDictionary *wsWorldData;
-@property (nonatomic, strong) NSDictionary *wsWorldClubData;
 @property (nonatomic, strong) NSDictionary *wsClubInfoData;
 @property (nonatomic, strong) NSDictionary *localMailReply;
 @property (nonatomic, strong) NSMutableArray *wsReportData;
@@ -371,7 +361,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)updateMyAchievementsData;
 - (NSString *)getLastChatString;
 - (BOOL)updateClubData;
-- (BOOL)updateWorldClubData;
 - (void)updateClubInfoData:(NSString *)clubId;
 - (void)updateClubInfoFb:(NSString *)fb_id;
 - (NSString *)getLastChatID;
@@ -479,10 +468,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)energizePlayer:(NSString *)player_id;
 - (NSMutableArray *)getMyAchievementsData;
 - (NSString *)doBid:(NSString *)player_id :(NSString *)value;
-- (NSString *)doChat:(NSString *)message;
-- (NSString *)getLast1Chat;
-- (NSString *)getLast2Chat;
-- (NSString *)getLast3Chat;
 - (NSMutableArray *)getProducts;
 - (void)updateCurrentSeasonData;
 - (NSDictionary *)getCurrentSeasonData;
@@ -520,7 +505,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSMutableArray *)getMatchFixturesData;
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup;
 - (NSMutableArray *)getNewsData;
-- (NSMutableArray *)getChatData;
 - (void)updateMarqueeData:(NSString *)division :(NSString *)series :(NSString *)playing_cup;
 - (NSMutableArray *)getMarqueeData;
 - (void)updatePromotionData:(NSString *)division;

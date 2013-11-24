@@ -20,6 +20,19 @@
 @synthesize jobComplete;
 @synthesize jobLevelup;
 
+- (void)viewDidLoad
+{
+    self.wantsFullScreenLayout = YES;
+	offset = 0;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+    
+    [self.table setFrame:CGRectMake(0, 40.0f*SCALE_IPAD, UIScreen.mainScreen.bounds.size.width, self.view.frame.size.height-(40.0f*SCALE_IPAD))];
+}
+
 - (IBAction)rookie_tap:(id)sender
 {
     [bgImage setImage:[UIImage imageNamed:@"job_rookie.png"]];
@@ -69,12 +82,6 @@
     }
 }
 
-- (void)viewDidLoad
-{
-    self.wantsFullScreenLayout = YES;
-	offset = 0;
-}
-
 - (void)showLevelUp
 {
     if (jobLevelup == nil)
@@ -115,8 +122,8 @@
                      }
                      else
                      {
-                         [[Globals i] showToast:[NSString stringWithFormat:@"+ %d XP", xp_gain]
-                                  optionalTitle:@"Training Completed!"
+                         [[Globals i] showToast:[NSString stringWithFormat:@"-%d Energy, +%d XP", energy_used, xp_gain]
+                                  optionalTitle:[NSString stringWithFormat:@"%d Energy Remaining", [Globals i].energy]
                                   optionalImage:@"tick_yes"];
                      }
                      

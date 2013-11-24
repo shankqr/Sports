@@ -177,7 +177,7 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[self.view removeFromSuperview];
+	[[Globals i] closeTemplate];
 }
 
 - (IBAction)okButton_tap:(id)sender
@@ -192,7 +192,8 @@
 	if(bal > pval*2)
 	{
         [NSThread detachNewThreadSelector:@selector(challengeClub) toTarget:self withObject:nil];
-        [self.view removeFromSuperview];
+        
+        [[Globals i] closeTemplate];
     }
 	else
 	{

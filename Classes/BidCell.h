@@ -1,5 +1,5 @@
 //
-//  ChatCell.h
+//  BidCell.h
 //  FFC
 //
 //  Created by Shankar on 3/19/11.

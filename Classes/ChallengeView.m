@@ -109,9 +109,8 @@
 	if(bal > pval)
 	{
 		[Globals i].challengeMatchId = selected_matchid;
-		[mainView startLiveMatch];
-        
         [[Globals i] closeTemplate];
+		[mainView startLiveMatch];
 	}
 	else
 	{
@@ -135,11 +134,10 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
+    [[Globals i] closeTemplate];
 	[mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;
-    
-    [[Globals i] closeTemplate];
 }
 
 @end

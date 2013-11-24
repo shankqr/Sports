@@ -307,7 +307,7 @@
 
 - (void)createButton_tap:(id)sender
 {
-    int alliance_id = [[[Globals i] wsWorldClubData][@"alliance_id"] intValue];
+    int alliance_id = [[[Globals i] wsClubData][@"alliance_id"] intValue];
     
     if (alliance_id > 0)
     {

@@ -157,9 +157,9 @@
 - (void)postAllianceEdit:(NSString *)tvName withDesc:(NSString *)tvDesc
 {
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsWorldClubData][@"club_id"],
+                          [[Globals i] wsClubData][@"club_id"],
                           @"club_id",
-                          [[Globals i] wsWorldClubData][@"alliance_id"],
+                          [[Globals i] wsClubData][@"alliance_id"],
                           @"alliance_id",
                           tvName,
                           @"name",
@@ -206,9 +206,9 @@
              if (balDiamonds >= reqCurrency1.intValue)
              {
                  NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [[Globals i] wsWorldClubData][@"club_id"],
+                                       [[Globals i] wsClubData][@"club_id"],
                                        @"club_id",
-                                       [[Globals i] wsWorldClubData][@"club_name"],
+                                       [[Globals i] wsClubData][@"club_name"],
                                        @"club_name",
                                        tvName,
                                        @"name",
@@ -223,8 +223,7 @@
                           if (success)
                           {
                               [[Globals i] updateClubData]; //Balance Diamonds will be updated
-                              //[[Globals i] updateWorldClubData]; //New alliance id updated
-                                       
+                                        
                               [[Globals i] backTemplate];
                               [[Globals i] closeTemplate];
                                        

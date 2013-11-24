@@ -160,9 +160,9 @@
 - (void)sendMail:(UITextView *)textview
 {
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsWorldClubData][@"club_id"],
+                          [[Globals i] wsClubData][@"club_id"],
                           @"club_id",
-                          [[Globals i] wsWorldClubData][@"club_name"],
+                          [[Globals i] wsClubData][@"club_name"],
                           @"club_name",
                           self.isAlliance,
                           @"is_alliance",

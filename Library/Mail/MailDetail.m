@@ -149,7 +149,7 @@
         else if(indexPath.row == 2) //Delete
         {
             NSString *wsurl = [NSString stringWithFormat:@"%@/DeleteMail/%@/%@",
-                               [[Globals i] world_url], mailData[@"mail_id"], [[Globals i] wsWorldClubData][@"club_id"]];
+                               [[Globals i] world_url], mailData[@"mail_id"], [[Globals i] wsClubData][@"club_id"]];
             
             [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
              {

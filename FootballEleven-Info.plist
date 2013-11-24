@@ -48,13 +48,13 @@
 	<key>IBCustomFonts</key>
 	<dict>
 		<key>Helvetica</key>
-		<string>Febrotesk 4F Unicase Bold</string>
+		<string>MLS 2013</string>
 		<key>Helvetica-Bold</key>
-		<string>Febrotesk 4F Unicase Bold</string>
+		<string>MLS 2013</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
-		<string>nasalization.ttf</string>
+		<string>MLS2013.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>

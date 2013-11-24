@@ -162,8 +162,9 @@
              [[Globals i] updateClubData];
              [[Globals i] winSound];
              
-             //Update Header
-             //[mainView updateHeader];
+             [[Globals i] showToast:[NSString stringWithFormat:@"Rewarded + $%@", rowData[@"reward"]]
+                      optionalTitle:@"Congratulations!"
+                      optionalImage:@"tick_yes"];
          }
      }];
 }
@@ -181,7 +182,6 @@
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.tasks)[row];
 	//NSString *task_name = rowData[@"name"];

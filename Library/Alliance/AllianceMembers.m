@@ -106,7 +106,7 @@
         NSString *r1 = rowData[@"club_name"];
         NSString *c1 = [[Globals i] numberFormat:rowData[@"points"]];
         
-        if([rowData[@"club_id"] isEqualToString:[[Globals i] wsWorldClubData][@"club_id"]]) //You are in this row
+        if([rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are in this row
         {
             return @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row], @"r1": r1, @"c1": c1};
         }
@@ -145,13 +145,13 @@
     {
         NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
         
-        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsWorldClubData][@"club_id"]])
+        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
         {
             selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-            selected_aid = [[NSString alloc] initWithString:[[Globals i] wsWorldClubData][@"alliance_id"]];
+            selected_aid = [[NSString alloc] initWithString:[[Globals i] wsClubData][@"alliance_id"]];
             selected_clubname = rowData[@"club_name"];
 
-            if([aAlliance.leader_id isEqualToString:[[Globals i] wsWorldClubData][@"club_id"]]) //You are the leader
+            if([aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:rowData[@"club_name"]

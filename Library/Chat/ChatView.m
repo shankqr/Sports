@@ -146,13 +146,13 @@
 	if([messageText.text length] > 0)
     {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                              [[Globals i] wsWorldClubData][@"club_id"],
+                              [[Globals i] wsClubData][@"club_id"],
                               @"club_id",
-                              [[Globals i] wsWorldClubData][@"club_name"],
+                              [[Globals i] wsClubData][@"club_name"],
                               @"club_name",
-                              [[Globals i] wsWorldClubData][@"alliance_id"],
+                              [[Globals i] wsClubData][@"alliance_id"],
                               @"alliance_id",
-                              [[Globals i] wsWorldClubData][@"alliance_name"],
+                              [[Globals i] wsClubData][@"alliance_name"],
                               @"alliance_name",
                               messageText.text,
                               @"message",
@@ -165,8 +165,9 @@
         [Globals postServer:dict :@"PostChat" :^(BOOL success, NSData *data){}];
         
         //Show typed text instantly
+        NSString *datenow = [[Globals i] getServerDateTimeString];
         [dict addEntriesFromDictionary:[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                        [[Globals i] getServerDateTimeString],
+                                        datenow,
                                         @"date_posted", nil]];
         if (self.messages != nil)
         {
@@ -208,7 +209,7 @@
 {
     NSDictionary *row1 = (self.messages)[[indexPath row]];
 
-    if([row1[@"club_id"] isEqualToString:[[Globals i] wsWorldClubData][@"club_id"]])
+    if([row1[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
     {
         return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": row1[@"message"], @"r3": [[Globals i] getTimeAgo:row1[@"date_posted"]], @"c1": row1[@"alliance_name"], @"c1_ratio": @"2.5", @"c1_color": @"2"};
     }
@@ -250,7 +251,7 @@
 {
 	NSDictionary *rowData = self.messages[indexPath.row];
 	
-    if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsWorldClubData][@"club_id"]])
+    if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
     {
         selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 	

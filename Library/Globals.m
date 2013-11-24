@@ -27,7 +27,6 @@
 @synthesize loseAudio;
 @synthesize wsProductIdentifiers;
 @synthesize wsClubData;
-@synthesize wsWorldClubData;
 @synthesize wsClubInfoData;
 @synthesize wsReportData;
 @synthesize wsMailData;
@@ -361,12 +360,14 @@ static NSOperationQueue *connectionQueue;
 {
     NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
     [dateFormater setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormater setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+    //[dateFormater setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+    [dateFormater setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss"];
     
     NSDate *localdatetime = [NSDate date];
     NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:offsetServerTimeInterval];
     
-    return [dateFormater stringFromDate:serverdatetime];
+    NSString *datenow = [dateFormater stringFromDate:serverdatetime];
+    return datenow;
 }
 
 - (NSString *)getTimeAgo:(NSString *)datetimestring
@@ -378,7 +379,8 @@ static NSOperationQueue *connectionQueue;
         NSDateFormatter *serverDateFormat = [[NSDateFormatter alloc] init];
         [serverDateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
         [serverDateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        [serverDateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
+        //[serverDateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
+        [serverDateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
         
         NSDate *date1 = [serverDateFormat dateFromString:[NSString stringWithFormat:@"%@ -0000", datetimestring]];
         NSDate *date2 = [NSDate date];
@@ -663,7 +665,7 @@ static NSOperationQueue *connectionQueue;
     }
     chatView.title = @"World";
     
-    if([wsWorldClubData[@"alliance_id"] isEqualToString:@"0"])
+    if([wsClubData[@"alliance_id"] isEqualToString:@"0"])
     {
         [self showTemplate:@[chatView] :@"Chat" :1];
         [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
@@ -680,7 +682,7 @@ static NSOperationQueue *connectionQueue;
         
         [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
         
-        [allianceChatView updateView:[[Globals i] wsAllianceChatFullData] table:@"alliance_chat" a_id:@"0"];
+        [allianceChatView updateView:[[Globals i] wsAllianceChatFullData] table:@"alliance_chat" a_id:wsClubData[@"alliance_id"]];
         allianceChatView.isAllianceChat = @"1";
     }
 }
@@ -725,7 +727,8 @@ static NSOperationQueue *connectionQueue;
 
 - (void)mh_tabBarController:(TemplateView *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
 {
-	NSLog(@"mh_tabBarController %@ didSelectViewController %@ at index %u", tabBarController, viewController, index);
+	//NSLog(@"mh_tabBarController %@ didSelectViewController %@ at index %u", tabBarController, viewController, index);
+    NSLog(@"didSelectViewController %@ (width:%f height:%f)", viewController, viewController.view.frame.size.width, viewController.view.frame.size.height);
 }
 
 - (DynamicCell *)dynamicCell:(UITableView *)tableView rowData:(NSDictionary *)rowData cellWidth:(float)cell_width
@@ -1779,37 +1782,6 @@ static NSOperationQueue *connectionQueue;
 	{
 		return NO;
 	}
-    
-    //Only for sports game
-    wsWorldClubData = wsClubData;
-}
-
-- (BOOL)updateWorldClubData
-{
-	if(!workingWorldClub)
-	{
-		workingWorldClub = YES;
-		NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@/%@",
-                           [self world_url], wsClubData[@"club_id"], wsClubData[@"uid"]];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-		
-		workingWorldClub = NO;
-		
-		if([wsResponse count] > 0)
-		{
-			wsWorldClubData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-			return YES;
-		}
-		else
-		{
-			return NO;
-		}
-	}
-	else
-	{
-		return NO;
-	}
 }
 
 - (void)updateClubInfoData: (NSString *) clubId
@@ -1844,7 +1816,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateBasesData
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetBases/%@",
-					   [self world_url], wsWorldClubData[@"club_id"]];
+					   [self world_url], wsClubData[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsBasesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -2029,7 +2001,7 @@ static NSOperationQueue *connectionQueue;
 		workingAllianceChat = YES;
         
 		NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceChat/%@/%@",
-                           [self world_url], [self getLastAllianceChatID], wsWorldClubData[@"alliance_id"]];
+                           [self world_url], [self getLastAllianceChatID], wsClubData[@"alliance_id"]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)
          {
@@ -2063,8 +2035,8 @@ static NSOperationQueue *connectionQueue;
 		NSString *wsurl = [NSString stringWithFormat:@"%@/GetReport/%@/%@/%@",
                            [self world_url],
                            [self gettLastReportId],
-                           wsWorldClubData[@"club_id"],
-                           wsWorldClubData[@"alliance_id"]];
+                           wsClubData[@"club_id"],
+                           wsClubData[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsReportData = [[NSMutableArray alloc] initWithContentsOfURL:url];
         
@@ -2085,8 +2057,8 @@ static NSOperationQueue *connectionQueue;
 		workingMail = YES;
 		NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
                            [self world_url],
-                           wsWorldClubData[@"club_id"],
-                           wsWorldClubData[@"alliance_id"]];
+                           wsClubData[@"club_id"],
+                           wsClubData[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsMailData = [[NSMutableArray alloc] initWithContentsOfURL:url];
         
@@ -2764,18 +2736,6 @@ static NSOperationQueue *connectionQueue;
 	[NSArray arrayWithContentsOfURL:url];
 }
 
-- (NSString *)doChat:(NSString *)message
-{
-	NSString *encodedMessage = [self urlEnc:message];
-    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
-    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-    
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoChat/%@/%@/%@",
-                       WS_URL, club_id, encodedClubName, encodedMessage];
-    
-    return [NSString stringWithContentsOfURL:[[NSURL alloc] initWithString:wsurl] encoding:NSASCIIStringEncoding error:nil];
-}
-
 - (NSString *)doPost:(NSString *)message
 {
 	NSString *encodedMessage = [self urlEnc:message];
@@ -3244,77 +3204,6 @@ static NSOperationQueue *connectionQueue;
 - (NSMutableArray *)getTrophyData
 {
 	return wsTrophyData;
-}
-
-- (NSString *)getLast1Chat
-{
-    int i = [wsChatFullData count];
-    if (i==0)
-    {
-        return @"0"; //tells server to fetch most current
-    }
-    else
-    {
-        NSDictionary *rowData = wsChatFullData[i-1];
-        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
-                             rowData[@"club_name"],
-                             rowData[@"message"]];
-        return message;
-    }
-}
-
-- (NSString *)getLast2Chat
-{
-    int i = [wsChatFullData count];
-    if (i<2)
-    {
-        return @"0"; //tells server to fetch most current
-    }
-    else
-    {
-        NSDictionary *rowData = wsChatFullData[i-2];
-        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
-                             rowData[@"club_name"],
-                             rowData[@"message"]];
-        rowData = wsChatFullData[i-1];
-        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
-                   message,
-                   rowData[@"club_name"],
-                   rowData[@"message"]];
-        return message;
-    }
-}
-
-- (NSString *)getLast3Chat
-{
-    int i = [wsChatFullData count];
-    if (i<3)
-    {
-        return @"0"; //tells server to fetch most current
-    }
-    else
-    {
-        NSDictionary *rowData = wsChatFullData[i-3];
-        NSString *message = [NSString stringWithFormat:@" [%@]: %@",
-                             rowData[@"club_name"],
-                             rowData[@"message"]];
-        rowData = wsChatFullData[i-2];
-        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
-                   message,
-                   rowData[@"club_name"],
-                   rowData[@"message"]];
-        rowData = wsChatFullData[i-1];
-        message = [NSString stringWithFormat:@"%@ \n [%@]: %@",
-                   message,
-                   rowData[@"club_name"],
-                   rowData[@"message"]];
-        return message;
-    }
-}
-
-- (NSMutableArray *)getChatData
-{
-	return wsChatData;
 }
 
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
