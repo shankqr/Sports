@@ -88,6 +88,7 @@
 
 @class BuyView;
 @class WorldsView;
+@class LoadingView;
 @class PlayerCell;
 
 @interface Globals : NSObject
@@ -100,7 +101,7 @@
     AVAudioPlayer *winAudio;
     AVAudioPlayer *loseAudio;
 	NSDictionary *wsProductIdentifiers;
-	NSDictionary *wsClubData;
+	NSMutableDictionary *wsClubData;
     NSDictionary *wsBaseData;
     NSDictionary *wsWorldData;
 	NSDictionary *wsClubInfoData;
@@ -138,15 +139,8 @@
     WorldsView *worldsView;
     DialogBoxView *dialogBox;
     TemplateView *templateView;
+    LoadingView *loadingView;
     UILocalNotification* loginNotification;
-	BOOL workingClub;
-    BOOL workingWorldClub;
-	BOOL workingReport;
-    BOOL workingMail;
-    BOOL workingWall;
-    BOOL workingEvents;
-    BOOL workingChat;
-    BOOL workingAllianceChat;
     
 	NSDictionary *wsCurrentSeasonData;
 	NSDictionary *wsPlayerInfoData;
@@ -168,7 +162,6 @@
 	NSMutableArray *wsPromotionData;
 	NSMutableArray *wsCupScorersData;
 	NSMutableArray *wsCupFixturesData;
-	NSMutableArray *wsAllClubsData;
 	NSMutableArray *wsMapClubsData;
 	NSMutableArray *wsNearClubsData;
 	NSMutableArray *wsPlayerSaleData;
@@ -192,22 +185,6 @@
 	NSInteger selectedSeries;
 	NSInteger workingSquad;
 	NSInteger energy;
-	BOOL workingAllClubs;
-	BOOL workingNews;
-	BOOL workingProducts;
-	BOOL workingPlayerSale;
-	BOOL workingCoach;
-	BOOL workingMatchFuture;
-	BOOL workingMatchPlayed;
-	BOOL workingChallenges;
-	BOOL workingChallenged;
-	BOOL workingLeague;
-	BOOL workingPromotion;
-	BOOL workingLeagueScorers;
-	BOOL workingLeagueFixtures;
-	BOOL workingCupFixtures;
-	BOOL workingCupScorers;
-    BOOL workingAllianceCupFixtures;
 }
 @property (nonatomic, strong) NSMutableArray *viewControllerStack;
 @property (nonatomic, strong) AVAudioPlayer *buttonAudio;
@@ -216,7 +193,7 @@
 @property (nonatomic, strong) AVAudioPlayer *winAudio;
 @property (nonatomic, strong) AVAudioPlayer *loseAudio;
 @property (nonatomic, strong) NSDictionary *wsProductIdentifiers;
-@property (nonatomic, strong) NSDictionary *wsClubData;
+@property (nonatomic, strong) NSMutableDictionary *wsClubData;
 @property (nonatomic, strong) NSDictionary *wsBaseData;
 @property (nonatomic, strong) NSDictionary *wsWorldData;
 @property (nonatomic, strong) NSDictionary *wsClubInfoData;
@@ -253,6 +230,7 @@
 @property (nonatomic, strong) WorldsView *worldsView;
 @property (nonatomic, strong) DialogBoxView *dialogBox;
 @property (nonatomic, strong) TemplateView *templateView;
+@property (nonatomic, strong) LoadingView *loadingView;
 @property (nonatomic, strong) UILocalNotification* loginNotification;
 @property (readwrite) NSTimeInterval offsetServerTimeInterval;
 
@@ -281,7 +259,6 @@
 @property (nonatomic, strong) NSMutableArray *wsPromotionData;
 @property (nonatomic, strong) NSMutableArray *wsCupScorersData;
 @property (nonatomic, strong) NSMutableArray *wsCupFixturesData;
-@property (nonatomic, strong) NSMutableArray *wsAllClubsData;
 @property (nonatomic, strong) NSMutableArray *wsMapClubsData;
 @property (nonatomic, strong) NSMutableArray *wsNearClubsData;
 @property (nonatomic, strong) NSMutableArray *wsPlayerSaleData;
@@ -300,7 +277,6 @@
 @property (readwrite) NSInteger selectedSeries;
 @property (readwrite) NSInteger workingSquad;
 @property (readwrite) NSInteger energy;
-@property (readwrite) BOOL workingAllClubs;
 
 typedef void (^returnBlock)(BOOL success, NSData *data);
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
@@ -360,6 +336,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)updateMyAchievementsData;
 - (NSString *)getLastChatString;
 - (BOOL)updateClubData;
+- (void)getServerClubData:(returnBlock)completionBlock;
 - (void)updateClubInfoData:(NSString *)clubId;
 - (void)updateClubInfoFb:(NSString *)fb_id;
 - (NSString *)getLastChatID;
@@ -471,8 +448,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)updateCurrentSeasonData;
 - (NSDictionary *)getCurrentSeasonData;
 - (NSDictionary *)getClubData;
-- (void)updateAllClubsData;
-- (NSMutableArray *)getAllClubsData;
 - (void)updateClubInfoData:(NSString *)clubId;
 - (void)updateClubInfoFb:(NSString *)fb_id;
 - (NSDictionary *)getClubInfoData;
@@ -502,7 +477,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSMutableArray *)getMatchFixturesData;
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup;
 - (NSMutableArray *)getNewsData;
-- (void)updateMarqueeData:(NSString *)division :(NSString *)series :(NSString *)playing_cup;
+- (void)updateMarqueeData;
 - (NSMutableArray *)getMarqueeData;
 - (void)updatePromotionData:(NSString *)division;
 - (NSMutableArray *)getPromotionData;
@@ -533,4 +508,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)updateAllianceCupFixturesData:(NSString *)round;
 - (NSMutableArray *)getAllianceCupFixturesData;
 - (void)showMoreGames;
+- (void)showLoading;
+- (void)removeLoading;
 @end

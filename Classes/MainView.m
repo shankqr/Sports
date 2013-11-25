@@ -118,7 +118,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
-                                                 name:@"UpdateClubData"
+                                                 name:@"UpdateHeader"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -151,7 +151,7 @@
         [self showJobRefill];
     }
     
-    if ([[notification name] isEqualToString:@"UpdateClubData"])
+    if ([[notification name] isEqualToString:@"UpdateHeader"])
     {
         [header updateView];
     }
@@ -178,7 +178,6 @@
              if(status == 1) //Login Success
              {
                  isShowingLogin = NO;
-                 
                  [self loadAllData];
              }
          }];
@@ -187,50 +186,64 @@
 
 - (void)loadAllData
 {
-    [[Globals i] showLoadingAlert];
+    [[Globals i] showLoading];
     
-    if(![[Globals i] updateClubData])
+    [[Globals i] getServerClubData:^(BOOL success, NSData *data)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{ //Update UI on main thread
+         if (success)
+         {
+             //This comes first before display dialog if need to upgrade app
+             [[Globals i] updateProductIdentifiers];
+             
+             [[Globals i] updateMarqueeData];
+             
+             [[Globals i] updateCurrentSeasonData]; //For slides
+             [[Globals i] updateMatchData];
+             [[Globals i] updateMatchPlayedData];
+             [[Globals i] updateChallengesData];
+             [[Globals i] updateChallengedData];
+             
+             if (self.header == nil)
+             {
+                 self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
+                 [self.view addSubview:header.view];
+             }
+             [[Globals i] retrieveEnergy];
+             [header updateView];
+             
+             [self createMarquee];
+             [self showMarquee];
+             
+             [self createChat];
+             if(!chatTimer.isValid)
+             {
+                 chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
+             }
+             
+             [self showChallengeBox];
+             
+             [[Globals i] checkVersion];
+             
+             [[Globals i] removeLoading];
+         }
+         else
+         {
+             [self gotoLogin:NO];
+         }
+         });
+     }];
+    
+    /*
+    if(![[Globals i] updateClubData]) //Super load everything
 	{
 		[self gotoLogin:NO];
 	}
     else
     {
-        //Updates product identifiers and display dialog if need to upgrade app
-        [[Globals i] checkVersion];
-        
-        NSDictionary *wsClubData = [[Globals i] getClubData];
-        [[Globals i] updateMarqueeData
-         :wsClubData[@"division"]
-         :wsClubData[@"series"]
-         :[[Globals i] BoolToBit:wsClubData[@"playing_cup"]]
-         ];
-        
-        [[Globals i] updateCurrentSeasonData];
-        [[Globals i] updateMatchData];
-        [[Globals i] updateMatchPlayedData];
-        [[Globals i] updateChallengesData];
-        [[Globals i] updateChallengedData];
-        
-        if (self.header == nil)
-        {
-            self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
-            [self.view addSubview:header.view];
-        }
-        [[Globals i] retrieveEnergy];
-        [header updateView];
-        
-        [self showMarquee];
-        
-        //Activate Chat
-        if(!chatTimer.isValid)
-        {
-            chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
-        }
-        
-        [self showChallengeBox];
+
     }
-    
-    [[Globals i] removeLoadingAlert];
+    */
 }
 
 -(void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -254,7 +267,7 @@
 {
 	@autoreleasepool {
         
-        if([[Globals i] updateClubData])
+        if([[Globals i] updateClubData]) //After challenge accepted maybe balance and xp + or -
         {
             [[Globals i] updateChallengesData];
             [[Globals i] updateMatchPlayedData];
@@ -264,13 +277,6 @@
                                 waitUntilDone:YES];
         }
     }
-}
-
-- (void)viewDidLoad
-{
-    [self createChat];
-    
-	[self createMarquee];
 }
 
 - (void)showClub
@@ -427,7 +433,7 @@
                                                                error:&error];
     if([returnValue isEqualToString:@"1"])
     {
-        if([[Globals i] updateClubData])
+        if([[Globals i] updateClubData]) //After buying effect
         {
             [[Globals i] showDialog:@"Thank you for supporting our Games!"];
         }
@@ -480,7 +486,7 @@
     
     [[Globals i] showDialog:@"You have upgraded your stadium."];
 	
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //Stadium data updated
     
     [self.stadiumMap updateView];
 	
@@ -497,7 +503,8 @@
     
     [[Globals i] showDialog:@"You have just hired a staff."];
 	
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //Staff data updated
+    
 	[self.staffView updateView];
 	
 	NSString *message = @"I have just hired more staff for my club. Come over and play a match with me.";
@@ -541,7 +548,7 @@
 	
 	if([returnValue isEqualToString:@"1"])
 	{
-		[[Globals i] updateClubData];
+		[[Globals i] updateClubData]; //club_name changed
         
         [[Globals i] showDialog:@"Your club name has been changed successfully."];
 		
@@ -566,10 +573,8 @@
 - (void)buyCoachSuccess
 {
 	[[Globals i] buyCoach:[Globals i].purchasedCoachId];
-    
-    [[Globals i] showDialog:@"A new coach has been assigned to your club."];
 	
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //coach_id updated
 
 	[self.storeCoach forceUpdate];
 	
@@ -582,7 +587,7 @@
 - (void)buyResetClub
 {
 	[[Globals i] resetClub];
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //Club have been reseted
     
     [[Globals i] showDialog:@"Your club has been reset successfully."];
 	
@@ -599,7 +604,7 @@
     
     [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
 	
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //Something has been updated
 	[self resetClubImages];
 }
 
@@ -610,7 +615,7 @@
     
     [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
 	
-	[[Globals i] updateClubData];
+	[[Globals i] updateClubData]; //Something has been updated
 	[self resetClubImages];
 }
 

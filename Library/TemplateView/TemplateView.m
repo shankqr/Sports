@@ -63,13 +63,13 @@ static const NSInteger TagOffset = 1000;
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
-                                                 name:@"UpdateClubData"
+                                                 name:@"UpdateHeader"
                                                object:nil];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
 {
-    if ([[notification name] isEqualToString:@"UpdateClubData"])
+    if ([[notification name] isEqualToString:@"UpdateHeader"])
     {
         [currencyLabel setText:[[Globals i] numberFormat:[[Globals i] wsClubData][@"currency_second"]]];
     }

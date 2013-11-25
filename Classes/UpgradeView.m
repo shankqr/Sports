@@ -129,7 +129,7 @@
 		
 		if([returnValue isEqualToString:@"1"])
 		{
-			if([[Globals i] updateClubData])
+			if([[Globals i] updateClubData]) //Balance and energy deducted for upgrade
 			{
                 [Globals i].energy=[Globals i].energy-10;
                 [[Globals i] storeEnergy];
@@ -145,15 +145,6 @@
                 
                 [[Globals i] closeTemplate];
 			}
-			else
-			{
-				//[mainView showLogin];
-			}
-		}
-		else
-		{
-			//Webservice failed
-			//[mainView showLogin];
 		}
     }
     else

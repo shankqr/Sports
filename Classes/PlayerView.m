@@ -236,7 +236,7 @@
         [squadView forceUpdate];
         
         //Update Header
-        [[Globals i] updateClubData];
+        [[Globals i] updateClubData]; //Diamonds deducted for player rename
         
         NSString *message = [[NSString alloc] initWithFormat:@"I have just renamed my player %@ to %@", squadView.sel_player_name, text];
         NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might sign up the next super star.";
@@ -345,7 +345,7 @@
             [squadView forceUpdate];
             
             //Update Header
-            [[Globals i] updateClubData];
+            [[Globals i] updateClubData]; //Balance added with player sold price
             
             NSString *message = [[NSString alloc] initWithFormat:@"I have just sold my player %@ for $%@", squadView.sel_player_name, squadView.sel_player_halfvalue];
             NSString *extra_desc = @"Always check out the transfer list for new players, who knows you might buy the next super star.";
@@ -379,12 +379,15 @@
         {
             [Globals i].energy = [Globals i].energy-10;
             [[Globals i] storeEnergy];
-            [[Globals i] energizePlayer: squadView.sel_player_id];
+            [[Globals i] energizePlayer:squadView.sel_player_id];
             
             [squadView normalUpdate];
             
             //Update Header
-            [[Globals i] updateClubData];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"UpdateHeader"
+             object:self];
+            //[[Globals i] updateClubData]; //Club energy deducted
             
             [self updateView:(squadView.players)[squadView.selectedRow]];
             
@@ -402,7 +405,9 @@
             [squadView normalUpdate];
             
             //Update Header
-            [[Globals i] updateClubData];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"UpdateHeader"
+             object:self];
             
             [self updateView:(squadView.players)[squadView.selectedRow]];
             
@@ -445,7 +450,7 @@
                 [squadView normalUpdate];
                 
                 //Update Header
-                [[Globals i] updateClubData];
+                [[Globals i] updateClubData]; //Deduct diamonds
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just sent my player %@ to special training.", squadView.sel_player_name];
                 NSString *extra_desc = @"One of your player skill will level up after special training.";
@@ -514,7 +519,7 @@
                 [squadView normalUpdate];
                 
                 //Update Header
-                [[Globals i] updateClubData];
+                [[Globals i] updateClubData]; //Diamonds deducted
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just gave my player %@ a Morale Boost.", squadView.sel_player_name];
                 NSString *extra_desc = @"Your player's morale will increase by 5 after giving a Morale Boost.";

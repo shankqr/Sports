@@ -24,27 +24,31 @@
 - (void)updateView
 {
 	NSDictionary *wsClubData = [[Globals i] getClubData];
-    [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
-	teamspirit.text = [NSString stringWithFormat:@"%d", [wsClubData[@"teamspirit"] intValue]/2];
-    [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
-
-	confidence.text = [NSString stringWithFormat:@"%d", [wsClubData[@"confidence"] intValue]/2];
-    [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
-	
-	NSDictionary *row1 = @{@"coach_id": wsClubData[@"coach_id"],
-                        @"coach_name": wsClubData[@"coach_name"],
-                        @"coach_age": wsClubData[@"coach_age"],
-                        @"coach_desc": wsClubData[@"coach_desc"],
-                        @"coach_salary": wsClubData[@"coach_salary"],
-                        @"coach_value": wsClubData[@"coach_value"],
-                        @"coach_skill": wsClubData[@"coach_skill"],
-                        @"coach_leadership": wsClubData[@"coach_leadership"],
-                        @"coach_star": wsClubData[@"coach_star"]};
-	
-	self.coaches = [[NSMutableArray alloc] initWithObjects:row1, nil];
-	
-	[table reloadData];
-	[self.view setNeedsDisplay];
+    
+    if (wsClubData != nil)
+    {
+        [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
+        teamspirit.text = [NSString stringWithFormat:@"%d", [wsClubData[@"teamspirit"] intValue]/2];
+        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
+        
+        confidence.text = [NSString stringWithFormat:@"%d", [wsClubData[@"confidence"] intValue]/2];
+        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
+        
+        NSDictionary *row1 = @{@"coach_id": wsClubData[@"coach_id"],
+                               @"coach_name": wsClubData[@"coach_name"],
+                               @"coach_age": wsClubData[@"coach_age"],
+                               @"coach_desc": wsClubData[@"coach_desc"],
+                               @"coach_salary": wsClubData[@"coach_salary"],
+                               @"coach_value": wsClubData[@"coach_value"],
+                               @"coach_skill": wsClubData[@"coach_skill"],
+                               @"coach_leadership": wsClubData[@"coach_leadership"],
+                               @"coach_star": wsClubData[@"coach_star"]};
+        
+        self.coaches = [[NSMutableArray alloc] initWithObjects:row1, nil];
+        
+        [table reloadData];
+        [self.view setNeedsDisplay];
+    }
 }
 
 -(IBAction)coachButton_tap:(id)sender

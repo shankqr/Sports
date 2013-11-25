@@ -7,5 +7,9 @@
 //
 
 @interface LoadingView : UIViewController
-
+{
+    NSTimer *loadingTimer;
+}
+@property (nonatomic, strong) NSTimer *loadingTimer;
+- (void)updateView;
 @end

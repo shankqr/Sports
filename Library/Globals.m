@@ -10,6 +10,7 @@
 #import "FriendProtocols.h"
 #import "BuyView.h"
 #import "WorldsView.h"
+#import "LoadingView.h"
 #import "PlayerCell.h"
 #import "DAAppsViewController.h"
 #import "MMProgressHUD.h"
@@ -65,6 +66,7 @@
 @synthesize allianceChatView;
 @synthesize mailCompose;
 @synthesize loginNotification;
+@synthesize loadingView;
 
 @synthesize wsSquadData;
 @synthesize wsMySquadData;
@@ -85,7 +87,6 @@
 @synthesize wsPromotionData;
 @synthesize wsCupScorersData;
 @synthesize wsCupFixturesData;
-@synthesize wsAllClubsData;
 @synthesize wsWallData;
 @synthesize wsEventsData;
 @synthesize wsDonationsData;
@@ -108,7 +109,6 @@
 @synthesize purchasedCoachId;
 @synthesize workingSquad;
 @synthesize wsCupRounds;
-@synthesize workingAllClubs;
 @synthesize energy;
 @synthesize acceptedMatch;
 
@@ -605,8 +605,6 @@ static NSOperationQueue *connectionQueue;
 
 - (void)pushTemplateNav:(UIViewController *)view
 {
-    [self buttonSound];
-    
     [(TemplateView *)[self peekViewControllerStack] pushNav:view];
 }
 
@@ -617,8 +615,6 @@ static NSOperationQueue *connectionQueue;
 
 - (void)closeTemplate
 {
-    [self backSound];
-    
     [(TemplateView *)[self peekViewControllerStack] cleanView];
     [[self peekViewControllerStack].view removeFromSuperview];
     
@@ -639,6 +635,25 @@ static NSOperationQueue *connectionQueue;
     //Disable the Buy button
     templateView.buyButton.hidden = YES;
     templateView.currencyLabel.hidden = YES;
+}
+
+- (void)showLoading
+{
+    if (loadingView == nil)
+    {
+        loadingView = [[LoadingView alloc] init];
+        loadingView.title = @"Loading";
+    }
+    [loadingView updateView];
+    [[self peekViewControllerStack].view addSubview:loadingView.view];
+}
+
+- (void)removeLoading
+{
+    if (loadingView != nil)
+    {
+        [loadingView.view removeFromSuperview];
+    }
 }
 
 - (void)showBuy
@@ -1714,43 +1729,39 @@ static NSOperationQueue *connectionQueue;
 
 - (void)checkVersion
 {
-    NSInteger count = [self.wsProductIdentifiers count];
-    
-    if (count == 0) //Have not fetched latest server settings
+    if (wsProductIdentifiers != nil)
     {
-        [self updateProductIdentifiers];
-    }
-    
-    float latest_version = [wsProductIdentifiers[@"latest_version"] floatValue];
-    float this_version = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] floatValue];
-    
-    if (latest_version > this_version)
-    {
-        [self showDialogBlock:@"New Version Available. Upgrade to latest version?"
-                             :2
-                             :^(NSInteger index, NSString *text)
-         {
-             if(index == 1) //YES
+        float latest_version = [wsProductIdentifiers[@"latest_version"] floatValue];
+        float this_version = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] floatValue];
+        
+        if (latest_version > this_version)
+        {
+            [self showDialogBlock:@"New Version Available. Upgrade to latest version?"
+                                 :2
+                                 :^(NSInteger index, NSString *text)
              {
-                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.wsProductIdentifiers[@"url_app"]]];
-             }
-         }];
+                 if(index == 1) //YES
+                 {
+                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.wsProductIdentifiers[@"url_app"]]];
+                 }
+             }];
+        }
+        
+        [UAAppReviewManager setSignificantEventsUntilPrompt:5];
+        
+        [UAAppReviewManager appLaunched:YES];
+        
+        // The AppID is the only required setup
+        [UAAppReviewManager setAppID:wsProductIdentifiers[@"app_id"]]; // Game
+        
+        // Debug means that it will popup on the next available change
+        //[UAAppReviewManager setDebug:YES];
+        
+        // YES here means it is ok to show, it is the only override to Debug == YES.
+        [UAAppReviewManager userDidSignificantEvent:YES];
+        
+        //[UAAppReviewManager showPrompt];
     }
-    
-    [UAAppReviewManager setSignificantEventsUntilPrompt:5];
-    
-    [UAAppReviewManager appLaunched:YES];
-    
-    // The AppID is the only required setup
-	[UAAppReviewManager setAppID:wsProductIdentifiers[@"app_id"]]; // Game
-    
-    // Debug means that it will popup on the next available change
-    //[UAAppReviewManager setDebug:YES];
-    
-    // YES here means it is ok to show, it is the only override to Debug == YES.
-    [UAAppReviewManager userDidSignificantEvent:YES];
-    
-    //[UAAppReviewManager showPrompt];
 }
 
 - (void)updateProductIdentifiers
@@ -1764,35 +1775,54 @@ static NSOperationQueue *connectionQueue;
 
 - (BOOL)updateClubData
 {
-	if(!workingClub)
-	{
-		workingClub = YES;
-		NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@", 
-					   WS_URL, self.UID];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-		
-		workingClub = NO;
-		
-		if([wsResponse count] > 0)
-		{
-			wsClubData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-			
-            [[NSNotificationCenter defaultCenter]
-             postNotificationName:@"UpdateClubData"
-             object:self];
-            
-            return YES;
-		}
-		else
-		{
-			return NO;
-		}
-	}
-	else 
-	{
-		return NO;
-	}
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
+                   WS_URL, self.UID];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    
+    if([wsResponse count] > 0)
+    {
+        wsClubData = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"UpdateHeader"
+         object:self]; //Update to header and template buy more diamonds
+        
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (void)getServerClubData:(returnBlock)completionBlock
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
+                       WS_URL, self.UID];
+    NSURL *url = [NSURL URLWithString:[wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if (error || !response || !data)
+         {
+             NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
+             completionBlock(NO, nil);
+         }
+         else
+         {
+             NSArray *wsResponse = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+             if([wsResponse count] > 0)
+             {
+                 wsClubData = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+             }
+             
+             completionBlock(YES, data);
+         }
+     }];
 }
 
 - (void)updateClubInfoData: (NSString *) clubId
@@ -1975,11 +2005,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateChatData
 {
-	if(!workingChat)
-	{
-		workingChat = YES;
-        
-        NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat1/%@",
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat1/%@",
                            [self world_url], [self getLastChatID]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)
@@ -1999,19 +2025,12 @@ static NSOperationQueue *connectionQueue;
                      }
                  }
              }
-             
-             workingChat = NO;
          }];
-	}
 }
 
 - (void)updateAllianceChatData
 {
-	if(!workingAllianceChat)
-	{
-		workingAllianceChat = YES;
-        
-		NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceChat/%@/%@",
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceChat/%@/%@",
                            [self world_url], [self getLastAllianceChatID], wsClubData[@"alliance_id"]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)
@@ -2032,18 +2051,12 @@ static NSOperationQueue *connectionQueue;
                      }
                  }
              }
-             
-             workingAllianceChat = NO;
          }];
-	}
 }
 
 - (void)updateReportData
 {
-	if(!workingReport)
-	{
-		workingReport = YES;
-		NSString *wsurl = [NSString stringWithFormat:@"%@/GetReport/%@/%@/%@",
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetReport/%@/%@/%@",
                            [self world_url],
                            [self gettLastReportId],
                            wsClubData[@"club_id"],
@@ -2056,17 +2069,11 @@ static NSOperationQueue *connectionQueue;
             [self settLastReportId:(wsReportData)[0][@"report_id"]];
             [self addLocalReportData:wsReportData];
         }
-        
-		workingReport = NO;
-	}
 }
 
 - (void)updateMailData //Get all mail from mail_id=0 because need to see if there is reply
 {
-	if(!workingMail)
-	{
-		workingMail = YES;
-		NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
                            [self world_url],
                            wsClubData[@"club_id"],
                            wsClubData[@"alliance_id"]];
@@ -2078,9 +2085,6 @@ static NSOperationQueue *connectionQueue;
             [self addLocalMailData:wsMailData];
             [self settLastMailId:(wsMailData)[0][@"mail_id"]];
         }
-        
-		workingMail = NO;
-	}
 }
 
 - (void)updateMailReply:(NSString *)mail_id
@@ -2708,7 +2712,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, trainingId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
-	[self updateClubData];
+    
+	[self updateClubData]; //training_id is set
     
     [self showToast:@"Training Changed for the week" optionalTitle:nil optionalImage:@"tick_yes"];
 }
@@ -2719,7 +2724,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, formationId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
-	[self updateClubData];
+	
+    [self updateClubData]; //formation_id is set
     
     [self showToast:@"Formation Changed" optionalTitle:nil optionalImage:@"tick_yes"];
 
@@ -2731,7 +2737,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, tacticId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
-	[self updateClubData];
+    
+	[self updateClubData]; //tactic_id is set
     
     [self showToast:@"Tactics Changed" optionalTitle:nil optionalImage:@"tick_yes"];
 }
@@ -2742,7 +2749,8 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, self.UID, player_id, formation_pos];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
-	[self updateClubData];
+    
+	[self updateClubData]; //player_id at formation set
     
     [self showToast:@"Player is Set" optionalTitle:nil optionalImage:@"tick_yes"];
 }
@@ -2831,7 +2839,7 @@ static NSOperationQueue *connectionQueue;
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	[NSArray arrayWithContentsOfURL:url];
     
-    [self showToast:@"New Coach Hired" optionalTitle:nil optionalImage:@"tick_yes"];
+    [self showToast:@"A new coach has been assigned to your club." optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)resetClub
@@ -2871,23 +2879,6 @@ static NSOperationQueue *connectionQueue;
 - (NSDictionary *)getClubInfoData
 {
 	return wsClubInfoData;
-}
-
-- (void)updateAllClubsData
-{
-	if(!workingAllClubs)
-	{
-		workingAllClubs = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubsSearch", WS_URL];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsAllClubsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingAllClubs = NO;
-	}
-}
-
-- (NSMutableArray *)getAllClubsData
-{
-	return wsAllClubsData;
 }
 
 - (void)updateSquadData:(NSString *)clubId
@@ -2959,14 +2950,9 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateProducts
 {
-	if(!workingProducts)
-	{
-		workingProducts = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetProducts", WS_URL];
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetProducts", WS_URL];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsProductsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingProducts = NO;
-	}
 }
 
 - (NSMutableArray *)getProducts
@@ -2976,14 +2962,9 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updatePlayerSaleData
 {
-	if(!workingPlayerSale)
-	{
-		workingPlayerSale = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayersBid", WS_URL];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsPlayerSaleData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingPlayerSale = NO;
-	}
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayersBid", WS_URL];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsPlayerSaleData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getPlayerSaleData
@@ -2993,14 +2974,9 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateCoachData
 {
-	if(!workingCoach)
-	{
-		workingCoach = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCoaches", WS_URL];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsCoachData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingCoach = NO;
-	}
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCoaches", WS_URL];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsCoachData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getCoachData
@@ -3038,15 +3014,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateMatchData
 {
-	if(!workingMatchFuture)
-	{
-		workingMatchFuture = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchUpcomings/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchUpcomings/%@",
                            WS_URL, self.UID];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsMatchData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingMatchFuture = NO;
-	}
 }
 
 - (NSMutableArray *)getMatchData
@@ -3056,15 +3027,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateMatchPlayedData
 {
-	if(!workingMatchPlayed)
-	{
-		workingMatchPlayed = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchPlayeds/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchPlayeds/%@",
                            WS_URL, self.UID];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsMatchPlayedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingMatchPlayed = NO;
-	}
 }
 
 - (NSMutableArray *)getMatchPlayedData
@@ -3087,15 +3053,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateChallengesData
 {
-	if(!workingChallenges)
-	{
-		workingChallenges = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallenge/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallenge/%@",
                            WS_URL, self.UID];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsChallengesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingChallenges = NO;
-	}
 }
 
 - (NSMutableArray *)getChallengesData
@@ -3105,15 +3066,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateChallengedData
 {
-	if(!workingChallenged)
-	{
-		workingChallenged = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallengeds/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallengeds/%@",
                            WS_URL, self.UID];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsChallengedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingChallenged = NO;
-	}
 }
 
 - (NSMutableArray *)getChallengedData
@@ -3123,15 +3079,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateLeagueData:(NSString *)division : (NSString *)series
 {
-	if(!workingLeague)
-	{
-		workingLeague = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetSeries/%@/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetSeries/%@/%@",
                            WS_URL, division, series];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsLeagueData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingLeague = NO;
-	}
 }
 
 - (NSMutableArray *)getLeagueData
@@ -3141,15 +3092,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updatePromotionData:(NSString *)division
 {
-	if(!workingPromotion)
-	{
-		workingPromotion = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeaguePromotion/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeaguePromotion/%@",
                            WS_URL, division];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsPromotionData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingPromotion = NO;
-	}
 }
 
 - (NSMutableArray *)getPromotionData
@@ -3159,15 +3105,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateLeagueScorersData:(NSString *)division :(NSString *)top
 {
-	if(!workingLeagueScorers)
-	{
-		workingLeagueScorers = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeagueTopScorers/%@/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeagueTopScorers/%@/%@",
                            WS_URL, division, top];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsLeagueScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingLeagueScorers = NO;
-	}
 }
 
 - (NSMutableArray *)getLeagueScorersData
@@ -3177,15 +3118,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateMatchFixturesData:(NSString *)division :(NSString *)series
 {
-	if(!workingLeagueFixtures)
-	{
-		workingLeagueFixtures = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchFixtures/%@/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchFixtures/%@/%@",
                            WS_URL, division, series];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsMatchFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingLeagueFixtures = NO;
-	}
 }
 
 - (NSMutableArray *)getMatchFixturesData
@@ -3195,15 +3131,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateAllianceCupFixturesData:(NSString *)round
 {
-	if(!workingAllianceCupFixtures)
-	{
-		workingAllianceCupFixtures = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
 						   WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], round];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingAllianceCupFixtures = NO;
-	}
 }
 
 - (NSMutableArray *)getAllianceCupFixturesData
@@ -3226,15 +3157,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
-	if(!workingNews)
-	{
-		workingNews = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
                            WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingNews = NO;
-	}
 }
 
 - (NSMutableArray *)getNewsData
@@ -3244,15 +3170,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateWallData
 {
-	if(!workingWall)
-	{
-		workingWall = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
                            WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingWall = NO;
-	}
 }
 
 - (NSMutableArray *)getWallData
@@ -3262,15 +3183,10 @@ static NSOperationQueue *connectionQueue;
 
 - (void)updateEventsData
 {
-	if(!workingEvents)
-	{
-		workingEvents = YES;
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
+	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
                            WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-		workingEvents = NO;
-	}
 }
 
 - (NSMutableArray *)getEventsData
@@ -3317,10 +3233,10 @@ static NSOperationQueue *connectionQueue;
 	return wsMembersData;
 }
 
-- (void)updateMarqueeData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
+- (void)updateMarqueeData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMarquee/%@/%@/%@/%@",
-                       WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
+                       WS_URL, wsClubData[@"club_id"], wsClubData[@"division"], wsClubData[@"series"], [self BoolToBit:wsClubData[@"playing_cup"]]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }

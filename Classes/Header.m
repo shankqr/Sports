@@ -136,7 +136,7 @@
 	lblEnergyCounter.text = [NSString stringWithFormat:@"%d / %d", [Globals i].energy, energy_max];
 	if([Globals i].energy != energy_max)
 	{
-		lblEnergyTimer.text = [NSString stringWithFormat:@"%ds", energy_seconds];
+		lblEnergyTimer.text = [NSString stringWithFormat:@"%d", energy_seconds];
 	}
 	else
 	{

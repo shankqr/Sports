@@ -196,20 +196,20 @@
 {
     int rowOfButton=[sender tag];
     tid = [NSString stringWithFormat:@"%d", rowOfButton];
+    
     [[Globals i] changeTactic:tid];
-    [[Globals i] updateClubData];
 		
-		NSMutableArray *controllers = [[NSMutableArray alloc] init];
-		for(unsigned i = 0; i < total_tactics; i++)
-		{
-			[controllers addObject:[NSNull null]];
-		}
-		self.viewControllers = controllers;
-		
-		for (UIView *view in self.scrollView.subviews)
-		{
-			[view removeFromSuperview];
-		}
+    NSMutableArray *controllers = [[NSMutableArray alloc] init];
+    for(unsigned i = 0; i < total_tactics; i++)
+    {
+        [controllers addObject:[NSNull null]];
+    }
+    self.viewControllers = controllers;
+    
+    for (UIView *view in self.scrollView.subviews)
+    {
+        [view removeFromSuperview];
+    }
 		
     [self showTactics];
 }

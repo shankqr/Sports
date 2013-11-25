@@ -28,6 +28,8 @@
 
 - (IBAction)ok_tap:(id)sender
 {
+    [[Globals i] updateClubData];
+    
 	[[Globals i] closeTemplate];
 }
 

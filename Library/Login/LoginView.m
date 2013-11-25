@@ -49,7 +49,9 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
-        [self LoadMainView];
+        [self performSelectorOnMainThread:@selector(LoadMainView)
+                               withObject:nil
+                            waitUntilDone:YES];
     }
     else
     {

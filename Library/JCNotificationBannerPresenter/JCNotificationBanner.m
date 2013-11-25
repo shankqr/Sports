@@ -13,7 +13,7 @@
                                   image:(NSString*)_imagename
                              tapHandler:(JCNotificationBannerTapHandlingBlock)_tapHandler
 {
-    return [self initWithTitle:_title message:_message image:_imagename timeout:3.0 tapHandler:_tapHandler];
+    return [self initWithTitle:_title message:_message image:_imagename timeout:1.0 tapHandler:_tapHandler];
 }
 
 

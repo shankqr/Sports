@@ -159,7 +159,7 @@
          {
              [self updateView];
              
-             [[Globals i] updateClubData];
+             [[Globals i] updateClubData]; //Balance + Reward
              [[Globals i] winSound];
              
              [[Globals i] showToast:[NSString stringWithFormat:@"Rewarded + $%@", rowData[@"reward"]]

@@ -88,9 +88,11 @@
     {
         jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
     }
+    
 	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%d", [[Globals i] getLevel]*1000];
 	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%d", [[Globals i] getLevel]*10];
 	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
+    
     [[Globals i] showTemplate:@[jobLevelup] :@"" :0];
 	[jobLevelup updateView];
 }
@@ -107,36 +109,36 @@
          {
              if (success)
              {
-                 if([[Globals i] updateClubData])
+                 NSInteger xp_max = [[Globals i] getXpMax];
+                 
+                 // + XP to clubData
+                 [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%d", [[Globals i] getXp]+xp_gain];
+                 
+                 [Globals i].energy = [Globals i].energy - energy_used;
+                 [[Globals i] storeEnergy];
+                 
+                 NSInteger xp = [[Globals i] getXp];
+                 
+                 if(xp >= xp_max)
                  {
-                     [Globals i].energy = [Globals i].energy - energy_used;
-                     [[Globals i] storeEnergy];
-                     
-                     NSInteger xp = [[Globals i] getXp];
-                     NSInteger xp_max = [[Globals i] getXpMax];
-                     
-                     if(xp >= xp_max)
-                     {
-                         [self showLevelUp];
-                         [[Globals i] winSound];
-                     }
-                     else
-                     {
-                         [[Globals i] showToast:[NSString stringWithFormat:@"-%d Energy, +%d XP", energy_used, xp_gain]
-                                  optionalTitle:[NSString stringWithFormat:@"%d Energy Remaining", [Globals i].energy]
-                                  optionalImage:@"tick_yes"];
-                     }
-                     
-                     int lvl = [(self.jobs)[row][@"Level"] intValue];
-                     int percentincrease = 40 - (lvl*5);
-                     if (percentincrease < 5)
-                     {
-                         percentincrease = 5;
-                     }
-                     [self safeRow:row:percentincrease];
-                     [table reloadData];
-                     [self.view setNeedsDisplay];
+                     [self showLevelUp];
+                     [[Globals i] winSound];
                  }
+                 
+                 [[Globals i] showToast:[NSString stringWithFormat:@"-%d Energy, +%d XP", energy_used, xp_gain]
+                              optionalTitle:[NSString stringWithFormat:@"%d Energy Remaining", [Globals i].energy]
+                              optionalImage:@"tick_yes"];
+                 
+                 int lvl = [(self.jobs)[row][@"Level"] intValue];
+                 int percentincrease = 40 - (lvl*5);
+                 if (percentincrease < 5)
+                 {
+                     percentincrease = 5;
+                 }
+                 [self safeRow:row:percentincrease];
+                 
+                 [self.view setNeedsDisplay];
+                 [table reloadData];
              }
          }];
 	}

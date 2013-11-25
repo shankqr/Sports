@@ -343,7 +343,6 @@
          {
              if (success)
              {
-                 [[Globals i] updateClubData];
                  [[Globals i] showDialog:@"A request to join has been sent to the Leader. You will be informed once accepted."];
              }
          }];
@@ -424,7 +423,7 @@
                   {
                       if (success)
                       {
-                          [[Globals i] updateClubData];
+                          [[Globals i] updateClubData]; //Diamonds - Donation
                           self.aAlliance = nil;
                           [self updateView];
                           

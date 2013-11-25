@@ -560,7 +560,7 @@
     NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
     if([returnValue isEqualToString:@"1"])
     {
-        if([[Globals i] updateClubData])
+        if([[Globals i] updateClubData]) // Balance added
         {
             [UIView beginAnimations:nil context:nil];
             [UIView setAnimationDelegate:self];
@@ -594,15 +594,6 @@
             
             [self updateView];
         }
-        else
-        {
-            //[mainView showLogin];
-        }
-    }
-    else
-    {
-        //Webservice failed
-        //[mainView showLogin];
     }
 }
 

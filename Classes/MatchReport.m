@@ -188,7 +188,7 @@
         
         [[Globals i] fbPublishStory:message :extra_desc :@"match_friendly.png"];
         
-        [[Globals i] updateClubData];
+        [[Globals i] updateClubData]; //Money from bet, xp and level updated
         
         //Display to gamer
         if(![challenge_money isEqualToString:@"0"])
