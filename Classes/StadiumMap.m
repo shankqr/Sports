@@ -74,7 +74,7 @@
     randomCar = [[Globals i] Random_next:1 to:8];
     randomSpeed = [[Globals i] Random_next:4 to:10];
     
-    self.carUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d01.png", randomCar]]];
+    self.carUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)randomCar]]];
     carUp.frame = CGRectMake(-55*SCALE_IPAD, 180*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carUp.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:carUp];
@@ -83,7 +83,7 @@
     randomCar = [[Globals i] Random_next:1 to:8];
     randomSpeed = [[Globals i] Random_next:4 to:10];
     
-    self.carDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d02.png", randomCar]]];
+    self.carDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)randomCar]]];
     carDown.frame = CGRectMake(350*SCALE_IPAD, -55*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carDown.contentMode = UIViewContentModeScaleToFill;
     [self.view addSubview:carDown];
@@ -139,7 +139,7 @@
     [self.stadiumView updateView];
 }
 
-- (void)showBuildingUpgrade:(int)type;
+- (void)showBuildingUpgrade:(NSInteger)type;
 {
     if (upgradeView == nil)
     {
@@ -159,7 +159,7 @@
 }
 
 - (void)moveImage:(UIImageView *)image animID:(NSString *)animID
-         duration:(NSTimeInterval)duration curve:(int)curve x:(CGFloat)x y:(CGFloat)y
+         duration:(NSTimeInterval)duration curve:(NSInteger)curve x:(CGFloat)x y:(CGFloat)y
 {
     [UIView beginAnimations:animID context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -180,7 +180,7 @@
     if ( [animationID isEqualToString:@"CarUp"] ) 
     {
         randomCar = [[Globals i] Random_next:1 to:8];
-        [self.carUp setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d01.png", randomCar]]];
+        [self.carUp setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)randomCar]]];
         carUp.frame = CGRectMake(-55*SCALE_IPAD, 180*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
         [carUp setNeedsDisplay];
         [self.view setNeedsDisplay];
@@ -190,7 +190,7 @@
     if ( [animationID isEqualToString:@"CarDown"] ) 
     {
         randomCar = [[Globals i] Random_next:1 to:8];
-        [self.carDown setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%d02.png", randomCar]]];
+        [self.carDown setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)randomCar]]];
         carDown.frame = CGRectMake(350*SCALE_IPAD, -55*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
         [carDown setNeedsDisplay];
         [self.view setNeedsDisplay];
@@ -260,7 +260,7 @@
     
     if (building1.tag == 0) 
     {
-        int b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+        NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
         if (b1 > 0 && b1s > 1)
         {
             building1TimerLabel.text = [[Globals i] getCountdownString:b1s];
@@ -287,7 +287,7 @@
     
     if (building2.tag == 0) 
     {
-        int b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+        NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
         if (b2 > 0 && b2s > 1)
         {
             building2TimerLabel.text = [[Globals i] getCountdownString:b2s];
@@ -314,7 +314,7 @@
 
     if (building3.tag == 0) 
     {
-        int b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+        NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
         if (b3 > 0 && b3s > 1)
         {
             building3TimerLabel.text = [[Globals i] getCountdownString:b3s];
@@ -354,14 +354,14 @@
     [stadiumMap setImage:[UIImage imageNamed:@"map1.png"]];
     [stadiumPitch setImage:[UIImage imageNamed:@"m1.png"]];
     
-    int s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if (s > 329) 
     {
         s = 329;
     }
     
     //Buildings code
-    int b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if (b1 == 0) 
     {
         [building1 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -375,12 +375,12 @@
         }
         else
         {
-            [building1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_hotel%d.png", b1]] forState:UIControlStateNormal];
+            [building1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_hotel%ld.png", (long)b1]] forState:UIControlStateNormal];
         }
-        building1CashLabel.text = [NSString stringWithFormat:@"+$%d", b1*b1+s];
+        building1CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b1*b1+s];
     }
     
-    int b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if (b2 == 0) 
     {
         [building2 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -394,12 +394,12 @@
         }
         else
         {
-            [building2 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_food%d.png", b2]] forState:UIControlStateNormal];
+            [building2 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_food%ld.png", (long)b2]] forState:UIControlStateNormal];
         }
-        building2CashLabel.text = [NSString stringWithFormat:@"+$%d", b2*s];
+        building2CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b2*s];
     }
     
-    int b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if (b3 == 0) 
     {
         [building3 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -413,108 +413,108 @@
         }
         else
         {
-            [building3 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_office%d.png", b3]] forState:UIControlStateNormal];
+            [building3 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_office%ld.png", (long)b3]] forState:UIControlStateNormal];
         }
-        building3CashLabel.text = [NSString stringWithFormat:@"+$%d", b3*b1+b2+s];
+        building3CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b3*b1+b2+s];
     }
     
     //Stadium code
     indexMap = s-1;
     
-    int indexBack = 100 + (indexMap/8);
-    int indexStage = (indexMap%8);
+    NSInteger indexBack = 100 + (indexMap/8);
+    NSInteger indexStage = (indexMap%8);
     
     switch (indexStage)
     {
         case 0:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 1:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 2:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 3:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 4:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 5:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 6:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         case 7:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack];
             break;
         default:
-            s0 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s1 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s2 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s3 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s4 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s5 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s6 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
-            s7 = [NSString stringWithFormat:@"m%d.png", indexBack+1];
+            s0 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s1 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s2 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s3 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s4 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s5 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s6 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
+            s7 = [NSString stringWithFormat:@"m%ld.png", (long)indexBack+1];
             break;
     }
     
@@ -547,15 +547,15 @@
     building3TimerLabel.text = @"";
 }
 
-- (void)harvestBuilding:(int)type
+- (void)harvestBuilding:(NSInteger)type
 {
     building1TimerLabel.text = @".";
     building2TimerLabel.text = @".";
     building3TimerLabel.text = @".";
     
     NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/HarvestNew/%@/%d/%.0f", 
-                       WS_URL, [[Globals i] UID], type, timeInterval];
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/HarvestNew/%@/%ld/%.0f", 
+                       WS_URL, [[Globals i] UID], (long)type, timeInterval];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
     if([returnValue isEqualToString:@"1"])
@@ -597,7 +597,7 @@
     }
 }
 
-- (void)upgradeBuilding:(int)type
+- (void)upgradeBuilding:(NSInteger)type
 {
     if (type == 1) 
     {
@@ -706,7 +706,7 @@
 
 - (IBAction)building1_tap:(id)sender
 {
-    int b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
 
     if((b1 > 0) && ([building1TimerLabel.text isEqualToString:@""]))
     {
@@ -720,7 +720,7 @@
 
 - (IBAction)building2_tap:(id)sender
 {
-    int b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if((b2 > 0) && ([building2TimerLabel.text isEqualToString:@""]))
     {
         [self harvestBuilding:2];
@@ -733,7 +733,7 @@
 
 - (IBAction)building3_tap:(id)sender
 {
-    int b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     if((b3 > 0) && ([building3TimerLabel.text isEqualToString:@""]))
     {
         [self harvestBuilding:3];

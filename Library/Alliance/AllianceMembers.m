@@ -108,11 +108,11 @@
         
         if([rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are in this row
         {
-            return @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row], @"r1": r1, @"c1": c1};
+            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1};
         }
         else
         {
-            return @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row], @"r1": r1, @"c1": c1, @"i2": @"arrow_right"};
+            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1, @"i2": @"arrow_right"};
         }
     }
 }
@@ -198,7 +198,7 @@
                  [self updateView];
                  
                  NSInteger totalmembers = [aAlliance.total_members integerValue] - 1;
-                 aAlliance.total_members = [NSString stringWithFormat:@"%d", totalmembers];
+                 aAlliance.total_members = [NSString stringWithFormat:@"%ld", (long)totalmembers];
                  
                  [[Globals i] showDialog:@"Success! The Club will be informed in the News that they have been Kicked Out."];
              }

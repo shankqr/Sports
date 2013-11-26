@@ -324,7 +324,7 @@
 
 - (void)joinButton_tap
 {
-    int alliance_id = [[[Globals i] wsClubData][@"alliance_id"] intValue];
+    NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
     
     if (alliance_id > 0)
     {
@@ -407,8 +407,8 @@
      {
          if (index == 1) //OK button is clicked
          {
-             int number = [text intValue];
-             int bal = [[[Globals i] wsClubData][@"currency_second"] intValue];
+             NSInteger number = [text integerValue];
+             NSInteger bal = [[[Globals i] wsClubData][@"currency_second"] integerValue];
              
              if ((number > 0) && (bal >= number))
              {
@@ -416,8 +416,8 @@
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  NSString *club_name = [[Globals i] wsClubData][@"club_name"];
 
-                 NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%d",
-                                    [[Globals i] world_url], alliance_id, club_id, club_name, number];
+                 NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%ld",
+                                    [[Globals i] world_url], alliance_id, club_id, club_name, (long)number];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
                   {
@@ -441,7 +441,7 @@
 
 - (void)upgradeButton_tap
 {
-    int nextLevel = aAlliance.alliance_level.intValue + 1;
+    NSInteger nextLevel = aAlliance.alliance_level.integerValue + 1;
     
     [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance and not from your owned club.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
                                 :2
@@ -460,9 +460,9 @@
 
 - (void)upgradeAlliance
 {
-    int reqDiamonds = aAlliance.alliance_level.intValue + 1;
+    NSInteger reqDiamonds = aAlliance.alliance_level.integerValue + 1;
     
-    if (aAlliance.currency_first.intValue >= reqDiamonds)
+    if (aAlliance.currency_first.integerValue >= reqDiamonds)
     {
         NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceUpgrade/%@/%@",
                            [[Globals i] world_url], aAlliance.alliance_id, aAlliance.leader_id];

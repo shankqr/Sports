@@ -56,9 +56,9 @@
 	}
     else
     {
-        divisionLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedDivision];
-        seriesLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedSeries];
-        maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
+        divisionLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision];
+        seriesLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries];
+        maxseriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[[Globals i] getMaxSeries:[Globals i].selectedDivision]];
     }
 }
 
@@ -81,8 +81,8 @@
 
 -(IBAction)homeButton_tap:(id)sender
 {
-	if(!(([Globals i].selectedDivision == [[[Globals i] getClubData][@"division"] intValue])&&
-		 ([Globals i].selectedSeries == [[[Globals i] getClubData][@"series"] intValue])))
+	if(!(([Globals i].selectedDivision == [[[Globals i] getClubData][@"division"] integerValue])&&
+		 ([Globals i].selectedSeries == [[[Globals i] getClubData][@"series"] integerValue])))
 	{	
 		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getHomeLeagueData) toTarget:self withObject:nil];
@@ -101,7 +101,7 @@
 
 - (void)returnText:(NSString *)text
 {
-	NSUInteger number = [text intValue];
+	NSUInteger number = [text integerValue];
 	
 	if([dialogBox.titleText isEqualToString:@"Series #"])
 	{
@@ -128,7 +128,7 @@
 		{
             [self createDialogBox];
             dialogBox.titleText = @"Series #";
-            dialogBox.whiteText = [NSString stringWithFormat:@"Keyin a series number range 1 to %d", [[Globals i] getMaxSeries:dialogDivision]];
+            dialogBox.whiteText = [NSString stringWithFormat:@"Keyin a series number range 1 to %ld", (long)[[Globals i] getMaxSeries:dialogDivision]];
             dialogBox.dialogType = 5;
             [[[[[self.view superview] superview] superview] superview] insertSubview:dialogBox.view atIndex:7];
             [dialogBox updateView];
@@ -143,14 +143,14 @@
 		NSString *selDiv = [[Globals i] getClubData][@"division"];
 		NSString *selSer = [[Globals i] getClubData][@"series"];
 		
-		[Globals i].selectedDivision = [selDiv intValue];
-		[Globals i].selectedSeries = [selSer intValue];
+		[Globals i].selectedDivision = [selDiv integerValue];
+		[Globals i].selectedSeries = [selSer integerValue];
 		
 		[[Globals i] updateLeagueData:selDiv:selSer];
 		self.leagues = [[Globals i] getLeagueData];
-		divisionLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedDivision];
-		seriesLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedSeries];
-		maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
+		divisionLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision];
+		seriesLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries];
+		maxseriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[[Globals i] getMaxSeries:[Globals i].selectedDivision]];
 		[table reloadData];
 		
 		[[Globals i] removeLoadingAlert];
@@ -161,11 +161,11 @@
 {
 	@autoreleasepool {
 	
-		[[Globals i] updateLeagueData:[NSString stringWithFormat:@"%d", [Globals i].selectedDivision]:[NSString stringWithFormat:@"%d", [Globals i].selectedSeries]];
+		[[Globals i] updateLeagueData:[NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision]:[NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries]];
 		self.leagues = [[Globals i] getLeagueData];
-		divisionLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedDivision];
-		seriesLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedSeries];
-		maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
+		divisionLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision];
+		seriesLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries];
+		maxseriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[[Globals i] getMaxSeries:[Globals i].selectedDivision]];
 		[table reloadData];
 		
 		[[Globals i] removeLoadingAlert];
@@ -218,7 +218,7 @@
 		cell.goaldif.textColor = [UIColor yellowColor];
 		cell.points.textColor = [UIColor yellowColor];
 	}
-	//cell.pos.text = [NSString stringWithFormat:@"%d", row+1];
+	//cell.pos.text = [NSString stringWithFormat:@"%ld", row+1];
 	cell.club.text = rowData[@"club_name"];
 	cell.played.text = rowData[@"Played"];
 	cell.won.text = rowData[@"Win"];

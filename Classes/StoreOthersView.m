@@ -132,7 +132,7 @@
 		[cell.productImage setImage:img];
 	}
 	
-	int g = [rowData[@"product_star"] intValue];
+	NSInteger g = [rowData[@"product_star"] integerValue];
 	switch(g)
 	{
 		case 0:
@@ -333,8 +333,8 @@
 
 - (void)purchaseWithFunds
 {
-    int pval = [self.sel_product_value intValue];
-    int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger pval = [self.sel_product_value integerValue];
+    NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if(pval > bal)
     {
@@ -357,8 +357,8 @@
 
 - (void)purchaseWithDiamonds
 {
-    int pval = [self.sel_product_real intValue];
-    int bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger pval = [self.sel_product_real integerValue];
+    NSInteger bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if(pval > bal)
     {

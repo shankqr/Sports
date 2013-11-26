@@ -83,8 +83,8 @@
         {
             rowData = (self.wsBidList)[[self.wsBidList count]-1];
             bid_value = [rowData[@"bid_value"]stringByReplacingOccurrencesOfString:@"," withString:@""];
-            int auto_input = [bid_value intValue]+10000;
-            NSString *minBid = [NSString stringWithFormat:@"%d", auto_input];
+            NSInteger auto_input = [bid_value integerValue]+10000;
+            NSString *minBid = [NSString stringWithFormat:@"%ld", (long)auto_input];
             messageText.text = minBid;
             minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
         }
@@ -117,8 +117,8 @@
             {
                 rowData = (self.players)[0];
                 bid_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-                int auto_input = [bid_value intValue]+10000;
-                NSString *minBid = [NSString stringWithFormat:@"%d", auto_input];
+                NSInteger auto_input = [bid_value integerValue]+10000;
+                NSString *minBid = [NSString stringWithFormat:@"%ld", (long)auto_input];
                 messageText.text = minBid;
                 minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
 
@@ -179,7 +179,7 @@
     NSString *labelString = [[NSString alloc] initWithFormat:@" TimeLeft %@ ", [[Globals i] getCountdownString:b1s]];
     stopWatchLabel.text = labelString;
     
-    if(((int)b1s % 60) == 0)
+    if(((NSInteger)b1s % 60) == 0)
     {
         [self getNewMessages];
     }
@@ -277,7 +277,7 @@
         b1s = (24*3600);
     }
     
-	if((b1s > 1.0) && ([messageText.text length] > 0) && ([messageText.text intValue] > 0))
+	if((b1s > 1.0) && ([messageText.text length] > 0) && ([messageText.text integerValue] > 0))
     {
         NSDictionary *rowData;
         NSString *bid_value;
@@ -293,10 +293,10 @@
             bid_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
         }
         
-        if([messageText.text intValue] > ([bid_value intValue]+9999))
+        if([messageText.text integerValue] > ([bid_value integerValue]+9999))
         {
-            int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-            if([messageText.text intValue] < bal)
+            NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+            if([messageText.text integerValue] < bal)
             {
                 if([[[Globals i] doBid:self.player_id:messageText.text] isEqualToString:@"1"])
                 {
@@ -319,7 +319,7 @@
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Scout"
-                                  message:[NSString stringWithFormat:@"The minimum bid is $%d", [bid_value intValue]+10000]
+                                  message:[NSString stringWithFormat:@"The minimum bid is $%ld", (long)[bid_value integerValue]+10000]
                                   delegate:self
                                   cancelButtonTitle:@"OK"
                                   otherButtonTitles:nil];

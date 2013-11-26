@@ -37,7 +37,7 @@
 	@autoreleasepool {
 	
 		workingLeagueFixtures = YES;
-		[[Globals i] updateMatchFixturesData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", curSeries]];
+		[[Globals i] updateMatchFixturesData:[NSString stringWithFormat:@"%lu", (unsigned long)curDivision]:[NSString stringWithFormat:@"%ld", (long)curSeries]];
 		[self getTotalRound];
 		[self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
@@ -51,7 +51,7 @@
 	totalRound = 1;
 	for(NSDictionary *rowData in [[Globals i] getMatchFixturesData])
 	{
-		NSInteger thisRound = [rowData[@"season_week"] intValue];
+		NSInteger thisRound = [rowData[@"season_week"] integerValue];
 		
 		if(thisRound > totalRound)
 		{
@@ -65,7 +65,7 @@
 	curRound = 0;
 	for(NSDictionary *rowData in [[Globals i] getMatchFixturesData])
 	{
-		if([rowData[@"season_week"] isEqualToString:[NSString stringWithFormat:@"%d", round]])
+		if([rowData[@"season_week"] isEqualToString:[NSString stringWithFormat:@"%ld", (long)round]])
 		{
 			curRound = curRound + 1;
 		}
@@ -77,7 +77,7 @@
 	NSMutableArray *filteredItems = [NSMutableArray array];
 	for(NSDictionary *rowData in [[Globals i] getMatchFixturesData])
 	{
-		if([rowData[@"season_week"] isEqualToString:[NSString stringWithFormat:@"%d", week]])
+		if([rowData[@"season_week"] isEqualToString:[NSString stringWithFormat:@"%ld", (long)week]])
 		{
 			[filteredItems addObject:rowData];
 		}
@@ -169,7 +169,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [NSString stringWithFormat:@"Round %d  (Division %d Series %d)", section + 1, curDivision, curSeries];
+	return [NSString stringWithFormat:@"Round %ld  (Division %ld Series %ld)", (long)section + 1, (long)curDivision, (long)curSeries];
 }
 
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

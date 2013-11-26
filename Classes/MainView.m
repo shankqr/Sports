@@ -199,9 +199,13 @@
              [[Globals i] updateMarqueeData];
              
              [[Globals i] updateCurrentSeasonData]; //For slides
+             
              [[Globals i] updateMatchData];
+             
              [[Globals i] updateMatchPlayedData];
+             
              [[Globals i] updateChallengesData];
+             
              [[Globals i] updateChallengedData];
              
              if (self.header == nil)
@@ -229,24 +233,17 @@
          }
          else
          {
+             [[Globals i] removeLoading];
+             
              [self gotoLogin:NO];
+             
+             [[Globals i] showDialogError];
          }
          });
      }];
-    
-    /*
-    if(![[Globals i] updateClubData]) //Super load everything
-	{
-		[self gotoLogin:NO];
-	}
-    else
-    {
-
-    }
-    */
 }
 
--(void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
+- (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     NSString *alertMsg;
     
@@ -449,26 +446,26 @@
         //Webservice failed
     }
     
-	if([[[Globals i] gettPurchasedProduct] intValue] < 9)
+	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
 	{
-        if([[[Globals i] gettPurchasedProduct] intValue] != 0)
+        if([[[Globals i] gettPurchasedProduct] integerValue] != 0)
         {
             [self buyStaffSuccess:@"0":json];
         }
 	}
-	else if([[[Globals i] gettPurchasedProduct] intValue] == 9)
+	else if([[[Globals i] gettPurchasedProduct] integerValue] == 9)
 	{
 		[self buyStadiumSuccess:@"0":json];
 	}
-	else if([[[Globals i] gettPurchasedProduct] intValue] == 10)
+	else if([[[Globals i] gettPurchasedProduct] integerValue] == 10)
 	{
 		[self renameClubPurchaseSuccess:@"0":json];
 	}
-	else if([[[Globals i] gettPurchasedProduct] intValue] == 13)
+	else if([[[Globals i] gettPurchasedProduct] integerValue] == 13)
 	{
 		[self buyResetClub];
 	}
-	else if([[[Globals i] gettPurchasedProduct] intValue] == 14)
+	else if([[[Globals i] gettPurchasedProduct] integerValue] == 14)
 	{
         [self refillEnergySuccess:@"0":json];
 	}
@@ -790,7 +787,7 @@
         
         if (highestMatchID > 0)
         {
-            [[Globals i] settAccepted:[NSString stringWithFormat:@"%d", highestMatchID]];
+            [[Globals i] settAccepted:[NSString stringWithFormat:@"%ld", (long)highestMatchID]];
             
             currMatchIndex = 0;
             
@@ -1116,7 +1113,7 @@
 	}
 }
 
--(void)menuButton_tap:(int)sender
+-(void)menuButton_tap:(NSInteger)sender
 {
 	switch(sender)
 	{

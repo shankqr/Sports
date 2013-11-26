@@ -44,7 +44,7 @@
 
 - (IBAction)amateur_tap:(id)sender
 {
-    int level = [[Globals i] getLevel];
+    NSInteger level = [[Globals i] getLevel];
     if(level > 49)
     {
         [bgImage setImage:[UIImage imageNamed:@"job_amateur.png"]];
@@ -64,7 +64,7 @@
 
 - (IBAction)pro_tap:(id)sender
 {
-    int level = [[Globals i] getLevel];
+    NSInteger level = [[Globals i] getLevel];
     if(level > 99)
     {
         [bgImage setImage:[UIImage imageNamed:@"job_pro.png"]];
@@ -89,8 +89,8 @@
         jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
     }
     
-	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%d", [[Globals i] getLevel]*1000];
-	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%d", [[Globals i] getLevel]*10];
+	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%ld", (long)[[Globals i] getLevel]*1000];
+	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%ld", (long)[[Globals i] getLevel]*10];
 	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
     
     [[Globals i] showTemplate:@[jobLevelup] :@"" :0];
@@ -102,8 +102,8 @@
 	if([Globals i].energy >= energy_used)
 	{
 		NSTimeInterval timeInterval = [[NSDate date] timeIntervalSince1970];
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoJobNew/%@/%d/%.0f",
-						   WS_URL, [[Globals i] UID], xp_gain, timeInterval];
+		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoJobNew/%@/%ld/%.0f",
+						   WS_URL, [[Globals i] UID], (long)xp_gain, timeInterval];
 		
         [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
          {
@@ -112,7 +112,7 @@
                  NSInteger xp_max = [[Globals i] getXpMax];
                  
                  // + XP to clubData
-                 [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%d", [[Globals i] getXp]+xp_gain];
+                 [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+xp_gain];
                  
                  [Globals i].energy = [Globals i].energy - energy_used;
                  [[Globals i] storeEnergy];
@@ -125,12 +125,12 @@
                      [[Globals i] winSound];
                  }
                  
-                 [[Globals i] showToast:[NSString stringWithFormat:@"-%d Energy, +%d XP", energy_used, xp_gain]
-                              optionalTitle:[NSString stringWithFormat:@"%d Energy Remaining", [Globals i].energy]
+                 [[Globals i] showToast:[NSString stringWithFormat:@"-%ld Energy, +%ld XP", (long)energy_used, (long)xp_gain]
+                              optionalTitle:[NSString stringWithFormat:@"%ld Energy Remaining", (long)[Globals i].energy]
                               optionalImage:@"tick_yes"];
                  
-                 int lvl = [(self.jobs)[row][@"Level"] intValue];
-                 int percentincrease = 40 - (lvl*5);
+                 NSInteger lvl = [(self.jobs)[row][@"Level"] integerValue];
+                 NSInteger percentincrease = 40 - (lvl*5);
                  if (percentincrease < 5)
                  {
                      percentincrease = 5;
@@ -152,7 +152,7 @@
 
 - (NSInteger)getTotalFriendlyMatch
 {
-	int count = 0;
+	NSInteger count = 0;
     NSMutableArray *friendlyClubs = [[NSMutableArray alloc] init];
 	
 	if([[[Globals i] getMatchPlayedData] count] > 0)
@@ -232,15 +232,15 @@
 - (void)safeRow:(NSInteger)row :(NSInteger)percent
 {
 	NSMutableDictionary *rowData = (self.jobs)[row];
-	int l = [rowData[@"Level"] intValue];
-	int p = [rowData[@"Percent"] intValue] + percent;
+	NSInteger l = [rowData[@"Level"] integerValue];
+	NSInteger p = [rowData[@"Percent"] integerValue] + percent;
 	if (p>99) 
 	{
 		l=l+1;
-		[rowData setValue:[[NSString alloc] initWithFormat:@"%d", l] forKey:@"Level"];
+		[rowData setValue:[[NSString alloc] initWithFormat:@"%ld", (long)l] forKey:@"Level"];
 		p=p-100;
 	}
-	[rowData setValue:[[NSString alloc] initWithFormat:@"%d", p] forKey:@"Percent"];
+	[rowData setValue:[[NSString alloc] initWithFormat:@"%ld", (long)p] forKey:@"Percent"];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:self.jobs forKey:@"jobs1"];
 }
@@ -254,7 +254,7 @@
 	{
 		UIAlertView *alert = [[UIAlertView alloc]
 							  initWithTitle:@"Unique Friendly Match Required"
-							  message:[NSString stringWithFormat:@"Your team has played only %d unique friendly match this week, you require %d unique friendly match to be able to do this training. Get more clubs to challenge you by posting your club name on the review?", self.getTotalFriendlyMatch, reqmatch]
+							  message:[NSString stringWithFormat:@"Your team has played only %ld unique friendly match this week, you require %ld unique friendly match to be able to do this training. Get more clubs to challenge you by posting your club name on the review?", (long)self.getTotalFriendlyMatch, (long)reqmatch]
 							  delegate:self
 							  cancelButtonTitle:@"Cancel"
 							  otherButtonTitles:@"OK", nil];
@@ -262,7 +262,7 @@
 	}
 	else
 	{
-		[self doJob:[(self.jobs)[row][@"Energy"] intValue] :[(self.jobs)[row][@"Reward"] intValue] :row];
+		[self doJob:[(self.jobs)[row][@"Energy"] integerValue] :[(self.jobs)[row][@"Reward"] integerValue] :row];
 	}
 }
 
@@ -301,7 +301,7 @@
 	
     if (row > 0) 
     {
-        if ([(self.jobs)[row-1][@"Level"] intValue] > 9) 
+        if ([(self.jobs)[row-1][@"Level"] integerValue] > 9) 
         {
             cell.unlockLabel.text = @"";
             [cell.trainImage setAlpha:1.0f];

@@ -105,7 +105,7 @@
     {
         NSString *r1 = rowData[@"club_name"];
         
-        return @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row], @"r1": r1, @"i2": @"arrow_right"};
+        return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"i2": @"arrow_right"};
     }
 }
 
@@ -187,7 +187,7 @@
                     [self updateView];
                     
                     NSInteger totalmembers = [aAlliance.total_members integerValue] + 1;
-                    aAlliance.total_members = [NSString stringWithFormat:@"%d", totalmembers];
+                    aAlliance.total_members = [NSString stringWithFormat:@"%ld", (long)totalmembers];
                     
                     [[Globals i] showToast:@"Club Approved!"
                              optionalTitle:nil

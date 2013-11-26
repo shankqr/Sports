@@ -22,13 +22,13 @@
     NSString *myDiv = [[Globals i] getClubData][@"division"];
 	NSString *mySer = [[Globals i] getClubData][@"series"];
 	
-	curDivision = [myDiv intValue];
-	curSeries = [mySer intValue];
+	curDivision = [myDiv integerValue];
+	curSeries = [mySer integerValue];
     
     NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
 	NSString *maxDiv = wsSeasonData[@"league_divisions"];
     
-    maxDivision = [maxDiv intValue];
+    maxDivision = [maxDiv integerValue];
 }
 
 #pragma mark Table Data Source Methods
@@ -91,7 +91,7 @@
                 [[cell subviews][0] setTag:112];
             }
             
-            [cell.divisionLabel setText:[NSString stringWithFormat:@"Division %d (Total Series: %d)", indexPath.row-1, [[Globals i] getMaxSeries:indexPath.row-1] ]];
+            [cell.divisionLabel setText:[NSString stringWithFormat:@"Division %ld (Total Series: %ld)", (long)indexPath.row-1, (long)[[Globals i] getMaxSeries:indexPath.row-1] ]];
             if (curDivision == indexPath.row)
             {
                 if (indexPath.row-1 > 5)
@@ -105,7 +105,7 @@
             }
             else if (curDivision == indexPath.row-1)
             {
-                [cell.markerLabel setText:[NSString stringWithFormat:@"Your team is here at series %d", curSeries]];
+                [cell.markerLabel setText:[NSString stringWithFormat:@"Your team is here at series %ld", (long)curSeries]];
             }
             else if (curDivision == indexPath.row-2)
             {

@@ -201,9 +201,9 @@
              NSDictionary *wspi = [[Globals i] wsProductIdentifiers];
              NSString *reqCurrency1 = wspi[@"alliance_require_currency1"];
              
-             int balDiamonds = [[[Globals i] wsClubData][@"currency_second"] intValue];
+             NSInteger balDiamonds = [[[Globals i] wsClubData][@"currency_second"] integerValue];
              
-             if (balDiamonds >= reqCurrency1.intValue)
+             if (balDiamonds >= reqCurrency1.integerValue)
              {
                  NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
                                        [[Globals i] wsClubData][@"club_id"],

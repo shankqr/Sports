@@ -32,7 +32,7 @@
     CCHmacFinal( &ctx, mac );
     
     p = hexmac;
-    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++ ) {
+    for (NSInteger i = 0; i < CC_MD5_DIGEST_LENGTH; i++ ) {
         snprintf( p, 3, "%02x", mac[ i ] );
         p += 2;
     }

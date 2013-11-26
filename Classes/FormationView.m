@@ -214,9 +214,9 @@
 
 - (void)addPosButton:(NSString *)pos
 			   label:(NSString *)label
-				 tag:(int)tag
-				posx:(int)posx
-				posy:(int)posy
+				 tag:(NSInteger)tag
+				posx:(NSInteger)posx
+				posy:(NSInteger)posy
 {
 	UIImage *buttonBackground = [UIImage imageNamed:@""];
 	UIImage *buttonBackgroundPressed = [UIImage imageNamed:@""];
@@ -461,7 +461,7 @@
 
 -(IBAction)posButton_tap:(id)sender
 {
-	int theTag = [sender tag];//( ( UIControl * )sender ).tag;
+	NSInteger theTag = [sender tag];//( ( UIControl * )sender ).tag;
 	
 	switch(theTag)
 	{

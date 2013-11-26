@@ -8,14 +8,14 @@
 {
     Game *GameController;
 	SPImage *myImage;
-    int team;
-    int side;
+    NSInteger team;
+    NSInteger side;
 }
 @property (nonatomic, strong) Game *GameController;
-@property (nonatomic) int team;
-@property (nonatomic) int side;
-- (id)init:(int)s;
-+ (Goal *)initGoal:(int)s;
+@property (nonatomic) NSInteger team;
+@property (nonatomic) NSInteger side;
+- (id)init:(NSInteger)s;
++ (Goal *)initGoal:(NSInteger)s;
 - (BOOL)checkGoal:(Ball *)ball;
 - (Player *)getClosestPlayer;
 - (SPPoint*)point;

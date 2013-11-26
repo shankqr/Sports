@@ -56,8 +56,8 @@
     NSTimeInterval b1s;
     NSTimeInterval b2s;
     NSTimeInterval b3s;
-    int indexMap;
-    int randomCar;
+    NSInteger indexMap;
+    NSInteger randomCar;
     double randomSpeed;
     BOOL anim1;
     BOOL anim2;
@@ -112,8 +112,8 @@
 - (IBAction)building2_tap:(id)sender;
 - (IBAction)building3_tap:(id)sender;
 - (void)updateView;
-- (void)upgradeBuilding:(int)type;
+- (void)upgradeBuilding:(NSInteger)type;
 - (void)updateBuildingTimer;
-- (void)harvestBuilding:(int)type;
+- (void)harvestBuilding:(NSInteger)type;
 - (void)updateHarverstTimeLeft;
 @end

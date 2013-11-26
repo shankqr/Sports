@@ -22,13 +22,13 @@
     [playerList reloadData];
     self.player_id = [player[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
     
-    moraleLabel.text = [NSString stringWithFormat:@"%d%%", [player[@"happiness"] intValue]/2];
+    moraleLabel.text = [NSString stringWithFormat:@"%ld%%", (long)[player[@"happiness"] integerValue]/2];
     
-    if ([player[@"happiness"] intValue] < 80)
+    if ([player[@"happiness"] integerValue] < 80)
     {
         moraleLabel.textColor = [UIColor redColor];
     }
-    else if ([player[@"happiness"] intValue] < 150)
+    else if ([player[@"happiness"] integerValue] < 150)
     {
         moraleLabel.textColor = [UIColor yellowColor];
     }
@@ -37,12 +37,12 @@
         moraleLabel.textColor = [UIColor greenColor];
     }
     
-    int nation = [player[@"nationality"] intValue];
+    NSInteger nation = [player[@"nationality"] integerValue];
     
     if (nation > 0 && nation < 263)
     {
         nationLabel.text = ARRAY_FLAGS[nation];
-        [flagImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"flag_%d.png", nation]]];
+        [flagImageView setImage:[UIImage imageNamed:[NSString stringWithFormat:@"flag_%ld.png", (long)nation]]];
     }
     else
     {
@@ -85,7 +85,7 @@
             dialogBox.view.tag = 1;
             dialogBox.dialogType = 2;
             
-            int half_value = [squadView.sel_player_value intValue] / 2;
+            NSInteger half_value = [squadView.sel_player_value integerValue] / 2;
             NSNumber* number = @(half_value);
             NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
             [numberFormatter setNumberStyle:kCFNumberFormatterDecimalStyle];
@@ -118,7 +118,7 @@
         [self createDialogBox];
         dialogBox.titleText = @"Assistant Manager";
         dialogBox.whiteText = @"Not enough players";
-        dialogBox.promptText = [NSString stringWithFormat:@"You must have at least %d players left on your team.", minimum_player];
+        dialogBox.promptText = [NSString stringWithFormat:@"You must have at least %ld players left on your team.", (long)minimum_player];
         dialogBox.dialogType = 1;
         [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
@@ -185,7 +185,7 @@
 
 -(IBAction)renameButton_tap:(id)sender
 {
-    int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if(totalDiamonds > 9)
     {
@@ -268,7 +268,7 @@
 
 - (IBAction)improveButton_tap:(id)sender
 {
-    int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if(totalDiamonds > 4)
     {
@@ -301,7 +301,7 @@
 
 - (IBAction)moraleButton_tap:(id)sender
 {
-    int totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if(totalDiamonds > 2)
     {
@@ -357,8 +357,8 @@
             
             dialogBox.titleText = @"Player Sold";
             dialogBox.whiteText = squadView.sel_player_name;
-            dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %d players left on your team.",
-                                    squadView.sel_player_name, squadView.sel_player_halfvalue, squadView.players.count];
+            dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
+                                    squadView.sel_player_name, squadView.sel_player_halfvalue, (unsigned long)squadView.players.count];
             dialogBox.dialogType = 1;
             [[squadView.view superview] insertSubview:dialogBox.view atIndex:17];
             [dialogBox updateView];

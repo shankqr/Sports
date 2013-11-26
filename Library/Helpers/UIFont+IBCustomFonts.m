@@ -50,7 +50,7 @@ static NSDictionary *iBCustomFontsDict;
 +(UIFont*)new_fontWithName:(NSString*)fontName size:(CGFloat)fontSize {
 	return [self new_fontWithName:[iBCustomFontsDict objectForKey:fontName] ?: fontName size:fontSize];
 }
-+(UIFont*)new_fontWithName:(NSString*)fontName size:(CGFloat)fontSize traits:(int)traits {
++(UIFont*)new_fontWithName:(NSString*)fontName size:(CGFloat)fontSize traits:(NSInteger)traits {
 	return [self new_fontWithName:[iBCustomFontsDict objectForKey:fontName] ?: fontName size:fontSize traits:traits];
 }
 

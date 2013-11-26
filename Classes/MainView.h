@@ -147,5 +147,5 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)declineChallenge;
 - (void)startLiveMatch;
 - (void)showJobRefill;
-- (void)menuButton_tap:(int)sender;
+- (void)menuButton_tap:(NSInteger)sender;
 @end

@@ -82,7 +82,7 @@
 		{
 			[Globals i].energy = [Globals i].energy + 1;
 			energy_seconds = 180;
-			lblEnergyCounter.text = [NSString stringWithFormat:@"%d / %d", [Globals i].energy, energy_max];
+			lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)energy_max];
 			[[Globals i] storeEnergy];
 		}
 		else
@@ -97,8 +97,8 @@
 {
     NSDictionary *wsClubData = [[Globals i] getClubData];
 	
-	gold = [[wsClubData[@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-	diamond = [[wsClubData[@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+	gold = [[wsClubData[@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	diamond = [[wsClubData[@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
 	level = [[Globals i] getLevel];
 	xp = [[Globals i] getXp];
 	xp_max = [[Globals i] getXpMax];
@@ -113,8 +113,8 @@
 	}
 	lblName.text = wsClubData[@"club_name"];
 	lblDiamond.text = [[Globals i] numberFormat:wsClubData[@"currency_second"]];
-	lblLevel.text = [NSString stringWithFormat:@"%d", [[Globals i] getLevel]];
-	lblExpCounter.text = [NSString stringWithFormat:@"%d more", xp_max-xp];
+	lblLevel.text = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getLevel]];
+	lblExpCounter.text = [NSString stringWithFormat:@"%ld more", (long)xp_max-(long)xp];
 	
 	float bar = ((float)xp-[[Globals i] getXpMaxBefore]) / ((float)xp_max-[[Globals i] getXpMaxBefore]);
 	pvExp.progress = bar;
@@ -132,11 +132,11 @@
 		[iLogo setImage:[UIImage imageNamed:fname]];
 	}
 	
-	energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-	lblEnergyCounter.text = [NSString stringWithFormat:@"%d / %d", [Globals i].energy, energy_max];
+	energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)energy_max];
 	if([Globals i].energy != energy_max)
 	{
-		lblEnergyTimer.text = [NSString stringWithFormat:@"%d", energy_seconds];
+		lblEnergyTimer.text = [NSString stringWithFormat:@"%ld", (long)energy_seconds];
 	}
 	else
 	{

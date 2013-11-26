@@ -235,13 +235,13 @@
 			label.text = [[rowData[@"home_score"] stringByAppendingString:@"-"] stringByAppendingString:rowData[@"away_score"]];
 			label2.text = rowData[@"club_away_name"];
 			
-			if ([rowData[@"home_score"] intValue] > [rowData[@"away_score"] intValue]) 
+			if ([rowData[@"home_score"] integerValue] > [rowData[@"away_score"] integerValue]) 
 			{
 				label.textColor = [UIColor greenColor];
 				label1.textColor = [UIColor greenColor];
 				label1.text = @"WIN";
 			}
-			else if ([rowData[@"home_score"] intValue] == [rowData[@"away_score"] intValue])
+			else if ([rowData[@"home_score"] integerValue] == [rowData[@"away_score"] integerValue])
 			{
 				label.textColor = [UIColor yellowColor];
 				label1.textColor = [UIColor yellowColor];
@@ -260,13 +260,13 @@
 			label.text = [[rowData[@"away_score"] stringByAppendingString:@"-"] stringByAppendingString:rowData[@"home_score"]];
 			label2.text = rowData[@"club_home_name"];
 			
-			if ([rowData[@"away_score"] intValue] > [rowData[@"home_score"] intValue]) 
+			if ([rowData[@"away_score"] integerValue] > [rowData[@"home_score"] integerValue]) 
 			{
 				label.textColor = [UIColor greenColor];
 				label1.textColor = [UIColor greenColor];
 				label1.text = @"WIN";
 			}
-			else if ([rowData[@"home_score"] intValue] == [rowData[@"away_score"] intValue])
+			else if ([rowData[@"home_score"] integerValue] == [rowData[@"away_score"] integerValue])
 			{
 				label.textColor = [UIColor yellowColor];
 				label1.textColor = [UIColor yellowColor];

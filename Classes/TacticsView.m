@@ -59,7 +59,7 @@
 	[self showTactics];
 }
 
-- (void)loadScrollViewWithPage:(int)page 
+- (void)loadScrollViewWithPage:(NSInteger)page
 {
     if (page < 0) return;
     if (page >= total_tactics) return;
@@ -72,12 +72,12 @@
 		frame.origin.x = (scrollView.frame.size.width * page) + TacticsView_frame_offset;
 		frame.origin.y = TacticsView_frame_y;
 		controller.frame = frame;
-        [controller setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tactic_%d.png", page]]];
+        [controller setImage:[UIImage imageNamed:[NSString stringWithFormat:@"tactic_%ld.png", (long)page]]];
 		viewControllers[page] = controller;
 		
-		int level = [[Globals i] getLevel];
-		int page1 = page+1;
-		int unlocklevel = page1*page1;
+		NSInteger level = [[Globals i] getLevel];
+		NSInteger page1 = page+1;
+		NSInteger unlocklevel = page1*page1;
 		
 		if(unlocklevel > level)
 		{
@@ -91,7 +91,7 @@
             [lockedLogo setImage:[UIImage imageNamed:@"tactic_locked.png"]];
 		
 			UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(10*SCALE_IPAD, 180*SCALE_IPAD, 205*SCALE_IPAD, 30*SCALE_IPAD)];
-			myLabel.text = [NSString stringWithFormat:@"UNLOCK AT LEVEL %d", unlocklevel];
+			myLabel.text = [NSString stringWithFormat:@"UNLOCK AT LEVEL %ld", (long)unlocklevel];
 			[myLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_BIG_SIZE]];
 			myLabel.backgroundColor = [UIColor clearColor];
 			//myLabel.shadowColor = [UIColor grayColor];
@@ -107,7 +107,7 @@
 		}
 		else 
 		{
-			if ([[[Globals i] getClubData][@"tactic"] intValue] != page)
+			if ([[[Globals i] getClubData][@"tactic"] integerValue] != page)
 			{
 				UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
                 [button setImage:[UIImage imageNamed:@"button_accept.png"] forState:UIControlStateNormal];
@@ -152,7 +152,7 @@
     }
     // Switch the indicator when more than 50% of the previous/next page is visible
     CGFloat pageWidth = scrollView.frame.size.width;
-    int page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+    NSInteger page = floor((scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     pageControl.currentPage = page;
 	
     [self loadScrollViewWithPage:page-1];
@@ -181,7 +181,7 @@
 
 - (void)showTactics
 {
-	pageControl.currentPage = [[[Globals i] getClubData][@"tactic"] intValue];
+	pageControl.currentPage = [[[Globals i] getClubData][@"tactic"] integerValue];
 	[self loadScrollViewWithPage:pageControl.currentPage-1];
 	[self loadScrollViewWithPage:pageControl.currentPage];
 	[self loadScrollViewWithPage:pageControl.currentPage+1];
@@ -194,8 +194,8 @@
 
 - (void)buttonPressed:(id)sender
 {
-    int rowOfButton=[sender tag];
-    tid = [NSString stringWithFormat:@"%d", rowOfButton];
+    NSInteger rowOfButton = [sender tag];
+    tid = [NSString stringWithFormat:@"%ld", (long)rowOfButton];
     
     [[Globals i] changeTactic:tid];
 		

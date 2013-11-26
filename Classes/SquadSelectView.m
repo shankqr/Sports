@@ -59,7 +59,7 @@
 	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
 	self.sel_player_name = rowData[@"player_name"];
 	
-	if(([rowData[@"card_red"] intValue] == 1) || ([rowData[@"player_condition"] intValue] == 2))
+	if(([rowData[@"card_red"] integerValue] == 1) || ([rowData[@"player_condition"] integerValue] == 2))
 	{
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Manager"

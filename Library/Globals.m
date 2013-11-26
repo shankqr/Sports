@@ -203,7 +203,7 @@ static NSOperationQueue *connectionQueue;
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%ld", (unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [[Globals i] world_url], service]]];
     [request setHTTPMethod:@"POST"];
@@ -236,7 +236,7 @@ static NSOperationQueue *connectionQueue;
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%ld", (unsigned long)[postData length]];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [[Globals i] world_url], service]]];
     [request setHTTPMethod:@"POST"];
@@ -388,7 +388,7 @@ static NSOperationQueue *connectionQueue;
         NSCalendar *sysCalendar = [NSCalendar currentCalendar];
         
         // Get conversion to months, days, hours, minutes
-        unsigned int unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSSecondCalendarUnit;
+        NSUInteger unitFlags = NSHourCalendarUnit | NSMinuteCalendarUnit | NSDayCalendarUnit | NSMonthCalendarUnit | NSSecondCalendarUnit;
         
         NSDateComponents *breakdownInfo = [sysCalendar components:unitFlags fromDate:date1 toDate:date2 options:0];
         
@@ -400,7 +400,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%d months ago", [breakdownInfo month]];
+                diff = [NSString stringWithFormat:@"%ld months ago", (long)[breakdownInfo month]];
             }
         }
         else if ([breakdownInfo day] > 0)
@@ -411,7 +411,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%d days ago", [breakdownInfo day]];
+                diff = [NSString stringWithFormat:@"%ld days ago", (long)[breakdownInfo day]];
             }
         }
         else if ([breakdownInfo hour] > 0)
@@ -422,7 +422,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%d hours ago", [breakdownInfo hour]];
+                diff = [NSString stringWithFormat:@"%ld hours ago", (long)[breakdownInfo hour]];
             }
         }
         else if ([breakdownInfo minute] > 0)
@@ -433,7 +433,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%d mins ago", [breakdownInfo minute]];
+                diff = [NSString stringWithFormat:@"%ld mins ago", (long)[breakdownInfo minute]];
             }
         }
         else if ([breakdownInfo second] > 0)
@@ -444,7 +444,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%d secs ago", [breakdownInfo second]];
+                diff = [NSString stringWithFormat:@"%ld secs ago", (long)[breakdownInfo second]];
             }
         }
     }
@@ -644,15 +644,23 @@ static NSOperationQueue *connectionQueue;
         loadingView = [[LoadingView alloc] init];
         loadingView.title = @"Loading";
     }
-    [loadingView updateView];
     [[self peekViewControllerStack].view addSubview:loadingView.view];
+    [loadingView updateView];
+}
+
+- (void)growLoading
+{
+    if (loadingView != nil)
+    {
+        [loadingView addBar];
+    }
 }
 
 - (void)removeLoading
 {
     if (loadingView != nil)
     {
-        [loadingView.view removeFromSuperview];
+        [loadingView close];
     }
 }
 
@@ -974,7 +982,7 @@ static NSOperationQueue *connectionQueue;
     {
         //[[UIApplication sharedApplication] cancelAllLocalNotifications];
         NSMutableArray *Arr = [[NSMutableArray alloc] initWithArray:[[UIApplication sharedApplication]scheduledLocalNotifications]];
-        for (int k=0; k<[Arr count]; k++)
+        for (NSInteger k=0; k<[Arr count]; k++)
         {
             UILocalNotification *not = Arr[k];
             NSString *msgString = [not.userInfo valueForKey:@"key"];
@@ -1229,8 +1237,8 @@ static NSOperationQueue *connectionQueue;
     }
     
     self.localMailData = [self gettLocalMailData];
-    int count = [self.localMailData count];
-    int index_to_remove = -1;
+    NSInteger count = [self.localMailData count];
+    NSInteger index_to_remove = -1;
     for (NSUInteger i = 0; i < count; i++)
     {
         if ([localMailData[i][@"mail_id"] isEqualToString:mail_id])
@@ -1249,14 +1257,14 @@ static NSOperationQueue *connectionQueue;
 - (void)replyCounterPlus:(NSString *)mail_id
 {
     self.localMailData = [self gettLocalMailData];
-    int count = [self.localMailData count];
+    NSInteger count = [self.localMailData count];
 
     for (NSUInteger i = 0; i < count; i++)
     {
         if ([localMailData[i][@"mail_id"] isEqualToString:mail_id])
         {
-            int rcounter = [localMailData[i][@"reply_counter"] intValue] + 1;
-            localMailData[i][@"reply_counter"] = [NSString stringWithFormat:@"%d", rcounter];
+            NSInteger rcounter = [localMailData[i][@"reply_counter"] integerValue] + 1;
+            localMailData[i][@"reply_counter"] = [NSString stringWithFormat:@"%ld", (long)rcounter];
             
             [self settLocalMailData:self.localMailData];
         }
@@ -1340,7 +1348,7 @@ static NSOperationQueue *connectionQueue;
     //Add new mails to localMailData
     for (NSInteger i = [rd count]-1; i > -1; i--)
     {
-        if ([rd[i][@"mail_id"] intValue] > [[self gettLastMailId] intValue])
+        if ([rd[i][@"mail_id"] integerValue] > [[self gettLastMailId] integerValue])
         {
             [self.localMailData insertObject:rd[i] atIndex:0];
         }
@@ -1547,38 +1555,38 @@ static NSOperationQueue *connectionQueue;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (int)xpFromLevel:(int)level
+- (NSInteger)xpFromLevel:(NSInteger)level
 {
     return (level-1)*(level-1)*10;
 }
 
-- (int)levelFromXp:(int)xp
+- (NSInteger)levelFromXp:(NSInteger)xp
 {
     return sqrt(xp/10) + 1;
 }
 
-- (int)getXp
+- (NSInteger)getXp
 {
-    int xp = [wsClubData[@"xp"] intValue];
+    NSInteger xp = [wsClubData[@"xp"] integerValue];
     return xp;
 }
 
-- (int)getXpMax
+- (NSInteger)getXpMax
 {
     return [self xpFromLevel:[self getLevel]+1];
 }
 
-- (int)getXpMaxBefore
+- (NSInteger)getXpMaxBefore
 {
     return [self xpFromLevel:[self getLevel]];
 }
 
-- (int)getLevel
+- (NSInteger)getLevel
 {
     return [self levelFromXp:[self getXp]];
 }
 
-- (NSString *)intString:(int)val
+- (NSString *)intString:(NSInteger)val
 {
     NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -1708,14 +1716,14 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)getCountdownString:(NSTimeInterval)differenceSeconds
 {
-    int days = (int)((double)differenceSeconds/(3600.0*24.00));
-    int diffDay = differenceSeconds-(days*3600*24);
-    int hours = (int)((double)diffDay/3600.00);
-    int diffMin = diffDay-(hours*3600);
-    int minutes = (int)(diffMin/60.0);
-    int seconds = diffMin-(minutes*60);
+    NSInteger days = (NSInteger)((double)differenceSeconds/(3600.0*24.00));
+    NSInteger diffDay = differenceSeconds-(days*3600*24);
+    NSInteger hours = (NSInteger)((double)diffDay/3600.00);
+    NSInteger diffMin = diffDay-(hours*3600);
+    NSInteger minutes = (NSInteger)(diffMin/60.0);
+    NSInteger seconds = diffMin-(minutes*60);
     
-    NSString* countdown = [NSString stringWithFormat:@"%02d:%02d:%02d",hours,minutes,seconds];
+    NSString* countdown = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours,(long)minutes,(long)seconds];
     
     return countdown;
 }
@@ -1908,7 +1916,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)getMailBadgeNumber
 {
-	int count = 0;
+	NSInteger count = 0;
 	
 	if([localMailData count] > 0)
 	{
@@ -1926,7 +1934,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)getReportBadgeNumber
 {
-	int count = 0;
+	NSInteger count = 0;
 	
 	if([localReportData count] > 0)
 	{
@@ -1946,7 +1954,7 @@ static NSOperationQueue *connectionQueue;
 {
     NSString *message;
     
-    int i = [wsChatFullData count];
+    NSInteger i = [wsChatFullData count];
     if (i == 0)
     {
         message = @""; //nothing to display
@@ -1977,7 +1985,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)getLastChatID
 {
-    int i = [wsChatFullData count];
+    NSInteger i = [wsChatFullData count];
     if(i == 0)
     {
         return @"0"; //tells server to fetch most current
@@ -1991,7 +1999,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)getLastAllianceChatID
 {
-    int i = [wsAllianceChatFullData count];
+    NSInteger i = [wsAllianceChatFullData count];
     if(i == 0)
     {
         return @"0"; //tells server to fetch most current
@@ -2289,8 +2297,8 @@ static NSOperationQueue *connectionQueue;
 
 - (void)storeEnergy
 {
-    int energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-    int energy_togo = energy_max - energy;
+    NSInteger energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger energy_togo = energy_max - energy;
     if (energy_togo > 0)
     {
         [self scheduleNotification:[[NSDate date] dateByAddingTimeInterval:energy_togo*180] :@"Your energy is full! Train your players and level up now!"];
@@ -2299,7 +2307,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)retrieveEnergy
 {
-	self.energy = [[wsClubData[@"e"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+	self.energy = [[wsClubData[@"e"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
 	[self storeEnergy];
 	
 	return self.energy;
@@ -2331,28 +2339,28 @@ static NSOperationQueue *connectionQueue;
 	NSString *mvalue = [[Globals i] numberFormat:rowData[@"player_value"]];
 	cell.playerValue.text = [NSString stringWithFormat:@"$%@/week (Value: $%@)", salary, mvalue];
 	
-	cell.keeper.text = [NSString stringWithFormat:@"%d", [rowData[@"keeper"] intValue]/2];
-    [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"keeper"] intValue]/10]]];
+	cell.keeper.text = [NSString stringWithFormat:@"%ld", (long)[rowData[@"keeper"] integerValue]/2];
+    [cell.pbkeeper setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"keeper"] integerValue]/10]]];
     
-	cell.defending.text = [NSString stringWithFormat:@"%d", [rowData[@"defend"] intValue]/2];
-    [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"defend"] intValue]/10]]];
+	cell.defending.text = [NSString stringWithFormat:@"%ld", (long)[rowData[@"defend"] integerValue]/2];
+    [cell.pbdefending setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"defend"] integerValue]/10]]];
     
-	cell.playmaking.text = [NSString stringWithFormat:@"%d", [rowData[@"playmaking"] intValue]/2];
-    [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"playmaking"] intValue]/10]]];
+	cell.playmaking.text = [NSString stringWithFormat:@"%ld", (long)[rowData[@"playmaking"] integerValue]/2];
+    [cell.pbplaymaking setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"playmaking"] integerValue]/10]]];
     
-	cell.passing.text = [NSString stringWithFormat:@"%d", [rowData[@"passing"] intValue]/2];
-    [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"passing"] intValue]/10]]];
+	cell.passing.text = [NSString stringWithFormat:@"%ld", (long)[rowData[@"passing"] integerValue]/2];
+    [cell.pbpassing setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"passing"] integerValue]/10]]];
     
-	cell.scoring.text = [NSString stringWithFormat:@"%d", [rowData[@"attack"] intValue]/2];
-    [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"attack"] intValue]/10]]];
+	cell.scoring.text = [NSString stringWithFormat:@"%ld", (long)[rowData[@"attack"] integerValue]/2];
+    [cell.pbscoring setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"attack"] integerValue]/10]]];
     
-	cell.stamina.text = [NSString stringWithFormat:@"%d%%", [rowData[@"fitness"] intValue]/2];
+	cell.stamina.text = [NSString stringWithFormat:@"%ld%%", (long)[rowData[@"fitness"] integerValue]/2];
     
-    if ([rowData[@"fitness"] intValue] < 80)
+    if ([rowData[@"fitness"] integerValue] < 80)
     {
         cell.stamina.textColor = [UIColor redColor];
     }
-    else if ([rowData[@"fitness"] intValue] < 150)
+    else if ([rowData[@"fitness"] integerValue] < 150)
     {
         cell.stamina.textColor = [UIColor yellowColor];
     }
@@ -2364,16 +2372,16 @@ static NSOperationQueue *connectionQueue;
 	cell.card1.backgroundColor = [UIColor clearColor];
 	cell.card2.backgroundColor = [UIColor clearColor];
 	
-	if([rowData[@"card_red"] intValue] == 1)
+	if([rowData[@"card_red"] integerValue] == 1)
 	{
 		cell.card1.backgroundColor = [UIColor redColor];
 	}
-	else if([rowData[@"card_yellow"] intValue] == 2)
+	else if([rowData[@"card_yellow"] integerValue] == 2)
 	{
 		cell.card1.backgroundColor = [UIColor yellowColor];
 		cell.card2.backgroundColor = [UIColor yellowColor];
 	}
-	else if([rowData[@"card_yellow"] intValue] == 1)
+	else if([rowData[@"card_yellow"] integerValue] == 1)
 	{
 		cell.card1.backgroundColor = [UIColor yellowColor];
 	}
@@ -2383,7 +2391,7 @@ static NSOperationQueue *connectionQueue;
 		cell.card2.backgroundColor = [UIColor clearColor];
 	}
 	
-	switch([rowData[@"player_condition"] intValue])
+	switch([rowData[@"player_condition"] integerValue])
 	{
 		case 1:
             [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
@@ -2396,7 +2404,7 @@ static NSOperationQueue *connectionQueue;
 			break;
 	}
     
-    if ([rowData[@"player_condition_days"] intValue] > 0)
+    if ([rowData[@"player_condition_days"] integerValue] > 0)
     {
         cell.condition.text = [NSString stringWithFormat:@"%@ Days", rowData[@"player_condition_days"]];
     }
@@ -2405,12 +2413,12 @@ static NSOperationQueue *connectionQueue;
         cell.condition.text = @"";
     }
 	
-	int pid = [player_id intValue];
-	int f = (pid % 1000);
-	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];
+	NSInteger pid = [player_id integerValue];
+	NSInteger f = (pid % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
-	int g = [rowData[@"player_goals"] intValue];
+	NSInteger g = [rowData[@"player_goals"] integerValue];
 	switch(g)
 	{
 		case 0:
@@ -2929,7 +2937,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)getAchievementsBadge
 {
-	int count = 0;
+	NSInteger count = 0;
 	
 	if([wsMyAchievementsData count] > 0)
 	{

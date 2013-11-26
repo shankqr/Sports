@@ -44,7 +44,7 @@
 						wsMatchData[@"away_score"],
 						wsMatchData[@"club_away_name"]];
 	
-	switch([wsMatchData[@"weather_id"] intValue])
+	switch([wsMatchData[@"weather_id"] integerValue])
 	{
 		case 0:
 			[weatherImage setImage:[UIImage imageNamed:@"weather0.png"]];
@@ -90,7 +90,7 @@
 							wsMatchData[@"away_score"],
 							wsMatchData[@"club_away_name"]];
 		
-		switch([wsMatchData[@"weather_id"] intValue])
+		switch([wsMatchData[@"weather_id"] integerValue])
 		{
 			case 0:
 				[weatherImage setImage:[UIImage imageNamed:@"weather0.png"]];
@@ -153,20 +153,20 @@
         NSString *challenge_win = wsMatchData[@"challenge_win"];
         NSString *challenge_lose = wsMatchData[@"challenge_lose"];
         
-        int enemy_club_score = [enemy_score intValue];
-        int my_club_score = [my_score intValue];
+        NSInteger enemy_club_score = [enemy_score integerValue];
+        NSInteger my_club_score = [my_score integerValue];
         
         NSString *extra_desc = [NSString stringWithFormat:@"There were %@ spectators and ticket sales came to $%@. ", [[Globals i] numberFormat:spectators], [[Globals i] numberFormat:ticket_sales]];
         NSString *message = @"";
         NSString *challenge_money = @"0";
         if(my_club_score == enemy_club_score) //DRAW
         {
-            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and draw %d - %d", my_club, enemy_club, my_club_score, enemy_club_score];
+            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and draw %ld - %ld", my_club, enemy_club, (long)my_club_score, (long)enemy_club_score];
         }
         if(my_club_score > enemy_club_score) //WIN
         {
-            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and won %d - %d", my_club, enemy_club, my_club_score, enemy_club_score];
-            int money_win = [[challenge_win stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and won %ld - %ld", my_club, enemy_club, (long)my_club_score, (long)enemy_club_score];
+            NSInteger money_win = [[challenge_win stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
             if (money_win>0)
             {
                 challenge_money = [NSString stringWithFormat:@"They paid us $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_win]];
@@ -176,8 +176,8 @@
         }
         if(my_club_score < enemy_club_score) //LOSE
         {
-            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and lose %d - %d", my_club, enemy_club, my_club_score, enemy_club_score];
-            int money_lose = [[challenge_lose stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+            message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and lose %ld - %ld", my_club, enemy_club, (long)my_club_score, (long)enemy_club_score];
+            NSInteger money_lose = [[challenge_lose stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
             if (money_lose>0)
             {
                 challenge_money = [NSString stringWithFormat:@"We paid them $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_lose]];

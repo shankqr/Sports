@@ -144,7 +144,7 @@
 {
     [[Globals i] moneySound];
     
-    int i = [sender tag];
+    NSInteger i = [sender tag];
     NSDictionary *rowData = (self.tasks)[i];
     NSString *achievement_type_id = rowData[@"achievement_type_id"];
     NSString *achievement_id = rowData[@"achievement_id"];

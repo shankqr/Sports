@@ -52,7 +52,7 @@
     {
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
         {
-            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", [[Globals i] getAchievementsBadge]]
+            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
                                                    withStringColor:[UIColor whiteColor]
                                                     withInsetColor:[UIColor redColor]
                                                     withBadgeFrame:YES
@@ -64,7 +64,7 @@
         }
         else
         {
-            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%d", [[Globals i] getAchievementsBadge]]
+            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
                                                    withStringColor:[UIColor whiteColor]
                                                     withInsetColor:[UIColor redColor]
                                                     withBadgeFrame:YES
@@ -92,7 +92,7 @@
     if ([[Globals i] getAchievementsBadge] > 0)
     {
         [self createAchievementBadges];
-        [achievementsBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%d", [[Globals i] getAchievementsBadge]]];
+        [achievementsBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]];
         [achievementsBadge setHidden:NO];
     }
     else

@@ -12,9 +12,9 @@
     Player_hockey *movingToObj;
     SPPoint *vector;    
     SPPoint *movingTo;
-    int rotation;
-    int team;
-    int steps;    
+    NSInteger rotation;
+    NSInteger team;
+    NSInteger steps;    
     double xx;
     double yy;
     double maxSpeed;
@@ -32,8 +32,8 @@
 @property (nonatomic, strong) Player_hockey *movingToObj;
 @property (nonatomic, strong) SPPoint *vector;
 @property (nonatomic, strong) SPPoint *movingTo;
-@property (nonatomic) int team;
-@property (nonatomic) int steps;
+@property (nonatomic) NSInteger team;
+@property (nonatomic) NSInteger steps;
 @property (nonatomic) double xx;
 @property (nonatomic) double yy;
 @property (nonatomic) double maxSpeed;

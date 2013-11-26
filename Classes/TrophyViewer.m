@@ -63,7 +63,7 @@
 	NSDictionary *rowData = (self.trophies)[row];
 	cell.productValue.text = rowData[@"name"];
 	cell.productDesc.text = rowData[@"title"];
-	[cell.productImage setImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"t%d.png", [rowData[@"type"] intValue]]]];
+	[cell.productImage setImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"t%ld.png", (long)[rowData[@"type"] integerValue]]]];
 	cell.backgroundColor = [UIColor clearColor];
     
 	return cell;

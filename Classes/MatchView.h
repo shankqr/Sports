@@ -19,7 +19,7 @@
 	MatchLive *matchLive;
 	BOOL workingChallenged;
 	ChallengeView *challengeBox;
-    int selected_row;
+    NSInteger selected_row;
 }
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) NSString *filter;

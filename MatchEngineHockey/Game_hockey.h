@@ -37,9 +37,9 @@
     NSMutableArray *players;
     NSMutableArray *highlights;
     NSMutableDictionary *highlight;
-    int num;
-	int goalsHome;
-	int goalsAway;
+    NSInteger num;
+	NSInteger goalsHome;
+	NSInteger goalsAway;
     double seconds; 
     double frame;
     double frameTime;
@@ -80,7 +80,7 @@
 @property (nonatomic, strong) NSMutableDictionary *highlight;
 - (void)onEnterFrame:(SPEnterFrameEvent *)event;
 - (void)ball_out;
-- (void)teamDraw:(int)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession;
+- (void)teamDraw:(NSInteger)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession;
 - (void)clearObservers;
 - (void)getBall;
 - (void)startHighlight;

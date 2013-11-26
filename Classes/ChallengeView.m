@@ -65,7 +65,7 @@
 	}
 }
 
-- (void)viewChallenge:(int)selected_row
+- (void)viewChallenge:(NSInteger)selected_row
 {
     currMatchIndex = selected_row;
     self.matches = [[Globals i] getChallengesData];
@@ -104,8 +104,8 @@
 
 - (void)confirmPurchase
 {
-	int pval = [[(self.matches)[0][@"challenge_lose"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-	int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+	NSInteger pval = [[(self.matches)[0][@"challenge_lose"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
 	if(bal > pval)
 	{
 		[Globals i].challengeMatchId = selected_matchid;

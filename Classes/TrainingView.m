@@ -28,11 +28,11 @@
     if (wsClubData != nil)
     {
         [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
-        teamspirit.text = [NSString stringWithFormat:@"%d", [wsClubData[@"teamspirit"] intValue]/2];
-        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"teamspirit"] intValue]/10]]];
+        teamspirit.text = [NSString stringWithFormat:@"%ld", (long)[wsClubData[@"teamspirit"] integerValue]/2];
+        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubData[@"teamspirit"] integerValue]/10]]];
         
-        confidence.text = [NSString stringWithFormat:@"%d", [wsClubData[@"confidence"] intValue]/2];
-        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [wsClubData[@"confidence"] intValue]/10]]];
+        confidence.text = [NSString stringWithFormat:@"%ld", (long)[wsClubData[@"confidence"] integerValue]/2];
+        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubData[@"confidence"] integerValue]/10]]];
         
         NSDictionary *row1 = @{@"coach_id": wsClubData[@"coach_id"],
                                @"coach_name": wsClubData[@"coach_name"],
@@ -164,17 +164,17 @@
 	
 	cell.coachDesc.text = desc;
 	
-	cell.skill.text = [NSString stringWithFormat:@"LEVEL %d", [rowData[@"coach_skill"] intValue]/2];
-    [cell.pbskill setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_skill"] intValue]/10]]];
+	cell.skill.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[rowData[@"coach_skill"] integerValue]/2];
+    [cell.pbskill setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"coach_skill"] integerValue]/10]]];
     
-	cell.leadership.text = [NSString stringWithFormat:@"LEVEL %d", [rowData[@"coach_leadership"] intValue]/2];
-    [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%d.png", [rowData[@"coach_leadership"] intValue]/10]]];
+	cell.leadership.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[rowData[@"coach_leadership"] integerValue]/2];
+    [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"coach_leadership"] integerValue]/10]]];
     
-	int f = ([coach_id intValue] % 12) + 1;
-	NSString *fname = [NSString stringWithFormat:@"s%d.png", f];
+	NSInteger f = ([coach_id integerValue] % 12) + 1;
+	NSString *fname = [NSString stringWithFormat:@"s%ld.png", (long)f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
-	int g = [rowData[@"coach_star"] intValue];
+	NSInteger g = [rowData[@"coach_star"] integerValue];
 	switch(g)
 	{
 		case 1:

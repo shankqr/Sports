@@ -18,22 +18,22 @@
 @synthesize cashLabel;
 @synthesize formulaLabel;
 
-- (void)updateView:(int)type
+- (void)updateView:(NSInteger)type
 {
     buildingType = type;
     
-    int s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-    int b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-    int b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-    int b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if (type==1) 
     {
         if (b1 > 0) 
         {
             cashLabel.text = @"Upgrade Hotel Business for $50,000?";
-            timeLabel.text = [NSString stringWithFormat:@"Generates $%d every 24 Hours", (b1+1)*(b1+1)+s];
-            infoLabel.text = [NSString stringWithFormat:@"Current Level %d: $%d every 24 Hours", b1, b1*b1+s];
+            timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 24 Hours", ((long)b1+1)*((long)b1+1)+s];
+            infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 24 Hours", (long)b1, (long)b1*b1+s];
         }
         else
         {
@@ -47,7 +47,7 @@
         }
         else
         {
-            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_hotel%d.png", b1+1]];
+            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_hotel%ld.png", (long)b1+1]];
         }
         formulaLabel.text = @"Income $ formula: Level x Level + StadiumLevel";
     }
@@ -56,8 +56,8 @@
         if (b2 > 0) 
         {
             cashLabel.text = @"Upgrade Food Business for $10,000?";
-            timeLabel.text = [NSString stringWithFormat:@"Generates $%d every 8 Hours", (b2+1)*s];
-            infoLabel.text = [NSString stringWithFormat:@"Current Level %d: $%d every 8 Hours", b2, b2*s];
+            timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 8 Hours", (long)(b2+1)*s];
+            infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 8 Hours", (long)b2, (long)b2*s];
         }
         else
         {
@@ -71,7 +71,7 @@
         }
         else
         {
-            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_food%d.png", b2+1]];
+            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_food%ld.png", (long)b2+1]];
         }
         formulaLabel.text = @"Income $ formula: Level x StadiumLevel";
     }
@@ -80,8 +80,8 @@
         if (b3 > 0) 
         {
             cashLabel.text = @"Upgrade Manager Office for $20,000?";
-            timeLabel.text = [NSString stringWithFormat:@"Generates $%d every 1 Hour", (b3+1)*b1+b2+s];
-            infoLabel.text = [NSString stringWithFormat:@"Current Level %d: $%d every 1 Hour", b3, b3*b1+b2+s];
+            timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 1 Hour", (long)(b3+1)*b1+b2+s];
+            infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 1 Hour", (long)b3, (long)b3*b1+b2+s];
         }
         else
         {
@@ -95,7 +95,7 @@
         }
         else
         {
-            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_office%d.png", b3+1]];
+            buildingImage.image = [UIImage imageNamed:[NSString stringWithFormat:@"building_office%ld.png", (long)b3+1]];
         }
         formulaLabel.text = @"$: Level x HotelLevel + FoodLevel + StadiumLevel";
     }
@@ -105,7 +105,7 @@
 
 -(IBAction)upgradeButton_tap:(id)sender
 {
-    int cost = 0;
+    NSInteger cost = 0;
     if (buildingType==1) 
     {
         cost = 50000;
@@ -118,12 +118,12 @@
     {
         cost = 20000;
     }
-    int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+    NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
     
     if((bal > cost) && ([Globals i].energy > 9))
     {
-        NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade/%@/%d", 
-						   WS_URL, [[Globals i] UID], buildingType];
+        NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade/%@/%ld", 
+						   WS_URL, [[Globals i] UID], (long)buildingType];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		

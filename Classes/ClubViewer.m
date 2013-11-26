@@ -118,13 +118,13 @@
 		fansLabel.text = [[Globals i] numberFormat:wsClubData[@"fan_members"]];
 		financeLabel.text = [[Globals i] numberFormat:wsClubData[@"balance"]];
 		sponsorLabel.text = [[Globals i] numberFormat:wsClubData[@"revenue_sponsors"]];
-        int xp = [[wsClubData[@"xp"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
-        int level = [[Globals i] levelFromXp:xp];
-		levelLabel.text = [NSString stringWithFormat:@"%d", level];
+        NSInteger xp = [[wsClubData[@"xp"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+        NSInteger level = [[Globals i] levelFromXp:xp];
+		levelLabel.text = [NSString stringWithFormat:@"%ld", (long)level];
 		divisionLabel.text = wsClubData[@"division"];
 		seriesLabel.text = wsClubData[@"series"];
 		positionLabel.text = wsClubData[@"league_ranking"];
-		coachLabel.text = [NSString stringWithFormat:@"LEVEL %d", [wsClubData[@"coach_id"] intValue]];
+		coachLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubData[@"coach_id"] integerValue]];
 		
 		logo_url = wsClubData[@"logo_pic"];
 		home_url = wsClubData[@"home_pic"];

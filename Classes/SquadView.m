@@ -76,7 +76,7 @@
 
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [NSString stringWithFormat:@"Total %d Players", [self.players count]];
+	return [NSString stringWithFormat:@"Total %lu Players", (unsigned long)[self.players count]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -11,7 +11,7 @@
 @synthesize side;
 
 
-- (id)init:(int)s
+- (id)init:(NSInteger)s
 {
     if (self = [super init]) 
     {
@@ -57,7 +57,7 @@
 }
 
 
-+ (Goal *)initGoal:(int)s
++ (Goal *)initGoal:(NSInteger)s
 {
 	return [[Goal alloc] init:s];
 }
@@ -73,8 +73,8 @@
         
         //if ((ball.yy > self.y - self.height/2) && (ball.yy < self.y + self.height/2) && (ball.offGround < 10)) 
         //{
-            if ((([(GameController.highlight)[@"type_id"] intValue]==1) && (self.team == T_AWAY)) 
-                || (([(GameController.highlight)[@"type_id"] intValue]==2) && (self.team == T_HOME)))
+            if ((([(GameController.highlight)[@"type_id"] integerValue]==1) && (self.team == T_AWAY)) 
+                || (([(GameController.highlight)[@"type_id"] integerValue]==2) && (self.team == T_HOME)))
             {
                     ball.inGoal = YES;
                     return YES;

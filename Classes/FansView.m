@@ -22,7 +22,7 @@
 	NSDictionary *wsClubData = [[Globals i] getClubData];
 	
 	membersLabel.text = [[Globals i] numberFormat:wsClubData[@"fan_members"]];
-	moodLabel.text = [NSString stringWithFormat:@"LEVEL %d", [wsClubData[@"fan_mood"] intValue]/10];
+	moodLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubData[@"fan_mood"] integerValue]/10];
 	expectationLabel.text = wsClubData[@"fan_expectation_def"];
 	
 	NSString *sponsor = @"$ ";

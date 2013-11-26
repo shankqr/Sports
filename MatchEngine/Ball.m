@@ -268,7 +268,7 @@
 
 - (void)debug
 {
-    NSLog(@"Ball atPlayer:%d kickedByPlayer:%d movingToObj:%d steps:%d C(%.2f , %.2f) V<%.2f , %.2f>", player.player_id, kickedBy.player_id, movingToObj.player_id, steps, xx, yy, vector.x, vector.y);
+    NSLog(@"Ball atPlayer:%ld kickedByPlayer:%ld movingToObj:%ld steps:%ld C(%.2f , %.2f) V<%.2f , %.2f>", (long)player.player_id, (long)kickedBy.player_id, (long)movingToObj.player_id, (long)steps, xx, yy, vector.x, vector.y);
 }
 
 @end

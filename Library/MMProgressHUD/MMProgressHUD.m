@@ -246,7 +246,7 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
 - (void)setProgress:(CGFloat)progress {
     [self.hud setProgress:progress animated:YES];
     
-    self.hud.accessibilityValue = [NSString stringWithFormat:@"%i%%", (int)(progress/1.f*100)];
+    self.hud.accessibilityValue = [NSString stringWithFormat:@"%li%%", (long)(progress/1.f*100)];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, [NSString stringWithFormat:@"%@ %@", self.hud.accessibilityLabel, self.hud.accessibilityValue]);
 }
 

@@ -210,12 +210,12 @@
             
             NSString *points = [[Globals i] numberFormat:(self.allianceArray)[index][@"score"]];
             
-            rowData = @{@"n1": [NSString stringWithFormat:@"%d", index+1], @"r1": r1, @"r2": members, @"c1": points, @"i2": @"arrow_right"};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row+1], @"r1": r1, @"r2": members, @"c1": points};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row+1], @"r1": r1, @"r2": members};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row+1], @"r1": r1};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row+1], @"r1": r1, @"c1": points};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%d", indexPath.row+1], @"r1": r1, @"c1": points, @"i2": @"arrow_right"};
+            rowData = @{@"n1": [NSString stringWithFormat:@"%ld", (long)index+1], @"r1": r1, @"r2": members, @"c1": points, @"i2": @"arrow_right"};
+            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"r2": members, @"c1": points};
+            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"r2": members};
+            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1};
+            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"c1": points};
+            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"c1": points, @"i2": @"arrow_right"};
             //rowData = @{@"r1": r1, @"c1": points, @"i2": @"arrow_right"};
             //rowData = @{@"r1": r1, @"c1": points};
             //rowData = @{@"r1": r1};
@@ -307,7 +307,7 @@
 
 - (void)createButton_tap:(id)sender
 {
-    int alliance_id = [[[Globals i] wsClubData][@"alliance_id"] intValue];
+    NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
     
     if (alliance_id > 0)
     {

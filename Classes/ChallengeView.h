@@ -26,7 +26,7 @@
 @property (nonatomic, strong) NSString *selected_matchid;
 @property (nonatomic, strong) NSArray *matches;
 - (void)updateView;
-- (void)viewChallenge:(int)selected_row;
+- (void)viewChallenge:(NSInteger)selected_row;
 - (void)confirmPurchase;
 - (IBAction)winButton_tap:(id)sender;
 - (IBAction)loseButton_tap:(id)sender;

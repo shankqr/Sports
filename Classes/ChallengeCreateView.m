@@ -187,8 +187,8 @@
 
 - (void)confirmPurchase
 {
-	int pval = [win intValue];
-	int bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] intValue];
+	NSInteger pval = [win integerValue];
+	NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
 	if(bal > pval*2)
 	{
         [NSThread detachNewThreadSelector:@selector(challengeClub) toTarget:self withObject:nil];

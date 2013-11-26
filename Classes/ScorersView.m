@@ -49,7 +49,7 @@
 {
 	@autoreleasepool {
 		workingLeagueScorers = YES;
-		[[Globals i] updateLeagueScorersData:[NSString stringWithFormat:@"%d", curDivision]:[NSString stringWithFormat:@"%d", 10]];
+		[[Globals i] updateLeagueScorersData:[NSString stringWithFormat:@"%lu", (unsigned long)curDivision]:[NSString stringWithFormat:@"%d", 10]];
 		self.players = [NSMutableArray arrayWithArray:[[Globals i] getLeagueScorersData]];
 		[self.tableView reloadData];
 		[[Globals i] removeLoadingAlert];
@@ -99,8 +99,8 @@
         cell.position.text = [NSString stringWithFormat:@"(Total Runs: %@)", goals];
     }
 	
-	int f = ([player_id intValue] % 1000);
-	NSString *fname = [NSString stringWithFormat:@"z%d.png", f];
+	NSInteger f = ([player_id integerValue] % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
 	return cell;

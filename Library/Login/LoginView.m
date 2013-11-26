@@ -220,7 +220,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     
     if (error)
     {
-        NSString *errorTitle = [self FBErrorCodeDescription:error.code];
+        NSString *errorTitle = @"";
         NSString *errorMessage = error.localizedDescription;
         if (error.code == FBErrorLoginFailedOrCancelled)
         {
@@ -251,7 +251,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  NSURL *url = [[NSURL alloc] initWithString:wsurl];
                  NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
                  
-                 int retval = [returnValue intValue];
+                 NSInteger retval = [returnValue integerValue];
                  
                  if(retval > -1) //Has an active facebook id registered
                  {
@@ -360,7 +360,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSURL *url = [[NSURL alloc] initWithString:wsurl];
         NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
-        int retval = [returnValue intValue];
+        NSInteger retval = [returnValue integerValue];
         
         if(retval > -1) //Has an active email id registered
         {

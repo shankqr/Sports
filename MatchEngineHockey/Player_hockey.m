@@ -32,7 +32,7 @@
 @synthesize nameTextField;
 
 
-- (id)init:(int)p_id number:(int)num jersey:(int)jer team:(int)t role:(int)r name:(NSString*)n
+- (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(NSInteger)t role:(NSInteger)r name:(NSString*)n
 {
     if (self = [super init]) 
     {
@@ -43,7 +43,7 @@
         self.role = r;
         self.name = n;
         
-        myImage = [SPImage imageWithContentsOfFile:[NSString stringWithFormat:@"j%d_hockey.png", self.jersey]];       
+        myImage = [SPImage imageWithContentsOfFile:[NSString stringWithFormat:@"j%ld_hockey.png", (long)self.jersey]];
         [myImage setScaleX:PLAYER_SCALE];
         [myImage setScaleY:PLAYER_SCALE];
 		myImage.x = -myImage.width/2;
@@ -52,7 +52,7 @@
         
         if (self.team == T_AWAY) 
         {
-            myTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%d", self.player_number]];
+            myTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%ld", (long)self.player_number]];
             myTextField.fontName = @"Helvetica-Bold";
             myTextField.x = -myTextField.width/2;
             myTextField.y = -myTextField.height/2 - 2;
@@ -77,7 +77,7 @@
     return self;
 }
 
-+ (Player_hockey *)initPlayer:(int)player_id number:(int)number jersey:(int)jersey team:(int)team role:(int)role name:(NSString*)name
++ (Player_hockey *)initPlayer:(NSInteger)player_id number:(NSInteger)number jersey:(NSInteger)jersey team:(NSInteger)team role:(NSInteger)role name:(NSString*)name
 {
 	return [[Player_hockey alloc] init:player_id number:number jersey:jersey team:team role:role name:name];
 }
@@ -339,7 +339,7 @@
     
     if (self.role == P_ATTACKER) 
     {
-        int actionn = [self base_decideMove];
+        NSInteger actionn = [self base_decideMove];
         if (actionn > -1) 
         {
             self.action = actionn;
@@ -373,7 +373,7 @@
     }
     if (self.role == P_MIDFIELDER)
     {
-        int actionn = [self base_decideMove];
+        NSInteger actionn = [self base_decideMove];
         if (actionn > -1) 
         {
             self.action = actionn;
@@ -407,7 +407,7 @@
     }
     if (self.role == P_DEFENDER)
     {
-        int actionn = [self base_decideMove];
+        NSInteger actionn = [self base_decideMove];
         if (actionn > -1) 
         {
             self.action = actionn;
@@ -494,12 +494,12 @@
     }
 }
 
-- (int)base_decideMove
+- (NSInteger)base_decideMove
 {
     self.defendingGoal = (GameController.defendingGoal)[team];
     self.attackingGoal = (GameController.attackingGoal)[team];
     
-    int actionn = -1;
+    NSInteger actionn = -1;
     BOOL playerHasBall = NO;
     if (ball.player.player_id==self.player_id)
     {
@@ -512,7 +512,7 @@
         teamHasBall = YES;
     }
     BOOL actionPlayer = NO;
-    if(self.player_id == [(GameController.highlight)[@"player_id"] intValue])
+    if(self.player_id == [(GameController.highlight)[@"player_id"] integerValue])
     {
         actionPlayer = YES;
     }
@@ -671,7 +671,7 @@
     return nearest;
 }
 
-- (NSMutableArray *)getNearestPlayers:(BOOL)ownTeam num:(int)num
+- (NSMutableArray *)getNearestPlayers:(BOOL)ownTeam num:(NSInteger)num
 {
     NSMutableArray *playersDistance = [[NSMutableArray alloc] init];
     NSMutableArray *players = [[NSMutableArray alloc] init];
@@ -683,7 +683,7 @@
     {
         players = (GameController.teams)[abs(self.team-1)];
     }
-    int player_row = -1;
+    NSInteger player_row = -1;
     for(Player_hockey *p in players)
     {
         player_row = player_row + 1;
@@ -693,7 +693,7 @@
             
             NSDictionary *dict = @{@"Player": @(player_row), @"Distance": @(dist)};
             [playersDistance addObject:dict];
-            //NSLog(@"Nearest Player[%d]: %.2f", p.player_id, dist);
+            //NSLog(@"Nearest Player[%ld]: %.2f", p.player_id, dist);
         }
     }
     
@@ -702,11 +702,11 @@
     NSArray * sortedArray = [playersDistance sortedArrayUsingDescriptors:descriptors];
     
     NSMutableArray *nearest = [[NSMutableArray alloc] init];
-    for (int i=0; i<num; i++) 
+    for (NSInteger i=0; i<num; i++) 
     {
         if ([sortedArray count] > i) 
         {
-            player_row = [sortedArray[i][@"Player"] intValue];
+            player_row = [sortedArray[i][@"Player"] integerValue];
             [nearest addObject:players[player_row]];
         }
     }
@@ -717,15 +717,15 @@
 - (void)gotBall
 {
     if(((self.role==P_GOALKEEPER) && (![ball outOfPitch])
-        && ([(GameController.highlight)[@"type_id"] intValue]<3) 
-        && ([(GameController.highlight)[@"player_id"] intValue] == ball.kickedBy.player_id)) 
+        && ([(GameController.highlight)[@"type_id"] integerValue]<3) 
+        && ([(GameController.highlight)[@"player_id"] integerValue] == ball.kickedBy.player_id)) 
        || (ball.speed > ball.maxSpeed) 
        || (ball.kickedBy.player_id == self.player_id))
     {
 		return;
     }
 
-    if (GameController.played && ([(GameController.highlight)[@"type_id"] intValue]>2)) 
+    if (GameController.played && ([(GameController.highlight)[@"type_id"] integerValue]>2)) 
     {
         ball.saved = YES;
     }
@@ -770,7 +770,7 @@
     SPPoint *towardsGoal = [SPPoint pointWithX:attackingGoal.x-self.xx y:attackingGoal.y-self.yy];
     if ([self.vector angleToPoint:towardsGoal] < 60) 
     {
-        if ([(GameController.highlight)[@"type_id"] intValue]<3) 
+        if ([(GameController.highlight)[@"type_id"] integerValue]<3) 
         {
             ball.speed = ball.maxSpeed * [[Globals i] Random_next:1 to:1.3];
             Player_hockey *goalkeeper = Nil;
@@ -848,10 +848,10 @@
     }
 }
 
-- (int)pass:(double)urgency
+- (NSInteger)pass:(double)urgency
 {
     NSMutableArray *playerWeights = [[NSMutableArray alloc] init];
-    Player_hockey *scorerr = (GameController.players)[[(GameController.highlight)[@"player_row"] intValue]];
+    Player_hockey *scorerr = (GameController.players)[[(GameController.highlight)[@"player_row"] integerValue]];
     Player_hockey *nearestToPasser = [self getNearest:YES];
     double distToNearest = [self getDistance:[SPPoint pointWithX:nearestToPasser.xx y:nearestToPasser.yy]];
     BOOL isHighlightTeam = NO;
@@ -859,7 +859,7 @@
     {
         isHighlightTeam = YES;
     }
-    int player_row_in_team = -1;
+    NSInteger player_row_in_team = -1;
     double weight = 1;
     for (Player_hockey *p in (GameController.teams)[team]) 
     {
@@ -894,7 +894,7 @@
             double distObjToMark = [p getDistance:[SPPoint pointWithX:mark.xx y:mark.yy]];
 			if((distObjToMark < PLAYER_WIDTH * fmin(2,dist/50)) && (distToMark < dist))
 			{
-                if (p.player_id != [(GameController.highlight)[@"player_id"] intValue])
+                if (p.player_id != [(GameController.highlight)[@"player_id"] integerValue])
                 {
                     if (isHighlightTeam) 
                     {
@@ -918,7 +918,7 @@
             double distNearestToPassee = [nearestToPasser getDistance:[SPPoint pointWithX:p.xx y:p.yy]];
             if (distToNearest < PLAYER_WIDTH * 4) 
             {
-                if (p.player_id != [(GameController.highlight)[@"player_id"] intValue])
+                if (p.player_id != [(GameController.highlight)[@"player_id"] integerValue])
                 {
                     if((distNearestToPassee + (PLAYER_WIDTH/2) < dist) && (isHighlightTeam) && (nearestToPasser.action!=ACTION_TACKLING))
 					{
@@ -932,7 +932,7 @@
             }
             NSDictionary *dict = @{@"Player": @(player_row_in_team), @"Weight": @(weight)};
             [playerWeights addObject:dict];
-            //NSLog(@"Passing to Player[%d]: %.2f", player_row_in_team, weight);
+            //NSLog(@"Passing to Player[%ld]: %.2f", player_row_in_team, weight);
         }
     }
     
@@ -944,7 +944,7 @@
         return -1;
     }
     
-    player_row_in_team = [sortedWeights[0][@"Player"] intValue];
+    player_row_in_team = [sortedWeights[0][@"Player"] integerValue];
     Player_hockey *obj = (GameController.teams)[team][player_row_in_team];
     if (obj.player_id == self.player_id) 
     {
@@ -972,7 +972,7 @@
             }
             else
             {
-                int randindex = [[Globals i] Random_next:0 to:([midfielders count]-1)];
+                NSInteger randindex = [[Globals i] Random_next:0 to:([midfielders count]-1)];
                 obj = midfielders[randindex];
             }
         }
@@ -1095,7 +1095,7 @@
     
     SPPoint *newPos = [SPPoint pointWithX:moveX y:moveY];
     //Make the action player move towards the goal more
-    if (self.player_id == [(GameController.highlight)[@"player_id"] intValue]) 
+    if (self.player_id == [(GameController.highlight)[@"player_id"] integerValue]) 
     {
         moveY += (self.attackingGoal.y - moveY)/5;
         moveX += (self.attackingGoal.x - moveX)/2;
@@ -1150,8 +1150,8 @@
         teamHasBall = YES;
     }
     
-    //NSLog(@"P[%d]: C(%.2f,%.2f) Steps:%d V<%.2f , %.2f> action:%d role:%d distToBall:%.2f distToGoal:%.2f", self.player_id, self.x, self.y, self.steps, self.vector.x, self.vector.y, self.action, self.role, distToBall, distToGoal);
-    //NSLog(@"Ball C(%.2f , %.2f) V<%.2f , %.2f> Steps:%d", ball.xx, ball.yy, ball.vector.x, ball.vector.y, ball.steps);
+    //NSLog(@"P[%ld]: C(%.2f,%.2f) Steps:%ld V<%.2f , %.2f> action:%ld role:%ld distToBall:%.2f distToGoal:%.2f", self.player_id, self.x, self.y, self.steps, self.vector.x, self.vector.y, self.action, self.role, distToBall, distToGoal);
+    //NSLog(@"Ball C(%.2f , %.2f) V<%.2f , %.2f> Steps:%ld", ball.xx, ball.yy, ball.vector.x, ball.vector.y, ball.steps);
     
     if (self.actionCountdown > 1) 
     {
@@ -1175,7 +1175,7 @@
             [ball reset];
             [self gotBall];
 
-            int index = floor([[Globals i] Random_next:0 to:[(GameController.teams)[self.team] count]-1]);
+            NSInteger index = floor([[Globals i] Random_next:0 to:[(GameController.teams)[self.team] count]-1]);
             Player_hockey *striker = (GameController.teams)[self.team][index];
             
             if (striker.role == P_GOALKEEPER) //Pass to Goalkeeper
@@ -1214,8 +1214,8 @@
         }
     }
     if(((distToBall < ball.speed) || (distToBall < PLAYER_WIDTH * 4))
-        && ((self.action == ACTION_SAVING) || ([(GameController.highlight)[@"type_id"] intValue]>2)
-        || (ball.kickedBy.player_id != [(GameController.highlight)[@"player_id"] intValue])) 
+        && ((self.action == ACTION_SAVING) || ([(GameController.highlight)[@"type_id"] integerValue]>2)
+        || (ball.kickedBy.player_id != [(GameController.highlight)[@"player_id"] integerValue])) 
            && (self.role == P_GOALKEEPER))
 	{
         [self gotBall];
@@ -1232,9 +1232,9 @@
         }
 		Player_hockey *nearest = [self getNearest:NO];
 		double dist = [self getDistance:nearest.point];
-        if(!((dist < PLAYER_WIDTH * 4) && (nearest.player_id == [(GameController.highlight)[@"player_id"] intValue]) 
-             && ([(GameController.highlight)[@"type_id"] intValue]>2 
-                 || (ball.kickedBy.player_id != [(GameController.highlight)[@"player_id"] intValue]))))
+        if(!((dist < PLAYER_WIDTH * 4) && (nearest.player_id == [(GameController.highlight)[@"player_id"] integerValue]) 
+             && ([(GameController.highlight)[@"type_id"] integerValue]>2 
+                 || (ball.kickedBy.player_id != [(GameController.highlight)[@"player_id"] integerValue]))))
 		{
             if ([self getDistance:[SPPoint pointWithX:ballNextX y:ballNextY]] < ball.speed*1.5) 
             {
@@ -1283,7 +1283,7 @@
             //Want to pass to the scoring player % of the way through the highlight
             //urgencyToScore = GameController.proportion;
         }
-        if ((self.player_id == [(GameController.highlight)[@"player_id"] intValue]) 
+        if ((self.player_id == [(GameController.highlight)[@"player_id"] integerValue]) 
             && (GameController.proportion > 0.8)) 
         {
             urgencyToPass = 0;
@@ -1300,11 +1300,11 @@
         }
         shoot = playerHasBall && ([[Globals i] Random_next:0 to:1]<PITCH_WIDTH/30/distToGoal) 
         && !GameController.played && (distToGoal<PITCH_WIDTH/4) 
-        && ((self.player_id == [(GameController.highlight)[@"player_id"] intValue]) 
-            || ([(GameController.players)[[(GameController.highlight)[@"player_row"] intValue]] team] != self.team));
+        && ((self.player_id == [(GameController.highlight)[@"player_id"] integerValue]) 
+            || ([(GameController.players)[[(GameController.highlight)[@"player_row"] integerValue]] team] != self.team));
     }
-    if (playerHasBall&&(self.player_id == [(GameController.highlight)[@"player_id"] intValue])
-        &&(distToGoal<PITCH_WIDTH/5)&&([(GameController.highlight)[@"type_id"] intValue]>2)) 
+    if (playerHasBall&&(self.player_id == [(GameController.highlight)[@"player_id"] integerValue])
+        &&(distToGoal<PITCH_WIDTH/5)&&([(GameController.highlight)[@"type_id"] integerValue]>2)) 
     {
         shoot = YES;
     }
@@ -1321,16 +1321,16 @@
     }
     if (shoot) 
     {
-        if ((self.player_id == [(GameController.highlight)[@"player_id"] intValue])
+        if ((self.player_id == [(GameController.highlight)[@"player_id"] integerValue])
             &&(distToGoal<PITCH_WIDTH/5)) 
         {
-            if (([(GameController.highlight)[@"type_id"] intValue]>2) 
+            if (([(GameController.highlight)[@"type_id"] integerValue]>2) 
                 || (distToGoal<PITCH_WIDTH/7) || ([[Globals i] Random_next:0 to:1]<PITCH_WIDTH/20/distToGoal) ) 
             {
                 [self shoot];
             }
         }
-        else if (self.player_id != [(GameController.highlight)[@"player_id"] intValue])
+        else if (self.player_id != [(GameController.highlight)[@"player_id"] integerValue])
         {
             Player_hockey *keeper = Nil;
             for (Player_hockey *p in (GameController.teams)[abs(self.team-1)])
@@ -1351,12 +1351,12 @@
              || ((urgencyToPass>1) && ([[Globals i] Random_next:0 to:1]<0.05)))
     {
         //TODO: if the player is the scorer and has a clear run on goal, then do it
-        int passed_player_id = [self pass:urgencyToPass];
+        NSInteger passed_player_id = [self pass:urgencyToPass];
         if (passed_player_id != -1) 
         {
-            if(self.player_id != [(GameController.highlight)[@"player_id"] intValue])
+            if(self.player_id != [(GameController.highlight)[@"player_id"] integerValue])
             {
-                Player_hockey *scorerr = (GameController.players)[[(GameController.highlight)[@"player_row"] intValue]];
+                Player_hockey *scorerr = (GameController.players)[[(GameController.highlight)[@"player_row"] integerValue]];
                 [self moveTowards:scorerr.point speed:self.speed];
             }
         }
@@ -1384,7 +1384,7 @@
             double urgency = [self.marking getDistance:self.defendingGoal.point]/PITCH_WIDTH * 4;
             if (([[Globals i] Random_next:0 to:1]<urgency) && ([self getDistance:self.marking.point]>PLAYER_WIDTH * 2.5)) 
             {
-                if (self.marking.player_id == [(GameController.highlight)[@"player_id"] intValue]) 
+                if (self.marking.player_id == [(GameController.highlight)[@"player_id"] integerValue]) 
                 {
                     SPPoint *towards = marking.point;
                     double destX = [[Globals i] Random_next:-PLAYER_WIDTH to:PLAYER_WIDTH]*5;
@@ -1407,19 +1407,19 @@
             double chance = [[Globals i] Random_next:0.25 to:1];
             chance = chance * chance;
             double proportion = GameController.proportion;
-            if ((self.player_id == [(GameController.highlight)[@"player_id"] intValue])) 
+            if ((self.player_id == [(GameController.highlight)[@"player_id"] integerValue])) 
             {
                 chance = 0.8;
             }
-            else if((ball.player != Nil) && (ball.player.player_id == [(GameController.highlight)[@"player_id"] intValue]))
+            else if((ball.player != Nil) && (ball.player.player_id == [(GameController.highlight)[@"player_id"] integerValue]))
             {
                 chance = 0.0;
             }
-            else if([(GameController.players)[[(GameController.highlight)[@"player_row"] intValue]] team] == self.team)
+            else if([(GameController.players)[[(GameController.highlight)[@"player_row"] integerValue]] team] == self.team)
             {
                 chance = proportion + 0.25;
             }
-            else if([(GameController.players)[[(GameController.highlight)[@"player_row"] intValue]] team] != self.team)
+            else if([(GameController.players)[[(GameController.highlight)[@"player_row"] integerValue]] team] != self.team)
             {
                 chance = 1 - proportion;
             }
@@ -1459,11 +1459,11 @@
                     tackle = 0.5;
                 }
                 //The highlight player tries to tackle a lot
-                if ((self.player_id == [(GameController.highlight)[@"player_id"] intValue])) 
+                if ((self.player_id == [(GameController.highlight)[@"player_id"] integerValue])) 
                 {
                     tackle = pow(tackle, 0.25);
                 }//Reckless tackle
-                else if((ball.player.player_id == [(GameController.highlight)[@"player_id"] intValue]))
+                else if((ball.player.player_id == [(GameController.highlight)[@"player_id"] integerValue]))
                 {
                     tackle = pow(tackle, 0.25);
                 }

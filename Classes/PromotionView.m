@@ -34,9 +34,9 @@
 -(void)updateView
 {
 	self.leagues = [[Globals i] getLeagueData];
-	divisionLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedDivision];
-	seriesLabel.text = [NSString stringWithFormat:@"%d", [Globals i].selectedSeries];
-	maxseriesLabel.text = [NSString stringWithFormat:@"%d", [[Globals i] getMaxSeries:[Globals i].selectedDivision]];
+	divisionLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision];
+	seriesLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries];
+	maxseriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[[Globals i] getMaxSeries:[Globals i].selectedDivision]];
 	
 	self.filter = @"Promotion";
 	posOffset = 0;
@@ -142,7 +142,7 @@
 		cell.goaldif.textColor = [UIColor yellowColor];
 		cell.points.textColor = [UIColor yellowColor];
 	}
-	//cell.pos.text = [NSString stringWithFormat:@"%d", row+1];
+	//cell.pos.text = [NSString stringWithFormat:@"%ld", row+1];
 	cell.club.text = rowData[@"club_name"];
 	cell.played.text = rowData[@"Played"];
 	cell.won.text = rowData[@"Win"];

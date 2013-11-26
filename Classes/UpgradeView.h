@@ -15,7 +15,7 @@
 	UILabel *timeLabel;
 	UILabel *cashLabel;
     UILabel *formulaLabel;
-    int buildingType;
+    NSInteger buildingType;
 }
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) IBOutlet UIImageView *buildingImage;
@@ -24,5 +24,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *cashLabel;
 @property (nonatomic, strong) IBOutlet UILabel *formulaLabel;
 - (IBAction)upgradeButton_tap:(id)sender;
-- (void)updateView:(int)type;
+- (void)updateView:(NSInteger)type;
 @end
