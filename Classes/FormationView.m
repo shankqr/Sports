@@ -33,26 +33,44 @@
     
     if ([[[Globals i] GameType] isEqualToString:@"football"])
     {
+        //Construct football segment
+        if (segment == nil)
+        {
+            NSArray *itemArray = [NSArray arrayWithObjects: @"442", @"433", @"343", @"541", @"532", @"352", @"451", nil];
+            segment = [[UISegmentedControl alloc] initWithItems:itemArray];
+            segment.frame = CGRectMake(0, FORMATION_SEGMENT_Y, SCREEN_WIDTH, 30*SCALE_IPAD);
+            segment.selectedSegmentIndex = 1;
+            [segment addTarget:self
+                        action:@selector(segmentTap:)
+              forControlEvents:UIControlEventValueChanged];
+            [self.view addSubview:segment];
+        }
+
         [self showFormation];
     }
     else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
     {
-        //TODO: Construct segment limit to 3 pos type
+        //TODO: Construct hockey segment limit to 3 pos type
+        if (segment == nil)
+        {
+            NSArray *itemArray = [NSArray arrayWithObjects: @"2-1-2", @"1-2-2", @"1-4", nil];
+            segment = [[UISegmentedControl alloc] initWithItems:itemArray];
+            segment.frame = CGRectMake(0, FORMATION_SEGMENT_Y, SCREEN_WIDTH, 30*SCALE_IPAD);
+            segment.selectedSegmentIndex = 1;
+            [segment addTarget:self
+                        action:@selector(segmentTap:)
+              forControlEvents:UIControlEventValueChanged];
+            [self.view addSubview:segment];
+        }
         
         [self showFormation];
     }
     else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
     {
-        [segment setEnabled:NO];
-        [segment setHidden:YES];
-        
         [self createPos1];
     }
     else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
     {
-        [segment setEnabled:NO];
-        [segment setHidden:YES];
-        
         [self createPos1];
     }
 }
@@ -103,7 +121,7 @@
 	}
 }
 
-- (IBAction)segmentTap:(id)sender
+- (void)segmentTap:(id)sender
 {
 	[self removeAllPos];
 	switch([sender selectedSegmentIndex])

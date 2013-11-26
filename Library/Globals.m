@@ -1826,9 +1826,12 @@ static NSOperationQueue *connectionQueue;
              if([wsResponse count] > 0)
              {
                  wsClubData = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+                 completionBlock(YES, data);
              }
-             
-             completionBlock(YES, data);
+             else
+             {
+                 completionBlock(NO, nil);
+             }
          }
      }];
 }

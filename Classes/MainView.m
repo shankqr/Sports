@@ -707,7 +707,7 @@
         [SPAudioEngine start];
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
-        [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:YES];
+        [sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:NO];
         
         [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :2];
     }
@@ -716,7 +716,7 @@
         [SPAudioEngine start];
         sparrowView = [[SPViewController alloc] init];
         sparrowView.multitouchEnabled = YES;
-        [sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:YES];
+        [sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:NO];
         
         [[Globals i] showTemplate:@[sparrowView] :@"Live Match" :2];
     }

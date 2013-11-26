@@ -22,6 +22,8 @@
 {
     [super viewDidLoad];
     
+    [self.view setUserInteractionEnabled:NO];
+    
     [self.view setFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
@@ -51,6 +53,8 @@
 
 - (void)updateView
 {
+    [self.view setUserInteractionEnabled:NO];
+    
     //start small again
     self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height/2)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
     

@@ -57,6 +57,7 @@
 #define PBAR2_Y (iPad ? 545.0f : 243.0f)
 #define PBAR3_X (iPad ? 820.0f : 367.0f)
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
+#define FORMATION_SEGMENT_Y (iPad ? 760.0f : 360.0f)
 
 #define DEFAULT_FONT @"MLS 2013"
 #define DEFAULT_FONT_SIZE 22.0f * SCALE_IPAD
@@ -67,6 +68,68 @@
 #define R2_FONT_SIZE 17.0f * SCALE_IPAD
 #define R3_FONT_SIZE 15.0f * SCALE_IPAD
 #define C1_FONT_SIZE 16.0f * SCALE_IPAD
+
+//Football
+#define Pos_x1 (iPad ? 164.0f : 50.0f)
+#define Pos_x2 (iPad ? 484.0f : 210.0f)
+#define Pos_x3 (iPad ? 10.0f : 2.0f)
+#define Pos_x4 (iPad ? 164.0f : 66.0f)
+#define Pos_x5 (iPad ? 484.0f : 194.0f)
+#define Pos_x6 (iPad ? 640.0f : 258.0f)
+#define Pos_y1 (iPad ? 160.0f : 45.0f)
+#define Pos_y2 (iPad ? 310.0f : 120.0f)
+#define Pos_y3 (iPad ? 460.0f : 195.0f)
+#define Pos_y4 (iPad ? 610.0f : 270.0f)
+#define Subs_x1 (iPad ? 324.0f : 130.0f)
+#define Subs_x2 (iPad ? 70.0f : 10.0f)
+#define Subs_x3 (iPad ? 230.0f : 90.0f)
+#define Subs_x4 (iPad ? 400.0f : 170.0f)
+#define Subs_x5 (iPad ? 560.0f : 250.0f)
+#define Subs_y1 (iPad ? 480.0f : 185.0f)
+#define Subs_y2 (iPad ? 630.0f : 260.0f)
+#define Subs_y3 (iPad ? 230.0f : 70.0f)
+
+//Hockey
+#define Pos_x1_hockey (iPad ? 164.0f : 50.0f)
+#define Pos_x2_hockey (iPad ? 484.0f : 210.0f)
+#define Pos_x3_hockey (iPad ? 10.0f : 2.0f)
+#define Pos_x4_hockey (iPad ? 164.0f : 66.0f)
+#define Pos_x5_hockey (iPad ? 484.0f : 194.0f)
+#define Pos_x6_hockey (iPad ? 640.0f : 258.0f)
+#define Pos_y1_hockey (iPad ? 110.0f : 45.0f)
+#define Pos_y2_hockey (iPad ? 260.0f : 120.0f)
+#define Pos_y3_hockey (iPad ? 410.0f : 195.0f)
+#define Pos_y4_hockey (iPad ? 560.0f : 270.0f)
+#define Subs_x1_hockey (iPad ? 324.0f : 130.0f)
+#define Subs_x2_hockey (iPad ? 70.0f : 10.0f)
+#define Subs_x3_hockey (iPad ? 230.0f : 90.0f)
+#define Subs_x4_hockey (iPad ? 400.0f : 170.0f)
+#define Subs_x5_hockey (iPad ? 560.0f : 250.0f)
+#define Subs_y1_hockey (iPad ? 480.0f : 185.0f)
+#define Subs_y2_hockey (iPad ? 630.0f : 260.0f)
+#define Subs_y3_hockey (iPad ? 230.0f : 70.0f)
+
+//Baseball
+#define Pos_x1_baseball (iPad ? 324.0f : 130.0f)
+#define Pos_x2_baseball (iPad ? 190.0f : 70.0f)
+#define Pos_x3_baseball (iPad ? 460.0f : 190.0f)
+#define Pos_x4_baseball (iPad ? 230.0f : 90.0f)
+#define Pos_x5_baseball (iPad ? 415.0f : 170.0f)
+#define Pos_x6_baseball (iPad ? 75.0f : 26.0f)
+#define Pos_x7_baseball (iPad ? 572.0f : 234.0f)
+#define Pos_y1_baseball (iPad ? 760.0f : 330.0f)
+#define Pos_y2_baseball (iPad ? 625.0f : 270.0f)
+#define Pos_y3_baseball (iPad ? 495.0f : 210.0f)
+#define Pos_y4_baseball (iPad ? 365.0f : 160.0f)
+#define Pos_y5_baseball (iPad ? 292.0f : 130.0f)
+#define Subs_x1_baseball (iPad ? 324.0f : 130.0f)
+#define Subs_x2_baseball (iPad ? 70.0f : 10.0f)
+#define Subs_x3_baseball (iPad ? 230.0f : 90.0f)
+#define Subs_x4_baseball (iPad ? 400.0f : 170.0f)
+#define Subs_x5_baseball (iPad ? 560.0f : 250.0f)
+#define Subs_y1_baseball (iPad ? 630.0f : 265.0f)
+#define Subs_y2_baseball (iPad ? 780.0f : 340.0f)
+#define Subs_y3_baseball (iPad ? 380.0f : 150.0f)
 
 #define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
 #define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
