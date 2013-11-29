@@ -855,7 +855,7 @@
 {
     if (clubMapView == nil)
     {
-        clubMapView = [[ClubMapView alloc] initWithNibName:@"ClubMapView" bundle:nil];
+        clubMapView = [[ClubMapView alloc] init];
         clubMapView.mainView = self;
     }
     [[Globals i] showTemplate:@[clubMapView] :@"Map" :1];
@@ -877,7 +877,10 @@
     if (matchView == nil)
     {
         matchView = [[MatchView alloc] initWithStyle:UITableViewStylePlain];
+        matchView.title = @"Played";
+        matchView.filter = @"Played";
     }
+    
     [[Globals i] showTemplate:@[matchView] :@"Match" :1];
     [self.matchView updateView];
 }
@@ -1197,7 +1200,7 @@
 		}
         case 17:
 		{
-            [[Globals i] showChat];
+            [self showChat];
 			break;
 		}
 		case 18:
@@ -1340,8 +1343,14 @@
         lblChat1.numberOfLines = 0;
         lblChat1.tag = 999;
         lblChat1.userInteractionEnabled = YES;
-        
         [self.view addSubview:lblChat1];
+        
+        UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(40*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-(60*SCALE_IPAD), (40*SCALE_IPAD), (40*SCALE_IPAD));
+        [chatButton setBackgroundImage:[UIImage imageNamed:@"button_chat"] forState:UIControlStateNormal];
+        [chatButton setAlpha:0.8];
+        [chatButton addTarget:self action:@selector(showChat) forControlEvents:UIControlEventTouchDown];
+        [self.view addSubview:chatButton];
     }
 }
 
@@ -1352,9 +1361,14 @@
         UITouch *touch = [[event allTouches] anyObject];
         if (CGRectContainsPoint([lblChat1 frame], [touch locationInView:self.view]))
         {
-            [[Globals i] showChat];
+            [self showChat];
         }
     }
+}
+
+- (void)showChat
+{
+    [[Globals i] showChat];
 }
 
 - (void)onTimerChat
@@ -1371,17 +1385,12 @@
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	static NSString *CellIdentifier = @"MainCell";
-	
-	cell = (MainCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
-	if (cell == nil)
-	{
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"MainCell" owner:self options:nil];
-		cell = (MainCell *)nib[0];
-		[[cell subviews][0] setTag:111];
-	}
+	cell = (MainCell *)[tableView dequeueReusableCellWithIdentifier:@"MainCell"];
+    if (cell == nil)
+    {
+        cell = [[MainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MainCell"];
+    }
     cell.mainView = self;
-    cell.backgroundColor = [UIColor clearColor];
     
 	return cell;
 }

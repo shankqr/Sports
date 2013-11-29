@@ -8,8 +8,6 @@
 
 #import <StoreKit/StoreKit.h>
 #import <StoreKit/SKPaymentTransaction.h>
-#import <AVFoundation/AVFoundation.h>
-#import <FacebookSDK/FacebookSDK.h>
 
 @class ChallengeView;
 @class ChallengeCreateView;

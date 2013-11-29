@@ -23,10 +23,11 @@
 
 - (void)viewDidLoad
 {
-    mapViewer = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height)];
+    mapViewer = [[MKMapView alloc]initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
     mapViewer.mapType = MKMapTypeStandard;
     mapViewer.showsUserLocation = YES;
     mapViewer.scrollEnabled = YES;
+    
     [self.view addSubview:mapViewer];
 }
 
@@ -59,7 +60,7 @@
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
     
-    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+    [Globals getServer:wsurl :^(BOOL success, NSData *data)
      {
          if (success)
          {

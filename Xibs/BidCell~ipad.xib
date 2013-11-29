@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="[Manchester United]: Puchong United Wins the League and all cup matches" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="none" minimumFontSize="10" id="5">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="" lineBreakMode="characterWrap" numberOfLines="2" baselineAdjustment="none" minimumFontSize="10" id="5">
                         <rect key="frame" x="10" y="0.0" width="748" height="80"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="24"/>

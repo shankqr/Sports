@@ -7,8 +7,6 @@
 //
 
 #import "MatchView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "MainView.h"
 #import "MatchCell.h"
 #import "Globals.h"
@@ -23,68 +21,23 @@
 @synthesize matchLive;
 @synthesize challengeBox;
 
--(void)updateView
+- (void)updateView
 {
 	if ([filter isEqualToString:@"Future"])
 	{
-
+        self.matches = [[Globals i] getMatchData];
 	}
 	else if ([filter isEqualToString:@"Played"])
 	{
-
+        self.matches = [[Globals i] getMatchPlayedData];
 	}
 	else if ([filter isEqualToString:@"Challenge"])
 	{
+        [[Globals i] updateChallengesData];
 		self.matches = [[Globals i] getChallengesData];
 	}
-	else if ([filter isEqualToString:@"Invite"])
-	{
-		
-	}
-	else
-	{
-		self.filter = @"Played";
-		self.matches = [[Globals i] getMatchPlayedData];
-	}
+    
 	[self.tableView reloadData];
-}
-
-- (IBAction)segmentTap:(id)sender
-{
-	switch([sender selectedSegmentIndex])
-	{
-		case 0: //Played
-		{
-			self.filter = @"Played";
-			self.matches = [[Globals i] getMatchPlayedData];
-			[self.tableView reloadData];
-			break;
-		}
-		case 1: //Future
-		{
-			self.filter = @"Future";
-			self.matches = [[Globals i] getMatchData];
-			[self.tableView reloadData];
-			break;
-		}
-		case 2: //Challenge
-		{
-			
-			self.filter = @"Challenge";
-            [[Globals i] updateChallengesData];
-			self.matches = [[Globals i] getChallengesData];
-			[self.tableView reloadData];
-			break;
-		}
-		case 3: //Invite
-		{
-			
-			self.filter = @"Invite";
-			self.matches = [[Globals i] getChallengedData];
-			[self.tableView reloadData];
-			break;
-		}
-	}
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -152,42 +105,7 @@
 			}
 			break;	
 		}
-			
-		case 4: //Invite
-		{
-			switch(buttonIndex)
-			{
-				case 0:
-				{
-					[mainView showClubViewer:selected_clubid];
-					break;
-				}
-			}
-			break;	
-		}
 
-	}
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
-	if(buttonIndex == 1)
-	{
-        [[Globals i] settPurchasedProduct:@"14"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-	}
-}
-
--(void)getInviteData
-{
-	@autoreleasepool {
-
-		self.filter = @"Invite";
-		[[Globals i] updateChallengedData];
-		self.matches = [[Globals i] getChallengedData];
-		[self.tableView reloadData];
-		[[Globals i] removeLoadingAlert];
-	
 	}
 }
 
@@ -387,17 +305,6 @@
 									  destructiveButtonTitle:nil
 									  otherButtonTitles:@"Club Info", @"View Challenge", nil];
 		actionSheet.tag = 3;
-		[actionSheet showInView:self.view];
-	}
-	else if ([filter isEqualToString:@"Invite"]) 
-	{
-		UIActionSheet *actionSheet = [[UIActionSheet alloc]
-									  initWithTitle:@"View"
-									  delegate:self
-									  cancelButtonTitle:@"Cancel"
-									  destructiveButtonTitle:nil
-									  otherButtonTitles:@"Club Info", nil];
-		actionSheet.tag = 4;
 		[actionSheet showInView:self.view];
 	}
 	

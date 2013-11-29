@@ -27,7 +27,7 @@
     [self.view setFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
-    UIImage *imgBkg = [UIImage imageNamed:@"loading_bkg.png"];
+    UIImage *imgBkg = [UIImage imageNamed:@"skin_menu.png"];
     [backgroundImage setImage:imgBkg];
     [self.view addSubview:backgroundImage];
     

@@ -69,6 +69,19 @@
 #define R3_FONT_SIZE 15.0f * SCALE_IPAD
 #define C1_FONT_SIZE 16.0f * SCALE_IPAD
 
+//Main Menu
+#define menu_x1 (iPad ? 10.0f : 5.0f)
+#define menu_x2 (iPad ? 164.0f : 69.0f)
+#define menu_x3 (iPad ? 324.0f : 133.0f)
+#define menu_x4 (iPad ? 484.0f : 197.0f)
+#define menu_x5 (iPad ? 640.0f : 261.0f)
+
+#define menu_y1 (iPad ? 370.0f : 175.0f)
+#define menu_y2 (iPad ? 570.0f : 255.0f)
+#define menu_y3 (iPad ? 770.0f : 335.0f)
+#define menu_y4 (iPad ? 970.0f : 415.0f)
+#define menu_y5 (iPad ? 1170.0f : 495.0f)
+
 //Football
 #define Pos_x1 (iPad ? 164.0f : 50.0f)
 #define Pos_x2 (iPad ? 484.0f : 210.0f)

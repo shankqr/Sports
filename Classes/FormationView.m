@@ -20,7 +20,7 @@
 @synthesize nwPlayer;
 @synthesize selectedPos;
 
--(void)updateView
+- (void)updateView
 {
 	[Globals i].selectedPos = @"0";
 	
@@ -40,6 +40,11 @@
             segment = [[UISegmentedControl alloc] initWithItems:itemArray];
             segment.frame = CGRectMake(0, FORMATION_SEGMENT_Y, SCREEN_WIDTH, 30*SCALE_IPAD);
             segment.selectedSegmentIndex = 1;
+            UIFont *font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                   forKey:UITextAttributeFont];
+            [segment setTitleTextAttributes:attributes
+                                   forState:UIControlStateNormal];
             [segment addTarget:self
                         action:@selector(segmentTap:)
               forControlEvents:UIControlEventValueChanged];
@@ -57,6 +62,11 @@
             segment = [[UISegmentedControl alloc] initWithItems:itemArray];
             segment.frame = CGRectMake(0, FORMATION_SEGMENT_Y, SCREEN_WIDTH, 30*SCALE_IPAD);
             segment.selectedSegmentIndex = 1;
+            UIFont *font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+            NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
+                                                                   forKey:UITextAttributeFont];
+            [segment setTitleTextAttributes:attributes
+                                   forState:UIControlStateNormal];
             [segment addTarget:self
                         action:@selector(segmentTap:)
               forControlEvents:UIControlEventValueChanged];
@@ -292,6 +302,7 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-(5*SCALE_IPAD), posy+(35*SCALE_IPAD), 70*SCALE_IPAD, 20*SCALE_IPAD)];
 	myLabel.tag = tag;
 	myLabel.text = lastname;
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor darkGrayColor];
 	myLabel.shadowColor = [UIColor grayColor];
 	myLabel.shadowOffset = CGSizeMake(1,1);
@@ -305,6 +316,7 @@
 	UILabel *posLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-(5*SCALE_IPAD), posy-(20*SCALE_IPAD), 70*SCALE_IPAD, 20*SCALE_IPAD)];
 	posLabel.tag = tag;
 	posLabel.text = label;
+    posLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	posLabel.backgroundColor = [UIColor clearColor];
 	posLabel.shadowColor = [UIColor grayColor];
 	posLabel.shadowOffset = CGSizeMake(1,1);
@@ -477,7 +489,7 @@
 	[self addPosButton:@"fw1" label:@"SC1" tag:12 posx:Subs_x1 posy:Pos_y4];
 }
 
--(IBAction)posButton_tap:(id)sender
+- (void)posButton_tap:(id)sender
 {
 	NSInteger theTag = [sender tag];//( ( UIControl * )sender ).tag;
 	

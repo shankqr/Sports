@@ -24,8 +24,6 @@
 @synthesize lastmatchSlide;
 @synthesize slidesTimer;
 @synthesize timerIndex;
-@synthesize fbLogoutButton;
-@synthesize fbShareButton;
 @synthesize achievementsBadge;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
@@ -43,7 +41,11 @@
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+    [self setBackgroundColor:[UIColor clearColor]];
+    
     [self createSlides];
+    
+    [self createButtons];
 }
 
 - (void)createAchievementBadges
@@ -238,6 +240,79 @@
     {
         [activeSlide removeFromSuperview];
     }
+}
+
+- (void)createButtons
+{
+    [self addPosButton:@"Training" tag:1 posx:menu_x1 posy:menu_y1 imageDefault:@"button_train" imageHighlight:@""];
+	[self addPosButton:@"Match" tag:2 posx:menu_x2 posy:menu_y1 imageDefault:@"button_match" imageHighlight:@""];
+	[self addPosButton:@"League" tag:3 posx:menu_x3 posy:menu_y1 imageDefault:@"button_league" imageHighlight:@""];
+	[self addPosButton:@"Cup" tag:4 posx:menu_x4 posy:menu_y1 imageDefault:@"button_cup" imageHighlight:@""];
+	[self addPosButton:@"Stadium" tag:5 posx:menu_x5 posy:menu_y1 imageDefault:@"button_city" imageHighlight:@""];
+    
+    [self addPosButton:@"Training" tag:6 posx:menu_x1 posy:menu_y2 imageDefault:@"button_train" imageHighlight:@""];
+	[self addPosButton:@"Match" tag:7 posx:menu_x2 posy:menu_y2 imageDefault:@"button_match" imageHighlight:@""];
+	[self addPosButton:@"League" tag:8 posx:menu_x3 posy:menu_y2 imageDefault:@"button_league" imageHighlight:@""];
+	[self addPosButton:@"Cup" tag:9 posx:menu_x4 posy:menu_y2 imageDefault:@"button_cup" imageHighlight:@""];
+	[self addPosButton:@"Stadium" tag:10 posx:menu_x5 posy:menu_y2 imageDefault:@"button_city" imageHighlight:@""];
+
+    [self addPosButton:@"Training" tag:11 posx:menu_x1 posy:menu_y3 imageDefault:@"button_train" imageHighlight:@""];
+	[self addPosButton:@"Match" tag:12 posx:menu_x2 posy:menu_y3 imageDefault:@"button_match" imageHighlight:@""];
+	[self addPosButton:@"League" tag:13 posx:menu_x3 posy:menu_y3 imageDefault:@"button_league" imageHighlight:@""];
+	[self addPosButton:@"Cup" tag:14 posx:menu_x4 posy:menu_y3 imageDefault:@"button_cup" imageHighlight:@""];
+	[self addPosButton:@"Stadium" tag:15 posx:menu_x5 posy:menu_y3 imageDefault:@"button_city" imageHighlight:@""];
+
+    [self addPosButton:@"Training" tag:16 posx:menu_x1 posy:menu_y4 imageDefault:@"button_train" imageHighlight:@""];
+	[self addPosButton:@"Match" tag:17 posx:menu_x2 posy:menu_y4 imageDefault:@"button_match" imageHighlight:@""];
+	[self addPosButton:@"League" tag:18 posx:menu_x3 posy:menu_y4 imageDefault:@"button_league" imageHighlight:@""];
+	[self addPosButton:@"Cup" tag:19 posx:menu_x4 posy:menu_y4 imageDefault:@"button_cup" imageHighlight:@""];
+	[self addPosButton:@"Stadium" tag:20 posx:menu_x5 posy:menu_y4 imageDefault:@"button_city" imageHighlight:@""];
+
+    [self addPosButton:@"Training" tag:21 posx:menu_x1 posy:menu_y5 imageDefault:@"button_train" imageHighlight:@""];
+	[self addPosButton:@"Match" tag:22 posx:menu_x2 posy:menu_y5 imageDefault:@"button_match" imageHighlight:@""];
+	[self addPosButton:@"League" tag:23 posx:menu_x3 posy:menu_y5 imageDefault:@"button_league" imageHighlight:@""];
+	[self addPosButton:@"Cup" tag:24 posx:menu_x4 posy:menu_y5 imageDefault:@"button_cup" imageHighlight:@""];
+	[self addPosButton:@"Stadium" tag:25 posx:menu_x5 posy:menu_y5 imageDefault:@"button_city" imageHighlight:@""];
+
+}
+
+- (void)addPosButton:(NSString *)label
+				 tag:(NSInteger)tag
+				posx:(NSInteger)posx
+				posy:(NSInteger)posy
+        imageDefault:(NSString *)imageDefault
+      imageHighlight:(NSString *)imageHighlight
+{
+	UIButton *button = [[Globals i] buttonWithTitle:@""
+                                             target:self
+                                           selector:@selector(posButton_tap:)
+                                              frame:CGRectMake(posx, posy, 55*SCALE_IPAD, 55*SCALE_IPAD)
+                                              image:[UIImage imageNamed:imageDefault]
+                                       imagePressed:[UIImage imageNamed:imageHighlight]
+                                      darkTextColor:YES];
+    
+	button.tag = tag;
+	[self addSubview:button];
+	
+	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-(5*SCALE_IPAD), posy+(55*SCALE_IPAD), 70*SCALE_IPAD, 20*SCALE_IPAD)];
+	myLabel.tag = tag;
+	myLabel.text = label;
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+	myLabel.backgroundColor = [UIColor clearColor];
+	myLabel.shadowColor = [UIColor grayColor];
+	myLabel.shadowOffset = CGSizeMake(1,1);
+	myLabel.textColor = [UIColor whiteColor];
+	myLabel.textAlignment = NSTextAlignmentCenter;
+	myLabel.numberOfLines = 1;
+	myLabel.adjustsFontSizeToFitWidth = YES;
+	myLabel.minimumScaleFactor = 0.5f;
+	[self addSubview:myLabel];
+}
+
+- (void)posButton_tap:(id)sender
+{
+	NSInteger theTag = [sender tag];
+	[mainView menuButton_tap:theTag];
 }
 
 - (IBAction)button1:(id)sender
