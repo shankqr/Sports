@@ -127,6 +127,11 @@
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
+    
+    UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
+    UIImage *imgBkg = [UIImage imageNamed:@"skin_menu.png"];
+    [backgroundImage setImage:imgBkg];
+    [self.view insertSubview:backgroundImage atIndex:0];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -909,6 +914,18 @@
 
 - (void)showAlliance
 {
+    if (allianceView == nil)
+    {
+        allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
+    }
+    [allianceView updateView];
+    allianceView.title = @"Cup";
+    
+    [[Globals i] showTemplate:@[allianceView] :@"Cup" :1];
+}
+
+- (void)showCup
+{
     if([[[Globals i] wsClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
     {
         if (allianceView == nil)
@@ -916,9 +933,9 @@
             allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
         }
         [allianceView updateView];
-        allianceView.title = @"Alliances";
+        allianceView.title = @"Cup";
         
-        [[Globals i] showTemplate:@[allianceView] :@"Alliance" :1];
+        [[Globals i] showTemplate:@[allianceView] :@"Cup" :1];
     }
     else
     {
@@ -928,9 +945,9 @@
         }
         allianceDetail.aAlliance = nil;
         [allianceDetail updateView];
-        allianceDetail.title = @"My Alliance";
+        allianceDetail.title = @"My Cup";
         
-        [[Globals i] showTemplate:@[allianceDetail] :@"Alliance" :1];
+        [[Globals i] showTemplate:@[allianceDetail] :@"Cup" :1];
     }
 }
 
@@ -1116,145 +1133,119 @@
 	}
 }
 
--(void)menuButton_tap:(NSInteger)sender
+- (void)menuButton_tap:(NSInteger)sender
 {
 	switch(sender)
 	{
 		case 1:
 		{
-			[self showMatch];
+			[self showMail];
 			break;
 		}		
 		case 2:
 		{
-			[self showLeague];
+			[self showSquad];
 			break;
 		}
 		case 3:
 		{
+            [self showTactics];
 			break;
 		}
 		case 4:
 		{
-			[self showSquad];
+			[self showTrain];
 			break;
 		}
 		case 5:
 		{
-			[self showTactics];
+			[self showMatch];
 			break;
 		}			
 		case 6:
 		{
-			[self showCoach];
+			[self showLeague];
 			break;
 		}
 		case 7:
 		{
-			[self showPlayerStore];
+			[self showCup];
 			break;
 		}
         case 8:
 		{
-			[self showStaff];
+			[self showPlayerStore];
 			break;
 		}
 		case 9:
 		{
-			[self showMap];
+			[self showFinance];
 			break;
 		}
 		case 10:
 		{
+            [self showStadiumMap];
 			break;
 		}
         case 11:
 		{
-            [[Globals i] fblogin];
+            [self showClub];
 			break;
 		}
         case 12:
 		{
-			[self showFinance];
+			[self showAchievements];
 			break;
 		}
 		case 13:
 		{
-			[self showFans];
+			[self showOthersStore];
             break;
 		}
         case 14:
 		{
-			[self showOthersStore];
+			[self showCoach];
 			break;
 		}
 		case 15:
 		{
-            [[Globals i] showMoreGames];
+            [self showStaff];
 			break;
 		}
 		case 16:
 		{
-            [self showAchievements];
+            [self showFans];
 			break;
 		}
         case 17:
 		{
-            [self showChat];
+            [self showMap];
 			break;
 		}
 		case 18:
 		{
+            [self showAlliance];
 			break;
 		}
 		case 19:
 		{
-			[self showHelp];
+			[[Globals i] showMoreGames];
 			break;
 		}
         case 20:
 		{
+            [self showHelp];
             break;
 		}
         case 21:
 		{
-			[self showClub];
+			[self logoutButton];
             break;
-		}
-        case 22:
-		{
-			[self showAlliance];
-            break;
-		}
-        case 23:
-		{
-            [self showStadiumMap];
-			break;
-		}
-		case 24:
-		{
-			[self showTrain];
-			break;
-		}
-        case 25:
-		{
-            [self logoutButton];
-			break;
-		}
-		case 26:
-		{
-			[self showMail];
-			break;
-		}
-        case 27:
-		{
-            [self showAlliance];
-			break;
 		}
 	}
 }
 
--(void)onTimerMarquee
+- (void)onTimerMarquee
 {
 	if(self.marquee.count > 0)
 	{

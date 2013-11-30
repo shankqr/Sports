@@ -14,8 +14,7 @@
 	MainView *mainView;
     BOOL facebookSwitching;
 }
-
-@property (nonatomic, strong) IBOutlet UIWindow *window;
-@property (nonatomic, strong) IBOutlet MainView *mainView;
+@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong) MainView *mainView;
 @end
 

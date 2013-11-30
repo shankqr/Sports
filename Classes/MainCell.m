@@ -244,57 +244,61 @@
 
 - (void)createButtons
 {
-    [self addPosButton:@"Training" tag:1 posx:menu_x1 posy:menu_y1 imageDefault:@"button_train" imageHighlight:@""];
-	[self addPosButton:@"Match" tag:2 posx:menu_x2 posy:menu_y1 imageDefault:@"button_match" imageHighlight:@""];
-	[self addPosButton:@"League" tag:3 posx:menu_x3 posy:menu_y1 imageDefault:@"button_league" imageHighlight:@""];
-	[self addPosButton:@"Cup" tag:4 posx:menu_x4 posy:menu_y1 imageDefault:@"button_cup" imageHighlight:@""];
-	[self addPosButton:@"Stadium" tag:5 posx:menu_x5 posy:menu_y1 imageDefault:@"button_city" imageHighlight:@""];
-    
-    [self addPosButton:@"Training" tag:6 posx:menu_x1 posy:menu_y2 imageDefault:@"button_train" imageHighlight:@""];
-	[self addPosButton:@"Match" tag:7 posx:menu_x2 posy:menu_y2 imageDefault:@"button_match" imageHighlight:@""];
-	[self addPosButton:@"League" tag:8 posx:menu_x3 posy:menu_y2 imageDefault:@"button_league" imageHighlight:@""];
-	[self addPosButton:@"Cup" tag:9 posx:menu_x4 posy:menu_y2 imageDefault:@"button_cup" imageHighlight:@""];
-	[self addPosButton:@"Stadium" tag:10 posx:menu_x5 posy:menu_y2 imageDefault:@"button_city" imageHighlight:@""];
-
-    [self addPosButton:@"Training" tag:11 posx:menu_x1 posy:menu_y3 imageDefault:@"button_train" imageHighlight:@""];
-	[self addPosButton:@"Match" tag:12 posx:menu_x2 posy:menu_y3 imageDefault:@"button_match" imageHighlight:@""];
-	[self addPosButton:@"League" tag:13 posx:menu_x3 posy:menu_y3 imageDefault:@"button_league" imageHighlight:@""];
-	[self addPosButton:@"Cup" tag:14 posx:menu_x4 posy:menu_y3 imageDefault:@"button_cup" imageHighlight:@""];
-	[self addPosButton:@"Stadium" tag:15 posx:menu_x5 posy:menu_y3 imageDefault:@"button_city" imageHighlight:@""];
-
-    [self addPosButton:@"Training" tag:16 posx:menu_x1 posy:menu_y4 imageDefault:@"button_train" imageHighlight:@""];
-	[self addPosButton:@"Match" tag:17 posx:menu_x2 posy:menu_y4 imageDefault:@"button_match" imageHighlight:@""];
-	[self addPosButton:@"League" tag:18 posx:menu_x3 posy:menu_y4 imageDefault:@"button_league" imageHighlight:@""];
-	[self addPosButton:@"Cup" tag:19 posx:menu_x4 posy:menu_y4 imageDefault:@"button_cup" imageHighlight:@""];
-	[self addPosButton:@"Stadium" tag:20 posx:menu_x5 posy:menu_y4 imageDefault:@"button_city" imageHighlight:@""];
-
-    [self addPosButton:@"Training" tag:21 posx:menu_x1 posy:menu_y5 imageDefault:@"button_train" imageHighlight:@""];
-	[self addPosButton:@"Match" tag:22 posx:menu_x2 posy:menu_y5 imageDefault:@"button_match" imageHighlight:@""];
-	[self addPosButton:@"League" tag:23 posx:menu_x3 posy:menu_y5 imageDefault:@"button_league" imageHighlight:@""];
-	[self addPosButton:@"Cup" tag:24 posx:menu_x4 posy:menu_y5 imageDefault:@"button_cup" imageHighlight:@""];
-	[self addPosButton:@"Stadium" tag:25 posx:menu_x5 posy:menu_y5 imageDefault:@"button_city" imageHighlight:@""];
-
+    [self addPosButton:@"News" tag:1 imageDefault:@"button_mails"];
+	[self addPosButton:@"Squad" tag:2 imageDefault:@"button_squad"];
+	[self addPosButton:@"Formations" tag:3 imageDefault:@"button_tactics"];
+	[self addPosButton:@"Training" tag:4 imageDefault:@"button_train"];
+	[self addPosButton:@"Fixtures" tag:5 imageDefault:@"button_match"];
+    [self addPosButton:@"League" tag:6 imageDefault:@"button_league"];
+	[self addPosButton:@"Cup" tag:7 imageDefault:@"button_cup"];
+	[self addPosButton:@"Transfers" tag:8 imageDefault:@"button_transfer"];
+	[self addPosButton:@"Finances" tag:9 imageDefault:@"button_finance"];
+	[self addPosButton:@"Stadium" tag:10 imageDefault:@"button_city"];
+    [self addPosButton:@"Club" tag:11 imageDefault:@"button_club"];
+	[self addPosButton:@"Awards" tag:12 imageDefault:@"button_achievements"];
+	[self addPosButton:@"Club Store" tag:13 imageDefault:@"button_store"];
+	[self addPosButton:@"Coach" tag:14 imageDefault:@"button_coach"];
+	[self addPosButton:@"Staff" tag:15 imageDefault:@"button_staff"];
+    [self addPosButton:@"Fans" tag:16 imageDefault:@"button_fan"];
+	[self addPosButton:@"World Map" tag:17 imageDefault:@"button_map"];
+	[self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
+	[self addPosButton:@"More Games" tag:19 imageDefault:@"button_friends"];
+	[self addPosButton:@"Help" tag:20 imageDefault:@"button_help"];
+    [self addPosButton:@"Logout" tag:21 imageDefault:@"button_news"];
 }
 
 - (void)addPosButton:(NSString *)label
 				 tag:(NSInteger)tag
-				posx:(NSInteger)posx
-				posy:(NSInteger)posy
         imageDefault:(NSString *)imageDefault
-      imageHighlight:(NSString *)imageHighlight
 {
+    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    UIImage *imgH = nil;
+    
+    NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
+    NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
+    
+    NSInteger column_width = self.frame.size.width / buttons_per_row;
+    NSInteger column_start_x = (column_width - sizex) / 2;
+    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
+    
+    NSInteger button_col = ((tag-1) % buttons_per_row);
+    NSInteger posx = button_col * column_width + column_start_x;
+    
+    NSInteger button_row = ((tag-1) / buttons_per_row);
+    NSInteger posy = button_row * column_height + menu_start_y;
+    
 	UIButton *button = [[Globals i] buttonWithTitle:@""
                                              target:self
                                            selector:@selector(posButton_tap:)
-                                              frame:CGRectMake(posx, posy, 55*SCALE_IPAD, 55*SCALE_IPAD)
-                                              image:[UIImage imageNamed:imageDefault]
-                                       imagePressed:[UIImage imageNamed:imageHighlight]
+                                              frame:CGRectMake(posx, posy, sizex, sizey)
+                                              image:imgD
+                                       imagePressed:imgH
                                       darkTextColor:YES];
     
 	button.tag = tag;
 	[self addSubview:button];
 	
-	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-(5*SCALE_IPAD), posy+(55*SCALE_IPAD), 70*SCALE_IPAD, 20*SCALE_IPAD)];
+	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
     myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
@@ -313,136 +317,6 @@
 {
 	NSInteger theTag = [sender tag];
 	[mainView menuButton_tap:theTag];
-}
-
-- (IBAction)button1:(id)sender
-{
-    [mainView menuButton_tap:1];
-}
-
-- (IBAction)button2:(id)sender
-{
-    [mainView menuButton_tap:2];
-}
-
-- (IBAction)button3:(id)sender
-{
-    [mainView menuButton_tap:27];
-}
-
-- (IBAction)button4:(id)sender
-{
-    [mainView menuButton_tap:4];
-}
-
-- (IBAction)button5:(id)sender
-{
-    [mainView menuButton_tap:5];
-}
-
-- (IBAction)button6:(id)sender
-{
-    [mainView menuButton_tap:6];
-}
-
-- (IBAction)button7:(id)sender
-{
-    [mainView menuButton_tap:7];
-}
-
-- (IBAction)button8:(id)sender
-{
-    [mainView menuButton_tap:8];
-}
-
-- (IBAction)button9:(id)sender
-{
-    [mainView menuButton_tap:9];
-}
-
-- (IBAction)button10:(id)sender
-{
-    [mainView menuButton_tap:10];
-}
-
-- (IBAction)button11:(id)sender
-{
-    [mainView menuButton_tap:11];
-}
-
-- (IBAction)button12:(id)sender
-{
-    [mainView menuButton_tap:12];
-}
-
-- (IBAction)button13:(id)sender
-{
-    [mainView menuButton_tap:13];
-}
-
-- (IBAction)button14:(id)sender
-{
-    [mainView menuButton_tap:14];
-}
-
-- (IBAction)button15:(id)sender
-{
-    [mainView menuButton_tap:15];
-}
-
-- (IBAction)button16:(id)sender
-{
-    [mainView menuButton_tap:16];
-}
-
-- (IBAction)button17:(id)sender
-{
-    [mainView menuButton_tap:17];
-}
-
-- (IBAction)button18:(id)sender
-{
-    [mainView menuButton_tap:18];
-}
-
-- (IBAction)button19:(id)sender
-{
-    [mainView menuButton_tap:19];
-}
-
-- (IBAction)button20:(id)sender
-{
-    [mainView menuButton_tap:20];
-}
-
-- (IBAction)button21:(id)sender
-{
-    [mainView menuButton_tap:21];
-}
-
-- (IBAction)button22:(id)sender
-{
-    [mainView menuButton_tap:22];
-}
-
-- (IBAction)buttonCity:(id)sender
-{
-    [mainView menuButton_tap:23];
-}
-
-- (IBAction)buttonTrain:(id)sender
-{
-    [mainView menuButton_tap:24];
-}
-
-- (IBAction)buttonLogout:(id)sender
-{
-    [mainView menuButton_tap:25];
-}
-
-- (IBAction)buttonShare:(id)sender
-{
-    [mainView menuButton_tap:26];
 }
 
 @end

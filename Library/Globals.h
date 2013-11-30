@@ -32,7 +32,7 @@
 #define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
 #define HeaderSquadSelect_height (iPad ? 75.0f : 50.0f)
 #define HeaderSquad_height (iPad ? 180.0f : 75.0f)
-#define Maintable_height (iPad ? 1300.0f : 730.0f)
+#define Maintable_height (iPad ? 1400.0f : 800.0f)
 #define SLIDE_x (iPad ? 64.0f : 0.0f)
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
 #define SLIDE_width (iPad ? 640.0f : 320.0f)
@@ -70,17 +70,10 @@
 #define C1_FONT_SIZE 16.0f * SCALE_IPAD
 
 //Main Menu
-#define menu_x1 (iPad ? 10.0f : 5.0f)
-#define menu_x2 (iPad ? 164.0f : 69.0f)
-#define menu_x3 (iPad ? 324.0f : 133.0f)
-#define menu_x4 (iPad ? 484.0f : 197.0f)
-#define menu_x5 (iPad ? 640.0f : 261.0f)
-
-#define menu_y1 (iPad ? 370.0f : 175.0f)
-#define menu_y2 (iPad ? 570.0f : 255.0f)
-#define menu_y3 (iPad ? 770.0f : 335.0f)
-#define menu_y4 (iPad ? 970.0f : 415.0f)
-#define menu_y5 (iPad ? 1170.0f : 495.0f)
+#define buttons_per_row (iPad ? 5 : 4)
+#define menu_start_y (iPad ? 370.0f : 175.0f)
+#define menu_label_height (iPad ? 42.0f : 21.0f)
+#define menu_margin_y (iPad ? 20.0f : 10.0f)
 
 //Football
 #define Pos_x1 (iPad ? 164.0f : 50.0f)

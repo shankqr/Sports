@@ -168,7 +168,7 @@
             <viewControllers>
                 <viewController title="Overview" id="126" customClass="OverView">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Overview" image="house.png" id="127"/>
+                    <tabBarItem key="tabBarItem" title="Overview" image="info.png" id="127"/>
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -206,7 +206,7 @@
                 </viewController>
                 <viewController title="Scorers" id="31" customClass="ScorersView">
                     <extendedEdge key="edgesForExtendedLayout"/>
-                    <tabBarItem key="tabBarItem" title="Scorers" image="squad1.png" id="32"/>
+                    <tabBarItem key="tabBarItem" title="Scorers" image="man.png" id="32"/>
                     <toolbarItems/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <nil key="simulatedTopBarMetrics"/>
@@ -219,23 +219,10 @@
                 <outlet property="delegate" destination="-1" id="37"/>
             </connections>
         </tabBarController>
-        <viewController id="40">
-            <extendedEdge key="edgesForExtendedLayout"/>
-            <toolbarItems/>
-            <nil key="simulatedStatusBarMetrics"/>
-            <nil key="simulatedTopBarMetrics"/>
-            <nil key="simulatedBottomBarMetrics"/>
-            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
-            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-        </viewController>
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="skin_menu.png" id="9">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                </imageView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="122">
                     <rect key="frame" x="0.0" y="75" width="320" height="493"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,15 +239,16 @@
         </view>
     </objects>
     <resources>
-        <image name="calendar.png" width="23" height="25"/>
-        <image name="house.png" width="22" height="22"/>
-        <image name="leaderboard.png" width="35" height="17"/>
-        <image name="map.png" width="26" height="21"/>
+        <image name="calendar.png" width="29" height="30"/>
+        <image name="house.png" width="30" height="30"/>
+        <image name="info.png" width="30" height="30"/>
+        <image name="leaderboard.png" width="30" height="30"/>
+        <image name="man.png" width="30" height="30"/>
+        <image name="map.png" width="30" height="30"/>
         <image name="promotion.png" width="21" height="26"/>
-        <image name="runner.png" width="18" height="25"/>
-        <image name="skin_menu.png" width="640" height="960"/>
-        <image name="squad1.png" width="24" height="24"/>
+        <image name="runner.png" width="30" height="30"/>
+        <image name="squad1.png" width="30" height="30"/>
         <image name="tactics.png" width="28" height="28"/>
-        <image name="trophy.png" width="24" height="24"/>
+        <image name="trophy.png" width="30" height="30"/>
     </resources>
 </document>
