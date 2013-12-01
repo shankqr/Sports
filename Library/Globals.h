@@ -33,6 +33,7 @@
 #define HeaderSquadSelect_height (iPad ? 75.0f : 50.0f)
 #define HeaderSquad_height (iPad ? 180.0f : 75.0f)
 #define Maintable_height (iPad ? 1400.0f : 800.0f)
+#define Header_height (iPad ? 180.0f : 75.0f)
 #define SLIDE_x (iPad ? 64.0f : 0.0f)
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
 #define SLIDE_width (iPad ? 640.0f : 320.0f)

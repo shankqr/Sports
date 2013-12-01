@@ -22,10 +22,10 @@
 {
     buildingType = type;
     
-    NSInteger s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger s = [[[Globals i] getClubData][@"stadium"] integerValue];
+    NSInteger b1 = [[[Globals i] getClubData][@"building1"] integerValue];
+    NSInteger b2 = [[[Globals i] getClubData][@"building2"] integerValue];
+    NSInteger b3 = [[[Globals i] getClubData][@"building3"] integerValue];
     
     if (type==1) 
     {
@@ -118,7 +118,7 @@
     {
         cost = 20000;
     }
-    NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
     
     if((bal > cost) && ([Globals i].energy > 9))
     {

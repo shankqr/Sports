@@ -72,7 +72,7 @@
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];
 	NSString *player_id = rowData[@"player_id"];
-	player_id = [player_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+	player_id = player_id;
 	NSString *name = rowData[@"player_name"];
 	NSString *age = rowData[@"player_age"];
 	NSString *goals = rowData[@"Score"];
@@ -110,7 +110,7 @@
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *rowData = (self.players)[indexPath.row];
-	selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+	selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 	
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
 								  initWithTitle:@"View"

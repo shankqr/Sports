@@ -97,8 +97,8 @@
 {
     NSDictionary *wsClubData = [[Globals i] getClubData];
 	
-	gold = [[wsClubData[@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-	diamond = [[wsClubData[@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	gold = [wsClubData[@"balance"] integerValue];
+	diamond = [wsClubData[@"currency_second"] integerValue];
 	level = [[Globals i] getLevel];
 	xp = [[Globals i] getXp];
 	xp_max = [[Globals i] getXpMax];
@@ -132,7 +132,7 @@
 		[iLogo setImage:[UIImage imageNamed:fname]];
 	}
 	
-	energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	energy_max = [wsClubData[@"energy"] integerValue];
 	lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)energy_max];
 	if([Globals i].energy != energy_max)
 	{

@@ -216,7 +216,7 @@
         [self finishedHighlights];
     }
     
-    [[Globals i] updateSquadData:[wsMatchData[@"club_home"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    [[Globals i] updateSquadData:wsMatchData[@"club_home"]];
     NSArray *wsPlayersHome = [[NSMutableArray alloc] initWithArray:[[Globals i] getSquadData] copyItems:YES];
     NSInteger GK_total = 0;
     NSInteger DEFENDER_total = 0;
@@ -230,72 +230,72 @@
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"gk"]])
             {
                 GK_total = GK_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:1 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_GOALKEEPER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:1 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_GOALKEEPER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"cd1"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:2 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:2 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"cd2"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:3 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:3 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"cd3"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:4 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:4 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"rb"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:5 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:5 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"lb"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:6 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:6 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"im1"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:7 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:7 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"im2"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:8 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:8 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"im3"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:9 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"rw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:10 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:10 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"lw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:11 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:11 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"fw1"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:12 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:12 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"fw2"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:13 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:13 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"fw3"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:14 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:14 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
             if (p != nil)
@@ -364,72 +364,72 @@
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"gk"]])
             {
                 GK_total = GK_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:1 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_GOALKEEPER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:1 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_GOALKEEPER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"cd1"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:2 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:2 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"cd2"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:3 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:3 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"cd3"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:4 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:4 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"rb"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:5 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:5 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"lb"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:6 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:6 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"im1"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:7 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:7 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"im2"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:8 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:8 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"im3"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:9 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"rw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:10 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:10 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"lw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:11 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:11 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"fw1"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:12 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:12 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"fw2"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:13 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:13 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"fw3"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:14 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player initPlayer:[rowData[@"player_id"] integerValue] number:14 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
             if (p != nil)
@@ -537,8 +537,8 @@
         if (![rowData[@"highlight_type_id"] isEqualToString:@"0"])
         {
             highlight_total = highlight_total + 1;
-            NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]], @"player_row",
-                                       @([[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]), @"player_id",
+            NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData[@"player_id"]], @"player_row",
+                                       @([rowData[@"player_id"] integerValue]), @"player_id",
                                        @([rowData[@"match_minute"] integerValue]), @"minute",
                                        @([rowData[@"highlight_type_id"] integerValue]), @"type_id", nil];
             [self.highlights addObject:h1];
@@ -554,8 +554,8 @@
         
         NSDictionary *rowData1 = wsPlayersHome[randomHomePlayer];
         
-        NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:[rowData1[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]], @"player_row",
-                                   @([[rowData1[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]), @"player_id",
+        NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData1[@"player_id"]], @"player_row",
+                                   @([rowData1[@"player_id"] integerValue]), @"player_id",
                                    @(randomMinute), @"minute",
                                    @0, @"type_id", nil];
         
@@ -563,8 +563,8 @@
         
         NSDictionary *rowData2 = wsPlayersAway[randomAwayPlayer];
         
-        NSMutableDictionary *h2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:[rowData2[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]], @"player_row",
-                                   @([[rowData2[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]), @"player_id",
+        NSMutableDictionary *h2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData2[@"player_id"]], @"player_row",
+                                   @([rowData2[@"player_id"] integerValue]), @"player_id",
                                    @(randomMinute), @"minute",
                                    @0, @"type_id", nil];
         

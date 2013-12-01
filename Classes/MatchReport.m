@@ -166,7 +166,7 @@
         if(my_club_score > enemy_club_score) //WIN
         {
             message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and won %ld - %ld", my_club, enemy_club, (long)my_club_score, (long)enemy_club_score];
-            NSInteger money_win = [[challenge_win stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+            NSInteger money_win = [challenge_win integerValue];
             if (money_win>0)
             {
                 challenge_money = [NSString stringWithFormat:@"They paid us $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_win]];
@@ -177,7 +177,7 @@
         if(my_club_score < enemy_club_score) //LOSE
         {
             message = [NSString stringWithFormat:@"My Club %@ accepted %@ challenge and lose %ld - %ld", my_club, enemy_club, (long)my_club_score, (long)enemy_club_score];
-            NSInteger money_lose = [[challenge_lose stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+            NSInteger money_lose = [challenge_lose integerValue];
             if (money_lose>0)
             {
                 challenge_money = [NSString stringWithFormat:@"We paid them $%@ according to the challenge bet. ", [[Globals i] numberFormat:challenge_lose]];

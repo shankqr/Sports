@@ -20,7 +20,7 @@
 {
     self.players = [[NSMutableArray alloc] initWithObjects:player, nil];
     [playerList reloadData];
-    self.player_id = [player[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    self.player_id = player[@"player_id"];
     
     moraleLabel.text = [NSString stringWithFormat:@"%ld%%", (long)[player[@"happiness"] integerValue]/2];
     
@@ -185,7 +185,7 @@
 
 -(IBAction)renameButton_tap:(id)sender
 {
-    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger totalDiamonds = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
     if(totalDiamonds > 9)
     {
@@ -268,7 +268,7 @@
 
 - (IBAction)improveButton_tap:(id)sender
 {
-    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger totalDiamonds = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
     if(totalDiamonds > 4)
     {
@@ -301,7 +301,7 @@
 
 - (IBAction)moraleButton_tap:(id)sender
 {
-    NSInteger totalDiamonds = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger totalDiamonds = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
     if(totalDiamonds > 2)
     {

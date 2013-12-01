@@ -37,6 +37,19 @@
 @class StoreOthersView;
 @class JobRefill;
 @class MailView;
+@class ClubView;
+@class TrophyViewer;
+@class ClubViewer;
+@class MapViewer;
+@class SquadViewer;
+@class OverView;
+@class FixturesView;
+@class LeagueView;
+@class PromotionView;
+@class ScorersView;
+@class FormationView;
+@class SubsView;
+@class TacticsView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -69,6 +82,19 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     StoreOthersView *storeOthers;
     JobRefill *jobRefill;
     MailView *mailView;
+    ClubView *clubView;
+    TrophyViewer *trophyViewer;
+    ClubViewer *clubViewer;
+    MapViewer *mapViewer;
+    LeagueView *leagueView;
+    PromotionView *promotionView;
+    ScorersView *scorersView;
+    FormationView *formationView;
+    SubsView *subsView;
+    TacticsView *tacticsView;
+    SquadViewer *squadViewer;
+    OverView *overView;
+    FixturesView *fixturesView;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
@@ -86,7 +112,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     UILabel* lblChat1;
     BOOL isShowingLogin;
 }
-@property (nonatomic, strong) IBOutlet UITableView *mainTableView;
+@property (nonatomic, strong) UITableView *mainTableView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
 @property (nonatomic, strong) StadiumMap *stadiumMap;
@@ -119,10 +145,23 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) StoreOthersView *storeOthers;
 @property (nonatomic, strong) JobRefill *jobRefill;
 @property (nonatomic, strong) MailView *mailView;
-@property (nonatomic, strong) IBOutlet UITabBarController *tacticsTabBarController;
-@property (nonatomic, strong) IBOutlet UITabBarController *leagueTabBarController;
-@property (nonatomic, strong) IBOutlet UITabBarController *clubTabBarController;
-@property (nonatomic, strong) IBOutlet UITabBarController *myclubTabBarController;
+@property (nonatomic, strong) ClubView *clubView;
+@property (nonatomic, strong) TrophyViewer *trophyViewer;
+@property (nonatomic, strong) ClubViewer *clubViewer;
+@property (nonatomic, strong) MapViewer *mapViewer;
+@property (nonatomic, strong) LeagueView *leagueView;
+@property (nonatomic, strong) PromotionView *promotionView;
+@property (nonatomic, strong) ScorersView *scorersView;
+@property (nonatomic, strong) FormationView *formationView;
+@property (nonatomic, strong) SubsView *subsView;
+@property (nonatomic, strong) TacticsView *tacticsView;
+@property (nonatomic, strong) SquadViewer *squadViewer;
+@property (nonatomic, strong) OverView *overView;
+@property (nonatomic, strong) FixturesView *fixturesView;
+@property (nonatomic, strong) UITabBarController *tacticsTabBarController;
+@property (nonatomic, strong) UITabBarController *leagueTabBarController;
+@property (nonatomic, strong) UITabBarController *clubTabBarController;
+@property (nonatomic, strong) UITabBarController *myclubTabBarController;
 - (void)startUp;
 - (void)reloadView;
 - (void)buyProduct:(NSString *)product;

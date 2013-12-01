@@ -152,7 +152,7 @@
 	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.coaches)[row];
-	NSString *coach_id = [rowData[@"coach_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	NSString *coach_id = rowData[@"coach_id"];
 	NSString *name = rowData[@"coach_name"];
 	NSString *age = rowData[@"coach_age"];
 	NSString *desc = rowData[@"coach_desc"];

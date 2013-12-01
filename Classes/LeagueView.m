@@ -244,7 +244,7 @@
 	}
 	else
 	{
-		selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+		selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 		UIActionSheet *actionSheet = [[UIActionSheet alloc]
 									  initWithTitle:@"Options"
 									  delegate:self

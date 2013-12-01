@@ -2300,7 +2300,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)storeEnergy
 {
-    NSInteger energy_max = [[wsClubData[@"energy"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger energy_max = [wsClubData[@"energy"] integerValue];
     NSInteger energy_togo = energy_max - energy;
     if (energy_togo > 0)
     {
@@ -2310,7 +2310,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)retrieveEnergy
 {
-	self.energy = [[wsClubData[@"e"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	self.energy = [wsClubData[@"e"] integerValue];
 	[self storeEnergy];
 	
 	return self.energy;
@@ -2333,7 +2333,7 @@ static NSOperationQueue *connectionQueue;
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = players[row];
 	NSString *row_player_id = rowData[@"player_id"];
-	NSString *player_id = [row_player_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+	NSString *player_id = row_player_id;
 	NSString *name = rowData[@"player_name"];
 	NSString *age = rowData[@"player_age"];
 	cell.playerName.text = [NSString stringWithFormat:@"%@ (Age: %@)", name, age];
@@ -2781,8 +2781,8 @@ static NSOperationQueue *connectionQueue;
 {
 	NSString *encodedMessage = [self urlEnc:message];
     NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
-    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-    NSString *a_id = [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    NSString *club_id = wsClubData[@"club_id"];
+    NSString *a_id = wsClubData[@"alliance_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AlliancePost/%@/%@/%@/%@",
                        WS_URL, a_id, club_id, encodedClubName, encodedMessage];
@@ -2794,7 +2794,7 @@ static NSOperationQueue *connectionQueue;
 {
 	NSString *encodedValue = [self urlEnc:value];
     NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
-    NSString *club_id = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    NSString *club_id = wsClubData[@"club_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@",
                        WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
@@ -2909,7 +2909,7 @@ static NSOperationQueue *connectionQueue;
 {
 	workingSquad = 1;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
-					   WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+					   WS_URL, wsClubData[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMySquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 	workingSquad = 0;
@@ -3143,7 +3143,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateAllianceCupFixturesData:(NSString *)round
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
-						   WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], round];
+						   WS_URL, wsClubData[@"alliance_id"], round];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3169,7 +3169,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
-                           WS_URL, [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""], division, series, playing_cup];
+                           WS_URL, wsClubData[@"club_id"], division, series, playing_cup];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3182,7 +3182,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateWallData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
-                           WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+                           WS_URL, wsClubData[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3195,7 +3195,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateEventsData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
-                           WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+                           WS_URL, wsClubData[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3208,7 +3208,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateDonationsData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceDonations/%@",
-                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+                       WS_URL, wsClubData[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3221,7 +3221,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateAppliedData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceApply/%@",
-                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+                       WS_URL, wsClubData[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3234,7 +3234,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateMembersData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceMembers/%@",
-                       WS_URL, [wsClubData[@"alliance_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+                       WS_URL, wsClubData[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }

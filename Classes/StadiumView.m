@@ -23,7 +23,7 @@
 - (void)updateView
 {
 	NSDictionary *wsClubData = [[Globals i] getClubData];
-	stadiumNameLabel.text = wsClubData[@"stadium_status"];
+	stadiumNameLabel.text = @"Good Condition";
 	capacityLabel.text = [[Globals i] numberFormat:wsClubData[@"stadium_capacity"]];
 	ticketLabel.text = [@"$ " stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"average_ticket"]]];
 	levelLabel.text = wsClubData[@"stadium"];
@@ -34,7 +34,7 @@
 
 -(IBAction)upgradeButton_tap:(id)sender
 {
-	NSInteger cost = [[levelLabel.text stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]*5000;
+	NSInteger cost = [levelLabel.text integerValue]*5000;
 	NSNumber* number = @(cost);
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:kCFNumberFormatterDecimalStyle];
@@ -56,13 +56,13 @@
 	{
         [[Globals i] settPurchasedProduct:@"9"];
 		NSInteger stadiumtype = 1;
-		if([[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] > 70)
+		if([[[Globals i] getClubData][@"stadium"] integerValue] > 70)
 		{
 			stadiumtype = 10;
 		}
 		else 
 		{
-			stadiumtype = 1 + (([[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]-1)/8);
+			stadiumtype = 1 + (([[[Globals i] getClubData][@"stadium"] integerValue]-1)/8);
 		}
 		NSString *i = [NSString stringWithFormat:@"upgrade%ld", (long)stadiumtype];
 		NSString *pi = [[Globals i] getProductIdentifiers][i];
@@ -71,8 +71,8 @@
 	
 	if(buttonIndex == 2)
 	{
-		NSInteger cost = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]*5000;
-		NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger cost = [[[Globals i] getClubData][@"stadium"] integerValue]*5000;
+		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
 		if((bal > cost) && ([Globals i].energy > 9))
 		{
@@ -95,7 +95,7 @@
     if(buttonIndex == 3)
 	{
 		NSInteger pval = 9;
-		NSInteger bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
 		
 		if(bal > pval)
 		{

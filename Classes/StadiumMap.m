@@ -260,7 +260,7 @@
     
     if (building1.tag == 0) 
     {
-        NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+        NSInteger b1 = [[[Globals i] getClubData][@"building1"] integerValue];
         if (b1 > 0 && b1s > 1)
         {
             building1TimerLabel.text = [[Globals i] getCountdownString:b1s];
@@ -287,7 +287,7 @@
     
     if (building2.tag == 0) 
     {
-        NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+        NSInteger b2 = [[[Globals i] getClubData][@"building2"] integerValue];
         if (b2 > 0 && b2s > 1)
         {
             building2TimerLabel.text = [[Globals i] getCountdownString:b2s];
@@ -314,7 +314,7 @@
 
     if (building3.tag == 0) 
     {
-        NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+        NSInteger b3 = [[[Globals i] getClubData][@"building3"] integerValue];
         if (b3 > 0 && b3s > 1)
         {
             building3TimerLabel.text = [[Globals i] getCountdownString:b3s];
@@ -354,14 +354,14 @@
     [stadiumMap setImage:[UIImage imageNamed:@"map1.png"]];
     [stadiumPitch setImage:[UIImage imageNamed:@"m1.png"]];
     
-    NSInteger s = [[[[Globals i] getClubData][@"stadium"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger s = [[[Globals i] getClubData][@"stadium"] integerValue];
     if (s > 329) 
     {
         s = 329;
     }
     
     //Buildings code
-    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b1 = [[[Globals i] getClubData][@"building1"] integerValue];
     if (b1 == 0) 
     {
         [building1 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -380,7 +380,7 @@
         building1CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b1*b1+s];
     }
     
-    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b2 = [[[Globals i] getClubData][@"building2"] integerValue];
     if (b2 == 0) 
     {
         [building2 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -399,7 +399,7 @@
         building2CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b2*s];
     }
     
-    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b3 = [[[Globals i] getClubData][@"building3"] integerValue];
     if (b3 == 0) 
     {
         [building3 setImage:[UIImage imageNamed:@"building_empty.png"] forState:UIControlStateNormal];
@@ -706,7 +706,7 @@
 
 - (IBAction)building1_tap:(id)sender
 {
-    NSInteger b1 = [[[[Globals i] getClubData][@"building1"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b1 = [[[Globals i] getClubData][@"building1"] integerValue];
 
     if((b1 > 0) && ([building1TimerLabel.text isEqualToString:@""]))
     {
@@ -720,7 +720,7 @@
 
 - (IBAction)building2_tap:(id)sender
 {
-    NSInteger b2 = [[[[Globals i] getClubData][@"building2"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b2 = [[[Globals i] getClubData][@"building2"] integerValue];
     if((b2 > 0) && ([building2TimerLabel.text isEqualToString:@""]))
     {
         [self harvestBuilding:2];
@@ -733,7 +733,7 @@
 
 - (IBAction)building3_tap:(id)sender
 {
-    NSInteger b3 = [[[[Globals i] getClubData][@"building3"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger b3 = [[[Globals i] getClubData][@"building3"] integerValue];
     if((b3 > 0) && ([building3TimerLabel.text isEqualToString:@""]))
     {
         [self harvestBuilding:3];

@@ -105,7 +105,7 @@
 	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
 	if(wsClubData.count > 0)
 	{
-		[Globals i].selectedClubId = [wsClubData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+		[Globals i].selectedClubId = wsClubData[@"club_id"];
 		
 		clubNameLabel.text = wsClubData[@"club_name"];
         NSString *date = wsClubData[@"date_found"];
@@ -118,7 +118,7 @@
 		fansLabel.text = [[Globals i] numberFormat:wsClubData[@"fan_members"]];
 		financeLabel.text = [[Globals i] numberFormat:wsClubData[@"balance"]];
 		sponsorLabel.text = [[Globals i] numberFormat:wsClubData[@"revenue_sponsors"]];
-        NSInteger xp = [[wsClubData[@"xp"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+        NSInteger xp = [wsClubData[@"xp"] integerValue];
         NSInteger level = [[Globals i] levelFromXp:xp];
 		levelLabel.text = [NSString stringWithFormat:@"%ld", (long)level];
 		divisionLabel.text = wsClubData[@"division"];

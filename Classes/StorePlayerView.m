@@ -104,8 +104,8 @@
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];
 	//NSString *name = [rowData objectForKey:@"player_name"];
-	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-	self.sel_player_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.sel_player_id = rowData[@"player_id"];
+	self.sel_player_value = rowData[@"player_value"];
 	self.sel_player_star = rowData[@"player_goals"];
     
     if(bidView == nil)

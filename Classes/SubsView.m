@@ -116,7 +116,7 @@
 			break;
 	}
 	
-	self.selectedPlayer = [self.selectedPlayer stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.selectedPlayer = self.selectedPlayer;
 	
 	[self launchSquadSelect];
 }
@@ -150,13 +150,13 @@
 
 	NSDictionary *wsClubData = [[Globals i] getClubData];
 	NSString *player_id = wsClubData[pos];
-	player_id = [player_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+	player_id = player_id;
 	NSString *player_name = @"";
 	NSMutableArray *players = [[Globals i] getMySquadData];
 	
 	for(NSDictionary *rowData in players)
 	{
-		if([[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] isEqualToString:player_id])
+		if([rowData[@"player_id"] isEqualToString:player_id])
 		{
 			player_name = rowData[@"player_name"];
 		}
@@ -255,7 +255,7 @@
 
 - (void)swapPos:(NSString *)pos
 {
-	NSString *oldPlayer = [[[Globals i] getClubData][pos] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	NSString *oldPlayer = [[Globals i] getClubData][pos];
 	
 	if([self.nwPlayer isEqualToString:oldPlayer])
 	{

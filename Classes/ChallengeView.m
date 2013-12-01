@@ -42,7 +42,7 @@
 	if([self.matches count] > currMatchIndex)
 	{
 		NSDictionary *rowData = (self.matches)[currMatchIndex];
-		self.selected_matchid = [[NSString alloc] initWithString: [rowData[@"match_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+		self.selected_matchid = [[NSString alloc] initWithString:rowData[@"match_id"]];
 		titleLabel.text = rowData[@"club_home_name"];
 		if([rowData[@"challenge_note"] isEqualToString:@""])
 		{
@@ -70,7 +70,7 @@
     currMatchIndex = selected_row;
     self.matches = [[Globals i] getChallengesData];
     NSDictionary *rowData = (self.matches)[currMatchIndex];
-    self.selected_matchid = [[NSString alloc] initWithString: [rowData[@"match_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    self.selected_matchid = [[NSString alloc] initWithString:rowData[@"match_id"]];
     
 	titleLabel.text = rowData[@"club_home_name"];
 	if([rowData[@"challenge_note"] isEqualToString:@""])
@@ -104,8 +104,8 @@
 
 - (void)confirmPurchase
 {
-	NSInteger pval = [[(self.matches)[0][@"challenge_lose"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
-	NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	NSInteger pval = [(self.matches)[0][@"challenge_lose"] integerValue];
+	NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 	if(bal > pval)
 	{
 		[Globals i].challengeMatchId = selected_matchid;

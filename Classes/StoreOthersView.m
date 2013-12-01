@@ -240,7 +240,7 @@
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.products)[row];
 	NSString *name = rowData[@"name"];
-	self.sel_product_id = [rowData[@"product_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.sel_product_id = rowData[@"product_id"];
     self.sel_product_star = rowData[@"product_star"];
     
 	self.sel_product_value = [[Globals i] numberFormat:rowData[@"price_virtual"]];
@@ -334,7 +334,7 @@
 - (void)purchaseWithFunds
 {
     NSInteger pval = [self.sel_product_value integerValue];
-    NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
     
     if(pval > bal)
     {
@@ -358,7 +358,7 @@
 - (void)purchaseWithDiamonds
 {
     NSInteger pval = [self.sel_product_real integerValue];
-    NSInteger bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+    NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
     if(pval > bal)
     {

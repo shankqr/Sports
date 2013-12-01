@@ -95,8 +95,8 @@
 	self.selectedRow = [indexPath row];
 	NSDictionary *rowData = (self.players)[self.selectedRow];
 	self.sel_player_name = rowData[@"player_name"];
-	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-	self.sel_player_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.sel_player_id = rowData[@"player_id"];
+	self.sel_player_value = rowData[@"player_value"];
     
     if(playerView == nil)
     {

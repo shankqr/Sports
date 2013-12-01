@@ -61,7 +61,7 @@
 
     [playerList reloadData];
     NSDictionary *rowData = (self.players)[0];
-    self.player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+    self.player_id = rowData[@"player_id"];
     
     [self getNewMessages];
 }
@@ -116,7 +116,7 @@
             if (!keyboardIsShowing)
             {
                 rowData = (self.players)[0];
-                bid_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+                bid_value = rowData[@"player_value"];
                 NSInteger auto_input = [bid_value integerValue]+10000;
                 NSString *minBid = [NSString stringWithFormat:@"%ld", (long)auto_input];
                 messageText.text = minBid;
@@ -290,12 +290,12 @@
         else //This is the first bidder
         {
             rowData = (self.players)[0];
-            bid_value = [rowData[@"player_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+            bid_value = rowData[@"player_value"];
         }
         
         if([messageText.text integerValue] > ([bid_value integerValue]+9999))
         {
-            NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+            NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
             if([messageText.text integerValue] < bal)
             {
                 if([[[Globals i] doBid:self.player_id:messageText.text] isEqualToString:@"1"])
@@ -410,7 +410,7 @@
 	
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
         {
-            selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+            selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 
             UIAlertView *alert = [[UIAlertView alloc]
                       initWithTitle:rowData[@"club_name"]

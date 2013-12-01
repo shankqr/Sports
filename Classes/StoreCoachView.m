@@ -108,7 +108,7 @@
 	
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.coaches)[row];
-	NSString *coach_id = [rowData[@"coach_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	NSString *coach_id = rowData[@"coach_id"];
 	NSString *name = rowData[@"coach_name"];
 	NSString *age = rowData[@"coach_age"];
 	NSString *desc = rowData[@"coach_desc"];
@@ -244,8 +244,8 @@
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.coaches)[row];
 	NSString *name = rowData[@"coach_name"];
-	self.sel_coach_id = [rowData[@"coach_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-	self.sel_coach_value = [rowData[@"coach_value"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.sel_coach_id = rowData[@"coach_id"];
+	self.sel_coach_value = rowData[@"coach_value"];
 	self.sel_coach_star = rowData[@"coach_star"];
 	
 	UIAlertView *alert = [[UIAlertView alloc]
@@ -268,7 +268,7 @@
 	if(buttonIndex == 2)
 	{
 		NSInteger pval = [self.sel_coach_value integerValue];
-		NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
 		if(bal > pval)
 		{

@@ -84,6 +84,19 @@
 @synthesize storeOthers;
 @synthesize jobRefill;
 @synthesize mailView;
+@synthesize clubView;
+@synthesize trophyViewer;
+@synthesize clubViewer;
+@synthesize mapViewer;
+@synthesize leagueView;
+@synthesize promotionView;
+@synthesize scorersView;
+@synthesize formationView;
+@synthesize subsView;
+@synthesize tacticsView;
+@synthesize squadViewer;
+@synthesize overView;
+@synthesize fixturesView;
 
 - (void)startUp //Called when app opens for the first time
 {
@@ -132,6 +145,15 @@
     UIImage *imgBkg = [UIImage imageNamed:@"skin_menu.png"];
     [backgroundImage setImage:imgBkg];
     [self.view insertSubview:backgroundImage atIndex:0];
+    
+    self.mainTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, Header_height, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height-Header_height) style:UITableViewStylePlain];
+    [self.mainTableView setBackgroundColor:[UIColor clearColor]];
+    self.mainTableView.backgroundView = nil;
+    self.mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.mainTableView.delegate = self;
+    self.mainTableView.dataSource = self;
+    [self.view insertSubview:mainTableView atIndex:1];
+    [self.mainTableView reloadData];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -222,7 +244,6 @@
              [header updateView];
              
              [self createMarquee];
-             [self showMarquee];
              
              [self createChat];
              if(!chatTimer.isValid)
@@ -283,51 +304,233 @@
 
 - (void)showClub
 {
-    ((ClubView*)[myclubTabBarController viewControllers][0]).mainView = self;
+    if (clubView == nil)
+    {
+        clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
+        clubView.mainView = self;
+        clubView.title = @"My Club";
+        clubView.tabBarItem.image = [UIImage imageNamed:@"tab_house"];
+    }
     
-	[(ClubView*)[myclubTabBarController viewControllers][0] updateView];
+    if (trophyViewer == nil)
+    {
+        trophyViewer = [[TrophyViewer alloc] initWithStyle:UITableViewStylePlain];
+        trophyViewer.title = @"Trophies";
+        trophyViewer.tabBarItem.image = [UIImage imageNamed:@"tab_trophy"];
+    }
+    trophyViewer.selected_trophy = [[Globals i] wsClubData][@"club_id"];
+    
+    if (myclubTabBarController == nil)
+    {
+        myclubTabBarController = [[UITabBarController alloc] init];
+        myclubTabBarController.delegate = self;
+    }
+    
+    myclubTabBarController.viewControllers = @[clubView, trophyViewer];
+    [myclubTabBarController setSelectedIndex:0];
     [[Globals i] showTemplate:@[myclubTabBarController] :@"Club Details" :1];
-    ((TrophyViewer*)[myclubTabBarController viewControllers][1]).selected_trophy = [[[Globals i] wsClubData][@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
-    [(ClubView*)[myclubTabBarController viewControllers][0] updateView];
-    myclubTabBarController.selectedIndex = 0;
+    [clubView updateView];
 }
 
 - (void)resetClubImages
 {
-    [(ClubView*)[myclubTabBarController viewControllers][0] resetImages];
+    [clubView resetImages];
 }
 
 - (void)showClubViewer:(NSString *)club_id
 {
-    ((ClubViewer*)[clubTabBarController viewControllers][0]).mainView = self;
-	((MapViewer*)[clubTabBarController viewControllers][1]).mainView = self;
-	((TrophyViewer*)[clubTabBarController viewControllers][3]).mainView = self;
+    if (trophyViewer == nil)
+    {
+        trophyViewer = [[TrophyViewer alloc] initWithStyle:UITableViewStylePlain];
+        trophyViewer.title = @"Trophies";
+        trophyViewer.tabBarItem.image = [UIImage imageNamed:@"tab_trophy"];
+    }
+    trophyViewer.selected_trophy = club_id;
     
-    [[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :0];
+    if (clubViewer == nil)
+    {
+        clubViewer = [[ClubViewer alloc] initWithNibName:@"ClubViewer" bundle:nil];
+        clubViewer.mainView = self;
+        clubViewer.title = @"Club";
+        clubViewer.tabBarItem.image = [UIImage imageNamed:@"tab_house"];
+    }
     
-	((TrophyViewer*)[clubTabBarController viewControllers][3]).selected_trophy = club_id;
-	[(ClubViewer*)[clubTabBarController viewControllers][0] updateViewId:club_id];
-	clubTabBarController.selectedIndex = 0;
+    if (mapViewer == nil)
+    {
+        mapViewer = [[MapViewer alloc] initWithNibName:@"MapViewer" bundle:nil];
+        mapViewer.mainView = self;
+        mapViewer.title = @"Map";
+        mapViewer.tabBarItem.image = [UIImage imageNamed:@"tab_map"];
+    }
+    
+    if (squadViewer == nil)
+    {
+        squadViewer = [[SquadViewer alloc] initWithStyle:UITableViewStylePlain];
+        squadViewer.title = @"Squad";
+        squadViewer.tabBarItem.image = [UIImage imageNamed:@"tab_squad"];
+    }
+    
+    if (clubTabBarController == nil)
+    {
+        clubTabBarController = [[UITabBarController alloc] init];
+        clubTabBarController.delegate = self;
+    }
+    
+    clubTabBarController.viewControllers = @[clubViewer, mapViewer, squadViewer, trophyViewer];
+    [clubTabBarController setSelectedIndex:0];
+    [[Globals i] showTemplate:@[clubTabBarController] :@"Club Details" :1];
+    [clubViewer updateViewId:club_id];
 }
 
 - (void)showLeague
 {
-	((LeagueView*)[leagueTabBarController viewControllers][1]).mainView = self;
-	((PromotionView*)[leagueTabBarController viewControllers][3]).mainView = self;
-	((ScorersView*)[leagueTabBarController viewControllers][4]).mainView = self;
+    if (overView == nil)
+    {
+        overView = [[OverView alloc] initWithStyle:UITableViewStylePlain];
+        overView.title = @"Overview";
+        overView.tabBarItem.image = [UIImage imageNamed:@"tab_info"];
+    }
     
+    if (leagueView == nil)
+    {
+        leagueView = [[LeagueView alloc] initWithNibName:@"LeagueView" bundle:nil];
+        leagueView.mainView = self;
+        leagueView.title = @"Table";
+        leagueView.tabBarItem.image = [UIImage imageNamed:@"tab_leaderboard"];
+    }
+    
+    if (fixturesView == nil)
+    {
+        fixturesView = [[FixturesView alloc] initWithStyle:UITableViewStylePlain];
+        fixturesView.title = @"Fixtures";
+        fixturesView.tabBarItem.image = [UIImage imageNamed:@"tab_calendar"];
+    }
+    
+    if (promotionView == nil)
+    {
+        promotionView = [[PromotionView alloc] initWithNibName:@"PromotionView" bundle:nil];
+        promotionView.mainView = self;
+        promotionView.title = @"Promotion";
+        promotionView.tabBarItem.image = [UIImage imageNamed:@"tab_promotion"];
+    }
+    
+    if (scorersView == nil)
+    {
+        scorersView = [[ScorersView alloc] initWithStyle:UITableViewStylePlain];
+        scorersView.mainView = self;
+        scorersView.title = @"Scorers";
+        scorersView.tabBarItem.image = [UIImage imageNamed:@"tab_man"];
+    }
+    
+    if (leagueTabBarController == nil)
+    {
+        leagueTabBarController = [[UITabBarController alloc] init];
+        leagueTabBarController.delegate = self;
+    }
+    
+    leagueTabBarController.viewControllers = @[overView, leagueView, fixturesView, promotionView, scorersView];
+    [leagueTabBarController setSelectedIndex:0];
     [[Globals i] showTemplate:@[leagueTabBarController] :@"League" :1];
-    [(LeagueView*)[leagueTabBarController viewControllers][0] updateView];
+    [overView updateView];
 }
 
 - (void)showTactics
 {
-    ((FormationView*)[tacticsTabBarController viewControllers][0]).mainView = self;
-	((SubsView*)[tacticsTabBarController viewControllers][1]).mainView = self;
-	((TacticsView*)[tacticsTabBarController viewControllers][2]).mainView = self;
+    if (formationView == nil)
+    {
+        formationView = [[FormationView alloc] initWithNibName:@"FormationView" bundle:nil];
+        formationView.mainView = self;
+        formationView.title = @"Formations";
+        formationView.tabBarItem.image = [UIImage imageNamed:@"tab_squad"];
+    }
     
+    if (subsView == nil)
+    {
+        subsView = [[SubsView alloc] initWithNibName:@"SubsView" bundle:nil];
+        subsView.mainView = self;
+        subsView.title = @"Substitute";
+        subsView.tabBarItem.image = [UIImage imageNamed:@"tab_id"];
+    }
+    
+    if (tacticsView == nil)
+    {
+        tacticsView = [[TacticsView alloc] initWithNibName:@"TacticsView" bundle:nil];
+        tacticsView.mainView = self;
+        tacticsView.title = @"Tactics";
+        tacticsView.tabBarItem.image = [UIImage imageNamed:@"tab_tactics"];
+    }
+    
+    if (tacticsTabBarController == nil)
+    {
+        tacticsTabBarController = [[UITabBarController alloc] init];
+        tacticsTabBarController.delegate = self;
+    }
+    
+    tacticsTabBarController.viewControllers = @[formationView, subsView, tacticsView];
+    [tacticsTabBarController setSelectedIndex:0];
     [[Globals i] showTemplate:@[tacticsTabBarController] :@"Tactics" :1];
-    [(FormationView*)[tacticsTabBarController viewControllers][0] updateView];
+    [formationView updateView];
+}
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+	//MyClub
+	if([viewController.tabBarItem.title isEqualToString:@"My Club"])
+	{
+		[clubView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Trophies"])
+	{
+		[trophyViewer updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Club"])
+	{
+		[clubViewer updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Map"])
+	{
+		[mapViewer updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Squad"])
+	{
+		[squadViewer updateView];
+	}
+    
+	//Tactics
+	else if([viewController.tabBarItem.title isEqualToString:@"Formations"])
+	{
+		[formationView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Substitute"])
+	{
+		[subsView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Tactics"])
+	{
+		[tacticsView updateView];
+	}
+    
+	//League
+    else if([viewController.tabBarItem.title isEqualToString:@"Overview"])
+	{
+		[overView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Table"])
+	{
+		[leagueView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Fixtures"])
+	{
+		[fixturesView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Promotion"])
+	{
+		[promotionView updateView];
+	}
+	else if([viewController.tabBarItem.title isEqualToString:@"Scorers"])
+	{
+		[scorersView updateView];
+	}
 }
 
 - (void)updateHeader
@@ -1055,7 +1258,7 @@
     {
         challengeCreate = [[ChallengeCreateView alloc] initWithNibName:@"ChallengeCreateView" bundle:nil];
     }
-    [Globals i].selectedClubId = [club_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+    [Globals i].selectedClubId = club_id;
 	challengeCreate.mainView = self;
     [challengeCreate updateView];
 
@@ -1070,67 +1273,6 @@
     }
     [[Globals i] showTemplate:@[stadiumMap] :@"Stadium" :0];
     [self.stadiumMap updateView];
-}
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
-{
-	//MyClub
-	if([viewController.tabBarItem.title isEqualToString:@"My Club"])
-	{
-		[(ClubView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Trophies"])
-	{
-		[(TrophyViewer*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Club"])
-	{
-		[(ClubViewer*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Map"])
-	{
-		[(MapViewer*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Squad"])
-	{
-		[(SquadViewer*)viewController updateView];
-	}
-    
-	//Tactics
-	else if([viewController.tabBarItem.title isEqualToString:@"Formation"])
-	{
-		[(FormationView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Substitute"])
-	{
-		[(SubsView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Tactics"])
-	{
-		[(TacticsView*)viewController updateView];
-	}
-    
-	//League
-    else if([viewController.tabBarItem.title isEqualToString:@"Overview"])
-	{
-		[(OverView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Table"])
-	{
-		[(LeagueView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Fixtures"])
-	{
-		[(FixturesView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Promotion"])
-	{
-		[(PromotionView*)viewController updateView];
-	}
-	else if([viewController.tabBarItem.title isEqualToString:@"Scorers"])
-	{
-		[(ScorersView*)viewController updateView];
-	}
 }
 
 - (void)menuButton_tap:(NSInteger)sender
@@ -1297,6 +1439,8 @@
                                            initWithTarget:self
                                            action:@selector(labelDragged:)];
         [lblMarquee addGestureRecognizer:gesture];
+        
+        [self showMarquee];
     }
 }
 
@@ -1380,6 +1524,7 @@
     if (cell == nil)
     {
         cell = [[MainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MainCell"];
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     cell.mainView = self;
     
@@ -1394,6 +1539,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return Maintable_height;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 - (void)logoutButton

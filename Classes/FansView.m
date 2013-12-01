@@ -23,7 +23,7 @@
 	
 	membersLabel.text = [[Globals i] numberFormat:wsClubData[@"fan_members"]];
 	moodLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubData[@"fan_mood"] integerValue]/10];
-	expectationLabel.text = wsClubData[@"fan_expectation_def"];
+	expectationLabel.text = @"Do better next Season";
 	
 	NSString *sponsor = @"$ ";
 	sponsor = [sponsor stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_sponsors"]]];

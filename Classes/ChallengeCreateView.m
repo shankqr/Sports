@@ -188,7 +188,7 @@
 - (void)confirmPurchase
 {
 	NSInteger pval = [win integerValue];
-	NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+	NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 	if(bal > pval*2)
 	{
         [NSThread detachNewThreadSelector:@selector(challengeClub) toTarget:self withObject:nil];
@@ -213,7 +213,7 @@
     @autoreleasepool {
     
         NSString *enemy_club_id = [Globals i].selectedClubId;
-        NSString *my_club_id = [[[Globals i] getClubData][@"club_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+        NSString *my_club_id = [[Globals i] getClubData][@"club_id"];
         NSString *note = managerNote.text;
         if([note length]<1)
         {

@@ -263,14 +263,14 @@
 	BOOL isHome = [rowData[@"club_home"] isEqualToString:[[Globals i] getClubData][@"club_id"]];
 	if(isHome)
 	{
-		selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_away"] stringByReplacingOccurrencesOfString:@"," withString:@""]];	
+		selected_clubid = [[NSString alloc] initWithString:rowData[@"club_away"]];
 	}
 	else
 	{
-		selected_clubid = [[NSString alloc] initWithString: [rowData[@"club_home"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+		selected_clubid = [[NSString alloc] initWithString:rowData[@"club_home"]];
 	}
 	
-	selected_matchid = [[NSString alloc] initWithString: [rowData[@"match_id"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+	selected_matchid = [[NSString alloc] initWithString:rowData[@"match_id"]];
 	
     selected_row = indexPath.row;
     

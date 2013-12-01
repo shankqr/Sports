@@ -58,7 +58,7 @@
 	
 	if(buttonIndex == 2)
 	{
-		NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
 		if((bal > hireCost) && ([Globals i].energy > 9))
 		{
@@ -81,7 +81,7 @@
     if(buttonIndex == 3)
 	{
 		NSInteger pval = 9;
-		NSInteger bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
 		
 		if(bal > pval)
 		{
@@ -106,7 +106,7 @@
 	{
 		case 0:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"managers"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"managers"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"1"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -115,7 +115,7 @@
 		}
 		case 1:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"scouts"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"scouts"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"2"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -124,7 +124,7 @@
 		}
 		case 2:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"coaches"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"coaches"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"3"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -133,7 +133,7 @@
 		}
 		case 3:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"accountants"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"accountants"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"4"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -142,7 +142,7 @@
 		}
 		case 4:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"spokespersons"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"spokespersons"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"5"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -151,7 +151,7 @@
 		}
 		case 5:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"psychologists"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"psychologists"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"6"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -160,7 +160,7 @@
 		}
 		case 6:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"physiotherapists"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"physiotherapists"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"7"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -169,7 +169,7 @@
 		}
 		case 7:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"doctors"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"doctors"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"8"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];
@@ -178,7 +178,7 @@
 		}
 		default:
 		{
-            hireCost = ([[[[Globals i] getClubData][@"managers"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]+1)*10000;
+            hireCost = ([[[Globals i] getClubData][@"managers"] integerValue]+1)*10000;
             NSString *price = [NSString stringWithFormat:@"$%@ + 10 Energy", [[Globals i] intString:hireCost]];
             [[Globals i] settPurchasedProduct:@"1"];
 			self.iden = [[Globals i] getProductIdentifiers][@"staff"];

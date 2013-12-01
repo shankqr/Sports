@@ -56,7 +56,7 @@
 {
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];
-	self.sel_player_id = [rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""];
+	self.sel_player_id = rowData[@"player_id"];
 	self.sel_player_name = rowData[@"player_name"];
 	
 	if(([rowData[@"card_red"] integerValue] == 1) || ([rowData[@"player_condition"] integerValue] == 2))

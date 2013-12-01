@@ -329,7 +329,7 @@
 	if(buttonIndex == 2)
 	{
 		NSInteger pval = 10000;
-		NSInteger bal = [[[[Globals i] getClubData][@"balance"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
 		if((bal > pval) && ([Globals i].energy > 9))
 		{
@@ -352,7 +352,7 @@
     if(buttonIndex == 3)
 	{
 		NSInteger pval = 9;
-		NSInteger bal = [[[[Globals i] getClubData][@"currency_second"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue];
+		NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
 		
 		if(bal > pval)
 		{

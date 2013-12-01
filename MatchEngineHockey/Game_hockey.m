@@ -213,7 +213,7 @@
         [self finishedHighlights];
     }
     
-    [[Globals i] updateSquadData:[wsMatchData[@"club_home"] stringByReplacingOccurrencesOfString:@"," withString:@""]];
+    [[Globals i] updateSquadData:wsMatchData[@"club_home"]];
     NSArray *wsPlayersHome = [[NSMutableArray alloc] initWithArray:[[Globals i] getSquadData] copyItems:YES];
     NSInteger GK_total = 0;
     NSInteger DEFENDER_total = 0;
@@ -227,47 +227,47 @@
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"gk"]])
             {
                 GK_total = GK_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:1 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_GOALKEEPER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:1 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_GOALKEEPER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"cd1"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:2 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:2 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"cd2"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:3 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:3 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"im1"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:4 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:4 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"im2"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:5 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:5 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"rw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:6 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:6 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"lw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:7 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:7 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"fw1"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:8 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:8 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"fw2"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:9 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
             if (p != NULL)
@@ -308,47 +308,47 @@
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"gk"]])
             {
                 GK_total = GK_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:1 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_GOALKEEPER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:1 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_GOALKEEPER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"cd1"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:2 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:2 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"cd2"]])
             {
                 DEFENDER_total = DEFENDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:3 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:3 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_DEFENDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"im1"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:4 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:4 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"im2"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:5 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:5 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"rw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:6 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:6 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"lw"]])
             {
                 MIDFIELDER_total = MIDFIELDER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:7 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:7 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_MIDFIELDER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"fw1"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:8 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:8 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"fw2"]])
             {
                 ATTACKER_total = ATTACKER_total + 1;
-                p = [Player_hockey initPlayer:[[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue] number:9 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
+                p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
             if (p != NULL)
@@ -428,7 +428,7 @@
         {
             highlight_total = highlight_total + 1;
             NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData[@"player_id"]], @"player_row",
-                                       @([[rowData[@"player_id"] stringByReplacingOccurrencesOfString:@"," withString:@""] integerValue]), @"player_id",
+                                       @([rowData[@"player_id"] integerValue]), @"player_id",
                                        @([rowData[@"match_minute"] integerValue]), @"minute",
                                        @([rowData[@"highlight_type_id"] integerValue]), @"type_id", nil];
             [self.highlights addObject:h1];

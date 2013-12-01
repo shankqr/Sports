@@ -70,8 +70,8 @@
 		}
 		
 		CLLocationCoordinate2D location;
-		location.longitude = [[wsClubData[@"longitude"] stringByReplacingOccurrencesOfString:@"," withString:@""] floatValue];
-		location.latitude = [[wsClubData[@"latitude"] stringByReplacingOccurrencesOfString:@"," withString:@""] floatValue];
+		location.longitude = [wsClubData[@"longitude"] floatValue];
+		location.latitude = [wsClubData[@"latitude"] floatValue];
 		
         NSString *date = wsClubData[@"date_found"];
         if ([date length] > 0)

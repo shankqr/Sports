@@ -47,7 +47,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.mainView = [[MainView alloc] initWithNibName:@"MainView" bundle:nil];
+    self.mainView = [[MainView alloc] init];
     [window setRootViewController:mainView];
 	[window makeKeyAndVisible];
     

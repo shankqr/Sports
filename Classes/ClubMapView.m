@@ -106,7 +106,7 @@
 	CSMapAnnotation* annotation = (CSMapAnnotation*) view.annotation;
 	if(annotation.club_id != nil)
 	{
-		NSString *my_club_id = [annotation.club_id stringByReplacingOccurrencesOfString:@"," withString:@""];
+		NSString *my_club_id = annotation.club_id;
 		[mainView showClubViewer:my_club_id];
 	}
 }
