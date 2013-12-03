@@ -13,7 +13,7 @@
 #import "UpgradeView.h"
 
 @implementation StadiumMap
-@synthesize mainView;
+
 @synthesize stadiumView;
 @synthesize upgradeView;
 @synthesize s0;

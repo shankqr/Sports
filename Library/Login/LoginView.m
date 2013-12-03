@@ -220,12 +220,10 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     
     if (error)
     {
-        NSString *errorTitle = @"";
         NSString *errorMessage = error.localizedDescription;
         if (error.code == FBErrorLoginFailedOrCancelled)
         {
-            errorTitle = @"Facebook Login Failed";
-            errorMessage = @"Make sure you've allowed this App to use Facebook in Settings > Facebook.";
+            errorMessage = @"Facebook Login Failed! Make sure you've allowed this App to use Facebook in Settings > Facebook.";
         }
         
         [[Globals i] showDialog:errorMessage];

@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation StoreCoachView
-@synthesize mainView;
+
 @synthesize coaches;
 @synthesize filter;
 @synthesize sold_coach_id;
@@ -273,7 +273,7 @@
 		if(bal > pval)
 		{
 			[Globals i].purchasedCoachId = self.sel_coach_id;
-			[mainView buyCoachSuccess];
+			[[Globals i].mainView buyCoachSuccess];
 			[self forceUpdate];
 		}
         else

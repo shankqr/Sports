@@ -35,6 +35,11 @@
 
 - (IBAction)okButton_tap:(id)sender
 {
+    [self done];
+}
+
+- (void)done
+{
     if ((dialogType == 4) || (dialogType == 5) || (dialogType == 6))
     {
         if([inputText.text isEqualToString:@""])
@@ -53,6 +58,10 @@
         }
         else
         {
+            titleLabel.text = @"";
+            whiteLabel.text = @"";
+            promptLabel.text = @"";
+            
             [self.view removeFromSuperview];
             
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
@@ -193,7 +202,7 @@
     [promptLabel setHidden:YES];
     [noButton setHidden:YES];
     
-    [titleLabel setHidden:NO];
+    [titleLabel setHidden:YES];
     [whiteLabel setHidden:NO];
     [inputText setHidden:NO];
     [yesButton setHidden:NO];
@@ -201,13 +210,13 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        CGRect buttonRect = CGRectMake(294, 650, 180, 90);
+        CGRect buttonRect = CGRectMake(294, 768, 180, 90);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
 	}
     else
     {
-        CGRect buttonRect = CGRectMake(115, 205, 90, 45);
+        CGRect buttonRect = CGRectMake(115, 280, 90, 45);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
     }
@@ -218,24 +227,7 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField 
 {
-	if([inputText.text isEqualToString:@""])
-	{
-		
-	}
-	else if ([[inputText.text substringWithRange:NSMakeRange(0,1)] isEqualToString:@" "])
-	{
-		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"Invalid Input"
-							  message:@"Blank spaces at the begining is not allowed"
-							  delegate:self
-							  cancelButtonTitle:@"OK"
-							  otherButtonTitles:nil];
-		[alert show];
-	}
-	else if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
-	{
-		[delegate returnText:inputText.text];
-	}
+	[self.inputText resignFirstResponder];
 	
 	return YES;
 }

@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation StoreOthersView
-@synthesize mainView;
+
 @synthesize products;
 @synthesize filter;
 @synthesize sold_product_id;
@@ -351,7 +351,7 @@
     else
     {
         [[Globals i] settPurchasedProduct:self.sel_product_id];
-        [mainView buyOthersSuccess];
+        [[Globals i].mainView buyOthersSuccess];
     }
 }
 
@@ -375,7 +375,7 @@
     else
     {
         [[Globals i] settPurchasedProduct:self.sel_product_id];
-        [mainView buyOthersSuccessWithDiamonds];
+        [[Globals i].mainView buyOthersSuccessWithDiamonds];
     }
 }
 

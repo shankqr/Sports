@@ -9,13 +9,13 @@
 @class MainCell;
 @interface RankingSlide : UIViewController 
 {
-	MainCell *mainView;
+	MainCell *mainCell;
 	UILabel *divisionLabel;
 	UILabel *seriesLabel;
 	UILabel *positionLabel;
 	UILabel *undefeatedLabel;
 }
-@property (nonatomic, strong) MainCell *mainView;
+@property (nonatomic, strong) MainCell *mainCell;
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;
 @property (nonatomic, strong) IBOutlet UILabel *positionLabel;

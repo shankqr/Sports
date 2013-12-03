@@ -9,14 +9,14 @@
 @class MainCell;
 @interface NextMatchSlide : UIViewController 
 {
-	MainCell *mainView;
+	MainCell *mainCell;
 	UIImageView *matchtypeImage;
 	UILabel *clubName;
 	UILabel *rivalName;
 	UILabel *matchMonth;
 	UILabel *matchDay;
 }
-@property (nonatomic, strong) MainCell *mainView;
+@property (nonatomic, strong) MainCell *mainCell;
 @property (nonatomic, strong) IBOutlet UIImageView *matchtypeImage;
 @property (nonatomic, strong) IBOutlet UILabel *clubName;
 @property (nonatomic, strong) IBOutlet UILabel *rivalName;

@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
-@interface PromotionView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
+
+@interface PromotionView : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
-	MainView *mainView;
+	
 	UITableView *table;
 	UILabel *divisionLabel;
 	UILabel *seriesLabel;
@@ -20,7 +20,7 @@
 	NSUInteger posOffset;
 	NSUInteger totalRow;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;

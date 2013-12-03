@@ -13,13 +13,23 @@
 #import "ChallengeView.h"
 
 @implementation MatchView
-@synthesize mainView;
+
 @synthesize matches;
 @synthesize filter;
 @synthesize selected_clubid;
 @synthesize selected_matchid;
 @synthesize matchLive;
 @synthesize challengeBox;
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+    
+    if ([filter isEqualToString:@"Challenge"])
+	{
+        [[Globals i] updateChallengesData];
+	}
+}
 
 - (void)updateView
 {
@@ -33,7 +43,6 @@
 	}
 	else if ([filter isEqualToString:@"Challenge"])
 	{
-        [[Globals i] updateChallengesData];
 		self.matches = [[Globals i] getChallengesData];
 	}
     
@@ -50,44 +59,44 @@
 			{
 				case 0:
 				{
-					[mainView showClubViewer:selected_clubid];
+					[[Globals i].mainView showClubViewer:selected_clubid];
 					break;
 				}
                 case 1: //Challenge
                 {
-                    [mainView showChallenge:selected_clubid];
+                    [[Globals i].mainView showChallenge:selected_clubid];
                     break;
                 }
 			}
-			break;	
+			break;
 		}
-			
+        
 		case 2: //Played
 		{
 			switch(buttonIndex)
 			{
 				case 0:
 				{
-					[mainView showClubViewer:selected_clubid];
+					[[Globals i].mainView showClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //Match Report
 				{
                     [Globals i].challengeMatchId = selected_matchid;
-                    [mainView reportMatch];
+                    [[Globals i].mainView reportMatch];
 					break;
 				}
 			}
-			break;	
+			break;
 		}
-			
+        
 		case 3: //Challenge
 		{
 			switch(buttonIndex)
 			{
 				case 0:
 				{
-					[mainView showClubViewer:selected_clubid];
+					[[Globals i].mainView showClubViewer:selected_clubid];
 					break;
 				}
 				case 1: //View challenge
@@ -96,7 +105,6 @@
                     if (challengeBox == nil) 
                     {
                         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
-                        challengeBox.mainView = self.mainView;
                     }
 					[[Globals i] showTemplate:@[challengeBox] :@"Challenge" :0];
 					[challengeBox viewChallenge:selected_row];

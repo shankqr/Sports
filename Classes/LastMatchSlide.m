@@ -11,7 +11,7 @@
 #import "MainCell.h"
 
 @implementation LastMatchSlide
-@synthesize mainView;
+@synthesize mainCell;
 @synthesize matchtypeImage;
 @synthesize clubName;
 @synthesize rivalName;
@@ -71,7 +71,7 @@
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainView changeSlideNow];
+	[mainCell changeSlideNow];
 }
 
 @end

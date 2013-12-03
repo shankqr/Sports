@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation ChallengeCreateView
-@synthesize mainView;
+
 @synthesize titleLabel;
 @synthesize managerNote;
 @synthesize winButton;
@@ -224,7 +224,7 @@
         //Refresh invites list
         [[Globals i] updateChallengedData];
         //Refresh challenge list
-        [mainView updateChallenge];
+        [[Globals i].mainView updateChallenge];
     
     }
 }

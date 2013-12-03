@@ -6,11 +6,11 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @class BidView;
 @interface StorePlayerView : UITableViewController <UIAlertViewDelegate>
 {
-	MainView *mainView;
+	
 	NSString *filter;
 	NSMutableArray *players;
 	NSString *sold_player_id;
@@ -20,7 +20,7 @@
 	BOOL workingPlayerSale;
     BidView *bidView;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSString *sold_player_id;

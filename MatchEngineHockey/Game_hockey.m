@@ -7,7 +7,7 @@
 #import "Globals.h"
 
 @implementation Game_hockey
-@synthesize mainView;
+
 @synthesize played;
 @synthesize proportion;
 @synthesize attackingGoal;

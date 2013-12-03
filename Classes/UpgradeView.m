@@ -11,7 +11,7 @@
 #import "StadiumMap.h"
 
 @implementation UpgradeView
-@synthesize mainView;
+
 @synthesize buildingImage;
 @synthesize infoLabel;
 @synthesize timeLabel;
@@ -134,9 +134,8 @@
                 [Globals i].energy=[Globals i].energy-10;
                 [[Globals i] storeEnergy];
                 
-                [mainView updateHeader];
-                [mainView.stadiumMap updateView];
-                [mainView.stadiumMap upgradeBuilding:buildingType];
+                [[Globals i].mainView.stadiumMap updateView];
+                [[Globals i].mainView.stadiumMap upgradeBuilding:buildingType];
                 
                 NSString *message = @"I have just build a new building in my city.";
                 NSString *extra_desc = @"Buildings generates revenue and fans for your club.";

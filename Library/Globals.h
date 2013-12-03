@@ -160,6 +160,7 @@
 @class WorldsView;
 @class LoadingView;
 @class PlayerCell;
+@class MainView;
 
 @interface Globals : NSObject
 <AVAudioPlayerDelegate, FBFriendPickerDelegate, CLLocationManagerDelegate, TemplateDelegate>
@@ -201,6 +202,7 @@
     NSString *uid;
     NSString *selectedMapTile;
     NSTimeInterval offsetServerTimeInterval;
+    MainView *mainView;
     MailCompose *mailCompose;
     ChatView *chatView;
     ChatView *allianceChatView;
@@ -292,6 +294,7 @@
 @property (nonatomic, strong) NSString *devicetoken;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *selectedMapTile;
+@property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) MailCompose *mailCompose;
 @property (nonatomic, strong) ChatView *chatView;
 @property (nonatomic, strong) ChatView *allianceChatView;

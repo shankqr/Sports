@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation TacticsView
-@synthesize mainView;
+
 @synthesize tid;
 @synthesize scrollView;
 @synthesize pageControl;
@@ -219,7 +219,7 @@
 	if(buttonIndex == 1)
 	{
         [[Globals i] settPurchasedProduct:@"14"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
 	}
 }
 

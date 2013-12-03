@@ -14,7 +14,7 @@
 #import "MainView.h"
 
 @implementation ClubMapView
-@synthesize mainView;
+
 @synthesize clubs;
 @synthesize selected_clubid;
 @synthesize allListContent;
@@ -107,7 +107,7 @@
 	if(annotation.club_id != nil)
 	{
 		NSString *my_club_id = annotation.club_id;
-		[mainView showClubViewer:my_club_id];
+		[[Globals i].mainView showClubViewer:my_club_id];
 	}
 }
 

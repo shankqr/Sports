@@ -7,7 +7,6 @@
 //
 
 @class MainView;
-
 @interface KingdomAppDelegate : UIResponder <UIApplicationDelegate> 
 {
     UIWindow *window;

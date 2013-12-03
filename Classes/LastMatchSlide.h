@@ -9,7 +9,7 @@
 @class MainCell;
 @interface LastMatchSlide : UIViewController 
 {
-	MainCell *mainView;
+	MainCell *mainCell;
 	UIImageView *matchtypeImage;
 	UILabel *clubName;
 	UILabel *rivalName;
@@ -18,7 +18,7 @@
 	UILabel *clubScore;
 	UILabel *rivalScore;
 }
-@property (nonatomic, strong) MainCell *mainView;
+@property (nonatomic, strong) MainCell *mainCell;
 @property (nonatomic, strong) IBOutlet UIImageView *matchtypeImage;
 @property (nonatomic, strong) IBOutlet UILabel *clubName;
 @property (nonatomic, strong) IBOutlet UILabel *rivalName;

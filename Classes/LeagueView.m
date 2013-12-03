@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation LeagueView
-@synthesize mainView;
+
 @synthesize table;
 @synthesize divisionLabel;
 @synthesize seriesLabel;
@@ -60,23 +60,6 @@
         seriesLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedSeries];
         maxseriesLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)[[Globals i] getMaxSeries:[Globals i].selectedDivision]];
     }
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	switch(buttonIndex)
-	{
-		case 0: //Club Info
-		{
-			[mainView showClubViewer:selected_clubid];
-			break;
-		}
-        case 1: //Challenge
-		{
-			[mainView showChallenge:selected_clubid];
-			break;
-		}
-	}
 }
 
 -(IBAction)homeButton_tap:(id)sender
@@ -245,14 +228,7 @@
 	else
 	{
 		selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-		UIActionSheet *actionSheet = [[UIActionSheet alloc]
-									  initWithTitle:@"Options"
-									  delegate:self
-									  cancelButtonTitle:@"Cancel"
-									  destructiveButtonTitle:nil
-									  otherButtonTitles:@"Club Info", @"Challenge", nil];
-		actionSheet.tag = 1;
-		[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
+		[[Globals i].mainView showClubViewer:selected_clubid];
 	}
 	return nil;
 }

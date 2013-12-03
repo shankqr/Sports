@@ -15,7 +15,7 @@
 #import "MainView.h"
 
 @implementation MapViewer
-@synthesize mainView;
+
 @synthesize selected_clubid;
 @synthesize mapView;
 @synthesize clubAnnotation;
@@ -138,7 +138,13 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-	[mainView showChallenge:[Globals i].selectedClubId];
+	[[Globals i].mainView showChallenge:[Globals i].selectedClubId];
+}
+
+- (IBAction)mailButton_tap:(id)sender
+{
+    NSDictionary *wsClubData = [[Globals i] getClubInfoData];
+	[[Globals i] mailCompose:@"0" toID:[Globals i].selectedClubId toName:wsClubData[@"club_name"]];
 }
 
 @end

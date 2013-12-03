@@ -8,10 +8,10 @@
 
 #import "SquadSelectView.h"
 
-@class MainView;
+
 @interface SubsView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate>
 {
-	MainView *mainView;
+	
     UIImageView *ivBackground;
     SquadSelectView *squadSelecter;
 	NSString *fid;
@@ -19,7 +19,7 @@
 	NSString *nwPlayer;
 	NSString *selectedPos;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UIImageView *ivBackground;
 @property (nonatomic, strong) SquadSelectView *squadSelecter;
 @property (nonatomic, strong) NSString *fid;

@@ -7,11 +7,11 @@
 //
 #import <MapKit/MapKit.h>
 
-@class MainView;
+
 @class CSMapAnnotation;
 @interface MapViewer : UIViewController <MKMapViewDelegate>
 {
-	MainView *mainView;
+	
 	MKMapView *mapView;
 	NSString *selected_clubid;
 	UILabel *managerLabel;
@@ -19,7 +19,7 @@
 	NSString *face_url;
 	CSMapAnnotation* clubAnnotation;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet MKMapView* mapView;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) IBOutlet UILabel *managerLabel;
@@ -27,5 +27,6 @@
 @property (nonatomic, strong) CSMapAnnotation* clubAnnotation;
 @property (nonatomic, strong) NSString *face_url;
 - (IBAction)challengeButton_tap:(id)sender;
+- (IBAction)mailButton_tap:(id)sender;
 - (void)updateView;
 @end

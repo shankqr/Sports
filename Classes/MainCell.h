@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 TAPFANTASY. All rights reserved.
 //
 
-@class MainView;
+
 @class LeagueSlide;
 @class RankingSlide;
 @class NextMatchSlide;
@@ -15,7 +15,7 @@
 
 @interface MainCell : UITableViewCell
 {
-    MainView *mainView;
+    
     UIView *activeSlide;
 	LeagueSlide *leagueSlide;
 	RankingSlide *rankingSlide;
@@ -24,8 +24,8 @@
     NSTimer *slidesTimer;
     NSInteger timerIndex;
     CustomBadge *achievementsBadge;
+    CustomBadge *mailBadge;
 }
-@property (strong, nonatomic) MainView *mainView;
 @property (strong, nonatomic) UIView *activeSlide;
 @property (strong, nonatomic) LeagueSlide *leagueSlide;
 @property (strong, nonatomic) RankingSlide *rankingSlide;
@@ -33,14 +33,9 @@
 @property (strong, nonatomic) LastMatchSlide *lastmatchSlide;
 @property (strong, nonatomic) NSTimer *slidesTimer;
 @property (strong, nonatomic) CustomBadge *achievementsBadge;
+@property (strong, nonatomic) CustomBadge *mailBadge;
 @property (readwrite) NSInteger timerIndex;
-- (void)createSlides;
-- (void)showSlide;
-- (void)hideSlide;
-- (void)changeSlide;
 - (void)changeSlideNow;
-- (void)createAchievementBadges;
-- (void)removeAchievementBadges;
 - (void)updateAchievementBadges;
-- (void)createAssociationBadge;
+- (void)updateMailBadges;
 @end

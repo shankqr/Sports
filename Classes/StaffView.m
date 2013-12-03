@@ -12,7 +12,7 @@
 #import "Globals.h"
 
 @implementation StaffView
-@synthesize mainView;
+
 @synthesize staff;
 @synthesize iden;
 @synthesize hireCost;
@@ -53,7 +53,7 @@
 {
 	if(buttonIndex == 1)
 	{
-		[mainView buyProduct:self.iden];
+		[[Globals i].mainView buyProduct:self.iden];
 	}
 	
 	if(buttonIndex == 2)
@@ -64,7 +64,7 @@
 		{
 			[Globals i].energy = [Globals i].energy - 10;
 			[[Globals i] storeEnergy];
-			[mainView buyStaffSuccess:@"1" :@"0"];
+			[[Globals i].mainView buyStaffSuccess:@"1" :@"0"];
 		}
 		else
 		{
@@ -85,7 +85,7 @@
 		
 		if(bal > pval)
 		{
-			[mainView buyStaffSuccess:@"2" :@"0"];
+			[[Globals i].mainView buyStaffSuccess:@"2" :@"0"];
 		}
 		else
 		{

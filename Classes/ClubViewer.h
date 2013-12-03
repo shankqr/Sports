@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface ClubViewer : UIViewController 
 {
-	MainView *mainView;
+	
 	NSString* clubid;
 	NSString* fb_name;
 	NSString* fb_url;
@@ -31,7 +31,7 @@
 	NSString *home_url;
 	NSString *away_url;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) NSString* clubid;
 @property (nonatomic, strong) NSString* fb_name;
 @property (nonatomic, strong) NSString* fb_url;

@@ -11,7 +11,7 @@
 #import "MainCell.h"
 
 @implementation RankingSlide
-@synthesize mainView;
+@synthesize mainCell;
 @synthesize divisionLabel;
 @synthesize seriesLabel;
 @synthesize positionLabel;
@@ -33,7 +33,7 @@
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainView changeSlideNow];
+	[mainCell changeSlideNow];
 }
 
 @end

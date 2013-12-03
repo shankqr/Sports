@@ -13,7 +13,7 @@
 #import "PlayerCell.h"
 
 @implementation StorePlayerView
-@synthesize mainView;
+
 @synthesize players;
 @synthesize filter;
 @synthesize sold_player_id;
@@ -111,7 +111,6 @@
     if(bidView == nil)
     {
         bidView = [[BidView alloc] initWithNibName:@"BidView" bundle:nil];
-        bidView.mainView = self.mainView;
     }
     NSMutableArray *bidPlayer = [[NSMutableArray alloc] initWithObjects:rowData, nil];
     [[Globals i] showTemplate:@[bidView] :@"" :0];

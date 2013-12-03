@@ -1,9 +1,9 @@
 
-@class MainView;
+
 @interface BidView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
-    MainView *mainView;
+    
     NSString *selected_clubid;
     NSString *player_id;
 	IBOutlet UITextField *messageText;
@@ -21,7 +21,6 @@
     NSDateFormatter *serverFormat;
     NSTimeInterval b1s;
 }
-@property (nonatomic,strong) MainView *mainView;
 @property (nonatomic,strong) NSString *selected_clubid;
 @property (nonatomic,strong) NSString *player_id;
 @property (nonatomic,strong) IBOutlet UITextField *messageText;

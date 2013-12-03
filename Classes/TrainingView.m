@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation TrainingView
-@synthesize mainView;
+
 @synthesize table;
 @synthesize coaches;
 @synthesize trainingImage;
@@ -53,7 +53,7 @@
 
 -(IBAction)coachButton_tap:(id)sender
 {
-	[mainView showCoachStore];
+	[[Globals i].mainView showCoachStore];
 }
 
 -(IBAction)trainingButton_tap:(id)sender
@@ -123,7 +123,7 @@
 					break;
 				}
 			}
-			[mainView updateHeader];
+			[[Globals i].mainView updateHeader];
 			break;
 		}
 	}
@@ -134,7 +134,7 @@
 	if(buttonIndex == 1)
 	{
         [[Globals i] settPurchasedProduct:@"14"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
 	}
 }
 

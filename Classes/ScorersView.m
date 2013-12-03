@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation ScorersView
-@synthesize mainView;
+
 @synthesize players;
 @synthesize selected_clubid;
 @synthesize curDivision;
@@ -24,7 +24,7 @@
 	{
 		case 0: //Club Info
 		{
-			[mainView showClubViewer:selected_clubid];
+			[[Globals i].mainView showClubViewer:selected_clubid];
 			break;
 		}
 	}
@@ -119,7 +119,7 @@
 								  destructiveButtonTitle:nil
 								  otherButtonTitles:@"Club Info", nil];
 	actionSheet.tag = 1;
-	[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
+	[actionSheet showFromTabBar:[[[Globals i].mainView leagueTabBarController] tabBar]];
 	
 	return nil;
 }

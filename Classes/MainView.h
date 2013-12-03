@@ -50,6 +50,7 @@
 @class FormationView;
 @class SubsView;
 @class TacticsView;
+@class ChatView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -62,6 +63,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 	FinanceView *financeView;
 	StaffView *staffView;
 	MatchView *matchView;
+    MatchView *matchPlayedView;
+    MatchView *matchChallengeView;
 	ClubMapView *clubMapView;
 	SquadView *squadView;
 	TrainingView *trainingView;
@@ -95,6 +98,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     SquadViewer *squadViewer;
     OverView *overView;
     FixturesView *fixturesView;
+    ChatView *chatView;
+    ChatView *allianceChatView;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
@@ -120,6 +125,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) FinanceView *financeView;
 @property (nonatomic, strong) StaffView *staffView;
 @property (nonatomic, strong) MatchView *matchView;
+@property (nonatomic, strong) MatchView *matchPlayedView;
+@property (nonatomic, strong) MatchView *matchChallengeView;
 @property (nonatomic, strong) ClubMapView *clubMapView;
 @property (nonatomic, strong) SquadView *squadView;
 @property (nonatomic, strong) TrainingView *trainingView;
@@ -158,6 +165,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) SquadViewer *squadViewer;
 @property (nonatomic, strong) OverView *overView;
 @property (nonatomic, strong) FixturesView *fixturesView;
+@property (nonatomic, strong) ChatView *chatView;
+@property (nonatomic, strong) ChatView *allianceChatView;
 @property (nonatomic, strong) UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) UITabBarController *clubTabBarController;
@@ -180,6 +189,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)reportMatch;
 - (void)updateHeader;
 - (void)updateAchievementBadges;
+- (void)updateMailBadges;
 - (void)updateChallenge;
 - (void)declineChallenge;
 - (void)startLiveMatch;

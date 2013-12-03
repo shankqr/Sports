@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation FormationView
-@synthesize mainView;
+
 @synthesize segment;
 @synthesize ivBackground;
 @synthesize fid;
@@ -193,7 +193,7 @@
 								  destructiveButtonTitle:nil
 								  otherButtonTitles:@"Confirm", nil];
 		actionSheet.tag = 0;
-		[actionSheet showFromTabBar:[[mainView tacticsTabBarController] tabBar]];
+		[actionSheet showFromTabBar:[[[Globals i].mainView tacticsTabBarController] tabBar]];
 	}
 }
 
@@ -225,7 +225,7 @@
 	if(buttonIndex == 1)
 	{
         [[Globals i] settPurchasedProduct:@"14"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
 	}
 }
  
@@ -563,7 +563,6 @@
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithStyle:UITableViewStylePlain];
-        squadSelecter.mainView = self.mainView;
         squadSelecter.delegate = self;
     }
 	[squadSelecter updateView];

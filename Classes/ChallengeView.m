@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation ChallengeView
-@synthesize mainView;
+
 @synthesize titleLabel;
 @synthesize managerNote;
 @synthesize winButton;
@@ -29,7 +29,7 @@
 - (IBAction)cancelButton_tap:(id)sender
 {
     [Globals i].challengeMatchId = selected_matchid;
-    [mainView declineChallenge];
+    [[Globals i].mainView declineChallenge];
     
 	currMatchIndex = currMatchIndex+1;
 	[self updateView];
@@ -59,7 +59,7 @@
 	else
 	{
 		currMatchIndex = 0;
-        [mainView updateChallenge];
+        [[Globals i].mainView updateChallenge];
         
 		[[Globals i] closeTemplate];
 	}
@@ -110,7 +110,7 @@
 	{
 		[Globals i].challengeMatchId = selected_matchid;
         [[Globals i] closeTemplate];
-		[mainView startLiveMatch];
+		[[Globals i].mainView startLiveMatch];
 	}
 	else
 	{
@@ -135,7 +135,7 @@
 - (IBAction)challengeButton_tap:(id)sender
 {
     [[Globals i] closeTemplate];
-	[mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
+	[[Globals i].mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;
 }

@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation StadiumView
-@synthesize mainView;
+
 @synthesize stadiumNameLabel;
 @synthesize capacityLabel;
 @synthesize ticketLabel;
@@ -66,7 +66,7 @@
 		}
 		NSString *i = [NSString stringWithFormat:@"upgrade%ld", (long)stadiumtype];
 		NSString *pi = [[Globals i] getProductIdentifiers][i];
-		[mainView buyProduct:pi];
+		[[Globals i].mainView buyProduct:pi];
 	}
 	
 	if(buttonIndex == 2)
@@ -78,7 +78,7 @@
 		{
 			[Globals i].energy=[Globals i].energy-10;
 			[[Globals i] storeEnergy];
-			[mainView buyStadiumSuccess:@"1":@"0"];
+			[[Globals i].mainView buyStadiumSuccess:@"1":@"0"];
 		}
 		else
 		{
@@ -99,7 +99,7 @@
 		
 		if(bal > pval)
 		{
-			[mainView buyStadiumSuccess:@"2":@"0"];
+			[[Globals i].mainView buyStadiumSuccess:@"2":@"0"];
 		}
 		else
 		{

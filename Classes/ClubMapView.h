@@ -8,17 +8,17 @@
 
 #import <MapKit/MapKit.h>
 
-@class MainView;
+
 @interface ClubMapView : UIViewController <MKMapViewDelegate, UIAlertViewDelegate>
 {
-	MainView *mainView;
+	
 	MKMapView *mapViewer;
 	NSString *selected_clubid;
 	NSMutableArray *clubs;
 	NSArray *allListContent;
 	NSMutableArray *filteredListContent;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) MKMapView* mapViewer;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) NSMutableArray *clubs;

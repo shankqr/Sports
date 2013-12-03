@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface ChallengeView : UIViewController <UIActionSheetDelegate>
 {
-	MainView *mainView;
+	
 	UILabel *titleLabel;
 	UITextView *managerNote;
 	UIButton *winButton;
@@ -18,7 +18,7 @@
 	NSArray *matches;
 	NSInteger currMatchIndex;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UITextView *managerNote;
 @property (nonatomic, strong) IBOutlet UIButton *winButton;

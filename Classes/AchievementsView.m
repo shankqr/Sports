@@ -22,38 +22,11 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
-}
-
 - (void)updateView
 {
     [[Globals i] updateMyAchievementsData];
 	self.tasks = [[Globals i] wsMyAchievementsData];
 	[self.tableView reloadData];
-    
-    //[mainView updateAchievementBadges];
 }
 
 #pragma mark Table Data Source Methods
@@ -161,6 +134,10 @@
              
              [[Globals i] updateClubData]; //Balance + Reward
              [[Globals i] winSound];
+             
+             [[NSNotificationCenter defaultCenter]
+              postNotificationName:@"UpdateBadges"
+              object:self];
              
              [[Globals i] showToast:[NSString stringWithFormat:@"Rewarded + $%@", rowData[@"reward"]]
                       optionalTitle:@"Congratulations!"

@@ -16,7 +16,7 @@
 #import "CustomBadge.h"
 
 @implementation MainCell
-@synthesize mainView;
+
 @synthesize activeSlide;
 @synthesize leagueSlide;
 @synthesize rankingSlide;
@@ -25,6 +25,7 @@
 @synthesize slidesTimer;
 @synthesize timerIndex;
 @synthesize achievementsBadge;
+@synthesize mailBadge;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,50 +44,30 @@
     // Configure the view for the selected state
     [self setBackgroundColor:[UIColor clearColor]];
     
-    [self createSlides];
-    
-    [self createButtons];
+    if(!slidesTimer.isValid)
+    {
+        [self createSlides];
+        [self createButtons];
+    }
 }
 
 - (void)createAchievementBadges
 {
     if (achievementsBadge == nil)
     {
-        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-        {
-            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
-                                                   withStringColor:[UIColor whiteColor]
-                                                    withInsetColor:[UIColor redColor]
-                                                    withBadgeFrame:YES
-                                               withBadgeFrameColor:[UIColor whiteColor]
-                                                         withScale:2.0
-                                                       withShining:YES];
-            
-            [achievementsBadge setFrame:CGRectMake(322, 848, achievementsBadge.frame.size.width, achievementsBadge.frame.size.height)];
-        }
-        else
-        {
-            achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
-                                                   withStringColor:[UIColor whiteColor]
-                                                    withInsetColor:[UIColor redColor]
-                                                    withBadgeFrame:YES
-                                               withBadgeFrameColor:[UIColor whiteColor]
-                                                         withScale:1.0
-                                                       withShining:YES];
-            
-            [achievementsBadge setFrame:CGRectMake(66, 507, achievementsBadge.frame.size.width, achievementsBadge.frame.size.height)];
-        }
+        achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
+                                               withStringColor:[UIColor whiteColor]
+                                                withInsetColor:[UIColor redColor]
+                                                withBadgeFrame:YES
+                                           withBadgeFrameColor:[UIColor whiteColor]
+                                                     withScale:SCALE_IPAD
+                                                   withShining:YES];
+        
+        [achievementsBadge setFrame:[self getBadgeFrame:12 width:achievementsBadge.frame.size.width height:achievementsBadge.frame.size.height]];
         
         [self addSubview:achievementsBadge];
+        [achievementsBadge bringSubviewToFront:self];
     }
-}
-
-- (void)removeAchievementBadges
-{
-	if(achievementsBadge != nil)
-	{
-		[achievementsBadge removeFromSuperview];
-	}
 }
 
 - (void)updateAchievementBadges
@@ -103,36 +84,37 @@
     }
 }
 
-- (void)createAssociationBadge
+- (void)createMailBadges
 {
-    CustomBadge *aBadge = nil;
-    
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    if (mailBadge == nil)
     {
-        aBadge = [CustomBadge customBadgeWithString:@"NEW"
+        mailBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]
                                                withStringColor:[UIColor whiteColor]
                                                 withInsetColor:[UIColor redColor]
                                                 withBadgeFrame:YES
                                            withBadgeFrameColor:[UIColor whiteColor]
-                                                     withScale:2.0
+                                                     withScale:SCALE_IPAD
                                                    withShining:YES];
         
-        [aBadge setFrame:CGRectMake(600, 10, aBadge.frame.size.width, aBadge.frame.size.height)];
+        [mailBadge setFrame:[self getBadgeFrame:1 width:mailBadge.frame.size.width height:mailBadge.frame.size.height]];
+        
+        [self addSubview:mailBadge];
+        [mailBadge bringSubviewToFront:self];
+    }
+}
+
+- (void)updateMailBadges
+{
+    if ([[Globals i] getMailBadgeNumber] > 0)
+    {
+        [self createMailBadges];
+        [mailBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]];
+        [mailBadge setHidden:NO];
     }
     else
     {
-        aBadge = [CustomBadge customBadgeWithString:@"NEW"
-                                               withStringColor:[UIColor whiteColor]
-                                                withInsetColor:[UIColor redColor]
-                                                withBadgeFrame:YES
-                                           withBadgeFrameColor:[UIColor whiteColor]
-                                                     withScale:1.0
-                                                   withShining:YES];
-        
-        [aBadge setFrame:CGRectMake(250, 5, aBadge.frame.size.width, aBadge.frame.size.height)];
+        [mailBadge setHidden:YES];
     }
-    
-    [self addSubview:aBadge];
 }
 
 - (void)createSlides
@@ -141,22 +123,22 @@
 	timerIndex = 1;
     
 	leagueSlide = [[LeagueSlide alloc] initWithNibName:@"LeagueSlide" bundle:nil];
-	leagueSlide.mainView = self;
+	leagueSlide.mainCell = self;
 	[leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
     [leagueSlide updateView];
     
 	rankingSlide = [[RankingSlide alloc] initWithNibName:@"RankingSlide" bundle:nil];
-	rankingSlide.mainView = self;
+	rankingSlide.mainCell = self;
 	[rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
     [rankingSlide updateView];
     
 	nextmatchSlide = [[NextMatchSlide alloc] initWithNibName:@"NextMatchSlide" bundle:nil];
-	nextmatchSlide.mainView = self;
+	nextmatchSlide.mainCell = self;
 	[nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
     [nextmatchSlide updateView];
     
 	lastmatchSlide = [[LastMatchSlide alloc] initWithNibName:@"LastMatchSlide" bundle:nil];
-	lastmatchSlide.mainView = self;
+	lastmatchSlide.mainCell = self;
 	[lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
     [lastmatchSlide updateView];
     
@@ -267,6 +249,28 @@
     [self addPosButton:@"Logout" tag:21 imageDefault:@"button_news"];
 }
 
+- (CGRect)getBadgeFrame:(NSInteger)tag
+                  width:(NSInteger)width
+                 height:(NSInteger)height
+{
+    UIImage *imgD = [UIImage imageNamed:@"button_mails"];
+    
+    NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
+    NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
+    
+    NSInteger column_width = self.frame.size.width / buttons_per_row;
+    NSInteger column_start_x = (column_width - sizex) / 2;
+    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
+    
+    NSInteger button_col = ((tag-1) % buttons_per_row);
+    NSInteger posx = button_col * column_width + column_start_x;
+    
+    NSInteger button_row = ((tag-1) / buttons_per_row);
+    NSInteger posy = button_row * column_height + menu_start_y;
+    
+    return CGRectMake(posx-CELL_CONTENT_SPACING, posy-CELL_CONTENT_SPACING, width, height);
+}
+
 - (void)addPosButton:(NSString *)label
 				 tag:(NSInteger)tag
         imageDefault:(NSString *)imageDefault
@@ -316,7 +320,7 @@
 - (void)posButton_tap:(id)sender
 {
 	NSInteger theTag = [sender tag];
-	[mainView menuButton_tap:theTag];
+	[[Globals i].mainView menuButton_tap:theTag];
 }
 
 @end

@@ -13,7 +13,7 @@
 
 @implementation SquadSelectView
 @synthesize delegate;
-@synthesize mainView;
+
 @synthesize players;
 @synthesize sel_player_id;
 @synthesize sel_player_name;

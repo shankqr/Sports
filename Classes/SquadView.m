@@ -13,7 +13,7 @@
 #import "PlayerCell.h"
 
 @implementation SquadView
-@synthesize mainView;
+
 @synthesize players;
 @synthesize sold_player_id;
 @synthesize sel_player_id;
@@ -101,7 +101,6 @@
     if(playerView == nil)
     {
         playerView = [[PlayerView alloc] initWithNibName:@"PlayerView" bundle:nil];
-        playerView.mainView = self.mainView;
         playerView.squadView = self;
     }
     

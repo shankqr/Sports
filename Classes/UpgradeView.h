@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface UpgradeView : UIViewController <UIAlertViewDelegate>
 {
-	MainView *mainView;
+	
     UIImageView *buildingImage;
 	UILabel *infoLabel;
 	UILabel *timeLabel;
@@ -17,7 +17,7 @@
     UILabel *formulaLabel;
     NSInteger buildingType;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UIImageView *buildingImage;
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeLabel;

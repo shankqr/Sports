@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation SubsView
-@synthesize mainView;
+
 @synthesize ivBackground;
 @synthesize fid;
 @synthesize squadSelecter;
@@ -231,7 +231,6 @@
     if (squadSelecter == nil) 
     {
         squadSelecter = [[SquadSelectView alloc] initWithStyle:UITableViewStylePlain];
-        squadSelecter.mainView = self.mainView;
         squadSelecter.delegate = self;
     }
     [[Globals i] showTemplate:@[squadSelecter] :@"" :0];

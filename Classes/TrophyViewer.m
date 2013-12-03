@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation TrophyViewer
-@synthesize mainView;
+
 @synthesize trophies;
 @synthesize selected_trophy;
 

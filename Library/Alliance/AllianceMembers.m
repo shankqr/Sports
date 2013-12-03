@@ -9,6 +9,7 @@
 #import "AllianceMembers.h"
 #import "AllianceObject.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation AllianceMembers
 @synthesize rows;
@@ -180,7 +181,7 @@
 {
 	if(buttonIndex == 1) //View Profile
 	{
-		//[mainView showClubViewer:selected_clubid];
+		[[Globals i].mainView showClubViewer:selected_clubid];
     }
     else if(buttonIndex == 2) //Send Message
 	{

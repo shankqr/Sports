@@ -6,7 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @protocol SquadSelectDelegate <NSObject>
 @optional
 - (void)playerSelected:(NSString *)player;
@@ -15,13 +15,13 @@
 @interface SquadSelectView : UITableViewController <UIAlertViewDelegate>
 {
 	id<SquadSelectDelegate> __weak delegate;
-	MainView *mainView;
+	
 	NSMutableArray *players;
 	NSString *sel_player_id;
 	NSString *sel_player_name;
 }
 @property (weak) id<SquadSelectDelegate> delegate;
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSString *sel_player_id;
 @property (nonatomic, strong) NSString *sel_player_name;

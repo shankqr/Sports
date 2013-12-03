@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation ClubView
-@synthesize mainView;
+
 @synthesize picker;
 @synthesize sourceActionSheet;
 @synthesize logoImage;
@@ -232,7 +232,7 @@
 			}
             else // Online Store
 			{
-				[mainView showOthersStore];
+				[[Globals i].mainView showOthersStore];
 			}
 		}
 		if(buttonIndex == 1) //Go to store or load facebook pic
@@ -267,7 +267,7 @@
 	
 	
 	
-	[mainView updateHeader];
+	[[Globals i].mainView updateHeader];
 	
 	UIImage *image = info[@"UIImagePickerControllerEditedImage"];
 	if(pickerTag == 1)
@@ -298,7 +298,7 @@
 {
 	[self dismissViewControllerAnimated:YES completion:nil];
 	
-	[mainView updateHeader];
+	[[Globals i].mainView updateHeader];
 	[self updateView];
 }
 
@@ -323,7 +323,7 @@
 	if(buttonIndex == 1)
 	{
         [[Globals i] settPurchasedProduct:@"10"];
-		[mainView buyProduct:[[Globals i] getProductIdentifiers][@"rename"]];
+		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"rename"]];
 	}
 	
 	if(buttonIndex == 2)
@@ -335,7 +335,7 @@
 		{
 			[Globals i].energy -= 10;
 			[[Globals i] storeEnergy];
-			[mainView renameClubPurchaseSuccess:@"1":@"0"];
+			[[Globals i].mainView renameClubPurchaseSuccess:@"1":@"0"];
 		}
 		else
 		{
@@ -356,7 +356,7 @@
 		
 		if(bal > pval)
 		{
-			[mainView renameClubPurchaseSuccess:@"2":@"0"];
+			[[Globals i].mainView renameClubPurchaseSuccess:@"2":@"0"];
 		}
 		else
 		{
@@ -375,7 +375,7 @@
 {
 	
     [[Globals i] settPurchasedProduct:@"13"];
-	[mainView buyProduct:[[Globals i] getProductIdentifiers][@"reset"]];
+	[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"reset"]];
 }
 
 @end

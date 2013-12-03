@@ -11,7 +11,7 @@
 #import "MainCell.h"
 
 @implementation LeagueSlide
-@synthesize mainView;
+@synthesize mainCell;
 @synthesize leagueRound;
 @synthesize leagueStartMonth;
 @synthesize leagueStartDay;
@@ -49,7 +49,7 @@
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainView changeSlideNow];
+	[mainCell changeSlideNow];
 }
 
 @end

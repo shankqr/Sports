@@ -111,6 +111,7 @@
 @synthesize wsCupRounds;
 @synthesize energy;
 @synthesize acceptedMatch;
+@synthesize mainView;
 
 static Globals *_i;
 static NSString *GameId = @"1";
@@ -514,6 +515,7 @@ static NSOperationQueue *connectionQueue;
     [self createDialogBox];
     
     dialogBox.promptText = l1;
+    dialogBox.whiteText = @"";
     dialogBox.dialogType = 1;
     [[self peekViewControllerStack].view addSubview:dialogBox.view];
     dialogBox.dialogBlock = nil;
@@ -530,7 +532,8 @@ static NSOperationQueue *connectionQueue;
 {
     [self createDialogBox];
     
-    dialogBox.promptText = l1;
+    dialogBox.promptText = @"";
+    dialogBox.whiteText = l1;
     dialogBox.dialogType = type;
     [[self peekViewControllerStack].view addSubview:dialogBox.view];
     dialogBox.dialogBlock = block;
@@ -1312,8 +1315,6 @@ static NSOperationQueue *connectionQueue;
 {
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"MailData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //[mainView updateMailBadge];
 }
 
 - (void)addLocalMailData:(NSMutableArray *)rd
@@ -1399,8 +1400,6 @@ static NSOperationQueue *connectionQueue;
 {
     [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"ReportData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //[mainView updateReportBadge];
 }
 
 - (void)addLocalReportData:(NSMutableArray *)rd
@@ -1732,7 +1731,6 @@ static NSOperationQueue *connectionQueue;
 {
     [self settSelectedBaseId:base_id];
     [self updateBaseData];
-    //[mainView updateView];
 }
 
 - (void)checkVersion

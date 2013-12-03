@@ -11,7 +11,7 @@
 #import "MainView.h"
 
 @implementation FansView
-@synthesize mainView;
+
 @synthesize membersLabel;
 @synthesize moodLabel;
 @synthesize expectationLabel;
@@ -45,7 +45,7 @@
 - (void)confirmPurchase
 {
     [[Globals i] settPurchasedProduct:@"5"];
-    [mainView buyProduct:[[Globals i] getProductIdentifiers][@"staff"]];
+    [[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"staff"]];
 }
 
 @end

@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface TrainingView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
 {
-	MainView *mainView;
+	
 	UITableView *table;
 	NSMutableArray *coaches;
 	UIImageView *trainingImage;
@@ -18,7 +18,7 @@
 	UILabel *confidence;
 	UIImageView *pbconfidence;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) NSMutableArray *coaches;
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UIImageView *trainingImage;

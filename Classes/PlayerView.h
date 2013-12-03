@@ -2,12 +2,12 @@
 #import "DialogBoxView.h"
 
 @class SquadView;
-@class MainView;
+
 @class DialogBoxView;
 @interface PlayerView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, DialogBoxDelegate>
 {
-    MainView *mainView;
+    
     SquadView *squadView;
     NSString *player_id;
     IBOutlet UITableView *playerList;
@@ -17,7 +17,6 @@
     IBOutlet UILabel *nationLabel;
     IBOutlet UILabel *moraleLabel;
 }
-@property (nonatomic,strong) MainView *mainView;
 @property (nonatomic,strong) SquadView *squadView;
 @property (nonatomic,strong) NSString *player_id;
 @property (nonatomic,strong) IBOutlet UITableView *playerList;

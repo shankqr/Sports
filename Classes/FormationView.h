@@ -8,10 +8,10 @@
 
 #import "SquadSelectView.h"
 
-@class MainView;
+
 @interface FormationView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 {
-	MainView *mainView;
+	
 	UISegmentedControl *segment;
     UIImageView *ivBackground;
 	NSString *fid;
@@ -20,7 +20,7 @@
 	NSString *nwPlayer;
 	NSString *selectedPos;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) UISegmentedControl *segment;
 @property (nonatomic, strong) IBOutlet UIImageView *ivBackground;
 @property (nonatomic, strong) NSString *fid;

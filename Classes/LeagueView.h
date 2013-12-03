@@ -8,11 +8,11 @@
 
 #import "DialogBoxView.h"
 
-@class MainView;
+
 @class DialogBoxView;
-@interface LeagueView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, DialogBoxDelegate>
+@interface LeagueView : UIViewController <UITableViewDataSource, UITableViewDelegate, DialogBoxDelegate>
 {
-	MainView *mainView;
+	
 	UITableView *table;
 	UILabel *divisionLabel;
 	UILabel *seriesLabel;
@@ -25,7 +25,7 @@
 	DialogBoxView *dialogBox;
 	BOOL workingLeague;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;

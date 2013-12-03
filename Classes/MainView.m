@@ -54,6 +54,8 @@
 @synthesize financeView;
 @synthesize staffView;
 @synthesize matchView;
+@synthesize matchPlayedView;
+@synthesize matchChallengeView;
 @synthesize clubMapView;
 @synthesize squadView;
 @synthesize trainingView;
@@ -97,11 +99,14 @@
 @synthesize squadViewer;
 @synthesize overView;
 @synthesize fixturesView;
+@synthesize chatView;
+@synthesize allianceChatView;
 
 - (void)startUp //Called when app opens for the first time
 {
     isShowingLogin = NO;
     
+    [Globals i].mainView = self;
     [[Globals i] pushViewControllerStack:self];
     [Globals i].selectedClubId = @"0";
 	[Globals i].workingUrl = @"0";
@@ -137,6 +142,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(removeLiveMatch)
                                                  name:@"ExitLiveMatch"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateBadges"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -181,6 +191,12 @@
     if ([[notification name] isEqualToString:@"UpdateHeader"])
     {
         [header updateView];
+    }
+    
+    if ([[notification name] isEqualToString:@"UpdateBadges"])
+    {
+        [self updateAchievementBadges];
+        [self updateMailBadges];
     }
 }
 
@@ -233,8 +249,6 @@
              
              [[Globals i] updateChallengesData];
              
-             [[Globals i] updateChallengedData];
-             
              if (self.header == nil)
              {
                  self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
@@ -254,6 +268,12 @@
              [self showChallengeBox];
              
              [[Globals i] checkVersion];
+             
+             //Show badges
+             [[Globals i] updateMyAchievementsData];
+             [self updateAchievementBadges];
+             [[Globals i] updateMailData];
+             [self updateMailBadges];
              
              [[Globals i] removeLoading];
          }
@@ -278,10 +298,6 @@
         alertMsg = userInfo[@"aps"][@"alert"];
         [[Globals i] showDialog:alertMsg];
     }
-    else
-    {
-        alertMsg = @"{no alert message in dictionary}";
-    }
     
     [NSThread detachNewThreadSelector:@selector(reloadNotification) toTarget:self withObject:nil];
 }
@@ -292,8 +308,7 @@
         
         if([[Globals i] updateClubData]) //After challenge accepted maybe balance and xp + or -
         {
-            [[Globals i] updateChallengesData];
-            [[Globals i] updateMatchPlayedData];
+            [self updateMatchViews];
             
             [self performSelectorOnMainThread:@selector(showChallengeBox)
                                    withObject:nil
@@ -302,12 +317,26 @@
     }
 }
 
+- (void)updateMatchViews
+{
+    [[Globals i] updateMatchPlayedData];
+    if (matchPlayedView != nil)
+    {
+        [matchPlayedView updateView];
+    }
+    
+    [[Globals i] updateChallengesData];
+    if (matchChallengeView != nil)
+    {
+        [matchChallengeView updateView];
+    }
+}
+
 - (void)showClub
 {
     if (clubView == nil)
     {
         clubView = [[ClubView alloc] initWithNibName:@"ClubView" bundle:nil];
-        clubView.mainView = self;
         clubView.title = @"My Club";
         clubView.tabBarItem.image = [UIImage imageNamed:@"tab_house"];
     }
@@ -350,7 +379,6 @@
     if (clubViewer == nil)
     {
         clubViewer = [[ClubViewer alloc] initWithNibName:@"ClubViewer" bundle:nil];
-        clubViewer.mainView = self;
         clubViewer.title = @"Club";
         clubViewer.tabBarItem.image = [UIImage imageNamed:@"tab_house"];
     }
@@ -358,7 +386,6 @@
     if (mapViewer == nil)
     {
         mapViewer = [[MapViewer alloc] initWithNibName:@"MapViewer" bundle:nil];
-        mapViewer.mainView = self;
         mapViewer.title = @"Map";
         mapViewer.tabBarItem.image = [UIImage imageNamed:@"tab_map"];
     }
@@ -394,7 +421,6 @@
     if (leagueView == nil)
     {
         leagueView = [[LeagueView alloc] initWithNibName:@"LeagueView" bundle:nil];
-        leagueView.mainView = self;
         leagueView.title = @"Table";
         leagueView.tabBarItem.image = [UIImage imageNamed:@"tab_leaderboard"];
     }
@@ -409,7 +435,6 @@
     if (promotionView == nil)
     {
         promotionView = [[PromotionView alloc] initWithNibName:@"PromotionView" bundle:nil];
-        promotionView.mainView = self;
         promotionView.title = @"Promotion";
         promotionView.tabBarItem.image = [UIImage imageNamed:@"tab_promotion"];
     }
@@ -417,7 +442,6 @@
     if (scorersView == nil)
     {
         scorersView = [[ScorersView alloc] initWithStyle:UITableViewStylePlain];
-        scorersView.mainView = self;
         scorersView.title = @"Scorers";
         scorersView.tabBarItem.image = [UIImage imageNamed:@"tab_man"];
     }
@@ -439,7 +463,6 @@
     if (formationView == nil)
     {
         formationView = [[FormationView alloc] initWithNibName:@"FormationView" bundle:nil];
-        formationView.mainView = self;
         formationView.title = @"Formations";
         formationView.tabBarItem.image = [UIImage imageNamed:@"tab_squad"];
     }
@@ -447,7 +470,6 @@
     if (subsView == nil)
     {
         subsView = [[SubsView alloc] initWithNibName:@"SubsView" bundle:nil];
-        subsView.mainView = self;
         subsView.title = @"Substitute";
         subsView.tabBarItem.image = [UIImage imageNamed:@"tab_id"];
     }
@@ -455,7 +477,6 @@
     if (tacticsView == nil)
     {
         tacticsView = [[TacticsView alloc] initWithNibName:@"TacticsView" bundle:nil];
-        tacticsView.mainView = self;
         tacticsView.title = @"Tactics";
         tacticsView.tabBarItem.image = [UIImage imageNamed:@"tab_tactics"];
     }
@@ -468,7 +489,7 @@
     
     tacticsTabBarController.viewControllers = @[formationView, subsView, tacticsView];
     [tacticsTabBarController setSelectedIndex:0];
-    [[Globals i] showTemplate:@[tacticsTabBarController] :@"Tactics" :1];
+    [[Globals i] showTemplate:@[tacticsTabBarController] :@"Formations" :1];
     [formationView updateView];
 }
 
@@ -722,57 +743,44 @@
 {
 	[[Globals i] buyProduct:@"10":virtualMoney:json];
     
-    /*
-    [self createDialogBox];
-	dialogBox.titleText = @"RENAME CLUB";
-	dialogBox.whiteText = @"Enter a new name for your club.";
-	dialogBox.dialogType = 4;
-	[[activeView superview] insertSubview:dialogBox.view atIndex:7];
-	[dialogBox updateView];
-     */
+    [self renameDialog];
 }
 
-- (void)returnText:(NSString *)text
+- (void)renameDialog
 {
-	[[Globals i] removeDialogBox];
-	
-	NSString *returnValue = @"0";
-	if([text isEqualToString:@""])
-	{
-		//returnValue = @"0";
-	}
-	else 
-	{
-		NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Rename/%@/%@", 
-						   WS_URL, [[Globals i] UID], text];
-		NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl2];
-		returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-		
-	}
-	
-	if([returnValue isEqualToString:@"1"])
-	{
-		[[Globals i] updateClubData]; //club_name changed
-        
-        [[Globals i] showDialog:@"Your club name has been changed successfully."];
-		
-		NSString *message = [NSString stringWithFormat:@"I have just renamed my club to %@", text];
-		NSString *extra_desc = @"You can rename your club anytime you feel like it, but make sure to inform your friends. ";
-		NSString *imagename = @"rename_club.png";
-		[[Globals i] fbPublishStory:message:extra_desc:imagename];
-	}
-	else
-	{
-        /*
-        [self createDialogBox];
-		dialogBox.titleText = @"NAME EXIST OR NOT VALID";
-		dialogBox.whiteText = @"Enter another name.";
-		dialogBox.dialogType = 4;
-		[[activeView superview] insertSubview:dialogBox.view atIndex:7];
-		[dialogBox updateView];
-         */
-	}
+    [[Globals i] showDialogBlock:@"Please enter a name for your Club"
+                                :6
+                                :^(NSInteger index, NSString *text)
+     {
+         if (index == 1) //OK button is clicked
+         {
+             NSString *returnValue = @"0";
+             
+             NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Rename/%@/%@",
+                                WS_URL, [[Globals i] UID], text];
+             NSString *wsurl2 = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+             NSURL *url = [[NSURL alloc] initWithString:wsurl2];
+             returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
+             
+             if([returnValue isEqualToString:@"1"])
+             {
+                 [[Globals i] updateClubData]; //club_name changed and money or diamonds deducted
+                 [[Globals i] showDialog:@"Your club name has been changed successfully."];
+             }
+             else
+             {
+                 UIAlertView *alert = [[UIAlertView alloc]
+                                       initWithTitle:@"Invalid Input"
+                                       message:@"Sorry, name already exist or not valid."
+                                       delegate:self
+                                       cancelButtonTitle:@"OK"
+                                       otherButtonTitles:nil];
+                 [alert show];
+                 
+                 [self renameDialog];
+             }
+         }
+     }];
 }
 
 - (void)buyCoachSuccess
@@ -868,9 +876,7 @@
 		if([returnValue isEqualToString:@"1"])
 		{
 			//UPDATE match list
-			[[Globals i] updateChallengesData];
-			[[Globals i] updateMatchPlayedData];
-			[matchView updateView];
+			[self updateMatchViews];
 			
 			//Get match results
 			[[Globals i] updateMatchInfoData:[Globals i].challengeMatchId];
@@ -885,9 +891,7 @@
 			if([returnValue isEqualToString:@"1"])
 			{
 				//UPDATE match list
-				[[Globals i] updateChallengesData];
-				[[Globals i] updateMatchPlayedData];
-				[matchView updateView];
+				[self updateMatchViews];
 				
 				//Get match results
 				[[Globals i] updateMatchInfoData:[Globals i].challengeMatchId];
@@ -960,7 +964,6 @@
     if (matchReport == nil)
     {
         matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
-        matchReport.mainView = self;
     }
     [[Globals i] showTemplate:@[matchReport] :@"Match Report" :0];
     [matchReport redrawView];
@@ -1053,7 +1056,6 @@
     if (trainingView == nil)
     {
         trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
-        trainingView.mainView = self;
     }
     [[Globals i] showTemplate:@[trainingView] :@"Coach" :1];
     [self.trainingView updateView];
@@ -1064,7 +1066,6 @@
     if (clubMapView == nil)
     {
         clubMapView = [[ClubMapView alloc] init];
-        clubMapView.mainView = self;
     }
     [[Globals i] showTemplate:@[clubMapView] :@"Map" :1];
     [self.clubMapView updateView];
@@ -1076,7 +1077,7 @@
     {
         squadView = [[SquadView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [[Globals i] showTemplate:@[squadView] :@"Players" :1];
+    [[Globals i] showTemplate:@[squadView] :@"Squad" :1];
     [self.squadView updateView];
 }
 
@@ -1085,12 +1086,28 @@
     if (matchView == nil)
     {
         matchView = [[MatchView alloc] initWithStyle:UITableViewStylePlain];
-        matchView.title = @"Played";
-        matchView.filter = @"Played";
+        matchView.title = @"Future";
+        matchView.filter = @"Future";
     }
     
-    [[Globals i] showTemplate:@[matchView] :@"Match" :1];
+    if (matchPlayedView == nil)
+    {
+        matchPlayedView = [[MatchView alloc] initWithStyle:UITableViewStylePlain];
+        matchPlayedView.title = @"Played";
+        matchPlayedView.filter = @"Played";
+    }
+    
+    if (matchChallengeView == nil)
+    {
+        matchChallengeView = [[MatchView alloc] initWithStyle:UITableViewStylePlain];
+        matchChallengeView.title = @"Challenge";
+        matchChallengeView.filter = @"Challenge";
+    }
+    
+    [[Globals i] showTemplate:@[matchView, matchPlayedView, matchChallengeView] :@"Fixtures" :1];
     [self.matchView updateView];
+    [self.matchPlayedView updateView];
+    [self.matchChallengeView updateView];
 }
 
 - (void)showAchievements
@@ -1099,10 +1116,10 @@
     {
         achievementsView = [[AchievementsView alloc] initWithStyle:UITableViewStylePlain];
     }
-    achievementsView.title = @"Achievements 1";
-    
-    [[Globals i] showTemplate:@[achievementsView] :@"Achievements" :1];
+    [[Globals i] showTemplate:@[achievementsView] :@"Awards" :1];
     [achievementsView updateView];
+    
+    [self updateAchievementBadges];
 }
 
 - (void)showPlayerStore
@@ -1159,7 +1176,6 @@
     if (challengeBox == nil)
     {
         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
-        challengeBox.mainView = self;
     }
     
     [[Globals i] showTemplate:@[challengeBox] :@"Challenge" :0];
@@ -1171,6 +1187,16 @@
 - (void)updateAchievementBadges
 {
     [cell updateAchievementBadges];
+    
+    [self.view setNeedsDisplay];
+    [mainTableView reloadData];
+}
+
+- (void)updateMailBadges
+{
+    [cell updateMailBadges];
+    
+    [self.view setNeedsDisplay];
     [mainTableView reloadData];
 }
 
@@ -1204,7 +1230,6 @@
     if (fansView == nil)
     {
         fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
-        fansView.mainView = self;
     }
 	[[Globals i] showTemplate:@[fansView] :@"Fans" :1];
     [self.fansView updateView];
@@ -1249,7 +1274,9 @@
     mailView.title = @"Mail";
     [mailView updateView];
     
-    [[Globals i] showTemplate:@[mailView] :@"Mail" :1];
+    [[Globals i] showTemplate:@[mailView] :@"News" :1];
+    
+    [self updateMailBadges];
 }
 
 - (void)showChallenge:(NSString *)club_id
@@ -1259,7 +1286,6 @@
         challengeCreate = [[ChallengeCreateView alloc] initWithNibName:@"ChallengeCreateView" bundle:nil];
     }
     [Globals i].selectedClubId = club_id;
-	challengeCreate.mainView = self;
     [challengeCreate updateView];
 
     [[Globals i] showTemplate:@[challengeCreate] :@"Challenge" :0];
@@ -1503,7 +1529,32 @@
 
 - (void)showChat
 {
-    [[Globals i] showChat];
+	if(chatView == nil)
+    {
+        chatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
+    }
+    chatView.title = @"World";
+    
+    if([[Globals i].wsClubData[@"alliance_id"] isEqualToString:@"0"])
+    {
+        [[Globals i] showTemplate:@[chatView] :@"Chat" :1];
+        [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
+    }
+    else
+    {
+        if(allianceChatView == nil)
+        {
+            allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
+        }
+        allianceChatView.title = @"Alliance";
+        
+        [[Globals i] showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
+        
+        [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
+        
+        [allianceChatView updateView:[[Globals i] wsAllianceChatFullData] table:@"alliance_chat" a_id:[Globals i].wsClubData[@"alliance_id"]];
+        allianceChatView.isAllianceChat = @"1";
+    }
 }
 
 - (void)onTimerChat
@@ -1526,7 +1577,6 @@
         cell = [[MainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"MainCell"];
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
-    cell.mainView = self;
     
 	return cell;
 }

@@ -11,7 +11,7 @@
 #import "Globals.h"
 
 @implementation MatchReport
-@synthesize mainView;
+
 @synthesize matchid;
 @synthesize weatherImage;
 @synthesize headerLabel;

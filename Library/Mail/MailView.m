@@ -136,6 +136,10 @@
         [self.tableView reloadData];
         
         [mailDetail getReplies];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"UpdateBadges"
+         object:self];
     }
     
     [[Globals i] pushTemplateNav:mailDetail];

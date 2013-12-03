@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface ClubView : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-	MainView *mainView;
+	
 	UIImagePickerController *picker;
 	UIActionSheet *sourceActionSheet;
 	UIButton *ownerImage;
@@ -28,7 +28,7 @@
 	NSString *home_url;
 	NSString *away_url;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) UIActionSheet *sourceActionSheet;
 @property (nonatomic, strong) IBOutlet UIButton *ownerImage;

@@ -6,7 +6,7 @@
 #import "PlayerCell.h"
 
 @implementation BidView
-@synthesize mainView;
+
 @synthesize selected_clubid;
 @synthesize wsBidList;
 @synthesize messageText;
@@ -411,15 +411,8 @@
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
         {
             selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-
-            UIAlertView *alert = [[UIAlertView alloc]
-                      initWithTitle:rowData[@"club_name"]
-                      message:rowData[@"message"]
-                      delegate:self
-                      cancelButtonTitle:@"Cancel"
-                      otherButtonTitles:@"Club Info", @"Challenge", nil];
-            alert.tag = 2;
-            [alert show];
+            [messageText resignFirstResponder];
+            [[Globals i].mainView showClubViewer:selected_clubid];
         }
     
         return nil;
@@ -433,20 +426,6 @@
         if(buttonIndex == 0)
         {
             [self close];
-        }
-    }
-
-    if (alertView.tag == 2) 
-    {
-        if(buttonIndex == 1)
-        {
-            [messageText resignFirstResponder];
-            [mainView showClubViewer:selected_clubid];
-        }
-        if(buttonIndex == 2)
-        {
-            [messageText resignFirstResponder];
-            [mainView showChallenge:selected_clubid];
         }
     }
     

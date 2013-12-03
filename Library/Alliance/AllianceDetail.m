@@ -34,31 +34,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
-}
-
 - (void)scrollToTop
 {
     [self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
@@ -124,11 +99,11 @@
             NSDictionary *row1 = @{@"r1": @"Leave this Alliance", @"i2": @"arrow_right"};
             NSDictionary *row2 = @{@"r1": @"Comments", @"i2": @"arrow_right"};
             NSDictionary *row3 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
-            //NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
+            NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
             NSDictionary *row5 = @{@"r1": @"Message all members", @"i2": @"arrow_right"};
             NSDictionary *row6 = @{@"r1": @"Upgrade Alliance", @"i2": @"arrow_right"};
             NSDictionary *row7 = @{@"r1": @"Edit Alliance", @"i2": @"arrow_right"};
-            rows1 = @[row0, row1, row2, row3, row5, row6, row7];
+            rows1 = @[row0, row1, row2, row3, row4, row5, row6, row7];
         }
         else
         {
@@ -136,8 +111,8 @@
             NSDictionary *row1 = @{@"r1": @"Leave this Alliance", @"i2": @"arrow_right"};
             NSDictionary *row2 = @{@"r1": @"Comments", @"i2": @"arrow_right"};
             NSDictionary *row3 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
-            //NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
-            rows1 = @[row0, row1, row2, row3];
+            NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
+            rows1 = @[row0, row1, row2, row3, row4];
         }
     }
     else
@@ -165,12 +140,12 @@
     NSDictionary *row36 = @{@"r1": @"Events", @"r2": @"View events", @"i2": @"arrow_right"};
     NSDictionary *row37 = @{@"r1": @"Founded", @"r2": [[Globals i] getTimeAgo:aAlliance.date_found]};
     NSDictionary *row38 = @{@"r1": @"Alliance Level", @"r2": aAlliance.alliance_level};
-    NSDictionary *row39 = @{@"r1": @"Diamonds", @"r2": [[Globals i] numberFormat:aAlliance.currency_first]};
-    //NSDictionary *row40 = @{@"r1": @"Funds", @"r2": [[Globals i] numberFormat:aAlliance.currency_second]};
+    NSDictionary *row39 = @{@"r1": @"Diamonds", @"r2": [[Globals i] numberFormat:aAlliance.currency_second]};
+    NSDictionary *row40 = @{@"r1": @"Funds", @"r2": [[Globals i] numberFormat:aAlliance.currency_first]};
     NSDictionary *row41 = @{@"r1": @"Power", @"r2": [[Globals i] numberFormat:aAlliance.score]};
     NSDictionary *row42 = @{@"r1": @"Ranking", @"r2": [[Globals i] numberFormat:aAlliance.rank]};
     NSDictionary *row43 = @{@"r1": @"Alliance Description", @"r2": aAlliance.description};
-    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row41, row42, row43];
+    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row43];
     
     self.rows = @[rows3, rows1];
     

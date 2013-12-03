@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface TacticsView : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 {
-	MainView *mainView;
+	
 	NSString *tid;
 	UIScrollView *scrollView;
     UIPageControl *pageControl;
@@ -18,7 +18,7 @@
     NSInteger total_tactics;
     BOOL pageControlUsed;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) NSString *tid;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (readwrite) NSInteger total_tactics;

@@ -12,7 +12,7 @@
 #import "MainView.h"
 
 @implementation PromotionView
-@synthesize mainView;
+
 @synthesize table;
 @synthesize divisionLabel;
 @synthesize seriesLabel;
@@ -98,23 +98,6 @@
 	}
 }
 
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	switch(buttonIndex)
-	{
-		case 0: //Club Info
-		{
-			[mainView showClubViewer:selected_clubid];
-			break;
-		}
-        case 1: //Challenge
-		{
-			[mainView showChallenge:selected_clubid];
-			break;
-		}
-	}
-}
-
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
@@ -169,14 +152,7 @@
 	else
 	{
 		selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-		UIActionSheet *actionSheet = [[UIActionSheet alloc]
-									  initWithTitle:@"Options"
-									  delegate:self
-									  cancelButtonTitle:@"Cancel"
-									  destructiveButtonTitle:nil
-									  otherButtonTitles:@"Club Info", @"Challenge", nil];
-		actionSheet.tag = 1;
-		[actionSheet showFromTabBar:[[mainView leagueTabBarController] tabBar]];
+		[[Globals i].mainView showClubViewer:selected_clubid];
 	}
 	return nil;
 }

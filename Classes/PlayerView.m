@@ -6,7 +6,7 @@
 #import "PlayerCell.h"
 
 @implementation PlayerView
-@synthesize mainView;
+
 @synthesize squadView;
 @synthesize playerList;
 @synthesize players;
@@ -369,7 +369,7 @@
         if (tag == 2) //Yes
         {
             [[Globals i] settPurchasedProduct:@"14"];
-            [mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+            [[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
             [dialogBox.view removeFromSuperview];
         }
     }

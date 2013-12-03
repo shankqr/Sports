@@ -9,6 +9,7 @@
 #import "AllianceApplicants.h"
 #import "AllianceObject.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation AllianceApplicants
 @synthesize rows;
@@ -156,7 +157,7 @@
             }
             else
             {
-                //[mainView showClubViewer:selected_clubid];
+                [[Globals i].mainView showClubViewer:selected_clubid];
             }
         }
     }
@@ -167,7 +168,7 @@
 {
 	if(buttonIndex == 1) //View Profile
 	{
-		//[mainView showClubViewer:selected_clubid];
+		[[Globals i].mainView showClubViewer:selected_clubid];
     }
     else if(buttonIndex == 2) //Approve
 	{

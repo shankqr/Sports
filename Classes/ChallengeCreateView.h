@@ -6,10 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MainView;
+
 @interface ChallengeCreateView : UIViewController <UIActionSheetDelegate, UITextViewDelegate>
 {
-	MainView *mainView;
+	
 	UILabel *titleLabel;
 	UITextView *managerNote;
 	UIButton *winButton;
@@ -20,7 +20,7 @@
 	NSString *draw;
 	NSArray *matches;
 }
-@property (nonatomic, strong) MainView *mainView;
+
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UITextView *managerNote;
 @property (nonatomic, strong) IBOutlet UIButton *winButton;
