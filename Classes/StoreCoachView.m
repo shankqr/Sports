@@ -12,9 +12,7 @@
 #import "MainView.h"
 
 @implementation StoreCoachView
-
 @synthesize coaches;
-@synthesize filter;
 @synthesize sold_coach_id;
 @synthesize sel_coach_id;
 @synthesize sel_coach_value;

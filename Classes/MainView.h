@@ -82,7 +82,10 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     MainCell *cell;
     StorePlayerView *storePlayer;
     StoreCoachView *storeCoach;
-    StoreOthersView *storeOthers;
+    StoreOthersView *fundStore;
+    StoreOthersView *emblemStore;
+    StoreOthersView *homeStore;
+    StoreOthersView *awayStore;
     JobRefill *jobRefill;
     MailView *mailView;
     ClubView *clubView;
@@ -149,7 +152,10 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) StorePlayerView *storePlayer;
 @property (nonatomic, strong) StoreCoachView *storeCoach;
-@property (nonatomic, strong) StoreOthersView *storeOthers;
+@property (nonatomic, strong) StoreOthersView *fundStore;
+@property (nonatomic, strong) StoreOthersView *emblemStore;
+@property (nonatomic, strong) StoreOthersView *homeStore;
+@property (nonatomic, strong) StoreOthersView *awayStore;
 @property (nonatomic, strong) JobRefill *jobRefill;
 @property (nonatomic, strong) MailView *mailView;
 @property (nonatomic, strong) ClubView *clubView;
@@ -194,5 +200,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)declineChallenge;
 - (void)startLiveMatch;
 - (void)showJobRefill;
+- (void)showFundStore;
 - (void)menuButton_tap:(NSInteger)sender;
 @end

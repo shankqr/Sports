@@ -83,7 +83,10 @@
 @synthesize cell;
 @synthesize storePlayer;
 @synthesize storeCoach;
-@synthesize storeOthers;
+@synthesize fundStore;
+@synthesize emblemStore;
+@synthesize homeStore;
+@synthesize awayStore;
 @synthesize jobRefill;
 @synthesize mailView;
 @synthesize clubView;
@@ -1257,12 +1260,42 @@
 
 - (void)showOthersStore
 {
-    if (storeOthers == nil)
+    if (emblemStore == nil)
     {
-        storeOthers = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        emblemStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        emblemStore.title = @"Emblem";
+        emblemStore.filter = @"Emblems";
     }
-	[[Globals i] showTemplate:@[storeOthers] :@"Store" :1];
-    [self.storeOthers updateView];
+    
+    if (homeStore == nil)
+    {
+        homeStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        homeStore.title = @"Home Jerseys";
+        homeStore.filter = @"Home";
+    }
+    
+    if (awayStore == nil)
+    {
+        awayStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        awayStore.title = @"Away Jerseys";
+        awayStore.filter = @"Away";
+    }
+    
+    [[Globals i] showTemplate:@[emblemStore, homeStore, awayStore] :@"Club Store" :1];
+    [self.emblemStore updateView];
+    [self.homeStore updateView];
+    [self.awayStore updateView];
+}
+
+- (void)showFundStore
+{
+    if (fundStore == nil)
+    {
+        fundStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        fundStore.filter = @"Funds";
+    }
+	[[Globals i] showTemplate:@[fundStore] :@"Funds" :1];
+    [self.fundStore updateView];
 }
 
 - (void)showMail

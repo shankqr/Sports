@@ -14,8 +14,6 @@
 	NSString *sel_player_id;
 	NSString *sel_player_name;
 	NSString *sel_player_value;
-	NSString *filter;
-	NSInteger totalfilter;
 }
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSString *selected_clubid;
@@ -23,7 +21,5 @@
 @property (nonatomic, strong) NSString *sel_player_id;
 @property (nonatomic, strong) NSString *sel_player_name;
 @property (nonatomic, strong) NSString *sel_player_value;
-@property (nonatomic, strong) NSString *filter;
-@property NSInteger totalfilter;
 - (void)updateView;
 @end

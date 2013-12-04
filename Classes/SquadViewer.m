@@ -17,8 +17,6 @@
 @synthesize sel_player_id;
 @synthesize sel_player_name;
 @synthesize sel_player_value;
-@synthesize totalfilter;
-@synthesize filter;
 
 - (void)viewDidLoad
 {

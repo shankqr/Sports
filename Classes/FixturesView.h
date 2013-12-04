@@ -8,7 +8,6 @@
 
 @interface FixturesView : UITableViewController <UIActionSheetDelegate>
 {
-	NSString *filter;
 	NSArray *matches;
 	NSUInteger curDivision;
 	NSUInteger curSeries;
@@ -17,7 +16,6 @@
 	NSInteger curRound;
 	BOOL workingLeagueFixtures;
 }
-@property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSArray *matches;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property NSUInteger curDivision;

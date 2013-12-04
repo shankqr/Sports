@@ -13,9 +13,7 @@
 #import "PlayerCell.h"
 
 @implementation StorePlayerView
-
 @synthesize players;
-@synthesize filter;
 @synthesize sold_player_id;
 @synthesize sel_player_id;
 @synthesize sel_player_value;

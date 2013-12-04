@@ -12,7 +12,6 @@
 
 @implementation FixturesView
 @synthesize matches;
-@synthesize filter;
 @synthesize curDivision;
 @synthesize curSeries;
 @synthesize selected_clubid;

@@ -17,7 +17,6 @@
 	UILabel *divisionLabel;
 	UILabel *seriesLabel;
 	UILabel *maxseriesLabel;
-	NSString *filter;
 	NSUInteger dialogDivision;
 	NSUInteger dialogSeries;
 	NSArray *leagues;
@@ -30,7 +29,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;
 @property (nonatomic, strong) IBOutlet UILabel *maxseriesLabel;
-@property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSArray *leagues;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) DialogBoxView *dialogBox;

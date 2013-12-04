@@ -12,12 +12,10 @@
 #import "MainView.h"
 
 @implementation LeagueView
-
 @synthesize table;
 @synthesize divisionLabel;
 @synthesize seriesLabel;
 @synthesize maxseriesLabel;
-@synthesize filter;
 @synthesize dialogDivision;
 @synthesize dialogSeries;
 @synthesize leagues;

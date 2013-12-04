@@ -12,7 +12,6 @@
 #import "MainView.h"
 
 @implementation StoreOthersView
-
 @synthesize products;
 @synthesize filter;
 @synthesize sold_product_id;
@@ -28,31 +27,6 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
 }
 
 - (void)updateView
