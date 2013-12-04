@@ -39,7 +39,9 @@
 
 - (IBAction)addfunds_tap:(id)sender
 {
-    [[Globals i] showBuy];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"BuyFunds"
+     object:self];
 }
 
 - (void)confirmPurchase

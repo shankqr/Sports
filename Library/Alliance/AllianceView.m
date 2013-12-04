@@ -51,31 +51,6 @@
     self.tableView.tableHeaderView = searchBar;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
-}
-
 - (void)viewDidUnload
 {
 	// Save the state of the search UI so that it can be restored if the view is re-created.

@@ -307,7 +307,7 @@
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Accountant"
-                                      message:@"We can't afford this bid. Buy more club funds?"
+                                      message:@"We can't afford this bid. Get more club funds?"
                                       delegate:self
                                       cancelButtonTitle:@"CANCEL"
                                       otherButtonTitles:@"OK", nil];
@@ -433,8 +433,9 @@
     {
         if(buttonIndex == 1)
         {
-            [[Globals i] showBuy];
-            [self close];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"BuyFunds"
+             object:self];
         }
     }
 }

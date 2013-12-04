@@ -27,31 +27,6 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
-}
-
 - (void)updateView
 {    
 	if([[[Globals i] getCoachData] count] < 1)
@@ -260,7 +235,9 @@
 {
 	if(buttonIndex == 1)
 	{
-        [[Globals i] showBuy];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"BuyFunds"
+         object:self];
 	}
 	
 	if(buttonIndex == 2)
@@ -278,7 +255,7 @@
 		{
 			UIAlertView *alert = [[UIAlertView alloc]
 								  initWithTitle:@"Accountant"
-								  message:@"Insufficient club funds. Buy more funds?"
+								  message:@"Insufficient club funds. Get more funds?"
 								  delegate:self
 								  cancelButtonTitle:@"Cancel"
 								  otherButtonTitles:@"OK", nil];

@@ -199,7 +199,7 @@
 	{
 		UIAlertView *alert = [[UIAlertView alloc]
 							  initWithTitle:@"Accountant"
-							  message:@"We can't afford this bet. You must have more then twice of the win money you have selected, in your club funds. Buy more club funds?"
+							  message:@"We can't afford this bet. You must have more then twice of the win money you have selected, in your club funds. Get more club funds?"
 							  delegate:self
 							  cancelButtonTitle:@"CANCEL"
 							  otherButtonTitles:@"OK", nil];
@@ -235,7 +235,9 @@
     {
         if(buttonIndex == 1)
         {
-            [[Globals i] showBuy];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"BuyFunds"
+             object:self];
         }
     }
 }

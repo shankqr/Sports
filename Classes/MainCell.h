@@ -6,16 +6,13 @@
 //  Copyright (c) 2012 TAPFANTASY. All rights reserved.
 //
 
-
 @class LeagueSlide;
 @class RankingSlide;
 @class NextMatchSlide;
 @class LastMatchSlide;
 @class CustomBadge;
-
 @interface MainCell : UITableViewCell
 {
-    
     UIView *activeSlide;
 	LeagueSlide *leagueSlide;
 	RankingSlide *rankingSlide;

@@ -161,38 +161,17 @@
 
 -(IBAction)logoButton_tap:(id)sender
 {
-    sourceActionSheet = [[UIActionSheet alloc]
-                         initWithTitle:@""
-                         delegate:self
-                         cancelButtonTitle:@"Cancel"
-                         destructiveButtonTitle:nil
-                         otherButtonTitles:@"Change Logo", nil];
-	sourceActionSheet.tag = 1;
-	[sourceActionSheet showInView:self.view];
+    [[Globals i].mainView showEmblemStore];
 }
 
 -(IBAction)homeButton_tap:(id)sender
 {
-    sourceActionSheet = [[UIActionSheet alloc]
-                         initWithTitle:@""
-                         delegate:self
-                         cancelButtonTitle:@"Cancel"
-                         destructiveButtonTitle:nil
-                         otherButtonTitles:@"Change Home Jersey", nil];
-	sourceActionSheet.tag = 2;
-	[sourceActionSheet showInView:self.view];
+    [[Globals i].mainView showHomeStore];
 }
 
 -(IBAction)awayButton_tap:(id)sender
 {
-    sourceActionSheet = [[UIActionSheet alloc]
-                         initWithTitle:@""
-                         delegate:self
-                         cancelButtonTitle:@"Cancel"
-                         destructiveButtonTitle:nil
-                         otherButtonTitles:@"Change Away Jersey", nil];
-	sourceActionSheet.tag = 3;
-	[sourceActionSheet showInView:self.view];
+    [[Globals i].mainView showAwayStore];
 }
 
 -(IBAction)managerImageButton_tap:(id)sender
@@ -226,13 +205,9 @@
 	{
 		if(buttonIndex == 0) //RESET
 		{
-			if(pickerTag == 4)
+            if(pickerTag == 4)
 			{
 				[self loadOwner];
-			}
-            else // Online Store
-			{
-				[[Globals i].mainView showOthersStore];
 			}
 		}
 		if(buttonIndex == 1) //Go to store or load facebook pic
@@ -264,8 +239,6 @@
 {
 	//self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	[self dismissViewControllerAnimated:YES completion:nil];
-	
-	
 	
 	[[Globals i].mainView updateHeader];
 	
@@ -373,7 +346,6 @@
 
 -(IBAction)resetButton_tap:(id)sender
 {
-	
     [[Globals i] settPurchasedProduct:@"13"];
 	[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"reset"]];
 }

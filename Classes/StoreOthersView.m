@@ -36,6 +36,12 @@
 		[[Globals i] showLoadingAlert];
 		[NSThread detachNewThreadSelector: @selector(getProducts) toTarget:self withObject:nil];
 	}
+    else
+    {
+        [self filterProducts];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (void)getProducts
@@ -43,10 +49,19 @@
 	@autoreleasepool {
 	
 		[[Globals i] updateProducts];
-		self.products = [[Globals i] getProducts];
-        [self.tableView reloadData];
+        
+        [self filterProducts];
+        
 		[[Globals i] removeLoadingAlert];
 	}
+}
+
+- (void)filterProducts
+{
+    self.products = [[Globals i] getProducts];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"type CONTAINS[cd] %@", self.filter];
+    NSArray *result = [self.products filteredArrayUsingPredicate:predicate];
+    self.products = [result mutableCopy];
 }
 
 #pragma mark Table Data Source Methods
@@ -314,13 +329,15 @@
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Accountant"
-                              message:@"Insufficient club funds. Buy more funds?"
+                              message:@"Insufficient club funds. Get more funds?"
                               delegate:self
                               cancelButtonTitle:@"OK"
                               otherButtonTitles:nil];
         [alert show];
         
-        [[Globals i] showBuy];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"BuyFunds"
+         object:self];
     }
     else
     {

@@ -152,6 +152,11 @@
                                                  name:@"UpdateBadges"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"BuyFunds"
+                                               object:nil];
+    
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
@@ -200,6 +205,11 @@
     {
         [self updateAchievementBadges];
         [self updateMailBadges];
+    }
+    
+    if ([[notification name] isEqualToString:@"BuyFunds"])
+    {
+        [self showFundStore];
     }
 }
 
@@ -277,6 +287,9 @@
              [self updateAchievementBadges];
              [[Globals i] updateMailData];
              [self updateMailBadges];
+             
+             //Pre-load products
+             [[Globals i] updateProducts];
              
              [[Globals i] removeLoading];
          }
@@ -1263,8 +1276,8 @@
     if (emblemStore == nil)
     {
         emblemStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
-        emblemStore.title = @"Emblem";
-        emblemStore.filter = @"Emblems";
+        emblemStore.title = @"Emblems";
+        emblemStore.filter = @"Emblem";
     }
     
     if (homeStore == nil)
@@ -1287,14 +1300,55 @@
     [self.awayStore updateView];
 }
 
+- (void)showEmblemStore
+{
+    if (emblemStore == nil)
+    {
+        emblemStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        emblemStore.title = @"Emblems";
+        emblemStore.filter = @"Emblem";
+    }
+
+    [[Globals i] showTemplate:@[emblemStore] :@"Emblems" :1];
+    [self.emblemStore updateView];
+}
+
+- (void)showHomeStore
+{
+    if (homeStore == nil)
+    {
+        homeStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        homeStore.title = @"Home Jerseys";
+        homeStore.filter = @"Home";
+    }
+
+    [[Globals i] showTemplate:@[homeStore] :@"Home Jerseys" :1];
+    [self.homeStore updateView];
+}
+
+- (void)showAwayStore
+{
+    if (awayStore == nil)
+    {
+        awayStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        awayStore.title = @"Away Jerseys";
+        awayStore.filter = @"Away";
+    }
+
+    [[Globals i] showTemplate:@[awayStore] :@"Away Jerseys" :1];
+    [self.awayStore updateView];
+}
+
 - (void)showFundStore
 {
     if (fundStore == nil)
     {
         fundStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
+        fundStore.title = @"Get Funds";
         fundStore.filter = @"Funds";
     }
-	[[Globals i] showTemplate:@[fundStore] :@"Funds" :1];
+
+	[[Globals i] showTemplate:@[fundStore] :@"Get Funds" :1];
     [self.fundStore updateView];
 }
 

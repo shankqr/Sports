@@ -31,26 +31,11 @@
     [self refreshTable];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-	[super viewWillDisappear:animated];
-}
-
 - (void)viewDidDisappear:(BOOL)animated
 {
 	[super viewDidDisappear:animated];
     
     [[Globals i] settLocalMailData:self.rows];
-}
-
-- (void)willMoveToParentViewController:(UIViewController *)parent
-{
-	[super willMoveToParentViewController:parent];
-}
-
-- (void)didMoveToParentViewController:(UIViewController *)parent
-{
-	[super didMoveToParentViewController:parent];
 }
 
 - (void)updateView

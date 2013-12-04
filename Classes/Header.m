@@ -33,7 +33,9 @@
 
 - (IBAction)gold_tap:(id)sender
 {
-	[[Globals i] showBuy];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"BuyFunds"
+     object:self];
 }
 
 - (IBAction)diamond_tap:(id)sender

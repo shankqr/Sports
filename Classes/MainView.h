@@ -201,5 +201,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)startLiveMatch;
 - (void)showJobRefill;
 - (void)showFundStore;
+- (void)showEmblemStore;
+- (void)showHomeStore;
+- (void)showAwayStore;
 - (void)menuButton_tap:(NSInteger)sender;
 @end
