@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation FansView
-
 @synthesize membersLabel;
 @synthesize moodLabel;
 @synthesize expectationLabel;
@@ -32,7 +31,7 @@
 	[self.view setNeedsDisplay];
 }
 
--(IBAction)hireButton_tap:(id)sender
+- (IBAction)hireButton_tap:(id)sender
 {
 	[self confirmPurchase];
 }

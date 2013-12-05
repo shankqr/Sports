@@ -31,7 +31,7 @@
 	}
 }
 
--(void)getMatchFixturesData
+- (void)getMatchFixturesData
 {
 	@autoreleasepool {
 	
@@ -166,12 +166,12 @@
 	return curRound;
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	return [NSString stringWithFormat:@"Round %ld  (Division %ld Series %ld)", (long)section + 1, (long)curDivision, (long)curSeries];
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil;
 }

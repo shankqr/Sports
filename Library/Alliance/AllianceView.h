@@ -8,7 +8,6 @@
 
 @class AllianceDetail;
 @class AllianceCreate;
-
 @interface AllianceView : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate>
 {
     UISearchBar *searchBar;

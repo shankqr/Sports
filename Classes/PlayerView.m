@@ -6,7 +6,6 @@
 #import "PlayerCell.h"
 
 @implementation PlayerView
-
 @synthesize squadView;
 @synthesize playerList;
 @synthesize players;
@@ -56,7 +55,7 @@
 	[[Globals i] closeTemplate];
 }
 
--(IBAction)sellButton_tap:(id)sender
+- (IBAction)sellButton_tap:(id)sender
 {
     NSInteger minimum_player = 11;
     
@@ -125,7 +124,7 @@
     }
 }
 
--(IBAction)energizeButton_tap:(id)sender
+- (IBAction)energizeButton_tap:(id)sender
 {
     if([Globals i].energy > 9)
     {
@@ -154,7 +153,7 @@
     }
 }
 
--(IBAction)healButton_tap:(id)sender
+- (IBAction)healButton_tap:(id)sender
 {
     if([Globals i].energy > 9)
     {
@@ -183,7 +182,7 @@
     }
 }
 
--(IBAction)renameButton_tap:(id)sender
+- (IBAction)renameButton_tap:(id)sender
 {
     NSInteger totalDiamonds = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
@@ -251,7 +250,7 @@
         dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! player %@ is now called %@.",
                                 squadView.sel_player_name, text];
         dialogBox.dialogType = 1;
-        [[squadView.view superview] insertSubview:dialogBox.view atIndex:17];
+        [[squadView.view superview] addSubview:dialogBox.view];
         [dialogBox updateView];
 	}
 	else
@@ -261,7 +260,7 @@
 		dialogBox.whiteText = @"Enter another name.";
         dialogBox.promptText = @"";
 		dialogBox.dialogType = 4;
-		[self.view insertSubview:dialogBox.view atIndex:17];
+		[self.view addSubview:dialogBox.view];
 		[dialogBox updateView];
 	}
 }
@@ -281,7 +280,7 @@
         dialogBox.promptText = [NSString stringWithFormat:@"Send %@ to Special Training for 5 Diamonds? One of %@'s skill will level up after special training.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
     else
@@ -294,7 +293,7 @@
         dialogBox.whiteText = @"Not enough Diamonds";
         dialogBox.promptText = @"5 Diamonds is required for Special Training. Would you like to buy some diamonds?";
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }
@@ -314,7 +313,7 @@
         dialogBox.promptText = [NSString stringWithFormat:@"Give %@ a Morale Boost for 3 Diamonds? %@'s Morale will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
     else
@@ -327,7 +326,7 @@
         dialogBox.whiteText = @"Not enough Diamonds";
         dialogBox.promptText = @"3 Diamonds is required for a Morale Boost. Would you like to buy some diamonds?";
         
-        [self.view insertSubview:dialogBox.view atIndex:17];
+        [self.view addSubview:dialogBox.view];
         [dialogBox updateView];
     }
 }
@@ -360,7 +359,7 @@
             dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
                                     squadView.sel_player_name, squadView.sel_player_halfvalue, (unsigned long)squadView.players.count];
             dialogBox.dialogType = 1;
-            [[squadView.view superview] insertSubview:dialogBox.view atIndex:17];
+            [[squadView.view superview] addSubview:dialogBox.view];
             [dialogBox updateView];
         }
     }
@@ -442,7 +441,7 @@
                 dialogBox.whiteText = @"Please select another player.";
                 dialogBox.promptText = @"";
                 dialogBox.dialogType = 1;
-                [self.view insertSubview:dialogBox.view atIndex:17];
+                [self.view addSubview:dialogBox.view];
                 [dialogBox updateView];
             }
             else
@@ -487,7 +486,7 @@
                 dialogBox.whiteText = squadView.sel_player_name;
                 dialogBox.promptText = promptText;
                 dialogBox.dialogType = 1;
-                [[squadView.view superview] insertSubview:dialogBox.view atIndex:17];
+                [self.view addSubview:dialogBox.view];
                 [dialogBox updateView];
             }
         }
@@ -511,7 +510,7 @@
                 dialogBox.whiteText = @"Please select another player.";
                 dialogBox.promptText = @"";
                 dialogBox.dialogType = 1;
-                [self.view insertSubview:dialogBox.view atIndex:17];
+                [self.view addSubview:dialogBox.view];
                 [dialogBox updateView];
             }
             else
@@ -537,7 +536,7 @@
                 dialogBox.whiteText = squadView.sel_player_name;
                 dialogBox.promptText = promptText;
                 dialogBox.dialogType = 1;
-                [[squadView.view superview] insertSubview:dialogBox.view atIndex:17];
+                [self.view addSubview:dialogBox.view];
                 [dialogBox updateView];
             }
         }
@@ -565,7 +564,7 @@
     return 170*SCALE_IPAD;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return nil;
 }

@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation ClubViewer
-
 @synthesize clubid;
 @synthesize fb_name;
 @synthesize fb_url;
@@ -78,7 +77,7 @@
 	[NSThread detachNewThreadSelector: @selector(getClubInfoDataFb) toTarget:self withObject:nil];
 }
 
--(void)getClubInfoData
+- (void)getClubInfoData
 {
 	@autoreleasepool {
 	
@@ -89,7 +88,7 @@
 	}
 }
 
--(void)getClubInfoDataFb
+- (void)getClubInfoDataFb
 {
 	@autoreleasepool {
 	

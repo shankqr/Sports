@@ -806,6 +806,8 @@
 	[[Globals i] updateClubData]; //coach_id updated
 
 	[self.storeCoach forceUpdate];
+    
+    [self.trainingView updateView];
 	
 	NSString *message = @"I have just signed up a new Coach.";
 	NSString *extra_desc = @"Keep an eye on the job board for new coaches. A good coach improves the training of your team significantly. ";
@@ -1594,9 +1596,9 @@
         [self.view addSubview:lblChat1];
         
         UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(40*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-(60*SCALE_IPAD), (40*SCALE_IPAD), (40*SCALE_IPAD));
+        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(60*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-(60*SCALE_IPAD), (55*SCALE_IPAD), (55*SCALE_IPAD));
         [chatButton setBackgroundImage:[UIImage imageNamed:@"button_chat"] forState:UIControlStateNormal];
-        [chatButton setAlpha:0.8];
+        [chatButton setAlpha:0.5];
         [chatButton addTarget:self action:@selector(showChat) forControlEvents:UIControlEventTouchDown];
         [self.view addSubview:chatButton];
     }
@@ -1633,7 +1635,7 @@
         {
             allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
         }
-        allianceChatView.title = @"Alliance";
+        allianceChatView.title = @"CUP";
         
         [[Globals i] showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
         

@@ -7,20 +7,17 @@
 //
 
 #import "CSMapAnnotation.h"
-
 #define kHeight 40
 #define kWidth  40
 #define kBorder 0
 
 @implementation CSMapAnnotation
-
 @synthesize coordinate = _coordinate;
 @synthesize userData = _userData;
 @synthesize club_id = _club_id;
 @synthesize imageView;
 
-
--(id) initWithCoordinate:(CLLocationCoordinate2D)coordinate 
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate 
 				   title:(NSString*)title
 				   subtitle:(NSString*)subtitle
 					imagepath:(NSString*)imagepath

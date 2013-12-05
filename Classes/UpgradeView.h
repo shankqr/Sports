@@ -6,7 +6,6 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface UpgradeView : UIViewController <UIAlertViewDelegate>
 {
 	
@@ -17,7 +16,6 @@
     UILabel *formulaLabel;
     NSInteger buildingType;
 }
-
 @property (nonatomic, strong) IBOutlet UIImageView *buildingImage;
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeLabel;

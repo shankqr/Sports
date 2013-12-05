@@ -216,7 +216,7 @@
 	}
     else
     {
-        CGRect buttonRect = CGRectMake(115, 280, 90, 45);
+        CGRect buttonRect = CGRectMake(115, 260, 90, 45);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
     }

@@ -67,7 +67,6 @@
 @synthesize mailCompose;
 @synthesize loginNotification;
 @synthesize loadingView;
-
 @synthesize wsSquadData;
 @synthesize wsMySquadData;
 @synthesize wsMatchData;
@@ -702,7 +701,7 @@ static NSOperationQueue *connectionQueue;
         {
             allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
         }
-        allianceChatView.title = @"Alliance";
+        allianceChatView.title = @"CUP";
         
         [self showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
         

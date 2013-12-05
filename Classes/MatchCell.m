@@ -9,7 +9,6 @@
 #import "MatchCell.h"
 
 @implementation MatchCell
-
 @synthesize matchDay;
 @synthesize matchDate;
 @synthesize matchMonth;

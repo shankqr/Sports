@@ -12,7 +12,6 @@
 #import "MainView.h"
 
 @implementation TrainingView
-
 @synthesize table;
 @synthesize coaches;
 @synthesize trainingImage;
@@ -51,12 +50,12 @@
     }
 }
 
--(IBAction)coachButton_tap:(id)sender
+- (IBAction)coachButton_tap:(id)sender
 {
 	[[Globals i].mainView showCoachStore];
 }
 
--(IBAction)trainingButton_tap:(id)sender
+- (IBAction)trainingButton_tap:(id)sender
 {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc]
 								  initWithTitle:@"Training Type"
@@ -233,7 +232,7 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return indexPath;
 }

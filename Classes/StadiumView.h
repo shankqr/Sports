@@ -6,10 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface StadiumView : UIViewController <UIAlertViewDelegate>
 {
-	
 	UILabel *stadiumNameLabel;
 	UILabel *capacityLabel;
 	UILabel *ticketLabel;
@@ -17,7 +15,6 @@
 	UILabel *rentLabel;
 	UILabel *upgradeDateLabel;
 }
-
 @property (nonatomic, strong) IBOutlet UILabel *stadiumNameLabel;
 @property (nonatomic, strong) IBOutlet UILabel *capacityLabel;
 @property (nonatomic, strong) IBOutlet UILabel *ticketLabel;

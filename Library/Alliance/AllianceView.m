@@ -164,7 +164,7 @@
     
     if (indexPath.row == 0) //Header row
     {
-        rowData = @{@"h1": @"", @"n1": @"No.", @"r1": @"Alliance Name", @"c1": @"Power"};
+        rowData = @{@"h1": @"", @"n1": @"No.", @"r1": @"CUP Name", @"c1": @"Prestige"};
 	}
     else
     {
@@ -173,7 +173,7 @@
         if (tableView == self.searchDisplayController.searchResultsTableView)
         {
             aAlliance = (self.filteredListContent)[index];
-            rowData = @{@"r1": aAlliance.name, @"r2": [NSString stringWithFormat:@"%@ Power (%@ Members)", [[Globals i] numberFormat:aAlliance.score], [[Globals i] numberFormat:aAlliance.total_members]], @"i2": @"arrow_right"};
+            rowData = @{@"r1": aAlliance.name, @"r2": [NSString stringWithFormat:@"%@ Prestige Points (%@ Members)", [[Globals i] numberFormat:aAlliance.score], [[Globals i] numberFormat:aAlliance.total_members]], @"i2": @"arrow_right"};
         }
         else
         {
@@ -186,17 +186,6 @@
             NSString *points = [[Globals i] numberFormat:(self.allianceArray)[index][@"score"]];
             
             rowData = @{@"n1": [NSString stringWithFormat:@"%ld", (long)index+1], @"r1": r1, @"r2": members, @"c1": points, @"i2": @"arrow_right"};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"r2": members, @"c1": points};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"r2": members};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"c1": points};
-            //rowData = @{@"n1": [NSString stringWithFormat:@"%ld", indexPath.row+1], @"r1": r1, @"c1": points, @"i2": @"arrow_right"};
-            //rowData = @{@"r1": r1, @"c1": points, @"i2": @"arrow_right"};
-            //rowData = @{@"r1": r1, @"c1": points};
-            //rowData = @{@"r1": r1};
-            //rowData = @{@"r1": r1, @"i2": @"arrow_right"};
-            //rowData = @{@"r1": r1, @"r2": members, @"c1": points, @"i2": @"arrow_right"};
-            //rowData = @{@"r1": r1, @"r2": members, @"c1": points};
         }
     }
     
@@ -266,9 +255,9 @@
     
     UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
     createButton.frame = CGRectMake(5, 5, 280, 34);
-    [createButton setTitle:@"Create New Alliance" forState:UIControlStateNormal];
+    [createButton setTitle:@"Create New CUP" forState:UIControlStateNormal];
     [createButton setBackgroundColor:[UIColor grayColor]];
-    //[createButton setBackgroundImage:[UIImage imageNamed:@"button_blank"] forState:UIControlStateNormal];
+
     [createButton addTarget:self action:@selector(createButton_tap:) forControlEvents:UIControlEventTouchDown];
     
     [headerView addSubview:createButton];
@@ -286,7 +275,7 @@
     
     if (alliance_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing Alliance, resign from that Alliance first to Create a new one."];
+        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing CUP, resign from that CUP first to Create a new one."];
     }
     else
     {

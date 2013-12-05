@@ -32,7 +32,7 @@
 	[self.view setNeedsDisplay];
 }
 
--(IBAction)upgradeButton_tap:(id)sender
+- (IBAction)upgradeButton_tap:(id)sender
 {
 	NSInteger cost = [levelLabel.text integerValue]*5000;
 	NSNumber* number = @(cost);

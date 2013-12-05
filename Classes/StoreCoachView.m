@@ -226,7 +226,7 @@
 						  message:[NSString stringWithFormat:@"Do you want to sign up coach %@ for $%@", name, [[Globals i] numberFormat:rowData[@"coach_value"]]]
 						  delegate:self
 						  cancelButtonTitle:@"Cancel"
-						  otherButtonTitles:@"Use Real Funds", [NSString stringWithFormat:@"$%@", [[Globals i] numberFormat:rowData[@"coach_value"]]], nil];
+						  otherButtonTitles:@"Get More Funds", [NSString stringWithFormat:@"$%@", [[Globals i] numberFormat:rowData[@"coach_value"]]], nil];
 	[alert show];
 	return nil;
 }
@@ -257,8 +257,8 @@
 								  initWithTitle:@"Accountant"
 								  message:@"Insufficient club funds. Get more funds?"
 								  delegate:self
-								  cancelButtonTitle:@"Cancel"
-								  otherButtonTitles:@"OK", nil];
+								  cancelButtonTitle:@"No"
+								  otherButtonTitles:@"Yes", nil];
 			[alert show];
 		}
 	}

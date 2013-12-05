@@ -7,7 +7,6 @@
 //
 #import <MapKit/MapKit.h>
 
-
 @class CSMapAnnotation;
 @interface MapViewer : UIViewController <MKMapViewDelegate>
 {
@@ -19,7 +18,6 @@
 	NSString *face_url;
 	CSMapAnnotation* clubAnnotation;
 }
-
 @property (nonatomic, strong) IBOutlet MKMapView* mapView;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) IBOutlet UILabel *managerLabel;

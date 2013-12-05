@@ -6,10 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface ClubView : UIViewController <UIAlertViewDelegate, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
 {
-	
 	UIImagePickerController *picker;
 	UIActionSheet *sourceActionSheet;
 	UIButton *ownerImage;
@@ -28,7 +26,6 @@
 	NSString *home_url;
 	NSString *away_url;
 }
-
 @property (nonatomic, strong) UIImagePickerController *picker;
 @property (nonatomic, strong) UIActionSheet *sourceActionSheet;
 @property (nonatomic, strong) IBOutlet UIButton *ownerImage;

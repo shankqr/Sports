@@ -244,9 +244,9 @@
     [self addPosButton:@"Fans" tag:16 imageDefault:@"button_fan"];
 	[self addPosButton:@"World Map" tag:17 imageDefault:@"button_map"];
 	[self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
-	[self addPosButton:@"More Games" tag:19 imageDefault:@"button_friends"];
+	[self addPosButton:@"More Games" tag:19 imageDefault:@"button_more"];
 	[self addPosButton:@"Help" tag:20 imageDefault:@"button_help"];
-    [self addPosButton:@"Logout" tag:21 imageDefault:@"button_news"];
+    [self addPosButton:@"Logout" tag:21 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag

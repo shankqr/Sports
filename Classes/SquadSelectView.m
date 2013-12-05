@@ -13,7 +13,6 @@
 
 @implementation SquadSelectView
 @synthesize delegate;
-
 @synthesize players;
 @synthesize sel_player_id;
 @synthesize sel_player_name;
@@ -28,7 +27,7 @@
 	}
 }
 
--(void)updateView
+- (void)updateView
 {
 	[Globals i].selectedPlayer = @"0";
 	self.players = [[Globals i] getMySquadData];
@@ -52,7 +51,7 @@
 	return 170*SCALE_IPAD;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSUInteger row = [indexPath row];
 	NSDictionary *rowData = (self.players)[row];

@@ -2,12 +2,10 @@
 #import "DialogBoxView.h"
 
 @class SquadView;
-
 @class DialogBoxView;
 @interface PlayerView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, DialogBoxDelegate>
 {
-    
     SquadView *squadView;
     NSString *player_id;
     IBOutlet UITableView *playerList;
@@ -25,12 +23,12 @@
 @property (nonatomic,strong) IBOutlet UIImageView *flagImageView;
 @property (nonatomic,strong) IBOutlet UILabel *nationLabel;
 @property (nonatomic,strong) IBOutlet UILabel *moraleLabel;
--(IBAction)sellButton_tap:(id)sender;
--(IBAction)energizeButton_tap:(id)sender;
--(IBAction)healButton_tap:(id)sender;
--(IBAction)renameButton_tap:(id)sender;
--(IBAction)improveButton_tap:(id)sender;
--(IBAction)moraleButton_tap:(id)sender;
--(void)updateView:(NSDictionary *)player;
+- (IBAction)sellButton_tap:(id)sender;
+- (IBAction)energizeButton_tap:(id)sender;
+- (IBAction)healButton_tap:(id)sender;
+- (IBAction)renameButton_tap:(id)sender;
+- (IBAction)improveButton_tap:(id)sender;
+- (IBAction)moraleButton_tap:(id)sender;
+- (void)updateView:(NSDictionary *)player;
 @end
 

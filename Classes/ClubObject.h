@@ -15,9 +15,7 @@
 	NSString *latitude;
 	NSString *badge_path;
 }
-
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
-
 @property (nonatomic, strong) NSString *club_id;
 @property (nonatomic, strong) NSString *club_name;
 @property (nonatomic, strong) NSString *fan;

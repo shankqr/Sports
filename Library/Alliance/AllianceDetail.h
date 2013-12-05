@@ -12,7 +12,7 @@
 @class AllianceDonations;
 @class AllianceApplicants;
 @class AllianceMembers;
-
+@class AllianceCup;
 @interface AllianceDetail : UITableViewController
 {
     NSArray *rows;
@@ -22,6 +22,9 @@
     AllianceDonations *allianceDonations;
     AllianceApplicants *allianceApplicants;
     AllianceMembers *allianceMembers;
+    AllianceCup *allianceCup0;
+    AllianceCup *allianceCup1;
+    AllianceCup *allianceCup2;
     BOOL isMyAlliance;
     BOOL isLeader;
 }
@@ -32,6 +35,9 @@
 @property (nonatomic, strong) AllianceDonations *allianceDonations;
 @property (nonatomic, strong) AllianceApplicants *allianceApplicants;
 @property (nonatomic, strong) AllianceMembers *allianceMembers;
+@property (nonatomic, strong) AllianceCup *allianceCup0;
+@property (nonatomic, strong) AllianceCup *allianceCup1;
+@property (nonatomic, strong) AllianceCup *allianceCup2;
 - (void)updateView;
 - (void)scrollToTop;
 @end

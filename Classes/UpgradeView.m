@@ -11,7 +11,6 @@
 #import "StadiumMap.h"
 
 @implementation UpgradeView
-
 @synthesize buildingImage;
 @synthesize infoLabel;
 @synthesize timeLabel;
@@ -103,7 +102,7 @@
 	[self.view setNeedsDisplay];
 }
 
--(IBAction)upgradeButton_tap:(id)sender
+- (IBAction)upgradeButton_tap:(id)sender
 {
     NSInteger cost = 0;
     if (buildingType==1) 

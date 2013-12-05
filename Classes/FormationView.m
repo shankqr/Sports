@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation FormationView
-
 @synthesize segment;
 @synthesize ivBackground;
 @synthesize fid;

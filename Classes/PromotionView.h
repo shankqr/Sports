@@ -6,10 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface PromotionView : UIViewController <UITableViewDataSource, UITableViewDelegate>
 {
-	
 	UITableView *table;
 	UILabel *divisionLabel;
 	UILabel *seriesLabel;
@@ -20,7 +18,6 @@
 	NSUInteger posOffset;
 	NSUInteger totalRow;
 }
-
 @property (nonatomic, strong) IBOutlet UITableView *table;
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;

@@ -8,7 +8,6 @@
 
 #import <MapKit/MapKit.h>
 
-
 @interface ClubMapView : UIViewController <MKMapViewDelegate, UIAlertViewDelegate>
 {
 	
@@ -18,7 +17,6 @@
 	NSArray *allListContent;
 	NSMutableArray *filteredListContent;
 }
-
 @property (nonatomic, strong) MKMapView* mapViewer;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) NSMutableArray *clubs;

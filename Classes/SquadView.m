@@ -13,7 +13,6 @@
 #import "PlayerCell.h"
 
 @implementation SquadView
-
 @synthesize players;
 @synthesize sold_player_id;
 @synthesize sel_player_id;
@@ -48,7 +47,7 @@
 	}
 }
 
--(void)getSquadData
+- (void)getSquadData
 {
 	@autoreleasepool {
 
@@ -74,7 +73,7 @@
 	return [[Globals i] playerCellHandler:tableView indexPath:indexPath playerArray:self.players checkPos:YES];
 }
 
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
 	return [NSString stringWithFormat:@"Total %lu Players", (unsigned long)[self.players count]];
 }

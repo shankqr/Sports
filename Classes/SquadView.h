@@ -6,11 +6,9 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @class PlayerView;
 @interface SquadView : UITableViewController <UIAlertViewDelegate>
 {
-	
 	NSMutableArray *players;
 	NSString *sold_player_id;
 	NSString *sel_player_id;
@@ -20,7 +18,6 @@
     PlayerView *playerView;
     NSInteger selectedRow;
 }
-
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSString *sold_player_id;
 @property (nonatomic, strong) NSString *sel_player_id;

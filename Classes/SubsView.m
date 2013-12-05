@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation SubsView
-
 @synthesize ivBackground;
 @synthesize fid;
 @synthesize squadSelecter;

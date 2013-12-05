@@ -12,7 +12,6 @@
 #import "MainView.h"
 
 @implementation TrophyViewer
-
 @synthesize trophies;
 @synthesize selected_trophy;
 
@@ -25,13 +24,13 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
--(void)updateView
+- (void)updateView
 {
 	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(getTrophyData) toTarget:self withObject:nil];
 }
 
--(void)getTrophyData
+- (void)getTrophyData
 {
 	@autoreleasepool {
 	
@@ -80,7 +79,7 @@
 	return 77*SCALE_IPAD;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil;
 }

@@ -8,12 +8,14 @@
 
 #import "AllianceDetail.h"
 #import "Globals.h"
+#import "MainView.h"
 #import "AllianceObject.h"
 #import "AllianceCreate.h"
 #import "AllianceMembers.h"
 #import "AllianceEvents.h"
 #import "AllianceDonations.h"
 #import "AllianceApplicants.h"
+#import "AllianceCup.h"
 
 @implementation AllianceDetail
 @synthesize aAlliance;
@@ -23,6 +25,9 @@
 @synthesize allianceDonations;
 @synthesize allianceApplicants;
 @synthesize allianceMembers;
+@synthesize allianceCup0;
+@synthesize allianceCup1;
+@synthesize allianceCup2;
 
 - (void)viewDidLoad
 {
@@ -96,23 +101,25 @@
         if (isLeader)
         {
             NSDictionary *row0 = @{@"h1": @"Options"};
-            NSDictionary *row1 = @{@"r1": @"Leave this Alliance", @"i2": @"arrow_right"};
+            NSDictionary *row1 = @{@"r1": @"Leave this CUP", @"i2": @"arrow_right"};
             NSDictionary *row2 = @{@"r1": @"Comments", @"i2": @"arrow_right"};
-            NSDictionary *row3 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
-            NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
-            NSDictionary *row5 = @{@"r1": @"Message all members", @"i2": @"arrow_right"};
-            NSDictionary *row6 = @{@"r1": @"Upgrade Alliance", @"i2": @"arrow_right"};
-            NSDictionary *row7 = @{@"r1": @"Edit Alliance", @"i2": @"arrow_right"};
-            rows1 = @[row0, row1, row2, row3, row4, row5, row6, row7];
+            NSDictionary *row3 = @{@"r1": @"View Matches", @"i2": @"arrow_right"};
+            NSDictionary *row4 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
+            NSDictionary *row5 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
+            NSDictionary *row6 = @{@"r1": @"Message all members", @"i2": @"arrow_right"};
+            NSDictionary *row7 = @{@"r1": @"Upgrade CUP", @"i2": @"arrow_right"};
+            NSDictionary *row8 = @{@"r1": @"Edit CUP", @"i2": @"arrow_right"};
+            rows1 = @[row0, row1, row2, row3, row4, row5, row6, row7, row8];
         }
         else
         {
             NSDictionary *row0 = @{@"h1": @"Options"};
-            NSDictionary *row1 = @{@"r1": @"Leave this Alliance", @"i2": @"arrow_right"};
+            NSDictionary *row1 = @{@"r1": @"Leave this CUP", @"i2": @"arrow_right"};
             NSDictionary *row2 = @{@"r1": @"Comments", @"i2": @"arrow_right"};
-            NSDictionary *row3 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
-            NSDictionary *row4 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
-            rows1 = @[row0, row1, row2, row3, row4];
+            NSDictionary *row3 = @{@"r1": @"View Matches", @"i2": @"arrow_right"};
+            NSDictionary *row4 = @{@"r1": @"Donate Diamonds", @"i2": @"arrow_right"};
+            NSDictionary *row5 = @{@"r1": @"Donate Funds", @"i2": @"arrow_right"};
+            rows1 = @[row0, row1, row2, row3, row4, row5];
         }
     }
     else
@@ -120,11 +127,12 @@
         NSDictionary *row0 = @{@"h1": @"Options"};
         NSDictionary *row1 = @{@"r1": @"Request to Join", @"i2": @"arrow_right"};
         NSDictionary *row2 = @{@"r1": @"Comments", @"i2": @"arrow_right"};
-        rows1 = @[row0, row1, row2];
+        NSDictionary *row3 = @{@"r1": @"View Matches", @"i2": @"arrow_right"};
+        rows1 = @[row0, row1, row2, row3];
     }
     
     NSDictionary *row30 = @{@"h1": @"Details"};
-    NSDictionary *row31 = @{@"r1": @"Alliance Name", @"r2": aAlliance.name};
+    NSDictionary *row31 = @{@"r1": @"CUP Name", @"r2": aAlliance.name};
     NSDictionary *row32;
     if (isLeader)
     {
@@ -139,13 +147,20 @@
     NSDictionary *row35 = @{@"r1": @"Donations", @"r2": @"View donations made", @"i2": @"arrow_right"};
     NSDictionary *row36 = @{@"r1": @"Events", @"r2": @"View events", @"i2": @"arrow_right"};
     NSDictionary *row37 = @{@"r1": @"Founded", @"r2": [[Globals i] getTimeAgo:aAlliance.date_found]};
-    NSDictionary *row38 = @{@"r1": @"Alliance Level", @"r2": aAlliance.alliance_level};
+    NSDictionary *row38 = @{@"r1": @"CUP Level", @"r2": aAlliance.alliance_level};
     NSDictionary *row39 = @{@"r1": @"Diamonds", @"r2": [[Globals i] numberFormat:aAlliance.currency_second]};
     NSDictionary *row40 = @{@"r1": @"Funds", @"r2": [[Globals i] numberFormat:aAlliance.currency_first]};
-    NSDictionary *row41 = @{@"r1": @"Power", @"r2": [[Globals i] numberFormat:aAlliance.score]};
+    NSDictionary *row41 = @{@"r1": @"Prestige Points", @"r2": [[Globals i] numberFormat:aAlliance.score]};
     NSDictionary *row42 = @{@"r1": @"Ranking", @"r2": [[Globals i] numberFormat:aAlliance.rank]};
-    NSDictionary *row43 = @{@"r1": @"Alliance Description", @"r2": aAlliance.description};
-    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row43];
+    NSDictionary *row43 = @{@"r1": @"Cup Name", @"r2": aAlliance.cup_name};
+    NSDictionary *row44 = @{@"r1": @"First Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_first_prize]};
+    NSDictionary *row45 = @{@"r1": @"Second Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_second_prize]};
+    NSDictionary *row46 = @{@"r1": @"Begin", @"r2": aAlliance.cup_start};
+    NSDictionary *row47 = @{@"r1": @"Current Round", @"r2": aAlliance.cup_round, @"i2": @"arrow_right"};
+    NSDictionary *row48 = @{@"r1": @"Previous First Place", @"r2": aAlliance.cup_first_name, @"i2": @"arrow_right"};
+    NSDictionary *row49 = @{@"r1": @"Previous Second Place", @"r2": aAlliance.cup_second_name, @"i2": @"arrow_right"};
+    NSDictionary *row50 = @{@"r1": @"Cup Description", @"r2": aAlliance.description};
+    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row43, row44, row45, row46, row47, row48, row49, row50];
     
     self.rows = @[rows3, rows1];
     
@@ -210,25 +225,27 @@
                  }
              }];
         }
-        else if(indexPath.row == 3) //Donate Diamonds
+        else if(indexPath.row == 3) //View Matches
+        {
+            [self showCupMatches];
+        }
+        else if(indexPath.row == 4) //Donate Diamonds
         {
             [self donateDiamonds];
         }
-        /*
-        else if(indexPath.row == 4) //Donate Funds
+        else if(indexPath.row == 5) //Donate Funds
         {
             
         }
-        */
-        else if(indexPath.row == 4) //Mass Mail
+        else if(indexPath.row == 6) //Mass Mail
         {
             [[Globals i] mailCompose:@"1" toID:aAlliance.alliance_id toName:aAlliance.name];
         }
-        else if(indexPath.row == 5) //Upgrade Alliance
+        else if(indexPath.row == 7) //Upgrade CUP
         {
             [self upgradeButton_tap];
         }
-        else if(indexPath.row == 6) //Edit Alliance
+        else if(indexPath.row == 8) //Edit CUP
         {
             [self editAlliance];
         }
@@ -239,7 +256,7 @@
         {
             if (!isLeader)
             {
-                [[Globals i] mailCompose:@"0" toID:aAlliance.leader_id toName:aAlliance.leader_name];
+                [[Globals i].mainView showClubViewer:aAlliance.leader_id];
             }
         }
         else if(indexPath.row == 3) //Members
@@ -282,9 +299,70 @@
             [allianceEvents updateView];
             [[Globals i] pushTemplateNav:allianceEvents];
         }
+        else if(indexPath.row == 17) //Cup Rounds
+        {
+            [self showCupMatches];
+        }
+        else if(indexPath.row == 18) //Fist prize winner
+        {
+            [[Globals i].mainView showClubViewer:aAlliance.cup_first_id];
+        }
+        else if(indexPath.row == 19) //Second prize winner
+        {
+            [[Globals i].mainView showClubViewer:aAlliance.cup_second_id];
+        }
     }
     
 	return nil;
+}
+
+- (void)showCupMatches
+{
+    NSInteger cur_round = [aAlliance.cup_round integerValue];
+    
+    if (allianceCup0 == nil)
+    {
+        allianceCup0 = [[AllianceCup alloc] initWithStyle:UITableViewStylePlain];
+        allianceCup0.filter = @"minus0";
+    }
+    allianceCup0.title = [NSString stringWithFormat:@"Round %li", (long)cur_round];
+    
+    if (allianceCup1 == nil)
+    {
+        allianceCup1 = [[AllianceCup alloc] initWithStyle:UITableViewStylePlain];
+        allianceCup1.filter = @"minus1";
+    }
+    allianceCup1.title = [NSString stringWithFormat:@"Round %li", (long)cur_round-1];
+    
+    if (allianceCup2 == nil)
+    {
+        allianceCup2 = [[AllianceCup alloc] initWithStyle:UITableViewStylePlain];
+        allianceCup2.filter = @"minus2";
+    }
+    allianceCup2.title = [NSString stringWithFormat:@"Round %li", (long)cur_round-2];;
+    
+    if (cur_round == 0)
+    {
+        //Show nothing
+    }
+    else if (cur_round == 1)
+    {
+        [[Globals i] showTemplate:@[allianceCup0] :@"Cup Matches" :1];
+        [self.allianceCup0 updateView];
+    }
+    else if (cur_round == 2)
+    {
+        [[Globals i] showTemplate:@[allianceCup0, allianceCup1] :@"Cup Matches" :1];
+        [self.allianceCup0 updateView];
+        [self.allianceCup1 updateView];
+    }
+    else if (cur_round > 2)
+    {
+        [[Globals i] showTemplate:@[allianceCup0, allianceCup1, allianceCup2] :@"Cup Matches" :1];
+        [self.allianceCup0 updateView];
+        [self.allianceCup1 updateView];
+        [self.allianceCup2 updateView];
+    }
 }
 
 - (void)editAlliance
@@ -303,7 +381,7 @@
     
     if (alliance_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Join! You are currently a member of another Alliance, resign from that Alliance first to Join this one."];
+        [[Globals i] showDialog:@"Unable to Join! You are currently a member of another CUP, resign from that CUP first to Join this one."];
     }
     else
     {
@@ -326,7 +404,7 @@
 
 - (void)leaveButton_tap
 {
-    [[Globals i] showDialogBlock:@"Are you sure you want to leave this Alliance?"
+    [[Globals i] showDialogBlock:@"Are you sure you want to leave this CUP?"
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -354,7 +432,7 @@
      {
          if (success)
          {
-             [[Globals i] showDialogBlock:@"You are Out! Now you are free to join other Alliance if you wish."
+             [[Globals i] showDialogBlock:@"You are Out! Now you are free to join other CUP if you wish."
                                          :1
                                          :^(NSInteger index, NSString *text)
               {
@@ -402,7 +480,7 @@
                           self.aAlliance = nil;
                           [self updateView];
                           
-                          [[Globals i] showDialog:@"Thanks. The Alliance remembers your contribution."];
+                          [[Globals i] showDialog:@"Thanks. The CUP members remembers your contribution."];
                       }
                   }];
              }
@@ -418,7 +496,7 @@
 {
     NSInteger nextLevel = aAlliance.alliance_level.integerValue + 1;
     
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance and not from your owned club.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
+    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade CUP to Level %@ for %@ Diamonds. Diamonds will be deducted from CUP account and not from your own club.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -449,7 +527,7 @@
                  self.aAlliance = nil;
                  [self updateView];
             
-                 [[Globals i] showDialog:@"Upgrade Success! Your Alliance has Leveled UP. Now more members can join to increase the fun and ranking."];
+                 [[Globals i] showDialog:@"Upgrade Success! Your CUP has Leveled UP. Now more members can join to increase the fun and ranking."];
              }
          }];
     }

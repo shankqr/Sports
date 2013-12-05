@@ -28,6 +28,7 @@
 		self.latitude = [aDictionary valueForKey:@"latitude"];
 		self.badge_path = [aDictionary valueForKey:@"logo_pic"];
 	}
+    
 	return self;
 }
 

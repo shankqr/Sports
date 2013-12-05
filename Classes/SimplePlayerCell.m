@@ -7,7 +7,6 @@
 //
 
 #import "SimplePlayerCell.h"
-
 @implementation SimplePlayerCell
 @synthesize faceImage;
 @synthesize playerName;

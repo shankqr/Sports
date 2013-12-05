@@ -161,7 +161,6 @@
 @class LoadingView;
 @class PlayerCell;
 @class MainView;
-
 @interface Globals : NSObject
 <AVAudioPlayerDelegate, FBFriendPickerDelegate, CLLocationManagerDelegate, TemplateDelegate>
 {
@@ -213,7 +212,6 @@
     TemplateView *templateView;
     LoadingView *loadingView;
     UILocalNotification* loginNotification;
-    
 	NSDictionary *wsCurrentSeasonData;
 	NSDictionary *wsPlayerInfoData;
 	NSDictionary *wsMatchInfoData;
@@ -306,7 +304,6 @@
 @property (nonatomic, strong) LoadingView *loadingView;
 @property (nonatomic, strong) UILocalNotification* loginNotification;
 @property (readwrite) NSTimeInterval offsetServerTimeInterval;
-
 @property (nonatomic, strong) NSDictionary *wsCurrentSeasonData;
 @property (nonatomic, strong) NSDictionary *wsPlayerInfoData;
 @property (nonatomic, strong) NSDictionary *wsMatchInfoData;
@@ -350,7 +347,6 @@
 @property (readwrite) NSInteger selectedSeries;
 @property (readwrite) NSInteger workingSquad;
 @property (readwrite) NSInteger energy;
-
 typedef void (^returnBlock)(BOOL success, NSData *data);
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;

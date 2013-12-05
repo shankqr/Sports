@@ -17,8 +17,7 @@
 	NSString *_club_id;
 	UIImageView *imageView;
 }
-
--(id) initWithCoordinate:(CLLocationCoordinate2D)coordinate 
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate
 				   title:(NSString*)title
 				subtitle:(NSString*)subtitle
 			   imagepath:(NSString*)imagepath;

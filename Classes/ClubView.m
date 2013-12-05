@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation ClubView
-
 @synthesize picker;
 @synthesize sourceActionSheet;
 @synthesize logoImage;

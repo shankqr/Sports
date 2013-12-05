@@ -6,12 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @class MatchLive;
 @class ChallengeView;
 @interface MatchView : UITableViewController <UIActionSheetDelegate, UIAlertViewDelegate>
 {
-	
 	NSString *filter;
 	NSArray *matches;
 	NSString *selected_clubid;
@@ -21,7 +19,6 @@
 	ChallengeView *challengeBox;
     NSInteger selected_row;
 }
-
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSString *selected_clubid;
 @property (nonatomic, strong) NSString *selected_matchid;

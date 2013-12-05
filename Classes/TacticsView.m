@@ -11,7 +11,6 @@
 #import "MainView.h"
 
 @implementation TacticsView
-
 @synthesize tid;
 @synthesize scrollView;
 @synthesize pageControl;
@@ -54,7 +53,7 @@
     pageControl.numberOfPages = total_tactics;
 }
 
--(void)updateView
+- (void)updateView
 {	
 	[self showTactics];
 }

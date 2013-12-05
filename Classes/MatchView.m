@@ -13,7 +13,6 @@
 #import "ChallengeView.h"
 
 @implementation MatchView
-
 @synthesize matches;
 @synthesize filter;
 @synthesize selected_clubid;
@@ -265,7 +264,7 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *rowData = (self.matches)[indexPath.row];
 	BOOL isHome = [rowData[@"club_home"] isEqualToString:[[Globals i] getClubData][@"club_id"]];

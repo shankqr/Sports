@@ -6,7 +6,6 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface StoreCoachView : UITableViewController <UIAlertViewDelegate>
 {
 	NSMutableArray *coaches;

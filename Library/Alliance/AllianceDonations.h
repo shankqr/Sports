@@ -7,7 +7,6 @@
 //
 
 @class AllianceObject;
-
 @interface AllianceDonations : UITableViewController
 {
 	NSArray *rows;

@@ -12,7 +12,6 @@
 #import "Globals.h"
 
 @implementation StaffView
-
 @synthesize staff;
 @synthesize iden;
 @synthesize hireCost;
@@ -100,7 +99,7 @@
 	}
 }
 
--(void)purchaseStaff:(NSInteger)staffId
+- (void)purchaseStaff:(NSInteger)staffId
 {
 	switch (staffId)
 	{
@@ -216,7 +215,7 @@
 	return cell;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	[self purchaseStaff:[indexPath row]];
 	return nil;

@@ -12,7 +12,6 @@
 #import "MainView.h"
 
 @implementation PromotionView
-
 @synthesize table;
 @synthesize divisionLabel;
 @synthesize seriesLabel;
@@ -31,7 +30,7 @@
     }
 }
 
--(void)updateView
+- (void)updateView
 {
 	self.leagues = [[Globals i] getLeagueData];
 	divisionLabel.text = [NSString stringWithFormat:@"%ld", (long)[Globals i].selectedDivision];
@@ -142,7 +141,7 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *rowData = (self.leagues)[indexPath.row];
 	if([rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])

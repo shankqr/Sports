@@ -22,6 +22,17 @@
     NSString *logo_id;
     NSString *flag_id;
 	NSString *description;
+    NSString *leader_firstname;
+	NSString *leader_secondname;
+    NSString *cup_name;
+	NSString *cup_first_prize;
+    NSString *cup_second_prize;
+    NSString *cup_start;
+    NSString *cup_round;
+    NSString *cup_first_id;
+	NSString *cup_first_name;
+    NSString *cup_second_id;
+	NSString *cup_second_name;
 }
 - (id)initWithDictionary:(NSDictionary *)aDictionary;
 @property (nonatomic, strong) NSString *alliance_id;
@@ -38,4 +49,15 @@
 @property (nonatomic, strong) NSString *logo_id;
 @property (nonatomic, strong) NSString *flag_id;
 @property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *leader_firstname;
+@property (nonatomic, strong) NSString *leader_secondname;
+@property (nonatomic, strong) NSString *cup_name;
+@property (nonatomic, strong) NSString *cup_first_prize;
+@property (nonatomic, strong) NSString *cup_second_prize;
+@property (nonatomic, strong) NSString *cup_start;
+@property (nonatomic, strong) NSString *cup_round;
+@property (nonatomic, strong) NSString *cup_first_id;
+@property (nonatomic, strong) NSString *cup_first_name;
+@property (nonatomic, strong) NSString *cup_second_id;
+@property (nonatomic, strong) NSString *cup_second_name;
 @end

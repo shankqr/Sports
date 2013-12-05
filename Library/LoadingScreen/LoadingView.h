@@ -11,7 +11,6 @@
     UIImageView *barImage;
     UIImage *imgBar;
     NSTimer *loadingTimer;
-    
     CGFloat bar_x;
 }
 @property (nonatomic, strong) UIImageView *barImage;

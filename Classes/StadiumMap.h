@@ -6,12 +6,10 @@
 //  Copyright 2011 TAPFANTASY. All rights reserved.
 //
 
-
 @class StadiumView;
 @class UpgradeView;
 @interface StadiumMap : UIViewController 
 {
-    
     StadiumView *stadiumView;
     UpgradeView *upgradeView;
     NSString *s0;
@@ -62,7 +60,6 @@
     BOOL anim1;
     BOOL anim2;
 }
-
 @property (nonatomic, strong) StadiumView *stadiumView;
 @property (nonatomic, strong) UpgradeView *upgradeView;
 @property (nonatomic, strong) IBOutlet NSString *s0;

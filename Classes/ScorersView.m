@@ -12,7 +12,6 @@
 #import "MainView.h"
 
 @implementation ScorersView
-
 @synthesize players;
 @synthesize selected_clubid;
 @synthesize curDivision;
@@ -45,7 +44,7 @@
 	}
 }
 
--(void)getLeagueScorersData
+- (void)getLeagueScorersData
 {
 	@autoreleasepool {
 		workingLeagueScorers = YES;
@@ -107,7 +106,7 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *rowData = (self.players)[indexPath.row];
 	selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];

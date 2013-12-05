@@ -15,7 +15,6 @@
 #import "MainView.h"
 
 @implementation MapViewer
-
 @synthesize selected_clubid;
 @synthesize mapView;
 @synthesize clubAnnotation;

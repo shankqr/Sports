@@ -597,10 +597,6 @@
     {
         [soundGoal play];
         
-        //Flash the player details
-        //highlightTextField.text = [NSString stringWithFormat:@"%@, %d'th minute",
-                                   //[players[[highlight[@"player_row"] integerValue]] name],
-                                   //[highlight[@"minute"] integerValue]];
         goalCountdown = 50;
         
         for(Player_hockey *p in players)

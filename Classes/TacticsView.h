@@ -6,10 +6,8 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface TacticsView : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
 {
-	
 	NSString *tid;
 	UIScrollView *scrollView;
     UIPageControl *pageControl;
@@ -18,7 +16,6 @@
     NSInteger total_tactics;
     BOOL pageControlUsed;
 }
-
 @property (nonatomic, strong) NSString *tid;
 @property (nonatomic, strong) NSMutableArray *viewControllers;
 @property (readwrite) NSInteger total_tactics;

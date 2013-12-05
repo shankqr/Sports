@@ -22,7 +22,6 @@
 @synthesize selected_clubid;
 @synthesize dialogBox;
 
-
 - (void)createDialogBox
 {
     if (dialogBox == nil)
@@ -40,7 +39,7 @@
 	}
 }
 
--(void)updateView
+- (void)updateView
 {
     if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
     {
@@ -60,7 +59,7 @@
     }
 }
 
--(IBAction)homeButton_tap:(id)sender
+- (IBAction)homeButton_tap:(id)sender
 {
 	if(!(([Globals i].selectedDivision == [[[Globals i] getClubData][@"division"] integerValue])&&
 		 ([Globals i].selectedSeries == [[[Globals i] getClubData][@"series"] integerValue])))
@@ -70,13 +69,13 @@
 	}
 }
 
--(IBAction)divisionButton_tap:(id)sender
+- (IBAction)divisionButton_tap:(id)sender
 {
     [self createDialogBox];
 	dialogBox.titleText = @"Division #";
 	dialogBox.whiteText = @"Please keyin a division number";
 	dialogBox.dialogType = 5;
-	[[[[[self.view superview] superview] superview] superview] insertSubview:dialogBox.view atIndex:7];
+	[self.view addSubview:dialogBox.view];
 	[dialogBox updateView];
 }
 
@@ -111,13 +110,13 @@
             dialogBox.titleText = @"Series #";
             dialogBox.whiteText = [NSString stringWithFormat:@"Keyin a series number range 1 to %ld", (long)[[Globals i] getMaxSeries:dialogDivision]];
             dialogBox.dialogType = 5;
-            [[[[[self.view superview] superview] superview] superview] insertSubview:dialogBox.view atIndex:7];
+            [self.view addSubview:dialogBox.view];
             [dialogBox updateView];
 		}
 	}
 }
 
--(void)getHomeLeagueData
+- (void)getHomeLeagueData
 {
 	@autoreleasepool {
 	
@@ -138,7 +137,7 @@
 	}
 }
 
--(void)getLeagueData
+- (void)getLeagueData
 {
 	@autoreleasepool {
 	
@@ -216,7 +215,7 @@
 }
 
 #pragma mark Table View Delegate Methods
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary *rowData = (self.leagues)[indexPath.row];
 	if([rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])

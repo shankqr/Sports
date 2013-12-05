@@ -14,7 +14,6 @@
 #import "MainView.h"
 
 @implementation ClubMapView
-
 @synthesize clubs;
 @synthesize selected_clubid;
 @synthesize allListContent;
@@ -56,7 +55,7 @@
     [self zoomCurrentLocation];
 }
 
--(void)getMapClubsData
+- (void)getMapClubsData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
     

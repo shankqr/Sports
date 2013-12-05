@@ -62,7 +62,7 @@
              }
              else //A message when no data is present
              {
-                 NSDictionary *row0 = @{@"r1": @"This Alliance is empty and has no Members!", @"r1_center": @"1", @"r1_color": @"1"};
+                 NSDictionary *row0 = @{@"r1": @"This CUP is empty and has no Members!", @"r1_center": @"1", @"r1_color": @"1"};
                  NSArray *rows1 = @[row0];
                  
                  self.rows = [@[rows1] mutableCopy];
@@ -85,7 +85,9 @@
     else
     {
         NSString *r1 = rowData[@"club_name"];
-        NSString *c1 = [[Globals i] numberFormat:rowData[@"points"]];
+        NSInteger the_xp = [rowData[@"xp"] integerValue];
+        NSInteger the_level = [[Globals i] levelFromXp:the_xp];
+        NSString *c1 = [[Globals i] intString:the_level];
         
         if([rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are in this row
         {
