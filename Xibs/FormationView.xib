@@ -26,6 +26,6 @@
         </view>
     </objects>
     <resources>
-        <image name="field_half.png" width="640" height="714"/>
+        <image name="field_half.png" width="638" height="714"/>
     </resources>
 </document>

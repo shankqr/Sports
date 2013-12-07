@@ -41,27 +41,26 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="53">
-                    <rect key="frame" x="567" y="34" width="70" height="42"/>
+                    <rect key="frame" x="574" y="34" width="70" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="52">
-                    <rect key="frame" x="664" y="34" width="70" height="42"/>
+                    <rect key="frame" x="679" y="34" width="70" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="57">
-                    <rect key="frame" x="164" y="746" width="440" height="30"/>
+                    <rect key="frame" x="164" y="788" width="440" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <segments>
                         <segment title="Promotion"/>
                         <segment title="Demotion"/>
                     </segments>
-                    <color key="tintColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <action selector="segmentTap:" destination="-1" eventType="valueChanged" id="58"/>
                     </connections>

@@ -21,43 +21,43 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="skin_card.png" id="22">
-                    <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
+                    <rect key="frame" x="0.0" y="128" width="768" height="768"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="center" image="building_office1.png" id="52">
-                    <rect key="frame" x="184" y="80" width="400" height="200"/>
+                    <rect key="frame" x="184" y="208" width="400" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Upgrade Manager Office for $200,000?" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="19">
-                    <rect key="frame" x="44" y="363" width="680" height="42"/>
+                    <rect key="frame" x="44" y="491" width="680" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Generates $5 every 24 Hours" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="45">
-                    <rect key="frame" x="44" y="423" width="680" height="42"/>
+                    <rect key="frame" x="44" y="551" width="680" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Current Level 5" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="25">
-                    <rect key="frame" x="84" y="483" width="600" height="42"/>
+                    <rect key="frame" x="84" y="611" width="600" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="$ is calculated by formula: Level x 2 + 1" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="58">
-                    <rect key="frame" x="84" y="543" width="600" height="42"/>
+                    <rect key="frame" x="84" y="671" width="600" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48">
-                    <rect key="frame" x="294" y="668" width="178" height="60"/>
+                    <rect key="frame" x="294" y="796" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_accept.png">

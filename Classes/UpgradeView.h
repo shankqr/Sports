@@ -8,7 +8,6 @@
 
 @interface UpgradeView : UIViewController <UIAlertViewDelegate>
 {
-	
     UIImageView *buildingImage;
 	UILabel *infoLabel;
 	UILabel *timeLabel;

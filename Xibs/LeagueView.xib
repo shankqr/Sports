@@ -34,7 +34,7 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="47">
-                    <rect key="frame" x="20" y="317" width="120" height="40"/>
+                    <rect key="frame" x="66" y="317" width="90" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_home.png">
@@ -49,7 +49,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48">
-                    <rect key="frame" x="180" y="317" width="120" height="40"/>
+                    <rect key="frame" x="164" y="317" width="90" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_browse.png">
@@ -90,8 +90,8 @@
         </view>
     </objects>
     <resources>
-        <image name="button_browse.png" width="252" height="76"/>
-        <image name="button_home.png" width="252" height="76"/>
+        <image name="button_browse.png" width="180" height="90"/>
+        <image name="button_home.png" width="180" height="90"/>
         <image name="skin_league.png" width="640" height="714"/>
     </resources>
 </document>
