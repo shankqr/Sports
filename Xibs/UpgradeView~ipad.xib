@@ -57,7 +57,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="48">
-                    <rect key="frame" x="294" y="668" width="180" height="60"/>
+                    <rect key="frame" x="294" y="668" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_accept.png">
@@ -78,7 +78,7 @@
     </objects>
     <resources>
         <image name="building_office1.png" width="246" height="130"/>
-        <image name="button_accept.png" width="164" height="62"/>
+        <image name="button_accept.png" width="178" height="60"/>
         <image name="skin_card.png" width="640" height="340"/>
     </resources>
 </document>

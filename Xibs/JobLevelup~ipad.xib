@@ -41,7 +41,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="28">
-                    <rect key="frame" x="302" y="814" width="164" height="62"/>
+                    <rect key="frame" x="295" y="814" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_accept.png">
@@ -66,7 +66,7 @@
         </view>
     </objects>
     <resources>
-        <image name="button_accept.png" width="164" height="62"/>
+        <image name="button_accept.png" width="178" height="60"/>
         <image name="job_levelup.png" width="360" height="470"/>
     </resources>
 </document>

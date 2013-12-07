@@ -22,7 +22,7 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="skin_dialog1.png" id="6">
+                <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="skin_dialog.png" id="6">
                     <rect key="frame" x="54" y="292" width="660" height="600"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
@@ -72,7 +72,7 @@
                     <rect key="frame" x="166" y="768" width="180" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                    <state key="normal" image="button_ok1.png">
+                    <state key="normal" image="button_ok.png">
                         <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -87,7 +87,7 @@
                     <rect key="frame" x="422" y="768" width="180" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                    <state key="normal" image="button_cancel1.png">
+                    <state key="normal" image="button_cancel.png">
                         <color key="titleColor" red="0.19607843" green="0.30980393000000001" blue="0.52156866000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -103,9 +103,9 @@
         </view>
     </objects>
     <resources>
-        <image name="button_cancel1.png" width="180" height="90"/>
+        <image name="button_cancel.png" width="180" height="90"/>
         <image name="button_close1.png" width="72" height="72"/>
-        <image name="button_ok1.png" width="180" height="90"/>
-        <image name="skin_dialog1.png" width="745" height="270"/>
+        <image name="button_ok.png" width="180" height="90"/>
+        <image name="skin_dialog.png" width="640" height="440"/>
     </resources>
 </document>

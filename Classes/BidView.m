@@ -6,7 +6,6 @@
 #import "PlayerCell.h"
 
 @implementation BidView
-
 @synthesize selected_clubid;
 @synthesize wsBidList;
 @synthesize messageText;

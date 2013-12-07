@@ -235,7 +235,7 @@
         }
         else if(indexPath.row == 5) //Donate Funds
         {
-            
+            [self donateFunds];
         }
         else if(indexPath.row == 6) //Mass Mail
         {
@@ -325,7 +325,8 @@
         allianceCup0 = [[AllianceCup alloc] initWithStyle:UITableViewStylePlain];
         allianceCup0.filter = @"minus0";
     }
-    allianceCup0.title = [NSString stringWithFormat:@"Round %li", (long)cur_round];
+    allianceCup0.title = [NSString stringWithFormat:@"Round %li (Now)", (long)cur_round];
+    allianceCup0.curRound = cur_round;
     
     if (allianceCup1 == nil)
     {
@@ -333,13 +334,15 @@
         allianceCup1.filter = @"minus1";
     }
     allianceCup1.title = [NSString stringWithFormat:@"Round %li", (long)cur_round-1];
+    allianceCup1.curRound = cur_round;
     
     if (allianceCup2 == nil)
     {
         allianceCup2 = [[AllianceCup alloc] initWithStyle:UITableViewStylePlain];
         allianceCup2.filter = @"minus2";
     }
-    allianceCup2.title = [NSString stringWithFormat:@"Round %li", (long)cur_round-2];;
+    allianceCup2.title = [NSString stringWithFormat:@"Round %li", (long)cur_round-2];
+    allianceCup2.curRound = cur_round;
     
     if (cur_round == 0)
     {
@@ -469,7 +472,7 @@
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  NSString *club_name = [[Globals i] wsClubData][@"club_name"];
 
-                 NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%ld",
+                 NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/0/%ld",
                                     [[Globals i] world_url], alliance_id, club_id, club_name, (long)number];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
@@ -487,6 +490,46 @@
              else
              {
                  [[Globals i] showBuy];
+             }
+         }
+     }];
+}
+
+- (void)donateFunds
+{
+    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+                                :5
+                                :^(NSInteger index, NSString *text)
+     {
+         if (index == 1) //OK button is clicked
+         {
+             NSInteger number = [text integerValue];
+             NSInteger bal = [[[Globals i] wsClubData][@"balance"] integerValue];
+             
+             if ((number > 0) && (bal >= number))
+             {
+                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
+                 NSString *club_name = [[Globals i] wsClubData][@"club_name"];
+                 
+                 NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%ld/0",
+                                    [[Globals i] world_url], alliance_id, club_id, club_name, (long)number];
+                 
+                 [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+                  {
+                      if (success)
+                      {
+                          [[Globals i] updateClubData]; //Funds - Donation
+                          self.aAlliance = nil;
+                          [self updateView];
+                          
+                          [[Globals i] showDialog:@"Thanks. The CUP members remembers your contribution."];
+                      }
+                  }];
+             }
+             else
+             {
+                 [[Globals i].mainView showFundStore];
              }
          }
      }];
@@ -515,7 +558,7 @@
 {
     NSInteger reqDiamonds = aAlliance.alliance_level.integerValue + 1;
     
-    if (aAlliance.currency_first.integerValue >= reqDiamonds)
+    if (aAlliance.currency_second.integerValue >= reqDiamonds)
     {
         NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceUpgrade/%@/%@",
                            [[Globals i] world_url], aAlliance.alliance_id, aAlliance.leader_id];
@@ -533,7 +576,7 @@
     }
     else
     {
-        [[Globals i] showDialog:@"Insufficient Diamonds to upgrade. Donate more Diamonds."];
+        [[Globals i] showDialog:@"Insufficient Diamonds to upgrade. Please donate more Diamonds."];
     }
 }
 

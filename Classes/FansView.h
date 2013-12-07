@@ -8,7 +8,6 @@
 
 @interface FansView : UIViewController
 {
-	
 	UILabel *membersLabel;
 	UILabel *moodLabel;
 	UILabel *expectationLabel;
@@ -18,8 +17,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *moodLabel;
 @property (nonatomic, strong) IBOutlet UILabel *expectationLabel;
 @property (nonatomic, strong) IBOutlet UILabel *sponsorLabel;
-- (IBAction)hireButton_tap:(id)sender;
-- (IBAction)addfunds_tap:(id)sender;
 - (void)updateView;
-- (void)confirmPurchase;
 @end

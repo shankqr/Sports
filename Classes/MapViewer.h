@@ -10,7 +10,6 @@
 @class CSMapAnnotation;
 @interface MapViewer : UIViewController <MKMapViewDelegate>
 {
-	
 	MKMapView *mapView;
 	NSString *selected_clubid;
 	UILabel *managerLabel;

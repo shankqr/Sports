@@ -31,7 +31,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="14">
-                    <rect key="frame" x="45" y="442" width="90" height="30"/>
+                    <rect key="frame" x="45" y="434" width="90" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_cancel.png">
@@ -46,7 +46,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15">
-                    <rect key="frame" x="184" y="442" width="90" height="30"/>
+                    <rect key="frame" x="184" y="434" width="90" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_ok.png">
@@ -134,8 +134,8 @@
         </view>
     </objects>
     <resources>
-        <image name="button_cancel.png" width="178" height="60"/>
-        <image name="button_ok.png" width="130" height="40"/>
+        <image name="button_cancel.png" width="180" height="90"/>
+        <image name="button_ok.png" width="180" height="90"/>
         <image name="skin_menu.png" width="640" height="960"/>
     </resources>
 </document>

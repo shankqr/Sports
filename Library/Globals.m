@@ -7,7 +7,6 @@
 //
 
 #import "Globals.h"
-#import "FriendProtocols.h"
 #import "BuyView.h"
 #import "WorldsView.h"
 #import "LoadingView.h"
@@ -1110,6 +1109,7 @@ static NSOperationQueue *connectionQueue;
                      completion:nil];
 }
 
+/*
 - (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
                  shouldIncludeUser:(id<FBGraphUserExtraFields>)user
 {
@@ -1121,6 +1121,7 @@ static NSOperationQueue *connectionQueue;
     // Friend is not an iOS user, do not include them
     return NO;
 }
+*/
 
 - (void)facebookViewControllerCancelWasPressed:(id)sender
 {
@@ -2394,10 +2395,10 @@ static NSOperationQueue *connectionQueue;
 	switch([rowData[@"player_condition"] integerValue])
 	{
 		case 1:
-            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"bruised.png"]];
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"icon_bruised.png"]];
 			break;
 		case 2:
-            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"injured.png"]];
+            [cell.injuredbruisedImage setImage:[UIImage imageNamed:@"icon_injured.png"]];
 			break;
 		default:
 			cell.injuredbruisedImage.image = nil;
@@ -3141,8 +3142,8 @@ static NSOperationQueue *connectionQueue;
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
 						   WS_URL, wsClubData[@"alliance_id"], round];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getAllianceCupFixturesData

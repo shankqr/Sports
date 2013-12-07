@@ -44,10 +44,10 @@
                     <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="done" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jdd-HE-LXn">
-                    <rect key="frame" x="180" y="410" width="200" height="90"/>
+                    <rect key="frame" x="190" y="410" width="180" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="30"/>
-                    <state key="normal" title="+ Register" backgroundImage="button_blank.png">
+                    <state key="normal" backgroundImage="button_register.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -59,10 +59,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QaO-u8-vp8">
-                    <rect key="frame" x="388" y="410" width="200" height="90"/>
+                    <rect key="frame" x="398" y="410" width="180" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="30"/>
-                    <state key="normal" title="Login" backgroundImage="button_blank.png">
+                    <state key="normal" backgroundImage="button_login.png">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -154,8 +154,9 @@
         </view>
     </objects>
     <resources>
-        <image name="button_blank.png" width="140" height="90"/>
         <image name="button_facebook.png" width="356" height="75"/>
+        <image name="button_login.png" width="180" height="90"/>
+        <image name="button_register.png" width="180" height="90"/>
         <image name="skin_background.png" width="640" height="810"/>
     </resources>
 </document>

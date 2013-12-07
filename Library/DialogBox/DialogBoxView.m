@@ -155,13 +155,13 @@
     {
         CGRect buttonRect = CGRectMake(294, 768, 180, 90);
         noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
+        [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}
     else
     {
         CGRect buttonRect = CGRectMake(115, 280, 90, 45);
         noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
+        [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }
 }
 
@@ -212,13 +212,13 @@
     {
         CGRect buttonRect = CGRectMake(294, 768, 180, 90);
         yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
+        [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}
     else
     {
         CGRect buttonRect = CGRectMake(115, 260, 90, 45);
         yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_ok1.png"] forState:UIControlStateNormal];
+        [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }
     
     inputText.delegate = self;

@@ -9,6 +9,7 @@
 #import "AllianceDonations.h"
 #import "AllianceObject.h"
 #import "Globals.h"
+#import "MainView.h"
 
 @implementation AllianceDonations
 @synthesize rows;
@@ -110,8 +111,20 @@
 	return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row > 0) //Not Header row
+    {
+        NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
+    
+        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        {
+            selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+            
+            [[Globals i].mainView showClubViewer:selected_clubid];
+        }
+    }
+    
 	return nil;
 }
 

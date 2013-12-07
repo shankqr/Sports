@@ -3,7 +3,6 @@
 @interface BidView : UIViewController 
 <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UIAlertViewDelegate>
 {
-    
     NSString *selected_clubid;
     NSString *player_id;
 	IBOutlet UITextField *messageText;

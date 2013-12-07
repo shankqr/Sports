@@ -22,8 +22,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-@interface CustomBadge : UIView {
-	
+@interface CustomBadge : UIView
+{	
 	NSString *badgeText;
 	UIColor *badgeTextColor;
 	UIColor *badgeInsetColor;

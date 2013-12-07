@@ -20,7 +20,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="17">
-                    <rect key="frame" x="121" y="344" width="77" height="77"/>
+                    <rect key="frame" x="121" y="302" width="77" height="77"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_buy.png">
@@ -40,7 +40,7 @@
         </view>
     </objects>
     <resources>
-        <image name="button_buy.png" width="154" height="154"/>
+        <image name="button_buy.png" width="150" height="150"/>
         <image name="job_energy.png" width="624" height="604"/>
     </resources>
 </document>

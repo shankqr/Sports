@@ -8,7 +8,6 @@
 
 @interface ClubViewer : UIViewController 
 {
-	
 	NSString* clubid;
 	NSString* fb_name;
 	NSString* fb_url;

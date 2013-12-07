@@ -264,7 +264,7 @@
         {
             building1TimerLabel.text = [[Globals i] getCountdownString:b1s];
             timer1.hidden = NO;
-            [timer1 setImage:[UIImage imageNamed:@"timer.png"]];
+            [timer1 setImage:[UIImage imageNamed:@"icon_timer.png"]];
             money1.hidden = YES;
         }
         else
@@ -291,7 +291,7 @@
         {
             building2TimerLabel.text = [[Globals i] getCountdownString:b2s];
             timer2.hidden = NO;
-            [timer2 setImage:[UIImage imageNamed:@"timer.png"]];
+            [timer2 setImage:[UIImage imageNamed:@"icon_timer.png"]];
             money2.hidden = YES;
         }
         else
@@ -318,7 +318,7 @@
         {
             building3TimerLabel.text = [[Globals i] getCountdownString:b3s];
             timer3.hidden = NO;
-            [timer3 setImage:[UIImage imageNamed:@"timer.png"]];
+            [timer3 setImage:[UIImage imageNamed:@"icon_timer.png"]];
             money3.hidden = YES;
         }
         else
@@ -337,8 +337,6 @@
             }
         }
     }
-
-    
 }
 
 - (void)updateView

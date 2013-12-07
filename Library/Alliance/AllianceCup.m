@@ -107,11 +107,6 @@
 	return [self.matches count];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-	return [NSString stringWithFormat:@"Cup Match Current Round %li", (long)curRound];
-}
-
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil;

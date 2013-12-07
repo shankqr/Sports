@@ -78,7 +78,7 @@
     </objects>
     <resources>
         <image name="building_office1.png" width="123" height="65"/>
-        <image name="button_accept.png" width="164" height="62"/>
+        <image name="button_accept.png" width="178" height="60"/>
         <image name="skin_background.png" width="640" height="810"/>
     </resources>
 </document>

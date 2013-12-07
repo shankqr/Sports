@@ -23,7 +23,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="17">
-                    <rect key="frame" x="119" y="391" width="82" height="31"/>
+                    <rect key="frame" x="116" y="391" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_accept.png">
@@ -67,7 +67,7 @@
         </view>
     </objects>
     <resources>
-        <image name="button_accept.png" width="164" height="62"/>
+        <image name="button_accept.png" width="178" height="60"/>
         <image name="job_levelup.png" width="360" height="470"/>
     </resources>
 </document>

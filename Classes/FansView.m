@@ -31,22 +31,4 @@
 	[self.view setNeedsDisplay];
 }
 
-- (IBAction)hireButton_tap:(id)sender
-{
-	[self confirmPurchase];
-}
-
-- (IBAction)addfunds_tap:(id)sender
-{
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"BuyFunds"
-     object:self];
-}
-
-- (void)confirmPurchase
-{
-    [[Globals i] settPurchasedProduct:@"5"];
-    [[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"staff"]];
-}
-
 @end

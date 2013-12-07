@@ -40,10 +40,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="36">
-                    <rect key="frame" x="302" y="923" width="164" height="62"/>
+                    <rect key="frame" x="295" y="923" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
-                    <state key="normal" backgroundImage="mapviewer_challangebutton.png">
+                    <state key="normal" backgroundImage="button_challenge.png">
                         <color key="titleColor" red="0.1960784314" green="0.30980392159999998" blue="0.52156862749999999" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -131,7 +131,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="14">
-                    <rect key="frame" x="24" y="887" width="164" height="62"/>
+                    <rect key="frame" x="24" y="887" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_decline.png">
@@ -146,7 +146,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15">
-                    <rect key="frame" x="564" y="887" width="164" height="62"/>
+                    <rect key="frame" x="564" y="887" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_accept.png">
@@ -173,9 +173,9 @@
         </view>
     </objects>
     <resources>
-        <image name="button_accept.png" width="164" height="62"/>
+        <image name="button_accept.png" width="178" height="60"/>
+        <image name="button_challenge.png" width="178" height="60"/>
         <image name="button_decline.png" width="178" height="60"/>
-        <image name="mapviewer_challangebutton.png" width="164" height="62"/>
         <image name="skin_menu.png" width="640" height="960"/>
     </resources>
 </document>
