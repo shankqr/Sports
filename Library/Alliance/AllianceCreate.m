@@ -151,7 +151,7 @@
                  [[Globals i] closeTemplate];
                  
                  [[NSNotificationCenter defaultCenter]
-                  postNotificationName:@"GotoAlliance"
+                  postNotificationName:@"GotoCup"
                   object:self];
                  
                  [[Globals i] showToast:@"CUP Edited Successfully!"
@@ -164,8 +164,8 @@
 
 - (void)postAllianceCreate:(NSString *)tvName withDesc:(NSString *)tvDesc
 {
-    NSDictionary *wspi = [[Globals i] wsProductIdentifiers];
-    NSString *reqCurrency1 = wspi[@"alliance_require_currency1"];
+    NSDictionary *wspi = [[Globals i] getCurrentSeasonData];
+    NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
     
     [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Form a new CUP for %@ Diamonds only.", [[Globals i] numberFormat:reqCurrency1]]
                                 :2
@@ -174,7 +174,7 @@
          if(index == 1) //YES
          {
              NSDictionary *wspi = [[Globals i] wsProductIdentifiers];
-             NSString *reqCurrency1 = wspi[@"alliance_require_currency1"];
+             NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
              
              NSInteger balDiamonds = [[[Globals i] wsClubData][@"currency_second"] integerValue];
              
@@ -203,8 +203,10 @@
                               [[Globals i] closeTemplate];
                                        
                               [[NSNotificationCenter defaultCenter]
-                                        postNotificationName:@"GotoAlliance"
+                                        postNotificationName:@"GotoCup"
                                         object:self];
+                              
+                              [[Globals i] showDialog:@"Congratulations on creating a Cup. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];
   
                               [[Globals i] showToast:@"CUP Created Successfully!"
                                        optionalTitle:nil

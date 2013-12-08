@@ -41,13 +41,12 @@
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="wordWrap" numberOfLines="2" minimumFontSize="10" id="64">
                     <rect key="frame" x="111" y="32" width="110" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="16"/>
                     <nil key="highlightedColor"/>
-                    <color key="shadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54">
-                    <rect key="frame" x="68" y="353" width="89" height="30"/>
+                    <rect key="frame" x="68" y="328" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_challenge.png">
@@ -62,7 +61,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="4hF-c3-0Ux">
-                    <rect key="frame" x="164" y="353" width="89" height="30"/>
+                    <rect key="frame" x="164" y="328" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_sendmail.png">

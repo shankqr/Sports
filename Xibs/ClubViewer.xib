@@ -127,7 +127,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="78">
-                    <rect key="frame" x="74" y="382" width="89" height="30"/>
+                    <rect key="frame" x="74" y="285" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_challenge.png">
@@ -142,7 +142,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="GlH-yW-1Yw">
-                    <rect key="frame" x="178" y="382" width="89" height="30"/>
+                    <rect key="frame" x="178" y="285" width="89" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_sendmail.png">

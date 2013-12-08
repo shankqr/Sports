@@ -112,7 +112,6 @@
 @synthesize mainView;
 
 static Globals *_i;
-static NSString *GameId = @"1";
 
 - (id)init
 {
@@ -1773,7 +1772,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateProductIdentifiers
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/ProductIdentifiers/%@", 
-					   WS_URL, GameId];
+					   WS_URL, [self GameId]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
 	wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
@@ -3138,10 +3137,10 @@ static NSOperationQueue *connectionQueue;
 	return wsMatchFixturesData;
 }
 
-- (void)updateAllianceCupFixturesData:(NSString *)round
+- (void)updateAllianceCupFixturesData:(NSString *)a_id round:(NSString *)round
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
-						   WS_URL, wsClubData[@"alliance_id"], round];
+						   WS_URL, a_id, round];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }

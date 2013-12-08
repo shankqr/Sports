@@ -109,7 +109,9 @@
             NSDictionary *row6 = @{@"r1": @"Message all members", @"i2": @"arrow_right"};
             NSDictionary *row7 = @{@"r1": @"Upgrade CUP", @"i2": @"arrow_right"};
             NSDictionary *row8 = @{@"r1": @"Edit CUP", @"i2": @"arrow_right"};
-            rows1 = @[row0, row1, row2, row3, row4, row5, row6, row7, row8];
+            NSDictionary *row9 = @{@"r1": @"Set 1st Prize", @"i2": @"arrow_right"};
+            NSDictionary *row10 = @{@"r1": @"Set 2nd Prize", @"i2": @"arrow_right"};
+            rows1 = @[row0, row1, row2, row3, row4, row5, row6, row7, row8, row9, row10];
         }
         else
         {
@@ -142,25 +144,33 @@
     {
         row32 = @{@"r1": @"Leader", @"r2": aAlliance.leader_name, @"i2": @"arrow_right"};
     }
+    
+    NSString *cup_begin = @"Cup will begin soon. More then 1 member is needed to begin";
+    
+    if (![aAlliance.cup_start isEqualToString:@"Monday, January 01, 0001"])
+    {
+        cup_begin = aAlliance.cup_start;
+    }
+    
     NSDictionary *row33 = @{@"r1": @"Members", @"r2": [NSString stringWithFormat:@"%@ / %@0", aAlliance.total_members, aAlliance.alliance_level], @"i2": @"arrow_right"};
     NSDictionary *row34 = @{@"r1": @"Applicants", @"r2": @"View list of applicant", @"i2": @"arrow_right"};
     NSDictionary *row35 = @{@"r1": @"Donations", @"r2": @"View donations made", @"i2": @"arrow_right"};
     NSDictionary *row36 = @{@"r1": @"Events", @"r2": @"View events", @"i2": @"arrow_right"};
     NSDictionary *row37 = @{@"r1": @"Founded", @"r2": [[Globals i] getTimeAgo:aAlliance.date_found]};
     NSDictionary *row38 = @{@"r1": @"CUP Level", @"r2": aAlliance.alliance_level};
-    NSDictionary *row39 = @{@"r1": @"Diamonds", @"r2": [[Globals i] numberFormat:aAlliance.currency_second]};
-    NSDictionary *row40 = @{@"r1": @"Funds", @"r2": [[Globals i] numberFormat:aAlliance.currency_first]};
+    NSDictionary *row39 = @{@"r1": @"Diamonds", @"r2": [[Globals i] numberFormat:aAlliance.currency_second], @"i2": @"arrow_right"};
+    NSDictionary *row40 = @{@"r1": @"Funds", @"r2": [[Globals i] numberFormat:aAlliance.currency_first], @"i2": @"arrow_right"};
     NSDictionary *row41 = @{@"r1": @"Prestige Points", @"r2": [[Globals i] numberFormat:aAlliance.score]};
     NSDictionary *row42 = @{@"r1": @"Ranking", @"r2": [[Globals i] numberFormat:aAlliance.rank]};
-    NSDictionary *row43 = @{@"r1": @"Cup Name", @"r2": aAlliance.cup_name};
-    NSDictionary *row44 = @{@"r1": @"First Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_first_prize]};
-    NSDictionary *row45 = @{@"r1": @"Second Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_second_prize]};
-    NSDictionary *row46 = @{@"r1": @"Begin", @"r2": aAlliance.cup_start};
+    //NSDictionary *row43 = @{@"r1": @"Joining Requirements", @"r2": aAlliance.cup_name};
+    NSDictionary *row44 = @{@"r1": @"First Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_first_prize], @"i2": @"arrow_right"};
+    NSDictionary *row45 = @{@"r1": @"Second Prize", @"r2": [[Globals i] numberFormat:aAlliance.cup_second_prize], @"i2": @"arrow_right"};
+    NSDictionary *row46 = @{@"r1": @"Begin", @"r2": cup_begin};
     NSDictionary *row47 = @{@"r1": @"Current Round", @"r2": aAlliance.cup_round, @"i2": @"arrow_right"};
     NSDictionary *row48 = @{@"r1": @"Previous First Place", @"r2": aAlliance.cup_first_name, @"i2": @"arrow_right"};
     NSDictionary *row49 = @{@"r1": @"Previous Second Place", @"r2": aAlliance.cup_second_name, @"i2": @"arrow_right"};
     NSDictionary *row50 = @{@"r1": @"Cup Description", @"r2": aAlliance.description};
-    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row43, row44, row45, row46, row47, row48, row49, row50];
+    NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row44, row45, row46, row47, row48, row49, row50];
     
     self.rows = @[rows3, rows1];
     
@@ -249,6 +259,14 @@
         {
             [self editAlliance];
         }
+        else if(indexPath.row == 9) //1st Prize
+        {
+            [self setPrize1];
+        }
+        else if(indexPath.row == 10) //2nd Prize
+        {
+            [self setPrize2];
+        }
     }
     else if(indexPath.section == 0) //Details
     {
@@ -299,21 +317,135 @@
             [allianceEvents updateView];
             [[Globals i] pushTemplateNav:allianceEvents];
         }
-        else if(indexPath.row == 17) //Cup Rounds
+        else if(indexPath.row == 9) //Donate Diamonds
+        {
+            if (isMyAlliance)
+            {
+                [self donateDiamonds];
+            }
+        }
+        else if(indexPath.row == 10) //Donate Funds
+        {
+            if (isMyAlliance)
+            {
+                [self donateFunds];
+            }
+        }
+        else if(indexPath.row == 13) //1st Prize
+        {
+            if (isLeader)
+            {
+                [self setPrize1];
+            }
+        }
+        else if(indexPath.row == 14) //2nd Prize
+        {
+            if (isLeader)
+            {
+                [self setPrize2];
+            }
+        }
+        else if(indexPath.row == 16) //Cup Rounds
         {
             [self showCupMatches];
         }
-        else if(indexPath.row == 18) //Fist prize winner
+        else if(indexPath.row == 17) //Fist prize winner
         {
-            [[Globals i].mainView showClubViewer:aAlliance.cup_first_id];
+            if (![aAlliance.cup_first_id isEqualToString:@"0"] && ![aAlliance.cup_first_id isEqualToString:@""])
+            {
+                [[Globals i].mainView showClubViewer:aAlliance.cup_first_id];
+            }
         }
-        else if(indexPath.row == 19) //Second prize winner
+        else if(indexPath.row == 18) //Second prize winner
         {
-            [[Globals i].mainView showClubViewer:aAlliance.cup_second_id];
+            if (![aAlliance.cup_second_id isEqualToString:@"0"] && ![aAlliance.cup_second_id isEqualToString:@""])
+            {
+                [[Globals i].mainView showClubViewer:aAlliance.cup_second_id];
+            }
         }
     }
     
 	return nil;
+}
+
+- (void)setPrize1
+{
+    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+                                :5
+                                :^(NSInteger index, NSString *text)
+     {
+         if (index == 1) //OK button is clicked
+         {
+             NSInteger number = [text integerValue];
+             NSInteger bal = [aAlliance.currency_first integerValue];
+             
+             if ((number > 0) && (bal >= number))
+             {
+                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
+                 
+                 NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditFirstprize/%@/%@/%@",
+                                    [[Globals i] world_url], alliance_id, club_id, text];
+                 
+                 [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+                  {
+                      if (success)
+                      {
+                          self.aAlliance = nil;
+                          [self updateView];
+                          
+                          [[Globals i] showToast:@"Prize money is set Successfully!"
+                                   optionalTitle:nil
+                                   optionalImage:@"tick_yes"];
+                      }
+                  }];
+             }
+             else
+             {
+                 [[Globals i] showDialog:@"Insufficient balance in Cup account, please donate more funds to this Cup."];
+             }
+         }
+     }];
+}
+
+- (void)setPrize2
+{
+    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+                                :5
+                                :^(NSInteger index, NSString *text)
+     {
+         if (index == 1) //OK button is clicked
+         {
+             NSInteger number = [text integerValue];
+             NSInteger bal = [aAlliance.currency_first integerValue];
+             
+             if ((number > 0) && (bal >= number))
+             {
+                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
+                 
+                 NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditSecondprize/%@/%@/%@",
+                                    [[Globals i] world_url], alliance_id, club_id, text];
+                 
+                 [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+                  {
+                      if (success)
+                      {
+                          self.aAlliance = nil;
+                          [self updateView];
+                          
+                          [[Globals i] showToast:@"Prize money is set Successfully!"
+                                   optionalTitle:nil
+                                   optionalImage:@"tick_yes"];
+                      }
+                  }];
+             }
+             else
+             {
+                 [[Globals i] showDialog:@"Insufficient balance in Cup account, please donate more funds to this Cup."];
+             }
+         }
+     }];
 }
 
 - (void)showCupMatches
@@ -351,19 +483,25 @@
     else if (cur_round == 1)
     {
         [[Globals i] showTemplate:@[allianceCup0] :@"Cup Matches" :1];
+        allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
     }
     else if (cur_round == 2)
     {
         [[Globals i] showTemplate:@[allianceCup0, allianceCup1] :@"Cup Matches" :1];
+        allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
+        allianceCup1.alliance_id = aAlliance.alliance_id;
         [self.allianceCup1 updateView];
     }
     else if (cur_round > 2)
     {
         [[Globals i] showTemplate:@[allianceCup0, allianceCup1, allianceCup2] :@"Cup Matches" :1];
+        allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
+        allianceCup1.alliance_id = aAlliance.alliance_id;
         [self.allianceCup1 updateView];
+        allianceCup2.alliance_id = aAlliance.alliance_id;
         [self.allianceCup2 updateView];
     }
 }

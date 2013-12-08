@@ -10,13 +10,13 @@
 {
 	NSString *filter;
 	NSArray *matches;
-	NSString *selected_clubid;
+	NSString *alliance_id;
 	NSInteger curRound;
 	NSInteger totalRound;
 }
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSArray *matches;
-@property (nonatomic, strong) NSString *selected_clubid;
+@property (nonatomic, strong) NSString *alliance_id;
 @property (readwrite) NSInteger curRound;
 @property (readwrite) NSInteger totalRound;
 - (void)updateView;

@@ -129,6 +129,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
+                                                 name:@"GotoCup"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
                                                  name:@"GotoClub"
                                                object:nil];
     
@@ -184,6 +189,11 @@
     if ([[notification name] isEqualToString:@"GotoAlliance"])
     {
         [self showAlliance];
+    }
+    
+    if ([[notification name] isEqualToString:@"GotoCup"])
+    {
+        [self showCup];
     }
     
     if ([[notification name] isEqualToString:@"GotoClub"])

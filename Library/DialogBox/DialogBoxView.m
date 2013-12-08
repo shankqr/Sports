@@ -159,7 +159,7 @@
 	}
     else
     {
-        CGRect buttonRect = CGRectMake(115, 280, 90, 45);
+        CGRect buttonRect = CGRectMake(115, 256, 90, 45);
         noButton.frame = buttonRect;
         [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }
@@ -187,11 +187,11 @@
     }
     else
     {
-        CGRect buttonRect = CGRectMake(50, 280, 90, 45);
+        CGRect buttonRect = CGRectMake(50, 256, 90, 45);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
         
-        buttonRect = CGRectMake(180, 280, 90, 45);
+        buttonRect = CGRectMake(180, 256, 90, 45);
         noButton.frame = buttonRect;
         [noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
     }
@@ -216,7 +216,7 @@
 	}
     else
     {
-        CGRect buttonRect = CGRectMake(115, 260, 90, 45);
+        CGRect buttonRect = CGRectMake(115, 240, 90, 45);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }

@@ -13,7 +13,7 @@
 @implementation AllianceCup
 @synthesize filter;
 @synthesize matches;
-@synthesize selected_clubid;
+@synthesize alliance_id;
 @synthesize curRound;
 @synthesize totalRound;
 
@@ -21,17 +21,17 @@
 {
     if ([filter isEqualToString:@"minus0"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:[NSString stringWithFormat:@"%li", (long)curRound]];
+        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound]];
         self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
 	else if ([filter isEqualToString:@"minus1"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:[NSString stringWithFormat:@"%li", (long)curRound-1]];
+        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound-1]];
         self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
 	else if ([filter isEqualToString:@"minus2"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:[NSString stringWithFormat:@"%li", (long)curRound-2]];
+        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound-2]];
 		self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
     

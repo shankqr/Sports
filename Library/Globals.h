@@ -574,7 +574,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSMutableArray *)getAppliedData;
 - (void)updateMembersData;
 - (NSMutableArray *)getMembersData;
-- (void)updateAllianceCupFixturesData:(NSString *)round;
+- (void)updateAllianceCupFixturesData:(NSString *)a_id round:(NSString *)round;
 - (NSMutableArray *)getAllianceCupFixturesData;
 - (void)showMoreGames;
 - (void)showLoading;

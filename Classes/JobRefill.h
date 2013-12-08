@@ -6,16 +6,13 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-
 @interface JobRefill : UIViewController
 {
-	
 	UILabel *titleLabel;
 	UILabel *promptLabel;
 	NSString *titleText;
 	NSString *promptText;
 }
-
 @property (nonatomic, strong) IBOutlet UILabel *titleLabel;
 @property (nonatomic, strong) IBOutlet UILabel *promptLabel;
 @property (nonatomic, strong) NSString *titleText;

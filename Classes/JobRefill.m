@@ -5,19 +5,17 @@
 //  Created by Shankar on 11/19/09.
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
-
 #import "JobRefill.h"
 #import "Globals.h"
 #import "MainView.h"
 
 @implementation JobRefill
-
 @synthesize titleLabel;
 @synthesize promptLabel;
 @synthesize titleText;
 @synthesize promptText;
 
--(void)updateView
+- (void)updateView
 {
 	titleLabel.text = titleText;
 	promptLabel.text = promptText;
