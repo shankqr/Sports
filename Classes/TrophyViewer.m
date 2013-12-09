@@ -8,7 +8,6 @@
 
 #import "TrophyViewer.h"
 #import "Globals.h"
-#import "TrophyCell.h"
 #import "MainView.h"
 
 @implementation TrophyViewer
@@ -46,26 +45,17 @@
 	}
 }
 
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
+{
+    NSDictionary *row1 = (self.trophies)[[indexPath row]];
+    
+    return @{@"align_top": @"1", @"r1": row1[@"name"], @"r2": row1[@"title"], @"i1": [NSString stringWithFormat:@"t%ld.png", (long)[row1[@"type"] integerValue]]};
+}
+
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	static NSString *CellIdentifier = @"TrophyCell";
-	TrophyCell *cell = (TrophyCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
-	if (cell == nil)  
-	{
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"TrophyCell" owner:self options:nil];
-		cell = (TrophyCell *)nib[0];
-		[[cell subviews][0] setTag:111];
-	}
-	
-	NSUInteger row = [indexPath row];
-	NSDictionary *rowData = (self.trophies)[row];
-	cell.productValue.text = rowData[@"name"];
-	cell.productDesc.text = rowData[@"title"];
-	[cell.productImage setImage:[UIImage imageNamed:[[NSString alloc] initWithFormat:@"t%ld.png", (long)[rowData[@"type"] integerValue]]]];
-	cell.backgroundColor = [UIColor clearColor];
-    
-	return cell;
+    return [[Globals i] dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -76,7 +66,7 @@
 #pragma mark Table View Delegate Methods
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 77*SCALE_IPAD;
+    return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

@@ -34,6 +34,7 @@
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     facebookSwitching = NO;
+    beenSleeping = NO;
     
     [FBFriendPickerViewController class];
     
@@ -88,10 +89,17 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
     {
         facebookSwitching = NO;
     }
-    else
+    else if (beenSleeping)
     {
+        beenSleeping = NO;
+        
         [mainView reloadView];
     }
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    beenSleeping = YES;
 }
 
 @end

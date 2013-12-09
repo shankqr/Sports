@@ -2,7 +2,6 @@
 #import "BidView.h"
 #import "MainView.h"
 #import "Globals.h"
-#import "BidCell.h"
 #import "PlayerCell.h"
 
 @implementation BidView
@@ -24,9 +23,7 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+
     messageText.delegate = self;
 }
 
@@ -54,9 +51,6 @@
     stopWatchLabel.text = @" ";
     messageText.text = @"";
     minBidLabel.text = @" ";
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 
     [playerList reloadData];
     NSDictionary *rowData = (self.players)[0];
@@ -184,17 +178,36 @@
     }
 }
 
-- (void)keyboardWillShow:(NSNotification *)notification
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-	NSDictionary *userInfo = [notification userInfo];
-	NSValue *keyboardBoundsValue = userInfo[UIKeyboardFrameBeginUserInfoKey];
-	[keyboardBoundsValue getValue:&keyboardBounds];
-	keyboardIsShowing = YES;
-	[self resizeViewControllerToFitScreen];
+    [self keyboardWillHide];
+    
+    [self sendClicked];
+    return YES;
 }
 
-- (void)keyboardWillHide:(NSNotification *)note
+- (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if (!keyboardIsShowing)
+    {
+        keyboardIsShowing = YES;
+        if (iPad)
+        {
+            keyboardBounds = CGRectMake(0, 1024, 768, 264);
+        }
+        else
+        {
+            keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
+        }
+        
+        [self resizeViewControllerToFitScreen];
+    }
+}
+
+- (void)keyboardWillHide
+{
+    [self.messageText resignFirstResponder];
+    
 	keyboardIsShowing = NO;
 	keyboardBounds = CGRectMake(0, 0, 0, 0);
 	[self resizeViewControllerToFitScreen];
@@ -206,22 +219,36 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     
+    /*
 	if (keyboardIsShowing)
     {
         self.messageList.frame = CGRectMake(0, BID_CEILING, SCREEN_WIDTH, 40*SCALE_IPAD);
         self.messageText.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height-31-keyboardBounds.size.height, SCREEN_WIDTH-10-BID_BUTTON_WIDTH, 31.0f);
-        self.bidButton.frame = CGRectMake(SCREEN_WIDTH-BID_BUTTON_WIDTH, UIScreen.mainScreen.bounds.size.height-31-keyboardBounds.size.height, BID_BUTTON_WIDTH, 31.0f);
     }
     else
     {
         self.messageList.frame = CGRectMake(0, BID_CEILING, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-BID_CEILING-31);
         self.messageText.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height-31, SCREEN_WIDTH-10-BID_BUTTON_WIDTH, 31.0f);
+    }
+    */
+    
+	if (keyboardIsShowing)
+    {
+        self.messageList.frame = CGRectMake(0, BID_CEILING, self.view.frame.size.width, self.view.frame.size.height-BID_CEILING-31-keyboardBounds.size.height);
+        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31-keyboardBounds.size.height, self.view.frame.size.width, 31);
+        self.bidButton.frame = CGRectMake(SCREEN_WIDTH-BID_BUTTON_WIDTH, UIScreen.mainScreen.bounds.size.height-31-keyboardBounds.size.height, BID_BUTTON_WIDTH, 31.0f);
+    }
+    else
+    {
+        self.messageList.frame = CGRectMake(0, BID_CEILING, self.view.frame.size.width, self.view.frame.size.height-BID_CEILING-31);
+        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31, self.view.frame.size.width, 31);
         self.bidButton.frame = CGRectMake(SCREEN_WIDTH-BID_BUTTON_WIDTH, UIScreen.mainScreen.bounds.size.height-31, BID_BUTTON_WIDTH, 31.0f);
     }
     
 	[UIView commitAnimations];
     
-    if([self.wsBidList count]>0)
+    
+    if([self.wsBidList count] > 0)
     {
         [messageList reloadData];
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.wsBidList count] - 1) inSection:0];
@@ -232,41 +259,14 @@
 - (void)close
 {
     [self stopTimer];
-    keyboardIsShowing = NO;
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [self keyboardWillHide];
     
 	[[Globals i] closeTemplate];
 }
 
-- (IBAction)cancelButton_tap:(id)sender
+- (IBAction)sendClicked
 {
-	[self close];
-}
-
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string 
-{
-    if([string isEqualToString:@"\n"])
-	{
-        [textField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
-
-- (IBAction)messageText_tap:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
-    [self resizeViewControllerToFitScreen];
-}
-
-- (IBAction)sendClicked:(id)sender
-{
-    
-    
     if([self.wsBidList count] > 0) //Player has been bidded before
     {
 
@@ -328,7 +328,21 @@
     }
 	
 	messageText.text = @"";
-    [messageText resignFirstResponder];
+    [self keyboardWillHide];
+}
+
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
+{
+    NSDictionary *row1 = (self.wsBidList)[[indexPath row]];
+    
+    if([row1[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+    {
+        return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"r3": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
+    }
+    else
+    {
+        return @{@"select_able": @"1", @"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"r3": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
+    }
 }
 
 // Driving The Table View
@@ -340,31 +354,7 @@
     }
     else
     {
-        static NSString *CellIdentifier = @"BidCell";
-        NSUInteger row = [indexPath row];
-        NSDictionary *rowData = (self.wsBidList)[row];
-        
-        BidCell *cell = (BidCell *)[messageList dequeueReusableCellWithIdentifier: CellIdentifier];
-        if (cell == nil)
-        {
-            NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"BidCell" owner:self options:nil];
-            cell = (BidCell *)nib[0];
-            [[cell subviews][0] setTag:111];
-        }
-        
-        cell.messageLabel.text = [NSString stringWithFormat:@"[%@]: $%@", 
-                                  rowData[@"club_name"],
-                                  [[Globals i] numberFormat:rowData[@"bid_value"]]];
-        
-        if([rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
-        {
-            [cell.messageLabel setTextColor:[UIColor redColor]];
-        }
-        else
-        {
-            [cell.messageLabel setTextColor:[UIColor blackColor]];
-        }
-        return cell;
+        return [[Globals i] dynamicCell:messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
     }
 }
 
@@ -393,11 +383,11 @@
     }
     else
     {
-        return 40*SCALE_IPAD;
+        return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
     }
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView == self.playerList) 
     {
@@ -410,7 +400,7 @@
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
         {
             selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-            [messageText resignFirstResponder];
+            [self keyboardWillHide];
             [[Globals i].mainView showClubViewer:selected_clubid];
         }
     

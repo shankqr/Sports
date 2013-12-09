@@ -8,7 +8,6 @@
 
 #import "FinanceView.h"
 #import "Globals.h"
-#import "FinanceCell.h"
 
 @implementation FinanceView
 @synthesize finance;
@@ -44,21 +43,11 @@
     }
 }
 
-#pragma mark Table Data Source Methods
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
 {
-	static NSString *CellIdentifier = @"FinanceCell";
-	NSDictionary *rowData = @{@"Item": @"Item", @"Cost": @"Cost"};
-	
-	FinanceCell *cell = (FinanceCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
-	if (cell == nil)  
-	{
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"FinanceCell" owner:self options:nil];
-		cell = (FinanceCell *)nib[0];
-		[[cell subviews][0] setTag:111];
-	}
-	
-	if(indexPath.section == 0)
+    NSDictionary *rowData = @{@"Item": @"Item", @"Cost": @"Cost"};
+    
+    if(indexPath.section == 0)
 	{
 		rowData = (self.revenue)[indexPath.row];
 	}
@@ -70,13 +59,14 @@
 	{
 		rowData = (self.finance)[indexPath.row];
 	}
-	
-	cell.item.text = rowData[@"Item"];
-	cell.cost1.text = rowData[@"Cost"];
-	cell.item.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
-	cell.cost1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+    
+    return @{@"align_top": @"1", @"r1": rowData[@"Item"], @"c1": rowData[@"Cost"]};
+}
 
-	return cell;
+#pragma mark Table Data Source Methods
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+{
+    return [[Globals i] dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 #pragma mark Table View Delegate Methods
@@ -107,7 +97,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 33*SCALE_IPAD;
+    return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section

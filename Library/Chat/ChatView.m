@@ -21,27 +21,8 @@
 @synthesize messageList;
 @synthesize refreshTimer;
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-    
-    [self refreshMessages];
-    
-    if(!refreshTimer.isValid)
-    {
-        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshMessages) userInfo:nil repeats:YES];
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
-	[super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-	[super viewDidDisappear:animated];
-    
     if(refreshTimer.isValid)
     {
         [refreshTimer invalidate];
@@ -51,9 +32,6 @@
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 	
 	messageList.dataSource = self;
 	messageList.delegate = self;
@@ -61,25 +39,51 @@
     
     self.allianceId = @"0";
     self.isAllianceChat = @"0";
-}
-
-- (void)keyboardWillShow:(NSNotification *)notification
-{
-	NSDictionary *userInfo = [notification userInfo];
-	NSValue *keyboardBoundsValue = userInfo[UIKeyboardFrameBeginUserInfoKey];
-	[keyboardBoundsValue getValue:&keyboardBounds];
-	keyboardIsShowing = YES;
-	[self resizeViewControllerToFitScreen];
     
-    if([self.messages count] > 0)
+    [self refreshMessages];
+    
+    if(!refreshTimer.isValid)
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
-        [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshMessages) userInfo:nil repeats:YES];
     }
 }
 
-- (void)keyboardWillHide:(NSNotification *)note
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [self keyboardWillHide];
+    
+    [self sendClicked];
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (!keyboardIsShowing)
+    {
+        keyboardIsShowing = YES;
+        if (iPad)
+        {
+            keyboardBounds = CGRectMake(0, 1024, 768, 264);
+        }
+        else
+        {
+            keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
+        }
+        
+        [self resizeViewControllerToFitScreen];
+        
+        if([self.messages count] > 0)
+        {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+            [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+    }
+}
+
+- (void)keyboardWillHide
+{
+    [self.messageText resignFirstResponder];
+    
 	keyboardIsShowing = NO;
 	keyboardBounds = CGRectMake(0, 0, 0, 0);
 	[self resizeViewControllerToFitScreen];
@@ -105,16 +109,6 @@
 	[UIView commitAnimations];
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string 
-{
-    if([string isEqualToString:@"\n"])
-	{
-        [textField resignFirstResponder];
-        return NO;
-    }
-    return YES;
-}
-
 - (void)updateView:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
 {
     self.allianceId = aid;
@@ -134,13 +128,7 @@
     }
 }
 
-- (IBAction)messageText_tap:(id)sender
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-}
-
-- (IBAction)sendClicked:(id)sender
+- (void)sendClicked
 {
     [[Globals i] buttonSound];
     
@@ -244,7 +232,7 @@
 {
     if (keyboardIsShowing)
     {
-        [self.messageText resignFirstResponder];
+        [self keyboardWillHide];
     }
 }
 
@@ -258,7 +246,7 @@
 	
         if (keyboardIsShowing)
         {
-            [self.messageText resignFirstResponder];
+            [self keyboardWillHide];
         }
         
         //Show club viewer

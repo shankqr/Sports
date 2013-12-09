@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 TAPFANTASY. All rights reserved.
 //
 
+#define bar_y 0.9f
+
 @interface LoadingView : UIViewController
 {
     UIImageView *barImage;

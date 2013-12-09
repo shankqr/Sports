@@ -57,6 +57,6 @@
         </view>
     </objects>
     <resources>
-        <image name="skin_fans.png" width="320" height="405"/>
+        <image name="skin_fans.png" width="640" height="810"/>
     </resources>
 </document>

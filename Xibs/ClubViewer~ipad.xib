@@ -127,7 +127,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="78">
-                    <rect key="frame" x="218" y="867" width="178" height="60"/>
+                    <rect key="frame" x="218" y="642" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" backgroundImage="button_challenge.png">
@@ -142,7 +142,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" id="fJw-fl-cWC">
-                    <rect key="frame" x="445" y="867" width="178" height="60"/>
+                    <rect key="frame" x="445" y="642" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="15"/>
                     <state key="normal" image="button_sendmail.png">
@@ -164,6 +164,6 @@
     <resources>
         <image name="button_challenge.png" width="178" height="60"/>
         <image name="button_sendmail.png" width="178" height="60"/>
-        <image name="viewer_club.png" width="640" height="860"/>
+        <image name="viewer_club.png" width="640" height="810"/>
     </resources>
 </document>

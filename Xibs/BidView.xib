@@ -36,8 +36,7 @@
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numberPad" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
                     <connections>
-                        <action selector="messageText_tap:" destination="-1" eventType="touchUpInside" id="23"/>
-                        <action selector="sendClicked:" destination="-1" eventType="editingDidEnd" id="21"/>
+                        <outlet property="delegate" destination="-1" id="Std-ya-Odx"/>
                     </connections>
                 </textField>
                 <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" style="plain" separatorStyle="none" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="24">
@@ -58,7 +57,7 @@
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
-                        <action selector="sendClicked:" destination="-1" eventType="touchUpInside" id="37"/>
+                        <action selector="sendClicked" destination="-1" eventType="touchUpInside" id="ezE-6h-F1c"/>
                     </connections>
                 </button>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" textAlignment="right" lineBreakMode="tailTruncation" minimumFontSize="10" id="38">

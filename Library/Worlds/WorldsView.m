@@ -21,7 +21,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
--(void)updateView
+- (void)updateView
 {
     if ([Globals i].wsWorldsData == nil)
     {
@@ -73,7 +73,7 @@
     return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[Globals i] settSelectedWorldData:self.rows[indexPath.row]];
     [[Globals i] settSelectedBaseId:@"0"];

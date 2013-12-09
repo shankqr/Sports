@@ -16,7 +16,6 @@
 #import "CustomBadge.h"
 
 @implementation MainCell
-
 @synthesize activeSlide;
 @synthesize leagueSlide;
 @synthesize rankingSlide;

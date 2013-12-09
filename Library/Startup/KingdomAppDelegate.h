@@ -12,6 +12,7 @@
     UIWindow *window;
 	MainView *mainView;
     BOOL facebookSwitching;
+    BOOL beenSleeping;
 }
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) MainView *mainView;

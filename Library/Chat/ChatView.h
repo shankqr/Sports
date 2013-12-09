@@ -30,7 +30,5 @@
 @property (nonatomic, strong) UITableView *messageList;
 @property (nonatomic, strong) NSMutableArray *messages;
 @property (nonatomic, strong) NSTimer *refreshTimer;
-- (IBAction)sendClicked:(id)sender;
-- (IBAction)messageText_tap:(id)sender;
 - (void)updateView:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
 @end

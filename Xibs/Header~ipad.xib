@@ -190,7 +190,7 @@
         <image name="icon_energy.png" width="40" height="40"/>
         <image name="icon_exp.png" width="56" height="22"/>
         <image name="icon_level.png" width="82" height="78"/>
-        <image name="icon_money.png" width="44" height="44"/>
+        <image name="icon_money.png" width="40" height="40"/>
         <image name="skin_header.png" width="640" height="150"/>
     </resources>
 </document>

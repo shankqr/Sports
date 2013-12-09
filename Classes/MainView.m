@@ -177,6 +177,8 @@
     self.mainTableView.dataSource = self;
     [self.view insertSubview:mainTableView atIndex:1];
     [self.mainTableView reloadData];
+    
+    [self reloadView];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -993,7 +995,7 @@
     {
         matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
     }
-    [[Globals i] showTemplate:@[matchReport] :@"Match Report" :0];
+    [[Globals i] showTemplate:@[matchReport] :@"Match Report" :1];
     [matchReport redrawView];
 }
 
@@ -1240,7 +1242,7 @@
     UIViewController *controller = [[UIViewController alloc] init];
     controller.view = webView;
     
-    [[Globals i] showTemplate:@[controller] :@"Help" :0];
+    [[Globals i] showTemplate:@[controller] :@"Help" :1];
 }
 
 - (void)showFinance

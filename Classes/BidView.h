@@ -34,15 +34,6 @@
 @property (nonatomic,strong) NSDateFormatter *dateFormat;
 @property (nonatomic,strong) NSDateFormatter *serverFormat;
 @property (readwrite) NSTimeInterval b1s;
-- (IBAction)sendClicked:(id)sender;
-- (IBAction)cancelButton_tap:(id)sender;
-- (IBAction)messageText_tap:(id)sender;
-- (void)getNewMessages;
 - (void)updateView:(NSMutableArray *)player;
-- (void)close;
-- (void)resizeViewControllerToFitScreen;
-- (void)startTimer;
-- (void)stopTimer;
-- (void)updateTimeLeft;
 @end
 

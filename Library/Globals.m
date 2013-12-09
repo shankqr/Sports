@@ -734,7 +734,7 @@ static NSOperationQueue *connectionQueue;
     NSArray *values = [wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
-    [self showTemplate:@[appsViewController] :@"More Games" :0];
+    [self showTemplate:@[appsViewController] :@"More Games" :1];
 }
 
 - (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname

@@ -46,12 +46,12 @@
     
     UIImage *imgBarBkg = [UIImage imageNamed:@"loading_bar_bkg.png"];
     UIImageView *barbkgImage = [[UIImageView alloc] initWithImage:imgBarBkg];
-    barbkgImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*4/5)-(imgBarBkg.size.height*SCALE_IPAD/4), (imgBarBkg.size.width*SCALE_IPAD/2), (imgBarBkg.size.height*SCALE_IPAD/2));
+    barbkgImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBarBkg.size.height*SCALE_IPAD/4), (imgBarBkg.size.width*SCALE_IPAD/2), (imgBarBkg.size.height*SCALE_IPAD/2));
     [self.view addSubview:barbkgImage];
     
     self.imgBar = [UIImage imageNamed:@"loading_bar.png"];
     self.barImage = [[UIImageView alloc] initWithImage:imgBar];
-    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*4/5)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
     [self.barImage setClipsToBounds:YES];
     self.barImage.contentMode = UIViewContentModeLeft;
     [self.view addSubview:self.barImage];
@@ -64,7 +64,7 @@
     [self.view setUserInteractionEnabled:YES];
     
     //start small again
-    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*4/5)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
     
     if (!loadingTimer.isValid)
     {
@@ -73,7 +73,7 @@
     
     [UIView animateWithDuration:15.0f
                      animations:^{
-                         self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*4/5)-(imgBar.size.height*SCALE_IPAD/4), ((imgBar.size.width*SCALE_IPAD/2) * 1), (imgBar.size.height*SCALE_IPAD/2));
+                         self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), ((imgBar.size.width*SCALE_IPAD/2) * 1), (imgBar.size.height*SCALE_IPAD/2));
                      }
                      completion:^(BOOL finished){
                      }];

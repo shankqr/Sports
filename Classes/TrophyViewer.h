@@ -8,7 +8,6 @@
 
 @interface TrophyViewer : UITableViewController <UIAlertViewDelegate>
 {
-	
 	NSMutableArray *trophies;
 	NSString *selected_trophy;
 }

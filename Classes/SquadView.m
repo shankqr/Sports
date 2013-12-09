@@ -22,6 +22,15 @@
 @synthesize selectedRow;
 @synthesize playerView;
 
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
+
 - (void)updateView
 {
 	if([Globals i].workingSquad == 0)
@@ -60,11 +69,6 @@
 	
         [[Globals i] removeLoadingAlert];
 	}
-}
-
-- (void)viewDidLoad
-{
-	self.wantsFullScreenLayout = YES;
 }
 
 #pragma mark Table Data Source Methods

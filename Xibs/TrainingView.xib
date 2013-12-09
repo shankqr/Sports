@@ -25,17 +25,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="405"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="19" lineBreakMode="tailTruncation" minimumFontSize="8" id="24">
-                    <rect key="frame" x="138" y="222" width="20" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="19" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="24">
+                    <rect key="frame" x="116" y="226" width="36" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="20" lineBreakMode="tailTruncation" minimumFontSize="8" id="30">
-                    <rect key="frame" x="138" y="257" width="20" height="21"/>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="20" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="8" id="30">
+                    <rect key="frame" x="116" y="261" width="36" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="14"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -98,6 +98,6 @@
     <resources>
         <image name="button_changecoach.png" width="176" height="176"/>
         <image name="button_changetraining.png" width="176" height="176"/>
-        <image name="skin_training.png" width="632" height="800"/>
+        <image name="skin_training.png" width="640" height="810"/>
     </resources>
 </document>

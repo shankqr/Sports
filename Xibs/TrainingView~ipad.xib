@@ -36,14 +36,14 @@
                     </connections>
                 </tableView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="19" lineBreakMode="tailTruncation" minimumFontSize="8" id="24">
-                    <rect key="frame" x="339" y="465" width="40" height="42"/>
+                    <rect key="frame" x="293" y="472" width="80" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="32"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="20" lineBreakMode="tailTruncation" minimumFontSize="8" id="30">
-                    <rect key="frame" x="339" y="539" width="40" height="42"/>
+                    <rect key="frame" x="293" y="545" width="80" height="42"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="32"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -98,6 +98,6 @@
     <resources>
         <image name="button_changecoach.png" width="176" height="176"/>
         <image name="button_changetraining.png" width="176" height="176"/>
-        <image name="skin_training.png" width="632" height="800"/>
+        <image name="skin_training.png" width="640" height="810"/>
     </resources>
 </document>

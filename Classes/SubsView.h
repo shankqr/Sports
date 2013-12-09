@@ -10,7 +10,6 @@
 
 @interface SubsView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate>
 {
-	
     UIImageView *ivBackground;
     SquadSelectView *squadSelecter;
 	NSString *fid;
