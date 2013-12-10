@@ -414,7 +414,6 @@
 		9081C9700FF4B90100E97D01 /* MainView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081C96B0FF4B90100E97D01 /* MainView.m */; };
 		9081EBCB10F620E500A87D39 /* ChallengeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9081EBC910F620E500A87D39 /* ChallengeView.m */; };
 		9084994B1207446E000D8CA0 /* SquadViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 908499491207446E000D8CA0 /* SquadViewer.m */; };
-		90866C8C0FF4BC4600EC6AB7 /* StaffCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866C870FF4BC4600EC6AB7 /* StaffCell.m */; };
 		90866C8E0FF4BC4600EC6AB7 /* StaffView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866C8A0FF4BC4600EC6AB7 /* StaffView.m */; };
 		90866C930FF4BC5C00EC6AB7 /* StadiumView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866C910FF4BC5C00EC6AB7 /* StadiumView.m */; };
 		90866C9D0FF4BC8900EC6AB7 /* FansView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90866C9B0FF4BC8900EC6AB7 /* FansView.m */; };
@@ -459,8 +458,6 @@
 		9093A6491837F68B005D60E2 /* TacticsView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6471837F68B005D60E2 /* TacticsView~ipad.xib */; };
 		9093A64C1837F69C005D60E2 /* PlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64A1837F69C005D60E2 /* PlayerView.xib */; };
 		9093A64D1837F69C005D60E2 /* PlayerView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A64B1837F69C005D60E2 /* PlayerView~ipad.xib */; };
-		9093A6661837F6F7005D60E2 /* StaffCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6621837F6F7005D60E2 /* StaffCell.xib */; };
-		9093A6671837F6F7005D60E2 /* StaffCell~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A6631837F6F7005D60E2 /* StaffCell~ipad.xib */; };
 		9093A66C1837F703005D60E2 /* FansView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66A1837F703005D60E2 /* FansView.xib */; };
 		9093A66D1837F703005D60E2 /* FansView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66B1837F703005D60E2 /* FansView~ipad.xib */; };
 		9093A6721837F71D005D60E2 /* StadiumMap.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9093A66E1837F71D005D60E2 /* StadiumMap.xib */; };
@@ -2696,8 +2693,6 @@
 		9081EBC910F620E500A87D39 /* ChallengeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChallengeView.m; sourceTree = "<group>"; };
 		908499481207446E000D8CA0 /* SquadViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SquadViewer.h; sourceTree = "<group>"; };
 		908499491207446E000D8CA0 /* SquadViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SquadViewer.m; sourceTree = "<group>"; };
-		90866C860FF4BC4600EC6AB7 /* StaffCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffCell.h; sourceTree = "<group>"; };
-		90866C870FF4BC4600EC6AB7 /* StaffCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaffCell.m; sourceTree = "<group>"; };
 		90866C890FF4BC4600EC6AB7 /* StaffView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaffView.h; sourceTree = "<group>"; };
 		90866C8A0FF4BC4600EC6AB7 /* StaffView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = StaffView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		90866C900FF4BC5C00EC6AB7 /* StadiumView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StadiumView.h; sourceTree = "<group>"; };
@@ -2757,8 +2752,6 @@
 		9093A6471837F68B005D60E2 /* TacticsView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "TacticsView~ipad.xib"; path = "Xibs/TacticsView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A64A1837F69C005D60E2 /* PlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayerView.xib; path = Xibs/PlayerView.xib; sourceTree = SOURCE_ROOT; };
 		9093A64B1837F69C005D60E2 /* PlayerView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "PlayerView~ipad.xib"; path = "Xibs/PlayerView~ipad.xib"; sourceTree = SOURCE_ROOT; };
-		9093A6621837F6F7005D60E2 /* StaffCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StaffCell.xib; path = Xibs/StaffCell.xib; sourceTree = SOURCE_ROOT; };
-		9093A6631837F6F7005D60E2 /* StaffCell~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "StaffCell~ipad.xib"; path = "Xibs/StaffCell~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A66A1837F703005D60E2 /* FansView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FansView.xib; path = Xibs/FansView.xib; sourceTree = SOURCE_ROOT; };
 		9093A66B1837F703005D60E2 /* FansView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = "FansView~ipad.xib"; path = "Xibs/FansView~ipad.xib"; sourceTree = SOURCE_ROOT; };
 		9093A66E1837F71D005D60E2 /* StadiumMap.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StadiumMap.xib; path = Xibs/StadiumMap.xib; sourceTree = SOURCE_ROOT; };
@@ -5262,10 +5255,6 @@
 			children = (
 				90866C890FF4BC4600EC6AB7 /* StaffView.h */,
 				90866C8A0FF4BC4600EC6AB7 /* StaffView.m */,
-				90866C860FF4BC4600EC6AB7 /* StaffCell.h */,
-				90866C870FF4BC4600EC6AB7 /* StaffCell.m */,
-				9093A6621837F6F7005D60E2 /* StaffCell.xib */,
-				9093A6631837F6F7005D60E2 /* StaffCell~ipad.xib */,
 			);
 			name = Staff;
 			sourceTree = "<group>";
@@ -8489,7 +8478,6 @@
 				90DA34AA185628380035FAF2 /* z310.png in Resources */,
 				9064AE7C18531F3700B71E57 /* c102.png in Resources */,
 				9064AEA918531F3700B71E57 /* c143.png in Resources */,
-				9093A6671837F6F7005D60E2 /* StaffCell~ipad.xib in Resources */,
 				90DA3427185628380035FAF2 /* z193.png in Resources */,
 				90DA3405185628380035FAF2 /* z162.png in Resources */,
 				90DA3420185628380035FAF2 /* z187.png in Resources */,
@@ -8773,7 +8761,6 @@
 				90DA36C5185628380035FAF2 /* z797.png in Resources */,
 				90DA354C185628380035FAF2 /* z457.png in Resources */,
 				90DA382A185628380035FAF2 /* button_back.png in Resources */,
-				9093A6661837F6F7005D60E2 /* StaffCell.xib in Resources */,
 				90DA3313185628380035FAF2 /* flag_219.png in Resources */,
 				9064AEC318531F3700B71E57 /* c167.png in Resources */,
 				90DA32F9185628380035FAF2 /* flag_196.png in Resources */,
@@ -9745,7 +9732,6 @@
 			files = (
 				9094F843183A6CEC00931A9A /* Game_hockey.m in Sources */,
 				9081C9700FF4B90100E97D01 /* MainView.m in Sources */,
-				90866C8C0FF4BC4600EC6AB7 /* StaffCell.m in Sources */,
 				9094F8E0183A85BE00931A9A /* TemplateView.m in Sources */,
 				90866C8E0FF4BC4600EC6AB7 /* StaffView.m in Sources */,
 				90866C930FF4BC5C00EC6AB7 /* StadiumView.m in Sources */,

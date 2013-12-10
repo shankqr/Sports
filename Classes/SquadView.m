@@ -107,7 +107,7 @@
         playerView.squadView = self;
     }
     
-    [[Globals i] showTemplate:@[playerView] :@"" :0];
+    [[Globals i] showTemplate:@[playerView] :@"" :1];
     [playerView updateView:rowData];
     
 	return nil;

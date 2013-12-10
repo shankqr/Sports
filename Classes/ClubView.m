@@ -58,6 +58,17 @@
 	[self.view setNeedsDisplay];
 }
 
+- (void)clearView
+{
+	foundedLabel.text = @"";
+	loginLabel.text = @"";
+	face_url = @"";
+	logo_url = @"";
+	home_url = @"";
+	away_url = @"";
+	
+	[self setImages];
+}
 
 - (void)setImages
 {

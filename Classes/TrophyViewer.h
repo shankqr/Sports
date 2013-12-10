@@ -14,4 +14,5 @@
 @property (nonatomic, strong) NSMutableArray *trophies;
 @property (nonatomic, strong) NSString *selected_trophy;
 - (void)updateView;
+- (void)clearView;
 @end

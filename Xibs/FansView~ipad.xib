@@ -24,28 +24,28 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="100" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="15">
-                    <rect key="frame" x="292" y="253" width="300" height="60"/>
+                    <rect key="frame" x="252" y="258" width="300" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Level 2" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="16">
-                    <rect key="frame" x="292" y="366" width="300" height="44"/>
+                    <rect key="frame" x="252" y="366" width="300" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Do better" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="17">
-                    <rect key="frame" x="182" y="469" width="520" height="44"/>
+                    <rect key="frame" x="142" y="469" width="520" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="100,000" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="18">
-                    <rect key="frame" x="292" y="570" width="300" height="44"/>
+                    <rect key="frame" x="142" y="570" width="520" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="36"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

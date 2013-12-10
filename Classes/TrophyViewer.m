@@ -29,6 +29,12 @@
 	[NSThread detachNewThreadSelector: @selector(getTrophyData) toTarget:self withObject:nil];
 }
 
+- (void)clearView
+{
+    self.trophies = nil;
+    [self.tableView reloadData];
+}
+
 - (void)getTrophyData
 {
 	@autoreleasepool {

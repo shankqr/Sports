@@ -22,4 +22,5 @@
 @property (nonatomic, strong) NSString *sel_player_name;
 @property (nonatomic, strong) NSString *sel_player_value;
 - (void)updateView;
+- (void)clearView;
 @end

@@ -566,7 +566,7 @@
     }
 	[squadSelecter updateView];
     
-    [[Globals i] showTemplate:@[squadSelecter] :@"" :0];
+    [[Globals i] showTemplate:@[squadSelecter] :@"Select a Player" :1];
 }
 
 - (void)playerSelected:(NSString *)player

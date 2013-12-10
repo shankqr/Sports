@@ -51,4 +51,5 @@
 @property (nonatomic, strong) NSString *away_url;
 - (void)updateView;
 - (void)updateViewId:(NSString*)ClubID;
+- (void)clearView;
 @end

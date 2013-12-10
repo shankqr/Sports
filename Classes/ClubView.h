@@ -44,6 +44,7 @@
 @property (nonatomic, strong) NSString *away_url;
 @property (readwrite) NSInteger pickerTag;
 - (void)updateView;
+- (void)clearView;
 - (void)resetImages;
 - (IBAction)resetButton_tap:(id)sender;
 - (IBAction)clubnameButton_tap:(id)sender;

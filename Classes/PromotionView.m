@@ -114,17 +114,16 @@
 	NSDictionary *rowData = (self.leagues)[row+posOffset];
 	if([rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
 	{
-		cell.club.textColor = [UIColor yellowColor];
-		cell.played.textColor = [UIColor yellowColor];
-		cell.won.textColor = [UIColor yellowColor];
-		cell.draw.textColor = [UIColor yellowColor];
-		cell.lost.textColor = [UIColor yellowColor];
-		cell.goalfor.textColor = [UIColor yellowColor];
-		cell.goalagaints.textColor = [UIColor yellowColor];
-		cell.goaldif.textColor = [UIColor yellowColor];
-		cell.points.textColor = [UIColor yellowColor];
+		cell.club.textColor = [UIColor redColor];
+		cell.played.textColor = [UIColor redColor];
+		cell.won.textColor = [UIColor redColor];
+		cell.draw.textColor = [UIColor redColor];
+		cell.lost.textColor = [UIColor redColor];
+		cell.goalfor.textColor = [UIColor redColor];
+		cell.goalagaints.textColor = [UIColor redColor];
+		cell.goaldif.textColor = [UIColor redColor];
+		cell.points.textColor = [UIColor redColor];
 	}
-	//cell.pos.text = [NSString stringWithFormat:@"%ld", row+1];
 	cell.club.text = rowData[@"club_name"];
 	cell.played.text = rowData[@"Played"];
 	cell.won.text = rowData[@"Win"];

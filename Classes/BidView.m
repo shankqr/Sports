@@ -27,6 +27,12 @@
     messageText.delegate = self;
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self stopTimer];
+    [self keyboardWillHide];
+}
+
 - (void)updateView:(NSMutableArray *)player
 {
     if (serverFormat == Nil) 
@@ -87,6 +93,7 @@
     else
     {
         [self stopTimer];
+        
         [messageList reloadData];
         NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
@@ -147,13 +154,12 @@
 - (void)stopTimer
 {
     [stopWatchTimer invalidate];
-    stopWatchTimer = nil;
     stopWatchLabel.text = @" ";
 }
 
 - (void)startTimer
 {
-    if (stopWatchTimer == nil)
+    if(!stopWatchTimer.isValid)
     {
         [self updateTimeLeft];
         
@@ -337,11 +343,11 @@
     
     if([row1[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
     {
-        return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"r3": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
+        return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"c1": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
     }
     else
     {
-        return @{@"select_able": @"1", @"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"r3": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
+        return @{@"select_able": @"1", @"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"c1": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
     }
 }
 

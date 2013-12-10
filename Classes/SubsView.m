@@ -232,8 +232,10 @@
         squadSelecter = [[SquadSelectView alloc] initWithStyle:UITableViewStylePlain];
         squadSelecter.delegate = self;
     }
-    [[Globals i] showTemplate:@[squadSelecter] :@"" :0];
-	[squadSelecter updateView];
+    [squadSelecter updateView];
+    
+    [[Globals i] showTemplate:@[squadSelecter] :@"Select a Player" :1];
+	
 }
 
 - (void)playerSelected:(NSString *)player

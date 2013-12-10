@@ -23,7 +23,7 @@
 	selected_clubid = @"0";
 }
 
--(void)updateView
+- (void)updateView
 {
 	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
 	if(![selected_clubid isEqualToString:wsClubData[@"club_id"]]) //Check for redundent page load for same id
@@ -35,7 +35,13 @@
 	}
 }
 
--(void)getSquadData
+- (void)clearView
+{
+    self.players = nil;
+    [self.tableView reloadData];
+}
+
+- (void)getSquadData
 {
 	@autoreleasepool {
 	
@@ -68,7 +74,7 @@
 	return 170*SCALE_IPAD;
 }
 
--(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return nil;
 }

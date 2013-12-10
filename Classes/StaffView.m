@@ -7,7 +7,6 @@
 //
 
 #import "StaffView.h"
-#import "StaffCell.h"
 #import "MainView.h"
 #import "Globals.h"
 
@@ -15,6 +14,15 @@
 @synthesize staff;
 @synthesize iden;
 @synthesize hireCost;
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+}
 
 - (void)updateView
 {
@@ -187,32 +195,17 @@
 	}
 }
 
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
+{
+    NSDictionary *row1 = (self.staff)[[indexPath row]];
+    
+    return @{@"align_top": @"1", @"r1": row1[@"Position"], @"r2": row1[@"Desc"], @"c1": [NSString stringWithFormat:@"Total: %@", row1[@"Employed"]], @"i1": row1[@"Image"]};
+}
+
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-	static NSString *CellIdentifier = @"StaffCell";
-	
-	StaffCell *cell = (StaffCell *)[tableView dequeueReusableCellWithIdentifier: CellIdentifier];
-	if (cell == nil)  
-	{
-		NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"StaffCell" owner:self options:nil];
-		cell = (StaffCell *)nib[0];
-		[[cell subviews][0] setTag:111];
-	}
-	NSUInteger row = [indexPath row];
-	NSDictionary *rowData = (self.staff)[row];
-	
-	cell.staffPos.text = rowData[@"Position"];
-	cell.staffEmployed.text = [NSString stringWithFormat:@"Total: %@", rowData[@"Employed"]];
-	cell.staffCost.text = rowData[@"Desc"];
-	
-	cell.staffPos.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
-	cell.staffEmployed.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
-	
-	NSString *fname = [NSString stringWithFormat:@"%@.png", rowData[@"Image"]];
-	[cell.faceImage setImage:[UIImage imageNamed:fname]];
-	
-	return cell;
+    return [[Globals i] dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -228,7 +221,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return 70*SCALE_IPAD;
+    return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 @end

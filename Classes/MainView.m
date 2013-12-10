@@ -521,27 +521,40 @@
     [formationView updateView];
 }
 
+- (void)clearAllClubView
+{
+    [clubView clearView];
+    [trophyViewer clearView];
+    [clubViewer clearView];
+    [squadViewer updateView];
+}
+
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
 	//MyClub
 	if([viewController.tabBarItem.title isEqualToString:@"My Club"])
 	{
+        [self clearAllClubView];
 		[clubView updateView];
 	}
 	else if([viewController.tabBarItem.title isEqualToString:@"Trophies"])
 	{
+        [self clearAllClubView];
 		[trophyViewer updateView];
 	}
 	else if([viewController.tabBarItem.title isEqualToString:@"Club"])
 	{
+        [self clearAllClubView];
 		[clubViewer updateView];
 	}
 	else if([viewController.tabBarItem.title isEqualToString:@"Map"])
 	{
+        [self clearAllClubView];
 		[mapViewer updateView];
 	}
 	else if([viewController.tabBarItem.title isEqualToString:@"Squad"])
 	{
+        [self clearAllClubView];
 		[squadViewer updateView];
 	}
     
@@ -1595,7 +1608,7 @@
 {
     if (lblChat1 == nil)
     {
-        lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-(70*SCALE_IPAD), SCREEN_WIDTH, (70*SCALE_IPAD))];
+        lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chatpreview_height, SCREEN_WIDTH, Chatpreview_height)];
         lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
         lblChat1.textAlignment = NSTextAlignmentLeft;
         lblChat1.textColor = [UIColor grayColor];
@@ -1608,7 +1621,7 @@
         [self.view addSubview:lblChat1];
         
         UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(60*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-(60*SCALE_IPAD), (55*SCALE_IPAD), (55*SCALE_IPAD));
+        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(55*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-Chatpreview_height, (55*SCALE_IPAD), (55*SCALE_IPAD));
         [chatButton setBackgroundImage:[UIImage imageNamed:@"button_chat"] forState:UIControlStateNormal];
         [chatButton setAlpha:0.5];
         [chatButton addTarget:self action:@selector(showChat) forControlEvents:UIControlEventTouchDown];

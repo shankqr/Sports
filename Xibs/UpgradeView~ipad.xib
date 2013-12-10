@@ -16,14 +16,10 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view alpha="0.69999998807907104" contentMode="scaleToFill" id="1" userLabel="View">
+        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="1" userLabel="View">
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" image="skin_card.png" id="22">
-                    <rect key="frame" x="0.0" y="128" width="768" height="768"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="center" image="building_office1.png" id="52">
                     <rect key="frame" x="184" y="208" width="400" height="200"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -72,13 +68,12 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>
     <resources>
         <image name="building_office1.png" width="246" height="130"/>
         <image name="button_accept.png" width="178" height="60"/>
-        <image name="skin_card.png" width="640" height="340"/>
     </resources>
 </document>

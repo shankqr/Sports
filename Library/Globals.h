@@ -39,6 +39,7 @@
 #define SLIDE_width (iPad ? 640.0f : 320.0f)
 #define SLIDE_height (iPad ? 320.0f : 160.0f)
 #define Marquee_height (iPad ? 40.0f : 15.0f)
+#define Chatpreview_height (iPad ? 110.0f : 55.0f)
 #define MatchView_frame_x (iPad ? 545.0f : 210.0f)
 #define MatchView_frame_width (iPad ? 110.0f : 50.0f)
 #define MatchView_frame1_x (iPad ? 110.0f : 50.0f)
@@ -58,7 +59,7 @@
 #define PBAR2_Y (iPad ? 545.0f : 243.0f)
 #define PBAR3_X (iPad ? 820.0f : 367.0f)
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
-#define FORMATION_SEGMENT_Y (iPad ? 760.0f : 360.0f)
+#define FORMATION_SEGMENT_Y (iPad ? 720.0f : 340.0f)
 
 #define DEFAULT_FONT @"MLS 2013"
 #define DEFAULT_FONT_SIZE 22.0f * SCALE_IPAD
