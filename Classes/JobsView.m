@@ -93,7 +93,7 @@
 	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%ld", (long)[[Globals i] getLevel]*10];
 	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
     
-    [[Globals i] showTemplate:@[jobLevelup] :@"" :0];
+    [[Globals i] showTemplate:@[jobLevelup] :@"Level Up" :0];
 	[jobLevelup updateView];
 }
 

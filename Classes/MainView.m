@@ -1080,7 +1080,7 @@
         jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
         jobRefill.titleText = @"REFILL ENERGY?";
     }
-    [[Globals i] showTemplate:@[jobRefill] :@"ENERGY" :0];
+    [[Globals i] showTemplate:@[jobRefill] :@"Energy Refill" :0];
 	[jobRefill updateView];
 }
 

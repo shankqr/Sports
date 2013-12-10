@@ -397,6 +397,8 @@
 		906DC7BA183B52AA004AD180 /* LoginView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7B7183B52AA004AD180 /* LoginView.xib */; };
 		906DC7BB183B52AA004AD180 /* LoginView~ipad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 906DC7B8183B52AA004AD180 /* LoginView~ipad.xib */; };
 		906DC7C1183B5D27004AD180 /* WorldsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 906DC7C0183B5D27004AD180 /* WorldsView.m */; };
+		906E73671857A3CD005FE618 /* libFlurry_4.3.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 906E73661857A3CD005FE618 /* libFlurry_4.3.0.a */; };
+		906E736B1857A425005FE618 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 906E736A1857A425005FE618 /* AdSupport.framework */; };
 		90701A0C164D2523002CA0C2 /* OverView.m in Sources */ = {isa = PBXBuildFile; fileRef = 90701A0B164D2523002CA0C2 /* OverView.m */; };
 		9071578313FF4FC90042E939 /* UpgradeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9071578213FF4FC90042E939 /* UpgradeView.m */; };
 		90737E65162078C0007EBBAE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E62162078BF007EBBAE /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -531,7 +533,6 @@
 		9094F8BD183A85BE00931A9A /* DynamicCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F861183A85BE00931A9A /* DynamicCell.m */; };
 		9094F8BF183A85BE00931A9A /* CustomBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F866183A85BE00931A9A /* CustomBadge.m */; };
 		9094F8C0183A85BE00931A9A /* NSString+HMAC.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F869183A85BE00931A9A /* NSString+HMAC.m */; };
-		9094F8C1183A85BE00931A9A /* UAAppReviewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F86B183A85BE00931A9A /* UAAppReviewManager.m */; };
 		9094F8C2183A85BE00931A9A /* UIColor+Crayola.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F86D183A85BE00931A9A /* UIColor+Crayola.m */; };
 		9094F8C3183A85BE00931A9A /* UIFont+IBCustomFonts.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F86E183A85BE00931A9A /* UIFont+IBCustomFonts.m */; };
 		9094F8C4183A85BE00931A9A /* BuyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9094F871183A85BE00931A9A /* BuyView.m */; };
@@ -2663,6 +2664,9 @@
 		906DC7B8183B52AA004AD180 /* LoginView~ipad.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "LoginView~ipad.xib"; sourceTree = "<group>"; };
 		906DC7BF183B5D27004AD180 /* WorldsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldsView.h; sourceTree = "<group>"; };
 		906DC7C0183B5D27004AD180 /* WorldsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldsView.m; sourceTree = "<group>"; };
+		906E73651857A3CD005FE618 /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		906E73661857A3CD005FE618 /* libFlurry_4.3.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_4.3.0.a; sourceTree = "<group>"; };
+		906E736A1857A425005FE618 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		90701A0A164D2523002CA0C2 /* OverView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverView.h; sourceTree = "<group>"; };
 		90701A0B164D2523002CA0C2 /* OverView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverView.m; sourceTree = "<group>"; };
 		9071578113FF4FC90042E939 /* UpgradeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpgradeView.h; sourceTree = "<group>"; };
@@ -2838,8 +2842,6 @@
 		9094F866183A85BE00931A9A /* CustomBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomBadge.m; path = Helpers/CustomBadge.m; sourceTree = "<group>"; };
 		9094F868183A85BE00931A9A /* NSString+HMAC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HMAC.h"; sourceTree = "<group>"; };
 		9094F869183A85BE00931A9A /* NSString+HMAC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HMAC.m"; sourceTree = "<group>"; };
-		9094F86A183A85BE00931A9A /* UAAppReviewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UAAppReviewManager.h; path = Helpers/UAAppReviewManager.h; sourceTree = "<group>"; };
-		9094F86B183A85BE00931A9A /* UAAppReviewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UAAppReviewManager.m; path = Helpers/UAAppReviewManager.m; sourceTree = "<group>"; };
 		9094F86C183A85BE00931A9A /* UIColor+Crayola.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Crayola.h"; sourceTree = "<group>"; };
 		9094F86D183A85BE00931A9A /* UIColor+Crayola.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Crayola.m"; sourceTree = "<group>"; };
 		9094F86E183A85BE00931A9A /* UIFont+IBCustomFonts.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+IBCustomFonts.m"; sourceTree = "<group>"; };
@@ -4594,6 +4596,8 @@
 				902B8BEC1381723D006DAE27 /* AudioToolbox.framework in Frameworks */,
 				902B8C01138173DD006DAE27 /* StoreKit.framework in Frameworks */,
 				902B8BFF138173D1006DAE27 /* MapKit.framework in Frameworks */,
+				906E73671857A3CD005FE618 /* libFlurry_4.3.0.a in Frameworks */,
+				906E736B1857A425005FE618 /* AdSupport.framework in Frameworks */,
 				902B8BFD138173B5006DAE27 /* CoreLocation.framework in Frameworks */,
 				90E710BB1626E7E400F2CE55 /* FacebookSDK.framework in Frameworks */,
 			);
@@ -4726,6 +4730,7 @@
 			children = (
 				9013E34916A034A700A5E8C5 /* libSparrow.a */,
 				907A31F71834C404002DCAA1 /* libz.dylib */,
+				906E736A1857A425005FE618 /* AdSupport.framework */,
 				9094F8EB183AACAA00931A9A /* SystemConfiguration.framework */,
 				907A31F31834C386002DCAA1 /* GLKit.framework */,
 				908A22EA16269C180096B7B4 /* Security.framework */,
@@ -5168,15 +5173,6 @@
 			name = Badges;
 			sourceTree = "<group>";
 		};
-		9064BC75185321AC00B71E57 /* RatingReminder */ = {
-			isa = PBXGroup;
-			children = (
-				9094F86A183A85BE00931A9A /* UAAppReviewManager.h */,
-				9094F86B183A85BE00931A9A /* UAAppReviewManager.m */,
-			);
-			name = RatingReminder;
-			sourceTree = "<group>";
-		};
 		906DC7AC183B3FEE004AD180 /* Startup */ = {
 			isa = PBXGroup;
 			children = (
@@ -5205,6 +5201,15 @@
 				906DC7C0183B5D27004AD180 /* WorldsView.m */,
 			);
 			path = Worlds;
+			sourceTree = "<group>";
+		};
+		906E73641857A3CD005FE618 /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				906E73651857A3CD005FE618 /* Flurry.h */,
+				906E73661857A3CD005FE618 /* libFlurry_4.3.0.a */,
+			);
+			path = Flurry;
 			sourceTree = "<group>";
 		};
 		907E9314100A5E73002FA234 /* ClubViewer */ = {
@@ -5440,7 +5445,7 @@
 		9094F84C183A85BE00931A9A /* Library */ = {
 			isa = PBXGroup;
 			children = (
-				9064BC75185321AC00B71E57 /* RatingReminder */,
+				906E73641857A3CD005FE618 /* Flurry */,
 				9064BC741853218E00B71E57 /* Badges */,
 				9094F890183A85BE00931A9A /* MMProgressHUD */,
 				9094F852183A85BE00931A9A /* MoreGames */,
@@ -9750,7 +9755,6 @@
 				90866CDC0FF4BE3700EC6AB7 /* MatchCell.m in Sources */,
 				9094F8D0183A85BE00931A9A /* MailDetail.m in Sources */,
 				90866CDF0FF4BE3700EC6AB7 /* MatchView.m in Sources */,
-				9094F8C1183A85BE00931A9A /* UAAppReviewManager.m in Sources */,
 				90866CF30FF4BEBE00EC6AB7 /* LeagueView.m in Sources */,
 				90866D060FF4BF0D00EC6AB7 /* FixturesView.m in Sources */,
 				90E92D551836A72C00DFA9FB /* Ball.m in Sources */,
@@ -9916,6 +9920,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Documents/FacebookSDK/FacebookSDK.framework\"",
+					/Users/shankar/Sports/Library/Flurry,
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",
@@ -9956,6 +9961,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/../Documents/FacebookSDK/FacebookSDK.framework\"",
+					/Users/shankar/Sports/Library/Flurry,
 				);
 				OTHER_LDFLAGS = (
 					"-weak_framework",

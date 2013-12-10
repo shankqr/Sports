@@ -86,7 +86,7 @@
         bidView = [[BidView alloc] initWithNibName:@"BidView" bundle:nil];
     }
     NSMutableArray *bidPlayer = [[NSMutableArray alloc] initWithObjects:rowData, nil];
-    [[Globals i] showTemplate:@[bidView] :@"" :0];
+    [[Globals i] showTemplate:@[bidView] :@"Bidding" :0];
     [bidView updateView:bidPlayer];
 
 	return nil;

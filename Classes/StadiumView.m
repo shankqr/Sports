@@ -6,13 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 #import "StadiumView.h"
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 #import "Globals.h"
 #import "MainView.h"
 
 @implementation StadiumView
-
 @synthesize stadiumNameLabel;
 @synthesize capacityLabel;
 @synthesize ticketLabel;
@@ -79,6 +76,8 @@
 			[Globals i].energy=[Globals i].energy-10;
 			[[Globals i] storeEnergy];
 			[[Globals i].mainView buyStadiumSuccess:@"1":@"0"];
+            
+            [[Globals i] closeTemplate];
 		}
 		else
 		{
@@ -100,6 +99,8 @@
 		if(bal > pval)
 		{
 			[[Globals i].mainView buyStadiumSuccess:@"2":@"0"];
+            
+            [[Globals i] closeTemplate];
 		}
 		else
 		{

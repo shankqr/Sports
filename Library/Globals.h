@@ -59,7 +59,7 @@
 #define PBAR2_Y (iPad ? 545.0f : 243.0f)
 #define PBAR3_X (iPad ? 820.0f : 367.0f)
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
-#define FORMATION_SEGMENT_Y (iPad ? 720.0f : 340.0f)
+#define FORMATION_SEGMENT_Y (iPad ? 730.0f : 340.0f)
 
 #define DEFAULT_FONT @"MLS 2013"
 #define DEFAULT_FONT_SIZE 22.0f * SCALE_IPAD
@@ -143,6 +143,7 @@
 #define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
+#import "Flurry.h"
 #import "MailView.h"
 #import "MailCompose.h"
 #import "ChatView.h"
@@ -154,7 +155,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
 #import "UIColor+Crayola.h"
-#import "UAAppReviewManager.h"
 #import "CustomBadge.h"
 
 @class BuyView;

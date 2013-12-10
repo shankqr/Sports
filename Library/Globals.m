@@ -590,6 +590,8 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
 {
+    [Flurry logEvent:title];
+    
     templateView = [[TemplateView alloc] init];
     
     templateView.delegate = self;
@@ -1751,21 +1753,6 @@ static NSOperationQueue *connectionQueue;
                  }
              }];
         }
-        
-        [UAAppReviewManager setSignificantEventsUntilPrompt:5];
-        
-        [UAAppReviewManager appLaunched:YES];
-        
-        // The AppID is the only required setup
-        [UAAppReviewManager setAppID:wsProductIdentifiers[@"app_id"]]; // Game
-        
-        // Debug means that it will popup on the next available change
-        //[UAAppReviewManager setDebug:YES];
-        
-        // YES here means it is ok to show, it is the only override to Debug == YES.
-        [UAAppReviewManager userDidSignificantEvent:YES];
-        
-        //[UAAppReviewManager showPrompt];
     }
 }
 

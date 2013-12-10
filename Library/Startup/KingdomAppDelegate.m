@@ -33,6 +33,10 @@
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    NSString *api_key = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"FLURRY_KEY"];
+    [Flurry setCrashReportingEnabled:YES];
+    [Flurry startSession:api_key];
+    
     facebookSwitching = NO;
     beenSleeping = NO;
     
