@@ -28,6 +28,7 @@
 @synthesize savedScopeButtonIndex;
 @synthesize searchWasActive;
 @synthesize selected_name;
+@synthesize updateOnWillAppear;
 
 - (void)viewDidLoad
 {
@@ -58,6 +59,16 @@
     self.savedSearchTerm = [self.searchDisplayController.searchBar text];
     self.savedScopeButtonIndex = [self.searchDisplayController.searchBar selectedScopeButtonIndex];
 	self.filteredListContent = nil;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+    
+    if ([updateOnWillAppear isEqualToString:@"1"])
+    {
+        [self updateView];
+    }
 }
 
 - (void)updateView

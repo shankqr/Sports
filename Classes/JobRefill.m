@@ -27,8 +27,6 @@
 {
     [[Globals i] settPurchasedProduct:@"14"];
 	[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-    
-	[[Globals i] closeTemplate];
 }
 
 @end

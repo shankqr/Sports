@@ -47,8 +47,8 @@
              
              if ([returnArray count] > 0)
              {
-                 //NSDictionary *row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Club", @"c1": @"Diamonds"};
-                 //[returnArray insertObject:row0 atIndex:0];
+                 NSDictionary *row0 = @{@"h1": @"", @"r1": @"Club (Cup)", @"c1": @"Rank"};
+                 [returnArray insertObject:row0 atIndex:0];
                  
                  self.rows = [@[returnArray] mutableCopy];
              }
@@ -70,7 +70,25 @@
 {
     NSDictionary *row1 = (self.rows)[indexPath.section][indexPath.row];
     
-    return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": row1[@"division"], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
+    if (indexPath.row == 0) //Header row
+    {
+        return row1;
+	}
+    else
+    {
+        NSInteger the_xp = [row1[@"xp"] integerValue];
+        NSInteger the_level = [[Globals i] levelFromXp:the_xp];
+        NSString *c1 = [[Globals i] intString:the_level];
+        
+        NSString *r1 = row1[@"club_name"];
+        
+        if ([row1[@"alliance_name"] length] > 2)
+        {
+            r1 = [NSString stringWithFormat:@"%@ (%@)", row1[@"club_name"], row1[@"alliance_name"]];
+        }
+    
+        return @{@"align_top": @"1", @"r1": r1, @"r2": [NSString stringWithFormat:@"Level %@, Division:%@", c1, row1[@"division"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
+    }
 }
 
 #pragma mark Table Data Source Methods
@@ -97,6 +115,17 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row > 0) //Not Header row
+    {
+        NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
+        
+        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        {
+            NSString *selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+            [[Globals i].mainView showClubViewer:selected_clubid];
+        }
+    }
+    
 	return nil;
 }
 

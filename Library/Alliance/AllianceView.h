@@ -24,6 +24,7 @@
 	NSMutableArray *filteredListContent;
     NSString *savedSearchTerm;
     NSInteger savedScopeButtonIndex;
+    NSString *updateOnWillAppear;
     BOOL searchWasActive;
 }
 @property (nonatomic, strong) UISearchBar *searchBar;
@@ -33,6 +34,7 @@
 @property (nonatomic, strong) AllianceCreate *allianceCreate;
 @property (nonatomic, strong) NSString *selected_id;
 @property (nonatomic, strong) NSString *selected_name;
+@property (nonatomic, strong) NSString *updateOnWillAppear;
 @property (nonatomic, strong) NSMutableDictionary *allianceDictionary;
 @property (nonatomic, strong) NSMutableDictionary *nameIndexesDictionary;
 @property (nonatomic, strong) NSArray *nameIndexArray;

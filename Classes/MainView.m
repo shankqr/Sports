@@ -1200,9 +1200,9 @@
     if (allianceView == nil)
     {
         allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
-        allianceView.title = @"Top Cups";
     }
-    [allianceView updateView];
+    allianceView.title = @"Top Cups";
+    allianceView.updateOnWillAppear = @"1";
     
     [[Globals i] showTemplate:@[rvTopDivision, rvTopLevel, allianceView] :@"Rankings" :1];
 }
@@ -1215,8 +1215,8 @@
         {
             allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
         }
-        [allianceView updateView];
         allianceView.title = @"Cup";
+        allianceView.updateOnWillAppear = @"1";
         
         [[Globals i] showTemplate:@[allianceView] :@"Cup" :1];
     }
