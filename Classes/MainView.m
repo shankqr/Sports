@@ -42,6 +42,7 @@
 #import "AllianceView.h"
 #import "AllianceDetail.h"
 #import "JobRefill.h"
+#import "RankingView.h"
 #import "Sparrow.h"
 #import "Game.h"
 #import "Game_hockey.h"
@@ -104,6 +105,8 @@
 @synthesize fixturesView;
 @synthesize chatView;
 @synthesize allianceChatView;
+@synthesize rvTopDivision;
+@synthesize rvTopLevel;
 
 - (void)startUp //Called when app opens for the first time
 {
@@ -124,7 +127,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
-                                                 name:@"GotoAlliance"
+                                                 name:@"GotoRanking"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -188,9 +191,9 @@
         [self gotoLogin:NO];
     }
     
-    if ([[notification name] isEqualToString:@"GotoAlliance"])
+    if ([[notification name] isEqualToString:@"GotoRanking"])
     {
-        [self showAlliance];
+        [self showRanking];
     }
     
     if ([[notification name] isEqualToString:@"GotoCup"])
@@ -1175,16 +1178,33 @@
     [self.storePlayer updateView];
 }
 
-- (void)showAlliance
+- (void)showRanking
 {
+    if (rvTopDivision == nil)
+    {
+        rvTopDivision = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
+        rvTopDivision.title = @"Top Division";
+        rvTopDivision.serviceName = @"GetClubsTopDivision";
+        rvTopLevel.updateOnWillAppear = @"0";
+        [rvTopDivision updateView];
+    }
+    
+    if (rvTopLevel == nil)
+    {
+        rvTopLevel = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
+        rvTopLevel.title = @"Top Level";
+        rvTopLevel.serviceName = @"GetClubsTopLevel";
+        rvTopLevel.updateOnWillAppear = @"1";
+    }
+    
     if (allianceView == nil)
     {
         allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
+        allianceView.title = @"Top Cups";
     }
     [allianceView updateView];
-    allianceView.title = @"Cup";
     
-    [[Globals i] showTemplate:@[allianceView] :@"Cup" :1];
+    [[Globals i] showTemplate:@[rvTopDivision, rvTopLevel, allianceView] :@"Rankings" :1];
 }
 
 - (void)showCup
@@ -1506,7 +1526,7 @@
 		}
 		case 18:
 		{
-            [self showAlliance];
+            [self showRanking];
 			break;
 		}
 		case 19:

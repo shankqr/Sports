@@ -153,7 +153,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        CGRect buttonRect = CGRectMake(294, 768, 180, 90);
+        CGRect buttonRect = CGRectMake(294, 570, 180, 90);
         noButton.frame = buttonRect;
         [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}
@@ -177,11 +177,11 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        CGRect buttonRect = CGRectMake(166, 768, 180, 90);
+        CGRect buttonRect = CGRectMake(166, 570, 180, 90);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
         
-        buttonRect = CGRectMake(422, 768, 180, 90);
+        buttonRect = CGRectMake(422, 570, 180, 90);
         noButton.frame = buttonRect;
         [noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
     }
@@ -210,7 +210,7 @@
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        CGRect buttonRect = CGRectMake(294, 768, 180, 90);
+        CGRect buttonRect = CGRectMake(294, 570, 180, 90);
         yesButton.frame = buttonRect;
         [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}

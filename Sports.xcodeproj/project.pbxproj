@@ -403,6 +403,7 @@
 		9071578313FF4FC90042E939 /* UpgradeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9071578213FF4FC90042E939 /* UpgradeView.m */; };
 		90737E65162078C0007EBBAE /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E62162078BF007EBBAE /* Accounts.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		90737E67162078C0007EBBAE /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 90737E64162078C0007EBBAE /* Social.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		9074009E1859211100102060 /* RankingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9074009D1859211100102060 /* RankingView.m */; };
 		907A31F41834C386002DCAA1 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A31F31834C386002DCAA1 /* GLKit.framework */; };
 		907A31F81834C404002DCAA1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 907A31F71834C404002DCAA1 /* libz.dylib */; };
 		907A798D100864F0008D990D /* FixtureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 907A798C100864F0008D990D /* FixtureCell.m */; };
@@ -2673,6 +2674,8 @@
 		9071578213FF4FC90042E939 /* UpgradeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpgradeView.m; sourceTree = "<group>"; };
 		90737E62162078BF007EBBAE /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		90737E64162078C0007EBBAE /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		9074009C1859211100102060 /* RankingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RankingView.h; sourceTree = "<group>"; };
+		9074009D1859211100102060 /* RankingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RankingView.m; sourceTree = "<group>"; };
 		907A31F31834C386002DCAA1 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		907A31F71834C404002DCAA1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		907A798B100864F0008D990D /* FixtureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FixtureCell.h; sourceTree = "<group>"; };
@@ -4613,6 +4616,7 @@
 				9094F84C183A85BE00931A9A /* Library */,
 				90D630CA183B78D20045B437 /* Alliance */,
 				909A7B841032A436003802A9 /* Main */,
+				90740099185920E800102060 /* Rankings */,
 				90D5B1D711C42ABE00A815A6 /* Jobs */,
 				9094F824183A6CEB00931A9A /* MatchEngineHockey */,
 				90E92D3F1836A72C00DFA9FB /* MatchEngine */,
@@ -5210,6 +5214,15 @@
 				906E73661857A3CD005FE618 /* libFlurry_4.3.0.a */,
 			);
 			path = Flurry;
+			sourceTree = "<group>";
+		};
+		90740099185920E800102060 /* Rankings */ = {
+			isa = PBXGroup;
+			children = (
+				9074009C1859211100102060 /* RankingView.h */,
+				9074009D1859211100102060 /* RankingView.m */,
+			);
+			name = Rankings;
 			sourceTree = "<group>";
 		};
 		907E9314100A5E73002FA234 /* ClubViewer */ = {
@@ -9742,6 +9755,7 @@
 				90866C930FF4BC5C00EC6AB7 /* StadiumView.m in Sources */,
 				90866C9D0FF4BC8900EC6AB7 /* FansView.m in Sources */,
 				9095C483184332EE00A6DCB5 /* LoadingView.m in Sources */,
+				9074009E1859211100102060 /* RankingView.m in Sources */,
 				90E92D621836A72C00DFA9FB /* Goal.m in Sources */,
 				9094F8C3183A85BE00931A9A /* UIFont+IBCustomFonts.m in Sources */,
 				90866CA70FF4BCA600EC6AB7 /* FinanceView.m in Sources */,

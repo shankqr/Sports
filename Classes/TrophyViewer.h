@@ -6,7 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@interface TrophyViewer : UITableViewController <UIAlertViewDelegate>
+@interface TrophyViewer : UITableViewController
 {
 	NSMutableArray *trophies;
 	NSString *selected_trophy;
