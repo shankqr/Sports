@@ -286,16 +286,24 @@
     {
         NSDictionary *rowData;
         NSString *bid_value;
+        NSString *player_value;
+        
+        rowData = (self.players)[0];
+        player_value = rowData[@"player_value"];
         
         if([self.wsBidList count] > 0) //Player has been bidded before
         {
             rowData = (self.wsBidList)[[self.wsBidList count]-1];
             bid_value = [rowData[@"bid_value"]stringByReplacingOccurrencesOfString:@"," withString:@""];
+            
+            if ([player_value integerValue] > [bid_value integerValue])
+            {
+                bid_value = player_value;
+            }
         }
         else //This is the first bidder
         {
-            rowData = (self.players)[0];
-            bid_value = rowData[@"player_value"];
+            bid_value = player_value;
         }
         
         if([messageText.text integerValue] > ([bid_value integerValue]+9999))
