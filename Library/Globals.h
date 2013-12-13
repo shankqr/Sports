@@ -580,5 +580,4 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showMoreGames;
 - (void)showLoading;
 - (void)removeLoading;
-- (void)growLoading;
 @end

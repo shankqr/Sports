@@ -650,14 +650,6 @@ static NSOperationQueue *connectionQueue;
     [loadingView updateView];
 }
 
-- (void)growLoading
-{
-    if (loadingView != nil)
-    {
-        [loadingView addBar];
-    }
-}
-
 - (void)removeLoading
 {
     if (loadingView != nil)

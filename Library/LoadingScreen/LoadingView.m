@@ -16,7 +16,6 @@
 @implementation LoadingView
 @synthesize barImage;
 @synthesize imgBar;
-@synthesize loadingTimer;
 
 - (void)viewDidLoad
 {
@@ -55,21 +54,12 @@
     [self.barImage setClipsToBounds:YES];
     self.barImage.contentMode = UIViewContentModeLeft;
     [self.view addSubview:self.barImage];
-    
-    bar_x = 0;
 }
 
 - (void)updateView
 {
-    [self.view setUserInteractionEnabled:YES];
-    
     //start small again
     self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
-    
-    if (!loadingTimer.isValid)
-    {
-        //loadingTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(growLoadingBar) userInfo:nil repeats:YES];
-    }
     
     [UIView animateWithDuration:15.0f
                      animations:^{
@@ -79,40 +69,15 @@
                      }];
 }
 
-- (void)growLoadingBar
-{
-    if (bar_x < 1)
-    {
-        bar_x += 0.1;
-        self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height/2)-(imgBar.size.height*SCALE_IPAD/4), ((imgBar.size.width*SCALE_IPAD/2) * bar_x), (imgBar.size.height*SCALE_IPAD/2));
-        [self.view setNeedsDisplay];
-    }
-    else
-    {
-        [self close];
-    }
-}
-
-- (void)addBar
-{
-    if (bar_x < 1)
-    {
-        bar_x += 0.1;
-        
-        self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height/2)-(imgBar.size.height*SCALE_IPAD/4), ((imgBar.size.width*SCALE_IPAD/2) * bar_x), (imgBar.size.height*SCALE_IPAD/2));
-        
-        [self.view performSelectorOnMainThread:@selector(setNeedsDisplay) withObject:nil waitUntilDone:YES];
-    }
-}
-
 - (void)close
 {
-    if (loadingTimer != nil)
-    {
-        [loadingTimer invalidate];
-    }
+    [self.barImage removeFromSuperview];
     
-    bar_x = 0;
+    self.barImage = [[UIImageView alloc] initWithImage:imgBar];
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    [self.barImage setClipsToBounds:YES];
+    self.barImage.contentMode = UIViewContentModeLeft;
+    [self.view addSubview:self.barImage];
     
     [self.view removeFromSuperview];
 }

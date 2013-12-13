@@ -4,10 +4,20 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>FootballCity.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>FootballEleven.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>FootyManager.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -27,7 +37,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>906EBA24185B7315000AF937</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>90B4445A185A060800FB0A44</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>90E52A2C185B8B3A00AAF134</key>
 		<dict>
 			<key>primary</key>
 			<true/>
