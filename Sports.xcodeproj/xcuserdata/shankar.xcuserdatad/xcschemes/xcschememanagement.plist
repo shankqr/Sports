@@ -4,6 +4,16 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>BaseballFantasy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
+		<key>BasketballFantasy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
 		<key>FootballCity.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -14,6 +24,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>FootballFantasy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>FootballTycoon.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +38,21 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>3</integer>
+		</dict>
+		<key>HockeyFantasy.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
+		<key>HockeyManager.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
+		<key>IceHockeyManager.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -38,6 +68,36 @@
 			<true/>
 		</dict>
 		<key>90344D5F185B91B1006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>90345600185B9C58006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>90345E9F185BA5B3006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9034686F185BAD04006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>90347167185BB1E3006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>90347DC2185BB6C5006AAA6B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9034878F185BB8E6006AAA6B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
