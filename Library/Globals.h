@@ -388,7 +388,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSString *)getTimeAgo:(NSString *)datetimestring;
 - (void)buttonSound;
 - (void)initSound;
-- (void)backSound;
 - (void)moneySound;
 - (void)toasterSound;
 - (void)winSound;

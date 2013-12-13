@@ -483,8 +483,6 @@ static const NSInteger TagOffset = 1000;
     UIViewController *prevVC = [self popFromStack];
     UIViewController *curVC = [self peekFromStack];
     
-    [[Globals i] backSound];
-    
     CGRect rect = contentContainerView.bounds;
     rect.origin.x = -rect.size.width;
     curVC.view.frame = rect;

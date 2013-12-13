@@ -167,6 +167,8 @@
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
+    [[Globals i] initSound];
+    
     UIImageView *backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
     UIImage *imgBkg = [UIImage imageNamed:@"skin_menu.png"];
     [backgroundImage setImage:imgBkg];

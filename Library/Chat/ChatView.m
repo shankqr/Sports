@@ -130,8 +130,6 @@
 
 - (void)sendClicked
 {
-    [[Globals i] buttonSound];
-    
 	if([messageText.text length] > 0)
     {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:

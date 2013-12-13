@@ -910,11 +910,6 @@ static NSOperationQueue *connectionQueue;
 	[buttonAudio play];
 }
 
-- (void)backSound
-{
-	[backAudio play];
-}
-
 - (void)toasterSound
 {
 	[backAudio play];
@@ -1118,14 +1113,11 @@ static NSOperationQueue *connectionQueue;
 
 - (void)facebookViewControllerCancelWasPressed:(id)sender
 {
-    [self backSound];
     [[self peekViewControllerStack] dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)facebookViewControllerDoneWasPressed:(id)sender
 {
-    [[Globals i] buttonSound];
-    
     FBFriendPickerViewController *fpc = (FBFriendPickerViewController *)sender;
     
     for (id<FBGraphUser> user in fpc.selection)
