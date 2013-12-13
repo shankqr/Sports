@@ -18,6 +18,13 @@
             <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
+                <mapView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" mapType="standard" showsUserLocation="YES" id="46">
+                    <rect key="frame" x="84" y="187" width="600" height="649"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="49"/>
+                    </connections>
+                </mapView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="mapviewer_id.png" id="63">
                     <rect key="frame" x="115" y="20" width="400" height="224"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -34,13 +41,6 @@
                     <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="shadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </label>
-                <mapView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" mapType="standard" showsUserLocation="YES" id="46">
-                    <rect key="frame" x="84" y="187" width="600" height="649"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="49"/>
-                    </connections>
-                </mapView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="54">
                     <rect key="frame" x="195" y="758" width="178" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

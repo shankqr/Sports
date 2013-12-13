@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 TAPFANTASY. All rights reserved.
 //
 
+#import <QuartzCore/QuartzCore.h>
 #import "DynamicCell.h"
 #import "Globals.h"
 
@@ -64,6 +65,11 @@
     ttextv1.returnKeyType = UIReturnKeyDone;
     ttextv1.delegate = self;
     [ttextv1 setTag:7];
+    
+    [[ttextv1 layer] setBorderColor:[[UIColor grayColor] CGColor]];
+    [[ttextv1 layer] setBorderWidth:2.3];
+    [[ttextv1 layer] setCornerRadius:15];
+    
     [self addSubview:ttextv1];
 }
 

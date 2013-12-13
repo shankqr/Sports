@@ -47,6 +47,9 @@
             [segment addTarget:self
                         action:@selector(segmentTap:)
               forControlEvents:UIControlEventValueChanged];
+            
+            self.segment.tintColor = [UIColor blackColor];
+            
             [self.view addSubview:segment];
         }
 
@@ -69,6 +72,9 @@
             [segment addTarget:self
                         action:@selector(segmentTap:)
               forControlEvents:UIControlEventValueChanged];
+            
+            self.segment.tintColor = [UIColor blackColor];
+            
             [self.view addSubview:segment];
         }
         

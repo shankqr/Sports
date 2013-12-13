@@ -38,7 +38,7 @@
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
 #define SLIDE_width (iPad ? 640.0f : 320.0f)
 #define SLIDE_height (iPad ? 320.0f : 160.0f)
-#define Marquee_height (iPad ? 40.0f : 15.0f)
+#define Marquee_height (iPad ? 40.0f : 21.0f)
 #define Chatpreview_height (iPad ? 110.0f : 55.0f)
 #define MatchView_frame_x (iPad ? 545.0f : 210.0f)
 #define MatchView_frame_width (iPad ? 110.0f : 50.0f)

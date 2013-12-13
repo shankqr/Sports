@@ -59,7 +59,7 @@
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClubs", WS_URL];
     
-    [Globals getServer:wsurl :^(BOOL success, NSData *data)
+    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
          if (success)
          {
