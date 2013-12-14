@@ -35,11 +35,11 @@
                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
     <resources>
-        <image name="field_half.png" width="638" height="714"/>
+        <image name="field_half.png" width="640" height="714"/>
     </resources>
 </document>

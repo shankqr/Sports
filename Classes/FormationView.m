@@ -498,65 +498,179 @@
 {
 	NSInteger theTag = [sender tag];//( ( UIControl * )sender ).tag;
 	
-	switch(theTag)
-	{
-		case 1:
-			self.selectedPos = @"gk";
-			self.selectedPlayer = [[Globals i] getClubData][@"gk"];
-			break;
-		case 2:
-			self.selectedPos = @"rb";
-			self.selectedPlayer = [[Globals i] getClubData][@"rb"];
-			break;
-		case 3:
-			self.selectedPos = @"cd1";
-			self.selectedPlayer = [[Globals i] getClubData][@"cd1"];
-			break;
-		case 4:
-			self.selectedPos = @"cd2";
-			self.selectedPlayer = [[Globals i] getClubData][@"cd2"];
-			break;
-		case 5:
-			self.selectedPos = @"cd3";
-			self.selectedPlayer = [[Globals i] getClubData][@"cd3"];
-			break;
-		case 6:
-			self.selectedPos = @"lb";
-			self.selectedPlayer = [[Globals i] getClubData][@"lb"];
-			break;
-		case 7:
-			self.selectedPos = @"rw";
-			self.selectedPlayer = [[Globals i] getClubData][@"rw"];
-			break;
-		case 8:
-			self.selectedPos = @"im1";
-			self.selectedPlayer = [[Globals i] getClubData][@"im1"];
-			break;
-		case 9:
-			self.selectedPos = @"im2";
-			self.selectedPlayer = [[Globals i] getClubData][@"im2"];
-			break;
-		case 10:
-			self.selectedPos = @"im3";
-			self.selectedPlayer = [[Globals i] getClubData][@"im3"];
-			break;
-		case 11:
-			self.selectedPos = @"lw";
-			self.selectedPlayer = [[Globals i] getClubData][@"lw"];
-			break;
-		case 12:
-			self.selectedPos = @"fw1";
-			self.selectedPlayer = [[Globals i] getClubData][@"fw1"];
-			break;
-		case 13:
-			self.selectedPos = @"fw2";
-			self.selectedPlayer = [[Globals i] getClubData][@"fw2"];
-			break;
-		case 14:
-			self.selectedPos = @"fw3";
-			self.selectedPlayer = [[Globals i] getClubData][@"fw3"];
-			break;
-	}
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        switch(theTag)
+        {
+            case 1:
+                self.selectedPos = @"gk";
+                self.selectedPlayer = [[Globals i] getClubData][@"gk"];
+                break;
+            case 2:
+                self.selectedPos = @"rb";
+                self.selectedPlayer = [[Globals i] getClubData][@"rb"];
+                break;
+            case 3:
+                self.selectedPos = @"cd1";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd1"];
+                break;
+            case 4:
+                self.selectedPos = @"cd2";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd2"];
+                break;
+            case 5:
+                self.selectedPos = @"cd3";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd3"];
+                break;
+            case 6:
+                self.selectedPos = @"lb";
+                self.selectedPlayer = [[Globals i] getClubData][@"lb"];
+                break;
+            case 7:
+                self.selectedPos = @"rw";
+                self.selectedPlayer = [[Globals i] getClubData][@"rw"];
+                break;
+            case 8:
+                self.selectedPos = @"im1";
+                self.selectedPlayer = [[Globals i] getClubData][@"im1"];
+                break;
+            case 9:
+                self.selectedPos = @"im2";
+                self.selectedPlayer = [[Globals i] getClubData][@"im2"];
+                break;
+            case 10:
+                self.selectedPos = @"im3";
+                self.selectedPlayer = [[Globals i] getClubData][@"im3"];
+                break;
+            case 11:
+                self.selectedPos = @"lw";
+                self.selectedPlayer = [[Globals i] getClubData][@"lw"];
+                break;
+            case 12:
+                self.selectedPos = @"fw1";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw1"];
+                break;
+            case 13:
+                self.selectedPos = @"fw2";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw2"];
+                break;
+            case 14:
+                self.selectedPos = @"fw3";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw3"];
+                break;
+        }
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        switch(theTag)
+        {
+            case 1:
+                self.selectedPos = @"gk";
+                self.selectedPlayer = [[Globals i] getClubData][@"gk"];
+                break;
+            case 3:
+                self.selectedPos = @"cd1";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd1"];
+                break;
+            case 4:
+                self.selectedPos = @"cd2";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd2"];
+                break;
+            case 7:
+                self.selectedPos = @"rw";
+                self.selectedPlayer = [[Globals i] getClubData][@"rw"];
+                break;
+            case 8:
+                self.selectedPos = @"im1";
+                self.selectedPlayer = [[Globals i] getClubData][@"im1"];
+                break;
+            case 9:
+                self.selectedPos = @"im2";
+                self.selectedPlayer = [[Globals i] getClubData][@"im2"];
+                break;
+            case 11:
+                self.selectedPos = @"lw";
+                self.selectedPlayer = [[Globals i] getClubData][@"lw"];
+                break;
+            case 12:
+                self.selectedPos = @"fw1";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw1"];
+                break;
+            case 13:
+                self.selectedPos = @"fw2";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw2"];
+                break;
+        }
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        switch(theTag)
+        {
+            case 1:
+                self.selectedPos = @"gk";
+                self.selectedPlayer = [[Globals i] getClubData][@"gk"];
+                break;
+            case 2:
+                self.selectedPos = @"cd1";
+                self.selectedPlayer = [[Globals i] getClubData][@"cd1"];
+                break;
+            case 3:
+                self.selectedPos = @"im1";
+                self.selectedPlayer = [[Globals i] getClubData][@"im1"];
+                break;
+            case 4:
+                self.selectedPos = @"fw1";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw1"];
+                break;
+            case 5:
+                self.selectedPos = @"fw2";
+                self.selectedPlayer = [[Globals i] getClubData][@"fw2"];
+                break;
+        }
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        switch(theTag)
+        {
+            case 1:
+                self.selectedPos = @"gk";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"gk"];
+                break;
+            case 2:
+                self.selectedPos = @"fw3";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"fw3"];
+                break;
+            case 3:
+                self.selectedPos = @"im1";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"im1"];
+                break;
+            case 4:
+                self.selectedPos = @"fw1";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"fw1"];
+                break;
+            case 5:
+                self.selectedPos = @"cd2";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"cd2"];
+                break;
+            case 6:
+                self.selectedPos = @"fw2";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"fw2"];
+                break;
+            case 7:
+                self.selectedPos = @"lb";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"lb"];
+                break;
+            case 8:
+                self.selectedPos = @"rb";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"rb"];
+                break;
+            case 9:
+                self.selectedPos = @"cd1";
+                self.selectedPlayer = [[[Globals i] getClubData] objectForKey:@"cd1"];
+                break;
+        }
+    }
+    
 	
 	self.selectedPlayer = self.selectedPlayer;
 	

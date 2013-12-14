@@ -52,6 +52,8 @@
     }
     else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
     {
+        [self.ivBackground setHidden:YES];
+        
         [self addPosButton:@"sgk" label:@"Bench 1" tag:1 posx:Subs_x1_baseball posy:Subs_y1_baseball];
         [self addPosButton:@"sd" label:@"Bench 2" tag:2 posx:Subs_x2_baseball posy:Subs_y2_baseball];
         [self addPosButton:@"sim" label:@"Bench 3" tag:3 posx:Subs_x3_baseball posy:Subs_y2_baseball];
