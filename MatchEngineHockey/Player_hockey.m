@@ -11,6 +11,7 @@
 @synthesize defendingGoal;
 @synthesize attackingGoal;
 @synthesize player_number;
+@synthesize player_name;
 @synthesize player_id;
 @synthesize jersey;
 @synthesize team;
@@ -21,7 +22,6 @@
 @synthesize speed;
 @synthesize maxSpeed;
 @synthesize scorer;
-@synthesize name;
 @synthesize marking;
 @synthesize vector;
 @synthesize basePosition;
@@ -40,9 +40,9 @@
         self.jersey = jer;
         self.team = t;
         self.role = r;
-        self.name = n;
+        self.player_name = n;
         
-        myImage = [SPImage imageWithContentsOfFile:[NSString stringWithFormat:@"j%ld_hockey.png", (long)self.jersey]];
+        myImage = [SPImage imageWithContentsOfFile:[NSString stringWithFormat:@"j%ld.png", (long)self.jersey]];
         [myImage setScaleX:PLAYER_SCALE];
         [myImage setScaleY:PLAYER_SCALE];
 		myImage.x = -myImage.width/2;
@@ -52,7 +52,7 @@
         if (self.team == T_AWAY) 
         {
             myTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%ld", (long)self.player_number]];
-            myTextField.fontName = @"Helvetica-Bold";
+            myTextField.fontName = DEFAULT_FONT;
             myTextField.x = -myTextField.width/2;
             myTextField.y = -myTextField.height/2 - 2;
             myTextField.vAlign = SPVAlignCenter;
@@ -62,7 +62,7 @@
         }
         
         nameTextField = [SPTextField textFieldWithText:@""];
-        nameTextField.fontName = @"Helvetica-Bold";
+        nameTextField.fontName = DEFAULT_FONT;
         nameTextField.x = -myTextField.width/2;
         nameTextField.y = -myTextField.height/2 - PLAYER_NAME;
         nameTextField.vAlign = SPVAlignCenter;

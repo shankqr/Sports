@@ -1172,8 +1172,6 @@
             Player *nearest = [self getNearest:YES];
             self.action = ACTION_IDLE;
             [self passTo:nearest];
-            
-            [GameController setHighlightText:@""];
         }
         else if (self.action == ACTION_MOVINGCORNER)
         {
@@ -1210,8 +1208,6 @@
             }
             self.action = ACTION_IDLE;
             [self passTo:striker];
-            
-            [GameController setHighlightText:@""];
         }
         else
         {

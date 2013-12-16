@@ -34,7 +34,7 @@
 @synthesize music3;
 @synthesize music4;
 
-- (id)initWithWidth:(float)width height:(float)height 
+- (id)init
 {
     if (self = [super init])
 	{
@@ -72,7 +72,7 @@
         [pitch addChild:headerImage];
         
         highlightTextField = [SPTextField textFieldWithText:@" "];
-		highlightTextField.fontName = @"Helvetica-Bold";
+		highlightTextField.fontName = DEFAULT_FONT;
 		highlightTextField.x = 10;
 		highlightTextField.y = PITCH_HEIGHT + HIGHLIGHT_OFFSET;
 		highlightTextField.vAlign = SPVAlignCenter;
@@ -86,7 +86,7 @@
 		goalsAway = 0;
         
 		scoreTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%ld : %ld", (long)goalsHome, (long)goalsAway]];
-		scoreTextField.fontName = @"Helvetica-Bold";
+		scoreTextField.fontName = DEFAULT_FONT;
 		scoreTextField.x = 46;
 		scoreTextField.y = -2;
 		scoreTextField.vAlign = SPVAlignTop;
@@ -96,7 +96,7 @@
 		[pitch addChild:scoreTextField];
 		
 		clockTextField = [SPTextField textFieldWithText:[NSString stringWithFormat:@"%d:%d", 90, 0]];
-		clockTextField.fontName = @"Helvetica";
+		clockTextField.fontName = DEFAULT_FONT;
 		clockTextField.x = (PITCH_WIDTH/2) - CLOCK_OFFSET;
 		clockTextField.y = -1;
 		clockTextField.vAlign = SPVAlignTop;
@@ -137,6 +137,9 @@
         
         [self addEventListener:@selector(onTouch:) atObject:self forType:SP_EVENT_TYPE_TOUCH];
     }
+    
+    [self loadClub];
+    [self startHighlight];
     
 	return self;
 }
@@ -202,7 +205,7 @@
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetClub/%@", WS_URL, club_home_uid];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    NSDictionary *wsClubHome = NULL;
+    NSDictionary *wsClubHome = nil;
     if([wsResponse count] > 0)
     {
         wsClubHome = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
@@ -222,7 +225,7 @@
     {
         if (![rowData[@"player_id"] isEqualToString:@"0"])
         {
-            Player_hockey *p = NULL;
+            Player_hockey *p = nil;
             if ([rowData[@"player_id"] isEqualToString:wsClubHome[@"gk"]])
             {
                 GK_total = GK_total + 1;
@@ -269,7 +272,7 @@
                 p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubHome[@"home_pic"] integerValue] team:T_HOME role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
-            if (p != NULL)
+            if (p != nil)
             {
                 [playerRowforID setValue:@(player_row) forKey:rowData[@"player_id"]];
                 [self.players addObject:p];
@@ -303,7 +306,7 @@
     {
         if (![rowData[@"player_id"] isEqualToString:@"0"])
         {
-            Player_hockey *p = NULL;
+            Player_hockey *p = nil;
             if ([rowData[@"player_id"] isEqualToString:wsClubAway[@"gk"]])
             {
                 GK_total = GK_total + 1;
@@ -350,7 +353,7 @@
                 p = [Player_hockey initPlayer:[rowData[@"player_id"] integerValue] number:9 jersey:[wsClubAway[@"away_pic"] integerValue] team:T_AWAY role:P_ATTACKER name:rowData[@"player_name"]];
             }
             
-            if (p != NULL)
+            if (p != nil)
             {
                 [playerRowforID setValue:@(player_row) forKey:rowData[@"player_id"]];
                 [self.players addObject:p];
@@ -595,6 +598,11 @@
     if((ball.outOfPlay || ball.saved) && (goalCountdown < 0) && !finished && played)
     {
         [soundGoal play];
+        
+        //Flash the player details
+        highlightTextField.text = [NSString stringWithFormat:@"%@, %ld'th minute",
+                                   [players[[highlight[@"player_row"] integerValue]] player_name],
+                                   (long)[highlight[@"minute"] integerValue]];
         
         goalCountdown = 50;
         

@@ -1667,7 +1667,7 @@ static NSOperationQueue *connectionQueue;
 
 + (NSString *)encodeURL:(NSString *)urlString
 {
-    CFStringRef newString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)urlString, NULL, CFSTR(""), kCFStringEncodingUTF8);
+    CFStringRef newString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)urlString, nil, CFSTR(""), kCFStringEncodingUTF8);
     return (NSString *)CFBridgingRelease(newString);
 }
 

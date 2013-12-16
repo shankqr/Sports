@@ -13,7 +13,7 @@
     Ball_hockey *ball;
     Goal_hockey *defendingGoal;
     Goal_hockey *attackingGoal;
-    NSString *name;
+    NSString *player_name;
     Player_hockey *marking;
     SPPoint *vector;
     SPPoint *basePosition;
@@ -36,7 +36,7 @@
 @property (nonatomic, strong) Ball_hockey *ball;
 @property (nonatomic, strong) Goal_hockey *defendingGoal;
 @property (nonatomic, strong) Goal_hockey *attackingGoal;
-@property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *player_name;
 @property (nonatomic, strong) Player_hockey *marking;
 @property (nonatomic, strong) SPPoint *vector;
 @property (nonatomic, strong) SPPoint *basePosition;

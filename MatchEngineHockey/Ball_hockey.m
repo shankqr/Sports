@@ -95,9 +95,9 @@
 
 - (void)move
 {
-    if (player != Nil) 
+    if (player != nil)
     {
-        player.nameTextField.text = player.name;
+        player.nameTextField.text = player.player_name;
 
         self.xx = player.xx + [[Globals i] Random_next:player.vector.x*1 to:player.vector.x*2.5];
         self.yy = player.yy + [[Globals i] Random_next:player.vector.y*1 to:player.vector.y*2.5];

@@ -39,7 +39,7 @@
 #define PLAYER_SCALE (iPad ? 1.0f : 0.5f)
 #define PLAYER_NAME (iPad ? 40.0f : 20.0f)
 #define PITCH_WIDTH (iPad ? 940.0f : 470.0f)
-#define PITCH_HEIGHT (iPad ? 528.0f : 264.0f) //(iPad ? 580.0f : 290.0f)
+#define PITCH_HEIGHT (iPad ? 528.0f : 264.0f)
 #define PITCH_WIDTH_OFFSET (iPad ? 10.0f : 5.0f)
 #define PITCH_HEIGHT_OFFSET (iPad ? 54.0f : 27.0f)
 #define FONT_SIZE (iPad ? 40.0f : 20.0f)
