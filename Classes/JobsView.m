@@ -253,8 +253,8 @@
 	if(reqmatch > self.getTotalFriendlyMatch)
 	{
 		UIAlertView *alert = [[UIAlertView alloc]
-							  initWithTitle:@"Unique Friendly Match Required"
-							  message:[NSString stringWithFormat:@"Your team has played only %ld unique friendly match this week, you require %ld unique friendly match to be able to do this training. Get more clubs to challenge you by posting your club name on the review?", (long)self.getTotalFriendlyMatch, (long)reqmatch]
+							  initWithTitle:@"Unique Friendly Matches Required"
+							  message:[NSString stringWithFormat:@"Your team has played only %ld unique friendly matches this week, you require %ld unique friendly matches to be able to do this training. Get more clubs to challenge you by giving us a 5 star and posting your club name on the reviews?", (long)self.getTotalFriendlyMatch, (long)reqmatch]
 							  delegate:self
 							  cancelButtonTitle:@"Cancel"
 							  otherButtonTitles:@"OK", nil];

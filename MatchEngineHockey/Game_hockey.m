@@ -7,7 +7,6 @@
 #import "Globals.h"
 
 @implementation Game_hockey
-
 @synthesize played;
 @synthesize proportion;
 @synthesize attackingGoal;
@@ -37,7 +36,7 @@
 
 - (id)initWithWidth:(float)width height:(float)height 
 {
-    if (self = [super initWithWidth:width height:height]) 
+    if (self = [super init])
 	{
         pitch = [SPSprite sprite];
         pitch.rotation = SP_D2R(90);

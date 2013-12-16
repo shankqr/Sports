@@ -31,7 +31,6 @@
 @synthesize myTextField;
 @synthesize nameTextField;
 
-
 - (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(NSInteger)t role:(NSInteger)r name:(NSString*)n
 {
     if (self = [super init]) 

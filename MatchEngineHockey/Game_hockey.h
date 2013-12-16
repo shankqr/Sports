@@ -1,14 +1,12 @@
 
 #import "Sparrow.h"
 
-
 @class Ball_hockey;
 @class Player_hockey;
 @class Goal_hockey;
 
-@interface Game_hockey : SPStage
+@interface Game_hockey : SPSprite
 {
-    
 	SPTextField *scoreTextField;
 	SPTextField *clockTextField;
     SPTextField *highlightTextField;
@@ -51,7 +49,6 @@
     BOOL finished;
     BOOL paused;
 }
-
 @property (nonatomic) BOOL played;
 @property (nonatomic) double proportion;
 @property (nonatomic, strong) Ball_hockey *ball;

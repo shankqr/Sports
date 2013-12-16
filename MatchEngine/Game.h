@@ -49,7 +49,6 @@
 @class Ball;
 @class Player;
 @class Goal;
-
 @interface Game : SPSprite
 {
 	SPTextField *scoreTextField;

@@ -320,7 +320,7 @@
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:@"Accountant"
-                                      message:@"We can't afford this bid. Get more club funds?"
+                                      message:@"We can't afford this bid. Get more club funds. Convert some Diamonds to Funds?"
                                       delegate:self
                                       cancelButtonTitle:@"CANCEL"
                                       otherButtonTitles:@"OK", nil];

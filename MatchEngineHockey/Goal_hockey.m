@@ -10,7 +10,6 @@
 @synthesize team;
 @synthesize side;
 
-
 - (id)init:(NSInteger)s
 {
     if (self = [super init]) 
@@ -55,7 +54,6 @@
 	}
     return self;
 }
-
 
 + (Goal_hockey *)initGoal:(NSInteger)s
 {

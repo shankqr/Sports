@@ -116,7 +116,7 @@
 	{
 		UIAlertView *alert = [[UIAlertView alloc]
 							  initWithTitle:@"Accountant"
-							  message:@"You do not have enough funds to cover your loss. Get more club funds?"
+							  message:@"You do not have enough funds to cover your loss. Convert some Diamonds to Funds?"
 							  delegate:self
 							  cancelButtonTitle:@"CANCEL"
 							  otherButtonTitles:@"OK", nil];

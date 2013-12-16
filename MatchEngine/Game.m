@@ -5,7 +5,6 @@
 #import "Goal.h"
 
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation Game
 @synthesize played;

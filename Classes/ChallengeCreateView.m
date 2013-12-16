@@ -199,7 +199,7 @@
 	{
 		UIAlertView *alert = [[UIAlertView alloc]
 							  initWithTitle:@"Accountant"
-							  message:@"We can't afford this bet. You must have more then twice of the win money you have selected, in your club funds. Get more club funds?"
+							  message:@"We can't afford this bet. You must have more then twice of the win money you have selected, in your club funds. Convert some Diamonds to Funds?"
 							  delegate:self
 							  cancelButtonTitle:@"CANCEL"
 							  otherButtonTitles:@"OK", nil];
