@@ -245,7 +245,8 @@
 	[self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
 	[self addPosButton:@"More Games" tag:19 imageDefault:@"button_more"];
 	[self addPosButton:@"Help" tag:20 imageDefault:@"button_help"];
-    [self addPosButton:@"Logout" tag:21 imageDefault:@"button_logout"];
+    [self addPosButton:@"Slots" tag:21 imageDefault:@"button_slot"];
+    [self addPosButton:@"Logout" tag:22 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag

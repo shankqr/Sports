@@ -232,8 +232,8 @@
 	self.sel_product_id = rowData[@"product_id"];
     self.sel_product_star = rowData[@"product_star"];
     
-	self.sel_product_value = [[Globals i] numberFormat:rowData[@"price_virtual"]];
-    self.sel_product_real = [[Globals i] numberFormat:rowData[@"price_real"]];
+	self.sel_product_value = rowData[@"price_virtual"];
+    self.sel_product_real = rowData[@"price_real"];
     
     UIAlertView *alert;
     

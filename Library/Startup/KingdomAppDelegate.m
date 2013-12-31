@@ -40,8 +40,6 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     facebookSwitching = NO;
     beenSleeping = NO;
     
-    [FBFriendPickerViewController class];
-    
 	// launchOptions has the incoming notification if we're being launched after the user tapped "view"
 	NSLog( @"didFinishLaunchingWithOptions:%@", launchOptions );
     [[UIApplication sharedApplication]

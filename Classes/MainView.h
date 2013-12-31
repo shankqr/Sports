@@ -52,6 +52,7 @@
 @class TacticsView;
 @class ChatView;
 @class RankingView;
+@class SlotsView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -106,6 +107,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     ChatView *allianceChatView;
     RankingView *rvTopDivision;
     RankingView *rvTopLevel;
+    SlotsView *slotsView;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *leagueTabBarController;
 	UITabBarController *clubTabBarController;
@@ -178,6 +180,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) ChatView *allianceChatView;
 @property (nonatomic, strong) RankingView *rvTopDivision;
 @property (nonatomic, strong) RankingView *rvTopLevel;
+@property (nonatomic, strong) SlotsView *slotsView;
 @property (nonatomic, strong) UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) UITabBarController *clubTabBarController;

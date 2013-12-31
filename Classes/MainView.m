@@ -46,6 +46,7 @@
 #import "Sparrow.h"
 #import "Game.h"
 #import "Game_hockey.h"
+#import "SlotsView.h"
 
 @implementation MainView
 @synthesize header;
@@ -107,6 +108,7 @@
 @synthesize allianceChatView;
 @synthesize rvTopDivision;
 @synthesize rvTopLevel;
+@synthesize slotsView;
 
 - (void)startUp //Called when app opens for the first time
 {
@@ -1437,6 +1439,15 @@
     [self.stadiumMap updateView];
 }
 
+- (void)showSlots
+{
+	if (slotsView == nil)
+    {
+        slotsView = [[SlotsView alloc] initWithNibName:@"SlotsView" bundle:nil];
+    }
+    [[Globals i] showTemplate:@[slotsView] :@"Slots" :0];
+}
+
 - (void)menuButton_tap:(NSInteger)sender
 {
 	switch(sender)
@@ -1542,6 +1553,11 @@
             break;
 		}
         case 21:
+		{
+			[self showSlots];
+            break;
+		}
+        case 22:
 		{
 			[self logoutButton];
             break;
