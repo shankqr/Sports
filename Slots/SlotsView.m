@@ -7,6 +7,7 @@
 //
 
 #import "SlotsView.h"
+#import "Globals.h"
 
 #define KTitle @"No Credits"
 #define KStoreButton @"STORE"
@@ -26,11 +27,10 @@
     [self initializeAudio];
     [self initializeFonts];
     
-    [self activateStartingCredits];
+    [self updateBalanceCredits];
     
     [self refreshWins:[NSNumber numberWithBool:NO]];
     [self refreshCoins:[NSNumber numberWithBool:NO]];
-    [self refreshCredits:[NSNumber numberWithBool:NO]];
     [self refreshMusicButton];
     
     [self initializeBeforeAnimationPosition];
@@ -38,13 +38,32 @@
     float delay = [[[config objectForKey:@"variables"] objectForKey:@"initialDelay"] floatValue];
     
     [self performSelector:@selector(initializeStartingAnimation) withObject:nil afterDelay:delay];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateHeader"
+                                               object:nil];
+}
+
+- (void)notificationReceived:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"UpdateHeader"])
+    {
+        //Update balance credits
+        [self updateBalanceCredits];
+    }
+}
+
+- (void)updateBalanceCredits
+{
+    [gameMechanics setCredits:[[[Globals i] wsClubData][@"currency_second"] integerValue]];
+    [self refreshCredits:[NSNumber numberWithBool:NO]];
 }
 
 - (void) initializeBeforeAnimationPosition
 {
     CGRect frame;
     
-    [productsView setAlpha:0.0];
     [payoutsContainer setAlpha:0.0];
     
     float y = 70.0;
@@ -81,18 +100,6 @@
         y += thisLabel.frame.size.height - 20.0;
     }
     
-    frame = musicButton.frame;
-    frame.origin.x += frame.size.width;
-    [musicButton setFrame:frame];
-    
-    frame = facebookButton.frame;
-    frame.origin.x -= frame.size.width;
-    [facebookButton setFrame:frame];
-    
-    frame = twitterButton.frame;
-    frame.origin.x -= frame.size.width;
-    [twitterButton setFrame:frame];
-    
     frame = productsButton.frame;
     frame.origin.x += frame.size.width;
     [productsButton setFrame:frame];
@@ -100,14 +107,6 @@
     frame = payoutsButton.frame;
     frame.origin.x += frame.size.width;
     [payoutsButton setFrame:frame];
-    
-    frame = helpButtonContainer.frame;
-    frame.origin.x -= frame.size.width;
-    [helpButtonContainer setFrame:frame];
-    
-    frame = leaderboardButtonContainer.frame;
-    frame.origin.x += frame.size.width;
-    [leaderboardButtonContainer setFrame:frame];
     
     frame = machineView.frame;
     frame.origin.x += frame.size.width;
@@ -141,13 +140,7 @@
                 delay:0.0
                 options:UIViewAnimationOptionCurveEaseOut
                 animations:^{
-                    CGRect frame = helpButtonContainer.frame;
-                    frame.origin.x += frame.size.width;
-                    [helpButtonContainer setFrame:frame];
-                    
-                    frame = leaderboardButtonContainer.frame;
-                    frame.origin.x -= frame.size.width;
-                    [leaderboardButtonContainer setFrame:frame];
+
                 }
                 completion:^(BOOL finished){
                     
@@ -165,18 +158,6 @@
                         options:UIViewAnimationOptionCurveEaseOut
                         animations:^{
                             CGRect frame;
-                            
-                            frame = musicButton.frame;
-                            frame.origin.x -= frame.size.width;
-                            [musicButton setFrame:frame];
-                            
-                            frame = facebookButton.frame;
-                            frame.origin.x += frame.size.width;
-                            [facebookButton setFrame:frame];
-                            
-                            frame = twitterButton.frame;
-                            frame.origin.x += frame.size.width;
-                            [twitterButton setFrame:frame];
                             
                             frame = productsButton.frame;
                             frame.origin.x -= frame.size.width;
@@ -281,7 +262,6 @@
     [winsTitleLabel2 setFont:[UIFont fontWithName:@"MLS 2013" size:winsTitleLabel2.font.pointSize]];
     [coinsTitleLabel setFont:[UIFont fontWithName:@"MLS 2013" size:coinsTitleLabel.font.pointSize]];
     [creditsTitleLabel setFont:[UIFont fontWithName:@"MLS 2013" size:creditsTitleLabel.font.pointSize]];
-    [buyCreditsTitle setFont:[UIFont fontWithName:@"MLS 2013" size:buyCreditsTitle.font.pointSize]];
     [payoutsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:payoutsLabel.font.pointSize]];
     
     [coinsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:coinsLabel.font.pointSize]];
@@ -319,10 +299,6 @@
     animations = [config objectForKey:@"animations"];
     
     texts = [config objectForKey:@"texts"];
-    
-    productLabels = [NSArray arrayWithObjects:product1Label, product2Label, product3Label, nil];
-    
-    productButtons = [NSArray arrayWithObjects:product1Button, product2Button, product3Button, nil];
     
     rowCount = [[config objectForKey:@"rowCount"] intValue];
     
@@ -565,15 +541,19 @@
         [self performSelectorInBackground:@selector(addWinVisually:) withObject:[NSNumber numberWithInt:win]];
         
         isWin = YES;
-        //NSLog(@"%@", [combinations objectAtIndex:match]);
+        
+        NSLog(@"%@", [combinations objectAtIndex:match]);
     }
     
     [gameMechanics removeCoins];
     
     [self refreshCoins:[NSNumber numberWithBool:NO]];
-    if (!isWin) {
+    
+    if (!isWin)
+    {
          [self performSelectorOnMainThread:@selector(checkForCredits) withObject:nil waitUntilDone:NO];
     }
+    
     [self showHideButtons:YES];
 }
 
@@ -621,14 +601,12 @@
             delay:0.0
             options:UIViewAnimationOptionCurveEaseIn
             animations:^{
-                [helpButton setAlpha:0.0];
-                [leaderBoardButton setAlpha:0.0];
                 [armButton setAlpha:0.0];
                 [addCoinButton setAlpha:0.0];
                 [addMaxCoinButton setAlpha:0.0];
             }
             completion:^(BOOL finished){
-                [virtualArmButton setEnabled:NO];
+
             }
          ];
     }
@@ -638,14 +616,12 @@
             delay:0.0
             options:UIViewAnimationOptionCurveEaseOut
             animations:^{
-                [helpButton setAlpha:1.0];
-                [leaderBoardButton setAlpha:1.0];
                 [armButton setAlpha:1.0];
                 [addCoinButton setAlpha:1.0];
                 [addMaxCoinButton setAlpha:1.0];
             }
             completion:^(BOOL finished){
-                [virtualArmButton setEnabled:YES];
+
             }
          ];
     }
@@ -746,7 +722,7 @@
         
         int rand = (arc4random() % (max - min + 1)) + min;
         
-        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand]];
+        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:i+1]];
     }
     
     [audio playFxReelClick];
@@ -882,11 +858,11 @@
     
     if (valueToUse)
     {
-        [musicButton setSelected:YES];
+        //[musicButton setSelected:YES];
     }
     else
     {
-        [musicButton setSelected:NO];
+        //[musicButton setSelected:NO];
     }
 }
 
@@ -951,39 +927,38 @@
     
     int currentCredits = [gameMechanics getCredits];
     
-        int singleBetValue = [[[config objectForKey:@"variables"] objectForKey:@"singleBetValue"] intValue];
+    int singleBetValue = [[[config objectForKey:@"variables"] objectForKey:@"singleBetValue"] intValue];
+    
+    if (currentCredits < singleBetValue)
+    {
+        return;
+    }
+    
+    float delay = [[[config objectForKey:@"variables"] objectForKey:@"reelRotationDelay"] floatValue];
+    
+    [self showHideButtons:NO];
+    
+    if ([gameMechanics getCoinsUsed] == 0)
+    {
+        [gameMechanics addCoinsUsed:singleBetValue];
         
-        if (currentCredits < singleBetValue)
-        {
-            return;
-        }
+        [audio playFxInsertCoin];
         
-        float delay = [[[config objectForKey:@"variables"] objectForKey:@"reelRotationDelay"] floatValue];
-        
-        [self showHideButtons:NO];
-        
-        if ([gameMechanics getCoinsUsed] == 0)
-        {
-            [gameMechanics addCoinsUsed:singleBetValue];
-            
-            [audio playFxInsertCoin];
-            
-            [self refreshCoins:[NSNumber numberWithBool:YES]];
-        }
-        
-        int creditsDropped = [gameMechanics getCoinsUsed];
-        
-        [gameMechanics decreaseCredits:creditsDropped];
-        
-        [self refreshCredits:[NSNumber numberWithBool:YES]];
-        
-        [audio performSelector:@selector(playFxArmPulled) withObject:nil afterDelay:0.0];
-        
-        [self performSelector:@selector(rollAllReels) withObject:nil afterDelay:delay];
+        [self refreshCoins:[NSNumber numberWithBool:YES]];
+    }
+    
+    int creditsDropped = [gameMechanics getCoinsUsed];
+    
+    [gameMechanics decreaseCredits:creditsDropped];
+    
+    [self refreshCredits:[NSNumber numberWithBool:YES]];
+    
+    [audio performSelector:@selector(playFxArmPulled) withObject:nil afterDelay:0.0];
+    
+    [self performSelector:@selector(rollAllReels) withObject:nil afterDelay:delay];
     
     if (noOfSpins == 10)
     {
-        //[self addApplovinAds];
         noOfSpins = 0;
     }
 }
@@ -996,62 +971,37 @@
     int currentCredits = [gameMechanics getCredits];
     int currentCoins = [gameMechanics getCoinsUsed];
     
-        if ((currentCoins < maxBetValue) && (currentCoins + singleBetValue <= currentCredits))
-        {
-            [gameMechanics addCoinsUsed:singleBetValue];
-            
-            [audio playFxInsertCoin];
-            
-            [self refreshCoins:[NSNumber numberWithBool:YES]];
-        }
+    if ((currentCoins < maxBetValue) && (currentCoins + singleBetValue <= currentCredits))
+    {
+        [gameMechanics addCoinsUsed:singleBetValue];
+        
+        [audio playFxInsertCoin];
+        
+        [self refreshCoins:[NSNumber numberWithBool:YES]];
+    }
+    else
+    {
+        [gameMechanics removeCoins];
+        [gameMechanics addCoinsUsed:singleBetValue];
+        
+        [audio playFxInsertCoin];
+        
+        [self refreshCoins:[NSNumber numberWithBool:YES]];
+    }
 }
 
 - (IBAction) addMaxCoinButtonTapped:(id)sender
 {
     int maxBetValue = [[[config objectForKey:@"variables"] objectForKey:@"maxBetValue"] intValue];
     int currentCredits = [gameMechanics getCredits];
-        if (currentCredits >= maxBetValue)
-        {
-            [gameMechanics removeCoins];
-            [gameMechanics addCoinsUsed:maxBetValue];
-            
-            [audio playFxInsertCoin];
-            
-            [self refreshCoins:[NSNumber numberWithBool:YES]];
-        }
-}
-
-- (void) showHideProducts:(BOOL)show
-{
-    float duration = [[animations objectForKey:@"productsFadeTime"] floatValue];
-    
-    if (show)
+    if (currentCredits >= maxBetValue)
     {
-        [audio playFxWhoosh];
+        [gameMechanics removeCoins];
+        [gameMechanics addCoinsUsed:maxBetValue];
         
-        [UIView animateWithDuration:duration
-            delay:0.0
-            options:UIViewAnimationOptionCurveEaseIn
-            animations:^{
-                [productsView setAlpha:1.0];
-            }
-            completion:^(BOOL finished){
-            }
-         ];
-    }
-    else
-    {
-        [audio playFxWhoosh];
+        [audio playFxInsertCoin];
         
-        [UIView animateWithDuration:duration
-            delay:0.0
-            options:UIViewAnimationOptionCurveEaseOut
-            animations:^{
-                [productsView setAlpha:0.0];
-            }
-            completion:^(BOOL finished){
-            }
-         ];
+        [self refreshCoins:[NSNumber numberWithBool:YES]];
     }
 }
 
@@ -1096,7 +1046,9 @@
 
 - (IBAction) productsButtonTapped:(id)sender
 {
-    [self showHideProducts:YES];
+    [audio playFxWhoosh];
+    
+    [[Globals i] showBuy];
 }
 
 - (IBAction) payoutsButtonTapped:(id)sender

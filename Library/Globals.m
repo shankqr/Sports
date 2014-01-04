@@ -1762,7 +1762,7 @@ static NSOperationQueue *connectionQueue;
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"UpdateHeader"
-         object:self]; //Update to header and template buy more diamonds
+         object:self]; //Update to header
         
         return YES;
     }
