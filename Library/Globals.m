@@ -2629,6 +2629,123 @@ static NSOperationQueue *connectionQueue;
 	return cell;
 }
 
+- (UIButton *)dynamicButtonWithTitle:(NSString *)title
+                              target:(id)target
+                            selector:(SEL)selector
+                               frame:(CGRect)frame
+                                type:(NSString *)type
+{
+    float button_width = frame.size.width;
+    float button_height = frame.size.height;
+    
+    BOOL button_shrink = NO;
+    
+    UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	
+	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	
+    if ((button_width > 100.0f) && (button_height > 60.0f))
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+    }
+    else
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:R3_FONT_SIZE];
+    }
+    
+    if (button_height > 80.0f)
+    {
+        button_shrink = NO;
+    }
+    else
+    {
+        button_shrink = YES;
+    }
+    
+	[button setTitle:title forState:UIControlStateNormal];
+    
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+
+	button.backgroundColor = [UIColor clearColor];
+    
+    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_1.png", type]];
+    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_2.png", type]];
+    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_3.png", type]];
+    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_4.png", type]];
+    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_5.png", type]];
+    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_6.png", type]];
+    
+    UIImage *img1_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_1_h.png", type]];
+    UIImage *img2_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_2_h.png", type]];
+    UIImage *img3_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_3_h.png", type]];
+    UIImage *img4_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_4_h.png", type]];
+    UIImage *img5_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_5_h.png", type]];
+    UIImage *img6_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_6_h.png", type]];
+    
+    CGSize btnSize = CGSizeMake(button_width, button_height);
+    UIGraphicsBeginImageContext(btnSize);
+    
+    CGSize newSize = CGSizeMake(img1.size.width, img1.size.height);
+    
+    if (button_shrink)
+    {
+        float shrink_height = img1.size.height - (80.0f - button_height);
+        if (shrink_height < 21.0f)
+        {
+            shrink_height = 21.0f;
+        }
+        newSize = CGSizeMake(img1.size.width, shrink_height);
+    }
+    
+    [img1 drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    [img2 drawInRect:CGRectMake(newSize.width, 0, button_width - (newSize.width*2), newSize.height)];
+    [img3 drawInRect:CGRectMake(button_width - newSize.width, 0, newSize.width, newSize.height)];
+    
+    [[img4 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                          resizingMode:UIImageResizingModeStretch]
+    drawInRect:CGRectMake(0, newSize.height, newSize.width, button_height - newSize.height)];
+    
+    [[img5 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                          resizingMode:UIImageResizingModeStretch]
+    drawInRect:CGRectMake(newSize.width, newSize.height, button_width - (newSize.width*2), button_height - newSize.height)];
+    
+    [[img6 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                         resizingMode:UIImageResizingModeStretch]
+    drawInRect:CGRectMake(button_width - newSize.width, newSize.height, newSize.width, button_height - newSize.height)];
+
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+	[button setBackgroundImage:newImage forState:UIControlStateNormal];
+    
+    //Draw highlighted image
+    UIGraphicsBeginImageContext(btnSize);
+
+    [img1_h drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    [img2_h drawInRect:CGRectMake(newSize.width, 0, button_width - (newSize.width*2), newSize.height)];
+    [img3_h drawInRect:CGRectMake(button_width - newSize.width, 0, newSize.width, newSize.height)];
+    
+    [[img4_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                          resizingMode:UIImageResizingModeStretch]
+     drawInRect:CGRectMake(0, newSize.height, newSize.width, button_height - newSize.height)];
+    
+    [[img5_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                          resizingMode:UIImageResizingModeStretch]
+     drawInRect:CGRectMake(newSize.width, newSize.height, button_width - (newSize.width*2), button_height - newSize.height)];
+    
+    [[img6_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
+                          resizingMode:UIImageResizingModeStretch]
+     drawInRect:CGRectMake(button_width - newSize.width, newSize.height, newSize.width, button_height - newSize.height)];
+    
+    UIImage *newImage_h = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+	
+	[button setBackgroundImage:newImage_h forState:UIControlStateHighlighted];
+	
+	return button;
+}
+
 - (UIButton *)buttonWithTitle:(NSString *)title
 					   target:(id)target
 					 selector:(SEL)selector

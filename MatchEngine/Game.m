@@ -139,7 +139,6 @@
     }
     
     [self loadClub];
-    [self startHighlight];
 		
 	return self;
 }
@@ -546,28 +545,11 @@
     
     if (highlight_total == 0)
     {
-        highlight_total = 2;
-        NSInteger randomMinute = [[Globals i] Random_next:10 to:80];
-        NSInteger randomHomePlayer = [[Globals i] Random_next:1 to:10];
-        NSInteger randomAwayPlayer = [[Globals i] Random_next:1 to:10];
-        
-        NSDictionary *rowData1 = wsPlayersHome[randomHomePlayer];
-        
-        NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData1[@"player_id"]], @"player_row",
-                                   @([rowData1[@"player_id"] integerValue]), @"player_id",
-                                   @(randomMinute), @"minute",
-                                   @0, @"type_id", nil];
-        
-        [self.highlights addObject:h1];
-        
-        NSDictionary *rowData2 = wsPlayersAway[randomAwayPlayer];
-        
-        NSMutableDictionary *h2 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData2[@"player_id"]], @"player_row",
-                                   @([rowData2[@"player_id"] integerValue]), @"player_id",
-                                   @(randomMinute), @"minute",
-                                   @0, @"type_id", nil];
-        
-        [self.highlights addObject:h2];
+        [self finishedHighlights];
+    }
+    else
+    {
+        [self startHighlight];
     }
 }
 

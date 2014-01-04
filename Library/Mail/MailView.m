@@ -134,4 +134,44 @@
 	return nil;
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_CONTENT_WIDTH, CELL_HEADER_HEIGHT)];
+    [headerView setBackgroundColor:[UIColor blackColor]];
+    
+    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Mark all as Read!"
+                                                    target:self
+                                                  selector:@selector(button1_tap:)
+                                                     frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
+                                                      type:@"1"];
+    
+    [headerView addSubview:button1];
+    
+    return headerView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return CELL_FOOTER_VIEW_HEIGHT;
+}
+
+- (void)button1_tap:(id)sender
+{
+    for(NSMutableDictionary *rowData in self.rows)
+    {
+        rowData[@"open_read"] = @"1";
+    }
+    
+    [[Globals i] settLocalMailData:self.rows];
+    [self.tableView reloadData];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"UpdateBadges"
+     object:self];
+    
+    [[Globals i] showToast:@"All Marked as Read!"
+             optionalTitle:nil
+             optionalImage:@"tick_yes"];
+}
+
 @end

@@ -139,7 +139,6 @@
     }
     
     [self loadClub];
-    [self startHighlight];
     
 	return self;
 }
@@ -429,10 +428,12 @@
         if (![rowData[@"highlight_type_id"] isEqualToString:@"0"])
         {
             highlight_total = highlight_total + 1;
+            
             NSMutableDictionary *h1 = [[NSMutableDictionary alloc] initWithObjectsAndKeys:[playerRowforID valueForKey:rowData[@"player_id"]], @"player_row",
                                        @([rowData[@"player_id"] integerValue]), @"player_id",
                                        @([rowData[@"match_minute"] integerValue]), @"minute",
                                        @([rowData[@"highlight_type_id"] integerValue]), @"type_id", nil];
+            
             [self.highlights addObject:h1];
         }
     }
@@ -440,6 +441,10 @@
     if (highlight_total == 0)
     {
         [self finishedHighlights];
+    }
+    else
+    {
+        [self startHighlight];
     }
 }
 

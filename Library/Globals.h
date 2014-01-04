@@ -19,6 +19,7 @@
 #define CELL_CONTENT_Y 3.0f * SCALE_IPAD
 #define CELL_CONTENT_SPACING 5.0f * SCALE_IPAD
 #define CELL_HEADER_HEIGHT 44.0f * SCALE_IPAD
+#define CELL_FOOTER_VIEW_HEIGHT 50.0f * SCALE_IPAD
 #define CELL_HEADER_Y 15.0f * SCALE_IPAD
 #define CELL_IMAGE1_SIZE 30.0f * SCALE_IPAD
 #define CELL_IMAGE2_HEIGHT 20.0f * SCALE_IPAD
@@ -496,6 +497,12 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
                         image:(UIImage *)image
                  imagePressed:(UIImage *)imagePressed
                 darkTextColor:(BOOL)darkTextColor;
+
+- (UIButton *)dynamicButtonWithTitle:(NSString *)title
+                              target:(id)target
+                            selector:(SEL)selector
+                               frame:(CGRect)frame
+                                type:(NSString *)type;
 
 - (NSString *)urlEnc:(NSString *)str;
 - (void)buyProduct:(NSString *)productId :(NSString *)isVirtualMoney :(NSString *)json;

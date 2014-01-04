@@ -259,28 +259,27 @@
     return [[Globals i] dynamicCellHeight:[self getRowData:tableView :indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_CONTENT_WIDTH, CELL_HEADER_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
-    
-    UIButton *createButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    createButton.frame = CGRectMake(5, 5, 280, 34);
-    [createButton setTitle:@"Create New CUP" forState:UIControlStateNormal];
-    [createButton setBackgroundColor:[UIColor grayColor]];
 
-    [createButton addTarget:self action:@selector(createButton_tap:) forControlEvents:UIControlEventTouchDown];
+    UIButton *button = [[Globals i] dynamicButtonWithTitle:@"Create New CUP"
+                                                    target:self
+                                                  selector:@selector(button_tap:)
+                                                     frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
+                                                      type:@"1"];
     
-    [headerView addSubview:createButton];
+    [headerView addSubview:button];
     return headerView;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return CELL_HEADER_HEIGHT;
+    return CELL_FOOTER_VIEW_HEIGHT;
 }
 
-- (void)createButton_tap:(id)sender
+- (void)button_tap:(id)sender
 {
     NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
     
