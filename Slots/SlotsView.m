@@ -9,10 +9,6 @@
 #import "SlotsView.h"
 #import "Globals.h"
 
-#define KTitle @"No Credits"
-#define KStoreButton @"STORE"
-#define KWaitButton @"WAIT"
-
 @implementation SlotsView
 @synthesize config;
 
@@ -31,7 +27,6 @@
     
     [self refreshWins:[NSNumber numberWithBool:NO]];
     [self refreshCoins:[NSNumber numberWithBool:NO]];
-    [self refreshMusicButton];
     
     [self initializeBeforeAnimationPosition];
     
@@ -56,11 +51,11 @@
 
 - (void)updateBalanceCredits
 {
-    [gameMechanics setCredits:[[[Globals i] wsClubData][@"currency_second"] integerValue]];
+    [gameMechanics setCredits:[[[Globals i] wsClubData][@"currency_second"] intValue]];
     [self refreshCredits:[NSNumber numberWithBool:NO]];
 }
 
-- (void) initializeBeforeAnimationPosition
+- (void)initializeBeforeAnimationPosition
 {
     CGRect frame;
     
@@ -91,7 +86,7 @@
         
         [thisLabel setBackgroundColor:[UIColor clearColor]];
         [thisLabel setTextColor:[UIColor whiteColor]];
-        [thisLabel setFont:[UIFont fontWithName:@"SteelfishRg-Regular" size:32.0]];
+        [thisLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:32.0]];
         
         thisLabel.text = [NSString stringWithFormat:@"%ix", win];
         
@@ -119,7 +114,7 @@
     [backgroundImage setAlpha:0.0];
 }
 
-- (void) initializeStartingAnimation
+- (void)initializeStartingAnimation
 {
     [audio playFxWhoosh];
     
@@ -143,13 +138,6 @@
 
                 }
                 completion:^(BOOL finished){
-                    
-                    BOOL musicOn = [self getMusicOn];
-                    
-                    if (musicOn)
-                    {
-                        [audio startNextSong];
-                    }
                     
                     [audio playFxSlide];
                     
@@ -201,7 +189,7 @@
                                     [armButtonContainer setAlpha:1.0];
                                 }
                                 completion:^(BOOL finished){
-                                    [self activateHelp];
+                                    //[self activateHelp];
                                 }
                              ];
                         }
@@ -212,85 +200,33 @@
      ];
 }
 
-- (void) activateHelp
+- (void)initializeFonts
 {
-    NSNumber *firstRun = [[NSUserDefaults standardUserDefaults] objectForKey:@"firstRun"];
+    [winsTitleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:winsTitleLabel.font.pointSize]];
+    [winsTitleLabel2 setFont:[UIFont fontWithName:DEFAULT_FONT size:winsTitleLabel2.font.pointSize]];
+    [coinsTitleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:coinsTitleLabel.font.pointSize]];
+    [creditsTitleLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:creditsTitleLabel.font.pointSize]];
+    [payoutsLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:payoutsLabel.font.pointSize]];
     
-    BOOL isThisTheFirstRun = YES;
-    
-    if (firstRun != nil)
-    {
-        isThisTheFirstRun = [firstRun boolValue];
-    }
-    
-    if (isThisTheFirstRun)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"firstRun"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        //[self helpButtonTapped:helpButton];
-    }
+    [coinsLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:coinsLabel.font.pointSize]];
+    [winsLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:winsLabel.font.pointSize]];
+    [creditsLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:creditsLabel.font.pointSize]];
 }
 
-- (void) activateStartingCredits
-{
-    NSNumber *firstRun = [[NSUserDefaults standardUserDefaults] objectForKey:@"firstRunCredits"];
-    
-    BOOL isThisTheFirstRun = YES;
-    
-    if (firstRun != nil)
-    {
-        isThisTheFirstRun = [firstRun boolValue];
-    }
-    
-    if (isThisTheFirstRun)
-    {
-        [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:NO] forKey:@"firstRunCredits"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        int startingCredits = [[[config objectForKey:@"variables"] objectForKey:@"startingCredits"] intValue];
-        
-        [gameMechanics increaseCredits:startingCredits];
-        
-        [self refreshCredits:[NSNumber numberWithBool:NO]];
-    }
-}
-
-- (void) initializeFonts
-{
-    [winsTitleLabel setFont:[UIFont fontWithName:@"MLS 2013" size:winsTitleLabel.font.pointSize]];
-    [winsTitleLabel2 setFont:[UIFont fontWithName:@"MLS 2013" size:winsTitleLabel2.font.pointSize]];
-    [coinsTitleLabel setFont:[UIFont fontWithName:@"MLS 2013" size:coinsTitleLabel.font.pointSize]];
-    [creditsTitleLabel setFont:[UIFont fontWithName:@"MLS 2013" size:creditsTitleLabel.font.pointSize]];
-    [payoutsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:payoutsLabel.font.pointSize]];
-    
-    [coinsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:coinsLabel.font.pointSize]];
-    [winsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:winsLabel.font.pointSize]];
-    [creditsLabel setFont:[UIFont fontWithName:@"MLS 2013" size:creditsLabel.font.pointSize]];
-    
-    for (UILabel *temp in productLabels)
-    {
-        [temp setFont:[UIFont fontWithName:@"MLS 2013" size:temp.font.pointSize]];
-    }
-}
-
-- (void) initializeAudio
+- (void)initializeAudio
 {
     audio = [[Audio alloc] init];
     audio.mainViewDelegate = self;
-    
-    //[audio initializeBackgroundMusic];
-    [self setMusicOn:NO]; //Set to not play bacground music
-    
+
     [audio initializeSoundEffects];
 }
 
-- (void) initializeViews
+- (void)initializeViews
 {
     [vegasLights setAlpha:0.0];
 }
 
-- (void) initializeVariables
+- (void)initializeVariables
 {
     config = [General readConfig];
     
@@ -317,8 +253,6 @@
         [currentSpinCounts insertObject:[NSNumber numberWithInt:0] atIndex:i];
     }
     
-    social = [config objectForKey:@"social"];
-    
     bulbs = [NSArray arrayWithObjects:bulbImage1, bulbImage2, bulbImage3, bulbImage4, bulbImage5, bulbImage6, bulbImage7, bulbImage8, nil];
     
     for (UIImageView *temp in bulbs)
@@ -329,42 +263,7 @@
     currentWins = 0;
 }
 
-- (void) showHideProductButtons:(BOOL)show
-{
-    float duration = [[[config objectForKey:@"variables"] objectForKey:@"productButtonFadeTime"] floatValue];
-    
-    for (int i = 0; i < [productButtons count]; i++)
-    {
-        UIButton *temp = (UIButton *)[productButtons objectAtIndex:i];
-        
-        if (show)
-        {
-            [UIView animateWithDuration:duration
-                delay:0.0
-                options:UIViewAnimationOptionCurveEaseIn
-                animations:^{
-                    [temp setAlpha:1.0];
-                }
-                completion:^(BOOL finished){
-                }
-             ];
-        }
-        else
-        {
-            [UIView animateWithDuration:duration
-                delay:0.0
-                options:UIViewAnimationOptionCurveEaseOut
-                animations:^{
-                    [temp setAlpha:0.0];
-                }
-                completion:^(BOOL finished){
-                }
-             ];
-        }
-    }
-}
-
-- (void) initializeReels
+- (void)initializeReels
 {
     cards = [NSMutableArray arrayWithCapacity:3];
     
@@ -399,7 +298,7 @@
     }
 }
 
-- (void) rollOneReel:(NSNumber *)reel
+- (void)rollOneReel:(NSNumber *)reel
 {
     currentlyRotating++;
     
@@ -443,7 +342,7 @@
     }
 }
 
-- (void) flashBulb:(NSNumber *)index
+- (void)flashBulb:(NSNumber *)index
 {
     UIImageView *img = (UIImageView *)[bulbs objectAtIndex:[index intValue]];
     float duration = [[[config objectForKey:@"variables"] objectForKey:@"bulbFadeTime"] floatValue];
@@ -470,7 +369,7 @@
      ];
 }
 
-- (void) bulbShow:(NSNumber *)count
+- (void)bulbShow:(NSNumber *)count
 {
     int total = [count intValue];
     int counter = -1;
@@ -491,7 +390,7 @@
     }
 }
 
-- (void) calculateWin
+- (void)calculateWin
 {
     BOOL isWin = NO;
     NSMutableArray *currentConfiguration = [NSMutableArray arrayWithCapacity:[reelViews count]];
@@ -557,41 +456,7 @@
     [self showHideButtons:YES];
 }
 
-- (void) giveFreeCredits
-{
-    //freeCreditsPerDay
-    
-    NSDate *now = [NSDate date];
-    NSDate *last = [[NSUserDefaults standardUserDefaults] objectForKey:@"lastFreeCreditsDate"];
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    
-    [formatter setDateFormat:@"yyyy-MM-dd"];
-    [formatter setLocale:[NSLocale systemLocale]];
-    
-    NSString *today = [formatter stringFromDate:now];
-    NSString *lastDate = [formatter stringFromDate:last];
-    
-    if ((lastDate == nil) || (![lastDate isEqualToString:today]))
-    {
-        int freeCredits = [[[config objectForKey:@"variables"] objectForKey:@"freeCreditsPerDay"] intValue];
-        
-        [gameMechanics increaseCredits:freeCredits];
-        
-        [self refreshCredits:[NSNumber numberWithBool:NO]];
-        
-        [[NSUserDefaults standardUserDefaults] setObject:now forKey:@"lastFreeCreditsDate"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        
-        NSString *alertTitle = [[config objectForKey:@"texts"] objectForKey:@"freeCreditsTitle"];
-        NSString *alertText = [[config objectForKey:@"texts"] objectForKey:@"freeCreditsText"];
-        
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertText delegate:nil cancelButtonTitle:@"close" otherButtonTitles:nil];
-        
-        [alert show];
-    }
-}
-
-- (void) showHideButtons:(BOOL)show
+- (void)showHideButtons:(BOOL)show
 {
     float duration = [[animations objectForKey:@"buttonFadeTime"] floatValue];
     
@@ -627,7 +492,7 @@
     }
 }
 
-- (void) flashWinningCards
+- (void)flashWinningCards
 {
     for (int i = 0; i < [currentCards count]; i++)
     {
@@ -639,7 +504,7 @@
     }
 }
 
-- (void) addWinVisually:(NSNumber *)win
+- (void)addWinVisually:(NSNumber *)win
 {
     float initialDelay = [[[config objectForKey:@"variables"] objectForKey:@"coinDropInitialDelay"] floatValue];
     float cardsDelay = [[animations objectForKey:@"delayAfterFlashingCards"] floatValue];
@@ -678,7 +543,7 @@
     }
 }
 
-- (void) setNewY:(NSDictionary *)params;
+- (void)setNewY:(NSDictionary *)params;
 {
     float newY = [[params objectForKey:@"newY"] intValue];
     float duration = [[params objectForKey:@"duration"] floatValue];
@@ -711,18 +576,39 @@
     ];
 }
 
-- (void) rollAllReels
+- (void)rollAllReels
 {
+    NSString *wsurl = [NSString stringWithFormat:@"%@/DoSlot/%@/%i",
+                       WS_URL, [[Globals i] UID], [gameMechanics getCoinsUsed]];
+    
+    [Globals getServer:wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             
+             if([result isEqualToString:@"0"])
+             {
+                 // - Diamonds used to clubData
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else
+             {
+                 [[Globals i] showDialog:@"I Won!"];
+             }
+         }
+     }];
+    
     currentlyRotating = 0;
     
     for (int i = 0; i < [reelViews count]; i++)
     {
-        int min = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"min"] intValue];
-        int max = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"max"] intValue];
+        //int min = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"min"] intValue];
+        //int max = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"max"] intValue];
+        //int rand = (arc4random() % (max - min + 1)) + min;
         
-        int rand = (arc4random() % (max - min + 1)) + min;
-        
-        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:i+1]];
+        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:10000]];
     }
     
     [audio playFxReelClick];
@@ -733,7 +619,7 @@
     }
 }
 
-- (void) refreshCoins:(NSNumber *)animated
+- (void)refreshCoins:(NSNumber *)animated
 {
     int coins = [gameMechanics getCoinsUsed];
     
@@ -745,7 +631,7 @@
     }
 }
 
-- (void) refreshCredits:(NSNumber *)animated
+- (void)refreshCredits:(NSNumber *)animated
 {
     int credits = [gameMechanics getCredits];
     [creditsLabel setText:[NSString stringWithFormat:@"%i", credits]];
@@ -756,7 +642,7 @@
     }
 }
 
-- (void) flashLabel:(UILabel *)label
+- (void)flashLabel:(UILabel *)label
 {
     UILabel *duplicateLabel = [[UILabel alloc] initWithFrame:label.frame];
     
@@ -784,7 +670,7 @@
      ];
 }
 
-- (void) flashCard:(UIImageView *)image
+- (void)flashCard:(UIImageView *)image
 {
     UIImageView *duplicateImage = [[UIImageView alloc] initWithFrame:image.frame];
     
@@ -818,12 +704,8 @@
      ];
 }
 
-- (void) refreshWins:(NSNumber *)animated
+- (void)refreshWins:(NSNumber *)animated
 {
-    //int wins = [gameMechanics getWins];
-    
-    //[winsLabel setText:[NSString stringWithFormat:@"%i", wins]];
-    
     [winsLabel setText:[NSString stringWithFormat:@"%i", currentWins]];
     
     if ([animated boolValue])
@@ -832,93 +714,15 @@
     }
 }
 
-- (void) setMusicOn:(BOOL)val
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithBool:val] forKey:@"music"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL) getMusicOn
-{
-    NSObject *musicOn = [[NSUserDefaults standardUserDefaults] objectForKey:@"music"];
-    
-    BOOL valueToUse = YES;
-    
-    if (musicOn != nil)
-    {
-        valueToUse = [(NSNumber *)musicOn boolValue];
-    }
-    
-    return valueToUse;
-}
-
-- (void) refreshMusicButton
-{
-    BOOL valueToUse = [self getMusicOn];
-    
-    if (valueToUse)
-    {
-        //[musicButton setSelected:YES];
-    }
-    else
-    {
-        //[musicButton setSelected:NO];
-    }
-}
-
-- (IBAction) musicButtonTapped:(id)sender
-{
-    BOOL valueToUse = [self getMusicOn];
-    
-    valueToUse = !valueToUse;
-    
-    [self setMusicOn:valueToUse];
-    
-    [self refreshMusicButton];
-    
-    if (valueToUse)
-    {
-        [audio startNextSong];
-    }
-    else
-    {
-        [audio stopBackgroundSound];
-    }
-}
-
--(void)checkForCredits
+- (void)checkForCredits
 {
     if ([gameMechanics getCredits] == 0)
     {
-        [self addAlertView];
-    }
-}
-- (void)addAlertView
-{
-    NSString *creditMessage = [config objectForKey:@"creditMessage"];
-    UIAlertView *alertView = [[UIAlertView alloc]
-                              initWithTitle:KTitle
-                              message:creditMessage
-                              delegate:self
-                              cancelButtonTitle:KStoreButton
-                              otherButtonTitles:KWaitButton, nil];
-    [alertView show];
-    
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 0)
-    {
         [self productsButtonTapped:self];
     }
-    else if (buttonIndex == 1)
-    {
-        
-    }
 }
 
-- (IBAction) armButtonTapped:(id)sender
+- (IBAction)armButtonTapped:(id)sender
 {
     noOfSpins++;
     currentWins = 0;
@@ -963,7 +767,7 @@
     }
 }
 
-- (IBAction) addCoinButtonTapped:(id)sender
+- (IBAction)addCoinButtonTapped:(id)sender
 {
     int maxBetValue = [[[config objectForKey:@"variables"] objectForKey:@"maxBetValue"] intValue];
     int singleBetValue = [[[config objectForKey:@"variables"] objectForKey:@"singleBetValue"] intValue];
@@ -990,7 +794,7 @@
     }
 }
 
-- (IBAction) addMaxCoinButtonTapped:(id)sender
+- (IBAction)addMaxCoinButtonTapped:(id)sender
 {
     int maxBetValue = [[[config objectForKey:@"variables"] objectForKey:@"maxBetValue"] intValue];
     int currentCredits = [gameMechanics getCredits];
@@ -1005,7 +809,7 @@
     }
 }
 
-- (void) showHidePayouts:(BOOL)show
+- (void)showHidePayouts:(BOOL)show
 {
     float duration = [[animations objectForKey:@"payoutsFadeTime"] floatValue];
     
@@ -1039,43 +843,21 @@
     }
 }
 
-- (IBAction) payoutsCloseButtonTapped:(id)sender
+- (IBAction)payoutsCloseButtonTapped:(id)sender
 {
     [self showHidePayouts:NO];
 }
 
-- (IBAction) productsButtonTapped:(id)sender
+- (IBAction)productsButtonTapped:(id)sender
 {
     [audio playFxWhoosh];
     
     [[Globals i] showBuy];
 }
 
-- (IBAction) payoutsButtonTapped:(id)sender
+- (IBAction)payoutsButtonTapped:(id)sender
 {
     [self showHidePayouts:YES];
-}
-
-// enable purchased features
-
-- (void) provideContent:(NSString *)productId
-{
-    for (NSDictionary *temp in products)
-    {
-        if ([[temp objectForKey:@"productId"] isEqualToString:productId])
-        {
-            [gameMechanics addCredits:[[temp objectForKey:@"credits"] intValue]];
-            
-            [self refreshCredits:[NSNumber numberWithInt:[gameMechanics getCredits]]];
-            
-            NSString *alertTitle = [texts objectForKey:@"productsAlertTitle"];
-            NSString *alertText = [texts objectForKey:@"productsAlertText"];
-            
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertText delegate:self cancelButtonTitle:@"close" otherButtonTitles:nil];
-            
-            [alert show];
-        }
-    }
 }
 
 @end

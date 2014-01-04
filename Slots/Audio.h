@@ -10,7 +10,7 @@
 
 @protocol AudioDelegate <NSObject, AVAudioPlayerDelegate>
 
-- (BOOL) getMusicOn;
+//- (BOOL) getMusicOn;
 
 @property (nonatomic, retain) NSDictionary *config;
 

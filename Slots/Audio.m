@@ -189,7 +189,7 @@
 
 - (void) startNextSong
 {
-    BOOL musicOn = [mainViewDelegate getMusicOn];
+    BOOL musicOn = NO; //[mainViewDelegate getMusicOn];
     
     //NSLog(@"%i", musicOn);
     

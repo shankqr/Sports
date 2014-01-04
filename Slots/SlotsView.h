@@ -10,34 +10,26 @@
 #import "GameMechanics.h"
 #import "Audio.h"
 
-@interface SlotsView : UIViewController <GameMechanicsDelegate, AudioDelegate, UIAlertViewDelegate>
+@interface SlotsView : UIViewController <GameMechanicsDelegate, AudioDelegate>
 {
+    GameMechanics *gameMechanics;
     NSDictionary *config;
     NSDictionary *texts;
-    GameMechanics *gameMechanics;
     NSArray *combinations;
     NSArray *reels;
     NSArray *reelViews;
+    NSArray *bulbs;
     NSMutableArray *currentSpinCounts;
     NSDictionary *animations;
     NSMutableArray *cards;
     NSMutableArray *currentCards;
-    NSDictionary *social;
-    NSMutableDictionary *productObjects;
-    
     int itemWidth;
     int itemHeight;
     int rowCount;
     int currentlyRotating;
     int currentWins;
     int noOfSpins;
-    
     Audio *audio;
-    
-    NSArray *products;
-    NSArray *productLabels;
-    NSArray *productButtons;
-    NSArray *bulbs;
     
     IBOutlet UIView* reel1;
     IBOutlet UIView* reel2;
@@ -74,42 +66,10 @@
     IBOutlet UIImageView *bulbImage7;
     IBOutlet UIImageView *bulbImage8;
 }
-
-- (void) initializeBeforeAnimationPosition;
-- (void) initializeStartingAnimation;
-- (void) initializeFonts;
-- (void) initializeViews;
-- (void) initializeAudio;
-- (void) initializeVariables;
-- (void) initializeReels;
-- (void) refreshCoins:(NSNumber *)animated;
-- (void) refreshCredits:(NSNumber *)animated;
-- (void) refreshWins:(NSNumber *)animated;
-- (void) refreshMusicButton;
-- (void) rollOneReel:(NSNumber *)reel;
-- (void) rollAllReels;
-- (void) setNewY:(NSDictionary *)params;
-- (void) calculateWin;
-- (void) addWinVisually:(NSNumber *)win;
-- (BOOL) getMusicOn;
-- (void) setMusicOn:(BOOL)val;
-- (void) showHideButtons:(BOOL)show;
-- (void) flashWinningCards;
-- (void) flashCard:(UIImageView *)image;
-- (void) flashLabel:(UILabel *)label;
-- (void) activateHelp;
-- (void) activateStartingCredits;
-- (void) showHidePayouts:(BOOL)show;
-- (void) showHideProductButtons:(BOOL)show;
-- (void) bulbShow:(NSNumber *)count;
-- (void) flashBulb:(NSNumber *)index;
-- (void) giveFreeCredits;
-
 - (IBAction) armButtonTapped:(id)sender;
 - (IBAction) addCoinButtonTapped:(id)sender;
 - (IBAction) addMaxCoinButtonTapped:(id)sender;
 - (IBAction) productsButtonTapped:(id)sender;
 - (IBAction) payoutsCloseButtonTapped:(id)sender;
 - (IBAction) payoutsButtonTapped:(id)sender;
-
 @end

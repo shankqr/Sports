@@ -264,13 +264,13 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_CONTENT_WIDTH, CELL_HEADER_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
 
-    UIButton *button = [[Globals i] dynamicButtonWithTitle:@"Create New CUP"
+    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New CUP"
                                                     target:self
-                                                  selector:@selector(button_tap:)
+                                                  selector:@selector(button1_tap:)
                                                      frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
                                                       type:@"1"];
     
-    [headerView addSubview:button];
+    [headerView addSubview:button1];
     return headerView;
 }
 
@@ -279,7 +279,7 @@
     return CELL_FOOTER_VIEW_HEIGHT;
 }
 
-- (void)button_tap:(id)sender
+- (void)button1_tap:(id)sender
 {
     NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
     
