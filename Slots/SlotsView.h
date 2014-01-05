@@ -20,6 +20,7 @@
     NSArray *reelViews;
     NSArray *bulbs;
     NSMutableArray *currentSpinCounts;
+    NSMutableArray *currentSpinResults;
     NSDictionary *animations;
     NSMutableArray *cards;
     NSMutableArray *currentCards;
@@ -29,7 +30,10 @@
     int currentlyRotating;
     int currentWins;
     int noOfSpins;
+    int winResult;
     Audio *audio;
+    
+    BOOL keepSpinning;
     
     IBOutlet UIView* reel1;
     IBOutlet UIView* reel2;

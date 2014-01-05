@@ -247,10 +247,12 @@
     reelViews = [NSArray arrayWithObjects:reel1, reel2, reel3, nil];
     
     currentSpinCounts = [NSMutableArray arrayWithCapacity:3];
+    currentSpinResults = [NSMutableArray arrayWithCapacity:3];
     
     for (int i = 0; i < [reels count]; i++)
     {
         [currentSpinCounts insertObject:[NSNumber numberWithInt:0] atIndex:i];
+        [currentSpinResults insertObject:[NSNumber numberWithInt:0] atIndex:i];
     }
     
     bulbs = [NSArray arrayWithObjects:bulbImage1, bulbImage2, bulbImage3, bulbImage4, bulbImage5, bulbImage6, bulbImage7, bulbImage8, nil];
@@ -298,6 +300,197 @@
     }
 }
 
+- (void)resetReels
+{
+    cards = [NSMutableArray arrayWithCapacity:3];
+    
+    for (int i = 0; i < [reels count]; i++)
+    {
+        UIView *currentReel = [reelViews objectAtIndex:i];
+        
+        [currentReel.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+        
+        currentCards = [NSMutableArray arrayWithCapacity:(rowCount + 2)];
+        
+        for (int j = 0; j < [[reels objectAtIndex:i] count] + 2; j++)
+        {
+            int rowToUse = j % [[reels objectAtIndex:i] count];
+            
+            UIImageView *currentImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, j * itemHeight, itemWidth, itemHeight)];
+            
+            NSString *currentItem = [[reels objectAtIndex:i] objectAtIndex:rowToUse];
+            
+            [currentImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", currentItem]]];
+            
+            [currentReel addSubview:currentImage];
+            [currentCards addObject:currentImage];
+        }
+        
+        int rand = arc4random() % rowCount;
+        CGRect frame = currentReel.frame;
+        
+        frame.origin.y = -rand * itemHeight;
+        
+        [currentReel setFrame:frame];
+        
+        [cards insertObject:currentCards atIndex:i];
+    }
+}
+
+- (IBAction)armButtonTapped:(id)sender
+{
+    noOfSpins++;
+    currentWins = 0;
+    
+    [self refreshWins:[NSNumber numberWithBool:NO]];
+    
+    int currentCredits = [gameMechanics getCredits];
+    
+    int singleBetValue = [[[config objectForKey:@"variables"] objectForKey:@"singleBetValue"] intValue];
+    
+    if (currentCredits < singleBetValue)
+    {
+        [self productsButtonTapped:self];
+        
+        return;
+    }
+    
+    float delay = [[[config objectForKey:@"variables"] objectForKey:@"reelRotationDelay"] floatValue];
+    
+    [self showHideButtons:NO];
+    
+    if ([gameMechanics getCoinsUsed] == 0)
+    {
+        [gameMechanics addCoinsUsed:singleBetValue];
+        
+        [audio playFxInsertCoin];
+        
+        [self refreshCoins:[NSNumber numberWithBool:YES]];
+    }
+    
+    int creditsDropped = [gameMechanics getCoinsUsed];
+    
+    [gameMechanics decreaseCredits:creditsDropped];
+    
+    [self refreshCredits:[NSNumber numberWithBool:YES]];
+    
+    [audio performSelector:@selector(playFxArmPulled) withObject:nil afterDelay:0.0];
+    
+    [self performSelector:@selector(rollAllReels) withObject:nil afterDelay:delay];
+    
+    if (noOfSpins == 10)
+    {
+        noOfSpins = 0;
+    }
+}
+
+- (void)rollAllReels
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/DoSlot/%@/%i",
+                       WS_URL, [[Globals i] UID], [gameMechanics getCoinsUsed]];
+    
+    [Globals getServer:wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             
+             if([result isEqualToString:@"0"])
+             {
+                 // - Diamonds used to clubData
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else if([result isEqualToString:@"1"])
+             {
+                 // Do nothing coz diamonds earned back
+             }
+             else if([result isEqualToString:@"2"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed];
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             
+             [self stopRoll:result];
+         }
+         else
+         {
+             [self stopOnError];
+             [[Globals i] showDialog:@"Oops! there was a network problem. Please try again. No diamonds have been awarded or deducted."];
+         }
+     }];
+    
+    [audio playFxReelClick];
+    
+    keepSpinning = YES;
+    
+    for (int i = 0; i < [reelViews count]; i++)
+    {
+        [self performSelectorInBackground:@selector(rollOneReelForever:) withObject:[NSNumber numberWithInt:i]];
+    }
+    
+    [self resetReels];
+}
+
+- (void)rollOneReelForever:(NSNumber *)reel
+{
+    UIView *thisReel = [reelViews objectAtIndex:[reel intValue]];
+    
+    while(keepSpinning)
+    {
+        float duration = .1f;
+        
+        int currentY = thisReel.frame.origin.y;
+        int newY = currentY - itemHeight;
+        
+        NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:newY], thisReel, [NSNumber numberWithFloat:duration], nil] forKeys:[NSArray arrayWithObjects:@"newY", @"view", @"duration", nil]];
+        
+        [self performSelectorOnMainThread:@selector(setNewY:) withObject:params waitUntilDone:NO];
+        
+        [NSThread sleepForTimeInterval:duration];
+    }
+}
+
+- (void)stopOnError
+{
+    keepSpinning = NO;
+    [audio stopFxReelClick];
+    [audio playFxReelStop];
+    [self showHideButtons:YES];
+    
+    //Increase credits used
+    [gameMechanics increaseCredits:[gameMechanics getCoinsUsed]];
+    [self refreshCredits:[NSNumber numberWithBool:YES]];
+}
+
+- (void)stopRoll:(NSString *)result
+{
+    currentlyRotating = 0;
+    
+    keepSpinning = NO;
+    
+    for (int i = 0; i < [reelViews count]; i++)
+    {
+        int min = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"min"] intValue];
+        int max = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"max"] intValue];
+        int rand = (arc4random() % (max - min + 1)) + min;
+        
+        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand]];
+        
+        winResult = 2;// [result intValue];
+        
+        //Set end results
+        [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:2]];
+    }
+    
+    currentCards = [NSMutableArray arrayWithCapacity:3];
+    
+    for (int i = 0; i < [reelViews count]; i++)
+    {
+        [self performSelectorInBackground:@selector(rollOneReel:) withObject:[NSNumber numberWithInt:i]];
+    }
+}
+
 - (void)rollOneReel:(NSNumber *)reel
 {
     currentlyRotating++;
@@ -330,6 +523,40 @@
         [NSThread sleepForTimeInterval:duration];
     }
     
+    int currentY = thisReel.frame.origin.y;
+    int position = abs((currentY / itemHeight) % rowCount);
+    if (position == 0)
+    {
+        position = rowCount;
+    }
+    UIImageView *currentImage = [[cards objectAtIndex:[reel intValue]] objectAtIndex:position];
+    
+    NSLog(@"Reel[%d] position:%d", [reel intValue], position);
+    
+    int final_type = [[currentSpinResults objectAtIndex:[reel intValue]] intValue]; // final result
+    if (final_type == 1)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"seven.png"]];
+    }
+    else if (final_type == 2)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"bell.png"]];
+    }
+    else if (final_type == 3)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"grapes.png"]];
+    }
+    else if (final_type == 4)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"lemon.png"]];
+    }
+    else if (final_type == 5)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
+    }
+    
+    [currentCards addObject:currentImage];
+    
     [audio playFxReelStop];
     
     currentlyRotating--;
@@ -340,6 +567,81 @@
         
         [self performSelectorOnMainThread:@selector(calculateWin) withObject:nil waitUntilDone:NO];
     }
+}
+
+- (void)setNewY:(NSDictionary *)params;
+{
+    float newY = [[params objectForKey:@"newY"] intValue];
+    float duration = [[params objectForKey:@"duration"] floatValue];
+    UIView *view = [params objectForKey:@"view"];
+    CGRect frame;
+    
+    if (-newY >= (rowCount + 1) * itemHeight)
+    {
+        frame = view.frame;
+        
+        frame.origin.y += rowCount * itemHeight;
+        
+        [view setFrame:frame];
+        
+        newY += rowCount * itemHeight;
+    }
+    
+    frame = view.frame;
+    
+    frame.origin.y = newY;
+    
+    [UIView animateWithDuration:duration
+                          delay:0.0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [view setFrame:frame];
+                     }
+                     completion:^(BOOL finished){
+                     }
+     ];
+}
+
+- (void)calculateWin
+{
+    BOOL isWin = NO;
+
+    if (winResult != 0)
+    {
+        int win = winResult * [gameMechanics getCoinsUsed];
+        
+        if (winResult == 10)
+        {
+            float delay = [[[config objectForKey:@"variables"] objectForKey:@"jackpotDelay"] floatValue];
+            
+            [audio playFxCheers];
+            
+            [audio performSelector:@selector(playFxJackpot) withObject:nil afterDelay:delay];
+            
+            [self performSelectorInBackground:@selector(bulbShow:) withObject:[NSNumber numberWithInt:96]];
+        }
+        else
+        {
+            [audio playFxWinningCombination];
+            
+            [self performSelectorInBackground:@selector(bulbShow:) withObject:[NSNumber numberWithInt:32]];
+        }
+        
+        [self performSelectorInBackground:@selector(addWinVisually:) withObject:[NSNumber numberWithInt:win]];
+        
+        isWin = YES;
+    }
+    
+    [gameMechanics removeCoins];
+    
+    [self refreshCoins:[NSNumber numberWithBool:NO]];
+    
+    if (!isWin)
+    {
+        [self performSelectorOnMainThread:@selector(checkForCredits) withObject:nil waitUntilDone:NO];
+    }
+    
+    [self showHideButtons:YES];
 }
 
 - (void)flashBulb:(NSNumber *)index
@@ -388,72 +690,6 @@
         
         [NSThread sleepForTimeInterval:(2 * duration)];
     }
-}
-
-- (void)calculateWin
-{
-    BOOL isWin = NO;
-    NSMutableArray *currentConfiguration = [NSMutableArray arrayWithCapacity:[reelViews count]];
-    
-    currentCards = [NSMutableArray arrayWithCapacity:3];
-    
-    for (int i = 0; i < [reelViews count]; i++)
-    {
-        UIView *currentReel = [reelViews objectAtIndex:i];
-        
-        int currentY = currentReel.frame.origin.y;
-        int position = abs((currentY / itemHeight) % rowCount);
-        
-        [currentCards addObject:[[cards objectAtIndex:i] objectAtIndex:position]];
-        
-        NSString *thisTile = [[reels objectAtIndex:i] objectAtIndex:position];
-        
-        [currentConfiguration insertObject:thisTile atIndex:i];
-    }
-    
-    int match = [gameMechanics getCombination:[NSArray arrayWithArray:currentConfiguration]];
-    
-    //match = 2;
-    
-    if (match != -1)
-    {
-        BOOL jackpot = [[[combinations objectAtIndex:match] objectForKey:@"jackpot"] boolValue];
-        int win = [[[combinations objectAtIndex:match] objectForKey:@"win"] intValue] * [gameMechanics getCoinsUsed];
-        
-        if (jackpot)
-        {
-            float delay = [[[config objectForKey:@"variables"] objectForKey:@"jackpotDelay"] floatValue];
-            
-            [audio playFxCheers];
-            
-            [audio performSelector:@selector(playFxJackpot) withObject:nil afterDelay:delay];
-            
-            [self performSelectorInBackground:@selector(bulbShow:) withObject:[NSNumber numberWithInt:96]];
-        }
-        else
-        {
-            [audio playFxWinningCombination];
-            
-            [self performSelectorInBackground:@selector(bulbShow:) withObject:[NSNumber numberWithInt:32]];
-        }
-        
-        [self performSelectorInBackground:@selector(addWinVisually:) withObject:[NSNumber numberWithInt:win]];
-        
-        isWin = YES;
-        
-        NSLog(@"%@", [combinations objectAtIndex:match]);
-    }
-    
-    [gameMechanics removeCoins];
-    
-    [self refreshCoins:[NSNumber numberWithBool:NO]];
-    
-    if (!isWin)
-    {
-         [self performSelectorOnMainThread:@selector(checkForCredits) withObject:nil waitUntilDone:NO];
-    }
-    
-    [self showHideButtons:YES];
 }
 
 - (void)showHideButtons:(BOOL)show
@@ -540,82 +776,6 @@
         [self performSelectorOnMainThread:@selector(refreshCredits:) withObject:[NSNumber numberWithBool:YES] waitUntilDone:NO];
         
         [NSThread sleepForTimeInterval:delay];
-    }
-}
-
-- (void)setNewY:(NSDictionary *)params;
-{
-    float newY = [[params objectForKey:@"newY"] intValue];
-    float duration = [[params objectForKey:@"duration"] floatValue];
-    UIView *view = [params objectForKey:@"view"];
-    CGRect frame;
-    
-    if (-newY >= (rowCount + 1) * itemHeight)
-    {
-        frame = view.frame;
-        
-        frame.origin.y += rowCount * itemHeight;
-        
-        [view setFrame:frame];
-        
-        newY += rowCount * itemHeight;
-    }
-    
-    frame = view.frame;
-    
-    frame.origin.y = newY;
-    
-    [UIView animateWithDuration:duration
-        delay:0.0
-        options:UIViewAnimationOptionCurveLinear
-        animations:^{
-            [view setFrame:frame];
-        }
-        completion:^(BOOL finished){
-        }
-    ];
-}
-
-- (void)rollAllReels
-{
-    NSString *wsurl = [NSString stringWithFormat:@"%@/DoSlot/%@/%i",
-                       WS_URL, [[Globals i] UID], [gameMechanics getCoinsUsed]];
-    
-    [Globals getServer:wsurl :^(BOOL success, NSData *data)
-     {
-         if (success)
-         {
-             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-             
-             if([result isEqualToString:@"0"])
-             {
-                 // - Diamonds used to clubData
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
-             }
-             else
-             {
-                 [[Globals i] showDialog:@"I Won!"];
-             }
-         }
-     }];
-    
-    currentlyRotating = 0;
-    
-    for (int i = 0; i < [reelViews count]; i++)
-    {
-        //int min = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"min"] intValue];
-        //int max = [[[[config objectForKey:@"spins"] objectAtIndex:i] objectForKey:@"max"] intValue];
-        //int rand = (arc4random() % (max - min + 1)) + min;
-        
-        [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:10000]];
-    }
-    
-    [audio playFxReelClick];
-    
-    for (int i = 0; i < [reelViews count]; i++)
-    {
-        [self performSelectorInBackground:@selector(rollOneReel:) withObject:[NSNumber numberWithInt:i]];
     }
 }
 
@@ -722,51 +882,6 @@
     }
 }
 
-- (IBAction)armButtonTapped:(id)sender
-{
-    noOfSpins++;
-    currentWins = 0;
-    
-    [self refreshWins:[NSNumber numberWithBool:NO]];
-    
-    int currentCredits = [gameMechanics getCredits];
-    
-    int singleBetValue = [[[config objectForKey:@"variables"] objectForKey:@"singleBetValue"] intValue];
-    
-    if (currentCredits < singleBetValue)
-    {
-        return;
-    }
-    
-    float delay = [[[config objectForKey:@"variables"] objectForKey:@"reelRotationDelay"] floatValue];
-    
-    [self showHideButtons:NO];
-    
-    if ([gameMechanics getCoinsUsed] == 0)
-    {
-        [gameMechanics addCoinsUsed:singleBetValue];
-        
-        [audio playFxInsertCoin];
-        
-        [self refreshCoins:[NSNumber numberWithBool:YES]];
-    }
-    
-    int creditsDropped = [gameMechanics getCoinsUsed];
-    
-    [gameMechanics decreaseCredits:creditsDropped];
-    
-    [self refreshCredits:[NSNumber numberWithBool:YES]];
-    
-    [audio performSelector:@selector(playFxArmPulled) withObject:nil afterDelay:0.0];
-    
-    [self performSelector:@selector(rollAllReels) withObject:nil afterDelay:delay];
-    
-    if (noOfSpins == 10)
-    {
-        noOfSpins = 0;
-    }
-}
-
 - (IBAction)addCoinButtonTapped:(id)sender
 {
     int maxBetValue = [[[config objectForKey:@"variables"] objectForKey:@"maxBetValue"] intValue];
@@ -806,6 +921,10 @@
         [audio playFxInsertCoin];
         
         [self refreshCoins:[NSNumber numberWithBool:YES]];
+    }
+    else
+    {
+        [self productsButtonTapped:self];
     }
 }
 
