@@ -230,6 +230,8 @@
 {
     config = [General readConfig];
     
+    rand1 = 0;
+    
     reels = [config objectForKey:@"reels"];
     combinations = [config objectForKey:@"combinations"];
     animations = [config objectForKey:@"animations"];
@@ -410,6 +412,31 @@
                  int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed];
                  [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
+             else if([result isEqualToString:@"3"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*2;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else if([result isEqualToString:@"4"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*3;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else if([result isEqualToString:@"6"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*5;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else if([result isEqualToString:@"8"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*7;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else if([result isEqualToString:@"10"])
+             {
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*9;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
              
              [self stopRoll:result];
          }
@@ -477,10 +504,108 @@
         
         [currentSpinCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand]];
         
-        winResult = 2;// [result intValue];
+        winResult = [result intValue];
         
-        //Set end results
-        [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:2]];
+        if (winResult == 10)
+        {
+            [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:1]];
+        }
+        else if (winResult == 8)
+        {
+            [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:2]];
+        }
+        else if (winResult == 6)
+        {
+            [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:3]];
+        }
+        else if (winResult == 4)
+        {
+            [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:4]];
+        }
+        else if (winResult == 3)
+        {
+            if (i < 2)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:5]];
+            }
+            else
+            {
+                int rand = arc4random() % 5;
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand+1]];
+            }
+        }
+        else if (winResult == 2)
+        {
+            if (i == 0)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:5]];
+            }
+            else if (i == 1)
+            {
+                int rand = arc4random() % 4;
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand+1]];
+            }
+            else if (i == 2)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:5]];
+            }
+        }
+        else if (winResult == 1)
+        {
+            if (i > 0)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:5]];
+            }
+            else
+            {
+                int rand = arc4random() % 4;
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand+1]];
+            }
+        }
+        else if (winResult == 0)
+        {
+            if (rand1 == 0)
+            {
+                rand1 = arc4random() % 5 + 1;
+                //Make sure no 2 clovers in a row
+                if (rand1 == 5)
+                {
+                    rand2 = arc4random() % 4 + 1;
+                    rand3 = arc4random() % 4 + 1;
+                }
+                else
+                {
+                    rand2 = arc4random() % 5 + 1;
+                    rand3 = arc4random() % 5 + 1;
+                    
+                    //Make sure no 3 in a row
+                    if (rand1 == rand2 == rand3)
+                    {
+                        rand1 = 5;
+                    }
+                    else if (rand2 == rand3 == 5) //Make sure no 2 clovers in a row
+                    {
+                        rand2 = arc4random() % 4 + 1;
+                    }
+                }
+            }
+            
+            if (i == 0)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand1]];
+            }
+            else if (i == 1)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand2]];
+            }
+            else if (i == 2)
+            {
+                [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand3]];
+                
+                //reset random generator
+                rand1 = 0;
+            }
+        }
     }
     
     currentCards = [NSMutableArray arrayWithCapacity:3];
@@ -531,8 +656,6 @@
     }
     UIImageView *currentImage = [[cards objectAtIndex:[reel intValue]] objectAtIndex:position];
     
-    NSLog(@"Reel[%d] position:%d", [reel intValue], position);
-    
     int final_type = [[currentSpinResults objectAtIndex:[reel intValue]] intValue]; // final result
     if (final_type == 1)
     {
@@ -554,6 +677,8 @@
     {
         [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
     }
+    
+    NSLog(@"Reel[%d] position:%d result:%d", [reel intValue], position, final_type);
     
     [currentCards addObject:currentImage];
     

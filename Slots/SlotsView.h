@@ -31,6 +31,9 @@
     int currentWins;
     int noOfSpins;
     int winResult;
+    int rand1;
+    int rand2;
+    int rand3;
     Audio *audio;
     
     BOOL keepSpinning;
