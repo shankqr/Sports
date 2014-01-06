@@ -15,7 +15,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     
     [self initializeVariables];
     [self initializeReels];
@@ -71,7 +70,8 @@
         
         for (NSString *str in thisCombination)
         {
-            UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"%@.png", str]]];
+            UIImageView *image = [[UIImageView alloc] initWithImage:
+                                  [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", str]]];
             
             [image setFrame:CGRectMake(x, y, 50, 70)];
             
@@ -579,11 +579,11 @@
                     rand3 = arc4random() % 5 + 1;
                     
                     //Make sure no 3 in a row
-                    if (rand1 == rand2 == rand3)
+                    if ((rand1 == rand2) && (rand1 == rand3))
                     {
                         rand1 = 5;
                     }
-                    else if (rand2 == rand3 == 5) //Make sure no 2 clovers in a row
+                    else if ((rand2 == 5) && (rand3 == 5)) //Make sure no 2 clovers in a row
                     {
                         rand2 = arc4random() % 4 + 1;
                     }
@@ -635,61 +635,57 @@
     while (spinCount <= S)
     {
         spinCount++;
-        
         duration = a * spinCount + b;
-        
         int currentY = thisReel.frame.origin.y;
         int newY = currentY - itemHeight;
         
-        NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:newY], thisReel, [NSNumber numberWithFloat:duration], nil] forKeys:[NSArray arrayWithObjects:@"newY", @"view", @"duration", nil]];
+        if (spinCount == S) //Last 2 spin
+        {
+            int futureY = newY - itemHeight;
+            int position = abs((futureY / itemHeight) % rowCount);
+            if (position == 0)
+            {
+                position = rowCount;
+            }
+            UIImageView *currentImage = [[cards objectAtIndex:[reel intValue]] objectAtIndex:position];
+            
+            int final_type = [[currentSpinResults objectAtIndex:[reel intValue]] intValue]; // final result
+            if (final_type == 1)
+            {
+                [currentImage setImage:[UIImage imageNamed:@"seven.png"]];
+            }
+            else if (final_type == 2)
+            {
+                [currentImage setImage:[UIImage imageNamed:@"bell.png"]];
+            }
+            else if (final_type == 3)
+            {
+                [currentImage setImage:[UIImage imageNamed:@"grapes.png"]];
+            }
+            else if (final_type == 4)
+            {
+                [currentImage setImage:[UIImage imageNamed:@"lemon.png"]];
+            }
+            else if (final_type == 5)
+            {
+                [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
+            }
+            
+            NSLog(@"Reel[%d] position:%d result:%d", [reel intValue], position, final_type);
+            [currentCards addObject:currentImage];
+        }
         
+        NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:newY], thisReel, [NSNumber numberWithFloat:duration], nil] forKeys:[NSArray arrayWithObjects:@"newY", @"view", @"duration", nil]];
         [self performSelectorOnMainThread:@selector(setNewY:) withObject:params waitUntilDone:NO];
         
         [NSThread sleepForTimeInterval:duration];
     }
     
-    int currentY = thisReel.frame.origin.y;
-    int position = abs((currentY / itemHeight) % rowCount);
-    if (position == 0)
-    {
-        position = rowCount;
-    }
-    UIImageView *currentImage = [[cards objectAtIndex:[reel intValue]] objectAtIndex:position];
-    
-    int final_type = [[currentSpinResults objectAtIndex:[reel intValue]] intValue]; // final result
-    if (final_type == 1)
-    {
-        [currentImage setImage:[UIImage imageNamed:@"seven.png"]];
-    }
-    else if (final_type == 2)
-    {
-        [currentImage setImage:[UIImage imageNamed:@"bell.png"]];
-    }
-    else if (final_type == 3)
-    {
-        [currentImage setImage:[UIImage imageNamed:@"grapes.png"]];
-    }
-    else if (final_type == 4)
-    {
-        [currentImage setImage:[UIImage imageNamed:@"lemon.png"]];
-    }
-    else if (final_type == 5)
-    {
-        [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
-    }
-    
-    NSLog(@"Reel[%d] position:%d result:%d", [reel intValue], position, final_type);
-    
-    [currentCards addObject:currentImage];
-    
     [audio playFxReelStop];
-    
     currentlyRotating--;
-    
     if (currentlyRotating == 0)
     {
         [audio stopFxReelClick];
-        
         [self performSelectorOnMainThread:@selector(calculateWin) withObject:nil waitUntilDone:NO];
     }
 }
