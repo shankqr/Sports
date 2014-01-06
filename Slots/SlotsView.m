@@ -612,8 +612,57 @@
     
     for (int i = 0; i < [reelViews count]; i++)
     {
+        [self setFutureImage:i];
         [self performSelectorInBackground:@selector(rollOneReel:) withObject:[NSNumber numberWithInt:i]];
     }
+}
+
+- (void)setFutureImage:(int)reel
+{
+    UIView *thisReel = [reelViews objectAtIndex:reel];
+    int S = [[currentSpinCounts objectAtIndex:reel] intValue]; // number of spins
+    int final_type = [[currentSpinResults objectAtIndex:reel] intValue];
+    
+    //Set in advance the end image
+    int currentY = thisReel.frame.origin.y;
+    int currentPos = abs((currentY / itemHeight) % rowCount);
+    if (currentPos == 0)
+    {
+        currentPos = rowCount;
+    }
+    
+    int position = (currentPos + S) % rowCount;
+    if (position == 0)
+    {
+        position = rowCount;
+    }
+    
+    UIImageView *currentImage = [[cards objectAtIndex:reel] objectAtIndex:position];
+
+    if (final_type == 1)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"seven.png"]];
+    }
+    else if (final_type == 2)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"bell.png"]];
+    }
+    else if (final_type == 3)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"grapes.png"]];
+    }
+    else if (final_type == 4)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"lemon.png"]];
+    }
+    else if (final_type == 5)
+    {
+        [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
+    }
+    
+    NSLog(@"Reel[%d] curPos:%d position:%d result:%d", reel, currentPos, position, final_type);
+    
+    [currentCards addObject:currentImage];
 }
 
 - (void)rollOneReel:(NSNumber *)reel
@@ -625,55 +674,19 @@
     int spinCount = 0;
     float duration = [[animations objectForKey:[NSString stringWithFormat:@"spinTime%i", [reel intValue] + 1] ] floatValue];
     
-    float S = [[currentSpinCounts objectAtIndex:[reel intValue]] intValue]; // number of spins
+    int S = [[currentSpinCounts objectAtIndex:[reel intValue]] intValue]; // number of spins
     float A = duration / S; // average spin time
     float C = [[animations objectForKey:@"spinSpeedDiversityPercentage"] floatValue]; // maximum deviation
     
     float a = (2 * A * C) / (S - 1);
     float b = A  - A * C - (2 * A * C / (S - 1));
     
-    while (spinCount <= S)
+    while (spinCount < S)
     {
         spinCount++;
         duration = a * spinCount + b;
         int currentY = thisReel.frame.origin.y;
         int newY = currentY - itemHeight;
-        
-        if (spinCount == S) //Last 2 spin
-        {
-            int futureY = newY - itemHeight;
-            int position = abs((futureY / itemHeight) % rowCount);
-            if (position == 0)
-            {
-                position = rowCount;
-            }
-            UIImageView *currentImage = [[cards objectAtIndex:[reel intValue]] objectAtIndex:position];
-            
-            int final_type = [[currentSpinResults objectAtIndex:[reel intValue]] intValue]; // final result
-            if (final_type == 1)
-            {
-                [currentImage setImage:[UIImage imageNamed:@"seven.png"]];
-            }
-            else if (final_type == 2)
-            {
-                [currentImage setImage:[UIImage imageNamed:@"bell.png"]];
-            }
-            else if (final_type == 3)
-            {
-                [currentImage setImage:[UIImage imageNamed:@"grapes.png"]];
-            }
-            else if (final_type == 4)
-            {
-                [currentImage setImage:[UIImage imageNamed:@"lemon.png"]];
-            }
-            else if (final_type == 5)
-            {
-                [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
-            }
-            
-            NSLog(@"Reel[%d] position:%d result:%d", [reel intValue], position, final_type);
-            [currentCards addObject:currentImage];
-        }
         
         NSDictionary *params = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[NSNumber numberWithInt:newY], thisReel, [NSNumber numberWithFloat:duration], nil] forKeys:[NSArray arrayWithObjects:@"newY", @"view", @"duration", nil]];
         [self performSelectorOnMainThread:@selector(setNewY:) withObject:params waitUntilDone:NO];
