@@ -16,6 +16,8 @@
 {
     [super viewDidLoad];
     
+    [[Globals i] showLoadingAlert];
+    
     [self initializeVariables];
     [self initializeReels];
     [self initializeViews];
@@ -37,6 +39,8 @@
                                              selector:@selector(notificationReceived:)
                                                  name:@"UpdateHeader"
                                                object:nil];
+    
+    [[Globals i] removeLoadingAlert];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -397,13 +401,7 @@
          {
              NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
              
-             if([result isEqualToString:@"0"])
-             {
-                 // - Diamonds used to clubData
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
-             }
-             else if([result isEqualToString:@"1"])
+             if([result isEqualToString:@"1"])
              {
                  // Do nothing coz diamonds earned back
              }
@@ -435,6 +433,14 @@
              else if([result isEqualToString:@"10"])
              {
                  int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*9;
+                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+             }
+             else
+             {
+                 result = @"0";
+                 
+                 // - Diamonds used to clubData
+                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
                  [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              
@@ -562,7 +568,7 @@
                 [currentSpinResults replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:rand+1]];
             }
         }
-        else if (winResult == 0)
+        else
         {
             if (rand1 == 0)
             {
