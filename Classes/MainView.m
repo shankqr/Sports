@@ -287,7 +287,10 @@
                  [self.view addSubview:header.view];
              }
              [[Globals i] retrieveEnergy];
-             [header updateView];
+             
+             [[NSNotificationCenter defaultCenter]
+              postNotificationName:@"UpdateHeader"
+              object:self]; //Update to header
              
              [self createMarquee];
              
