@@ -64,39 +64,39 @@
     
     [payoutsContainer setAlpha:0.0];
     
-    float y = 70.0;
+    float y = 70.0*SCALE_IPAD;
     
     for (NSDictionary *temp in combinations)
     {
         NSArray *thisCombination = [temp objectForKey:@"combination"];
         int win = [[temp objectForKey:@"win"] intValue];
-        float x = 40.0;
+        float x = 40.0*SCALE_IPAD;
         
         for (NSString *str in thisCombination)
         {
             UIImageView *image = [[UIImageView alloc] initWithImage:
                                   [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", str]]];
             
-            [image setFrame:CGRectMake(x, y, 50, 70)];
+            [image setFrame:CGRectMake(x, y, 50*SCALE_IPAD, 70*SCALE_IPAD)];
             
-            x += image.frame.size.width + 10.0;
+            x += image.frame.size.width + 10.0*SCALE_IPAD;
             
             [payoutsContainer addSubview:image];
         }
         
-        x += 40.0;
+        x += 40.0*SCALE_IPAD;
         
-        UILabel *thisLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 50, 70)];
+        UILabel *thisLabel = [[UILabel alloc] initWithFrame:CGRectMake(x, y, 50*SCALE_IPAD, 70*SCALE_IPAD)];
         
         [thisLabel setBackgroundColor:[UIColor clearColor]];
         [thisLabel setTextColor:[UIColor whiteColor]];
-        [thisLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:32.0]];
+        [thisLabel setFont:[UIFont fontWithName:DEFAULT_FONT size:32.0*SCALE_IPAD]];
         
         thisLabel.text = [NSString stringWithFormat:@"%ix", win];
         
         [payoutsContainer addSubview:thisLabel];
         
-        y += thisLabel.frame.size.height - 20.0;
+        y += thisLabel.frame.size.height - 20.0*SCALE_IPAD;
     }
     
     frame = productsButton.frame;
@@ -244,8 +244,8 @@
     
     rowCount = [[config objectForKey:@"rowCount"] intValue];
     
-    itemWidth = [[config objectForKey:@"itemWidth"] intValue];
-    itemHeight = [[config objectForKey:@"itemHeight"] intValue];
+    itemWidth = [[config objectForKey:@"itemWidth"] intValue] * SCALE_IPAD;
+    itemHeight = [[config objectForKey:@"itemHeight"] intValue] * SCALE_IPAD;
     
     gameMechanics = [[GameMechanics alloc] init];
     gameMechanics.mainViewDelegate = self;

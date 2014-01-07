@@ -54,25 +54,25 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <view contentMode="scaleToFill" id="66" userLabel="Machine">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view clipsSubviews="YES" contentMode="scaleToFill" id="8" userLabel="Reel Container">
-                            <rect key="frame" x="60" y="130" width="201" height="94"/>
+                            <rect key="frame" x="160" y="231" width="450" height="172"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <view contentMode="scaleToFill" id="9" userLabel="Reel1">
-                                    <rect key="frame" x="0.0" y="0.0" width="67" height="1128"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="134" height="1128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="10" userLabel="Reel2">
-                                    <rect key="frame" x="67" y="0.0" width="67" height="1128"/>
+                                    <rect key="frame" x="156" y="0.0" width="134" height="1128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="11" userLabel="Reel3">
-                                    <rect key="frame" x="134" y="0.0" width="67" height="1128"/>
+                                    <rect key="frame" x="312" y="0.0" width="134" height="1128"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -80,69 +80,69 @@
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="machine.png" id="40" userLabel="Machine">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="vegas-lights.png" id="248" userLabel="Vegas Lights">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="101"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="183"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </imageView>
-                        <view contentMode="scaleToFill" id="217" userLabel="Bulb Container">
-                            <rect key="frame" x="20" y="110" width="280" height="139"/>
+                        <view autoresizesSubviews="NO" contentMode="scaleToFill" id="217" userLabel="Bulb Container">
+                            <rect key="frame" x="34" y="157" width="700" height="300"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="218" userLabel="Bulb 1">
-                                    <rect key="frame" x="14" y="15" width="25" height="25"/>
+                                    <rect key="frame" x="52" y="64" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="219" userLabel="Bulb 2">
-                                    <rect key="frame" x="8" y="40" width="25" height="25"/>
+                                    <rect key="frame" x="39" y="109" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="220" userLabel="Bulb 3">
-                                    <rect key="frame" x="8" y="66" width="25" height="25"/>
+                                    <rect key="frame" x="39" y="156" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="221" userLabel="Bulb 4">
-                                    <rect key="frame" x="13" y="93" width="25" height="25"/>
+                                    <rect key="frame" x="50" y="205" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="222" userLabel="Bulb 5">
-                                    <rect key="frame" x="239" y="94" width="25" height="25"/>
+                                    <rect key="frame" x="591" y="206" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="223" userLabel="Bulb 6">
-                                    <rect key="frame" x="245" y="68" width="25" height="25"/>
+                                    <rect key="frame" x="608" y="161" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="224" userLabel="Bulb 7">
-                                    <rect key="frame" x="245" y="42" width="25" height="25"/>
+                                    <rect key="frame" x="607" y="113" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bulb.png" id="225" userLabel="Bulb 8">
-                                    <rect key="frame" x="239" y="15" width="25" height="25"/>
+                                    <rect key="frame" x="593" y="64" width="50" height="50"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </imageView>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="47" userLabel="Coins">
-                            <rect key="frame" x="77" y="278" width="80" height="50"/>
+                            <rect key="frame" x="199" y="505" width="170" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="BET" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="52" userLabel="Coins Title Label">
-                                    <rect key="frame" x="0.0" y="6" width="80" height="20"/>
+                                    <rect key="frame" x="10" y="8" width="150" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="30"/>
                                     <color key="textColor" red="0.050980392159999999" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="19" userLabel="Coins Label">
-                                    <rect key="frame" x="1" y="24" width="80" height="28"/>
+                                    <rect key="frame" x="10" y="40" width="150" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="40"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -150,21 +150,21 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="206" userLabel="Credits">
-                            <rect key="frame" x="160" y="278" width="80" height="50"/>
+                            <rect key="frame" x="399" y="505" width="170" height="90"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="DIAMONDS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="208" userLabel="Credits Title Label">
-                                    <rect key="frame" x="0.0" y="6" width="80" height="20"/>
+                                    <rect key="frame" x="0.0" y="8" width="170" height="32"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="13"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="27"/>
                                     <color key="textColor" red="0.050980392159999999" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="207" userLabel="Credits Label">
-                                    <rect key="frame" x="1" y="24" width="80" height="28"/>
+                                    <rect key="frame" x="10" y="40" width="150" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="40"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -172,27 +172,27 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="48" userLabel="Wins">
-                            <rect key="frame" x="70" y="255" width="180" height="30"/>
+                            <rect key="frame" x="168" y="453" width="430" height="60"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="WINNER" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="51" userLabel="Wins Title Label">
-                                    <rect key="frame" x="-13" y="0.0" width="59" height="26"/>
+                                    <rect key="frame" x="0.0" y="12" width="120" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="21"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="42"/>
                                     <color key="textColor" red="0.050980392159999999" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="18" userLabel="Wins Label">
-                                    <rect key="frame" x="50" y="-1" width="80" height="30"/>
+                                    <rect key="frame" x="140" y="10" width="150" height="50"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="40"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PAID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="210" userLabel="Wins Title Label 2">
-                                    <rect key="frame" x="133" y="0.0" width="59" height="26"/>
+                                    <rect key="frame" x="314" y="12" width="120" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="21"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="42"/>
                                     <color key="textColor" red="0.050980392159999999" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
@@ -203,19 +203,19 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="68" userLabel="Control Buttons">
-                    <rect key="frame" x="0.0" y="340" width="320" height="100"/>
+                    <rect key="frame" x="0.0" y="602" width="768" height="180"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="202" userLabel="Add Coin Container">
-                            <rect key="frame" x="50" y="10" width="100" height="40"/>
+                            <rect key="frame" x="146" y="14" width="200" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bet-button-off.png" id="204" userLabel="Background">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="88" userLabel="Add Coin Button">
-                                    <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="200" height="80"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="bet-button-on.png">
@@ -233,15 +233,15 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="203" userLabel="Add Max Coin Container">
-                            <rect key="frame" x="30" y="42" width="120" height="40"/>
+                            <rect key="frame" x="106" y="77" width="240" height="80"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="maxbet-button-off.png" id="205" userLabel="Background">
-                                    <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="240" height="80"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="91" userLabel="Add Max Coin Button">
-                                    <rect key="frame" x="0.0" y="0.0" width="120" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="240" height="80"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="maxbet-button-on.png">
@@ -259,15 +259,15 @@
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="56" userLabel="Arm Container">
-                            <rect key="frame" x="170" y="25" width="105" height="55"/>
+                            <rect key="frame" x="446" y="47" width="210" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="pull-button-off.png" id="59" userLabel="Arm Button Off">
-                                    <rect key="frame" x="0.0" y="0.0" width="105" height="55"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="210" height="110"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="15" userLabel="Arm Button">
-                                    <rect key="frame" x="0.0" y="0.0" width="105" height="55"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="210" height="110"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                     <state key="normal" image="pull-button-on.png">
@@ -288,7 +288,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="113" userLabel="Products Button">
-                    <rect key="frame" x="220" y="260" width="100" height="80"/>
+                    <rect key="frame" x="558" y="495" width="210" height="150"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" image="buy-credits-button.png">
@@ -303,7 +303,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="243" userLabel="Payouts Button">
-                    <rect key="frame" x="246" y="240" width="74" height="35"/>
+                    <rect key="frame" x="608" y="441" width="160" height="70"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                     <state key="normal" image="payouts.png">
@@ -318,16 +318,16 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" id="236" userLabel="Payouts">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" alpha="0.85000002384185791" contentMode="scaleToFill" id="237" userLabel="Background">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.050980392159999999" green="0.039215686270000001" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="238">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal">
@@ -342,16 +342,16 @@
                             </connections>
                         </button>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PAYOUTS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="246" userLabel="Title">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                            <rect key="frame" x="0.0" y="0.0" width="768" height="140"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="38"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="48"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TAP ANYWHERE TO CLOSE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="aTk-ha-D8c" userLabel="Title">
-                            <rect key="frame" x="0.0" y="413" width="320" height="70"/>
+                            <rect key="frame" x="0.0" y="884" width="768" height="140"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="18"/>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="36"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
