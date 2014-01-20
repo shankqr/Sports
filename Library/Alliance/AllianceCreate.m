@@ -173,7 +173,7 @@
      {
          if(index == 1) //YES
          {
-             NSDictionary *wspi = [[Globals i] wsProductIdentifiers];
+             NSDictionary *wspi = [[Globals i] getCurrentSeasonData];
              NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
              
              NSInteger balDiamonds = [[[Globals i] wsClubData][@"currency_second"] integerValue];
