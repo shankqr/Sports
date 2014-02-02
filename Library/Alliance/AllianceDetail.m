@@ -18,6 +18,7 @@
 
 @implementation AllianceDetail
 @synthesize aAlliance;
+@synthesize alliance_id;
 @synthesize rows;
 @synthesize allianceCreate;
 @synthesize allianceEvents;
@@ -55,7 +56,7 @@
     else
     {
         NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceDetail/%@",
-                           [[Globals i] world_url], [[Globals i] wsClubData][@"alliance_id"]];
+                           [[Globals i] world_url], self.alliance_id];
         
         [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
          {
@@ -392,11 +393,11 @@
              
              if ((number > 0) && (bal >= number))
              {
-                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *a_id = aAlliance.alliance_id;
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  
                  NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditFirstprize/%@/%@/%@",
-                                    [[Globals i] world_url], alliance_id, club_id, text];
+                                    [[Globals i] world_url], a_id, club_id, text];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
                   {
@@ -432,11 +433,11 @@
              
              if ((number > 0) && (bal >= number))
              {
-                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *a_id = aAlliance.alliance_id;
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  
                  NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditSecondprize/%@/%@/%@",
-                                    [[Globals i] world_url], alliance_id, club_id, text];
+                                    [[Globals i] world_url], a_id, club_id, text];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
                   {
@@ -529,20 +530,20 @@
 
 - (void)joinButton_tap
 {
-    NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
+    NSInteger a_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
     
-    if (alliance_id > 0)
+    if (a_id > 0)
     {
         [[Globals i] showDialog:@"Unable to Join! You are currently a member of another Alliance Cup, resign from that Alliance Cup first to Join this one."];
     }
     else
     {
-        NSString *alliance_id = aAlliance.alliance_id;
+        NSString *a_id = aAlliance.alliance_id;
         NSString *club_id = [[Globals i] wsClubData][@"club_id"];
         NSString *club_name = [[Globals i] wsClubData][@"club_name"];
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceApply/%@/%@/%@",
-                           [[Globals i] world_url], alliance_id, club_id, club_name];
+                           [[Globals i] world_url], a_id, club_id, club_name];
         
         [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
          {
@@ -573,12 +574,12 @@
 
 - (void)leaveAlliance
 {
-    NSString *alliance_id = aAlliance.alliance_id;
+    NSString *a_id = aAlliance.alliance_id;
     NSString *club_id = [[Globals i] wsClubData][@"club_id"];
     NSString *club_name = [[Globals i] wsClubData][@"club_name"];
     
     NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceResign/%@/%@/%@",
-                        [[Globals i] world_url], alliance_id, club_id, club_name];
+                        [[Globals i] world_url], a_id, club_id, club_name];
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
@@ -617,12 +618,12 @@
              
              if ((number > 0) && (bal >= number))
              {
-                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *a_id = aAlliance.alliance_id;
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  NSString *club_name = [[Globals i] wsClubData][@"club_name"];
 
                  NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/0/%ld",
-                                    [[Globals i] world_url], alliance_id, club_id, club_name, (long)number];
+                                    [[Globals i] world_url], a_id, club_id, club_name, (long)number];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
                   {
@@ -657,12 +658,12 @@
              
              if ((number > 0) && (bal >= number))
              {
-                 NSString *alliance_id = aAlliance.alliance_id;
+                 NSString *a_id = aAlliance.alliance_id;
                  NSString *club_id = [[Globals i] wsClubData][@"club_id"];
                  NSString *club_name = [[Globals i] wsClubData][@"club_name"];
                  
                  NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%ld/0",
-                                    [[Globals i] world_url], alliance_id, club_id, club_name, (long)number];
+                                    [[Globals i] world_url], a_id, club_id, club_name, (long)number];
                  
                  [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
                   {

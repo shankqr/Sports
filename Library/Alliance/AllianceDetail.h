@@ -13,9 +13,11 @@
 @class AllianceApplicants;
 @class AllianceMembers;
 @class AllianceCup;
+
 @interface AllianceDetail : UITableViewController
 {
     NSArray *rows;
+    NSString *alliance_id;
     AllianceObject *aAlliance;
     AllianceCreate *allianceCreate;
     AllianceEvents *allianceEvents;
@@ -29,6 +31,7 @@
     BOOL isLeader;
 }
 @property (nonatomic, strong) NSArray *rows;
+@property (nonatomic, strong) NSString *alliance_id;
 @property (nonatomic, strong) AllianceObject *aAlliance;
 @property (nonatomic, strong) AllianceCreate *allianceCreate;
 @property (nonatomic, strong) AllianceEvents *allianceEvents;

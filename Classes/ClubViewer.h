@@ -16,6 +16,7 @@
 	UIImageView *awayImage;
 	UILabel *foundedLabel;
 	UILabel *clubNameLabel;
+    UILabel *allianceLabel;
 	UILabel *stadiumLabel;
 	UILabel *fansLabel;
 	UILabel *financeLabel;
@@ -37,6 +38,7 @@
 @property (nonatomic, strong) IBOutlet UIImageView *awayImage;
 @property (nonatomic, strong) IBOutlet UILabel *foundedLabel;
 @property (nonatomic, strong) IBOutlet UILabel *clubNameLabel;
+@property (nonatomic, strong) IBOutlet UILabel *allianceLabel;
 @property (nonatomic, strong) IBOutlet UILabel *stadiumLabel;
 @property (nonatomic, strong) IBOutlet UILabel *fansLabel;
 @property (nonatomic, strong) IBOutlet UILabel *financeLabel;

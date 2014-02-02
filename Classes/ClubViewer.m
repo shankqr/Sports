@@ -18,6 +18,7 @@
 @synthesize homeImage;
 @synthesize awayImage;
 @synthesize clubNameLabel;
+@synthesize allianceLabel;
 @synthesize foundedLabel;
 @synthesize stadiumLabel;
 @synthesize fansLabel;
@@ -32,11 +33,6 @@
 @synthesize home_url;
 @synthesize away_url;
 
-- (void)viewDidLoad 
-{
-    [super viewDidLoad];
-}
-
 - (void)clearView
 {
 	clubNameLabel.text = @"";
@@ -50,6 +46,7 @@
 	seriesLabel.text = @"";
 	positionLabel.text = @"";
 	coachLabel.text = @"";
+    allianceLabel.text = @"";
 	[logoImage setImage:nil];
 	[homeImage setImage:nil];
 	[awayImage setImage:nil];
@@ -125,6 +122,15 @@
 		positionLabel.text = wsClubData[@"league_ranking"];
 		coachLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubData[@"coach_id"] integerValue]];
 		
+        if([wsClubData[@"alliance_name"] length] > 0)
+        {
+            allianceLabel.text = wsClubData[@"alliance_name"];
+        }
+        else
+        {
+            allianceLabel.text = @"Alliance: NONE";
+        }
+        
 		logo_url = wsClubData[@"logo_pic"];
 		home_url = wsClubData[@"home_pic"];
 		away_url = wsClubData[@"away_pic"];
@@ -192,6 +198,24 @@
 {
     NSDictionary *wsClubData = [[Globals i] getClubInfoData];
     [[Globals i] mailCompose:@"0" toID:[Globals i].selectedClubId toName:wsClubData[@"club_name"]];
+}
+
+- (IBAction)allianceButton_tap:(id)sender
+{
+    NSDictionary *wsClubData = [[Globals i] getClubInfoData];
+    if([wsClubData[@"alliance_name"] length] > 0)
+    {
+        NSString *aid = wsClubData[@"alliance_id"];
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:aid forKey:@"alliance_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewAlliance"
+                                                            object:self
+                                                          userInfo:userInfo];
+    }
+    else
+    {
+        [[Globals i] showDialog:@"This club is not a member of any Alliance, please invite the manager to join your Alliance!"];
+    }
 }
 
 @end

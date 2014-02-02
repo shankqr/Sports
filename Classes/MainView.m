@@ -178,6 +178,11 @@
                                                  name:@"ViewProfile"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"ViewAlliance"
+                                               object:nil];
+    
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
     [[Globals i] initSound];
@@ -262,6 +267,22 @@
         NSString *cid = [userInfo objectForKey:@"club_id"];
         
         [self showClubViewer:cid];
+    }
+    
+    if ([[notification name] isEqualToString:@"ViewAlliance"])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSString *aid = [userInfo objectForKey:@"alliance_id"];
+        
+        if (allianceDetail == nil)
+        {
+            allianceDetail = [[AllianceDetail alloc] initWithStyle:UITableViewStylePlain];
+        }
+        allianceDetail.aAlliance = nil;
+        allianceDetail.alliance_id = aid;
+        [allianceDetail updateView];
+        allianceDetail.title = @"Alliance Cup";
+        [[Globals i] showTemplate:@[allianceDetail] :@"Alliance Cup" :1];
     }
 }
 
@@ -1293,15 +1314,12 @@
     }
     else
     {
-        if (allianceDetail == nil)
-        {
-            allianceDetail = [[AllianceDetail alloc] initWithStyle:UITableViewStylePlain];
-        }
-        allianceDetail.aAlliance = nil;
-        [allianceDetail updateView];
-        allianceDetail.title = @"My Alliance Cup";
-        
-        [[Globals i] showTemplate:@[allianceDetail] :@"Alliance Cup" :1];
+        NSString *aid = [[Globals i] wsClubData][@"alliance_id"];
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:aid forKey:@"alliance_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewAlliance"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
 }
 
