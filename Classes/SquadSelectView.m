@@ -58,15 +58,13 @@
 	self.sel_player_id = rowData[@"player_id"];
 	self.sel_player_name = rowData[@"player_name"];
 	
-	if(([rowData[@"card_red"] integerValue] == 1) || ([rowData[@"player_condition"] integerValue] == 2))
+	if([rowData[@"card_red"] integerValue] == 1)
 	{
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle:@"Manager"
-                              message:@"This player is injured or has a red card, and can't be asigned for this position"
-                              delegate:self
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil];
-        [alert show];
+        [[Globals i] showDialog:@"This player has a red card (suspended for 1 cup/league match), and can't be assigned to this position at the moment."];
+    }
+    else if([rowData[@"player_condition"] integerValue] == 2)
+	{
+        [[Globals i] showDialog:@"This player is injured and can't be assigned to this position at the moment. You can HEAL to reduce injury time."];
     }
     else
     {
