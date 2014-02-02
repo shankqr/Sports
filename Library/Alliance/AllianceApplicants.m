@@ -161,7 +161,7 @@
              {
                 if([[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] isEqualToString:@"0"])
                 {
-                    [[Globals i] showDialog:@"Unable to Approve! Maximum Members Reached. Upgrade this CUP to increase the total members allowed."];
+                    [[Globals i] showDialog:@"Unable to Approve! Maximum Members Reached. Upgrade this Alliance to increase the total members allowed."];
                 }
                 else
                 {

@@ -175,7 +175,7 @@
     
     if (indexPath.row == 0) //Header row
     {
-        rowData = @{@"h1": @"", @"n1": @"No.", @"r1": @"CUP Name", @"c1": @"Prestige"};
+        rowData = @{@"h1": @"", @"n1": @"No.", @"r1": @"Name", @"c1": @"Prestige"};
 	}
     else
     {
@@ -264,7 +264,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_CONTENT_WIDTH, CELL_HEADER_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
 
-    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New CUP"
+    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance Cup"
                                                     target:self
                                                   selector:@selector(button1_tap:)
                                                      frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
@@ -285,7 +285,7 @@
     
     if (alliance_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing CUP, resign from that CUP first to Create a new one."];
+        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing Alliance Cup, resign from that Alliance Cup first to Create a new one."];
     }
     else
     {

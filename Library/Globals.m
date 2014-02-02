@@ -693,7 +693,7 @@ static NSOperationQueue *connectionQueue;
         {
             allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
         }
-        allianceChatView.title = @"CUP";
+        allianceChatView.title = @"Alliance Cup";
         
         [self showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
         

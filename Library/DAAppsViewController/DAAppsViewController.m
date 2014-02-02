@@ -225,6 +225,12 @@
                 
                 appObject.iconURL = [[NSURL alloc] initWithString:iconUrlString];
                 appObject.userRating = [[result objectForKey:@"averageUserRating"] floatValue];
+                //NSLog(@"userRating is %f", appObject.userRating);
+                if (appObject.userRating < 4)
+                {
+                    appObject.userRating = 4;
+                }
+                
                 appObject.userRatingCount = [[result objectForKey:@"userRatingCount"] integerValue];
                 
                 if (![mutableApps containsObject:appObject])

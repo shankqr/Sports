@@ -47,6 +47,7 @@
 #import "Game.h"
 #import "Game_hockey.h"
 #import "SlotsView.h"
+#import "iRate.h"
 
 @implementation MainView
 @synthesize header;
@@ -186,6 +187,10 @@
     [self.mainTableView reloadData];
     
     [self reloadView];
+    
+    [iRate sharedInstance].eventsUntilPrompt = 20;
+    [iRate sharedInstance].daysUntilPrompt = 0;
+    [iRate sharedInstance].remindPeriod = 0;
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -314,6 +319,8 @@
              [[Globals i] updateProducts];
              
              [[Globals i] removeLoading];
+             
+             [[iRate sharedInstance] logEvent:NO];
          }
          else
          {
@@ -1169,7 +1176,7 @@
     {
         achievementsView = [[AchievementsView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [[Globals i] showTemplate:@[achievementsView] :@"Awards" :1];
+    [[Globals i] showTemplate:@[achievementsView] :@"Task" :1];
     [achievementsView updateView];
     
     [self updateAchievementBadges];
@@ -1214,6 +1221,35 @@
     [[Globals i] showTemplate:@[rvTopDivision, rvTopLevel, allianceView] :@"Rankings" :1];
 }
 
+- (void)showSearch
+{
+    if (rvTopDivision == nil)
+    {
+        rvTopDivision = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
+        rvTopDivision.title = @"Top Division";
+        rvTopDivision.serviceName = @"GetClubsTopDivision";
+        rvTopLevel.updateOnWillAppear = @"0";
+        [rvTopDivision updateView];
+    }
+    
+    if (rvTopLevel == nil)
+    {
+        rvTopLevel = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
+        rvTopLevel.title = @"Top Level";
+        rvTopLevel.serviceName = @"GetClubsTopLevel";
+        rvTopLevel.updateOnWillAppear = @"1";
+    }
+    
+    if (allianceView == nil)
+    {
+        allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
+    }
+    allianceView.title = @"Top Cups";
+    allianceView.updateOnWillAppear = @"1";
+    
+    [[Globals i] showTemplate:@[rvTopDivision, rvTopLevel, allianceView] :@"Rankings" :1];
+}
+
 - (void)showCup
 {
     if([[[Globals i] wsClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
@@ -1222,10 +1258,10 @@
         {
             allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
         }
-        allianceView.title = @"Cup";
+        allianceView.title = @"Alliance Cup";
         allianceView.updateOnWillAppear = @"1";
         
-        [[Globals i] showTemplate:@[allianceView] :@"Cup" :1];
+        [[Globals i] showTemplate:@[allianceView] :@"Alliance Cup" :1];
     }
     else
     {
@@ -1235,9 +1271,9 @@
         }
         allianceDetail.aAlliance = nil;
         [allianceDetail updateView];
-        allianceDetail.title = @"My Cup";
+        allianceDetail.title = @"My Alliance Cup";
         
-        [[Globals i] showTemplate:@[allianceDetail] :@"Cup" :1];
+        [[Globals i] showTemplate:@[allianceDetail] :@"Alliance Cup" :1];
     }
 }
 
@@ -1415,7 +1451,7 @@
     mailView.title = @"Mail";
     [mailView updateView];
     
-    [[Globals i] showTemplate:@[mailView] :@"News" :1];
+    [[Globals i] showTemplate:@[mailView] :@"Mail" :1];
     
     [self updateMailBadges];
 }
@@ -1459,108 +1495,118 @@
 		{
 			[self showMail];
 			break;
-		}		
-		case 2:
-		{
-			[self showSquad];
-			break;
 		}
-		case 3:
-		{
-            [self showTactics];
-			break;
-		}
-		case 4:
-		{
-			[self showTrain];
-			break;
-		}
-		case 5:
-		{
-			[self showMatch];
-			break;
-		}			
-		case 6:
-		{
-			[self showLeague];
-			break;
-		}
-		case 7:
-		{
-			[self showCup];
-			break;
-		}
-        case 8:
-		{
-			[self showPlayerStore];
-			break;
-		}
-		case 9:
-		{
-			[self showFinance];
-			break;
-		}
-		case 10:
-		{
-            [self showStadiumMap];
-			break;
-		}
-        case 11:
-		{
-            [self showClub];
-			break;
-		}
-        case 12:
+        case 2:
 		{
 			[self showAchievements];
 			break;
 		}
-		case 13:
-		{
-			[self showOthersStore];
-            break;
-		}
-        case 14:
-		{
-			[self showCoach];
-			break;
-		}
-		case 15:
-		{
-            [self showStaff];
-			break;
-		}
-		case 16:
-		{
-            [self showFans];
-			break;
-		}
-        case 17:
-		{
-            [self showMap];
-			break;
-		}
-		case 18:
-		{
-            [self showRanking];
-			break;
-		}
-		case 19:
-		{
-			[[Globals i] showMoreGames];
-			break;
-		}
-        case 20:
-		{
-            [self showHelp];
-            break;
-		}
-        case 21:
+        case 3:
 		{
 			[self showSlots];
             break;
 		}
-        case 22:
+        case 4:
+		{
+			[self showTrain];
+			break;
+		}
+        case 5:
+		{
+			[self showPlayerStore];
+			break;
+		}
+		case 6:
+		{
+			[self showSquad];
+			break;
+		}
+		case 7:
+		{
+            [self showTactics];
+			break;
+		}
+		case 8:
+		{
+			[self showMatch];
+			break;
+		}			
+		case 9:
+		{
+			[self showLeague];
+			break;
+		}
+		case 10:
+		{
+			[self showCup];
+			break;
+		}
+		case 11:
+		{
+			[self showFinance];
+			break;
+		}
+		case 12:
+		{
+            [self showStadiumMap];
+			break;
+		}
+        case 13:
+		{
+            [self showClub];
+			break;
+		}
+		case 14:
+		{
+			[self showOthersStore];
+            break;
+		}
+        case 15:
+		{
+			[self showCoach];
+			break;
+		}
+		case 16:
+		{
+            [self showStaff];
+			break;
+		}
+		case 17:
+		{
+            [self showFans];
+			break;
+		}
+        case 18:
+		{
+            [self showRanking];
+			break;
+		}
+        case 19:
+		{
+            [self showSearch];
+			break;
+		}
+        case 20:
+		{
+            [self showMap];
+			break;
+		}
+		case 21:
+		{
+            [[Globals i] emailToDeveloper];
+			break;
+		}
+		case 22:
+		{
+			[[Globals i] showMoreGames];
+			break;
+		}
+        case 23:
+		{
+            [self showHelp];
+            break;
+		}
+        case 24:
 		{
 			[self logoutButton];
             break;
@@ -1701,7 +1747,7 @@
         {
             allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
         }
-        allianceChatView.title = @"CUP";
+        allianceChatView.title = @"Alliance Cup";
         
         [[Globals i] showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
         

@@ -666,7 +666,7 @@
         [currentImage setImage:[UIImage imageNamed:@"luck.png"]];
     }
     
-    NSLog(@"Reel[%d] curPos:%d position:%d result:%d", reel, currentPos, position, final_type);
+    //NSLog(@"Reel[%d] curPos:%d position:%d result:%d", reel, currentPos, position, final_type);
     
     [currentCards addObject:currentImage];
 }

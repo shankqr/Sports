@@ -225,28 +225,30 @@
 
 - (void)createButtons
 {
-    [self addPosButton:@"News" tag:1 imageDefault:@"button_mails"];
-	[self addPosButton:@"Squad" tag:2 imageDefault:@"button_squad"];
-	[self addPosButton:@"Formations" tag:3 imageDefault:@"button_tactics"];
-	[self addPosButton:@"Training" tag:4 imageDefault:@"button_train"];
-	[self addPosButton:@"Fixtures" tag:5 imageDefault:@"button_match"];
-    [self addPosButton:@"League" tag:6 imageDefault:@"button_league"];
-	[self addPosButton:@"Cup" tag:7 imageDefault:@"button_cup"];
-	[self addPosButton:@"Transfers" tag:8 imageDefault:@"button_transfer"];
-	[self addPosButton:@"Finances" tag:9 imageDefault:@"button_finance"];
-	[self addPosButton:@"Stadium" tag:10 imageDefault:@"button_city"];
-    [self addPosButton:@"Club" tag:11 imageDefault:@"button_club"];
-	[self addPosButton:@"Awards" tag:12 imageDefault:@"button_achievements"];
-	[self addPosButton:@"Club Store" tag:13 imageDefault:@"button_store"];
-	[self addPosButton:@"Coach" tag:14 imageDefault:@"button_coach"];
-	[self addPosButton:@"Staff" tag:15 imageDefault:@"button_staff"];
-    [self addPosButton:@"Fans" tag:16 imageDefault:@"button_fan"];
-	[self addPosButton:@"World Map" tag:17 imageDefault:@"button_map"];
-	[self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
-	[self addPosButton:@"More Games" tag:19 imageDefault:@"button_more"];
-	[self addPosButton:@"Help" tag:20 imageDefault:@"button_help"];
-    [self addPosButton:@"Slots" tag:21 imageDefault:@"button_slot"];
-    [self addPosButton:@"Logout" tag:22 imageDefault:@"button_logout"];
+    [self addPosButton:@"Mail" tag:1 imageDefault:@"button_mails"];
+    [self addPosButton:@"Task" tag:2 imageDefault:@"button_achievements"];
+    [self addPosButton:@"Slots" tag:3 imageDefault:@"button_slot"];
+    [self addPosButton:@"Training" tag:4 imageDefault:@"button_train"];
+    [self addPosButton:@"Transfers" tag:5 imageDefault:@"button_transfer"];
+	[self addPosButton:@"Squad" tag:6 imageDefault:@"button_squad"];
+	[self addPosButton:@"Formations" tag:7 imageDefault:@"button_tactics"];
+	[self addPosButton:@"Fixtures" tag:8 imageDefault:@"button_match"];
+    [self addPosButton:@"League" tag:9 imageDefault:@"button_league"];
+	[self addPosButton:@"Alliance Cup" tag:10 imageDefault:@"button_cup"];
+	[self addPosButton:@"Finances" tag:11 imageDefault:@"button_finance"];
+	[self addPosButton:@"Stadium" tag:12 imageDefault:@"button_city"];
+    [self addPosButton:@"Club" tag:13 imageDefault:@"button_club"];
+	[self addPosButton:@"Club Store" tag:14 imageDefault:@"button_store"];
+	[self addPosButton:@"Coach" tag:15 imageDefault:@"button_coach"];
+	[self addPosButton:@"Staff" tag:16 imageDefault:@"button_staff"];
+    [self addPosButton:@"Fans" tag:17 imageDefault:@"button_fan"];
+    [self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
+    [self addPosButton:@"Search" tag:19 imageDefault:@"button_friends"];
+	[self addPosButton:@"World Map" tag:20 imageDefault:@"button_map"];
+    [self addPosButton:@"Feedback" tag:21 imageDefault:@"button_news"];
+	[self addPosButton:@"More Games" tag:22 imageDefault:@"button_more"];
+	[self addPosButton:@"Help" tag:23 imageDefault:@"button_help"];
+    [self addPosButton:@"Logout" tag:24 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag
