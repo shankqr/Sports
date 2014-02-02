@@ -34,7 +34,7 @@
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     
     NSDictionary *row0 = @{@"h1": @"Diamonds for Sale!"};
-    NSDictionary *row1 = @{@"1": @"sc3", @"2": @"com.tapf", @"3": @"6145148", @"r1": @"Provides 60 Diamonds", @"r2": @"USD $4.99 (SALE 20% Extra Value!)", @"i1": @"icon_diamond1", @"i2": @"arrow_right"};
+    NSDictionary *row1 = @{@"1": @"sc3", @"2": @"com.tapf", @"3": @"6145148", @"r1": @"Provides 60 Diamonds", @"r2": @"USD $4.99", @"i1": @"icon_diamond1", @"i2": @"arrow_right"};
     NSDictionary *row2 = @{@"1": @"sc4", @"2": @"com.tapf", @"3": @"9425144", @"r1": @"Provides 150 Diamonds", @"r2": @"USD $9.99 (SALE 30% Extra Value!)", @"i1": @"icon_diamond1", @"i2": @"arrow_right"};
     NSDictionary *row3 = @{@"1": @"sc5", @"2": @"com.tapf", @"3": @"1736703", @"r1": @"Provides 275 Diamonds", @"r2": @"USD $19.99 (SALE 38% Extra Value!)", @"i1": @"icon_diamond1", @"i2": @"arrow_right"};
     NSDictionary *row4 = @{@"1": @"sc6", @"2": @"com.tapf", @"3": @"6597164", @"r1": @"Provides 800 Diamonds", @"r2": @"USD $49.99 (SALE 45% Extra Value!)", @"r3": @"(Most Popular!)", @"i1": @"icon_diamond1", @"i2": @"arrow_right"};

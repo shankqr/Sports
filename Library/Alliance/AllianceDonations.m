@@ -9,7 +9,6 @@
 #import "AllianceDonations.h"
 #import "AllianceObject.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation AllianceDonations
 @synthesize rows;
@@ -121,7 +120,11 @@
         {
             selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             
-            [[Globals i].mainView showClubViewer:selected_clubid];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:selected_clubid forKey:@"club_id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                object:self
+                                                              userInfo:userInfo];
         }
     }
     

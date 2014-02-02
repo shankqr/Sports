@@ -8,7 +8,6 @@
 
 #import "ChatView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation ChatView
 @synthesize isAllianceChat;
@@ -248,7 +247,11 @@
         }
         
         //Show club viewer
-        [[Globals i].mainView showClubViewer:selected_clubid];
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:selected_clubid forKey:@"club_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
     
 	return nil;

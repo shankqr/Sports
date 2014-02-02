@@ -6,7 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@interface ScorersView : UITableViewController <UIActionSheetDelegate>
+@interface ScorersView : UITableViewController
 {
 	NSString *selected_clubid;
 	NSMutableArray *players;

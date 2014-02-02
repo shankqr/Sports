@@ -11,7 +11,6 @@
 #import "ClubObject.h"
 #import "Globals.h"
 #import "CSMapAnnotation.h"
-#import "MainView.h"
 
 @implementation ClubMapView
 @synthesize clubs;
@@ -106,7 +105,11 @@
 	if(annotation.club_id != nil)
 	{
 		NSString *my_club_id = annotation.club_id;
-		[[Globals i].mainView showClubViewer:my_club_id];
+		NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:my_club_id forKey:@"club_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                            object:self
+                                                          userInfo:userInfo];
 	}
 }
 

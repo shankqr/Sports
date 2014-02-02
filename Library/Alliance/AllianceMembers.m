@@ -9,7 +9,6 @@
 #import "AllianceMembers.h"
 #import "AllianceObject.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation AllianceMembers
 @synthesize rows;
@@ -163,7 +162,11 @@
 {
 	if(buttonIndex == 1) //View Profile
 	{
-		[[Globals i].mainView showClubViewer:selected_clubid];
+		NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:selected_clubid forKey:@"club_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
     else if(buttonIndex == 2) //Send Message
 	{

@@ -75,6 +75,12 @@
     NSDictionary *rowDelete = @{@"r1": @"Delete", @"r1_center": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowHeader, rowReply, rowDelete];
     
+    if (![mailData[@"club_id"] isEqualToString:@"0"])
+    {
+        NSDictionary *rowProfile = @{@"r1": @"View Sender's Profile",  @"r1_center": @"1", @"i2": @"arrow_right"};
+        rows3 = @[rowHeader, rowReply, rowDelete, rowProfile];
+    }
+    
     if ([rowTemp count] > 1)
     {
         self.rows = @[rows1, (NSArray *)rowTemp, rows3];
@@ -143,6 +149,14 @@
                               optionalImage:@"tick_yes"];
                  }
              }];
+        }
+        else if(indexPath.row == 3) //View senders profile
+        {
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:mailData[@"club_id"] forKey:@"club_id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                object:self
+                                                              userInfo:userInfo];
         }
     }
     

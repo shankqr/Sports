@@ -8,25 +8,12 @@
 
 #import "ScorersView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation ScorersView
 @synthesize players;
 @synthesize selected_clubid;
 @synthesize curDivision;
 @synthesize curSeries;
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	switch(buttonIndex)
-	{
-		case 0: //Club Info
-		{
-			[[Globals i].mainView showClubViewer:selected_clubid];
-			break;
-		}
-	}
-}
 
 - (void)updateView
 {
@@ -106,14 +93,11 @@
 	NSDictionary *rowData = (self.players)[indexPath.row];
 	selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 	
-	UIActionSheet *actionSheet = [[UIActionSheet alloc]
-								  initWithTitle:@"View"
-								  delegate:self
-								  cancelButtonTitle:@"Cancel"
-								  destructiveButtonTitle:nil
-								  otherButtonTitles:@"Club Info", nil];
-	actionSheet.tag = 1;
-	[actionSheet showFromTabBar:[[[Globals i].mainView leagueTabBarController] tabBar]];
+	NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:selected_clubid forKey:@"club_id"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                        object:self
+                                                      userInfo:userInfo];
 	
 	return nil;
 }

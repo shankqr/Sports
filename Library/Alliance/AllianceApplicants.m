@@ -9,7 +9,6 @@
 #import "AllianceApplicants.h"
 #import "AllianceObject.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation AllianceApplicants
 @synthesize rows;
@@ -137,7 +136,11 @@
             }
             else
             {
-                [[Globals i].mainView showClubViewer:selected_clubid];
+                NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                [userInfo setObject:selected_clubid forKey:@"club_id"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                    object:self
+                                                                  userInfo:userInfo];
             }
         }
     }
@@ -148,7 +151,11 @@
 {
 	if(buttonIndex == 1) //View Profile
 	{
-		[[Globals i].mainView showClubViewer:selected_clubid];
+		NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:selected_clubid forKey:@"club_id"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
     else if(buttonIndex == 2) //Approve
 	{

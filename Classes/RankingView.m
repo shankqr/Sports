@@ -8,7 +8,6 @@
 
 #import "RankingView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation RankingView
 @synthesize rows;
@@ -122,7 +121,11 @@
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
         {
             NSString *selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-            [[Globals i].mainView showClubViewer:selected_clubid];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:selected_clubid forKey:@"club_id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                object:self
+                                                              userInfo:userInfo];
         }
     }
     

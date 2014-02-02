@@ -1,6 +1,5 @@
 
 #import "BidView.h"
-#import "MainView.h"
 #import "Globals.h"
 #import "PlayerCell.h"
 
@@ -415,7 +414,12 @@
         {
             selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             [self keyboardWillHide];
-            [[Globals i].mainView showClubViewer:selected_clubid];
+            
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:selected_clubid forKey:@"club_id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                object:self
+                                                              userInfo:userInfo];
         }
     
         return nil;

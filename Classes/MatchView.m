@@ -7,7 +7,6 @@
 //
 
 #import "MatchView.h"
-#import "MainView.h"
 #import "MatchCell.h"
 #import "Globals.h"
 #import "ChallengeView.h"
@@ -58,12 +57,20 @@
 			{
 				case 0:
 				{
-					[[Globals i].mainView showClubViewer:selected_clubid];
+					NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                    [userInfo setObject:selected_clubid forKey:@"club_id"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                        object:self
+                                                                      userInfo:userInfo];
 					break;
 				}
                 case 1: //Challenge
                 {
-                    [[Globals i].mainView showChallenge:selected_clubid];
+                    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                    [userInfo setObject:selected_clubid forKey:@"club_id"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                        object:self
+                                                                      userInfo:userInfo];
                     break;
                 }
 			}
@@ -76,13 +83,19 @@
 			{
 				case 0:
 				{
-					[[Globals i].mainView showClubViewer:selected_clubid];
+					NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                    [userInfo setObject:selected_clubid forKey:@"club_id"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                        object:self
+                                                                      userInfo:userInfo];
 					break;
 				}
 				case 1: //Match Report
 				{
                     [Globals i].challengeMatchId = selected_matchid;
-                    [[Globals i].mainView reportMatch];
+                    [[NSNotificationCenter defaultCenter]
+                     postNotificationName:@"MatchReport"
+                                   object:self];
 					break;
 				}
 			}
@@ -95,7 +108,11 @@
 			{
 				case 0:
 				{
-					[[Globals i].mainView showClubViewer:selected_clubid];
+					NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                    [userInfo setObject:selected_clubid forKey:@"club_id"];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                        object:self
+                                                                      userInfo:userInfo];
 					break;
 				}
 				case 1: //View challenge

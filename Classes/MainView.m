@@ -154,7 +154,7 @@
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(removeLiveMatch)
+                                             selector:@selector(notificationReceived:)
                                                  name:@"ExitLiveMatch"
                                                object:nil];
     
@@ -166,6 +166,16 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"BuyFunds"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"MatchReport"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"ViewProfile"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -234,6 +244,24 @@
     if ([[notification name] isEqualToString:@"BuyFunds"])
     {
         [self showFundStore];
+    }
+    
+    if ([[notification name] isEqualToString:@"MatchReport"])
+    {
+        [self reportMatch];
+    }
+    
+    if ([[notification name] isEqualToString:@"ExitLiveMatch"])
+    {
+        [self removeLiveMatch];
+    }
+    
+    if ([[notification name] isEqualToString:@"ViewProfile"])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSString *cid = [userInfo objectForKey:@"club_id"];
+        
+        [self showClubViewer:cid];
     }
 }
 

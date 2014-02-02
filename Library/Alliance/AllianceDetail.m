@@ -8,7 +8,6 @@
 
 #import "AllianceDetail.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "AllianceObject.h"
 #import "AllianceCreate.h"
 #import "AllianceMembers.h"
@@ -274,7 +273,11 @@
         {
             if (!isLeader)
             {
-                [[Globals i].mainView showClubViewer:aAlliance.leader_id];
+                NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                [userInfo setObject:aAlliance.leader_id forKey:@"club_id"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                    object:self
+                                                                  userInfo:userInfo];
             }
         }
         else if(indexPath.row == 3) //Members
@@ -353,14 +356,22 @@
         {
             if (![aAlliance.cup_first_id isEqualToString:@"0"] && ![aAlliance.cup_first_id isEqualToString:@""])
             {
-                [[Globals i].mainView showClubViewer:aAlliance.cup_first_id];
+                NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                [userInfo setObject:aAlliance.cup_first_id forKey:@"club_id"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                    object:self
+                                                                  userInfo:userInfo];
             }
         }
         else if(indexPath.row == 18) //Second prize winner
         {
             if (![aAlliance.cup_second_id isEqualToString:@"0"] && ![aAlliance.cup_second_id isEqualToString:@""])
             {
-                [[Globals i].mainView showClubViewer:aAlliance.cup_second_id];
+                NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                [userInfo setObject:aAlliance.cup_second_id forKey:@"club_id"];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
+                                                                    object:self
+                                                                  userInfo:userInfo];
             }
         }
     }
@@ -667,7 +678,9 @@
              }
              else
              {
-                 [[Globals i].mainView showFundStore];
+                 [[NSNotificationCenter defaultCenter]
+                  postNotificationName:@"BuyFunds"
+                  object:self];
              }
          }
      }];
