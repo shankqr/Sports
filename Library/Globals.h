@@ -205,8 +205,6 @@
     NSTimeInterval offsetServerTimeInterval;
     MainView *mainView;
     MailCompose *mailCompose;
-    ChatView *chatView;
-    ChatView *allianceChatView;
     LoginView *loginView;
     BuyView *buyView;
     WorldsView *worldsView;
@@ -296,8 +294,6 @@
 @property (nonatomic, strong) NSString *selectedMapTile;
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) MailCompose *mailCompose;
-@property (nonatomic, strong) ChatView *chatView;
-@property (nonatomic, strong) ChatView *allianceChatView;
 @property (nonatomic, strong) LoginView *loginView;
 @property (nonatomic, strong) BuyView *buyView;
 @property (nonatomic, strong) WorldsView *worldsView;
@@ -466,10 +462,10 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (BOOL)isCurrentView:(UIViewController *)view;
 - (void)emailToDeveloper;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
-- (void)showChat;
 - (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname;
 - (void)pushMoreGamesVC;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
+- (NSString *)currentViewTitle;
 
 //SPORTS
 - (NSString *)GameType;

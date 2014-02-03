@@ -119,6 +119,7 @@
     
     isShowingLogin = NO;
     
+    self.title = @"MainView";
     [Globals i].mainView = self;
     [[Globals i] pushViewControllerStack:self];
     [Globals i].selectedClubId = @"0";
@@ -1791,14 +1792,23 @@
         {
             allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
         }
-        allianceChatView.title = @"Alliance Cup";
+        allianceChatView.title = @"Alliance Chat";
         
         [[Globals i] showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
         
         [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
         
-        [allianceChatView updateView:[[Globals i] wsAllianceChatFullData] table:@"alliance_chat" a_id:[Globals i].wsClubData[@"alliance_id"]];
-        allianceChatView.isAllianceChat = @"1";
+        NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceWall/%@",
+                           [[Globals i] world_url], [Globals i].wsClubData[@"alliance_id"]];
+        [Globals getServer:wsurl :^(BOOL success, NSData *data)
+         {
+             if (success)
+             {
+                 NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+                 [Globals i].wsAllianceChatFullData = returnArray;
+                 [allianceChatView updateView:[Globals i].wsAllianceChatFullData table:@"alliance_wall" a_id:[Globals i].wsClubData[@"alliance_id"]];
+             }
+         }];
     }
 }
 
@@ -1811,6 +1821,12 @@
 {
     [[Globals i] updateChatData];
     lblChat1.text = [[Globals i] getLastChatString];
+    
+    //Alliance chat only if the view is open
+    if([[[Globals i] currentViewTitle] isEqualToString:@"Alliance Chat"])
+    {
+        [[Globals i] updateAllianceChatData];
+    }
 }
 
 #pragma mark Table Data Source Methods

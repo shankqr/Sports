@@ -230,8 +230,8 @@
                  if (success)
                  {
                      NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
-                     
-                     [[Globals i] pushChatVC:returnArray table:@"alliance_wall" a_id:aAlliance.alliance_id];
+                     [Globals i].wsAllianceChatFullData = returnArray;
+                     [[Globals i] pushChatVC:[Globals i].wsAllianceChatFullData table:@"alliance_wall" a_id:aAlliance.alliance_id];
                  }
              }];
         }

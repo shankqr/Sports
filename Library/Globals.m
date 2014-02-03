@@ -61,8 +61,6 @@
 @synthesize loginView;
 @synthesize lastReportId;
 @synthesize lastMailId;
-@synthesize chatView;
-@synthesize allianceChatView;
 @synthesize mailCompose;
 @synthesize loginNotification;
 @synthesize loadingView;
@@ -588,6 +586,23 @@ static NSOperationQueue *connectionQueue;
     return ([self peekViewControllerStack] == view);
 }
 
+- (NSString *)currentViewTitle
+{
+    NSString *title = @"";
+    
+    if([[self peekViewControllerStack] isKindOfClass:[TemplateView class]])
+    {
+        TemplateView *view = (TemplateView *)[self peekViewControllerStack];
+        title = [view peekFromStack].title;
+    }
+    else
+    {
+        title = [self peekViewControllerStack].title;
+    }
+    
+    return title;
+}
+
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
 {
     [Flurry logEvent:title];
@@ -674,40 +689,10 @@ static NSOperationQueue *connectionQueue;
     templateView.currencyLabel.hidden = YES;
 }
 
-- (void)showChat
-{
-	if(chatView == nil)
-    {
-        chatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
-    }
-    chatView.title = @"World";
-    
-    if([wsClubData[@"alliance_id"] isEqualToString:@"0"])
-    {
-        [self showTemplate:@[chatView] :@"Chat" :1];
-        [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
-    }
-    else
-    {
-        if(allianceChatView == nil)
-        {
-            allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
-        }
-        allianceChatView.title = @"Alliance Cup";
-        
-        [self showTemplate:@[chatView, allianceChatView] :@"Chat" :1];
-        
-        [chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
-        
-        [allianceChatView updateView:[[Globals i] wsAllianceChatFullData] table:@"alliance_chat" a_id:wsClubData[@"alliance_id"]];
-        allianceChatView.isAllianceChat = @"1";
-    }
-}
-
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
 {
     ChatView *achatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
-    achatView.title = @"Chat";
+    achatView.title = @"Alliance Chat";
     
     [self pushTemplateNav:achatView];
     [achatView updateView:ds table:tn a_id:aid];
@@ -745,16 +730,18 @@ static NSOperationQueue *connectionQueue;
     [self showTemplate:@[mailCompose] :@"Message" :1];
 }
 
-- (BOOL)mh_tabBarController:(TemplateView *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
+- (BOOL)mh_tabBarController:(TemplateView *)tabBarController
+ shouldSelectViewController:(UIViewController *)viewController
+                    atIndex:(NSUInteger)index
 {
-	//NSLog(@"mh_tabBarController %@ shouldSelectViewController %@ at index %u", tabBarController, viewController, index);
 	return YES;
 }
 
-- (void)mh_tabBarController:(TemplateView *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
+- (void)mh_tabBarController:(TemplateView *)tabBarController
+    didSelectViewController:(UIViewController *)viewController
+                    atIndex:(NSUInteger)index
 {
-	//NSLog(@"mh_tabBarController %@ didSelectViewController %@ at index %u", tabBarController, viewController, index);
-    NSLog(@"didSelectViewController %@ (width:%f height:%f)", viewController, viewController.view.frame.size.width, viewController.view.frame.size.height);
+	//NSLog(@"%@ didSelectViewController %@ at index %ld", tabBarController.title, viewController.title, (unsigned long)index);
 }
 
 - (DynamicCell *)dynamicCell:(UITableView *)tableView rowData:(NSDictionary *)rowData cellWidth:(float)cell_width
@@ -2008,6 +1995,10 @@ static NSOperationQueue *connectionQueue;
                      {
                          [wsChatFullData addObjectsFromArray:wsChatData];
                      }
+                     
+                     [[NSNotificationCenter defaultCenter]
+                      postNotificationName:@"ChatWorld"
+                      object:self];
                  }
              }
          }];
@@ -2034,6 +2025,10 @@ static NSOperationQueue *connectionQueue;
                      {
                          [wsAllianceChatFullData addObjectsFromArray:wsAllianceChatData];
                      }
+                     
+                     [[NSNotificationCenter defaultCenter]
+                      postNotificationName:@"ChatAlliance"
+                      object:self];
                  }
              }
          }];

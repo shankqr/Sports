@@ -10,7 +10,6 @@
 #import "Globals.h"
 
 @implementation ChatView
-@synthesize isAllianceChat;
 @synthesize allianceId;
 @synthesize postTable;
 @synthesize dataSource;
@@ -18,15 +17,6 @@
 @synthesize messages;
 @synthesize messageText;
 @synthesize messageList;
-@synthesize refreshTimer;
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    if(refreshTimer.isValid)
-    {
-        [refreshTimer invalidate];
-    }
-}
 
 - (void)viewDidLoad 
 {
@@ -37,14 +27,6 @@
 	messageText.delegate = self;
     
     self.allianceId = @"0";
-    self.isAllianceChat = @"0";
-    
-    [self refreshMessages];
-    
-    if(!refreshTimer.isValid)
-    {
-        refreshTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshMessages) userInfo:nil repeats:YES];
-    }
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -125,6 +107,21 @@
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
         [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
+    
+    if ([self.allianceId isEqualToString:@"0"])
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshMessagesWorld)
+                                                     name:@"ChatWorld"
+                                                   object:nil];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(refreshMessagesAlliance)
+                                                     name:@"ChatAlliance"
+                                                   object:nil];
+    }
 }
 
 - (void)sendClicked
@@ -174,14 +171,19 @@
 	messageText.text = @"";
 }
 
-- (void)refreshMessages
+- (void)refreshMessagesWorld
 {
-    if ([self.isAllianceChat isEqualToString:@"1"])
+    if([self.dataSource count] > [self.messages count])
     {
-        [[Globals i] updateAllianceChatData];
-        self.dataSource = [[Globals i] wsAllianceChatFullData];
+        self.messages = [[NSMutableArray alloc] initWithArray:self.dataSource copyItems:YES];
+        [messageList reloadData];
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+        [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
-    
+}
+
+- (void)refreshMessagesAlliance
+{
     if([self.dataSource count] > [self.messages count])
     {
         self.messages = [[NSMutableArray alloc] initWithArray:self.dataSource copyItems:YES];
