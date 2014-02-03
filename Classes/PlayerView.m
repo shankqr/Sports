@@ -133,7 +133,7 @@
         dialogBox.dialogType = 2;
         dialogBox.titleText = @"Energize Player";
         dialogBox.whiteText = squadView.sel_player_name;
-        dialogBox.promptText = [NSString stringWithFormat:@"Energize %@ for 10 Energy? %@'s Fitness will increase by 5.",
+        dialogBox.promptText = [NSString stringWithFormat:@"Energize %@ for 10 Energy? %@'s Condition will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         [self.view addSubview:dialogBox.view];
         [dialogBox updateView];

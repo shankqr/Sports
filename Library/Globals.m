@@ -2206,23 +2206,23 @@ static NSOperationQueue *connectionQueue;
 {
     if ([[[Globals i] GameType] isEqualToString:@"football"])
     {
-        return @"Fitness";
+        return @"Condition";
     }
     else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
     {
-        return @"Fitness";
+        return @"Condition";
     }
     else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
     {
-        return @"Fitness";
+        return @"Condition";
     }
     else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
     {
-        return @"Fitness";
+        return @"Condition";
     }
     else
     {
-        return @"Fitness";
+        return @"Condition";
     }
 }
 
@@ -2877,6 +2877,8 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)doBid:(NSString *)player_id :(NSString *)value
 {
+    [Flurry logEvent:@"DoBid"];
+    
 	NSString *encodedValue = [self urlEnc:value];
     NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
     NSString *club_id = wsClubData[@"club_id"];

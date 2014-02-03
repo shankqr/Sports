@@ -113,7 +113,7 @@
                     <rect key="frame" x="184" y="811" width="400" height="60"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="32"/>
-                    <state key="normal" title="Contact Support Team">
+                    <state key="normal" title="Give Feedback">
                         <color key="titleColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>

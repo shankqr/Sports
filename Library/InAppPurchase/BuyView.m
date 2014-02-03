@@ -189,6 +189,8 @@
              }
          }
      }];
+    
+    [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
 }
 
 @end

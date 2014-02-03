@@ -782,6 +782,8 @@
         //Webservice failed
     }
     
+    [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
+    
 	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
 	{
         if([[[Globals i] gettPurchasedProduct] integerValue] != 0)
