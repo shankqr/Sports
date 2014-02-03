@@ -52,6 +52,7 @@
 @class TacticsView;
 @class ChatView;
 @class RankingView;
+@class SearchView;
 @class SlotsView;
 
 @interface MainView : UIViewController 
@@ -107,6 +108,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
     ChatView *allianceChatView;
     RankingView *rvTopDivision;
     RankingView *rvTopLevel;
+    SearchView *svClubs;
     SlotsView *slotsView;
 	UITabBarController *tacticsTabBarController;
 	UITabBarController *leagueTabBarController;
@@ -180,6 +182,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) ChatView *allianceChatView;
 @property (nonatomic, strong) RankingView *rvTopDivision;
 @property (nonatomic, strong) RankingView *rvTopLevel;
+@property (nonatomic, strong) SearchView *svClubs;
 @property (nonatomic, strong) SlotsView *slotsView;
 @property (nonatomic, strong) UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) UITabBarController *leagueTabBarController;

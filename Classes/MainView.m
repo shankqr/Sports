@@ -43,6 +43,7 @@
 #import "AllianceDetail.h"
 #import "JobRefill.h"
 #import "RankingView.h"
+#import "SearchView.h"
 #import "Sparrow.h"
 #import "Game.h"
 #import "Game_hockey.h"
@@ -109,6 +110,7 @@
 @synthesize allianceChatView;
 @synthesize rvTopDivision;
 @synthesize rvTopLevel;
+@synthesize svClubs;
 @synthesize slotsView;
 
 - (void)startUp //Called when app opens for the first time
@@ -1278,31 +1280,21 @@
 
 - (void)showSearch
 {
-    if (rvTopDivision == nil)
+    if (svClubs == nil)
     {
-        rvTopDivision = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
-        rvTopDivision.title = @"Top Division";
-        rvTopDivision.serviceName = @"GetClubsTopDivision";
-        rvTopLevel.updateOnWillAppear = @"0";
-        [rvTopDivision updateView];
-    }
-    
-    if (rvTopLevel == nil)
-    {
-        rvTopLevel = [[RankingView alloc] initWithStyle:UITableViewStylePlain];
-        rvTopLevel.title = @"Top Level";
-        rvTopLevel.serviceName = @"GetClubsTopLevel";
-        rvTopLevel.updateOnWillAppear = @"1";
+        svClubs = [[SearchView alloc] initWithStyle:UITableViewStylePlain];
+        svClubs.title = @"Profiles";
+        svClubs.serviceName = @"GetSearch";
     }
     
     if (allianceView == nil)
     {
         allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
     }
-    allianceView.title = @"Top Cups";
+    allianceView.title = @"Alliance";
     allianceView.updateOnWillAppear = @"1";
     
-    [[Globals i] showTemplate:@[rvTopDivision, rvTopLevel, allianceView] :@"Rankings" :1];
+    [[Globals i] showTemplate:@[svClubs, allianceView] :@"Search" :1];
 }
 
 - (void)showCup
