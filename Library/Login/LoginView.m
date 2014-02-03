@@ -49,6 +49,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
+        [Flurry logEvent:@"Login_auto_login"];
         [self performSelectorOnMainThread:@selector(LoadMainView)
                                withObject:nil
                             waitUntilDone:YES];
@@ -256,6 +257,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      [[Globals i] setUID:uid];
                      [[Globals i] settLoginBonus:returnValue];
                      
+                     [Flurry logEvent:@"Login_fb_login"];
                      [self performSelectorOnMainThread:@selector(LoadMainView)
                                             withObject:nil
                                          waitUntilDone:YES];
@@ -279,6 +281,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      {
                          [[Globals i] setUID:uid];
                          
+                         [Flurry logEvent:@"Login_fb_register"];
                          [self performSelectorOnMainThread:@selector(LoadMainView)
                                                 withObject:nil
                                              waitUntilDone:YES];
@@ -365,6 +368,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
             [[Globals i] setUID:uid];
             [[Globals i] settLoginBonus:returnValue];
             
+            [Flurry logEvent:@"Login_email_login"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
                                 waitUntilDone:YES];
@@ -407,6 +411,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] setUID:uid];
             
+            [Flurry logEvent:@"Login_email_register"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
                                 waitUntilDone:YES];
@@ -506,6 +511,8 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)LoadMainView
 {
+    [Flurry setUserID:[[Globals i] UID]];
+    
     [[Globals i] closeTemplate];
     
     if (self.loginBlock != nil)

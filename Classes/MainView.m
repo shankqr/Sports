@@ -113,6 +113,8 @@
 
 - (void)startUp //Called when app opens for the first time
 {
+    [Flurry logEvent:@"Main_startUp"];
+    
     isShowingLogin = NO;
     
     [Globals i].mainView = self;
@@ -381,6 +383,8 @@
          }
          });
      }];
+    
+    [Flurry logEvent:@"Main_loadAllData"];
 }
 
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo

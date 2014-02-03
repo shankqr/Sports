@@ -1067,6 +1067,12 @@ static NSOperationQueue *connectionQueue;
             [self setLongi:longi];
         }
     }
+    
+    //Flurry track geo
+    [Flurry setLatitude:newLocation.coordinate.latitude
+              longitude:newLocation.coordinate.longitude
+     horizontalAccuracy:newLocation.horizontalAccuracy
+       verticalAccuracy:newLocation.verticalAccuracy];
 }
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -62,7 +62,7 @@
                                                      withScale:SCALE_IPAD
                                                    withShining:YES];
         
-        [achievementsBadge setFrame:[self getBadgeFrame:12 width:achievementsBadge.frame.size.width height:achievementsBadge.frame.size.height]];
+        [achievementsBadge setFrame:[self getBadgeFrame:2 width:achievementsBadge.frame.size.width height:achievementsBadge.frame.size.height]];
         
         [self addSubview:achievementsBadge];
         [achievementsBadge bringSubviewToFront:self];
