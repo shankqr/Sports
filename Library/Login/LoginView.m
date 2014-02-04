@@ -7,10 +7,10 @@
 //
 
 #import "LoginView.h"
-#import "NSString+HMAC.h"
-#import "QuartzCore/QuartzCore.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import "Globals.h"
+#import "NSString+HMAC.h"
+
 #define kSecret @"year2000"
 
 NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateChangedNotification";

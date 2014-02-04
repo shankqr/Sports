@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 TAPFANTASY. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "DynamicCell.h"
 #import "Globals.h"
 

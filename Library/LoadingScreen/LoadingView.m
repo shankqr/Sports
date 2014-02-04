@@ -36,13 +36,6 @@
     [backgroundImage setImage:imgBkg];
     [self.view addSubview:backgroundImage];
     
-    /*
-    UIImage *imgLogo = [UIImage imageNamed:@"loading_logo.png"];
-    UIImageView *logoImage = [[UIImageView alloc] initWithImage:imgLogo];
-    logoImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgLogo.size.width*SCALE_IPAD/4), SCREEN_OFFSET_MAINHEADER_Y, (imgLogo.size.width*SCALE_IPAD/2), (imgLogo.size.height*SCALE_IPAD/2));
-    [self.view addSubview:logoImage];
-    */
-    
     UIImage *imgBarBkg = [UIImage imageNamed:@"loading_bar_bkg.png"];
     UIImageView *barbkgImage = [[UIImageView alloc] initWithImage:imgBarBkg];
     barbkgImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBarBkg.size.height*SCALE_IPAD/4), (imgBarBkg.size.width*SCALE_IPAD/2), (imgBarBkg.size.height*SCALE_IPAD/2));

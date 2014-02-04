@@ -25,10 +25,28 @@
 {
     if ([Globals i].wsWorldsData == nil)
     {
-        [[Globals i] updateWorldsData];
+        NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllWorld",
+                           WS_URL];
+        
+        [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+         {
+             if (success)
+             {
+                 [Globals i].wsWorldsData = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+                 
+                 [self updateTable];
+             }
+         }];
     }
-    
-	self.rows = [[Globals i] wsWorldsData];
+    else
+    {
+        [self updateTable];
+    }
+}
+
+- (void)updateTable
+{
+    self.rows = [[Globals i] wsWorldsData];
     
     if ([Globals i].wsWorldData == nil) // Auto select highest row if no world selected before
     {

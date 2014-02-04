@@ -151,7 +151,7 @@
                  [[Globals i] closeTemplate];
                  
                  [[NSNotificationCenter defaultCenter]
-                  postNotificationName:@"GotoCup"
+                  postNotificationName:@"GotoAlliance"
                   object:self];
                  
                  [[Globals i] showToast:@"Alliance Cup Edited Successfully!"
@@ -203,7 +203,7 @@
                               [[Globals i] closeTemplate];
                                        
                               [[NSNotificationCenter defaultCenter]
-                                        postNotificationName:@"GotoCup"
+                                        postNotificationName:@"GotoAlliance"
                                         object:self];
                               
                               [[Globals i] showDialog:@"Congratulations on creating an Alliance Cup. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];

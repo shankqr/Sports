@@ -597,7 +597,7 @@
                       [[Globals i] closeTemplate];
                       
                       [[NSNotificationCenter defaultCenter]
-                       postNotificationName:@"GotoCup"
+                       postNotificationName:@"GotoAlliance"
                        object:self];
                   }
               }];
