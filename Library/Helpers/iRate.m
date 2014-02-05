@@ -33,6 +33,7 @@
 
 #import "iRate.h"
 #import "Flurry.h"
+#import "Apsalar.h"
 
 #import <Availability.h>
 #if !__has_feature(objc_arc)
@@ -982,6 +983,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
 {
     if (buttonIndex == alertView.cancelButtonIndex)
     {
+        [Apsalar event:@"iRateUserDidDeclineToRateApp"];
         [Flurry logEvent:@"iRateUserDidDeclineToRateApp"];
         
         //ignore this version
@@ -1001,6 +1003,7 @@ static NSString *const iRateMacAppStoreURLFormat = @"macappstore://itunes.apple.
     }
     else
     {
+        [Apsalar event:@"iRateUserDidAttemptToRateApp"];
         [Flurry logEvent:@"iRateUserDidAttemptToRateApp"];
         
         //mark as rated

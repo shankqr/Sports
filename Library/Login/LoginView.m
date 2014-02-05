@@ -49,6 +49,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
+        [Apsalar event:@"Login_auto_login"];
         [Flurry logEvent:@"Login_auto_login"];
         [self performSelectorOnMainThread:@selector(LoadMainView)
                                withObject:nil
@@ -240,6 +241,18 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
              if (!error)
              {
+                 NSString *gender = user[@"gender"];
+                 if ([gender isEqualToString:@"male"])
+                 {
+                     [Apsalar setGender:@"m"];
+                     [Flurry setGender:@"m"];
+                 }
+                 else
+                 {
+                     [Apsalar setGender:@"f"];
+                     [Flurry setGender:@"f"];
+                 }
+                 
                  NSString *fid = user[@"id"];
                  NSString *hexHmac = [fid HMACWithSecret:kSecret];
                  NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
@@ -257,6 +270,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      [[Globals i] setUID:uid];
                      [[Globals i] settLoginBonus:returnValue];
                      
+                     [Apsalar event:@"Login_fb_login"];
                      [Flurry logEvent:@"Login_fb_login"];
                      [self performSelectorOnMainThread:@selector(LoadMainView)
                                             withObject:nil
@@ -268,7 +282,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  {
                      NSString *name = user[@"name"];
                      NSString *username = user[@"username"];
-                     NSString *gender = user[@"gender"];
                      NSString *timezone = user[@"timezone"];
                      
                      NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
@@ -281,6 +294,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      {
                          [[Globals i] setUID:uid];
                          
+                         [Apsalar event:@"Login_fb_register"];
                          [Flurry logEvent:@"Login_fb_register"];
                          [self performSelectorOnMainThread:@selector(LoadMainView)
                                                 withObject:nil
@@ -368,6 +382,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
             [[Globals i] setUID:uid];
             [[Globals i] settLoginBonus:returnValue];
             
+            [Apsalar event:@"Login_email_login"];
             [Flurry logEvent:@"Login_email_login"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
@@ -411,6 +426,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] setUID:uid];
             
+            [Apsalar event:@"Login_email_register"];
             [Flurry logEvent:@"Login_email_register"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil

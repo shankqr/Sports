@@ -115,6 +115,7 @@
 
 - (void)startUp //Called when app opens for the first time
 {
+    [Apsalar event:@"Main_startUp"];
     [Flurry logEvent:@"Main_startUp"];
     
     isShowingLogin = NO;
@@ -387,6 +388,7 @@
          });
      }];
     
+    [Apsalar event:@"Main_loadAllData"];
     [Flurry logEvent:@"Main_loadAllData"];
 }
 
@@ -789,6 +791,7 @@
         //Webservice failed
     }
     
+    [Apsalar event:[[Globals i] gettPurchasedProduct]];
     [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
     
 	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)

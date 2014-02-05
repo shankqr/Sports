@@ -59,7 +59,7 @@
     NSDictionary *row1 = @{@"r1": mailData[@"club_name"], @"r2": mailData[@"message"], @"r3": [[Globals i] getTimeAgo:mailData[@"date_posted"]]};
     NSArray *rows1 = @[rowHeader1, row1];
     
-    //Flurry tracking
+    [Apsalar event:@"Mail_Open" withArgs:row1];
     [Flurry logEvent:@"Mail_Open" withParameters:row1];
     
     NSArray *rows2 = [[Globals i] findMailReply:mailData[@"mail_id"]];

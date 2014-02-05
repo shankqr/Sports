@@ -190,6 +190,7 @@
          }
      }];
     
+    [Apsalar event:[[Globals i] gettPurchasedProduct]];
     [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
 }
 
