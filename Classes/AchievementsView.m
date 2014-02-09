@@ -11,7 +11,6 @@
 #import "AchievementsCell.h"
 
 @implementation AchievementsView
-@synthesize tasks;
 
 - (void)viewDidLoad
 {
@@ -69,11 +68,9 @@
         [cell.taskImage setAlpha:0.3f];
         
         [cell.reward setEnabled:YES];
-        [cell.claimLabel setEnabled:NO];
         [cell.claimButton setEnabled:NO];
         
         [cell.reward setHidden:NO];
-        [cell.claimLabel setHidden:YES];
         [cell.claimButton setHidden:YES];
     }
     else
@@ -84,11 +81,9 @@
             [cell.taskImage setAlpha:1.0f];
             
             [cell.reward setEnabled:YES];
-            [cell.claimLabel setEnabled:NO];
             [cell.claimButton setEnabled:NO];
             
             [cell.reward setHidden:NO];
-            [cell.claimLabel setHidden:YES];
             [cell.claimButton setHidden:YES];
         }
         else
@@ -97,11 +92,9 @@
             [cell.taskImage setAlpha:1.0f];
             
             [cell.reward setEnabled:NO];
-            [cell.claimLabel setEnabled:YES];
             [cell.claimButton setEnabled:YES];
             
             [cell.reward setHidden:YES];
-            [cell.claimLabel setHidden:NO];
             [cell.claimButton setHidden:NO];
             
             [cell.claimButton addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];

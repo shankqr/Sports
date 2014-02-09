@@ -54,7 +54,7 @@ static const NSInteger TagOffset = 1000;
     
     backActive = NO;
     
-    CGRect rect = CGRectMake(SCREEN_OFFSET_X, SCREEN_OFFSET_MAINHEADER_Y, SCREEN_TEMPLATE_WIDTH, self.tabBarHeight);
+    CGRect rect = CGRectMake(SCREEN_OFFSET_X, SCREEN_OFFSET_MAINHEADER_Y, SCREEN_WIDTH, self.tabBarHeight);
     
     tabButtonsContainerView = [[UIView alloc] initWithFrame:rect];
     indicatorImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"TemplateIndicator"]];
@@ -92,7 +92,7 @@ static const NSInteger TagOffset = 1000;
         pushedViewController[i] = [[NSMutableArray alloc] init];
     }
     
-    CGRect rect = CGRectMake(SCREEN_OFFSET_X, SCREEN_OFFSET_MAINHEADER_Y, SCREEN_TEMPLATE_WIDTH, self.tabBarHeight);
+    CGRect rect = CGRectMake(SCREEN_OFFSET_X, SCREEN_OFFSET_MAINHEADER_Y, SCREEN_WIDTH, self.tabBarHeight);
 
     if([self.viewControllers count] > 1) //Tab buttons above
     {
@@ -221,7 +221,7 @@ static const NSInteger TagOffset = 1000;
 	NSUInteger index = 0;
 	NSUInteger count = [self.viewControllers count];
     
-	CGRect rect = CGRectMake(0.0f, 0.0f, floorf(SCREEN_TEMPLATE_WIDTH / count), self.tabBarHeight);
+	CGRect rect = CGRectMake(0.0f, 0.0f, floorf(SCREEN_WIDTH / count), self.tabBarHeight);
     
 	indicatorImageView.hidden = YES;
     
@@ -230,7 +230,7 @@ static const NSInteger TagOffset = 1000;
 	{
 		if (index == count - 1)
         {
-			rect.size.width = SCREEN_TEMPLATE_WIDTH - rect.origin.x;
+			rect.size.width = SCREEN_WIDTH - rect.origin.x;
         }
         
 		button.frame = rect;

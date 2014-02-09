@@ -9,7 +9,7 @@
 #define ARC4RANDOM_MAX 0x100000000LL
 #define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
-#define SCREEN_TEMPLATE_WIDTH (iPad ? 768.0f : 320.0f)
+#define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
 #define SCREEN_OFFSET_BOTTOM 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_MAINHEADER_Y (iPad ? 130.0f : 60.0f)
@@ -17,7 +17,6 @@
 #define ARRAY_FLAGS [NSArray arrayWithObjects: @" ", @"Afghanistan", @"Aland Islands", @"Albania", @"Algeria", @"American Samoa", @"Andorra", @"Angola", @"Anguilla", @"Antarctica", @"Antigua and Barbuda", @"Argentina", @"Armenia", @"Aruba", @"Australia", @"Austria", @"Azerbaijan", @"Bahamas", @"Bahrain", @"Bangladesh", @"Barbados", @"Belarus", @"Belgium", @"Belize", @"Benin", @"Bermuda", @"Bhutan", @"BIOT", @"Bolivia", @"Bosnian", @"Botswana", @"Bouvet Island", @"Brazil", @"British Antarctic Territory", @"British Virgin Islands", @"Brunei", @"Bulgaria", @"Burkina Faso", @"Burma", @"Burundi", @"Cambodia", @"Cameroon", @"Canada", @"Cape Verde", @"Cayman Islands", @"CentralAfricanRepublic", @"Chad", @"Chile", @"China", @"Christmas Island", @"Cocos Islands", @"Colombia", @"Comoros", @"Congo", @"Congo Kinshasa", @"Cook Islands", @"Costa Rica", @"Croatian", @"Cuba", @"Cyprus", @"Czech Republic", @"Denmark", @"Djibouti", @"Dominican Republic", @"Dominicana", @"East Timor", @"Ecuador", @"Egypt", @"El Salvador", @"England", @"Equatorial Guinea", @"Eritrea", @"Estonia", @"Ethiopia", @"European Union", @"Ex Yugoslavia", @"Falkland Islands", @"Faroe Islands", @"Fiji", @"Finland", @"France", @"French Polynesia", @"French Southern Territories", @"Gabon", @"Gambia", @"Georgia", @"Germany", @"Ghana", @"Gibraltar", @"Greece", @"Greenland", @"Grenada", @"Guadeloupe", @"Guam", @"Guatemala", @"Guernsey", @"Guinea Bissau", @"Guinea", @"Guyana", @"Haiti", @"Holy see", @"Honduras", @"Hong Kong", @"Hungary", @"Iceland", @"India", @"Indonesia", @"Iran", @"Iraq", @"Ireland", @"Isle of Man", @"Israel", @"Italy", @"Ivory Coast", @"Jamaica", @"Jan Mayen", @"Japan", @"Jarvis Island", @"Jersey", @"Jordan", @"Kazakhstan", @"Kenya", @"Kiribati", @"Korea", @"Kosovo", @"Kuwait", @"Kyrgyzstan", @"Laos", @"Latvia", @"Lebanon", @"Lesotho", @"Liberia", @"Libya", @"Liechtenstein", @"Lithuania", @"Luxembourg", @"Macau", @"Macedonia", @"Madagascar", @"Malawi", @"Malaysia", @"Maldives", @"Mali", @"Malta", @"Marshall Islands", @"Martinique", @"Mauritania", @"Mauritius", @"Mayotte", @"Mexico", @"Micronesia", @"Moldova", @"Monaco", @"Mongolia", @"Montenegro", @"Montserrat", @"Morocco", @"Mozambique", @"Myanmar", @"Namibia", @"Nauru", @"Nepal", @"Netherlands Antilles", @"Netherlands", @"New Caledonia", @"New Zealand", @"Nicaragua", @"Niger", @"Nigeria", @"Niue", @"Norfolk Island", @"North Korea", @"Northern Ireland", @"Northern Mariana Islands", @"Norway", @"Oman", @"Pakistan", @"Palau", @"Palestinian Territory", @"Panama", @"Papua New Guinea", @"Paraguay", @"Peru", @"Philippines", @"Pitcairn", @"Poland", @"Portugal", @"Puerto Rico", @"Qatar", @"Reunion", @"Romania", @"Russia", @"Rwanda", @"Saint Pierre and Miquelon", @"Saint Vincent and the Grenadines", @"Saint Barthelemy", @"Saint Helena Dependencies", @"Saint Helena", @"Saint Kitts and Nevis", @"Saint Lucia", @"Saint Martin", @"Samoa", @"San Marino", @"Sao Tome and Principe", @"Saudi Arabia", @"Scotland", @"Senegal", @"Serbia", @"Seychelles", @"Sierra Leone", @"Singapore", @"Slovakia", @"Slovenia", @"SMOM", @"Solomon Islands", @"Somalia", @"South Africa", @"South Georgia", @"Spain", @"SPM", @"Sri Lanka", @"Sudan", @"Suriname", @"Svalbard", @"SVG", @"Swaziland", @"Sweden", @"Switzerland", @"Syria", @"Taiwan", @"Tajikistan", @"Tanzania", @"Thailand", @"Timor Leste", @"Togo", @"Tokelau", @"Tonga", @"Trinidad and Tobago", @"Tunisia", @"Turkey", @"Turkmenistan", @"Turks and Caicos Islands", @"Tuvalu", @"Uganda", @"Ukraine", @"United Arab Emirates", @"United Kingdom", @"United States", @"Uruguay", @"Uzbekistan", @"Vanuatu", @"Vatican City", @"Venezuela", @"Vietnam", @"Virgin Islands", @"Wales", @"Wallis and Futuna", @"Western Sahara", @"Yemen", @"Zambia", @"Zimbabwe", nil]
 #define STAR_FULL @"icon_star.png"
 #define STAR_HALF @"icon_halfstar.png"
-#define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
 #define HeaderSquadSelect_height (iPad ? 75.0f : 50.0f)
 #define HeaderSquad_height (iPad ? 180.0f : 75.0f)
 #define Maintable_height (iPad ? 1400.0f : 800.0f)
@@ -141,115 +140,31 @@
 #import "LoginView.h"
 #import "DynamicCell.h"
 #import <AVFoundation/AVFoundation.h>
-#import <FacebookSDK/FacebookSDK.h>
 #import <CoreLocation/CoreLocation.h>
-#import "UIColor+Crayola.h"
-#import "CustomBadge.h"
 
 @class BuyView;
 @class WorldsView;
 @class LoadingView;
 @class PlayerCell;
 @class MainView;
-@interface Globals : NSObject
-<AVAudioPlayerDelegate, FBFriendPickerDelegate, CLLocationManagerDelegate, TemplateDelegate>
-{
-    NSMutableArray *viewControllerStack;
-    AVAudioPlayer *buttonAudio;
-	AVAudioPlayer *backAudio;
-    AVAudioPlayer *moneyAudio;
-    AVAudioPlayer *winAudio;
-    AVAudioPlayer *loseAudio;
-	NSDictionary *wsProductIdentifiers;
-	NSMutableDictionary *wsClubData;
-    NSDictionary *wsBaseData;
-    NSDictionary *wsWorldData;
-	NSDictionary *wsClubInfoData;
-	NSMutableArray *wsReportData;
-    NSMutableArray *wsMailData;
-    NSMutableArray *wsMailReply;
-    NSMutableArray *localReportData;
-    NSMutableArray *localMailData;
-    NSDictionary *localMailReply;
-    NSMutableArray *wsChatData;
-    NSMutableArray *wsChatFullData;
-    NSMutableArray *wsAllianceChatData;
-    NSMutableArray *wsAllianceChatFullData;
-    NSMutableArray *wsMyAchievementsData;
-    NSMutableArray *wsBasesData;
-    NSMutableArray *wsWorldsData;
-    NSString *lastReportId;
-    NSString *lastMailId;
-	NSString *workingUrl;
-	NSString *selectedClubId;
-    NSString *selectedBaseId;
-    NSString *purchasedProductString;
-    NSString *loginBonus;
-    NSString *latitude;
-    NSString *longitude;
-    NSString *devicetoken;
-    NSString *uid;
-    NSString *selectedMapTile;
-    NSTimeInterval offsetServerTimeInterval;
-    MainView *mainView;
-    MailCompose *mailCompose;
-    LoginView *loginView;
-    BuyView *buyView;
-    WorldsView *worldsView;
-    DialogBoxView *dialogBox;
-    TemplateView *templateView;
-    LoadingView *loadingView;
-    UILocalNotification* loginNotification;
-	NSDictionary *wsCurrentSeasonData;
-	NSDictionary *wsPlayerInfoData;
-	NSDictionary *wsMatchInfoData;
-	NSDictionary *wsCupRounds;
-	NSMutableArray *wsSquadData;
-	NSMutableArray *wsMySquadData;
-	NSMutableArray *wsMatchData;
-	NSMutableArray *wsMatchPlayedData;
-	NSMutableArray *wsChallengesData;
-	NSMutableArray *wsChallengedData;
-	NSMutableArray *wsMatchHighlightsData;
-	NSMutableArray *wsLeagueData;
-	NSMutableArray *wsMatchFixturesData;
-	NSMutableArray *wsNewsData;
-	NSMutableArray *wsMarqueeData;
-	NSMutableArray *wsFriendsData;
-	NSMutableArray *wsLeagueScorersData;
-	NSMutableArray *wsPromotionData;
-	NSMutableArray *wsCupScorersData;
-	NSMutableArray *wsCupFixturesData;
-	NSMutableArray *wsMapClubsData;
-	NSMutableArray *wsNearClubsData;
-	NSMutableArray *wsPlayerSaleData;
-	NSMutableArray *wsCoachData;
-	NSMutableArray *wsProductsData;
-	NSMutableArray *wsTrophyData;
-    NSMutableArray *wsAllianceData;
-    NSMutableArray *wsWallData;
-    NSMutableArray *wsEventsData;
-    NSMutableArray *wsDonationsData;
-    NSMutableArray *wsAppliedData;
-    NSMutableArray *wsMembersData;
-    NSMutableArray *wsAllianceCupFixturesData;
-	NSString *challengeMatchId;
-	NSString *selectedPlayer;
-	NSString *selectedPos;
-	NSString *purchasedPlayerId;
-	NSString *purchasedCoachId;
-    NSString *acceptedMatch;
-	NSInteger selectedDivision;
-	NSInteger selectedSeries;
-	NSInteger workingSquad;
-	NSInteger energy;
-}
+
+@interface Globals : NSObject <AVAudioPlayerDelegate, CLLocationManagerDelegate, TemplateDelegate>
+
+@property (nonatomic, strong) MainView *mainView;
+@property (nonatomic, strong) MailCompose *mailCompose;
+@property (nonatomic, strong) LoginView *loginView;
+@property (nonatomic, strong) BuyView *buyView;
+@property (nonatomic, strong) WorldsView *worldsView;
+@property (nonatomic, strong) DialogBoxView *dialogBox;
+@property (nonatomic, strong) TemplateView *templateView;
+@property (nonatomic, strong) LoadingView *loadingView;
 @property (nonatomic, strong) NSMutableArray *viewControllerStack;
 @property (nonatomic, strong) AVAudioPlayer *buttonAudio;
 @property (nonatomic, strong) AVAudioPlayer *backAudio;
 @property (nonatomic, strong) AVAudioPlayer *moneyAudio;
 @property (nonatomic, strong) AVAudioPlayer *winAudio;
 @property (nonatomic, strong) AVAudioPlayer *loseAudio;
+@property (nonatomic, strong) NSDictionary *wsSalesData;
 @property (nonatomic, strong) NSDictionary *wsProductIdentifiers;
 @property (nonatomic, strong) NSMutableDictionary *wsClubData;
 @property (nonatomic, strong) NSDictionary *wsBaseData;
@@ -280,14 +195,6 @@
 @property (nonatomic, strong) NSString *devicetoken;
 @property (nonatomic, strong) NSString *uid;
 @property (nonatomic, strong) NSString *selectedMapTile;
-@property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) MailCompose *mailCompose;
-@property (nonatomic, strong) LoginView *loginView;
-@property (nonatomic, strong) BuyView *buyView;
-@property (nonatomic, strong) WorldsView *worldsView;
-@property (nonatomic, strong) DialogBoxView *dialogBox;
-@property (nonatomic, strong) TemplateView *templateView;
-@property (nonatomic, strong) LoadingView *loadingView;
 @property (nonatomic, strong) UILocalNotification* loginNotification;
 @property (nonatomic, strong) NSDictionary *wsCurrentSeasonData;
 @property (nonatomic, strong) NSDictionary *wsPlayerInfoData;
@@ -379,7 +286,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error;
 - (void)showLogin:(LoginBlock)block;
 - (void)showWorlds;
-- (void)fblogin;
 - (void)saveLocation;
 - (void)showBuy;
 - (void)backTemplate;
@@ -451,7 +357,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)pushMoreGamesVC;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
 - (NSString *)currentViewTitle;
-
 //SPORTS
 - (NSString *)GameType;
 - (NSString *)GameUrl;
@@ -567,4 +472,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showMoreGames;
 - (void)showLoading;
 - (void)removeLoading;
+
+- (BOOL)updateSalesData;
+
 @end

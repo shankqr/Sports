@@ -224,19 +224,6 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     
-    /*
-	if (keyboardIsShowing)
-    {
-        self.messageList.frame = CGRectMake(0, BID_CEILING, SCREEN_WIDTH, 40*SCALE_IPAD);
-        self.messageText.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height-31-keyboardBounds.size.height, SCREEN_WIDTH-10-BID_BUTTON_WIDTH, 31.0f);
-    }
-    else
-    {
-        self.messageList.frame = CGRectMake(0, BID_CEILING, SCREEN_WIDTH, UIScreen.mainScreen.bounds.size.height-BID_CEILING-31);
-        self.messageText.frame = CGRectMake(0, UIScreen.mainScreen.bounds.size.height-31, SCREEN_WIDTH-10-BID_BUTTON_WIDTH, 31.0f);
-    }
-    */
-    
 	if (keyboardIsShowing)
     {
         self.messageList.frame = CGRectMake(0, BID_CEILING, self.view.frame.size.width, self.view.frame.size.height-BID_CEILING-31-keyboardBounds.size.height);

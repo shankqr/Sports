@@ -48,6 +48,7 @@
 #import "Game.h"
 #import "Game_hockey.h"
 #import "SlotsView.h"
+#import "SalesView.h"
 #import "iRate.h"
 
 @implementation MainView
@@ -126,6 +127,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"ViewAlliance"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"ViewSales"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -229,6 +235,11 @@
         self.allianceDetail.title = @"Alliance Cup";
         [[Globals i] showTemplate:@[self.allianceDetail] :@"Alliance Cup" :1];
     }
+    
+    if ([[notification name] isEqualToString:@"ViewSales"])
+    {
+        [self showSales];
+    }
 }
 
 - (void)reloadView //Called after login and when app becomes active from background
@@ -315,6 +326,12 @@
              [[Globals i] removeLoading];
              
              [[iRate sharedInstance] logEvent:NO];
+             
+             //Show sales if available
+             if ([[Globals i] updateSalesData])
+             {
+                 [self showSales];
+             }
          }
          else
          {
@@ -1088,6 +1105,16 @@
              }
          }
      }];
+}
+
+- (void)showSales
+{
+    if (self.salesView == nil)
+    {
+        self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
+    }
+    [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
+	//[self.salesView updateView];
 }
 
 - (void)showJobRefill

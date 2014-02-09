@@ -54,11 +54,13 @@
 @class RankingView;
 @class SearchView;
 @class SlotsView;
+@class SalesView;
 
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
 UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
+@property (nonatomic, strong) SalesView *salesView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
 @property (nonatomic, strong) StadiumMap *stadiumMap;

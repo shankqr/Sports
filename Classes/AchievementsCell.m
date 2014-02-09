@@ -9,13 +9,6 @@
 #import "AchievementsCell.h"
 
 @implementation AchievementsCell
-@synthesize taskImage;
-@synthesize doneImage;
-@synthesize name;
-@synthesize desc;
-@synthesize reward;
-@synthesize claimButton;
-@synthesize claimLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

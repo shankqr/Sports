@@ -314,6 +314,10 @@
 {
 	NSInteger theTag = [sender tag];
 	[[Globals i].mainView menuButton_tap:theTag];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"ViewSales"
+     object:self];
 }
 
 @end

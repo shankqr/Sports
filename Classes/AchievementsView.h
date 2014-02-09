@@ -7,9 +7,8 @@
 //
 
 @interface AchievementsView : UITableViewController
-{
-	NSMutableArray *tasks;
-}
+
 @property (nonatomic, strong) NSMutableArray *tasks;
 - (void)updateView;
+
 @end

@@ -25,7 +25,6 @@
 @synthesize moneyAudio;
 @synthesize winAudio;
 @synthesize loseAudio;
-@synthesize wsProductIdentifiers;
 @synthesize wsClubData;
 @synthesize wsClubInfoData;
 @synthesize wsReportData;
@@ -702,7 +701,7 @@ static NSOperationQueue *connectionQueue;
 - (void)pushMoreGamesVC
 {
     DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
+    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
     [self pushTemplateNav:appsViewController];
@@ -711,7 +710,7 @@ static NSOperationQueue *connectionQueue;
 - (void)showMoreGames
 {
     DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
+    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
     [self showTemplate:@[appsViewController] :@"More Games" :1];
@@ -957,63 +956,6 @@ static NSOperationQueue *connectionQueue;
        didFailWithError:(NSError *)error
 {
 	NSLog(@"%@", error);
-}
-
-- (void)fblogin
-{
-    FBFriendPickerViewController *friendPickerController = [[FBFriendPickerViewController alloc] init];
-    
-    // Configure the picker ...
-    friendPickerController.title = @"Select a Friend";
-    // Set this view controller as the friend picker delegate
-    friendPickerController.delegate = self;
-    // Ask for friend device data
-    friendPickerController.fieldsForRequest = [NSSet setWithObjects:@"installed", nil];
-    
-    friendPickerController.allowsMultipleSelection = NO;
-    
-    // Fetch the data
-    [friendPickerController loadData];
-    
-    // iOS 5+
-    [[self peekViewControllerStack] presentViewController:friendPickerController
-                       animated:YES
-                     completion:nil];
-}
-
-/*
-- (BOOL)friendPickerViewController:(FBFriendPickerViewController *)friendPicker
-                 shouldIncludeUser:(id<FBGraphUserExtraFields>)user
-{
-    if (user.installed)
-    {
-        return YES;
-    }
-    
-    // Friend is not an iOS user, do not include them
-    return NO;
-}
-*/
-
-- (void)facebookViewControllerCancelWasPressed:(id)sender
-{
-    [[self peekViewControllerStack] dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (void)facebookViewControllerDoneWasPressed:(id)sender
-{
-    FBFriendPickerViewController *fpc = (FBFriendPickerViewController *)sender;
-    
-    for (id<FBGraphUser> user in fpc.selection)
-    {
-        //NSString *strToEncrypt  = user.id;
-        //NSString *secret        = @"year2000";
-        //NSString *hexHmac       = [strToEncrypt HMACWithSecret:secret];
-        
-        //[self showFBClubViewer:hexHmac];
-    }
-    
-    [[self peekViewControllerStack] dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)showLogin:(LoginBlock)block
@@ -1604,9 +1546,9 @@ static NSOperationQueue *connectionQueue;
 
 - (void)checkVersion
 {
-    if (wsProductIdentifiers != nil)
+    if (self.wsProductIdentifiers != nil)
     {
-        float latest_version = [wsProductIdentifiers[@"latest_version"] floatValue];
+        float latest_version = [self.wsProductIdentifiers[@"latest_version"] floatValue];
         float this_version = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] floatValue];
         
         if (latest_version > this_version)
@@ -1630,7 +1572,33 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, [self GameId]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+	self.wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *)getProductIdentifiers
+{
+	return self.wsProductIdentifiers;
+}
+
+- (BOOL)updateSalesData
+{
+    BOOL hasSale = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetSales",
+					   WS_URL];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsSalesData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasSale = YES;
+    }
+    else
+    {
+        self.wsSalesData = nil;
+    }
+    
+    return hasSale;
 }
 
 - (BOOL)updateClubData
@@ -2855,11 +2823,6 @@ static NSOperationQueue *connectionQueue;
 - (NSDictionary *)getCurrentSeasonData
 {
 	return wsCurrentSeasonData;
-}
-
-- (NSDictionary *)getProductIdentifiers
-{
-	return wsProductIdentifiers;
 }
 
 - (NSDictionary *)getClubData

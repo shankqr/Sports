@@ -136,7 +136,7 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_TEMPLATE_WIDTH, TABLE_HEADER_VIEW_HEIGHT)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TABLE_HEADER_VIEW_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
     
     UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Mark all as Read!"

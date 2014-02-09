@@ -7,20 +7,12 @@
 //
 
 @interface AchievementsCell : UITableViewCell
-{
-	UIImageView *taskImage;
-	UIImageView *doneImage;
-	UILabel *name;
-    UILabel *desc;
-	UILabel *reward;
-    UILabel *claimLabel;
-    UIButton *claimButton;
-}
+
 @property (nonatomic, strong) IBOutlet UIImageView *taskImage;
 @property (nonatomic, strong) IBOutlet UIImageView *doneImage;
 @property (nonatomic, strong) IBOutlet UILabel *name;
 @property (nonatomic, strong) IBOutlet UILabel *desc;
 @property (nonatomic, strong) IBOutlet UILabel *reward;
-@property (nonatomic, strong) IBOutlet UILabel *claimLabel;
 @property (nonatomic, strong) IBOutlet UIButton *claimButton;
+
 @end
