@@ -9,9 +9,8 @@
 #import <StoreKit/SKPaymentTransaction.h>
 
 @interface BuyView : UITableViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
-{
-    NSArray *rows;
-}
+
 @property (nonatomic, strong) NSArray *rows;
 - (void)updateView;
+
 @end

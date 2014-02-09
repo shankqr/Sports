@@ -9,10 +9,7 @@
 #define bar_y 0.9f
 
 @interface LoadingView : UIViewController
-{
-    UIImageView *barImage;
-    UIImage *imgBar;
-}
+
 @property (nonatomic, strong) UIImageView *barImage;
 @property (nonatomic, strong) UIImage *imgBar;
 - (void)updateView;

@@ -693,7 +693,7 @@ static NSOperationQueue *connectionQueue;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
 {
     ChatView *achatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
-    achatView.title = @"Alliance Chat";
+    achatView.title = @"Alliance Wall";
     
     [self pushTemplateNav:achatView];
     [achatView updateView:ds table:tn a_id:aid];

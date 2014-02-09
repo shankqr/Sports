@@ -58,76 +58,7 @@
 @interface MainView : UIViewController 
 <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
 UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
-{
-	Header *header;
-	JobsView *jobsView;
-    StadiumMap *stadiumMap;
-	FansView *fansView;
-	FinanceView *financeView;
-	StaffView *staffView;
-	MatchView *matchView;
-    MatchView *matchPlayedView;
-    MatchView *matchChallengeView;
-	ClubMapView *clubMapView;
-	SquadView *squadView;
-	TrainingView *trainingView;
-	NewsView *newsView;
-	FriendsView *friendsView;
-	MatchLive *matchLive;
-	MatchReport *matchReport;
-	WelcomeViewController *welcomeView;
-	ChallengeView *challengeBox;
-    ChallengeCreateView *challengeCreate;
-    SPViewController *sparrowView;
-    AchievementsView *achievementsView;
-    AllianceView *allianceView;
-    AllianceDetail *allianceDetail;
-    MainCell *cell;
-    StorePlayerView *storePlayer;
-    StoreCoachView *storeCoach;
-    StoreOthersView *fundStore;
-    StoreOthersView *emblemStore;
-    StoreOthersView *homeStore;
-    StoreOthersView *awayStore;
-    JobRefill *jobRefill;
-    MailView *mailView;
-    ClubView *clubView;
-    TrophyViewer *trophyViewer;
-    ClubViewer *clubViewer;
-    MapViewer *mapViewer;
-    LeagueView *leagueView;
-    PromotionView *promotionView;
-    ScorersView *scorersView;
-    FormationView *formationView;
-    SubsView *subsView;
-    TacticsView *tacticsView;
-    SquadViewer *squadViewer;
-    OverView *overView;
-    FixturesView *fixturesView;
-    ChatView *chatView;
-    ChatView *allianceChatView;
-    RankingView *rvTopDivision;
-    RankingView *rvTopLevel;
-    SearchView *svClubs;
-    SlotsView *slotsView;
-	UITabBarController *tacticsTabBarController;
-	UITabBarController *leagueTabBarController;
-	UITabBarController *clubTabBarController;
-	UITabBarController *myclubTabBarController;
-    UITableView *mainTableView;
-    NSInteger currMatchIndex;
-	NSTimer *marqueeTimer;
-    NSMutableArray *marquee;
-	UILabel *lblMarquee;
-	CGFloat posxMarquee;
-	NSInteger rowMarquee;
-    NSInteger speedMarquee;
-	CGSize textSizeMarquee;
-    NSTimer *chatTimer;
-    UILabel* lblChat1;
-    BOOL isShowingLogin;
-}
-@property (nonatomic, strong) UITableView *mainTableView;
+
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;
 @property (nonatomic, strong) StadiumMap *stadiumMap;
@@ -150,11 +81,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) AchievementsView *achievementsView;
 @property (nonatomic, strong) AllianceView *allianceView;
 @property (nonatomic, strong) AllianceDetail *allianceDetail;
-@property (nonatomic, strong) NSTimer *marqueeTimer;
-@property (nonatomic, strong) NSTimer *chatTimer;
-@property (nonatomic, strong) NSMutableArray *marquee;
-@property (nonatomic, strong) UILabel* lblMarquee;
-@property (nonatomic, strong) UILabel* lblChat1;
 @property (nonatomic, strong) MainCell *cell;
 @property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) StorePlayerView *storePlayer;
@@ -184,10 +110,24 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) RankingView *rvTopLevel;
 @property (nonatomic, strong) SearchView *svClubs;
 @property (nonatomic, strong) SlotsView *slotsView;
+@property (nonatomic, strong) NSTimer *marqueeTimer;
+@property (nonatomic, strong) NSTimer *chatTimer;
+@property (nonatomic, strong) NSMutableArray *marquee;
+@property (nonatomic, strong) UILabel* lblMarquee;
+@property (nonatomic, strong) UILabel* lblChat1;
 @property (nonatomic, strong) UITabBarController *tacticsTabBarController;
 @property (nonatomic, strong) UITabBarController *leagueTabBarController;
 @property (nonatomic, strong) UITabBarController *clubTabBarController;
 @property (nonatomic, strong) UITabBarController *myclubTabBarController;
+@property (nonatomic, strong) UITableView *mainTableView;
+
+@property (nonatomic, assign) NSInteger rowMarquee;
+@property (nonatomic, assign) NSInteger speedMarquee;
+@property (nonatomic, assign) NSInteger currMatchIndex;
+@property (nonatomic, assign) CGFloat posxMarquee;
+@property (nonatomic, assign) CGSize textSizeMarquee;
+@property (nonatomic, assign) BOOL isShowingLogin;
+
 - (void)startUp;
 - (void)reloadView;
 - (void)buyProduct:(NSString *)product;
@@ -216,4 +156,5 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 - (void)showHomeStore;
 - (void)showAwayStore;
 - (void)menuButton_tap:(NSInteger)sender;
+
 @end

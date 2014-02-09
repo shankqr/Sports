@@ -10,7 +10,6 @@
 #import "Globals.h"
 
 @implementation BuyView
-@synthesize rows;
 
 - (void)viewDidLoad
 {

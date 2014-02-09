@@ -10,9 +10,6 @@
 #import "Globals.h"
 
 @implementation SearchView
-@synthesize searchBar1;
-@synthesize rows;
-@synthesize serviceName;
 
 - (void)viewDidLoad
 {
@@ -22,9 +19,9 @@
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    searchBar1 = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44*SCALE_IPAD)];
-    searchBar1.delegate = self;
-    self.tableView.tableHeaderView = searchBar1;
+    self.searchBar1 = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44*SCALE_IPAD)];
+    self.searchBar1.delegate = self;
+    self.tableView.tableHeaderView = self.searchBar1;
 }
 
 #pragma mark UISearchDisplayController Delegate Methods

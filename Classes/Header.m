@@ -10,19 +10,6 @@
 #import "Globals.h"
 
 @implementation Header
-@synthesize lblDiamond;
-@synthesize lblName;
-@synthesize lblGold;
-@synthesize lblLevel;
-@synthesize lblExpCounter;
-@synthesize lblEnergyCounter;
-@synthesize lblEnergyTimer;
-@synthesize iLogo;
-@synthesize pvExp;
-@synthesize energyTimer;
-@synthesize btnDiamond;
-@synthesize btnEnergy;
-@synthesize btnGold;
 
 - (IBAction)club_tap:(id)sender
 {
@@ -52,21 +39,21 @@
 
 - (void)viewDidLoad
 {
-	energy_seconds = 180;
+	self.energy_seconds = 180;
 }
 
 - (void)refillEnergy
 {
-	[Globals i].energy = energy_max;
+	[Globals i].energy = self.energy_max;
 	[[Globals i] storeEnergy];
 	[self updateView];
 }
 
 - (void)updateView
 {
-    if (!energyTimer.isValid)
+    if (!self.energyTimer.isValid)
     {
-        energyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+        self.energyTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     }
     
 	[self drawView];
@@ -74,22 +61,22 @@
 
 - (void)onTimer
 {
-	if ([Globals i].energy >= energy_max)
+	if ([Globals i].energy >= self.energy_max)
 	{
-		lblEnergyTimer.text = @"Energy";
+		self.lblEnergyTimer.text = @"Energy";
 	}
 	else
 	{
-		if(energy_seconds == 0)
+		if(self.energy_seconds == 0)
 		{
 			[Globals i].energy = [Globals i].energy + 1;
-			energy_seconds = 180;
-			lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)energy_max];
+			self.energy_seconds = 180;
+			self.lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)self.energy_max];
 			[[Globals i] storeEnergy];
 		}
 		else
 		{
-			energy_seconds = energy_seconds-1;
+			self.energy_seconds = self.energy_seconds-1;
 		}
 	}
     [self drawView];
@@ -99,50 +86,50 @@
 {
     NSDictionary *wsClubData = [[Globals i] getClubData];
 	
-	gold = [wsClubData[@"balance"] integerValue];
-	diamond = [wsClubData[@"currency_second"] integerValue];
-	level = [[Globals i] getLevel];
-	xp = [[Globals i] getXp];
-	xp_max = [[Globals i] getXpMax];
-	lblGold.text = [[Globals i] shortNumberFormat:wsClubData[@"balance"]];
-	if(gold > 0)
+	self.gold = [wsClubData[@"balance"] integerValue];
+	self.diamond = [wsClubData[@"currency_second"] integerValue];
+	self.level = [[Globals i] getLevel];
+	self.xp = [[Globals i] getXp];
+	self.xp_max = [[Globals i] getXpMax];
+	self.lblGold.text = [[Globals i] shortNumberFormat:wsClubData[@"balance"]];
+	if(self.gold > 0)
 	{
-		lblGold.textColor = [UIColor blackColor];
+		self.lblGold.textColor = [UIColor blackColor];
 	}
 	else
 	{
-		lblGold.textColor = [UIColor whiteColor];
+		self.lblGold.textColor = [UIColor whiteColor];
 	}
-	lblName.text = wsClubData[@"club_name"];
-	lblDiamond.text = [[Globals i] numberFormat:wsClubData[@"currency_second"]];
-	lblLevel.text = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getLevel]];
-	lblExpCounter.text = [NSString stringWithFormat:@"%ld more", (long)xp_max-(long)xp];
+	self.lblName.text = wsClubData[@"club_name"];
+	self.lblDiamond.text = [[Globals i] numberFormat:wsClubData[@"currency_second"]];
+	self.lblLevel.text = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getLevel]];
+	self.lblExpCounter.text = [NSString stringWithFormat:@"%ld more", (long)self.xp_max-(long)self.xp];
 	
-	float bar = ((float)xp-[[Globals i] getXpMaxBefore]) / ((float)xp_max-[[Globals i] getXpMaxBefore]);
-	pvExp.progress = bar;
+	float bar = ((float)self.xp-[[Globals i] getXpMaxBefore]) / ((float)self.xp_max-[[Globals i] getXpMaxBefore]);
+	self.pvExp.progress = bar;
 	NSString *logo_url = wsClubData[@"logo_pic"];
 	if([logo_url length] > 5)
 	{
         NSURL *url = [NSURL URLWithString:logo_url];
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
-        [iLogo setImage:img];
+        [self.iLogo setImage:img];
 	}
 	else
 	{
 		NSString *fname = [NSString stringWithFormat:@"c%@.png", logo_url];
-		[iLogo setImage:[UIImage imageNamed:fname]];
+		[self.iLogo setImage:[UIImage imageNamed:fname]];
 	}
 	
-	energy_max = [wsClubData[@"energy"] integerValue];
-	lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)energy_max];
-	if([Globals i].energy != energy_max)
+	self.energy_max = [wsClubData[@"energy"] integerValue];
+	self.lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)self.energy_max];
+	if([Globals i].energy != self.energy_max)
 	{
-		lblEnergyTimer.text = [NSString stringWithFormat:@"%ld", (long)energy_seconds];
+		self.lblEnergyTimer.text = [NSString stringWithFormat:@"%ld", (long)self.energy_seconds];
 	}
 	else
 	{
-		lblEnergyTimer.text = @"Energy";
+		self.lblEnergyTimer.text = @"Energy";
 	}
 }
 

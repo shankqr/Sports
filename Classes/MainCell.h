@@ -11,28 +11,22 @@
 @class NextMatchSlide;
 @class LastMatchSlide;
 @class CustomBadge;
+
 @interface MainCell : UITableViewCell
-{
-    UIView *activeSlide;
-	LeagueSlide *leagueSlide;
-	RankingSlide *rankingSlide;
-	NextMatchSlide *nextmatchSlide;
-	LastMatchSlide *lastmatchSlide;
-    NSTimer *slidesTimer;
-    NSInteger timerIndex;
-    CustomBadge *achievementsBadge;
-    CustomBadge *mailBadge;
-}
-@property (strong, nonatomic) UIView *activeSlide;
-@property (strong, nonatomic) LeagueSlide *leagueSlide;
-@property (strong, nonatomic) RankingSlide *rankingSlide;
-@property (strong, nonatomic) NextMatchSlide *nextmatchSlide;
-@property (strong, nonatomic) LastMatchSlide *lastmatchSlide;
-@property (strong, nonatomic) NSTimer *slidesTimer;
-@property (strong, nonatomic) CustomBadge *achievementsBadge;
-@property (strong, nonatomic) CustomBadge *mailBadge;
-@property (readwrite) NSInteger timerIndex;
+
+@property (nonatomic, strong) UIView *activeSlide;
+@property (nonatomic, strong) LeagueSlide *leagueSlide;
+@property (nonatomic, strong) RankingSlide *rankingSlide;
+@property (nonatomic, strong) NextMatchSlide *nextmatchSlide;
+@property (nonatomic, strong) LastMatchSlide *lastmatchSlide;
+@property (nonatomic, strong) NSTimer *slidesTimer;
+@property (nonatomic, strong) CustomBadge *achievementsBadge;
+@property (nonatomic, strong) CustomBadge *mailBadge;
+
+@property (nonatomic, assign) NSInteger timerIndex;
+
 - (void)changeSlideNow;
 - (void)updateAchievementBadges;
 - (void)updateMailBadges;
+
 @end

@@ -16,15 +16,6 @@
 #import "CustomBadge.h"
 
 @implementation MainCell
-@synthesize activeSlide;
-@synthesize leagueSlide;
-@synthesize rankingSlide;
-@synthesize nextmatchSlide;
-@synthesize lastmatchSlide;
-@synthesize slidesTimer;
-@synthesize timerIndex;
-@synthesize achievementsBadge;
-@synthesize mailBadge;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -43,7 +34,7 @@
     // Configure the view for the selected state
     [self setBackgroundColor:[UIColor clearColor]];
     
-    if(!slidesTimer.isValid)
+    if(!self.slidesTimer.isValid)
     {
         [self createSlides];
         [self createButtons];
@@ -52,9 +43,9 @@
 
 - (void)createAchievementBadges
 {
-    if (achievementsBadge == nil)
+    if (self.achievementsBadge == nil)
     {
-        achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
+        self.achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
                                                withStringColor:[UIColor whiteColor]
                                                 withInsetColor:[UIColor redColor]
                                                 withBadgeFrame:YES
@@ -62,10 +53,10 @@
                                                      withScale:SCALE_IPAD
                                                    withShining:YES];
         
-        [achievementsBadge setFrame:[self getBadgeFrame:2 width:achievementsBadge.frame.size.width height:achievementsBadge.frame.size.height]];
+        [self.achievementsBadge setFrame:[self getBadgeFrame:2 width:self.achievementsBadge.frame.size.width height:self.achievementsBadge.frame.size.height]];
         
-        [self addSubview:achievementsBadge];
-        [achievementsBadge bringSubviewToFront:self];
+        [self addSubview:self.achievementsBadge];
+        [self.achievementsBadge bringSubviewToFront:self];
     }
 }
 
@@ -74,20 +65,20 @@
     if ([[Globals i] getAchievementsBadge] > 0)
     {
         [self createAchievementBadges];
-        [achievementsBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]];
-        [achievementsBadge setHidden:NO];
+        [self.achievementsBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]];
+        [self.achievementsBadge setHidden:NO];
     }
     else
     {
-        [achievementsBadge setHidden:YES];
+        [self.achievementsBadge setHidden:YES];
     }
 }
 
 - (void)createMailBadges
 {
-    if (mailBadge == nil)
+    if (self.mailBadge == nil)
     {
-        mailBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]
+        self.mailBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]
                                                withStringColor:[UIColor whiteColor]
                                                 withInsetColor:[UIColor redColor]
                                                 withBadgeFrame:YES
@@ -95,10 +86,10 @@
                                                      withScale:SCALE_IPAD
                                                    withShining:YES];
         
-        [mailBadge setFrame:[self getBadgeFrame:1 width:mailBadge.frame.size.width height:mailBadge.frame.size.height]];
+        [self.mailBadge setFrame:[self getBadgeFrame:1 width:self.mailBadge.frame.size.width height:self.mailBadge.frame.size.height]];
         
-        [self addSubview:mailBadge];
-        [mailBadge bringSubviewToFront:self];
+        [self addSubview:self.mailBadge];
+        [self.mailBadge bringSubviewToFront:self];
     }
 }
 
@@ -107,43 +98,43 @@
     if ([[Globals i] getMailBadgeNumber] > 0)
     {
         [self createMailBadges];
-        [mailBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]];
-        [mailBadge setHidden:NO];
+        [self.mailBadge autoBadgeSizeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]];
+        [self.mailBadge setHidden:NO];
     }
     else
     {
-        [mailBadge setHidden:YES];
+        [self.mailBadge setHidden:YES];
     }
 }
 
 - (void)createSlides
 {
     //Create Slides
-	timerIndex = 1;
+	self.timerIndex = 1;
     
-	leagueSlide = [[LeagueSlide alloc] initWithNibName:@"LeagueSlide" bundle:nil];
-	leagueSlide.mainCell = self;
-	[leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-    [leagueSlide updateView];
+	self.leagueSlide = [[LeagueSlide alloc] initWithNibName:@"LeagueSlide" bundle:nil];
+	self.leagueSlide.mainCell = self;
+	[self.leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+    [self.leagueSlide updateView];
     
-	rankingSlide = [[RankingSlide alloc] initWithNibName:@"RankingSlide" bundle:nil];
-	rankingSlide.mainCell = self;
-	[rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-    [rankingSlide updateView];
+	self.rankingSlide = [[RankingSlide alloc] initWithNibName:@"RankingSlide" bundle:nil];
+	self.rankingSlide.mainCell = self;
+	[self.rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+    [self.rankingSlide updateView];
     
-	nextmatchSlide = [[NextMatchSlide alloc] initWithNibName:@"NextMatchSlide" bundle:nil];
-	nextmatchSlide.mainCell = self;
-	[nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-    [nextmatchSlide updateView];
+	self.nextmatchSlide = [[NextMatchSlide alloc] initWithNibName:@"NextMatchSlide" bundle:nil];
+	self.nextmatchSlide.mainCell = self;
+	[self.nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+    [self.nextmatchSlide updateView];
     
-	lastmatchSlide = [[LastMatchSlide alloc] initWithNibName:@"LastMatchSlide" bundle:nil];
-	lastmatchSlide.mainCell = self;
-	[lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-    [lastmatchSlide updateView];
+	self.lastmatchSlide = [[LastMatchSlide alloc] initWithNibName:@"LastMatchSlide" bundle:nil];
+	self.lastmatchSlide.mainCell = self;
+	[self.lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+    [self.lastmatchSlide updateView];
     
-    if(!slidesTimer.isValid)
+    if(!self.slidesTimer.isValid)
     {
-        slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+        self.slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     }
     
     //[self changeSlideNow];
@@ -151,40 +142,40 @@
 
 - (void)changeSlide
 {
-	if (timerIndex == 5)
+	if (self.timerIndex == 5)
 	{
-		timerIndex = 1;
+		self.timerIndex = 1;
 	}
 	
-	switch (timerIndex)
+	switch (self.timerIndex)
 	{
 		case 1:
-            [lastmatchSlide.view removeFromSuperview];
-			[rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:rankingSlide.view];
-            [rankingSlide updateView];
-			activeSlide = rankingSlide.view;
+            [self.lastmatchSlide.view removeFromSuperview];
+			[self.rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+			[self addSubview:self.rankingSlide.view];
+            [self.rankingSlide updateView];
+			self.activeSlide = self.rankingSlide.view;
 			break;
 		case 2:
-            [rankingSlide.view removeFromSuperview];
-			[leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:leagueSlide.view];
-            [leagueSlide updateView];
-			activeSlide = leagueSlide.view;
+            [self.rankingSlide.view removeFromSuperview];
+			[self.leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+			[self addSubview:self.leagueSlide.view];
+            [self.leagueSlide updateView];
+			self.activeSlide = self.leagueSlide.view;
 			break;
 		case 3:
-            [leagueSlide.view removeFromSuperview];
-			[nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:nextmatchSlide.view];
-            [nextmatchSlide updateView];
-			activeSlide = nextmatchSlide.view;
+            [self.leagueSlide.view removeFromSuperview];
+			[self.nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+			[self addSubview:self.nextmatchSlide.view];
+            [self.nextmatchSlide updateView];
+			self.activeSlide = self.nextmatchSlide.view;
 			break;
 		case 4:
-            [nextmatchSlide.view removeFromSuperview];
-			[lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:lastmatchSlide.view];
-            [lastmatchSlide updateView];
-			activeSlide = lastmatchSlide.view;
+            [self.nextmatchSlide.view removeFromSuperview];
+			[self.lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
+			[self addSubview:self.lastmatchSlide.view];
+            [self.lastmatchSlide updateView];
+			self.activeSlide = self.lastmatchSlide.view;
 			break;
 	}
 }
@@ -192,7 +183,7 @@
 - (void)changeSlideNow
 {
 	[self changeSlide];
-	timerIndex += 1;
+	self.timerIndex += 1;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -203,23 +194,23 @@
 -(void)onTimer
 {
     [self changeSlide];
-    timerIndex += 1;
+    self.timerIndex += 1;
 }
 
 - (void)showSlide
 {
     [self changeSlideNow];
-    if(!slidesTimer.isValid)
+    if(!self.slidesTimer.isValid)
     {
-        slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+        self.slidesTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     }
 }
 
 - (void)hideSlide
 {
-    if(activeSlide != nil)
+    if(self.activeSlide != nil)
     {
-        [activeSlide removeFromSuperview];
+        [self.activeSlide removeFromSuperview];
     }
 }
 

@@ -9,13 +9,7 @@
 #import "LoadingView.h"
 #import "Globals.h"
 
-@interface LoadingView ()
-
-@end
-
 @implementation LoadingView
-@synthesize barImage;
-@synthesize imgBar;
 
 - (void)viewDidLoad
 {
@@ -42,8 +36,8 @@
     [self.view addSubview:barbkgImage];
     
     self.imgBar = [UIImage imageNamed:@"loading_bar.png"];
-    self.barImage = [[UIImageView alloc] initWithImage:imgBar];
-    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    self.barImage = [[UIImageView alloc] initWithImage:self.imgBar];
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
     [self.barImage setClipsToBounds:YES];
     self.barImage.contentMode = UIViewContentModeLeft;
     [self.view addSubview:self.barImage];
@@ -52,11 +46,11 @@
 - (void)updateView
 {
     //start small again
-    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
     
     [UIView animateWithDuration:15.0f
                      animations:^{
-                         self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), ((imgBar.size.width*SCALE_IPAD/2) * 1), (imgBar.size.height*SCALE_IPAD/2));
+                         self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), ((self.imgBar.size.width*SCALE_IPAD/2) * 1), (self.imgBar.size.height*SCALE_IPAD/2));
                      }
                      completion:^(BOOL finished){
                      }];
@@ -66,8 +60,8 @@
 {
     [self.barImage removeFromSuperview];
     
-    self.barImage = [[UIImageView alloc] initWithImage:imgBar];
-    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBar.size.height*SCALE_IPAD/4), 0, (imgBar.size.height*SCALE_IPAD/2));
+    self.barImage = [[UIImageView alloc] initWithImage:self.imgBar];
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
     [self.barImage setClipsToBounds:YES];
     self.barImage.contentMode = UIViewContentModeLeft;
     [self.view addSubview:self.barImage];

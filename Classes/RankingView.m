@@ -10,9 +10,6 @@
 #import "Globals.h"
 
 @implementation RankingView
-@synthesize rows;
-@synthesize serviceName;
-@synthesize updateOnWillAppear;
 
 - (void)viewDidLoad
 {
@@ -27,7 +24,7 @@
 {
 	[super viewWillAppear:animated];
     
-    if ([updateOnWillAppear isEqualToString:@"1"])
+    if ([self.updateOnWillAppear isEqualToString:@"1"])
     {
         [self updateView];
     }

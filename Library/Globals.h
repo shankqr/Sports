@@ -302,7 +302,6 @@
 @property (nonatomic, strong) TemplateView *templateView;
 @property (nonatomic, strong) LoadingView *loadingView;
 @property (nonatomic, strong) UILocalNotification* loginNotification;
-@property (readwrite) NSTimeInterval offsetServerTimeInterval;
 @property (nonatomic, strong) NSDictionary *wsCurrentSeasonData;
 @property (nonatomic, strong) NSDictionary *wsPlayerInfoData;
 @property (nonatomic, strong) NSDictionary *wsMatchInfoData;
@@ -342,10 +341,11 @@
 @property (nonatomic, strong) NSString *purchasedPlayerId;
 @property (nonatomic, strong) NSString *purchasedCoachId;
 @property (nonatomic, strong) NSString *acceptedMatch;
-@property (readwrite) NSInteger selectedDivision;
-@property (readwrite) NSInteger selectedSeries;
-@property (readwrite) NSInteger workingSquad;
-@property (readwrite) NSInteger energy;
+@property (nonatomic, assign) NSTimeInterval offsetServerTimeInterval;
+@property (nonatomic, assign) NSInteger selectedDivision;
+@property (nonatomic, assign) NSInteger selectedSeries;
+@property (nonatomic, assign) NSInteger workingSquad;
+@property (nonatomic, assign) NSInteger energy;
 typedef void (^returnBlock)(BOOL success, NSData *data);
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;

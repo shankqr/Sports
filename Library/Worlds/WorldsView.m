@@ -9,7 +9,6 @@
 #import "WorldsView.h"
 
 @implementation WorldsView
-@synthesize rows;
 
 - (void)viewDidLoad
 {

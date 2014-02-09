@@ -9,9 +9,7 @@
 #import "Globals.h"
 
 @interface WorldsView : UITableViewController
-{
-	NSMutableArray *rows;
-}
+
 @property (nonatomic, strong) NSMutableArray *rows;
 - (void)updateView;
 @end
