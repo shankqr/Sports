@@ -6,25 +6,12 @@
 //  Copyright (c) 2013 TAPFANTASY. All rights reserved.
 //
 
+#define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
+#define SCALE_IPAD (iPad ? 2.0f : 1.0f)
+#define CELL_CONTENT_WIDTH (iPad ? 768.0f : 320.0f)
+
 @interface DynamicCell : UITableViewCell <UITextFieldDelegate, UITextViewDelegate>
-{
-    NSDictionary *cellRowData;
-    float cellWidth;
-    
-    UIImageView *backgroundImage;
-    UIImageView *footerImage;
-    UIImageView *selectedImage;
-    UITextField *textf1;
-    UITextView *textv1;
-    UILabel *header1;
-    UILabel *row1;
-    UILabel *row2;
-    UILabel *row3;
-    UILabel *col1;
-    UILabel *num1;
-    UIImageView *img1;
-    UIImageView *img2;
-}
+
 @property (nonatomic, strong) NSDictionary *cellRowData;
 @property (nonatomic, strong) UIImageView *backgroundImage;
 @property (nonatomic, strong) UIImageView *footerImage;
@@ -39,5 +26,13 @@
 @property (nonatomic, strong) UILabel *num1;
 @property (nonatomic, strong) UIImageView *img1;
 @property (nonatomic, strong) UIImageView *img2;
+
+@property (nonatomic, assign) float cellWidth;
+
 - (void)drawCell:(NSDictionary *)rowData cellWidth:(float)cell_width;
+
++ (UITableViewCell *)dynamicCell:(UITableView *)tableView rowData:(NSDictionary *)rowData cellWidth:(float)cell_width;
++ (CGFloat)dynamicCellHeight:(NSDictionary *)rowData cellWidth:(float)cell_width;
++ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size;
+
 @end

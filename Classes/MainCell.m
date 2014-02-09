@@ -261,7 +261,7 @@
     NSInteger button_row = ((tag-1) / buttons_per_row);
     NSInteger posy = button_row * column_height + menu_start_y;
     
-    return CGRectMake(posx-CELL_CONTENT_SPACING, posy-CELL_CONTENT_SPACING, width, height);
+    return CGRectMake(posx-DEFAULT_CONTENT_SPACING, posy-DEFAULT_CONTENT_SPACING, width, height);
 }
 
 - (void)addPosButton:(NSString *)label

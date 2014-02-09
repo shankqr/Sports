@@ -745,116 +745,6 @@ static NSOperationQueue *connectionQueue;
 	//NSLog(@"%@ didSelectViewController %@ at index %ld", tabBarController.title, viewController.title, (unsigned long)index);
 }
 
-- (DynamicCell *)dynamicCell:(UITableView *)tableView rowData:(NSDictionary *)rowData cellWidth:(float)cell_width
-{
-    DynamicCell *cell = (DynamicCell *)[tableView dequeueReusableCellWithIdentifier:@"DynamicCell"];
-    
-    if (cell == nil)
-    {
-        cell = [[DynamicCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DynamicCell"];
-    }
-    
-    [cell drawCell:rowData cellWidth:cell_width];
-    
-    return cell;
-}
-
-- (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size
-{
-    CGSize constraint = CGSizeMake(label_width, 20000.0f);
-    CGSize size = [text sizeWithFont:[UIFont fontWithName:DEFAULT_FONT size:font_size] constrainedToSize:constraint lineBreakMode:NSLineBreakByWordWrapping];
-    return MAX(size.height, CELL_LABEL_HEIGHT);
-}
-
-- (CGFloat)dynamicCellHeight:(NSDictionary *)rowData cellWidth:(float)cell_width
-{
-    CGFloat cell_height = CELL_EMPTY_HEIGHT;
-    CGFloat r1_length = cell_width - CELL_CONTENT_MARGIN*2;
-    CGFloat r2_length = 0.0f;
-    CGFloat col1_length = 0.0f;
-    
-    if (rowData[@"i1"] != nil)
-    {
-        r1_length -= CELL_IMAGE1_SIZE + CELL_CONTENT_SPACING;
-    }
-    else if (rowData[@"n1"] != nil)
-    {
-        r1_length -= CELL_IMAGE1_SIZE + CELL_CONTENT_SPACING;
-    }
-
-    if (rowData[@"i2"] != nil)
-    {
-        r1_length -= CELL_IMAGE2_WIDTH - CELL_CONTENT_SPACING;
-    }
-    
-    r2_length = r1_length;
-    
-    if (rowData[@"c1"] != nil)
-    {
-        CGFloat c1_ratio = 4;
-        if (rowData[@"c1_ratio"] != nil)
-        {
-            c1_ratio = [rowData[@"c1_ratio"] floatValue];
-            if (c1_ratio < 2 || c1_ratio > 10)
-            {
-                c1_ratio = 4;
-            }
-        }
-        col1_length = r1_length/c1_ratio;
-        r1_length -= col1_length - CELL_CONTENT_SPACING;
-        col1_length -= CELL_CONTENT_SPACING;
-    }
-    
-    if (rowData[@"align_top"] == nil)
-    {
-        r2_length = r1_length;
-    }
-    
-    if (rowData[@"h1"] != nil && ![rowData[@"h1"] isEqualToString:@""])
-    {
-        cell_height = CELL_HEADER_HEIGHT;
-    }
-    else if ([rowData[@"h1"] isEqualToString:@""])
-    {
-        cell_height = CELL_HEADER_HEIGHT;
-    }
-    else
-    {
-        if ((rowData[@"r1"] != nil) && ![rowData[@"r1"] isEqualToString:@""])
-        {
-            cell_height += [self textHeight:rowData[@"r1"] lblWidth:r1_length fontSize:R1_FONT_SIZE];
-        }
-        
-        if ((rowData[@"r2"] != nil) && ![rowData[@"r2"] isEqualToString:@""])
-        {
-            cell_height += [self textHeight:rowData[@"r2"] lblWidth:r2_length fontSize:R2_FONT_SIZE];
-        }
-        else if ((rowData[@"i1"] != nil) && ![rowData[@"i1"] isEqualToString:@""])
-        {
-            cell_height += CELL_LABEL_HEIGHT;
-        }
-        
-        if ((rowData[@"r3"] != nil) && ![rowData[@"r3"] isEqualToString:@""])
-        {
-            cell_height += [self textHeight:rowData[@"r3"] lblWidth:r2_length fontSize:R3_FONT_SIZE];
-        }
-        
-        if (rowData[@"t1"] != nil)
-        {
-            if (rowData[@"t1_height"] != nil)
-            {
-                cell_height += [rowData[@"t1_height"] floatValue];
-            }
-            else
-            {
-                cell_height += CELL_LABEL_HEIGHT;
-            }
-        }
-    }
-    
-    return cell_height;
-}
-
 - (double)Random_next:(double)min to:(double)max
 {
     return ((double)arc4random() / UINT_MAX) * (max-min) + min;
@@ -2653,7 +2543,7 @@ static NSOperationQueue *connectionQueue;
     }
     else
     {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:R3_FONT_SIZE];
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
     }
     
     if (button_height > 80.0f)

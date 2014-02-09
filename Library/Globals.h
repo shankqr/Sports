@@ -14,19 +14,6 @@
 #define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_MAINHEADER_Y (iPad ? 130.0f : 60.0f)
 #define SCREEN_OFFSET_DIALOGHEADER_Y 15.0f * SCALE_IPAD
-#define CELL_CONTENT_WIDTH (iPad ? 768.0f : 320.0f)
-#define CELL_CONTENT_MARGIN 10.0f * SCALE_IPAD
-#define CELL_CONTENT_Y 3.0f * SCALE_IPAD
-#define CELL_CONTENT_SPACING 5.0f * SCALE_IPAD
-#define CELL_HEADER_HEIGHT 44.0f * SCALE_IPAD
-#define CELL_FOOTER_VIEW_HEIGHT 50.0f * SCALE_IPAD
-#define CELL_HEADER_Y 15.0f * SCALE_IPAD
-#define CELL_IMAGE1_SIZE 30.0f * SCALE_IPAD
-#define CELL_IMAGE2_HEIGHT 20.0f * SCALE_IPAD
-#define CELL_IMAGE2_WIDTH 10.0f * SCALE_IPAD
-#define CELL_LABEL_HEIGHT 20.0f * SCALE_IPAD
-#define CELL_DEFAULT_HEIGHT 22.0f * SCALE_IPAD
-#define CELL_EMPTY_HEIGHT 10.0f * SCALE_IPAD
 #define ARRAY_FLAGS [NSArray arrayWithObjects: @" ", @"Afghanistan", @"Aland Islands", @"Albania", @"Algeria", @"American Samoa", @"Andorra", @"Angola", @"Anguilla", @"Antarctica", @"Antigua and Barbuda", @"Argentina", @"Armenia", @"Aruba", @"Australia", @"Austria", @"Azerbaijan", @"Bahamas", @"Bahrain", @"Bangladesh", @"Barbados", @"Belarus", @"Belgium", @"Belize", @"Benin", @"Bermuda", @"Bhutan", @"BIOT", @"Bolivia", @"Bosnian", @"Botswana", @"Bouvet Island", @"Brazil", @"British Antarctic Territory", @"British Virgin Islands", @"Brunei", @"Bulgaria", @"Burkina Faso", @"Burma", @"Burundi", @"Cambodia", @"Cameroon", @"Canada", @"Cape Verde", @"Cayman Islands", @"CentralAfricanRepublic", @"Chad", @"Chile", @"China", @"Christmas Island", @"Cocos Islands", @"Colombia", @"Comoros", @"Congo", @"Congo Kinshasa", @"Cook Islands", @"Costa Rica", @"Croatian", @"Cuba", @"Cyprus", @"Czech Republic", @"Denmark", @"Djibouti", @"Dominican Republic", @"Dominicana", @"East Timor", @"Ecuador", @"Egypt", @"El Salvador", @"England", @"Equatorial Guinea", @"Eritrea", @"Estonia", @"Ethiopia", @"European Union", @"Ex Yugoslavia", @"Falkland Islands", @"Faroe Islands", @"Fiji", @"Finland", @"France", @"French Polynesia", @"French Southern Territories", @"Gabon", @"Gambia", @"Georgia", @"Germany", @"Ghana", @"Gibraltar", @"Greece", @"Greenland", @"Grenada", @"Guadeloupe", @"Guam", @"Guatemala", @"Guernsey", @"Guinea Bissau", @"Guinea", @"Guyana", @"Haiti", @"Holy see", @"Honduras", @"Hong Kong", @"Hungary", @"Iceland", @"India", @"Indonesia", @"Iran", @"Iraq", @"Ireland", @"Isle of Man", @"Israel", @"Italy", @"Ivory Coast", @"Jamaica", @"Jan Mayen", @"Japan", @"Jarvis Island", @"Jersey", @"Jordan", @"Kazakhstan", @"Kenya", @"Kiribati", @"Korea", @"Kosovo", @"Kuwait", @"Kyrgyzstan", @"Laos", @"Latvia", @"Lebanon", @"Lesotho", @"Liberia", @"Libya", @"Liechtenstein", @"Lithuania", @"Luxembourg", @"Macau", @"Macedonia", @"Madagascar", @"Malawi", @"Malaysia", @"Maldives", @"Mali", @"Malta", @"Marshall Islands", @"Martinique", @"Mauritania", @"Mauritius", @"Mayotte", @"Mexico", @"Micronesia", @"Moldova", @"Monaco", @"Mongolia", @"Montenegro", @"Montserrat", @"Morocco", @"Mozambique", @"Myanmar", @"Namibia", @"Nauru", @"Nepal", @"Netherlands Antilles", @"Netherlands", @"New Caledonia", @"New Zealand", @"Nicaragua", @"Niger", @"Nigeria", @"Niue", @"Norfolk Island", @"North Korea", @"Northern Ireland", @"Northern Mariana Islands", @"Norway", @"Oman", @"Pakistan", @"Palau", @"Palestinian Territory", @"Panama", @"Papua New Guinea", @"Paraguay", @"Peru", @"Philippines", @"Pitcairn", @"Poland", @"Portugal", @"Puerto Rico", @"Qatar", @"Reunion", @"Romania", @"Russia", @"Rwanda", @"Saint Pierre and Miquelon", @"Saint Vincent and the Grenadines", @"Saint Barthelemy", @"Saint Helena Dependencies", @"Saint Helena", @"Saint Kitts and Nevis", @"Saint Lucia", @"Saint Martin", @"Samoa", @"San Marino", @"Sao Tome and Principe", @"Saudi Arabia", @"Scotland", @"Senegal", @"Serbia", @"Seychelles", @"Sierra Leone", @"Singapore", @"Slovakia", @"Slovenia", @"SMOM", @"Solomon Islands", @"Somalia", @"South Africa", @"South Georgia", @"Spain", @"SPM", @"Sri Lanka", @"Sudan", @"Suriname", @"Svalbard", @"SVG", @"Swaziland", @"Sweden", @"Switzerland", @"Syria", @"Taiwan", @"Tajikistan", @"Tanzania", @"Thailand", @"Timor Leste", @"Togo", @"Tokelau", @"Tonga", @"Trinidad and Tobago", @"Tunisia", @"Turkey", @"Turkmenistan", @"Turks and Caicos Islands", @"Tuvalu", @"Uganda", @"Ukraine", @"United Arab Emirates", @"United Kingdom", @"United States", @"Uruguay", @"Uzbekistan", @"Vanuatu", @"Vatican City", @"Venezuela", @"Vietnam", @"Virgin Islands", @"Wales", @"Wallis and Futuna", @"Western Sahara", @"Yemen", @"Zambia", @"Zimbabwe", nil]
 #define STAR_FULL @"icon_star.png"
 #define STAR_HALF @"icon_halfstar.png"
@@ -62,15 +49,15 @@
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
 #define FORMATION_SEGMENT_Y (iPad ? 730.0f : 340.0f)
 
+#define TABLE_FOOTER_VIEW_HEIGHT 50.0f * SCALE_IPAD
+#define TABLE_HEADER_VIEW_HEIGHT 44.0f * SCALE_IPAD
+#define DEFAULT_CONTENT_SPACING 5.0f * SCALE_IPAD
+
 #define DEFAULT_FONT @"MLS 2013"
 #define DEFAULT_FONT_SIZE 22.0f * SCALE_IPAD
 #define DEFAULT_FONT_SMALL_SIZE 18.0f * SCALE_IPAD
 #define DEFAULT_FONT_BIG_SIZE 26.0f * SCALE_IPAD
 #define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
-#define R1_FONT_SIZE 18.0f * SCALE_IPAD
-#define R2_FONT_SIZE 17.0f * SCALE_IPAD
-#define R3_FONT_SIZE 15.0f * SCALE_IPAD
-#define C1_FONT_SIZE 16.0f * SCALE_IPAD
 
 //Main Menu
 #define buttons_per_row (iPad ? 5 : 4)
@@ -378,8 +365,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)resetLoginReminderNotification;
 - (NSString *)BoolToBit: (NSString *)boolString;
 - (NSString *)shortNumberFormat:(NSString *)val;
-- (UITableViewCell *)dynamicCell:(UITableView *)tableView rowData:(NSDictionary *)rowData cellWidth:(float)cell_width;
-- (CGFloat)dynamicCellHeight:(NSDictionary *)rowData cellWidth:(float)cell_width;
 - (void)updateTime;
 - (NSString *)getServerTimeString;
 - (NSString *)getServerDateTimeString;
@@ -451,7 +436,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)addLocalMailData:(NSMutableArray *)rd;
 - (NSString *)gettLastMailId;
 - (void)settLastMailId:(NSString *)rid;
-- (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size;
 - (void)addMailReply:(NSString *)mail_id :(NSArray *)mail_reply;
 - (void)deleteLocalMail:(NSString *)mail_id;
 - (void)replyCounterPlus:(NSString *)mail_id;

@@ -367,7 +367,7 @@
     }
     else
     {
-        return [[Globals i] dynamicCell:messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+        return [DynamicCell dynamicCell:messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
     }
 }
 
@@ -396,7 +396,7 @@
     }
     else
     {
-        return [[Globals i] dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+        return [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
     }
 }
 

@@ -50,7 +50,7 @@
 {
     UITableViewCell *cell;
     
-    cell = [[Globals i] dynamicCell:self.tableView rowData:(self.rows)[indexPath.row] cellWidth:CELL_CONTENT_WIDTH];
+    cell = [DynamicCell dynamicCell:self.tableView rowData:(self.rows)[indexPath.row] cellWidth:CELL_CONTENT_WIDTH];
     
 	return cell;
 }
@@ -77,7 +77,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [[Globals i] dynamicCellHeight:(self.rows)[indexPath.row] cellWidth:CELL_CONTENT_WIDTH];
+	return [DynamicCell dynamicCellHeight:(self.rows)[indexPath.row] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 #pragma mark StoreKit Methods

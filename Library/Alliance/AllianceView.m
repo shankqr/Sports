@@ -206,7 +206,7 @@
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[Globals i] dynamicCell:self.tableView rowData:[self getRowData:tableView :indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    return [DynamicCell dynamicCell:self.tableView rowData:[self getRowData:tableView :indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 #pragma mark Table View Delegate Methods
@@ -256,12 +256,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[Globals i] dynamicCellHeight:[self getRowData:tableView :indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    return [DynamicCell dynamicCellHeight:[self getRowData:tableView :indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CELL_CONTENT_WIDTH, CELL_HEADER_HEIGHT)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_TEMPLATE_WIDTH, TABLE_HEADER_VIEW_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
 
     UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance Cup"
@@ -276,7 +276,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return CELL_FOOTER_VIEW_HEIGHT;
+    return TABLE_FOOTER_VIEW_HEIGHT;
 }
 
 - (void)button1_tap:(id)sender

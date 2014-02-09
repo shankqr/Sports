@@ -133,9 +133,9 @@ static const NSInteger TagOffset = 1000;
         }
         if (frameType == 3) //Dialog box style
         {
-            rect.origin.x = 25.0f + CELL_CONTENT_MARGIN;
+            rect.origin.x = 25.0f + 10.0f*SCALE_IPAD;
             rect.origin.y = 75.0f + SCREEN_OFFSET_DIALOGHEADER_Y;
-            rect.size.width = 260.0f*SCALE_IPAD - CELL_CONTENT_MARGIN*2;
+            rect.size.width = 260.0f*SCALE_IPAD - 10.0f*SCALE_IPAD*2;
             rect.size.height = 270.0f*SCALE_IPAD - SCREEN_OFFSET_DIALOGHEADER_Y*2;
             
             buyButton.hidden = YES;
@@ -190,7 +190,7 @@ static const NSInteger TagOffset = 1000;
 	{
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = TagOffset + index;
-		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:R1_FONT_SIZE];
+		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
 		button.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         
 		UIOffset offset = viewController.tabBarItem.titlePositionAdjustment;
