@@ -12,6 +12,9 @@
 
 @property (nonatomic, strong) UIImageView *barImage;
 @property (nonatomic, strong) UIImage *imgBar;
+@property (nonatomic, strong) UILabel *lblStatus;
+
 - (void)updateView;
 - (void)close;
+
 @end

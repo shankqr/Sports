@@ -154,7 +154,7 @@
     
     [self reloadView];
     
-    [iRate sharedInstance].eventsUntilPrompt = 20;
+    [iRate sharedInstance].eventsUntilPrompt = 50;
     [iRate sharedInstance].daysUntilPrompt = 0;
     [iRate sharedInstance].remindPeriod = 0;
 }
@@ -278,26 +278,54 @@
          dispatch_async(dispatch_get_main_queue(), ^{ //Update UI on main thread
          if (success)
          {
-             //This comes first before display dialog if need to upgrade app
-             [[Globals i] updateProductIdentifiers];
+             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
              
+             [userInfo setObject:@"Update Product Identifiers" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
+             [[Globals i] updateProductIdentifiers]; //This comes first before display dialog if need to upgrade app
+             
+             [userInfo setObject:@"Update Marquee Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateMarqueeData];
              
+             [userInfo setObject:@"Update Current Season Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateCurrentSeasonData]; //For slides
              
+             [userInfo setObject:@"Update Fixtures Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateMatchData];
              
+             [userInfo setObject:@"Update Match History Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateMatchPlayedData];
              
+             [userInfo setObject:@"Update Challenges Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateChallengesData];
              
+             [userInfo setObject:@"Creating Views" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              if (self.header == nil)
              {
                  self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
                  [self.view addSubview:self.header.view];
              }
              [[Globals i] retrieveEnergy];
-             
              [[NSNotificationCenter defaultCenter]
               postNotificationName:@"UpdateHeader"
               object:self]; //Update to header
@@ -314,18 +342,28 @@
              
              [[Globals i] checkVersion];
              
-             //Show badges
+             [userInfo setObject:@"Update Achievements Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
+             
              [[Globals i] updateMyAchievementsData];
-             [self updateAchievementBadges];
+             [self updateAchievementBadges]; //Show badges
+             
+             [userInfo setObject:@"Update Mailing Data" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
              [[Globals i] updateMailData];
              [self updateMailBadges];
              
-             //Pre-load products
-             [[Globals i] updateProducts];
+             [userInfo setObject:@"Update Products" forKey:@"status"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
+             [[Globals i] updateProducts];//Pre-load products
              
              [[Globals i] removeLoading];
-             
-             [[iRate sharedInstance] logEvent:NO];
              
              //Show sales if available
              if ([[Globals i] updateSalesData])
@@ -1503,6 +1541,8 @@
 
 - (void)menuButton_tap:(NSInteger)sender
 {
+    [[iRate sharedInstance] logEvent:NO];
+    
 	switch(sender)
 	{
 		case 1:

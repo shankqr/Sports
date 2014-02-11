@@ -41,10 +41,26 @@
     [self.barImage setClipsToBounds:YES];
     self.barImage.contentMode = UIViewContentModeLeft;
     [self.view addSubview:self.barImage];
+    
+    self.lblStatus = [[UILabel alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBarBkg.size.height*SCALE_IPAD/4)-(30*SCALE_IPAD), (imgBarBkg.size.width*SCALE_IPAD/2), (imgBarBkg.size.height*SCALE_IPAD/2))];
+    self.lblStatus.text = @"Loading...";
+    self.lblStatus.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+	self.lblStatus.backgroundColor = [UIColor clearColor];
+	self.lblStatus.textColor = [UIColor blackColor];
+	self.lblStatus.textAlignment = NSTextAlignmentCenter;
+	self.lblStatus.numberOfLines = 1;
+	self.lblStatus.adjustsFontSizeToFitWidth = YES;
+	self.lblStatus.minimumScaleFactor = 0.5f;
+	[self.view addSubview:self.lblStatus];
 }
 
 - (void)updateView
 {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"LoadingStatus"
+                                               object:nil];
+    
     //start small again
     self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
     
@@ -54,6 +70,21 @@
                      }
                      completion:^(BOOL finished){
                      }];
+}
+
+- (void)notificationReceived:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"LoadingStatus"])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSString *status = [userInfo objectForKey:@"status"];
+        
+        //Update label
+        self.lblStatus.text = status;
+
+        [self.view setNeedsDisplay];
+        [CATransaction flush];
+    }
 }
 
 - (void)close
