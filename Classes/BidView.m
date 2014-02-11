@@ -16,7 +16,6 @@
 @synthesize minBidLabel;
 @synthesize stopWatchTimer;
 @synthesize dateFormat;
-@synthesize serverFormat;
 @synthesize b1s;
 
 - (void)viewDidLoad 
@@ -34,14 +33,9 @@
 
 - (void)updateView:(NSMutableArray *)player
 {
-    if (serverFormat == Nil) 
+    if (dateFormat == nil)
     {
         NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        
-        serverFormat = [[NSDateFormatter alloc] init];
-        [serverFormat setLocale:locale];
-        [serverFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
-        
         dateFormat = [[NSDateFormatter alloc] init];
         [dateFormat setLocale:locale];
         [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
@@ -77,7 +71,7 @@
     {
         [self resizeViewControllerToFitScreen];
         
-        if (!keyboardIsShowing)
+        if (!self.keyboardIsShowing)
         {
             rowData = (self.wsBidList)[[self.wsBidList count]-1];
             bid_value = [rowData[@"bid_value"]stringByReplacingOccurrencesOfString:@"," withString:@""];
@@ -112,7 +106,7 @@
         {
             [self resizeViewControllerToFitScreen];
             
-            if (!keyboardIsShowing)
+            if (!self.keyboardIsShowing)
             {
                 rowData = (self.players)[0];
                 bid_value = rowData[@"player_value"];
@@ -128,16 +122,8 @@
 
 - (void)updateTimeLeft
 {
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/CurrentTime", WS_URL];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-    
-    returnValue = [NSString stringWithFormat:@"%@ -0000", returnValue];
-    NSDate *serverDateTime = [serverFormat dateFromString:returnValue];
-    NSTimeInterval serverTimeInterval = [serverDateTime timeIntervalSince1970];
-    
-    [[Globals i] setOffsetTime:serverTimeInterval];
-    
+    NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+
     NSTimeInterval firstBidTime;
     NSDate *firstBidDate;
     NSString *strDate;
@@ -193,16 +179,16 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (!keyboardIsShowing)
+    if (!self.keyboardIsShowing)
     {
-        keyboardIsShowing = YES;
+        self.keyboardIsShowing = YES;
         if (iPad)
         {
-            keyboardBounds = CGRectMake(0, 1024, 768, 264);
+            self.keyboardBounds = CGRectMake(0, 1024, 768, 264);
         }
         else
         {
-            keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
+            self.keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
         }
         
         [self resizeViewControllerToFitScreen];
@@ -213,8 +199,8 @@
 {
     [self.messageText resignFirstResponder];
     
-	keyboardIsShowing = NO;
-	keyboardBounds = CGRectMake(0, 0, 0, 0);
+	self.keyboardIsShowing = NO;
+	self.keyboardBounds = CGRectMake(0, 0, 0, 0);
 	[self resizeViewControllerToFitScreen];
 }
 
@@ -224,11 +210,11 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     
-	if (keyboardIsShowing)
+	if (self.keyboardIsShowing)
     {
-        self.messageList.frame = CGRectMake(0, BID_CEILING, self.view.frame.size.width, self.view.frame.size.height-BID_CEILING-31-keyboardBounds.size.height);
-        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31-keyboardBounds.size.height, self.view.frame.size.width, 31);
-        self.bidButton.frame = CGRectMake(SCREEN_WIDTH-BID_BUTTON_WIDTH, UIScreen.mainScreen.bounds.size.height-31-keyboardBounds.size.height, BID_BUTTON_WIDTH, 31.0f);
+        self.messageList.frame = CGRectMake(0, BID_CEILING, self.view.frame.size.width, self.view.frame.size.height-BID_CEILING-31-self.keyboardBounds.size.height);
+        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31-self.keyboardBounds.size.height, self.view.frame.size.width, 31);
+        self.bidButton.frame = CGRectMake(SCREEN_WIDTH-BID_BUTTON_WIDTH, UIScreen.mainScreen.bounds.size.height-31-self.keyboardBounds.size.height, BID_BUTTON_WIDTH, 31.0f);
     }
     else
     {

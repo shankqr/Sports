@@ -41,7 +41,6 @@
 @synthesize carDown;
 @synthesize gameTimer;
 @synthesize dateFormat;
-@synthesize serverFormat;
 @synthesize building1TimerLabel;
 @synthesize building2TimerLabel;
 @synthesize building3TimerLabel;
@@ -67,32 +66,28 @@
     landscapeTransform = CGAffineTransformTranslate (landscapeTransform, +80.0, +80.0);
     [self.view setTransform:landscapeTransform];
     
-    anim1 = NO;
-    anim2 = NO;
+    self.anim1 = NO;
+    self.anim2 = NO;
     
-    randomCar = [[Globals i] Random_next:1 to:8];
-    randomSpeed = [[Globals i] Random_next:4 to:10];
+    self.randomCar = [[Globals i] Random_next:1 to:8];
+    self.randomSpeed = [[Globals i] Random_next:4 to:10];
     
-    self.carUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)randomCar]]];
+    self.carUp = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)self.randomCar]]];
     carUp.frame = CGRectMake(-55*SCALE_IPAD, 180*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carUp.contentMode = UIViewContentModeScaleToFill;
     [self.view insertSubview:carUp atIndex:1];
-    [self moveImage:carUp animID:@"CarUp" duration:randomSpeed curve:UIViewAnimationCurveLinear x:405.0 y:-55.0];
+    [self moveImage:carUp animID:@"CarUp" duration:self.randomSpeed curve:UIViewAnimationCurveLinear x:405.0*SCALE_IPAD y:-55.0*SCALE_IPAD];
     
-    randomCar = [[Globals i] Random_next:1 to:8];
-    randomSpeed = [[Globals i] Random_next:4 to:10];
+    self.randomCar = [[Globals i] Random_next:1 to:8];
+    self.randomSpeed = [[Globals i] Random_next:4 to:10];
     
-    self.carDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)randomCar]]];
+    self.carDown = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)self.randomCar]]];
     carDown.frame = CGRectMake(350*SCALE_IPAD, -55*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
     carDown.contentMode = UIViewContentModeScaleToFill;
     [self.view insertSubview:carDown atIndex:1];
-    [self moveImage:carDown animID:@"CarDown" duration:randomSpeed curve:UIViewAnimationCurveLinear x:-55.0 y:150.0];
+    [self moveImage:carDown animID:@"CarDown" duration:self.randomSpeed curve:UIViewAnimationCurveLinear x:-55.0*SCALE_IPAD y:150.0*SCALE_IPAD];
     
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    
-    serverFormat = [[NSDateFormatter alloc] init];
-    [serverFormat setLocale:locale];
-    [serverFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
     
     dateFormat = [[NSDateFormatter alloc] init];
     [dateFormat setLocale:locale];
@@ -178,39 +173,39 @@
 {
     if ( [animationID isEqualToString:@"CarUp"] ) 
     {
-        randomCar = [[Globals i] Random_next:1 to:8];
-        [self.carUp setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)randomCar]]];
+        self.randomCar = [[Globals i] Random_next:1 to:8];
+        [self.carUp setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld01.png", (long)self.randomCar]]];
         carUp.frame = CGRectMake(-55*SCALE_IPAD, 180*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
         [carUp setNeedsDisplay];
         [self.view setNeedsDisplay];
         
-        anim1 = YES;
+        self.anim1 = YES;
     }
     if ( [animationID isEqualToString:@"CarDown"] ) 
     {
-        randomCar = [[Globals i] Random_next:1 to:8];
-        [self.carDown setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)randomCar]]];
+        self.randomCar = [[Globals i] Random_next:1 to:8];
+        [self.carDown setImage:[UIImage imageNamed:[NSString stringWithFormat:@"car%ld02.png", (long)self.randomCar]]];
         carDown.frame = CGRectMake(350*SCALE_IPAD, -55*SCALE_IPAD, 55*SCALE_IPAD, 40*SCALE_IPAD);
         [carDown setNeedsDisplay];
         [self.view setNeedsDisplay];
         
-        anim2 = YES;
+        self.anim2 = YES;
     }
 }
 
 - (void)onTimer
 {
-    if (anim1) 
+    if (self.anim1)
     {
-        randomSpeed = [[Globals i] Random_next:4 to:10];
-        [self moveImage:carUp animID:@"CarUp" duration:randomSpeed curve:UIViewAnimationCurveLinear x:405.0*SCALE_IPAD y:-55.0*SCALE_IPAD];
-        anim1 = NO;
+        self.randomSpeed = [[Globals i] Random_next:4 to:10];
+        [self moveImage:carUp animID:@"CarUp" duration:self.randomSpeed curve:UIViewAnimationCurveLinear x:405.0*SCALE_IPAD y:-55.0*SCALE_IPAD];
+        self.anim1 = NO;
     }
-    if (anim2) 
+    if (self.anim2)
     {
-        randomSpeed = [[Globals i] Random_next:4 to:10];
-        [self moveImage:carDown animID:@"CarDown" duration:randomSpeed curve:UIViewAnimationCurveLinear x:-55.0*SCALE_IPAD y:150.0*SCALE_IPAD];
-        anim2 = NO;
+        self.randomSpeed = [[Globals i] Random_next:4 to:10];
+        [self moveImage:carDown animID:@"CarDown" duration:self.randomSpeed curve:UIViewAnimationCurveLinear x:-55.0*SCALE_IPAD y:150.0*SCALE_IPAD];
+        self.anim2 = NO;
     }
     
     [self updateBuildingTimer];
@@ -218,15 +213,7 @@
 
 - (void)updateHarverstTimeLeft
 {
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/CurrentTime", WS_URL];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-    
-    returnValue = [NSString stringWithFormat:@"%@ -0000", returnValue];
-    NSDate *serverDateTime = [serverFormat dateFromString:returnValue];
-    NSTimeInterval serverTimeInterval = [serverDateTime timeIntervalSince1970];
-    
-    [[Globals i] setOffsetTime:serverTimeInterval];
+    NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
     
     NSTimeInterval lastHarvestedTime;
     NSDate *lastHarvestedDate;
@@ -416,10 +403,10 @@
     }
     
     //Stadium code
-    indexMap = s-1;
+    self.indexMap = s-1;
     
-    NSInteger indexBack = 100 + (indexMap/8);
-    NSInteger indexStage = (indexMap%8);
+    NSInteger indexBack = 100 + (self.indexMap/8);
+    NSInteger indexStage = (self.indexMap%8);
     
     switch (indexStage)
     {

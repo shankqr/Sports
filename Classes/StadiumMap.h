@@ -8,58 +8,9 @@
 
 @class StadiumView;
 @class UpgradeView;
+
 @interface StadiumMap : UIViewController 
-{
-    StadiumView *stadiumView;
-    UpgradeView *upgradeView;
-    NSString *s0;
-    NSString *s1;
-    NSString *s2;
-    NSString *s3;
-    NSString *s4;
-    NSString *s5;
-    NSString *s6;
-    NSString *s7;
-    UILabel *progressBar1;
-    UIImageView *stadiumMap;
-    UIImageView *stadiumPitch;
-    UIImageView *stadiumSection0;
-    UIImageView *stadiumSection1;
-    UIImageView *stadiumSection2;
-    UIImageView *stadiumSection3;
-    UIImageView *stadiumSection4;
-    UIImageView *stadiumSection5;
-    UIImageView *stadiumSection6;
-    UIImageView *stadiumSection7;
-    UIImageView *timer1;
-    UIImageView *timer2;
-    UIImageView *timer3;
-    UIImageView *money1;
-    UIImageView *money2;
-    UIImageView *money3;
-    UIButton *building1;
-    UIButton *building2;
-    UIButton *building3;
-    UILabel *building1TimerLabel;
-    UILabel *building2TimerLabel;
-    UILabel *building3TimerLabel;
-    UILabel *building1CashLabel;
-    UILabel *building2CashLabel;
-    UILabel *building3CashLabel;
-    UIImageView *carUp;
-    UIImageView *carDown;
-    NSTimer *gameTimer;
-    NSDateFormatter *serverFormat;
-    NSDateFormatter *dateFormat;
-    NSTimeInterval b1s;
-    NSTimeInterval b2s;
-    NSTimeInterval b3s;
-    NSInteger indexMap;
-    NSInteger randomCar;
-    double randomSpeed;
-    BOOL anim1;
-    BOOL anim2;
-}
+
 @property (nonatomic, strong) StadiumView *stadiumView;
 @property (nonatomic, strong) UpgradeView *upgradeView;
 @property (nonatomic, strong) IBOutlet NSString *s0;
@@ -99,11 +50,17 @@
 @property (nonatomic, strong) UIImageView *carUp;
 @property (nonatomic, strong) UIImageView *carDown;
 @property (nonatomic, strong) NSTimer *gameTimer;
-@property (nonatomic, strong) NSDateFormatter *serverFormat;
 @property (nonatomic, strong) NSDateFormatter *dateFormat;
-@property (readwrite) NSTimeInterval b1s;
-@property (readwrite) NSTimeInterval b2s;
-@property (readwrite) NSTimeInterval b3s;
+
+@property (nonatomic, assign) NSTimeInterval b1s;
+@property (nonatomic, assign) NSTimeInterval b2s;
+@property (nonatomic, assign) NSTimeInterval b3s;
+@property (nonatomic, assign) NSInteger indexMap;
+@property (nonatomic, assign) NSInteger randomCar;
+@property (nonatomic, assign) double randomSpeed;
+@property (nonatomic, assign) BOOL anim1;
+@property (nonatomic, assign) BOOL anim2;
+
 - (IBAction)changeButton_tap:(id)sender;
 - (IBAction)building1_tap:(id)sender;
 - (IBAction)building2_tap:(id)sender;
@@ -113,4 +70,5 @@
 - (void)updateBuildingTimer;
 - (void)harvestBuilding:(NSInteger)type;
 - (void)updateHarverstTimeLeft;
+
 @end

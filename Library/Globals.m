@@ -44,7 +44,6 @@
 @synthesize selectedClubId;
 @synthesize selectedBaseId;
 @synthesize purchasedProductString;
-@synthesize offsetServerTimeInterval;
 @synthesize loginBonus;
 @synthesize latitude;
 @synthesize longitude;
@@ -117,6 +116,7 @@ static Globals *_i;
         self.selectedClubId = @"0";
         self.workingUrl = @"0";
         self.selectedMapTile = @"0";
+        self.offsetServerTimeInterval = 0;
 	}
 	return self;
 }
@@ -319,7 +319,7 @@ static NSOperationQueue *connectionQueue;
     [self settSelectedBaseId:@"0"];
 }
 
-- (void)updateTime
+- (NSTimeInterval)updateTime
 {
     NSDateFormatter *serverDateFormat = [[NSDateFormatter alloc] init];
     [serverDateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
@@ -336,7 +336,9 @@ static NSOperationQueue *connectionQueue;
     NSDate *localdatetime = [NSDate date];
     NSTimeInterval localTimeInterval = [localdatetime timeIntervalSince1970];
     
-    offsetServerTimeInterval = serverTimeInterval - localTimeInterval;
+    self.offsetServerTimeInterval = serverTimeInterval - localTimeInterval;
+    
+    return serverTimeInterval;
 }
 
 - (NSString *)getServerTimeString
@@ -346,7 +348,7 @@ static NSOperationQueue *connectionQueue;
     [dateFormater setDateFormat:@"HH:mm:ss"];
     
     NSDate *localdatetime = [NSDate date];
-    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:offsetServerTimeInterval];
+    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:self.offsetServerTimeInterval];
 
     return [dateFormater stringFromDate:serverdatetime];
 }
@@ -359,7 +361,7 @@ static NSOperationQueue *connectionQueue;
     [dateFormater setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss"];
     
     NSDate *localdatetime = [NSDate date];
-    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:offsetServerTimeInterval];
+    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:self.offsetServerTimeInterval];
     
     NSString *datenow = [dateFormater stringFromDate:serverdatetime];
     return datenow;
@@ -379,6 +381,11 @@ static NSOperationQueue *connectionQueue;
         
         NSDate *date1 = [serverDateFormat dateFromString:[NSString stringWithFormat:@"%@ -0000", datetimestring]];
         NSDate *date2 = [NSDate date];
+        
+        if (self.offsetServerTimeInterval != 0) //Calibrate if local time is adjusted
+        {
+            date2 = [date2 dateByAddingTimeInterval:self.offsetServerTimeInterval];
+        }
         
         NSCalendar *sysCalendar = [NSCalendar currentCalendar];
         
@@ -2105,7 +2112,7 @@ static NSOperationQueue *connectionQueue;
 - (NSString *)gettAccepted
 {
     acceptedMatch = [[NSUserDefaults standardUserDefaults] objectForKey:@"AcceptedMatch"];
-    if (acceptedMatch == Nil)
+    if (acceptedMatch == nil)
     {
         acceptedMatch = @"0";
     }
@@ -2118,12 +2125,6 @@ static NSOperationQueue *connectionQueue;
     acceptedMatch = match_id;
     [[NSUserDefaults standardUserDefaults] setObject:acceptedMatch forKey:@"AcceptedMatch"];
     [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)setOffsetTime:(NSTimeInterval)serverTime
-{
-    NSDate *localdatetime = [NSDate date];
-    self.offsetServerTimeInterval = [localdatetime timeIntervalSince1970] - serverTime;
 }
 
 - (void)storeEnergy
