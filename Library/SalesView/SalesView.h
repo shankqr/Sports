@@ -16,6 +16,8 @@
 @property (nonatomic, strong) IBOutlet UILabel* lblBundle2;
 @property (nonatomic, strong) IBOutlet UILabel* lblBundle3;
 @property (nonatomic, strong) IBOutlet UILabel* lblBundle4;
+@property (nonatomic, strong) NSTimer *gameTimer;
+@property (nonatomic, assign) NSTimeInterval b1s;
 
 - (IBAction)buy_tap:(id)sender;
 

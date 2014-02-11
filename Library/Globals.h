@@ -235,6 +235,8 @@
 @property (nonatomic, strong) NSString *purchasedPlayerId;
 @property (nonatomic, strong) NSString *purchasedCoachId;
 @property (nonatomic, strong) NSString *acceptedMatch;
+@property (nonatomic, strong) NSDateFormatter *dateFormat;
+
 @property (nonatomic, assign) NSTimeInterval offsetServerTimeInterval;
 @property (nonatomic, assign) NSInteger selectedDivision;
 @property (nonatomic, assign) NSInteger selectedSeries;
@@ -473,5 +475,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)removeLoading;
 
 - (BOOL)updateSalesData;
+- (NSDateFormatter *)getDateFormat;
 
 @end

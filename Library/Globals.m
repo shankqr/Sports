@@ -367,19 +367,27 @@ static NSOperationQueue *connectionQueue;
     return datenow;
 }
 
+- (NSDateFormatter *)getDateFormat
+{
+    if (self.dateFormat == nil)
+    {
+        self.dateFormat = [[NSDateFormatter alloc] init];
+        [self.dateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+        [self.dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        //[self.dateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
+        [self.dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
+    }
+    
+    return self.dateFormat;
+}
+
 - (NSString *)getTimeAgo:(NSString *)datetimestring
 {
     NSString *diff = datetimestring;
     
     if (datetimestring != nil && [datetimestring length] > 0)
     {
-        NSDateFormatter *serverDateFormat = [[NSDateFormatter alloc] init];
-        [serverDateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-        [serverDateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        //[serverDateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
-        [serverDateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
-        
-        NSDate *date1 = [serverDateFormat dateFromString:[NSString stringWithFormat:@"%@ -0000", datetimestring]];
+        NSDate *date1 = [[self getDateFormat] dateFromString:[NSString stringWithFormat:@"%@ -0000", datetimestring]];
         NSDate *date2 = [NSDate date];
         
         if (self.offsetServerTimeInterval != 0) //Calibrate if local time is adjusted
@@ -448,6 +456,10 @@ static NSOperationQueue *connectionQueue;
             {
                 diff = [NSString stringWithFormat:@"%ld secs ago", (long)[breakdownInfo second]];
             }
+        }
+        else
+        {
+            diff = @"1 sec ago";
         }
     }
 

@@ -40,7 +40,6 @@
 @synthesize carUp;
 @synthesize carDown;
 @synthesize gameTimer;
-@synthesize dateFormat;
 @synthesize building1TimerLabel;
 @synthesize building2TimerLabel;
 @synthesize building3TimerLabel;
@@ -86,12 +85,6 @@
     carDown.contentMode = UIViewContentModeScaleToFill;
     [self.view insertSubview:carDown atIndex:1];
     [self moveImage:carDown animID:@"CarDown" duration:self.randomSpeed curve:UIViewAnimationCurveLinear x:-55.0*SCALE_IPAD y:150.0*SCALE_IPAD];
-    
-    NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-    
-    dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setLocale:locale];
-    [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
     
     building1CashLabel.hidden = YES;
     building2CashLabel.hidden = YES;
@@ -221,19 +214,19 @@
 
     strDate = [[Globals i] getClubData][@"building1_dt"];
     strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
-    lastHarvestedDate = [dateFormat dateFromString:strDate];
+    lastHarvestedDate = [[[Globals i] getDateFormat] dateFromString:strDate];
     lastHarvestedTime = [lastHarvestedDate timeIntervalSince1970];
     b1s = (24*3600) - (serverTimeInterval - lastHarvestedTime);
     
     strDate = [[Globals i] getClubData][@"building2_dt"];
     strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
-    lastHarvestedDate = [dateFormat dateFromString:strDate];
+    lastHarvestedDate = [[[Globals i] getDateFormat] dateFromString:strDate];
     lastHarvestedTime = [lastHarvestedDate timeIntervalSince1970];
     b2s = (8*3600) - (serverTimeInterval - lastHarvestedTime);
     
     strDate = [[Globals i] getClubData][@"building3_dt"];
     strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
-    lastHarvestedDate = [dateFormat dateFromString:strDate];
+    lastHarvestedDate = [[[Globals i] getDateFormat] dateFromString:strDate];
     lastHarvestedTime = [lastHarvestedDate timeIntervalSince1970];
     b3s = (1*3600) - (serverTimeInterval - lastHarvestedTime);
 }

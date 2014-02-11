@@ -32,8 +32,27 @@
         self.lblBundle3.text = wsData[@"bundle3_quantity"];
         self.lblBundle4.text = wsData[@"bundle4_quantity"];
         
-        //self.lblEnding.text = wsData[@"sale_row3"];
+        //Update time left in seconds for sale to end
+        NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+        NSString *strDate = wsData[@"sale_ending"];
+        strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
+        NSDate *saleEndDate = [[[Globals i] getDateFormat] dateFromString:strDate];
+        NSTimeInterval saleEndTime = [saleEndDate timeIntervalSince1970];
+        self.b1s = saleEndTime - serverTimeInterval;
+        
+        if (!self.gameTimer.isValid)
+        {
+            self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+        }
     }
+}
+
+- (void)onTimer
+{
+    self.b1s = self.b1s-1;
+    
+    NSString *labelString = [[NSString alloc] initWithFormat:@"- %@", [[Globals i] getCountdownString:self.b1s]];
+    self.self.lblEnding.text = labelString;
 }
 
 - (IBAction)buy_tap:(id)sender

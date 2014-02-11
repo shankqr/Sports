@@ -50,7 +50,6 @@
 @property (nonatomic, strong) UIImageView *carUp;
 @property (nonatomic, strong) UIImageView *carDown;
 @property (nonatomic, strong) NSTimer *gameTimer;
-@property (nonatomic, strong) NSDateFormatter *dateFormat;
 
 @property (nonatomic, assign) NSTimeInterval b1s;
 @property (nonatomic, assign) NSTimeInterval b2s;

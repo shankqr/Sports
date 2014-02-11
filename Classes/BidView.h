@@ -14,7 +14,6 @@
 @property (nonatomic, strong) NSMutableArray *wsBidList;
 @property (nonatomic, strong) NSMutableArray *players;
 @property (nonatomic, strong) NSTimer *stopWatchTimer;
-@property (nonatomic, strong) NSDateFormatter *dateFormat;
 
 @property (nonatomic, assign) NSTimeInterval b1s;
 @property (nonatomic, assign) Boolean keyboardIsShowing;

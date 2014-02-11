@@ -4,25 +4,12 @@
 #import "PlayerCell.h"
 
 @implementation BidView
-@synthesize selected_clubid;
-@synthesize wsBidList;
-@synthesize messageText;
-@synthesize messageList;
-@synthesize playerList;
-@synthesize players;
-@synthesize player_id;
-@synthesize bidButton;
-@synthesize stopWatchLabel;
-@synthesize minBidLabel;
-@synthesize stopWatchTimer;
-@synthesize dateFormat;
-@synthesize b1s;
 
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
 
-    messageText.delegate = self;
+    self.messageText.delegate = self;
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -33,25 +20,17 @@
 
 - (void)updateView:(NSMutableArray *)player
 {
-    if (dateFormat == nil)
-    {
-        NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
-        dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setLocale:locale];
-        [dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
-    }
-
-    b1s = 0.0;
+    self.b1s = 0.0;
     	
-	messageText.delegate = self;
+	self.messageText.delegate = self;
     
     self.players = player;
-    stopWatchTimer = nil;
-    stopWatchLabel.text = @" ";
-    messageText.text = @"";
-    minBidLabel.text = @" ";
+    self.stopWatchTimer = nil;
+    self.stopWatchLabel.text = @" ";
+    self.messageText.text = @"";
+    self.minBidLabel.text = @" ";
 
-    [playerList reloadData];
+    [self.playerList reloadData];
     NSDictionary *rowData = (self.players)[0];
     self.player_id = rowData[@"player_id"];
     
@@ -77,8 +56,8 @@
             bid_value = [rowData[@"bid_value"]stringByReplacingOccurrencesOfString:@"," withString:@""];
             NSInteger auto_input = [bid_value integerValue]+10000;
             NSString *minBid = [NSString stringWithFormat:@"%ld", (long)auto_input];
-            messageText.text = minBid;
-            minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
+            self.messageText.text = minBid;
+            self.minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
         }
         
         [self startTimer];
@@ -87,7 +66,7 @@
     {
         [self stopTimer];
         
-        [messageList reloadData];
+        [self.messageList reloadData];
         NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
         if([returnValue isEqualToString:@"0"])
@@ -112,8 +91,8 @@
                 bid_value = rowData[@"player_value"];
                 NSInteger auto_input = [bid_value integerValue]+10000;
                 NSString *minBid = [NSString stringWithFormat:@"%ld", (long)auto_input];
-                messageText.text = minBid;
-                minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
+                self.messageText.text = minBid;
+                self.minBidLabel.text = [NSString stringWithFormat:@"Min Bid:$%@", [[Globals i] numberFormat:minBid]];
 
             }
         }
@@ -131,24 +110,24 @@
     NSDictionary *rowData = (self.wsBidList)[0];
     strDate = rowData[@"bid_datetime"];
     strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
-    firstBidDate = [dateFormat dateFromString:strDate];
+    firstBidDate = [[[Globals i] getDateFormat] dateFromString:strDate];
     firstBidTime = [firstBidDate timeIntervalSince1970];
-    b1s = (24*3600) - (serverTimeInterval - firstBidTime);
+    self.b1s = (24*3600) - (serverTimeInterval - firstBidTime);
 }
 
 - (void)stopTimer
 {
-    [stopWatchTimer invalidate];
-    stopWatchLabel.text = @" ";
+    [self.stopWatchTimer invalidate];
+    self.stopWatchLabel.text = @" ";
 }
 
 - (void)startTimer
 {
-    if(!stopWatchTimer.isValid)
+    if(!self.stopWatchTimer.isValid)
     {
         [self updateTimeLeft];
         
-        stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
+        self.stopWatchTimer = [NSTimer scheduledTimerWithTimeInterval:1.0
                                                           target:self
                                                         selector:@selector(updateTimer)
                                                         userInfo:nil
@@ -158,12 +137,12 @@
 
 - (void)updateTimer
 {
-    b1s = b1s-1;
+    self.b1s = self.b1s-1;
     
-    NSString *labelString = [[NSString alloc] initWithFormat:@" TimeLeft %@ ", [[Globals i] getCountdownString:b1s]];
-    stopWatchLabel.text = labelString;
+    NSString *labelString = [[NSString alloc] initWithFormat:@" TimeLeft %@ ", [[Globals i] getCountdownString:self.b1s]];
+    self.stopWatchLabel.text = labelString;
     
-    if(((NSInteger)b1s % 60) == 0)
+    if(((NSInteger)self.b1s % 60) == 0)
     {
         [self getNewMessages];
     }
@@ -228,7 +207,7 @@
     
     if([self.wsBidList count] > 0)
     {
-        [messageList reloadData];
+        [self.messageList reloadData];
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.wsBidList count] - 1) inSection:0];
         [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
@@ -251,10 +230,10 @@
     }
     else //This is the first bidder
     {
-        b1s = (24*3600);
+        self.b1s = (24*3600);
     }
     
-	if((b1s > 1.0) && ([messageText.text length] > 0) && ([messageText.text integerValue] > 0))
+	if((self.b1s > 1.0) && ([self.messageText.text length] > 0) && ([self.messageText.text integerValue] > 0))
     {
         NSDictionary *rowData;
         NSString *bid_value;
@@ -278,12 +257,12 @@
             bid_value = player_value;
         }
         
-        if([messageText.text integerValue] > ([bid_value integerValue]+9999))
+        if([self.messageText.text integerValue] > ([bid_value integerValue]+9999))
         {
             NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
-            if([messageText.text integerValue] < bal)
+            if([self.messageText.text integerValue] < bal)
             {
-                if([[[Globals i] doBid:self.player_id:messageText.text] isEqualToString:@"1"])
+                if([[[Globals i] doBid:self.player_id:self.messageText.text] isEqualToString:@"1"])
                 {
                     [self getNewMessages];
                 }
@@ -313,7 +292,7 @@
         }
     }
 	
-	messageText.text = @"";
+	self.messageText.text = @"";
     [self keyboardWillHide];
 }
 
@@ -340,7 +319,7 @@
     }
     else
     {
-        return [DynamicCell dynamicCell:messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+        return [DynamicCell dynamicCell:self.messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
     }
 }
 
@@ -385,11 +364,11 @@
 	
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] getClubData][@"club_id"]])
         {
-            selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+            self.selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             [self keyboardWillHide];
             
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-            [userInfo setObject:selected_clubid forKey:@"club_id"];
+            [userInfo setObject:self.selected_clubid forKey:@"club_id"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
                                                                 object:self
                                                               userInfo:userInfo];
