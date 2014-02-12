@@ -1552,7 +1552,16 @@ static NSOperationQueue *connectionQueue;
     NSInteger minutes = (NSInteger)(diffMin/60.0);
     NSInteger seconds = diffMin-(minutes*60);
     
-    NSString* countdown = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours,(long)minutes,(long)seconds];
+    NSString *countdown;
+    
+    if (days > 0)
+    {
+        countdown = [NSString stringWithFormat:@"%ldd %02ld:%02ld:%02ld",(long)days,(long)hours,(long)minutes,(long)seconds];
+    }
+    else
+    {
+        countdown = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)hours,(long)minutes,(long)seconds];
+    }
     
     return countdown;
 }

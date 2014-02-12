@@ -5,8 +5,10 @@
 //  Created by Shankar on 2/9/14.
 //  Copyright (c) 2014 TAPFANTASY. All rights reserved.
 //
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
 
-@interface SalesView : UIViewController
+@interface SalesView : UIViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
 
 @property (nonatomic, strong) IBOutlet UILabel* lblRow3;
 @property (nonatomic, strong) IBOutlet UILabel* lblRow4;
@@ -19,6 +21,7 @@
 @property (nonatomic, strong) NSTimer *gameTimer;
 @property (nonatomic, assign) NSTimeInterval b1s;
 
+- (void)updateView;
 - (IBAction)buy_tap:(id)sender;
 
 @end

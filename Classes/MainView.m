@@ -356,10 +356,7 @@
              [self showMail];
              
              //Show sales if available
-             if ([[Globals i] updateSalesData])
-             {
-                 [self showSales];
-             }
+             [self showSales];
              
              [[Globals i] checkVersion];
              
@@ -1141,12 +1138,15 @@
 
 - (void)showSales
 {
-    if (self.salesView == nil)
+    if ([[Globals i] updateSalesData])
     {
-        self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
+        if (self.salesView == nil)
+        {
+            self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
+        }
+        [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
+        [self.salesView updateView];
     }
-    [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
-	//[self.salesView updateView];
 }
 
 - (void)showJobRefill
