@@ -6,9 +6,6 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
-
 @class ChallengeView;
 @class ChallengeCreateView;
 @class Header;
@@ -57,8 +54,6 @@
 @class SalesView;
 
 @interface MainView : UIViewController 
-<SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
-UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) SalesView *salesView;
 @property (nonatomic, strong) Header *header;

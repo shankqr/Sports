@@ -225,7 +225,7 @@
 	[self addPosButton:@"Formations" tag:7 imageDefault:@"button_tactics"];
 	[self addPosButton:@"Fixtures" tag:8 imageDefault:@"button_match"];
     [self addPosButton:@"League" tag:9 imageDefault:@"button_league"];
-	[self addPosButton:@"Alliance Cup" tag:10 imageDefault:@"button_cup"];
+	[self addPosButton:@"Alliance" tag:10 imageDefault:@"button_cup"];
 	[self addPosButton:@"Finances" tag:11 imageDefault:@"button_finance"];
 	[self addPosButton:@"Stadium" tag:12 imageDefault:@"button_city"];
     [self addPosButton:@"Club" tag:13 imageDefault:@"button_club"];
@@ -236,10 +236,11 @@
     [self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
     [self addPosButton:@"Search" tag:19 imageDefault:@"button_friends"];
 	[self addPosButton:@"World Map" tag:20 imageDefault:@"button_map"];
-    [self addPosButton:@"Feedback" tag:21 imageDefault:@"button_news"];
-	[self addPosButton:@"More Games" tag:22 imageDefault:@"button_more"];
-	[self addPosButton:@"Help" tag:23 imageDefault:@"button_help"];
-    [self addPosButton:@"Logout" tag:24 imageDefault:@"button_logout"];
+    [self addPosButton:@"Invite" tag:21 imageDefault:@"button_friends"];
+    [self addPosButton:@"Feedback" tag:22 imageDefault:@"button_news"];
+	[self addPosButton:@"More" tag:23 imageDefault:@"button_more"];
+	[self addPosButton:@"Help" tag:24 imageDefault:@"button_help"];
+    [self addPosButton:@"Logout" tag:25 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag
@@ -315,9 +316,7 @@
 	NSInteger theTag = [sender tag];
 	[[Globals i].mainView menuButton_tap:theTag];
     
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"ViewSales"
-     object:self];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
 }
 
 @end

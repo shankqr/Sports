@@ -6,6 +6,10 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
+#import <StoreKit/StoreKit.h>
+#import <StoreKit/SKPaymentTransaction.h>
+#import <MessageUI/MessageUI.h>
+#import <MessageUI/MFMailComposeViewController.h>
 #import "MainView.h"
 #import "Globals.h"
 #import "Header.h"
@@ -50,6 +54,10 @@
 #import "SlotsView.h"
 #import "SalesView.h"
 #import "iRate.h"
+
+@interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
+UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
+@end
 
 @implementation MainView
 
@@ -1639,27 +1647,88 @@
             [self showMap];
 			break;
 		}
-		case 21:
+        case 21:
 		{
-            [[Globals i] emailToDeveloper];
+            [self mailFriends];
 			break;
 		}
 		case 22:
 		{
+            [self mailDeveloper];
+			break;
+		}
+		case 23:
+		{
 			[[Globals i] showMoreGames];
 			break;
 		}
-        case 23:
+        case 24:
 		{
             [self showHelp];
             break;
 		}
-        case 24:
+        case 25:
 		{
 			[self logoutButton];
             break;
 		}
 	}
+}
+
+- (void)mailDeveloper
+{
+    NSString *subject = [NSString stringWithFormat:@"%@(Version %@)",
+                        GAME_NAME,
+                        GAME_VERSION];
+    
+    if([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
+        mailCont.mailComposeDelegate = self;
+        [mailCont setToRecipients:[NSArray arrayWithObject:@"support@tapfantasy.com"]];
+        [mailCont setSubject:subject];
+        [mailCont setMessageBody:@"Any bugs or problems with this game? Or you have ideas to make this game better?" isHTML:NO];
+        [self presentViewController:mailCont animated:YES completion:nil];
+    }
+}
+
+- (void)mailFriends
+{
+    NSString *appUrl = [Globals i].wsProductIdentifiers[@"url_app"];
+    NSString *m = [NSString stringWithFormat:@"Play the best sports manager game! Download here: %@ Download now and receive 25 Diamonds FREE!", appUrl];
+    
+    if([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
+        mailCont.mailComposeDelegate = self;
+        //[mailCont setToRecipients:[NSArray arrayWithObject:@"support@tapfantasy.com"]];
+        //[mailCont setSubject:@""];
+        [mailCont setMessageBody:m isHTML:NO];
+        [self presentViewController:mailCont animated:YES completion:nil];
+    }
+}
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent:
+            [Apsalar event:@"MailFriendOrDeveloper"];
+            [Flurry logEvent:@"MailFriendOrDeveloper"];
+            break;
+        case MFMailComposeResultFailed:
+            break;
+        default:
+            break;
+    }
+    
+    [controller dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)onTimerMarquee
