@@ -316,28 +316,20 @@
                                                                userInfo:userInfo];
              [[Globals i] updateChallengesData];
              
-             [userInfo setObject:@"Updating Achievements Data" forKey:@"status"];
-             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
-                                                                 object:self
-                                                               userInfo:userInfo];
-             
-             [[Globals i] updateMyAchievementsData];
-             [self updateAchievementBadges]; //Show badges
-             
              [userInfo setObject:@"Updating Products" forKey:@"status"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateProducts];//Pre-load products
              
-             [userInfo setObject:@"Finalizing Everything" forKey:@"status"];
+             [userInfo setObject:@"Updating Tasks" forKey:@"status"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
-             [[Globals i] updateMailData];
-             [self updateMailBadges];
+             [[Globals i] updateMyAchievementsData];
+             [self updateAchievementBadges]; //Show badges
              
-             [userInfo setObject:@"Done" forKey:@"status"];
+             [userInfo setObject:@"Finalizing Everything" forKey:@"status"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
@@ -361,7 +353,7 @@
              
              [self showChallengeBox];
              
-             [[Globals i] removeLoading];
+             [self showMail];
              
              //Show sales if available
              if ([[Globals i] updateSalesData])
@@ -370,6 +362,8 @@
              }
              
              [[Globals i] checkVersion];
+             
+             [[Globals i] removeLoading];
          }
          else
          {
