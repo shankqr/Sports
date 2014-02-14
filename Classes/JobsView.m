@@ -8,7 +8,6 @@
 
 #import "JobsView.h"
 #import "JobsCell.h"
-#import "JobLevelup.h"
 #import "Globals.h"
 
 @implementation JobsView
@@ -18,7 +17,6 @@
 @synthesize unlockLabel;
 @synthesize offset;
 @synthesize jobComplete;
-@synthesize jobLevelup;
 
 - (void)viewDidLoad
 {
@@ -82,21 +80,6 @@
     }
 }
 
-- (void)showLevelUp
-{
-    if (jobLevelup == nil)
-    {
-        jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
-    }
-    
-	jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%ld", (long)[[Globals i] getLevel]*1000];
-	jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%ld", (long)[[Globals i] getLevel]*10];
-	jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 3];
-    
-    [[Globals i] showTemplate:@[jobLevelup] :@"Level Up" :0];
-	[jobLevelup updateView];
-}
-
 - (void)doJob:(NSInteger)energy_used :(NSInteger)xp_gain :(NSInteger)row
 {
 	if([Globals i].energy >= energy_used)
@@ -109,21 +92,15 @@
          {
              if (success)
              {
-                 NSInteger xp_max = [[Globals i] getXpMax];
-                 
-                 // + XP to clubData
-                 [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+xp_gain];
+                 NSNumber *xp = [NSNumber numberWithInteger:xp_gain];
+                 NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+                 [userInfo setObject:xp forKey:@"xp_gain"];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateXP"
+                                                                     object:self
+                                                                   userInfo:userInfo];
                  
                  [Globals i].energy = [Globals i].energy - energy_used;
                  [[Globals i] storeEnergy];
-                 
-                 NSInteger xp = [[Globals i] getXp];
-                 
-                 if(xp >= xp_max)
-                 {
-                     [self showLevelUp];
-                     [[Globals i] winSound];
-                 }
                  
                  [[Globals i] showToast:[NSString stringWithFormat:@"-%ld Energy, +%ld XP", (long)energy_used, (long)xp_gain]
                               optionalTitle:[NSString stringWithFormat:@"%ld Energy Remaining", (long)[Globals i].energy]

@@ -64,7 +64,7 @@
     //start small again
     self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
     
-    [UIView animateWithDuration:20.0f
+    [UIView animateWithDuration:30.0f
                      animations:^{
                          self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), ((self.imgBar.size.width*SCALE_IPAD/2) * 1), (self.imgBar.size.height*SCALE_IPAD/2));
                      }

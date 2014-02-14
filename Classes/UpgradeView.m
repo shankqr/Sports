@@ -16,6 +16,7 @@
 @synthesize timeLabel;
 @synthesize cashLabel;
 @synthesize formulaLabel;
+@synthesize buildingType;
 
 - (void)updateView:(NSInteger)type
 {
@@ -30,13 +31,13 @@
     {
         if (b1 > 0) 
         {
-            cashLabel.text = @"Upgrade Hotel Business for $50,000?";
+            cashLabel.text = @"+5XP. Upgrade Hotel for 15 Diamonds?";
             timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 24 Hours", ((long)b1+1)*((long)b1+1)+s];
             infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 24 Hours", (long)b1, (long)b1*b1+s];
         }
         else
         {
-            cashLabel.text = @"Build Hotel Business for $50,000?";
+            cashLabel.text = @"+5XP. Build Hotel for 15 Diamonds?";
             timeLabel.text = @"";
             infoLabel.text = @"";
         }
@@ -54,13 +55,13 @@
     {
         if (b2 > 0) 
         {
-            cashLabel.text = @"Upgrade Food Business for $10,000?";
+            cashLabel.text = @"+5XP. Upgrade Food Business for 5 Diamonds?";
             timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 8 Hours", (long)(b2+1)*s];
             infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 8 Hours", (long)b2, (long)b2*s];
         }
         else
         {
-            cashLabel.text = @"Build Food Business for $10,000?";
+            cashLabel.text = @"+5XP. Build Food Business for 5 Diamonds?";
             timeLabel.text = @"";
             infoLabel.text = @"";
         }
@@ -78,13 +79,13 @@
     {
         if (b3 > 0) 
         {
-            cashLabel.text = @"Upgrade Manager Office for $20,000?";
+            cashLabel.text = @"+5XP. Upgrade Manager Office for 10 Diamonds?";
             timeLabel.text = [NSString stringWithFormat:@"Generates $%ld every 1 Hour", (long)(b3+1)*b1+b2+s];
             infoLabel.text = [NSString stringWithFormat:@"Current Level %ld: $%ld every 1 Hour", (long)b3, (long)b3*b1+b2+s];
         }
         else
         {
-            cashLabel.text = @"Build Manager Office for $20,000?";
+            cashLabel.text = @"+5XP. Build Manager Office for 10 Diamonds?";
             timeLabel.text = @"";
             infoLabel.text = @"";
         }
@@ -105,41 +106,44 @@
 - (IBAction)upgradeButton_tap:(id)sender
 {
     NSInteger cost = 0;
-    if (buildingType==1) 
+    if (buildingType==1)
     {
-        cost = 50000;
+        cost = 15;
     }
-    if (buildingType==2) 
+    if (buildingType==2)
     {
-        cost = 10000;
+        cost = 5;
     }
     if (buildingType==3) 
     {
-        cost = 20000;
+        cost = 10;
     }
-    NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
+    NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
-    if((bal > cost) && ([Globals i].energy > 9))
+    if(bal > cost)
     {
-        NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade/%@/%ld", 
+        NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade2/%@/%ld",
 						   WS_URL, [[Globals i] UID], (long)buildingType];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		NSString *returnValue  = [NSString stringWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
 		
 		if([returnValue isEqualToString:@"1"])
 		{
-			if([[Globals i] updateClubData]) //Balance and energy deducted for upgrade
+            NSNumber *xp = [NSNumber numberWithInteger:5];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:xp forKey:@"xp_gain"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateXP"
+                                                                object:self
+                                                              userInfo:userInfo];
+            
+            [[Globals i] showToast:@"+5 XP for upgrading a building!"
+                     optionalTitle:nil
+                     optionalImage:@"tick_yes"];
+            
+			if([[Globals i] updateClubData]) //Diamonds deducted for upgrade
 			{
-                [Globals i].energy=[Globals i].energy-10;
-                [[Globals i] storeEnergy];
-                
                 [[Globals i].mainView.stadiumMap updateView];
                 [[Globals i].mainView.stadiumMap upgradeBuilding:buildingType];
-                
-                NSString *message = @"I have just build a new building in my city.";
-                NSString *extra_desc = @"Buildings generates revenue and fans for your club.";
-                NSString *imagename = @"upgrade_building.png";
-                [[Globals i] fbPublishStory:message :extra_desc :imagename];
                 
                 [[Globals i] closeTemplate];
 			}
@@ -149,7 +153,7 @@
     {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle:@"Accountant"
-                              message:@"Insufficient club Funds or less then 10 Energy. Convert some Diamonds to Funds?"
+                              message:@"Insufficient Diamonds. Buy more?"
                               delegate:self
                               cancelButtonTitle:@"Cancel"
                               otherButtonTitles:@"OK", nil];
@@ -161,9 +165,7 @@
 {
 	if(buttonIndex == 1)
 	{
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"BuyFunds"
-         object:self];
+        [[Globals i] showBuy];
 	}
 }
 

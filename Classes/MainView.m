@@ -53,6 +53,7 @@
 #import "Game_hockey.h"
 #import "SlotsView.h"
 #import "SalesView.h"
+#import "JobLevelup.h"
 #import "iRate.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -140,6 +141,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"ViewSales"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateXP"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -247,6 +253,30 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if ([[notification name] isEqualToString:@"ViewSales"])
     {
         [self showSales];
+    }
+    
+    if ([[notification name] isEqualToString:@"UpdateXP"])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSNumber *xp_gain = [userInfo objectForKey:@"xp_gain"];
+        
+        NSInteger xp_max = [[Globals i] getXpMax];
+        
+        // + XP to clubData
+        [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+[xp_gain integerValue]];
+        
+        NSInteger xp = [[Globals i] getXp];
+        
+        if(xp >= xp_max)
+        {
+            [self showLevelUp];
+            
+            [[Globals i] showToast:@"Congratulations. You Leveled UP and received all the rewards!"
+                     optionalTitle:nil
+                     optionalImage:@"tick_yes"];
+            
+            [[Globals i] winSound];
+        }
     }
 }
 
@@ -822,7 +852,18 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 {
 	[[Globals i] buyProduct:@"9":virtualMoney:json];
     
-    [[Globals i] showDialog:@"You have upgraded your stadium."];
+    [[Globals i] showDialog:@"You have upgraded your stadium. +5 XP"];
+    
+    NSNumber *xp = [NSNumber numberWithInteger:5];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:xp forKey:@"xp_gain"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateXP"
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    [[Globals i] showToast:@"+5 XP for upgrading Stadium!"
+             optionalTitle:nil
+             optionalImage:@"tick_yes"];
 	
 	[[Globals i] updateClubData]; //Stadium data updated
     
@@ -839,7 +880,18 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:virtualMoney:json];
     
-    [[Globals i] showDialog:@"You have just hired a staff."];
+    [[Globals i] showDialog:@"You have just hired a staff. +5 XP"];
+    
+    NSNumber *xp = [NSNumber numberWithInteger:5];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:xp forKey:@"xp_gain"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateXP"
+                                                        object:self
+                                                      userInfo:userInfo];
+    
+    [[Globals i] showToast:@"+5 XP for hiring a staff!"
+             optionalTitle:nil
+             optionalImage:@"tick_yes"];
 	
 	[[Globals i] updateClubData]; //Staff data updated
     
@@ -1142,6 +1194,21 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              }
          }
      }];
+}
+
+- (void)showLevelUp
+{
+    if (self.jobLevelup == nil)
+    {
+        self.jobLevelup = [[JobLevelup alloc] initWithNibName:@"JobLevelup" bundle:nil];
+    }
+    
+	self.jobLevelup.moneyText = [[NSString alloc] initWithFormat:@"+$%ld", (long)[[Globals i] getLevel]*1000];
+	self.jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%ld", (long)[[Globals i] getLevel]*10];
+	self.jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 5];
+    
+    [[Globals i] showTemplate:@[self.jobLevelup] :@"Level Up" :0];
+	[self.jobLevelup updateView];
 }
 
 - (void)showSales
@@ -1687,7 +1754,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         mailCont.mailComposeDelegate = self;
         [mailCont setToRecipients:[NSArray arrayWithObject:@"support@tapfantasy.com"]];
         [mailCont setSubject:subject];
-        [mailCont setMessageBody:@"Any bugs or problems with this game? Or you have ideas to make this game better?" isHTML:NO];
+        [mailCont setMessageBody:@"" isHTML:NO];
         [self presentViewController:mailCont animated:YES completion:nil];
     }
 }

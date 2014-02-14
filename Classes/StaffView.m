@@ -30,14 +30,14 @@
     
     if (wsClubData != nil)
     {
-        NSDictionary *row1 = @{@"Position": @"Manager", @"Image": @"staff_manager", @"Employed": wsClubData[@"managers"], @"Desc": @"Increase the effectiveness of all staff working in your club."};
-        NSDictionary *row2 = @{@"Position": @"Scout", @"Image": @"staff_scout", @"Employed": wsClubData[@"scouts"], @"Desc": @"Increase the chances of getting better player's for your club."};
-        NSDictionary *row3 = @{@"Position": @"Assistant Coach", @"Image": @"staff_coach", @"Employed": wsClubData[@"coaches"], @"Desc": @"Improves training for your players."};
-        NSDictionary *row4 = @{@"Position": @"Accountant", @"Image": @"staff_accountant", @"Employed": wsClubData[@"accountants"], @"Desc": @"Invest money to grow and reduces interest rates when in debt."};
-        NSDictionary *row5 = @{@"Position": @"Spokesperson", @"Image": @"staff_spokesperson", @"Employed": wsClubData[@"spokespersons"], @"Desc": @"Improves sponsor and fan relationship with your club."};
-        NSDictionary *row6 = @{@"Position": @"Psychologist", @"Image": @"staff_psychologist", @"Employed": wsClubData[@"psychologists"], @"Desc": @"Increase your players confidence and team spirit."};
-        NSDictionary *row7 = @{@"Position": @"Physiotherapist", @"Image": @"staff_physiotherapist", @"Employed": wsClubData[@"physiotherapists"], @"Desc": @"Reduces the risk of player injuries."};
-        NSDictionary *row8 = @{@"Position": @"Doctor", @"Image": @"staff_doctor", @"Employed": wsClubData[@"doctors"], @"Desc": @"Rehabilitate and heal injured players faster."};
+        NSDictionary *row1 = @{@"Position": @"Manager", @"Image": @"staff_manager", @"Employed": wsClubData[@"managers"], @"Desc": @"Increase the effectiveness of all staff working in your club.+5XP"};
+        NSDictionary *row2 = @{@"Position": @"Scout", @"Image": @"staff_scout", @"Employed": wsClubData[@"scouts"], @"Desc": @"Increase the chances of getting better player's for your club.+5XP"};
+        NSDictionary *row3 = @{@"Position": @"Assistant Coach", @"Image": @"staff_coach", @"Employed": wsClubData[@"coaches"], @"Desc": @"Improves training for your players.+5XP"};
+        NSDictionary *row4 = @{@"Position": @"Accountant", @"Image": @"staff_accountant", @"Employed": wsClubData[@"accountants"], @"Desc": @"Invest money to grow and reduces interest rates when in debt.+5XP"};
+        NSDictionary *row5 = @{@"Position": @"Spokesperson", @"Image": @"staff_spokesperson", @"Employed": wsClubData[@"spokespersons"], @"Desc": @"Improves sponsor and fan relationship with your club.+5XP"};
+        NSDictionary *row6 = @{@"Position": @"Psychologist", @"Image": @"staff_psychologist", @"Employed": wsClubData[@"psychologists"], @"Desc": @"Increase your players confidence and team spirit.+5XP"};
+        NSDictionary *row7 = @{@"Position": @"Physiotherapist", @"Image": @"staff_physiotherapist", @"Employed": wsClubData[@"physiotherapists"], @"Desc": @"Reduces the risk of player injuries.+5XP"};
+        NSDictionary *row8 = @{@"Position": @"Doctor", @"Image": @"staff_doctor", @"Employed": wsClubData[@"doctors"], @"Desc": @"Rehabilitate and heal injured players faster.+5XP"};
         self.staff = @[row1, row2, row3, row4, row5, row6, row7, row8];
         
         [self.tableView reloadData];

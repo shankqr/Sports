@@ -10,18 +10,12 @@
 #import "Globals.h"
 
 @implementation JobLevelup
-@synthesize moneyLabel;
-@synthesize fansLabel;
-@synthesize energyLabel;
-@synthesize moneyText;
-@synthesize fansText;
-@synthesize energyText;
 
 -(void)updateView
 {
-	moneyLabel.text = moneyText;
-	fansLabel.text = fansText;
-	energyLabel.text = energyText;
+	self.moneyLabel.text = self.moneyText;
+	self.fansLabel.text = self.fansText;
+	self.energyLabel.text = self.energyText;
 	
 	[self.view setNeedsDisplay];
 }

@@ -444,6 +444,17 @@
                  [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              
+             NSNumber *xp = [NSNumber numberWithInteger:5];
+             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+             [userInfo setObject:xp forKey:@"xp_gain"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateXP"
+                                                                 object:self
+                                                               userInfo:userInfo];
+             
+             [[Globals i] showToast:@"+5 XP for playing Slots!"
+                      optionalTitle:nil
+                      optionalImage:@"tick_yes"];
+             
              [self stopRoll:result];
          }
          else

@@ -7,19 +7,16 @@
 //
 
 @interface UpgradeView : UIViewController <UIAlertViewDelegate>
-{
-    UIImageView *buildingImage;
-	UILabel *infoLabel;
-	UILabel *timeLabel;
-	UILabel *cashLabel;
-    UILabel *formulaLabel;
-    NSInteger buildingType;
-}
+
 @property (nonatomic, strong) IBOutlet UIImageView *buildingImage;
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;
 @property (nonatomic, strong) IBOutlet UILabel *timeLabel;
 @property (nonatomic, strong) IBOutlet UILabel *cashLabel;
 @property (nonatomic, strong) IBOutlet UILabel *formulaLabel;
+
+@property (nonatomic, assign) NSInteger buildingType;
+
 - (IBAction)upgradeButton_tap:(id)sender;
 - (void)updateView:(NSInteger)type;
+
 @end

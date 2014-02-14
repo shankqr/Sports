@@ -52,6 +52,7 @@
 @class SearchView;
 @class SlotsView;
 @class SalesView;
+@class JobLevelup;
 
 @interface MainView : UIViewController 
 
@@ -107,6 +108,7 @@
 @property (nonatomic, strong) RankingView *rvTopLevel;
 @property (nonatomic, strong) SearchView *svClubs;
 @property (nonatomic, strong) SlotsView *slotsView;
+@property (nonatomic, strong) JobLevelup *jobLevelup;
 @property (nonatomic, strong) NSTimer *marqueeTimer;
 @property (nonatomic, strong) NSTimer *chatTimer;
 @property (nonatomic, strong) NSMutableArray *marquee;

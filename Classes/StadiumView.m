@@ -15,7 +15,6 @@
 @synthesize ticketLabel;
 @synthesize levelLabel;
 @synthesize rentLabel;
-@synthesize upgradeDateLabel;
 
 - (void)updateView
 {
@@ -40,7 +39,7 @@
 	
 	UIAlertView *alert = [[UIAlertView alloc]
 						  initWithTitle:@"Payment Option"
-						  message:@"How would you like to cover the stadium upgrade cost?"
+						  message:@"You will get +5XP. How would you like to cover the stadium upgrade cost?"
 						  delegate:self
 						  cancelButtonTitle:@"Cancel"
 						  otherButtonTitles:@"Real Funds", [NSString stringWithFormat:@"$%@ + 10 Energy",commaString], @"10 Diamonds", nil];

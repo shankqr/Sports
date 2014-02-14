@@ -22,8 +22,12 @@
 @property (nonatomic, strong) NSTimer *slidesTimer;
 @property (nonatomic, strong) CustomBadge *achievementsBadge;
 @property (nonatomic, strong) CustomBadge *mailBadge;
+@property (nonatomic, strong) UIButton *buttonSale;
+@property (nonatomic, strong) UILabel *labelSale;
 
 @property (nonatomic, assign) NSInteger timerIndex;
+@property (nonatomic, assign) NSInteger b1s;
+@property (nonatomic, assign) Boolean timerIsShowing;
 
 - (void)changeSlideNow;
 - (void)updateAchievementBadges;
