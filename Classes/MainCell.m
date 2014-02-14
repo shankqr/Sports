@@ -152,28 +152,28 @@
 		case 1:
             [self.lastmatchSlide.view removeFromSuperview];
 			[self.rankingSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:self.rankingSlide.view];
+			[self insertSubview:self.rankingSlide.view atIndex:0];
             [self.rankingSlide updateView];
 			self.activeSlide = self.rankingSlide.view;
 			break;
 		case 2:
             [self.rankingSlide.view removeFromSuperview];
 			[self.leagueSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:self.leagueSlide.view];
+			[self insertSubview:self.leagueSlide.view atIndex:0];
             [self.leagueSlide updateView];
 			self.activeSlide = self.leagueSlide.view;
 			break;
 		case 3:
             [self.leagueSlide.view removeFromSuperview];
 			[self.nextmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:self.nextmatchSlide.view];
+			[self insertSubview:self.nextmatchSlide.view atIndex:0];
             [self.nextmatchSlide updateView];
 			self.activeSlide = self.nextmatchSlide.view;
 			break;
 		case 4:
             [self.nextmatchSlide.view removeFromSuperview];
 			[self.lastmatchSlide.view setFrame:CGRectMake(SLIDE_x, SLIDE_y, SLIDE_width, SLIDE_height)];
-			[self addSubview:self.lastmatchSlide.view];
+			[self insertSubview:self.lastmatchSlide.view atIndex:0];
             [self.lastmatchSlide updateView];
 			self.activeSlide = self.lastmatchSlide.view;
 			break;
@@ -216,6 +216,8 @@
 
 - (void)createButtons
 {
+    [self addAnimatedButton:@"Sale!" tag:1 imageDefault:@"button_cup"];
+    
     [self addPosButton:@"Mail" tag:1 imageDefault:@"button_mails"];
     [self addPosButton:@"Task" tag:2 imageDefault:@"button_achievements"];
     [self addPosButton:@"Slots" tag:3 imageDefault:@"button_slot"];
@@ -315,8 +317,68 @@
 {
 	NSInteger theTag = [sender tag];
 	[[Globals i].mainView menuButton_tap:theTag];
+}
+
+- (void)addAnimatedButton:(NSString *)label
+                      tag:(NSInteger)tag
+             imageDefault:(NSString *)imageDefault
+{
+    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
+    NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
+    NSInteger column_width = self.frame.size.width / buttons_per_row;
+    NSInteger column_start_x = (column_width - sizex) / 2;
+    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
+    
+    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
+    NSInteger posy = (tag-1) * column_height;
+    
+	UIButton *button = [[Globals i] buttonWithTitle:@""
+                                             target:self
+                                           selector:@selector(animatedButton_tap:)
+                                              frame:CGRectMake(posx, posy, sizex, sizey)
+                                              image:nil
+                                       imagePressed:nil
+                                      darkTextColor:YES];
+    
+    button.imageView.animationImages = [NSArray arrayWithObjects:
+                                        [UIImage imageNamed:@"g1_0.png"],
+                                        [UIImage imageNamed:@"g1_1.png"],
+                                        [UIImage imageNamed:@"g1_2.png"],
+                                        [UIImage imageNamed:@"g1_3.png"],
+                                        [UIImage imageNamed:@"g1_4.png"],
+                                        [UIImage imageNamed:@"g1_5.png"],
+                                        nil];
+    
+    button.imageView.animationDuration = 0.5;
+    button.imageView.animationRepeatCount = 0;
+    [button.imageView startAnimating];
+    
+    [button setBackgroundImage:[UIImage animatedImageNamed:@"g1_" duration: 1.0]
+                      forState: UIControlStateNormal];
+    
+	button.tag = tag;
+	[self addSubview:button];
+	
+	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
+	myLabel.tag = tag;
+	myLabel.text = label;
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+	myLabel.backgroundColor = [UIColor clearColor];
+	myLabel.shadowColor = [UIColor grayColor];
+	myLabel.shadowOffset = CGSizeMake(1,1);
+	myLabel.textColor = [UIColor whiteColor];
+	myLabel.textAlignment = NSTextAlignmentCenter;
+	myLabel.numberOfLines = 1;
+	myLabel.adjustsFontSizeToFitWidth = YES;
+	myLabel.minimumScaleFactor = 0.5f;
+	[self addSubview:myLabel];
+}
+
+- (void)animatedButton_tap:(id)sender
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
 }
 
 @end
