@@ -1223,6 +1223,9 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         }
         [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
         [self.salesView updateView];
+        
+        [self.cell updateSalesButton];
+        [self.mainTableView reloadData];
     }
 }
 

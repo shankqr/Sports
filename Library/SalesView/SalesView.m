@@ -52,7 +52,7 @@
     self.b1s = self.b1s-1;
     
     NSString *labelString = [[Globals i] getCountdownString:self.b1s];
-    self.self.lblEnding.text = labelString;
+    self.lblEnding.text = labelString;
 }
 
 - (IBAction)buy_tap:(id)sender

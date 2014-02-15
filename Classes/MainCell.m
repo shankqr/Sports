@@ -36,9 +36,30 @@
     
     if(!self.slidesTimer.isValid)
     {
+        self.s1 = 0;
         self.b1s = 0;
         [self createSlides];
         [self createButtons];
+    }
+}
+
+- (void)updateSalesButton
+{
+    [self.buttonSale removeFromSuperview];
+    [self.labelSale removeFromSuperview];
+    
+    NSDictionary *wsData = [Globals i].wsSalesData;
+    if (wsData != nil)
+    {
+        //Update time left in seconds for sale to end
+        NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+        NSString *strDate = wsData[@"sale_ending"];
+        strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
+        NSDate *saleEndDate = [[[Globals i] getDateFormat] dateFromString:strDate];
+        NSTimeInterval saleEndTime = [saleEndDate timeIntervalSince1970];
+        self.b1s = saleEndTime - serverTimeInterval;
+        
+        [self addSaleButton:@"Sale!" imageDefault:@"icon_sale1"];
     }
 }
 
@@ -137,8 +158,6 @@
     {
         self.slidesTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
     }
-    
-    //[self changeSlideNow];
 }
 
 - (void)changeSlide
@@ -194,15 +213,15 @@
 
 - (void)onTimer
 {
-    self.b1s = self.b1s+1;
+    self.s1 = self.s1+1;
     
-    if (self.b1s%15 == 0) //Change slides every 15 sec
+    if (self.s1%15 == 0) //Change slides every 15 sec
     {
         [self changeSlide];
         self.timerIndex += 1;
     }
     
-    if (self.b1s%6 == 0) //Toggle animated buttons label every 5 sec
+    if (self.s1%6 == 0) //Toggle animated buttons label every 5 sec
     {
         if (self.timerIsShowing == NO)
         {
@@ -214,13 +233,19 @@
         }
     }
     
-    if (self.timerIsShowing == YES)
+    if (self.b1s > 0)
     {
-        self.labelSale.text = @"2d 01:32:09";
-    }
-    else
-    {
-        self.labelSale.text = @"Sale!";
+        self.b1s = self.b1s-1;
+        
+        if (self.timerIsShowing == YES)
+        {
+            NSString *labelString = [[Globals i] getCountdownString:self.b1s];
+            self.labelSale.text = labelString;
+        }
+        else
+        {
+            self.labelSale.text = @"Ending in";
+        }
     }
     
 }
@@ -244,8 +269,6 @@
 
 - (void)createButtons
 {
-    [self addSaleButton:@"Sale!" imageDefault:@"button_cup"];
-    
     [self addPosButton:@"Mail" tag:1 imageDefault:@"button_mails"];
     [self addPosButton:@"Task" tag:2 imageDefault:@"button_achievements"];
     [self addPosButton:@"Slots" tag:3 imageDefault:@"button_slot"];
@@ -367,19 +390,20 @@
                                              image:nil
                                       imagePressed:nil
                                      darkTextColor:YES];
-	[self addSubview:self.buttonSale];
     
-    [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"g1_" duration: 0.5]
-                               forState: UIControlStateNormal];
+    [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
+                               forState:UIControlStateNormal];
+    
+	[self addSubview:self.buttonSale];
 	
-	self.labelSale = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
+	self.labelSale = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey-menu_label_height, column_width, menu_label_height)];
 	self.labelSale.text = label;
-    self.labelSale.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+    self.labelSale.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
 	self.labelSale.backgroundColor = [UIColor clearColor];
 	self.labelSale.shadowColor = [UIColor grayColor];
 	self.labelSale.shadowOffset = CGSizeMake(1,1);
 	self.labelSale.textColor = [UIColor whiteColor];
-	self.labelSale.textAlignment = NSTextAlignmentRight;
+	self.labelSale.textAlignment = NSTextAlignmentCenter;
 	self.labelSale.numberOfLines = 1;
 	self.labelSale.adjustsFontSizeToFitWidth = YES;
 	self.labelSale.minimumScaleFactor = 0.5f;

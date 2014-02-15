@@ -26,11 +26,13 @@
 @property (nonatomic, strong) UILabel *labelSale;
 
 @property (nonatomic, assign) NSInteger timerIndex;
+@property (nonatomic, assign) NSInteger s1;
 @property (nonatomic, assign) NSInteger b1s;
 @property (nonatomic, assign) Boolean timerIsShowing;
 
 - (void)changeSlideNow;
 - (void)updateAchievementBadges;
 - (void)updateMailBadges;
+- (void)updateSalesButton;
 
 @end
