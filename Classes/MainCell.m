@@ -192,7 +192,7 @@
     [self changeSlideNow];
 }
 
--(void)onTimer
+- (void)onTimer
 {
     self.b1s = self.b1s+1;
     

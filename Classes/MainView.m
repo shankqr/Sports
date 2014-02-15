@@ -309,6 +309,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)loadAllData
 {
+    [[Globals i] closeAllTemplate];
+    
     [[Globals i] showLoading];
     
     [[Globals i] getServerClubData:^(BOOL success, NSData *data)
