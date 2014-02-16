@@ -492,8 +492,6 @@ static NSOperationQueue *connectionQueue;
 - (void)removeLoadingAlert
 {
     [MMProgressHUD dismiss];
-    
-    //[self showToast:@"Loading completed!" optionalTitle:nil optionalImage:@"tick_yes"];
 }
 
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename

@@ -60,12 +60,13 @@
     NSString *pi = [[Globals i] wsProductIdentifiers][[Globals i].wsSalesData[@"sale_identifier"]];
     
     [self buyProduct:pi];
-    [[Globals i] showLoadingAlert];
 }
 
 #pragma mark StoreKit Methods
 - (void)buyProduct:(NSString *)product
 {
+    [[Globals i] showLoadingAlert];
+    
 	SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:product]];
 	request.delegate = self;
 	[request start];
@@ -73,6 +74,8 @@
 
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
 {
+    [[Globals i] showDialog:@"PROCESSING... Please wait a while."];
+    
 	NSArray *products = response.products;
 	NSArray *invalidproductIdentifiers = response.invalidProductIdentifiers;
 	
@@ -96,8 +99,8 @@
 	//Are there errors for the request?
 	for(NSString *invalidproductIdentifier in invalidproductIdentifiers)
 	{
-		NSLog(@"InvalidproductIdentifiers:%@",invalidproductIdentifier);
         [[Globals i] removeLoadingAlert];
+		NSLog(@"InvalidproductIdentifiers:%@",invalidproductIdentifier);
 	}
 }
 
@@ -133,25 +136,25 @@
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
     
-	[[Globals i] removeLoadingAlert];
+    [[Globals i] removeLoadingAlert];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[[Globals i] removeLoadingAlert];
 	[self doTransaction:transaction];
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[[Globals i] removeLoadingAlert];
 	[self doTransaction:transaction];
 }
 
 - (void)doTransaction:(SKPaymentTransaction *)transaction;
 {
+    [[Globals i] removeLoadingAlert];
+    
     NSString *json = [[Globals i] encode:(uint8_t *)transaction.transactionReceipt.bytes length:transaction.transactionReceipt.length];
     NSString *wsurl = [NSString stringWithFormat:@"%@/RegisterSale/%@/%@/%@",
                        WS_URL, [Globals i].wsSalesData[@"sale_id"], [[Globals i] UID], json];
@@ -162,13 +165,15 @@
          {
              if([[Globals i] updateClubData])
              {
-                 [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games."];
+                 [[Globals i] showDialog:@"Purchase Success! This deal has been credited to your account. Thank you for supporting our Games."];
              }
              else
              {
                  //Update failed
                  [[Globals i] showDialog:@"Purchase Success! Please restart your device to take effect."];
              }
+             
+             [[Globals i] closeTemplate];
          }
      }];
     

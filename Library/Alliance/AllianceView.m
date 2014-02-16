@@ -264,7 +264,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TABLE_HEADER_VIEW_HEIGHT)];
     [headerView setBackgroundColor:[UIColor blackColor]];
 
-    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance Cup"
+    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance"
                                                     target:self
                                                   selector:@selector(button1_tap:)
                                                      frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
@@ -285,7 +285,7 @@
     
     if (alliance_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing Alliance Cup, resign from that Alliance Cup first to Create a new one."];
+        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing Alliance, resign from that Alliance first to Create a new one."];
     }
     else
     {

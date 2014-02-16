@@ -61,7 +61,7 @@
              }
              else //A message when no data is present
              {
-                 NSDictionary *row0 = @{@"r1": @"This Alliance Cup is empty and has no Members!", @"r1_center": @"1", @"r1_color": @"1"};
+                 NSDictionary *row0 = @{@"r1": @"This Alliance is empty and has no Members!", @"r1_center": @"1", @"r1_color": @"1"};
                  NSArray *rows1 = @[row0];
                  
                  self.rows = [@[rows1] mutableCopy];

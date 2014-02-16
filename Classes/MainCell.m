@@ -245,6 +245,9 @@
         else
         {
             self.labelSale.text = @"Ending in";
+            
+            [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
+                                       forState:UIControlStateNormal];
         }
     }
     
@@ -287,7 +290,7 @@
 	[self addPosButton:@"Staff" tag:16 imageDefault:@"button_staff"];
     [self addPosButton:@"Fans" tag:17 imageDefault:@"button_fan"];
     [self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
-    [self addPosButton:@"Search" tag:19 imageDefault:@"button_friends"];
+    [self addPosButton:@"Search" tag:19 imageDefault:@"button_search"];
 	[self addPosButton:@"World Map" tag:20 imageDefault:@"button_map"];
     [self addPosButton:@"Invite" tag:21 imageDefault:@"button_friends"];
     [self addPosButton:@"Feedback" tag:22 imageDefault:@"button_news"];
@@ -387,7 +390,7 @@
                                             target:self
                                           selector:@selector(saleButton_tap:)
                                              frame:CGRectMake(posx, posy, sizex, sizey)
-                                             image:nil
+                                             image:imgD
                                       imagePressed:nil
                                      darkTextColor:YES];
     

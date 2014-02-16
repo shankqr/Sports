@@ -37,7 +37,7 @@
         isCreate = NO;
     }
     
-    NSDictionary *rowHeader1 = @{@"h1": @"Alliance Cup Name"};
+    NSDictionary *rowHeader1 = @{@"h1": @"Alliance Name"};
     NSDictionary *row10 = @{@"t1": @"Enter name here..."};
     NSArray *rows1 = @[rowHeader1, row10];
     
@@ -49,7 +49,7 @@
     NSDictionary *rowDone = @{@"r1": @"Save", @"r1_center": @"1"};
     if (isCreate)
     {
-        rowDone = @{@"r1": @"Create Alliance Cup", @"r1_center": @"1"};
+        rowDone = @{@"r1": @"Create Alliance", @"r1_center": @"1"};
     }
     NSDictionary *rowCancel = @{@"r1": @"Cancel", @"r1_center": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowHeader3, rowDone, rowCancel];
@@ -154,7 +154,7 @@
                   postNotificationName:@"GotoAlliance"
                   object:self];
                  
-                 [[Globals i] showToast:@"Alliance Cup Edited Successfully!"
+                 [[Globals i] showToast:@"Alliance Edited Successfully!"
                           optionalTitle:nil
                           optionalImage:@"tick_yes"];
              }
@@ -167,7 +167,7 @@
     NSDictionary *wspi = [[Globals i] getCurrentSeasonData];
     NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
     
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Form a new Alliance Cup for %@ Diamonds only.", [[Globals i] numberFormat:reqCurrency1]]
+    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Form a new Alliance for %@ Diamonds only.", [[Globals i] numberFormat:reqCurrency1]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -206,9 +206,9 @@
                                         postNotificationName:@"GotoAlliance"
                                         object:self];
                               
-                              [[Globals i] showDialog:@"Congratulations on creating an Alliance Cup. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];
+                              [[Globals i] showDialog:@"Congratulations on creating an Alliance. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];
   
-                              [[Globals i] showToast:@"Alliance Cup Created Successfully!"
+                              [[Globals i] showToast:@"Alliance Created Successfully!"
                                        optionalTitle:nil
                                        optionalImage:@"tick_yes"];
                           }

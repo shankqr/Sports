@@ -246,8 +246,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.allianceDetail.aAlliance = nil;
         self.allianceDetail.alliance_id = aid;
         [self.allianceDetail updateView];
-        self.allianceDetail.title = @"Alliance Cup";
-        [[Globals i] showTemplate:@[self.allianceDetail] :@"Alliance Cup" :1];
+        self.allianceDetail.title = @"Alliance";
+        [[Globals i] showTemplate:@[self.allianceDetail] :@"Alliance" :1];
     }
     
     if ([[notification name] isEqualToString:@"ViewSales"])
@@ -703,7 +703,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 #pragma mark StoreKit Methods
 - (void)buyProduct:(NSString *)product
 {
-	[[Globals i] showDialog:@"PROCESSING... Please wait a while."];
+    [[Globals i] showLoadingAlert];
+	//[[Globals i] showDialog:@"PROCESSING... Please wait a while."];
 	
 	SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:product]];
 	request.delegate = self;
@@ -735,6 +736,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	//Are there errors for the request?
 	for(NSString *invalidproductIdentifier in invalidproductIdentifiers)
 	{
+        [[Globals i] removeLoadingAlert];
 		NSLog(@"InvalidproductIdentifiers:%@",invalidproductIdentifier);
 	}
 }
@@ -770,25 +772,27 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         [[Globals i] showDialog:@"Please try again now."];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[[Globals i] removeDialogBox];
+	
+    [[Globals i] removeLoadingAlert];
+    //[[Globals i] removeDialogBox];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[[Globals i] removeDialogBox];
 	[self doTransaction:transaction];
 }
 
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[[Globals i] removeDialogBox];
 	[self doTransaction:transaction];
 }
 
 - (void)doTransaction:(SKPaymentTransaction *)transaction;
 {
+    [[Globals i] removeLoadingAlert];
+    
     NSError *error = nil;
     NSStringEncoding encoding;
     NSString *json = [[Globals i] encode:(uint8_t *)transaction.transactionReceipt.bytes length:transaction.transactionReceipt.length];    
@@ -802,12 +806,12 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         if([[Globals i] updateClubData]) //After buying effect
         {
-            [[Globals i] showDialog:@"Thank you for supporting our Games!"];
+            [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
         }
         else
         {
             //Update failed
-            [[Globals i] showDialog:@"Please restart device to take effect."];
+            [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
             
         }
     }
@@ -1354,7 +1358,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
     }
-    self.allianceView.title = @"Top Cups";
+    self.allianceView.title = @"Top Alliance";
     self.allianceView.updateOnWillAppear = @"1";
     
     [[Globals i] showTemplate:@[self.rvTopDivision, self.rvTopLevel, self.allianceView] :@"Rankings" :1];
@@ -1387,10 +1391,10 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         {
             self.allianceView = [[AllianceView alloc] initWithStyle:UITableViewStylePlain];
         }
-        self.allianceView.title = @"Alliance Cup";
+        self.allianceView.title = @"Alliance";
         self.allianceView.updateOnWillAppear = @"1";
         
-        [[Globals i] showTemplate:@[self.allianceView] :@"Alliance Cup" :1];
+        [[Globals i] showTemplate:@[self.allianceView] :@"Alliance" :1];
     }
     else
     {
