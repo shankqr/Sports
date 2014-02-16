@@ -62,7 +62,12 @@
 		}
 		NSString *i = [NSString stringWithFormat:@"upgrade%ld", (long)stadiumtype];
 		NSString *pi = [[Globals i] getProductIdentifiers][i];
-		[[Globals i].mainView buyProduct:pi];
+
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:pi forKey:@"pi"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                            object:self
+                                                          userInfo:userInfo];
 	}
 	
 	if(buttonIndex == 2)

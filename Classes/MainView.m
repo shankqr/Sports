@@ -148,6 +148,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                                                  name:@"UpdateXP"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"InAppPurchase"
+                                               object:nil];
+    
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
     [[Globals i] initSound];
@@ -277,6 +282,14 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             
             [[Globals i] winSound];
         }
+    }
+    
+    if ([[notification name] isEqualToString:@"InAppPurchase"])
+    {
+        NSDictionary *userInfo = notification.userInfo;
+        NSString *pi = [userInfo objectForKey:@"pi"];
+        
+        [self buyProduct:pi];
     }
 }
 
@@ -812,7 +825,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         {
             //Update failed
             [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
-            
         }
     }
     else
@@ -846,6 +858,33 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	{
         [self refillEnergySuccess:@"0":json];
 	}
+    else if([[[Globals i] gettPurchasedProduct] integerValue] == 1000) //Sale!
+    {
+         NSString *wsurl2 = [NSString stringWithFormat:@"%@/RegisterSale/%@/%@/%@",
+                                WS_URL, [Globals i].wsSalesData[@"sale_id"], [[Globals i] UID], json];
+         
+         NSURL *url2 = [[NSURL alloc] initWithString:wsurl2];
+         NSString *returnValue2  = [[NSString alloc] initWithContentsOfURL:url2
+                                                             usedEncoding:&encoding
+                                                                    error:&error];
+        if([returnValue2 isEqualToString:@"1"])
+        {
+            if([[Globals i] updateClubData]) //After buying effect
+            {
+                [[Globals i] closeAllTemplate];
+                [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
+            }
+            else
+            {
+                //Update failed
+                [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
+            }
+        }
+        else
+        {
+            //Webservice failed
+        }
+    }
 }
 
 - (void)refillEnergySuccess:(NSString *)virtualMoney :(NSString *)json

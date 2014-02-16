@@ -1,7 +1,6 @@
 
 #import "PlayerView.h"
 #import "SquadView.h"
-#import "MainView.h"
 #import "Globals.h"
 #import "PlayerCell.h"
 
@@ -368,7 +367,14 @@
         if (tag == 2) //Yes
         {
             [[Globals i] settPurchasedProduct:@"14"];
-            [[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+
+            NSString *pi = [[Globals i] getProductIdentifiers][@"refill"];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:pi forKey:@"pi"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                                object:self
+                                                              userInfo:userInfo];
+            
             [dialogBox.view removeFromSuperview];
         }
     }

@@ -60,7 +60,12 @@
 {
 	if(buttonIndex == 1)
 	{
-		[[Globals i].mainView buyProduct:self.iden];
+        NSString *pi = self.iden;
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:pi forKey:@"pi"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                            object:self
+                                                          userInfo:userInfo];
 	}
 	
 	if(buttonIndex == 2)

@@ -224,15 +224,6 @@
 		}
 	}
 }
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
-	if(buttonIndex == 1)
-	{
-        [[Globals i] settPurchasedProduct:@"14"];
-		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-	}
-}
  
 - (void)removeAllPos
 {

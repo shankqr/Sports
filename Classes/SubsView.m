@@ -8,7 +8,6 @@
 
 #import "SubsView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation SubsView
 @synthesize ivBackground;

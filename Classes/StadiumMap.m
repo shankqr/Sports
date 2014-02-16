@@ -8,7 +8,6 @@
 
 #import "StadiumMap.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "StadiumView.h"
 #import "UpgradeView.h"
 

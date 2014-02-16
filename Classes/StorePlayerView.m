@@ -8,7 +8,6 @@
 
 #import "StorePlayerView.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "BidView.h"
 #import "PlayerCell.h"
 

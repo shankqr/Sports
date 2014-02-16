@@ -57,131 +57,15 @@
 
 - (IBAction)buy_tap:(id)sender
 {
+    [[Globals i] settPurchasedProduct:@"1000"];
+    
     NSString *pi = [[Globals i] wsProductIdentifiers][[Globals i].wsSalesData[@"sale_identifier"]];
     
-    [self buyProduct:pi];
-}
-
-#pragma mark StoreKit Methods
-- (void)buyProduct:(NSString *)product
-{
-    [[Globals i] showLoadingAlert];
-    
-	SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:product]];
-	request.delegate = self;
-	[request start];
-}
-
-- (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response
-{
-    [[Globals i] showDialog:@"PROCESSING... Please wait a while."];
-    
-	NSArray *products = response.products;
-	NSArray *invalidproductIdentifiers = response.invalidProductIdentifiers;
-	
-	for(SKProduct *currentProduct in products)
-	{
-		NSLog(@"LocalizedDescription:%@", currentProduct.localizedDescription);
-		NSLog(@"LocalizedTitle:%@",currentProduct.localizedTitle);
-		
-		//Numberformatter
-		NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-		[numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];
-		[numberFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
-		[numberFormatter setLocale:currentProduct.priceLocale];
-		NSString *formattedString = [numberFormatter stringFromNumber:currentProduct.price];
-		NSLog(@"Price:%@",formattedString);
-		NSLog(@"ProductIdentifier:%@",currentProduct.productIdentifier);
-		
-		SKPayment *payment = [SKPayment paymentWithProduct:currentProduct];
-		[[SKPaymentQueue defaultQueue] addPayment:payment];
-	}
-	//Are there errors for the request?
-	for(NSString *invalidproductIdentifier in invalidproductIdentifiers)
-	{
-        [[Globals i] removeLoadingAlert];
-		NSLog(@"InvalidproductIdentifiers:%@",invalidproductIdentifier);
-	}
-}
-
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions
-{
-	for (SKPaymentTransaction *transaction in transactions)
-	{
-		switch (transaction.transactionState)
-		{
-			case SKPaymentTransactionStatePurchased:
-				[self completeTransaction:transaction];
-				break;
-			case SKPaymentTransactionStateFailed:
-				[self failedTransaction:transaction];
-				break;
-			case SKPaymentTransactionStateRestored:
-				[self restoreTransaction:transaction];
-			default:
-				break;
-		}
-	}
-}
-
-- (void)failedTransaction:(SKPaymentTransaction *)transaction
-{
-	NSLog(@"%@", [transaction.error localizedDescription]);
-	NSLog(@"%@", [transaction.error localizedRecoverySuggestion]);
-	NSLog(@"%@", [transaction.error localizedFailureReason]);
-	
-	if (transaction.error.code != SKErrorPaymentCancelled)
-	{
-        [[Globals i] showDialogError];
-	}
-	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-    
-    [[Globals i] removeLoadingAlert];
-}
-
-- (void)restoreTransaction:(SKPaymentTransaction *)transaction
-{
-	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[self doTransaction:transaction];
-}
-
-- (void)completeTransaction:(SKPaymentTransaction *)transaction
-{
-	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
-	[self doTransaction:transaction];
-}
-
-- (void)doTransaction:(SKPaymentTransaction *)transaction;
-{
-    [[Globals i] removeLoadingAlert];
-    
-    NSString *json = [[Globals i] encode:(uint8_t *)transaction.transactionReceipt.bytes length:transaction.transactionReceipt.length];
-    NSString *wsurl = [NSString stringWithFormat:@"%@/RegisterSale/%@/%@/%@",
-                       WS_URL, [Globals i].wsSalesData[@"sale_id"], [[Globals i] UID], json];
-    
-    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
-     {
-         if (success)
-         {
-             if([[Globals i] updateClubData])
-             {
-                 [[Globals i] showDialog:@"Purchase Success! This deal has been credited to your account. Thank you for supporting our Games."];
-             }
-             else
-             {
-                 //Update failed
-                 [[Globals i] showDialog:@"Purchase Success! Please restart your device to take effect."];
-             }
-             
-             [[Globals i] closeTemplate];
-         }
-     }];
-    
-    NSString *tracking = [NSString stringWithFormat:@"RegisterSale %@",
-                          [Globals i].wsSalesData[@"sale_id"]];
-    
-    [Apsalar event:tracking];
-    [Flurry logEvent:tracking];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:pi forKey:@"pi"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 @end

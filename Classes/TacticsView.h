@@ -6,7 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@interface TacticsView : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate, UIAlertViewDelegate>
+@interface TacticsView : UIViewController <UIActionSheetDelegate, UIScrollViewDelegate>
 {
 	NSString *tid;
 	UIScrollView *scrollView;

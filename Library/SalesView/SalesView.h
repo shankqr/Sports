@@ -5,10 +5,8 @@
 //  Created by Shankar on 2/9/14.
 //  Copyright (c) 2014 TAPFANTASY. All rights reserved.
 //
-#import <StoreKit/StoreKit.h>
-#import <StoreKit/SKPaymentTransaction.h>
 
-@interface SalesView : UIViewController <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface SalesView : UIViewController
 
 @property (nonatomic, strong) IBOutlet UILabel* lblRow3;
 @property (nonatomic, strong) IBOutlet UILabel* lblRow4;

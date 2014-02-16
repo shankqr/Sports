@@ -7,7 +7,6 @@
 //
 
 #import "MatchReport.h"
-#import "MainView.h"
 #import "Globals.h"
 
 @implementation MatchReport

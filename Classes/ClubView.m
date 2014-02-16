@@ -306,7 +306,13 @@
 	if(buttonIndex == 1)
 	{
         [[Globals i] settPurchasedProduct:@"10"];
-		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"rename"]];
+        
+        NSString *pi = [[Globals i] getProductIdentifiers][@"rename"];
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:pi forKey:@"pi"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                            object:self
+                                                          userInfo:userInfo];
 	}
 	
 	if(buttonIndex == 2)
@@ -357,7 +363,13 @@
 -(IBAction)resetButton_tap:(id)sender
 {
     [[Globals i] settPurchasedProduct:@"13"];
-	[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"reset"]];
+    
+    NSString *pi = [[Globals i] getProductIdentifiers][@"reset"];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:pi forKey:@"pi"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 #import "JobRefill.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation JobRefill
 @synthesize titleLabel;
@@ -26,7 +25,13 @@
 - (IBAction)ok_tap:(id)sender
 {
     [[Globals i] settPurchasedProduct:@"14"];
-	[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
+    
+    NSString *pi = [[Globals i] getProductIdentifiers][@"refill"];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:pi forKey:@"pi"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 @end

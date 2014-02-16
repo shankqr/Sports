@@ -8,7 +8,6 @@
 
 #import "SquadView.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "PlayerView.h"
 #import "PlayerCell.h"
 

@@ -8,7 +8,7 @@
 
 #import "SquadSelectView.h"
 
-@interface FormationView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface FormationView : UIViewController <SquadSelectDelegate, UIActionSheetDelegate>
 {
 	UISegmentedControl *segment;
     UIImageView *ivBackground;

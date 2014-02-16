@@ -8,7 +8,6 @@
 
 #import "SquadSelectView.h"
 #import "Globals.h"
-#import "MainView.h"
 #import "PlayerCell.h"
 
 @implementation SquadSelectView

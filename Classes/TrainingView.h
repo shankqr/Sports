@@ -6,7 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@interface TrainingView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate, UIActionSheetDelegate>
+@interface TrainingView : UIViewController <UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate>
 {
 	UITableView *table;
 	NSMutableArray *coaches;

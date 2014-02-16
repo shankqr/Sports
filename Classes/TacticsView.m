@@ -8,7 +8,6 @@
 
 #import "TacticsView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation TacticsView
 @synthesize tid;
@@ -211,15 +210,6 @@
     }
 		
     [self showTactics];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
-	if(buttonIndex == 1)
-	{
-        [[Globals i] settPurchasedProduct:@"14"];
-		[[Globals i].mainView buyProduct:[[Globals i] getProductIdentifiers][@"refill"]];
-	}
 }
 
 @end

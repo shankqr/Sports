@@ -8,7 +8,6 @@
 
 #import "FansView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation FansView
 @synthesize membersLabel;

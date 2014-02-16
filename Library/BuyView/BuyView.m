@@ -8,7 +8,6 @@
 
 #import "BuyView.h"
 #import "Globals.h"
-#import "MainView.h"
 
 @implementation BuyView
 
@@ -61,9 +60,13 @@
         NSDictionary *rowData = (self.rows)[indexPath.row];
         
         [[Globals i] settPurchasedProduct:rowData[@"3"]];
-        NSString *pi = [[Globals i] wsProductIdentifiers][rowData[@"1"]];
         
-        [[Globals i].mainView buyProduct:pi];
+        NSString *pi = [[Globals i] wsProductIdentifiers][rowData[@"1"]];
+        NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:pi forKey:@"pi"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"InAppPurchase"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
     return nil;
 }
