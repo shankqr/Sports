@@ -170,7 +170,16 @@
     }
     else if(buttonIndex == 2) //Send Message
 	{
-        [[Globals i] mailCompose:@"0" toID:selected_clubid toName:selected_clubname];
+        NSString *isAlli = @"0";
+        NSString *toID = selected_clubid;
+        NSString *toName = selected_clubname;
+        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+        [userInfo setObject:isAlli forKey:@"is_alli"];
+        [userInfo setObject:toID forKey:@"to_id"];
+        [userInfo setObject:toName forKey:@"to_name"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"MailCompose"
+                                                            object:self
+                                                          userInfo:userInfo];
     }
     else if(buttonIndex == 3) //Kick Out
 	{

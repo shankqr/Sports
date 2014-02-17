@@ -141,7 +141,17 @@
 - (IBAction)mailButton_tap:(id)sender
 {
     NSDictionary *wsClubData = [[Globals i] getClubInfoData];
-	[[Globals i] mailCompose:@"0" toID:[Globals i].selectedClubId toName:wsClubData[@"club_name"]];
+
+    NSString *isAlli = @"0";
+    NSString *toID = [Globals i].selectedClubId;
+    NSString *toName = wsClubData[@"club_name"];
+    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:isAlli forKey:@"is_alli"];
+    [userInfo setObject:toID forKey:@"to_id"];
+    [userInfo setObject:toName forKey:@"to_name"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"MailCompose"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
 @end

@@ -249,7 +249,17 @@
         }
         else if(indexPath.row == 6) //Mass Mail
         {
-            [[Globals i] mailCompose:@"1" toID:aAlliance.alliance_id toName:aAlliance.name];
+            NSString *isAlli = @"1";
+            NSString *toID = aAlliance.alliance_id;
+            NSString *toName = aAlliance.name;
+            NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:isAlli forKey:@"is_alli"];
+            [userInfo setObject:toID forKey:@"to_id"];
+            [userInfo setObject:toName forKey:@"to_name"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"MailCompose"
+                                                                object:self
+                                                              userInfo:userInfo];
+            
         }
         else if(indexPath.row == 7) //Upgrade Alliance
         {

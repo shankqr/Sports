@@ -55,6 +55,7 @@
 #import "SlotsView.h"
 #import "SalesView.h"
 #import "JobLevelup.h"
+#import "MailCompose.h"
 #import "iRate.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -157,6 +158,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"GotoBuy"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"MailCompose"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -301,6 +307,16 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         NSString *pi = [userInfo objectForKey:@"pi"];
         
         [self buyProduct:pi];
+    }
+    
+    if ([[notification name] isEqualToString:@"MailCompose"])
+    {
+        NSDictionary* userInfo = notification.userInfo;
+        NSString *isAlli = [userInfo objectForKey:@"is_alli"];
+        NSString *toID = [userInfo objectForKey:@"to_id"];
+        NSString *toName = [userInfo objectForKey:@"to_name"];
+        
+        [self mailCompose:isAlli toID:toID toName:toName];
     }
 }
 
@@ -482,6 +498,20 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         [self.matchChallengeView updateView];
     }
+}
+
+- (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname
+{
+    if(self.mailCompose == nil)
+    {
+        self.mailCompose = [[MailCompose alloc] initWithStyle:UITableViewStylePlain];
+    }
+    self.mailCompose.title = @"Mail";
+    self.mailCompose.isAlliance = isAlli;
+    self.mailCompose.toID = toid;
+    self.mailCompose.toName = toname;
+    
+    [[Globals i] showTemplate:@[self.mailCompose] :@"Message" :1];
 }
 
 - (void)showBuy

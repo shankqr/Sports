@@ -134,7 +134,6 @@
 #import "Flurry.h"
 #import "Apsalar.h"
 #import "MailView.h"
-#import "MailCompose.h"
 #import "ChatView.h"
 #import "DialogBoxView.h"
 #import "TemplateView.h"
@@ -151,7 +150,6 @@
 @interface Globals : NSObject <AVAudioPlayerDelegate, CLLocationManagerDelegate, TemplateDelegate>
 
 @property (nonatomic, strong) MainView *mainView;
-@property (nonatomic, strong) MailCompose *mailCompose;
 @property (nonatomic, strong) LoginView *loginView;
 @property (nonatomic, strong) WorldsView *worldsView;
 @property (nonatomic, strong) DialogBoxView *dialogBox;
@@ -353,7 +351,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (BOOL)isCurrentView:(UIViewController *)view;
 - (void)emailToDeveloper;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
-- (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname;
 - (void)pushMoreGamesVC;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
 - (NSString *)currentViewTitle;

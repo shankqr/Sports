@@ -57,7 +57,6 @@
 @synthesize loginView;
 @synthesize lastReportId;
 @synthesize lastMailId;
-@synthesize mailCompose;
 @synthesize loginNotification;
 @synthesize loadingView;
 @synthesize wsSquadData;
@@ -732,20 +731,6 @@ static NSOperationQueue *connectionQueue;
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
     [self showTemplate:@[appsViewController] :@"More Games" :1];
-}
-
-- (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname
-{
-    if(mailCompose == nil)
-    {
-        mailCompose = [[MailCompose alloc] initWithStyle:UITableViewStylePlain];
-    }
-    mailCompose.title = @"Mail";
-    mailCompose.isAlliance = isAlli;
-    mailCompose.toID = toid;
-    mailCompose.toName = toname;
-    
-    [self showTemplate:@[mailCompose] :@"Message" :1];
 }
 
 - (BOOL)mh_tabBarController:(TemplateView *)tabBarController
