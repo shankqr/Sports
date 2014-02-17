@@ -16,7 +16,6 @@
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-  // TODO: return result of main window's controller
   return YES;
 }
 

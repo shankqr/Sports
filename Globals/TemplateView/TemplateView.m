@@ -37,7 +37,9 @@ static const NSInteger TagOffset = 1000;
 
 - (IBAction)buy_tap:(id)sender
 {
-    [[Globals i] showBuy];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"GotoBuy"
+     object:self];
 }
 
 - (void)cleanView
@@ -133,9 +135,9 @@ static const NSInteger TagOffset = 1000;
         }
         if (frameType == 3) //Dialog box style
         {
-            rect.origin.x = 25.0f + 10.0f*SCALE_IPAD;
+            rect.origin.x = 25.0f + DIALOG_CONTENT_MARGIN;
             rect.origin.y = 75.0f + SCREEN_OFFSET_DIALOGHEADER_Y;
-            rect.size.width = 260.0f*SCALE_IPAD - 10.0f*SCALE_IPAD*2;
+            rect.size.width = 260.0f*SCALE_IPAD - DIALOG_CONTENT_MARGIN*2;
             rect.size.height = 270.0f*SCALE_IPAD - SCREEN_OFFSET_DIALOGHEADER_Y*2;
             
             buyButton.hidden = YES;

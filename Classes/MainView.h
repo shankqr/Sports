@@ -6,6 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
+@class BuyView;
 @class ChallengeView;
 @class ChallengeCreateView;
 @class Header;
@@ -56,6 +57,7 @@
 
 @interface MainView : UIViewController 
 
+@property (nonatomic, strong) BuyView *buyView;
 @property (nonatomic, strong) SalesView *salesView;
 @property (nonatomic, strong) Header *header;
 @property (nonatomic, strong) JobsView *jobsView;

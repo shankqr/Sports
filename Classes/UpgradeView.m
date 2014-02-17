@@ -165,7 +165,9 @@
 {
 	if(buttonIndex == 1)
 	{
-        [[Globals i] showBuy];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"GotoBuy"
+         object:self];
 	}
 }
 

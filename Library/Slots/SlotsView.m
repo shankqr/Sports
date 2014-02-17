@@ -1114,7 +1114,9 @@
 {
     [[Audio i] playFxWhoosh];
     
-    [[Globals i] showBuy];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"GotoBuy"
+     object:self];
 }
 
 - (IBAction)payoutsButtonTapped:(id)sender

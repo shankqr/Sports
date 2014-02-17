@@ -27,7 +27,9 @@
 
 - (IBAction)diamond_tap:(id)sender
 {
-	[[Globals i] showBuy];
+	[[NSNotificationCenter defaultCenter]
+     postNotificationName:@"GotoBuy"
+     object:self];
 }
 
 - (IBAction)energy_tap:(id)sender

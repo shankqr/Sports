@@ -12,6 +12,7 @@
 #import <MessageUI/MFMailComposeViewController.h>
 #import "MainView.h"
 #import "Globals.h"
+#import "BuyView.h"
 #import "Header.h"
 #import "JobsView.h"
 #import "ClubView.h"
@@ -153,6 +154,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                                                  name:@"InAppPurchase"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"GotoBuy"
+                                               object:nil];
+    
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
     [[Globals i] initSound];
@@ -219,6 +225,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if ([[notification name] isEqualToString:@"BuyFunds"])
     {
         [self showFundStore];
+    }
+    
+    if ([[notification name] isEqualToString:@"GotoBuy"])
+    {
+        [self showBuy];
     }
     
     if ([[notification name] isEqualToString:@"MatchReport"])
@@ -471,6 +482,22 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         [self.matchChallengeView updateView];
     }
+}
+
+- (void)showBuy
+{
+    if (self.buyView == nil)
+    {
+        self.buyView = [[BuyView alloc] initWithStyle:UITableViewStylePlain];
+        self.buyView.title = @"Buy Diamonds 1";
+        [self.buyView updateView];
+    }
+    
+    [[Globals i] showTemplate:@[self.buyView] :@"Buy Diamonds" :1];
+    
+    //Disable the Buy button
+    [Globals i].templateView.buyButton.hidden = YES;
+    [Globals i].templateView.currencyLabel.hidden = YES;
 }
 
 - (void)showClub

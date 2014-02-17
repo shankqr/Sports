@@ -10,6 +10,7 @@
 #define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
 #define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
+#define DIALOG_CONTENT_MARGIN 10.0f * SCALE_IPAD
 #define SCREEN_OFFSET_BOTTOM 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_MAINHEADER_Y (iPad ? 130.0f : 60.0f)
@@ -142,7 +143,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class BuyView;
 @class WorldsView;
 @class LoadingView;
 @class PlayerCell;
@@ -153,7 +153,6 @@
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) MailCompose *mailCompose;
 @property (nonatomic, strong) LoginView *loginView;
-@property (nonatomic, strong) BuyView *buyView;
 @property (nonatomic, strong) WorldsView *worldsView;
 @property (nonatomic, strong) DialogBoxView *dialogBox;
 @property (nonatomic, strong) TemplateView *templateView;
@@ -289,7 +288,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showLogin:(LoginBlock)block;
 - (void)showWorlds;
 - (void)saveLocation;
-- (void)showBuy;
 - (void)backTemplate;
 - (void)pushTemplateNav:(UIViewController *)view;
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo;

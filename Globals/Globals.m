@@ -7,7 +7,6 @@
 //
 
 #import "Globals.h"
-#import "BuyView.h"
 #import "WorldsView.h"
 #import "LoadingView.h"
 #import "PlayerCell.h"
@@ -52,7 +51,6 @@
 @synthesize selectedMapTile;
 @synthesize dialogBox;
 @synthesize templateView;
-@synthesize buyView;
 @synthesize wsWorldData;
 @synthesize wsWorldsData;
 @synthesize worldsView;
@@ -707,22 +705,6 @@ static NSOperationQueue *connectionQueue;
     {
         [loadingView close];
     }
-}
-
-- (void)showBuy
-{
-    if (buyView == nil)
-    {
-        buyView = [[BuyView alloc] initWithStyle:UITableViewStylePlain];
-        buyView.title = @"Buy Diamonds 1";
-        [buyView updateView];
-    }
-    
-    [self showTemplate:@[buyView] :@"Buy Diamonds" :1];
-    
-    //Disable the Buy button
-    templateView.buyButton.hidden = YES;
-    templateView.currencyLabel.hidden = YES;
 }
 
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid

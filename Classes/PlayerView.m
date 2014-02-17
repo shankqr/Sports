@@ -423,7 +423,10 @@
     {
         if (tag == 5) //Yes
         {
-            [[Globals i] showBuy];
+            [[NSNotificationCenter defaultCenter]
+             postNotificationName:@"GotoBuy"
+             object:self];
+            
             [dialogBox.view removeFromSuperview];
             [self close];
         }

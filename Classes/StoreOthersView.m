@@ -361,7 +361,9 @@
                               otherButtonTitles:nil];
         [alert show];
         
-        [[Globals i] showBuy];
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"GotoBuy"
+         object:self];
     }
     else
     {

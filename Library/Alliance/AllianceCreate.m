@@ -217,7 +217,9 @@
              }
              else
              {
-                 [[Globals i] showBuy];
+                 [[NSNotificationCenter defaultCenter]
+                  postNotificationName:@"GotoBuy"
+                  object:self];
              }
          }
      }];
