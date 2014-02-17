@@ -44,15 +44,16 @@
 	<key>IBCustomFonts</key>
 	<dict>
 		<key>Helvetica</key>
-		<string>MLS 2013</string>
+		<string>Trebuchet MS</string>
 		<key>Helvetica-Bold</key>
-		<string>MLS 2013</string>
+		<string>Trebuchet MS Bold</string>
 	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>MLS2013.ttf</string>
+		<string>Trebuchet MS.ttf</string>
+		<string>Trebuchet MS Bold.ttf</string>
 	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>

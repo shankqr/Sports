@@ -272,31 +272,31 @@
 
 - (void)createButtons
 {
-    [self addPosButton:@"Mail" tag:1 imageDefault:@"button_mails"];
-    [self addPosButton:@"Task" tag:2 imageDefault:@"button_achievements"];
-    [self addPosButton:@"Slots" tag:3 imageDefault:@"button_slot"];
-    [self addPosButton:@"Training" tag:4 imageDefault:@"button_train"];
-    [self addPosButton:@"Transfers" tag:5 imageDefault:@"button_transfer"];
-	[self addPosButton:@"Squad" tag:6 imageDefault:@"button_squad"];
-	[self addPosButton:@"Formations" tag:7 imageDefault:@"button_tactics"];
-	[self addPosButton:@"Fixtures" tag:8 imageDefault:@"button_match"];
-    [self addPosButton:@"League" tag:9 imageDefault:@"button_league"];
-	[self addPosButton:@"Alliance" tag:10 imageDefault:@"button_cup"];
-	[self addPosButton:@"Finances" tag:11 imageDefault:@"button_finance"];
-	[self addPosButton:@"Stadium" tag:12 imageDefault:@"button_city"];
-    [self addPosButton:@"Club" tag:13 imageDefault:@"button_club"];
-	[self addPosButton:@"Club Store" tag:14 imageDefault:@"button_store"];
-	[self addPosButton:@"Coach" tag:15 imageDefault:@"button_coach"];
-	[self addPosButton:@"Staff" tag:16 imageDefault:@"button_staff"];
-    [self addPosButton:@"Fans" tag:17 imageDefault:@"button_fan"];
-    [self addPosButton:@"Ranking" tag:18 imageDefault:@"button_leaderboard"];
-    [self addPosButton:@"Search" tag:19 imageDefault:@"button_search"];
-	[self addPosButton:@"World Map" tag:20 imageDefault:@"button_map"];
-    [self addPosButton:@"Invite" tag:21 imageDefault:@"button_friends"];
-    [self addPosButton:@"Feedback" tag:22 imageDefault:@"button_news"];
-	[self addPosButton:@"More" tag:23 imageDefault:@"button_more"];
-	[self addPosButton:@"Help" tag:24 imageDefault:@"button_help"];
-    [self addPosButton:@"Logout" tag:25 imageDefault:@"button_logout"];
+    [self addPosButton:@"MAIL" tag:1 imageDefault:@"button_mails"];
+    [self addPosButton:@"TASK" tag:2 imageDefault:@"button_achievements"];
+    [self addPosButton:@"SLOTS" tag:3 imageDefault:@"button_slot"];
+    [self addPosButton:@"TRAINING" tag:4 imageDefault:@"button_train"];
+    [self addPosButton:@"TRANSFERS" tag:5 imageDefault:@"button_transfer"];
+	[self addPosButton:@"SQUAD" tag:6 imageDefault:@"button_squad"];
+	[self addPosButton:@"FORMATIONS" tag:7 imageDefault:@"button_tactics"];
+	[self addPosButton:@"FIXTURES" tag:8 imageDefault:@"button_match"];
+    [self addPosButton:@"LEAGUE" tag:9 imageDefault:@"button_league"];
+	[self addPosButton:@"ALLIANCE" tag:10 imageDefault:@"button_cup"];
+	[self addPosButton:@"FINANCES" tag:11 imageDefault:@"button_finance"];
+	[self addPosButton:@"STADIUM" tag:12 imageDefault:@"button_city"];
+    [self addPosButton:@"CLUB" tag:13 imageDefault:@"button_club"];
+	[self addPosButton:@"STORE" tag:14 imageDefault:@"button_store"];
+	[self addPosButton:@"COACH" tag:15 imageDefault:@"button_coach"];
+	[self addPosButton:@"STAFF" tag:16 imageDefault:@"button_staff"];
+    [self addPosButton:@"FANS" tag:17 imageDefault:@"button_fan"];
+    [self addPosButton:@"RANKINGS" tag:18 imageDefault:@"button_leaderboard"];
+    [self addPosButton:@"SEARCH" tag:19 imageDefault:@"button_search"];
+	[self addPosButton:@"WORLD" tag:20 imageDefault:@"button_map"];
+    [self addPosButton:@"INVITE" tag:21 imageDefault:@"button_friends"];
+    [self addPosButton:@"FEEDBACK" tag:22 imageDefault:@"button_news"];
+	[self addPosButton:@"MORE" tag:23 imageDefault:@"button_more"];
+	[self addPosButton:@"HELP" tag:24 imageDefault:@"button_help"];
+    [self addPosButton:@"LOGOUT" tag:25 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag
@@ -355,7 +355,7 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
-    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:12.0f*SCALE_IPAD];
 	myLabel.backgroundColor = [UIColor clearColor];
 	myLabel.shadowColor = [UIColor grayColor];
 	myLabel.shadowOffset = CGSizeMake(1,1);

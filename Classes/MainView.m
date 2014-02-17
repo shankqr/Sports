@@ -1336,7 +1336,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
         self.jobRefill.titleText = @"REFILL ENERGY?";
     }
-    [[Globals i] showTemplate:@[self.jobRefill] :@"Energy Refill" :0];
+    [[Globals i] showTemplate:@[self.jobRefill] :@"Energy Refill" :1];
 	[self.jobRefill updateView];
 }
 
