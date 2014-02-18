@@ -358,6 +358,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
 - (NSString *)currentViewTitle;
 //SPORTS
+- (NSString *)getFaceImageName:(NSString *)player_id;
 - (NSString *)GameType;
 - (NSString *)GameUrl;
 - (NSString *)PlayerSkill1;

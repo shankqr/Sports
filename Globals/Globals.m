@@ -2249,17 +2249,8 @@ static NSOperationQueue *connectionQueue;
     {
         cell.condition.text = @"";
     }
-	
-	NSInteger pid = [player_id integerValue];
-	NSInteger f = (pid % 1000);
-	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
     
-    if ([[[Globals i] GameType] isEqualToString:@"hockey"])
-    {
-        fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
-    }
-    
-	[cell.faceImage setImage:[UIImage imageNamed:fname]];
+	[cell.faceImage setImage:[UIImage imageNamed:[self getFaceImageName:player_id]]];
 	
 	NSInteger g = [rowData[@"player_goals"] integerValue];
 	switch(g)
@@ -2499,6 +2490,25 @@ static NSOperationQueue *connectionQueue;
     cell.skill5.text = [self PlayerSkill5];
 	
 	return cell;
+}
+
+- (NSString *)getFaceImageName:(NSString *)player_id
+{
+    NSInteger pid = [player_id integerValue];
+	NSInteger f = (pid % 1000);
+	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
+    
+    if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
+    {
+        f = (pid % 1500);
+        fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
+    }
+    
+    return fname;
 }
 
 - (UIButton *)dynamicButtonWithTitle:(NSString *)title
