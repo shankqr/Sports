@@ -9,19 +9,6 @@
 #import "CoachCell.h"
 
 @implementation CoachCell
-@synthesize faceImage;
-@synthesize star1;
-@synthesize star2;
-@synthesize star3;
-@synthesize star4;
-@synthesize star5;
-@synthesize coachName;
-@synthesize coachValue;
-@synthesize coachDesc;
-@synthesize skill;
-@synthesize pbskill;
-@synthesize leadership;
-@synthesize pbleadership;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {

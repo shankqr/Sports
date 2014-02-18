@@ -81,7 +81,12 @@
     }
 	
 	NSInteger f = ([player_id integerValue] % 1000);
-	NSString *fname = [NSString stringWithFormat:@"z%ld", (long)f];
+	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
+    
+    if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
+    }
     
     return @{@"align_top": @"1", @"r1": r1, @"r2": r2, @"r3": r3, @"i1": fname};
 }

@@ -355,7 +355,7 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
-    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:12.0f*SCALE_IPAD];
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MENU_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor clearColor];
 	myLabel.shadowColor = [UIColor grayColor];
 	myLabel.shadowOffset = CGSizeMake(1,1);

@@ -2252,7 +2252,13 @@ static NSOperationQueue *connectionQueue;
 	
 	NSInteger pid = [player_id integerValue];
 	NSInteger f = (pid % 1000);
-	NSString *fname = [NSString stringWithFormat:@"z%ld", (long)f];
+	NSString *fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
+    
+    if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
+    }
+    
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
 	NSInteger g = [rowData[@"player_goals"] integerValue];

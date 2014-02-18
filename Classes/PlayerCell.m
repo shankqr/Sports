@@ -9,36 +9,6 @@
 #import "PlayerCell.h"
 
 @implementation PlayerCell
-@synthesize faceImage;
-@synthesize injuredbruisedImage;
-@synthesize star1;
-@synthesize star2;
-@synthesize star3;
-@synthesize star4;
-@synthesize star5;
-@synthesize card1;
-@synthesize card2;
-@synthesize playerName;
-@synthesize playerValue;
-@synthesize position;
-@synthesize stamina;
-@synthesize pbstamina;
-@synthesize keeper;
-@synthesize pbkeeper;
-@synthesize defending;
-@synthesize pbdefending;
-@synthesize playmaking;
-@synthesize pbplaymaking;
-@synthesize passing;
-@synthesize pbpassing;
-@synthesize scoring;
-@synthesize pbscoring;
-@synthesize condition;
-@synthesize skill1;
-@synthesize skill2;
-@synthesize skill3;
-@synthesize skill4;
-@synthesize skill5;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier 
 {

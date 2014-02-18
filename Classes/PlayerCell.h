@@ -7,38 +7,7 @@
 //
 
 @interface PlayerCell : UITableViewCell 
-{
-	UIImageView *faceImage;
-	UIImageView *injuredbruisedImage;
-	UIImageView *star1;
-	UIImageView *star2;
-	UIImageView *star3;
-	UIImageView *star4;
-	UIImageView *star5;
-	UILabel *card1;
-	UILabel *card2;
-	UILabel *playerName;
-	UILabel *playerValue;
-	UILabel *position;
-	UILabel *stamina;
-	UIImageView *pbstamina;
-	UILabel *keeper;
-	UIImageView *pbkeeper;
-	UILabel *defending;
-	UIImageView *pbdefending;
-	UILabel *playmaking;
-	UIImageView *pbplaymaking;
-	UILabel *passing;
-	UIImageView *pbpassing;
-	UILabel *scoring;
-	UIImageView *pbscoring;
-    UILabel *condition;
-    UILabel *skill1;
-    UILabel *skill2;
-    UILabel *skill3;
-    UILabel *skill4;
-    UILabel *skill5;
-}
+
 @property (nonatomic, strong) IBOutlet UIImageView *faceImage;
 @property (nonatomic, strong) IBOutlet UIImageView *injuredbruisedImage;
 @property (nonatomic, strong) IBOutlet UIImageView *star1;
@@ -69,4 +38,5 @@
 @property (nonatomic, strong) IBOutlet UILabel *skill3;
 @property (nonatomic, strong) IBOutlet UILabel *skill4;
 @property (nonatomic, strong) IBOutlet UILabel *skill5;
+
 @end
