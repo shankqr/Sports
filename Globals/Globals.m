@@ -2507,6 +2507,11 @@ static NSOperationQueue *connectionQueue;
         f = (pid % 1500);
         fname = [NSString stringWithFormat:@"z%ld.jpg", (long)f];
     }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        f = (pid % 360);
+        fname = [NSString stringWithFormat:@"z%ld.png", (long)f];
+    }
     
     return fname;
 }

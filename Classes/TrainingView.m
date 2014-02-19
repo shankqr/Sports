@@ -160,7 +160,7 @@
 	cell.leadership.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[rowData[@"coach_leadership"] integerValue]/2];
     [cell.pbleadership setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[rowData[@"coach_leadership"] integerValue]/10]]];
     
-	NSInteger f = ([coach_id integerValue] % 12) + 1;
+	NSInteger f = ([coach_id integerValue] % 26);
 	NSString *fname = [NSString stringWithFormat:@"s%ld.png", (long)f];
 	[cell.faceImage setImage:[UIImage imageNamed:fname]];
 	
