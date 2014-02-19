@@ -50,6 +50,7 @@
 @class TacticsView;
 @class ChatView;
 @class RankingView;
+@class EventsView;
 @class SearchView;
 @class SlotsView;
 @class SalesView;
@@ -113,6 +114,8 @@
 @property (nonatomic, strong) SlotsView *slotsView;
 @property (nonatomic, strong) JobLevelup *jobLevelup;
 @property (nonatomic, strong) MailCompose *mailCompose;
+@property (nonatomic, strong) EventsView *eventSoloView;
+@property (nonatomic, strong) EventsView *eventAllianceView;
 @property (nonatomic, strong) NSTimer *marqueeTimer;
 @property (nonatomic, strong) NSTimer *chatTimer;
 @property (nonatomic, strong) NSMutableArray *marquee;

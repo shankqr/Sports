@@ -24,10 +24,16 @@
 @property (nonatomic, strong) CustomBadge *mailBadge;
 @property (nonatomic, strong) UIButton *buttonSale;
 @property (nonatomic, strong) UILabel *labelSale;
+@property (nonatomic, strong) UIButton *buttonEventSolo;
+@property (nonatomic, strong) UILabel *labelEventSolo;
+@property (nonatomic, strong) UIButton *buttonEventAlliance;
+@property (nonatomic, strong) UILabel *labelEventAlliance;
 
 @property (nonatomic, assign) NSInteger timerIndex;
 @property (nonatomic, assign) NSInteger s1;
 @property (nonatomic, assign) NSInteger b1s;
+@property (nonatomic, assign) NSInteger b2s;
+@property (nonatomic, assign) NSInteger b3s;
 @property (nonatomic, assign) Boolean timerIsShowing;
 
 - (void)changeSlideNow;

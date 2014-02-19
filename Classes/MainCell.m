@@ -38,6 +38,8 @@
     {
         self.s1 = 0;
         self.b1s = 0;
+        self.b2s = 0;
+        self.b3s = 0;
         [self createSlides];
         [self createButtons];
     }
@@ -251,6 +253,42 @@
         }
     }
     
+    if (self.b2s > 0)
+    {
+        self.b2s = self.b2s-1;
+        
+        if (self.timerIsShowing == YES)
+        {
+            NSString *labelString = [[Globals i] getCountdownString:self.b2s];
+            self.labelEventSolo.text = labelString;
+        }
+        else
+        {
+            self.labelEventSolo.text = @"Ending in";
+            
+            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
+                                       forState:UIControlStateNormal];
+        }
+    }
+    
+    if (self.b3s > 0)
+    {
+        self.b3s = self.b3s-1;
+        
+        if (self.timerIsShowing == YES)
+        {
+            NSString *labelString = [[Globals i] getCountdownString:self.b3s];
+            self.labelEventAlliance.text = labelString;
+        }
+        else
+        {
+            self.labelEventAlliance.text = @"Ending in";
+            
+            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
+                                            forState:UIControlStateNormal];
+        }
+    }
+    
 }
 
 - (void)showSlide
@@ -359,7 +397,7 @@
 	myLabel.backgroundColor = [UIColor clearColor];
 	myLabel.shadowColor = [UIColor grayColor];
 	myLabel.shadowOffset = CGSizeMake(1,1);
-	myLabel.textColor = [UIColor whiteColor];
+	myLabel.textColor = [UIColor blackColor];
 	myLabel.textAlignment = NSTextAlignmentCenter;
 	myLabel.numberOfLines = 1;
 	myLabel.adjustsFontSizeToFitWidth = YES;
@@ -416,6 +454,56 @@
 - (void)saleButton_tap:(id)sender
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
+}
+
+- (void)addEventSoloButton:(NSString *)label imageDefault:(NSString *)imageDefault
+{
+    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
+    NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
+    
+    NSInteger column_width = self.frame.size.width / buttons_per_row;
+    NSInteger column_start_x = column_width - sizex;
+    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
+    
+    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
+    NSInteger posy = 1 * column_height;
+    
+	self.buttonEventSolo = [[Globals i] buttonWithTitle:@""
+                                            target:self
+                                          selector:@selector(eventSoloButton_tap:)
+                                             frame:CGRectMake(posx, posy, sizex, sizey)
+                                             image:imgD
+                                      imagePressed:nil
+                                     darkTextColor:YES];
+    
+    [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
+                               forState:UIControlStateNormal];
+    
+	[self addSubview:self.buttonEventSolo];
+	
+	self.labelEventSolo = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey-menu_label_height, column_width, menu_label_height)];
+	self.labelEventSolo.text = label;
+    self.labelEventSolo.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventSolo.backgroundColor = [UIColor clearColor];
+	self.labelEventSolo.shadowColor = [UIColor grayColor];
+	self.labelEventSolo.shadowOffset = CGSizeMake(1,1);
+	self.labelEventSolo.textColor = [UIColor whiteColor];
+	self.labelEventSolo.textAlignment = NSTextAlignmentCenter;
+	self.labelEventSolo.numberOfLines = 1;
+	self.labelEventSolo.adjustsFontSizeToFitWidth = YES;
+	self.labelEventSolo.minimumScaleFactor = 0.5f;
+	[self addSubview:self.labelEventSolo];
+}
+
+- (void)eventSoloButton_tap:(id)sender
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"EventSolo" object:self];
+}
+
+- (void)eventAllianceButton_tap:(id)sender
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:@"EventAlliance" object:self];
 }
 
 @end

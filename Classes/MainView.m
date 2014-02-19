@@ -48,6 +48,7 @@
 #import "AllianceDetail.h"
 #import "JobRefill.h"
 #import "RankingView.h"
+#import "EventsView.h"
 #import "SearchView.h"
 #import "Sparrow.h"
 #import "Game.h"
@@ -165,6 +166,16 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                                                  name:@"MailCompose"
                                                object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"EventSolo"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"EventAlliance"
+                                               object:nil];
+    
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
     
     [[Globals i] initSound];
@@ -275,6 +286,16 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if ([[notification name] isEqualToString:@"ViewSales"])
     {
         [self showSales];
+    }
+    
+    if ([[notification name] isEqualToString:@"EventSolo"])
+    {
+        [self showEventSolo];
+    }
+    
+    if ([[notification name] isEqualToString:@"EventAlliance"])
+    {
+        [self showEventAlliance];
     }
     
     if ([[notification name] isEqualToString:@"UpdateXP"])
@@ -1458,6 +1479,34 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     self.allianceView.updateOnWillAppear = @"1";
     
     [[Globals i] showTemplate:@[self.rvTopDivision, self.rvTopLevel, self.allianceView] :@"Rankings" :1];
+}
+
+- (void)showEventSolo
+{
+    if (self.eventSoloView == nil)
+    {
+        self.eventSoloView = [[EventsView alloc] initWithStyle:UITableViewStylePlain];
+        self.eventSoloView.title = @"Solo Event";
+        self.eventSoloView.serviceName = @"GetEventSoloNow";
+        self.eventSoloView.updateOnWillAppear = @"0";
+    }
+    [self.eventSoloView updateView];
+    
+    [[Globals i] showTemplate:@[self.eventSoloView] :@"Solo Event" :1];
+}
+
+- (void)showEventAlliance
+{
+    if (self.eventAllianceView == nil)
+    {
+        self.eventAllianceView = [[EventsView alloc] initWithStyle:UITableViewStylePlain];
+        self.eventAllianceView.title = @"Alliance Event";
+        self.eventAllianceView.serviceName = @"GetEventAllianceNow";
+        self.eventAllianceView.updateOnWillAppear = @"0";
+    }
+    [self.eventAllianceView updateView];
+    
+    [[Globals i] showTemplate:@[self.eventAllianceView] :@"Alliance Event" :1];
 }
 
 - (void)showSearch
