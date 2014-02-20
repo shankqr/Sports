@@ -16,11 +16,6 @@
 NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateChangedNotification";
 
 @implementation LoginView
-@synthesize emailText;
-@synthesize passwordText;
-@synthesize versionLabel;
-@synthesize ivFlag;
-@synthesize lblWorld;
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
@@ -34,15 +29,15 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)viewDidLoad
 {
-    [[emailText layer] setBorderColor:[[UIColor grayColor] CGColor]]; //border color
-    [[emailText layer] setBackgroundColor:[[UIColor whiteColor] CGColor]]; //background color
-    [[emailText layer] setBorderWidth:1.5]; // border width
-    [[emailText layer] setCornerRadius:5]; // radius of rounded corners
-    [emailText setClipsToBounds: YES]; //clip text within the bounds
+    [[self.emailText layer] setBorderColor:[[UIColor grayColor] CGColor]]; //border color
+    [[self.emailText layer] setBackgroundColor:[[UIColor whiteColor] CGColor]]; //background color
+    [[self.emailText layer] setBorderWidth:1.5]; // border width
+    [[self.emailText layer] setCornerRadius:5]; // radius of rounded corners
+    [self.emailText setClipsToBounds: YES]; //clip text within the bounds
     
-    versionLabel.text = [NSString stringWithFormat:@"Version %@", GAME_VERSION];
+    self.versionLabel.text = [NSString stringWithFormat:@"Version %@", GAME_VERSION];
     
-    launchWithInternet = YES;
+    self.launchWithInternet = YES;
 }
 
 - (BOOL)updateView
@@ -67,13 +62,13 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     NSString *wname = [Globals i].wsWorldData[@"world_name"];
     
-    lblWorld.text = wname;
-    [ivFlag setImage:[UIImage imageNamed:[NSString stringWithFormat:@"flag_%@.png", [Globals i].wsWorldData[@"flag_id"]]]];
+    self.lblWorld.text = wname;
+    [self.ivFlag setImage:[UIImage imageNamed:[NSString stringWithFormat:@"flag_%@.png", [Globals i].wsWorldData[@"flag_id"]]]];
 }
 
 - (IBAction)fbLogin:(UIButton *)sender
 {
-    if (launchWithInternet)
+    if (self.launchWithInternet)
     {
         [self openSessionWithAllowLoginUI:YES];
     }
@@ -88,7 +83,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (IBAction)worldSelect:(UIButton *)sender
 {
-    if (launchWithInternet)
+    if (self.launchWithInternet)
     {
         [[Globals i] showWorlds];
     }
@@ -103,7 +98,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (IBAction)emailLogin:(UIButton *)sender
 {
-    if (launchWithInternet)
+    if (self.launchWithInternet)
     {
         [self loginEmail];
     }
@@ -118,7 +113,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (IBAction)emailRegister:(UIButton *)sender
 {
-    if (launchWithInternet)
+    if (self.launchWithInternet)
     {
         [self registerEmail];
     }
@@ -133,7 +128,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (IBAction)forgotPassword:(UIButton *)sender
 {
-    if (launchWithInternet)
+    if (self.launchWithInternet)
     {
         [self passwordReset];
     }
@@ -364,11 +359,11 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
 	@autoreleasepool {
 
-        NSString *fid = [emailText.text lowercaseString];
+        NSString *fid = [self.emailText.text lowercaseString];
         NSString *hexHmac = [fid HMACWithSecret:kSecret];
         NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
-        NSString *email = emailText.text;
-        NSString* hexPassword = [self stringToHex:passwordText.text];
+        NSString *email = self.emailText.text;
+        NSString* hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
                            WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
@@ -410,11 +405,11 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
 	@autoreleasepool {
         
-        NSString *fid = [emailText.text lowercaseString];
+        NSString *fid = [self.emailText.text lowercaseString];
         NSString *hexHmac = [fid HMACWithSecret:kSecret];
         NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
-        NSString *email = emailText.text;
-        NSString* hexPassword = [self stringToHex:passwordText.text];
+        NSString *email = self.emailText.text;
+        NSString* hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
                               WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDevicetoken]];
@@ -446,9 +441,9 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)loginEmail
 {
-    if ([self NSStringIsValidEmail:emailText.text])
+    if ([self NSStringIsValidEmail:self.emailText.text])
     {
-        if (passwordText.text.length > 3 && passwordText.text.length < 13)
+        if (self.passwordText.text.length > 3 && self.passwordText.text.length < 13)
         {
             [[Globals i] showLoadingAlert];
             [NSThread detachNewThreadSelector:@selector(tryLogin) toTarget:self withObject:nil];
@@ -467,9 +462,9 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)registerEmail
 {
-    if ([self NSStringIsValidEmail:emailText.text])
+    if ([self NSStringIsValidEmail:self.emailText.text])
     {
-        if (passwordText.text.length > 3 && passwordText.text.length < 13)
+        if (self.passwordText.text.length > 3 && self.passwordText.text.length < 13)
         {
             [[Globals i] showLoadingAlert];
             [NSThread detachNewThreadSelector:@selector(tryRegister) toTarget:self withObject:nil];

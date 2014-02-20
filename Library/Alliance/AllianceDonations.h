@@ -8,13 +8,11 @@
 
 @class AllianceObject;
 @interface AllianceDonations : UITableViewController
-{
-	NSArray *rows;
-    AllianceObject *aAlliance;
-    NSString *selected_clubid;
-}
+
 @property (nonatomic, strong) NSArray *rows;
 @property (nonatomic, strong) AllianceObject *aAlliance;
 @property (nonatomic, strong) NSString *selected_clubid;
+
 - (void)updateView;
+
 @end

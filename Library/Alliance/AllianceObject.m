@@ -9,31 +9,6 @@
 #import "AllianceObject.h"
 
 @implementation AllianceObject
-@synthesize alliance_id;
-@synthesize leader_id;
-@synthesize leader_name;
-@synthesize name;
-@synthesize date_found;
-@synthesize total_members;
-@synthesize alliance_level;
-@synthesize currency_first;
-@synthesize currency_second;
-@synthesize rank;
-@synthesize score;
-@synthesize logo_id;
-@synthesize flag_id;
-@synthesize description;
-@synthesize leader_firstname;
-@synthesize leader_secondname;
-@synthesize cup_name;
-@synthesize cup_first_prize;
-@synthesize cup_second_prize;
-@synthesize cup_start;
-@synthesize cup_round;
-@synthesize cup_first_id;
-@synthesize cup_first_name;
-@synthesize cup_second_id;
-@synthesize cup_second_name;
 
 - (id)initWithDictionary:(NSDictionary *)aDictionary
 {
@@ -77,31 +52,31 @@
 {
 	AllianceObject *selfs = [[AllianceObject allocWithZone: zone] init];
     
-    selfs.alliance_id = [alliance_id copy];
-    selfs.leader_id = [leader_id copy];
-    selfs.leader_name = [leader_name copy];
-    selfs.name = [name copy];
-    selfs.date_found = [date_found copy];
-    selfs.total_members = [total_members copy];
-    selfs.alliance_level = [alliance_level copy];
-    selfs.currency_first = [currency_first copy];
-    selfs.currency_second = [currency_second copy];
-    selfs.rank = [rank copy];
-    selfs.score = [score copy];
-    selfs.logo_id = [logo_id copy];
-    selfs.flag_id = [flag_id copy];
-    selfs.description = [description copy];
-    selfs.leader_firstname = [leader_firstname copy];
-    selfs.leader_secondname = [leader_secondname copy];
-    selfs.cup_name = [cup_name copy];
-    selfs.cup_first_prize = [cup_first_prize copy];
-    selfs.cup_second_prize = [cup_second_prize copy];
-    selfs.cup_start = [cup_start copy];
-    selfs.cup_round = [cup_round copy];
-    selfs.cup_first_id = [cup_first_id copy];
-    selfs.cup_first_name = [cup_first_name copy];
-    selfs.cup_second_id = [cup_second_id copy];
-    selfs.cup_second_name = [cup_second_name copy];
+    selfs.alliance_id = [self.alliance_id copy];
+    selfs.leader_id = [self.leader_id copy];
+    selfs.leader_name = [self.leader_name copy];
+    selfs.name = [self.name copy];
+    selfs.date_found = [self.date_found copy];
+    selfs.total_members = [self.total_members copy];
+    selfs.alliance_level = [self.alliance_level copy];
+    selfs.currency_first = [self.currency_first copy];
+    selfs.currency_second = [self.currency_second copy];
+    selfs.rank = [self.rank copy];
+    selfs.score = [self.score copy];
+    selfs.logo_id = [self.logo_id copy];
+    selfs.flag_id = [self.flag_id copy];
+    selfs.description = [self.description copy];
+    selfs.leader_firstname = [self.leader_firstname copy];
+    selfs.leader_secondname = [self.leader_secondname copy];
+    selfs.cup_name = [self.cup_name copy];
+    selfs.cup_first_prize = [self.cup_first_prize copy];
+    selfs.cup_second_prize = [self.cup_second_prize copy];
+    selfs.cup_start = [self.cup_start copy];
+    selfs.cup_round = [self.cup_round copy];
+    selfs.cup_first_id = [self.cup_first_id copy];
+    selfs.cup_first_name = [self.cup_first_name copy];
+    selfs.cup_second_id = [self.cup_second_id copy];
+    selfs.cup_second_name = [self.cup_second_name copy];
 	return selfs;
 }
 

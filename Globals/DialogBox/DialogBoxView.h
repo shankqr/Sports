@@ -15,22 +15,7 @@
 typedef void (^DialogBlock)(NSInteger index, NSString *text);
 
 @interface DialogBoxView : UIViewController <UITextFieldDelegate>
-{
-	id<DialogBoxDelegate> __weak delegate;
-	UITextField *inputText;
-	UILabel *titleLabel;
-    UILabel *whiteLabel;
-	UILabel *promptLabel;
-    UIButton *closeButton;
-    UIButton *yesButton;
-    UIButton *noButton;
-	NSString *titleText;
-    NSString *whiteText;
-	NSString *promptText;
-	NSInteger verticalOffset;
-	NSInteger keyboardType;
-    NSInteger dialogType;
-}
+
 @property (weak) id<DialogBoxDelegate> delegate;
 @property (nonatomic, strong) DialogBlock dialogBlock;
 @property (nonatomic, strong) IBOutlet UITextField *inputText;
@@ -43,8 +28,11 @@ typedef void (^DialogBlock)(NSInteger index, NSString *text);
 @property (nonatomic, strong) NSString *titleText;
 @property (nonatomic, strong) NSString *whiteText;
 @property (nonatomic, strong) NSString *promptText;
-@property (readwrite) NSInteger keyboardType;
-@property (readwrite) NSInteger dialogType;
+
+@property (nonatomic, assign) NSInteger verticalOffset;
+@property (nonatomic, assign) NSInteger keyboardType;
+@property (nonatomic, assign) NSInteger dialogType;
+
 - (void)updateView;
 - (void)setup0;
 - (void)setup1;
@@ -52,4 +40,5 @@ typedef void (^DialogBlock)(NSInteger index, NSString *text);
 - (void)setupInput;
 - (IBAction)closeButton_tap:(id)sender;
 - (IBAction)okButton_tap:(id)sender;
+
 @end

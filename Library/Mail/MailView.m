@@ -11,8 +11,6 @@
 #import "Globals.h"
 
 @implementation MailView
-@synthesize rows;
-@synthesize mailDetail;
 
 - (void)viewDidLoad
 {
@@ -108,11 +106,11 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (mailDetail == nil)
+    if (self.mailDetail == nil)
     {
-        mailDetail = [[MailDetail alloc] initWithStyle:UITableViewStylePlain];
+        self.mailDetail = [[MailDetail alloc] initWithStyle:UITableViewStylePlain];
     }
-    mailDetail.mailData = (self.rows)[indexPath.row];
+    self.mailDetail.mailData = (self.rows)[indexPath.row];
     
     if ([(self.rows)[indexPath.row][@"open_read"] isEqualToString:@"0"])
     {
@@ -120,16 +118,16 @@
         [[Globals i] settLocalMailData:self.rows];
         [self.tableView reloadData];
         
-        [mailDetail getReplies];
+        [self.mailDetail getReplies];
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"UpdateBadges"
          object:self];
     }
     
-    [[Globals i] pushTemplateNav:mailDetail];
+    [[Globals i] pushTemplateNav:self.mailDetail];
     
-    [mailDetail scrollUp];
+    [self.mailDetail scrollUp];
 
 	return nil;
 }

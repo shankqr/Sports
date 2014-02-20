@@ -9,20 +9,15 @@
 typedef void (^LoginBlock)(NSInteger status);
 
 @interface LoginView : UIViewController <UITextFieldDelegate>
-{
-    UITextField *emailText;
-    UITextField *passwordText;
-    UILabel *versionLabel;
-    UIImageView *ivFlag;
-    UILabel *lblWorld;
-    BOOL launchWithInternet;
-}
+
 @property (nonatomic, strong) LoginBlock loginBlock;
 @property (nonatomic, strong) IBOutlet UITextField *emailText;
 @property (nonatomic, strong) IBOutlet UITextField *passwordText;
 @property (nonatomic, strong) IBOutlet UILabel *versionLabel;
 @property (nonatomic, strong) IBOutlet UIImageView *ivFlag;
 @property (nonatomic, strong) IBOutlet UILabel *lblWorld;
+@property (nonatomic, assign) BOOL launchWithInternet;
+
 - (BOOL)updateView;
 - (void)updateWorldLabel;
 - (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
@@ -39,4 +34,5 @@ typedef void (^LoginBlock)(NSInteger status);
 - (void)loginEmail;
 - (void)registerEmail;
 - (void)passwordReset;
+
 @end

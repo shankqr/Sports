@@ -11,9 +11,6 @@
 #import "Globals.h"
 
 @implementation AllianceDonations
-@synthesize rows;
-@synthesize aAlliance;
-@synthesize selected_clubid;
 
 - (void)viewDidLoad
 {
@@ -42,7 +39,7 @@
 - (void)updateView
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceDonations/%@",
-                       [[Globals i] world_url], aAlliance.alliance_id];
+                       [[Globals i] world_url], self.aAlliance.alliance_id];
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
@@ -118,10 +115,10 @@
     
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
         {
-            selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+            self.selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-            [userInfo setObject:selected_clubid forKey:@"club_id"];
+            [userInfo setObject:self.selected_clubid forKey:@"club_id"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
                                                                 object:self
                                                               userInfo:userInfo];

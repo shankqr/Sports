@@ -9,11 +9,10 @@
 @class MailDetail;
 
 @interface MailView : UITableViewController
-{
-	NSMutableArray *rows;
-    MailDetail *mailDetail;
-}
+
 @property (nonatomic, strong) NSMutableArray *rows;
 @property (nonatomic, strong) MailDetail *mailDetail;
+
 - (void)updateView;
+
 @end

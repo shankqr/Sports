@@ -10,9 +10,6 @@
 #import "Globals.h"
 
 @implementation MailReply
-@synthesize mailData;
-@synthesize rows;
-@synthesize inputCell;
 
 - (void)viewDidLoad
 {
@@ -78,8 +75,8 @@
 {
     if (indexPath.section == [self.rows count]-1)
     {
-        inputCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        UITextView *inputTV = (UITextView *)[inputCell viewWithTag:7];
+        self.inputCell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        UITextView *inputTV = (UITextView *)[self.inputCell viewWithTag:7];
         
         if(indexPath.row == 0) //Send Reply
         {
@@ -107,11 +104,11 @@
                           @"club_id",
                           [[Globals i] wsClubData][@"club_name"],
                           @"club_name",
-                          mailData[@"mail_id"],
+                          self.mailData[@"mail_id"],
                           @"mail_id",
-                          mailData[@"club_id"],
+                          self.mailData[@"club_id"],
                           @"from_id",
-                          mailData[@"reply_counter"],
+                          self.mailData[@"reply_counter"],
                           @"reply_counter",
                           textview.text,
                           @"message",
@@ -123,8 +120,8 @@
 
             if (success)
             {
-                [[Globals i] replyCounterPlus:mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
-                [[Globals i] updateMailReply:mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
+                [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
+                [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
                 [[Globals i] backTemplate];
                 textview.text = @"";
                 

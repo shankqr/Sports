@@ -11,5 +11,7 @@
 @interface WorldsView : UITableViewController
 
 @property (nonatomic, strong) NSMutableArray *rows;
+
 - (void)updateView;
+
 @end

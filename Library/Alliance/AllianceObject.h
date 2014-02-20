@@ -7,34 +7,7 @@
 //
 
 @interface AllianceObject : NSObject <NSCopying>
-{
-    NSString *alliance_id;
-    NSString *leader_id;
-    NSString *leader_name;
-	NSString *name;
-    NSString *date_found;
-	NSString *total_members;
-    NSString *alliance_level;
-    NSString *currency_first;
-    NSString *currency_second;
-	NSString *rank;
-    NSString *score;
-    NSString *logo_id;
-    NSString *flag_id;
-	NSString *description;
-    NSString *leader_firstname;
-	NSString *leader_secondname;
-    NSString *cup_name;
-	NSString *cup_first_prize;
-    NSString *cup_second_prize;
-    NSString *cup_start;
-    NSString *cup_round;
-    NSString *cup_first_id;
-	NSString *cup_first_name;
-    NSString *cup_second_id;
-	NSString *cup_second_name;
-}
-- (id)initWithDictionary:(NSDictionary *)aDictionary;
+
 @property (nonatomic, strong) NSString *alliance_id;
 @property (nonatomic, strong) NSString *leader_id;
 @property (nonatomic, strong) NSString *leader_name;
@@ -60,4 +33,7 @@
 @property (nonatomic, strong) NSString *cup_first_name;
 @property (nonatomic, strong) NSString *cup_second_id;
 @property (nonatomic, strong) NSString *cup_second_name;
+
+- (id)initWithDictionary:(NSDictionary *)aDictionary;
+
 @end

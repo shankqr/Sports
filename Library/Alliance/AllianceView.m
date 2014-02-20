@@ -13,22 +13,6 @@
 #import "AllianceCreate.h"
 
 @implementation AllianceView
-@synthesize searchBar;
-@synthesize searchDisplayController;
-@synthesize allianceViewer;
-@synthesize allianceCreate;
-@synthesize allianceArray;
-@synthesize selected_id;
-@synthesize nameIndexesDictionary;
-@synthesize nameIndexArray;
-@synthesize allianceDictionary;
-@synthesize allListContent;
-@synthesize filteredListContent;
-@synthesize savedSearchTerm;
-@synthesize savedScopeButtonIndex;
-@synthesize searchWasActive;
-@synthesize selected_name;
-@synthesize updateOnWillAppear;
 
 - (void)viewDidLoad
 {
@@ -39,17 +23,15 @@
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44*SCALE_IPAD)];
-    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar contentsController:self];
-    /*contents controller is the UITableViewController, this let you to reuse
-     the same TableViewController Delegate method used for the main table.*/
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, self.tableView.frame.size.width, 44*SCALE_IPAD)];
+    self.searchDisplayController1 = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
     
-    searchDisplayController.delegate = self;
-    searchDisplayController.searchResultsDelegate = self;
-    searchDisplayController.searchResultsDataSource = self;
+    self.searchDisplayController1.delegate = self;
+    self.searchDisplayController1.searchResultsDelegate = self;
+    self.searchDisplayController1.searchResultsDataSource = self;
     //set the delegate = self. Previously declared in ViewController.h
     
-    self.tableView.tableHeaderView = searchBar;
+    self.tableView.tableHeaderView = self.searchBar;
 }
 
 - (void)viewDidUnload
@@ -65,7 +47,7 @@
 {
 	[super viewWillAppear:animated];
     
-    if ([updateOnWillAppear isEqualToString:@"1"])
+    if ([self.updateOnWillAppear isEqualToString:@"1"])
     {
         [self updateView];
     }
@@ -96,27 +78,27 @@
 	for (NSDictionary *eachElement in self.allianceArray)
 	{
 		AllianceObject *aAlliance = [[AllianceObject alloc] initWithDictionary:eachElement];
-		allianceDictionary[aAlliance.name] = aAlliance;
-		[allListContent addObject:aAlliance];
+		self.allianceDictionary[aAlliance.name] = aAlliance;
+		[self.allListContent addObject:aAlliance];
         
 		NSString *firstLetter = [[aAlliance.name substringToIndex:1] uppercaseString];
 		NSMutableArray *existingArray;
         
-		if ((existingArray = [nameIndexesDictionary valueForKey:firstLetter]))
+		if ((existingArray = [self.nameIndexesDictionary valueForKey:firstLetter]))
 		{
 			[existingArray addObject:aAlliance];
 		}
 		else
 		{
 			NSMutableArray *tempArray = [NSMutableArray array];
-			nameIndexesDictionary[firstLetter] = tempArray;
+			self.nameIndexesDictionary[firstLetter] = tempArray;
 			[tempArray addObject:aAlliance];
 		}
 		
 	}
 
 	[self presortElementInitialLetterIndexes];
-    self.nameIndexArray = [[nameIndexesDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    self.nameIndexArray = [[self.nameIndexesDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
 
 	
 	self.filteredListContent = [NSMutableArray arrayWithCapacity:[self.allListContent count]];
@@ -124,7 +106,7 @@
 	{
         [self.searchDisplayController setActive:self.searchWasActive];
         [self.searchDisplayController.searchBar setSelectedScopeButtonIndex:self.savedScopeButtonIndex];
-        [self.searchDisplayController.searchBar setText:savedSearchTerm];
+        [self.searchDisplayController.searchBar setText:self.savedSearchTerm];
         self.savedSearchTerm = nil;
     }
 }
@@ -132,8 +114,8 @@
 // presort the name index arrays so the elements are in the correct order
 - (void)presortElementInitialLetterIndexes
 {
-	self.nameIndexArray = [[nameIndexesDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
-	for (NSString *eachNameIndex in nameIndexArray)
+	self.nameIndexArray = [[self.nameIndexesDictionary allKeys] sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+	for (NSString *eachNameIndex in self.nameIndexArray)
 	{
 		[self presortElementNamesForInitialLetter:eachNameIndex];
 	}
@@ -147,7 +129,7 @@
 										selector:@selector(localizedCaseInsensitiveCompare:)];
 	
 	NSArray *descriptors = @[nameDescriptor];
-	[nameIndexesDictionary[aKey] sortUsingDescriptors:descriptors];
+	[self.nameIndexesDictionary[aKey] sortUsingDescriptors:descriptors];
 }
 
 #pragma mark UISearchDisplayController Delegate Methods
@@ -155,7 +137,7 @@
 {
 	[self.filteredListContent removeAllObjects]; // First clear the filtered array.
 	
-	for (AllianceObject *aAlliance in allListContent)
+	for (AllianceObject *aAlliance in self.allListContent)
 	{
 		NSComparisonResult result = [aAlliance.name compare:searchString options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchString length])];
 		if (result == NSOrderedSame)
@@ -240,15 +222,15 @@
         }
         
         //Show alliance viewer
-        if (allianceViewer == nil)
+        if (self.allianceViewer == nil)
         {
-            allianceViewer = [[AllianceDetail alloc] initWithStyle:UITableViewStylePlain];
+            self.allianceViewer = [[AllianceDetail alloc] initWithStyle:UITableViewStylePlain];
         }
-        allianceViewer.aAlliance = aAlliance;
-        [allianceViewer scrollToTop];
-        [allianceViewer updateView];
+        self.allianceViewer.aAlliance = aAlliance;
+        [self.allianceViewer scrollToTop];
+        [self.allianceViewer updateView];
         
-        [[Globals i] pushTemplateNav:allianceViewer];
+        [[Globals i] pushTemplateNav:self.allianceViewer];
     }
     
 	return nil;
@@ -289,9 +271,9 @@
     }
     else
     {
-        allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
-        [allianceCreate updateView:YES];
-        [[Globals i] pushTemplateNav:allianceCreate];
+        self.allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
+        [self.allianceCreate updateView:YES];
+        [[Globals i] pushTemplateNav:self.allianceCreate];
     }
 }
 

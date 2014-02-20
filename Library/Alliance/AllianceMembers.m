@@ -11,11 +11,6 @@
 #import "Globals.h"
 
 @implementation AllianceMembers
-@synthesize rows;
-@synthesize aAlliance;
-@synthesize selected_clubid;
-@synthesize selected_aid;
-@synthesize selected_clubname;
 
 - (void)viewDidLoad
 {
@@ -44,7 +39,7 @@
 - (void)updateView
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceMembers/%@",
-                       [[Globals i] world_url], aAlliance.alliance_id];
+                       [[Globals i] world_url], self.aAlliance.alliance_id];
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
@@ -129,11 +124,11 @@
         
         if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
         {
-            selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
-            selected_aid = [[NSString alloc] initWithString:[[Globals i] wsClubData][@"alliance_id"]];
-            selected_clubname = rowData[@"club_name"];
+            self.selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+            self.selected_aid = [[NSString alloc] initWithString:[[Globals i] wsClubData][@"alliance_id"]];
+            self.selected_clubname = rowData[@"club_name"];
 
-            if([aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
+            if([self.aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
             {
                 UIAlertView *alert = [[UIAlertView alloc]
                                       initWithTitle:rowData[@"club_name"]
@@ -163,7 +158,7 @@
 	if(buttonIndex == 1) //View Profile
 	{
 		NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-        [userInfo setObject:selected_clubid forKey:@"club_id"];
+        [userInfo setObject:self.selected_clubid forKey:@"club_id"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
                                                             object:self
                                                           userInfo:userInfo];
@@ -171,8 +166,8 @@
     else if(buttonIndex == 2) //Send Message
 	{
         NSString *isAlli = @"0";
-        NSString *toID = selected_clubid;
-        NSString *toName = selected_clubname;
+        NSString *toID = self.selected_clubid;
+        NSString *toName = self.selected_clubname;
         NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
         [userInfo setObject:isAlli forKey:@"is_alli"];
         [userInfo setObject:toID forKey:@"to_id"];
@@ -184,7 +179,7 @@
     else if(buttonIndex == 3) //Kick Out
 	{
         NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceKick/%@/%@/%@",
-                           [[Globals i] world_url], selected_aid, selected_clubid, selected_clubname];
+                           [[Globals i] world_url], self.selected_aid, self.selected_clubid, self.selected_clubname];
         
         [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
          {
@@ -192,8 +187,8 @@
              {
                  [self updateView];
                  
-                 NSInteger totalmembers = [aAlliance.total_members integerValue] - 1;
-                 aAlliance.total_members = [NSString stringWithFormat:@"%ld", (long)totalmembers];
+                 NSInteger totalmembers = [self.aAlliance.total_members integerValue] - 1;
+                 self.aAlliance.total_members = [NSString stringWithFormat:@"%ld", (long)totalmembers];
                  
                  [[Globals i] showDialog:@"Success! The Club will be informed in the News that they have been Kicked Out."];
              }

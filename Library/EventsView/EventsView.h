@@ -11,6 +11,7 @@
 @property (nonatomic, strong) NSArray *rows;
 @property (nonatomic, strong) NSString *serviceName;
 @property (nonatomic, strong) NSString *updateOnWillAppear;
+
 - (void)updateView;
 - (void)clearView;
 

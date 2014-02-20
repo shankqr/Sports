@@ -7,17 +7,14 @@
 //
 
 @interface AllianceCup : UITableViewController
-{
-	NSString *filter;
-	NSArray *matches;
-	NSString *alliance_id;
-	NSInteger curRound;
-	NSInteger totalRound;
-}
+
 @property (nonatomic, strong) NSString *filter;
 @property (nonatomic, strong) NSArray *matches;
 @property (nonatomic, strong) NSString *alliance_id;
-@property (readwrite) NSInteger curRound;
-@property (readwrite) NSInteger totalRound;
+
+@property (nonatomic, assign) NSInteger curRound;
+@property (nonatomic, assign) NSInteger totalRound;
+
 - (void)updateView;
+
 @end

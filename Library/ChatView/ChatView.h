@@ -8,17 +8,7 @@
 
 @interface ChatView : UIViewController
 <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
-{
-    NSString *allianceId;
-    NSString *postTable;
-    NSMutableArray *dataSource;
-    NSString *selected_clubid;
-    NSMutableArray *messages;
-    Boolean keyboardIsShowing;
-    CGRect keyboardBounds;
-	IBOutlet UITextField *messageText;
-	IBOutlet UITableView *messageList;
-}
+
 @property (nonatomic, strong) NSString *allianceId;
 @property (nonatomic, strong) NSString *postTable;
 @property (nonatomic, strong) NSMutableArray *dataSource;
@@ -26,5 +16,10 @@
 @property (nonatomic, strong) UITextField *messageText;
 @property (nonatomic, strong) UITableView *messageList;
 @property (nonatomic, strong) NSMutableArray *messages;
+
+@property (nonatomic, assign) Boolean keyboardIsShowing;
+@property (nonatomic, assign) CGRect keyboardBounds;
+
 - (void)updateView:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
+
 @end

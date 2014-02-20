@@ -25,7 +25,7 @@ static const NSInteger TagOffset = 1000;
 
 - (IBAction)closeButton_tap:(id)sender
 {
-    if (backActive)
+    if (self.backActive)
     {
         [self back];
     }
@@ -54,7 +54,7 @@ static const NSInteger TagOffset = 1000;
 {
 	[super viewDidLoad];
     
-    backActive = NO;
+    self.backActive = NO;
     
     CGRect rect = CGRectMake(SCREEN_OFFSET_X, SCREEN_OFFSET_MAINHEADER_Y, SCREEN_WIDTH, self.tabBarHeight);
     
@@ -518,12 +518,12 @@ static const NSInteger TagOffset = 1000;
     if ([pushedViewController[self.selectedIndex] count] == 0)
     {
         [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_close"] forState:UIControlStateNormal];
-        backActive = NO;
+        self.backActive = NO;
     }
     else
     {
         [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_back"] forState:UIControlStateNormal];
-        backActive = YES;
+        self.backActive = YES;
     }
 }
 

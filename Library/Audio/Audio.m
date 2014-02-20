@@ -9,7 +9,6 @@
 #import "Audio.h"
 
 @implementation Audio
-@synthesize config;
 
 static Audio *_i;
 

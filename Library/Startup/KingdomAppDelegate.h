@@ -8,13 +8,11 @@
 
 @class MainView;
 @interface KingdomAppDelegate : UIResponder <UIApplicationDelegate> 
-{
-    UIWindow *window;
-	MainView *mainView;
-    BOOL facebookSwitching;
-    BOOL beenSleeping;
-}
+
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) MainView *mainView;
+@property (nonatomic, assign) BOOL facebookSwitching;
+@property (nonatomic, assign) BOOL beenSleeping;
+
 @end
 

@@ -12,8 +12,6 @@
 #import <FacebookSDK/FacebookSDK.h>
 
 @implementation KingdomAppDelegate
-@synthesize window;
-@synthesize mainView;
 
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
@@ -22,7 +20,7 @@
 {
     [Apsalar startSession:@"tapfantasy" withKey:@"WlfzEz6F" andURL:url];
     
-    facebookSwitching = YES;
+    self.facebookSwitching = YES;
     // attempt to extract a token from the url
     return [FBSession.activeSession handleOpenURL:url];
 }
@@ -39,8 +37,8 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     [Flurry setCrashReportingEnabled:YES];
     [Flurry startSession:api_key];
     
-    facebookSwitching = NO;
-    beenSleeping = NO;
+    self.facebookSwitching = NO;
+    self.beenSleeping = NO;
     
 	// launchOptions has the incoming notification if we're being launched after the user tapped "view"
 	NSLog( @"didFinishLaunchingWithOptions:%@", launchOptions );
@@ -53,10 +51,10 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.mainView = [[MainView alloc] init];
-    [window setRootViewController:mainView];
-	[window makeKeyAndVisible];
+    [self.window setRootViewController:self.mainView];
+	[self.window makeKeyAndVisible];
     
-    [mainView startUp]; //Called one time only
+    [self.mainView startUp]; //Called one time only
     
 	return YES;
 }
@@ -91,21 +89,21 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
     
     [[Globals i] resetLoginReminderNotification];
     
-    if (facebookSwitching)
+    if (self.facebookSwitching)
     {
-        facebookSwitching = NO;
+        self.facebookSwitching = NO;
     }
-    else if (beenSleeping)
+    else if (self.beenSleeping)
     {
-        beenSleeping = NO;
+        self.beenSleeping = NO;
         
-        [mainView reloadView];
+        [self.mainView reloadView];
     }
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    beenSleeping = YES;
+    self.beenSleeping = YES;
 }
 
 @end

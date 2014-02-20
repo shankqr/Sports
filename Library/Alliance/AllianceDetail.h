@@ -15,21 +15,7 @@
 @class AllianceCup;
 
 @interface AllianceDetail : UITableViewController
-{
-    NSArray *rows;
-    NSString *alliance_id;
-    AllianceObject *aAlliance;
-    AllianceCreate *allianceCreate;
-    AllianceEvents *allianceEvents;
-    AllianceDonations *allianceDonations;
-    AllianceApplicants *allianceApplicants;
-    AllianceMembers *allianceMembers;
-    AllianceCup *allianceCup0;
-    AllianceCup *allianceCup1;
-    AllianceCup *allianceCup2;
-    BOOL isMyAlliance;
-    BOOL isLeader;
-}
+
 @property (nonatomic, strong) NSArray *rows;
 @property (nonatomic, strong) NSString *alliance_id;
 @property (nonatomic, strong) AllianceObject *aAlliance;
@@ -41,6 +27,11 @@
 @property (nonatomic, strong) AllianceCup *allianceCup0;
 @property (nonatomic, strong) AllianceCup *allianceCup1;
 @property (nonatomic, strong) AllianceCup *allianceCup2;
+
+@property (nonatomic, assign) BOOL isMyAlliance;
+@property (nonatomic, assign) BOOL isLeader;
+
 - (void)updateView;
 - (void)scrollToTop;
+
 @end

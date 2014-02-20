@@ -11,9 +11,6 @@
 #import "Globals.h"
 
 @implementation MailDetail
-@synthesize mailData;
-@synthesize rows;
-@synthesize mailReply;
 
 - (void)viewDidLoad
 {
@@ -34,7 +31,7 @@
 
 - (void)getReplies
 {
-    [[Globals i] updateMailReply:mailData[@"mail_id"]];
+    [[Globals i] updateMailReply:self.mailData[@"mail_id"]];
 }
 
 - (void)scrollUp
@@ -46,23 +43,23 @@
 {
     NSString *content;
     
-    if ([mailData[@"title"] isEqualToString:@""])
+    if ([self.mailData[@"title"] isEqualToString:@""])
     {
         content = @"Message";
     }
     else
     {
-        content = mailData[@"title"];
+        content = self.mailData[@"title"];
     }
     
     NSDictionary *rowHeader1 = @{@"h1": content};
-    NSDictionary *row1 = @{@"r1": mailData[@"club_name"], @"r2": mailData[@"message"], @"r3": [[Globals i] getTimeAgo:mailData[@"date_posted"]]};
+    NSDictionary *row1 = @{@"r1": self.mailData[@"club_name"], @"r2": self.mailData[@"message"], @"r3": [[Globals i] getTimeAgo:self.mailData[@"date_posted"]]};
     NSArray *rows1 = @[rowHeader1, row1];
     
     [Apsalar event:@"Mail_Open" withArgs:row1];
     [Flurry logEvent:@"Mail_Open" withParameters:row1];
     
-    NSArray *rows2 = [[Globals i] findMailReply:mailData[@"mail_id"]];
+    NSArray *rows2 = [[Globals i] findMailReply:self.mailData[@"mail_id"]];
     NSDictionary *rowData;
     NSMutableArray *rowTemp = [[NSMutableArray alloc] init];
     NSDictionary *rowHeader2 = @{@"h1": @"Replies"};
@@ -78,7 +75,7 @@
     NSDictionary *rowDelete = @{@"r1": @"Delete", @"r1_center": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowHeader, rowReply, rowDelete];
     
-    if (![mailData[@"club_id"] isEqualToString:@"0"])
+    if (![self.mailData[@"club_id"] isEqualToString:@"0"])
     {
         NSDictionary *rowProfile = @{@"r1": @"View Sender's Profile",  @"r1_center": @"1", @"i2": @"arrow_right"};
         rows3 = @[rowHeader, rowReply, rowDelete, rowProfile];
@@ -130,21 +127,21 @@
     {
         if(indexPath.row == 1)
         {
-            mailReply = [[MailReply alloc] initWithStyle:UITableViewStylePlain];
-            mailReply.mailData = self.mailData;
-            [mailReply updateView];
-            [[Globals i] pushTemplateNav:mailReply];
+            self.mailReply = [[MailReply alloc] initWithStyle:UITableViewStylePlain];
+            self.mailReply.mailData = self.mailData;
+            [self.mailReply updateView];
+            [[Globals i] pushTemplateNav:self.mailReply];
         }
         else if(indexPath.row == 2) //Delete
         {
             NSString *wsurl = [NSString stringWithFormat:@"%@/DeleteMail/%@/%@",
-                               [[Globals i] world_url], mailData[@"mail_id"], [[Globals i] wsClubData][@"club_id"]];
+                               [[Globals i] world_url], self.mailData[@"mail_id"], [[Globals i] wsClubData][@"club_id"]];
             
             [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
              {
                  if (success)
                  {
-                     [[Globals i] deleteLocalMail:mailData[@"mail_id"]];
+                     [[Globals i] deleteLocalMail:self.mailData[@"mail_id"]];
                      [[Globals i] backTemplate];
                      
                      [[Globals i] showToast:@"Mail Deleted!"
@@ -156,7 +153,7 @@
         else if(indexPath.row == 3) //View senders profile
         {
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-            [userInfo setObject:mailData[@"club_id"] forKey:@"club_id"];
+            [userInfo setObject:self.mailData[@"club_id"] forKey:@"club_id"];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
                                                                 object:self
                                                               userInfo:userInfo];

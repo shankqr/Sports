@@ -10,12 +10,6 @@
 #import "Globals.h"
 
 @implementation MailCompose
-@synthesize isAlliance;
-@synthesize toID;
-@synthesize toName;
-@synthesize rows;
-@synthesize inputCell1;
-@synthesize inputCell2;
 
 - (void)viewDidLoad
 {
@@ -58,10 +52,10 @@
 
 - (void)updateInputs
 {
-    inputCell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-    inputCell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+    self.inputCell1 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+    self.inputCell2 = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
     
-    UITextField *tvName = (UITextField *)[inputCell1 viewWithTag:6];
+    UITextField *tvName = (UITextField *)[self.inputCell1 viewWithTag:6];
     
     if ([self.isAlliance isEqualToString:@"1"])
     {
@@ -110,8 +104,8 @@
 {
     if (indexPath.section == [self.rows count]-1)
     {
-        UITextField *tvName = (UITextField *)[inputCell1 viewWithTag:6];
-        UITextView *tvMessage = (UITextView *)[inputCell2 viewWithTag:7];
+        UITextField *tvName = (UITextField *)[self.inputCell1 viewWithTag:6];
+        UITextView *tvMessage = (UITextView *)[self.inputCell2 viewWithTag:7];
         
         if(indexPath.row == 0) //Send Mail
         {

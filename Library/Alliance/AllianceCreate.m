@@ -10,11 +10,6 @@
 #import "Globals.h"
 
 @implementation AllianceCreate
-@synthesize rows;
-@synthesize inputCell1;
-@synthesize inputCell2;
-@synthesize nameText;
-@synthesize descriptionText;
 
 - (void)viewDidLoad
 {
@@ -30,11 +25,11 @@
 {
     if (createMode)
     {
-        isCreate = YES;
+        self.isCreate = YES;
     }
     else
     {
-        isCreate = NO;
+        self.isCreate = NO;
     }
     
     NSDictionary *rowHeader1 = @{@"h1": @"Alliance Name"};
@@ -47,7 +42,7 @@
     
     NSDictionary *rowHeader3 = @{@"h1": @"Options"};
     NSDictionary *rowDone = @{@"r1": @"Save", @"r1_center": @"1"};
-    if (isCreate)
+    if (self.isCreate)
     {
         rowDone = @{@"r1": @"Create Alliance", @"r1_center": @"1"};
     }
@@ -91,11 +86,11 @@
 {
     if (indexPath.section == [self.rows count]-1)
     {
-        inputCell1 = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
-        UITextField *tvName = (UITextField *)[inputCell1 viewWithTag:6];
+        self.inputCell1 = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:0]];
+        UITextField *tvName = (UITextField *)[self.inputCell1 viewWithTag:6];
         
-        inputCell2 = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
-        UITextView *tvDesc = (UITextView *)[inputCell2 viewWithTag:7];
+        self.inputCell2 = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:1 inSection:1]];
+        UITextView *tvDesc = (UITextView *)[self.inputCell2 viewWithTag:7];
         
         if(indexPath.row == 1) //Save or Create
         {
@@ -104,7 +99,7 @@
                 [tvName resignFirstResponder];
                 [tvDesc resignFirstResponder];
                 
-                if (isCreate)
+                if (self.isCreate)
                 {
                     [self postAllianceCreate:tvName.text withDesc:tvDesc.text];
                 }

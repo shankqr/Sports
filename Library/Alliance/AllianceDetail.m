@@ -46,8 +46,8 @@
 
 - (void)updateView
 {
-    isMyAlliance = NO;
-    isLeader = NO;
+    self.isMyAlliance = NO;
+    self.isLeader = NO;
     
     if (aAlliance != nil)
     {
@@ -78,27 +78,27 @@
 {
     if([aAlliance.alliance_id isEqualToString:[[Globals i] wsClubData][@"alliance_id"]]) //You are in this alliance
     {
-        isMyAlliance = YES;
+        self.isMyAlliance = YES;
     }
     else
     {
-        isMyAlliance = NO;
+        self.isMyAlliance = NO;
     }
     
     if([aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
     {
-        isLeader = YES;
+        self.isLeader = YES;
     }
     else
     {
-        isLeader = NO;
+        self.isLeader = NO;
     }
     
     NSArray *rows1 = nil;
     
-    if (isMyAlliance)
+    if (self.isMyAlliance)
     {
-        if (isLeader)
+        if (self.isLeader)
         {
             NSDictionary *row0 = @{@"h1": @"Options"};
             NSDictionary *row1 = @{@"r1": @"Leave this Alliance", @"i2": @"arrow_right"};
@@ -136,7 +136,7 @@
     NSDictionary *row30 = @{@"h1": @"Details"};
     NSDictionary *row31 = @{@"r1": @"Alliance Name", @"r2": aAlliance.name};
     NSDictionary *row32;
-    if (isLeader)
+    if (self.isLeader)
     {
         row32 = @{@"r1": @"Leader", @"r2": aAlliance.leader_name};
     }
@@ -211,7 +211,7 @@
     {
         if(indexPath.row == 1) //Join or Leave
         {
-            if (isMyAlliance)
+            if (self.isMyAlliance)
             {
                 [self leaveButton_tap];
             }
@@ -282,7 +282,7 @@
     {
         if(indexPath.row == 2) //Message to Leader
         {
-            if (!isLeader)
+            if (!self.isLeader)
             {
                 NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
                 [userInfo setObject:aAlliance.leader_id forKey:@"club_id"];
@@ -333,28 +333,28 @@
         }
         else if(indexPath.row == 9) //Donate Diamonds
         {
-            if (isMyAlliance)
+            if (self.isMyAlliance)
             {
                 [self donateDiamonds];
             }
         }
         else if(indexPath.row == 10) //Donate Funds
         {
-            if (isMyAlliance)
+            if (self.isMyAlliance)
             {
                 [self donateFunds];
             }
         }
         else if(indexPath.row == 13) //1st Prize
         {
-            if (isLeader)
+            if (self.isLeader)
             {
                 [self setPrize1];
             }
         }
         else if(indexPath.row == 14) //2nd Prize
         {
-            if (isLeader)
+            if (self.isLeader)
             {
                 [self setPrize2];
             }

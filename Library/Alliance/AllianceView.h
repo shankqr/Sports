@@ -9,26 +9,9 @@
 @class AllianceDetail;
 @class AllianceCreate;
 @interface AllianceView : UITableViewController <UISearchDisplayDelegate, UISearchBarDelegate>
-{
-    UISearchBar *searchBar;
-    UISearchDisplayController *searchDisplayController;
-	NSMutableArray *allianceArray;
-    AllianceDetail *allianceViewer;
-    AllianceCreate *allianceCreate;
-    NSString *selected_id;
-    NSString *selected_name;
-	NSMutableDictionary *allianceDictionary;
-	NSMutableDictionary *nameIndexesDictionary;
-	NSArray *nameIndexArray;
-	NSMutableArray *allListContent;
-	NSMutableArray *filteredListContent;
-    NSString *savedSearchTerm;
-    NSInteger savedScopeButtonIndex;
-    NSString *updateOnWillAppear;
-    BOOL searchWasActive;
-}
+
 @property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UISearchDisplayController *searchDisplayController;
+@property (nonatomic, strong) UISearchDisplayController *searchDisplayController1;
 @property (nonatomic, strong) NSMutableArray *allianceArray;
 @property (nonatomic, strong) AllianceDetail *allianceViewer;
 @property (nonatomic, strong) AllianceCreate *allianceCreate;
@@ -41,7 +24,10 @@
 @property (nonatomic, strong) NSMutableArray *allListContent;
 @property (nonatomic, strong) NSMutableArray *filteredListContent;
 @property (nonatomic, copy) NSString *savedSearchTerm;
-@property (nonatomic) NSInteger savedScopeButtonIndex;
-@property (nonatomic) BOOL searchWasActive;
+
+@property (nonatomic, assign) NSInteger savedScopeButtonIndex;
+@property (nonatomic, assign) BOOL searchWasActive;
+
 - (void)updateView;
+
 @end

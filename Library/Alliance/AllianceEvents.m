@@ -11,8 +11,6 @@
 #import "Globals.h"
 
 @implementation AllianceEvents
-@synthesize rows;
-@synthesize aAlliance;
 
 - (void)viewDidLoad
 {
@@ -41,7 +39,7 @@
 - (void)updateView
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceEvents/%@",
-                       [[Globals i] world_url], aAlliance.alliance_id];
+                       [[Globals i] world_url], self.aAlliance.alliance_id];
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {

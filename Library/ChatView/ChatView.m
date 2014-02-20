@@ -10,21 +10,14 @@
 #import "Globals.h"
 
 @implementation ChatView
-@synthesize allianceId;
-@synthesize postTable;
-@synthesize dataSource;
-@synthesize selected_clubid;
-@synthesize messages;
-@synthesize messageText;
-@synthesize messageList;
 
 - (void)viewDidLoad 
 {
     [super viewDidLoad];
 	
-	messageList.dataSource = self;
-	messageList.delegate = self;
-	messageText.delegate = self;
+	self.messageList.dataSource = self;
+	self.messageList.delegate = self;
+	self.messageText.delegate = self;
     
     self.allianceId = @"0";
 }
@@ -39,23 +32,23 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    if (!keyboardIsShowing)
+    if (!self.keyboardIsShowing)
     {
-        keyboardIsShowing = YES;
+        self.keyboardIsShowing = YES;
         if (iPad)
         {
-            keyboardBounds = CGRectMake(0, 1024, 768, 264);
+            self.keyboardBounds = CGRectMake(0, 1024, 768, 264);
         }
         else
         {
-            keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
+            self.keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
         }
         
         [self resizeViewControllerToFitScreen];
         
         if([self.messages count] > 0)
         {
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
             [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
     }
@@ -65,8 +58,8 @@
 {
     [self.messageText resignFirstResponder];
     
-	keyboardIsShowing = NO;
-	keyboardBounds = CGRectMake(0, 0, 0, 0);
+	self.keyboardIsShowing = NO;
+	self.keyboardBounds = CGRectMake(0, 0, 0, 0);
 	[self resizeViewControllerToFitScreen];
 }
 
@@ -76,10 +69,10 @@
     [UIView setAnimationBeginsFromCurrentState:YES];
     [UIView setAnimationDuration:0.3f];
     
-	if (keyboardIsShowing)
+	if (self.keyboardIsShowing)
     {
-        self.messageList.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-31-keyboardBounds.size.height);
-        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31-keyboardBounds.size.height, self.view.frame.size.width, 31);
+        self.messageList.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-31-self.keyboardBounds.size.height);
+        self.messageText.frame = CGRectMake(0, self.view.frame.size.height-31-self.keyboardBounds.size.height, self.view.frame.size.width, 31);
     }
     else
     {
@@ -101,10 +94,10 @@
     [self resizeViewControllerToFitScreen];
     
     self.messages = [[NSMutableArray alloc] initWithArray:self.dataSource copyItems:YES];
-    [messageList reloadData];
+    [self.messageList reloadData];
     if([self.messages count] > 0)
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
         [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
     
@@ -126,7 +119,7 @@
 
 - (void)sendClicked
 {
-	if([messageText.text length] > 0)
+	if([self.messageText.text length] > 0)
     {
         NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                               [[Globals i] wsClubData][@"club_id"],
@@ -137,7 +130,7 @@
                               @"alliance_id",
                               [[Globals i] wsClubData][@"alliance_name"],
                               @"alliance_name",
-                              messageText.text,
+                              self.messageText.text,
                               @"message",
                               self.postTable,
                               @"table_name",
@@ -162,13 +155,13 @@
         }
         if([self.messages count] > 0)
         {
-            [messageList reloadData];
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+            [self.messageList reloadData];
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
             [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
         }
 	}
     
-	messageText.text = @"";
+	self.messageText.text = @"";
 }
 
 - (void)refreshMessagesWorld
@@ -176,8 +169,8 @@
     if([self.dataSource count] > [self.messages count])
     {
         self.messages = [[NSMutableArray alloc] initWithArray:self.dataSource copyItems:YES];
-        [messageList reloadData];
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+        [self.messageList reloadData];
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
         [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
@@ -187,8 +180,8 @@
     if([self.dataSource count] > [self.messages count])
     {
         self.messages = [[NSMutableArray alloc] initWithArray:self.dataSource copyItems:YES];
-        [messageList reloadData];
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([messages count] - 1) inSection:0];
+        [self.messageList reloadData];
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:([self.messages count] - 1) inSection:0];
         [[self messageList] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
     }
 }
@@ -209,7 +202,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)myTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [DynamicCell dynamicCell:messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    return [DynamicCell dynamicCell:self.messageList rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -229,7 +222,7 @@
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    if (keyboardIsShowing)
+    if (self.keyboardIsShowing)
     {
         [self keyboardWillHide];
     }
@@ -241,16 +234,16 @@
 	
     if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
     {
-        selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
+        self.selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
 	
-        if (keyboardIsShowing)
+        if (self.keyboardIsShowing)
         {
             [self keyboardWillHide];
         }
         
         //Show club viewer
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-        [userInfo setObject:selected_clubid forKey:@"club_id"];
+        [userInfo setObject:self.selected_clubid forKey:@"club_id"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewProfile"
                                                             object:self
                                                           userInfo:userInfo];

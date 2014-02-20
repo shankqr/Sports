@@ -11,27 +11,22 @@
 #import "Globals.h"
 
 @implementation AllianceCup
-@synthesize filter;
-@synthesize matches;
-@synthesize alliance_id;
-@synthesize curRound;
-@synthesize totalRound;
 
 - (void)updateView
 {
-    if ([filter isEqualToString:@"minus0"])
+    if ([self.filter isEqualToString:@"minus0"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound]];
+        [[Globals i] updateAllianceCupFixturesData:self.alliance_id round:[NSString stringWithFormat:@"%li", (long)self.curRound]];
         self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
-	else if ([filter isEqualToString:@"minus1"])
+	else if ([self.filter isEqualToString:@"minus1"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound-1]];
+        [[Globals i] updateAllianceCupFixturesData:self.alliance_id round:[NSString stringWithFormat:@"%li", (long)self.curRound-1]];
         self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
-	else if ([filter isEqualToString:@"minus2"])
+	else if ([self.filter isEqualToString:@"minus2"])
 	{
-        [[Globals i] updateAllianceCupFixturesData:alliance_id round:[NSString stringWithFormat:@"%li", (long)curRound-2]];
+        [[Globals i] updateAllianceCupFixturesData:self.alliance_id round:[NSString stringWithFormat:@"%li", (long)self.curRound-2]];
 		self.matches = [[Globals i] getAllianceCupFixturesData];
 	}
     

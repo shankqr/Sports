@@ -9,19 +9,6 @@
 #import "DialogBoxView.h"
 
 @implementation DialogBoxView
-@synthesize delegate;
-@synthesize inputText;
-@synthesize titleLabel;
-@synthesize promptLabel;
-@synthesize whiteLabel;
-@synthesize titleText;
-@synthesize whiteText;
-@synthesize promptText;
-@synthesize keyboardType;
-@synthesize dialogType;
-@synthesize closeButton;
-@synthesize yesButton;
-@synthesize noButton;
 
 - (IBAction)closeButton_tap:(id)sender
 {
@@ -40,13 +27,13 @@
 
 - (void)done
 {
-    if ((dialogType == 4) || (dialogType == 5) || (dialogType == 6))
+    if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
     {
-        if([inputText.text isEqualToString:@""])
+        if([self.inputText.text isEqualToString:@""])
         {
             
         }
-        else if ([[inputText.text substringWithRange:NSMakeRange(0,1)] isEqualToString:@" "])
+        else if ([[self.inputText.text substringWithRange:NSMakeRange(0,1)] isEqualToString:@" "])
         {
             UIAlertView *alert = [[UIAlertView alloc]
                                   initWithTitle:@"Invalid Input"
@@ -58,20 +45,20 @@
         }
         else
         {
-            titleLabel.text = @"";
-            whiteLabel.text = @"";
-            promptLabel.text = @"";
+            self.titleLabel.text = @"";
+            self.whiteLabel.text = @"";
+            self.promptLabel.text = @"";
             
             [self.view removeFromSuperview];
             
             if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
             {
-                [delegate returnText:inputText.text];
+                [self.delegate returnText:self.inputText.text];
             }
             
             if (self.dialogBlock != nil)
             {
-                self.dialogBlock(1, inputText.text);
+                self.dialogBlock(1, self.inputText.text);
             }
         }
     }
@@ -79,7 +66,7 @@
     {
         [self.view removeFromSuperview];
         
-        [delegate returnDialog:self.view.tag];
+        [self.delegate returnDialog:self.view.tag];
         
         if (self.dialogBlock != nil)
         {
@@ -90,40 +77,40 @@
 
 - (void)updateView
 {
-	titleLabel.text = titleText;
-    whiteLabel.text = whiteText;
-	promptLabel.text = promptText;
+	self.titleLabel.text = self.titleText;
+    self.whiteLabel.text = self.whiteText;
+	self.promptLabel.text = self.promptText;
     
-    if (dialogType == 0)
+    if (self.dialogType == 0)
     {
         [self setup0];
     }
     
-    if (dialogType == 1) 
+    if (self.dialogType == 1)
     {
         [self setup1];
     }
     
-    if (dialogType == 2) 
+    if (self.dialogType == 2)
     {
         [self setup2];
     }
     
-    if (dialogType == 4)
+    if (self.dialogType == 4)
     {
-        inputText.keyboardType = UIKeyboardTypeEmailAddress;
+        self.inputText.keyboardType = UIKeyboardTypeEmailAddress;
         [self setupInput];
     }
     
-    if (dialogType == 5)
+    if (self.dialogType == 5)
     {
-        inputText.keyboardType = UIKeyboardTypeNumberPad;
+        self.inputText.keyboardType = UIKeyboardTypeNumberPad;
         [self setupInput];
     }
     
-    if (dialogType == 6)
+    if (self.dialogType == 6)
     {
-        inputText.keyboardType = UIKeyboardTypeNamePhonePad;
+        self.inputText.keyboardType = UIKeyboardTypeNamePhonePad;
         [self setupInput];
     }
 	
@@ -132,97 +119,97 @@
 
 - (void)setup0
 {
-    [promptLabel setHidden:YES];
-    [noButton setHidden:YES];
-    [titleLabel setHidden:NO];
-    [whiteLabel setHidden:NO];
-    [inputText setHidden:YES];
-    [yesButton setHidden:YES];
-    [closeButton setHidden:YES];
+    [self.promptLabel setHidden:YES];
+    [self.noButton setHidden:YES];
+    [self.titleLabel setHidden:NO];
+    [self.whiteLabel setHidden:NO];
+    [self.inputText setHidden:YES];
+    [self.yesButton setHidden:YES];
+    [self.closeButton setHidden:YES];
 }
 
 - (void)setup1 //OK
 {
-    [titleLabel setHidden:NO];
-    [whiteLabel setHidden:NO];
-    [promptLabel setHidden:NO];
-    [inputText setHidden:YES];
-    [yesButton setHidden:YES];
-    [noButton setHidden:NO];
-    [closeButton setHidden:YES];
+    [self.titleLabel setHidden:NO];
+    [self.whiteLabel setHidden:NO];
+    [self.promptLabel setHidden:NO];
+    [self.inputText setHidden:YES];
+    [self.yesButton setHidden:YES];
+    [self.noButton setHidden:NO];
+    [self.closeButton setHidden:YES];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         CGRect buttonRect = CGRectMake(294, 570, 180, 90);
-        noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
+        self.noButton.frame = buttonRect;
+        [self.noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}
     else
     {
         CGRect buttonRect = CGRectMake(115, 256, 90, 45);
-        noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
+        self.noButton.frame = buttonRect;
+        [self.noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }
 }
 
 - (void)setup2 //YES NO
 {
-    [titleLabel setHidden:NO];
-    [whiteLabel setHidden:NO];
-    [promptLabel setHidden:NO];
-    [inputText setHidden:YES];
-    [yesButton setHidden:NO];
-    [noButton setHidden:NO];
-    [closeButton setHidden:YES];
+    [self.titleLabel setHidden:NO];
+    [self.whiteLabel setHidden:NO];
+    [self.promptLabel setHidden:NO];
+    [self.inputText setHidden:YES];
+    [self.yesButton setHidden:NO];
+    [self.noButton setHidden:NO];
+    [self.closeButton setHidden:YES];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         CGRect buttonRect = CGRectMake(166, 570, 180, 90);
-        yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
+        self.yesButton.frame = buttonRect;
+        [self.yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
         
         buttonRect = CGRectMake(422, 570, 180, 90);
-        noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
+        self.noButton.frame = buttonRect;
+        [self.noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
     }
     else
     {
         CGRect buttonRect = CGRectMake(50, 256, 90, 45);
-        yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
+        self.yesButton.frame = buttonRect;
+        [self.yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
         
         buttonRect = CGRectMake(180, 256, 90, 45);
-        noButton.frame = buttonRect;
-        [noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
+        self.noButton.frame = buttonRect;
+        [self.noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
     }
 }
 
 - (void)setupInput
 {
-    [promptLabel setHidden:YES];
-    [noButton setHidden:YES];
+    [self.promptLabel setHidden:YES];
+    [self.noButton setHidden:YES];
     
-    [titleLabel setHidden:YES];
-    [whiteLabel setHidden:NO];
-    [inputText setHidden:NO];
-    [yesButton setHidden:NO];
-    [closeButton setHidden:NO];
+    [self.titleLabel setHidden:YES];
+    [self.whiteLabel setHidden:NO];
+    [self.inputText setHidden:NO];
+    [self.yesButton setHidden:NO];
+    [self.closeButton setHidden:NO];
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
         CGRect buttonRect = CGRectMake(294, 570, 180, 90);
-        yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
+        self.yesButton.frame = buttonRect;
+        [self.yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
 	}
     else
     {
         CGRect buttonRect = CGRectMake(115, 240, 90, 45);
-        yesButton.frame = buttonRect;
-        [yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
+        self.yesButton.frame = buttonRect;
+        [self.yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
     }
     
-    inputText.delegate = self;
-	[inputText becomeFirstResponder];
+    self.inputText.delegate = self;
+	[self.inputText becomeFirstResponder];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)theTextField 

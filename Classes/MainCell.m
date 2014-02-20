@@ -246,7 +246,7 @@
         }
         else
         {
-            self.labelSale.text = @"Ending in";
+            self.labelSale.text = @"SALE!";
             
             [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
                                        forState:UIControlStateNormal];
@@ -393,11 +393,11 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
-    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MENU_FONT_SIZE];
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:MENU_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor clearColor];
-	myLabel.shadowColor = [UIColor grayColor];
-	myLabel.shadowOffset = CGSizeMake(1,1);
-	myLabel.textColor = [UIColor blackColor];
+	//myLabel.shadowColor = [UIColor grayColor];
+	//myLabel.shadowOffset = CGSizeMake(1,1);
+	myLabel.textColor = [UIColor whiteColor];
 	myLabel.textAlignment = NSTextAlignmentCenter;
 	myLabel.numberOfLines = 1;
 	myLabel.adjustsFontSizeToFitWidth = YES;

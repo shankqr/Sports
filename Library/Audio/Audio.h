@@ -11,7 +11,6 @@
 @interface Audio : NSObject
 {
     NSMutableArray *backgroundMusic;
-    NSDictionary *config;
     int currentTrack;
     
     AVAudioPlayer *fxArmPulled;
