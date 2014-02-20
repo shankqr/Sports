@@ -275,7 +275,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Send to Special Training";
-        dialogBox.whiteText = squadView.sel_player_name;
+        dialogBox.whiteText = @"";
         dialogBox.promptText = [NSString stringWithFormat:@"Send %@ to Special Training for 5 Diamonds? One of %@'s skill will level up after special training.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
@@ -354,7 +354,7 @@
             [self close];
             
             dialogBox.titleText = @"Player Sold";
-            dialogBox.whiteText = squadView.sel_player_name;
+            dialogBox.whiteText = @"";
             dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
                                     squadView.sel_player_name, squadView.sel_player_halfvalue, (unsigned long)squadView.players.count];
             dialogBox.dialogType = 1;
