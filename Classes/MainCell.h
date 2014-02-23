@@ -40,5 +40,7 @@
 - (void)updateAchievementBadges;
 - (void)updateMailBadges;
 - (void)updateSalesButton;
+- (void)updateEventSoloButton;
+- (void)updateEventAllianceButton;
 
 @end

@@ -285,7 +285,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     if ([[notification name] isEqualToString:@"ViewSales"])
     {
-        [self showSales];
+        [self showSalesLoading];
     }
     
     if ([[notification name] isEqualToString:@"EventSolo"])
@@ -455,6 +455,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              [self showChallengeBox];
              
              [self showMail];
+             
+             [self.cell updateEventSoloButton];
              
              //Show sales if available
              [self showSales];
@@ -1346,8 +1348,40 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         [self.salesView updateView];
         
         [self.cell updateSalesButton];
-        [self.mainTableView reloadData];
+        //[self.mainTableView reloadData];
     }
+}
+
+- (void)showSalesLoading
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetSales", WS_URL];
+    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{ //Update UI on main thread
+                 NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+
+                 if (returnArray != nil)
+                 {
+                     if ([returnArray count] > 0)
+                     {
+                         [Globals i].wsSalesData = returnArray[0];
+                     
+                         if (self.salesView == nil)
+                         {
+                             self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
+                         }
+                         [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
+                         [self.salesView updateView];
+                 
+                         [self.cell updateSalesButton];
+                         [self.mainTableView reloadData];
+                     }
+                 }
+             });
+         }
+     }];
 }
 
 - (void)showJobRefill

@@ -72,18 +72,17 @@
 	}
     else
     {
-        NSInteger the_xp = [row1[@"xp"] integerValue];
-        NSInteger the_level = [[Globals i] levelFromXp:the_xp];
-        NSString *c1 = [[Globals i] intString:the_level];
-        
-        NSString *r1 = row1[@"club_name"];
-        
+        NSString *r2 = row1[@"club_name"];
         if ([row1[@"alliance_name"] length] > 2)
         {
-            r1 = [NSString stringWithFormat:@"%@ (%@)", row1[@"club_name"], row1[@"alliance_name"]];
+            r2 = [NSString stringWithFormat:@"(%@)", row1[@"alliance_name"]];
+        }
+        else
+        {
+            r2 = @"(NO ALLIANCE)";
         }
     
-        return @{@"align_top": @"1", @"r1": r1, @"r2": [NSString stringWithFormat:@"Level %@, Division:%@", c1, row1[@"division"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
+        return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": r2, @"r3": [NSString stringWithFormat:@"%@ XP Gained", row1[@"xp"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
     }
 }
 

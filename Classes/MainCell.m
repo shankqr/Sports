@@ -65,6 +65,36 @@
     }
 }
 
+- (void)updateEventSoloButton
+{
+    [self.buttonEventSolo removeFromSuperview];
+    [self.labelEventSolo removeFromSuperview];
+    
+    NSDictionary *wsData = [Globals i].wsSalesData;
+    if (wsData != nil)
+    {
+        //Update time left in seconds for sale to end
+        NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+        NSString *strDate = wsData[@"event_ending"];
+        strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
+        NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
+        NSTimeInterval endTime = [endDate timeIntervalSince1970];
+        self.b2s = endTime - serverTimeInterval;
+        
+        [self addEventSoloButton:@"Ending in" imageDefault:@"icon_event_solo1.png"];
+    }
+    else
+    {
+        self.b2s = 0;
+        [self addEventSoloButton:@"View Results" imageDefault:@"icon_event_solo1.png"];
+    }
+}
+
+- (void)updateEventAllianceButton
+{
+    
+}
+
 - (void)createAchievementBadges
 {
     if (self.achievementsBadge == nil)
@@ -250,6 +280,12 @@
             
             [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
                                        forState:UIControlStateNormal];
+            
+            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
+                                            forState:UIControlStateNormal];
+            
+            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
+                                                forState:UIControlStateNormal];
         }
     }
     
@@ -257,38 +293,17 @@
     {
         self.b2s = self.b2s-1;
         
-        if (self.timerIsShowing == YES)
-        {
-            NSString *labelString = [[Globals i] getCountdownString:self.b2s];
-            self.labelEventSolo.text = labelString;
-        }
-        else
-        {
-            self.labelEventSolo.text = @"Ending in";
-            
-            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
-                                       forState:UIControlStateNormal];
-        }
+        NSString *labelString = [[Globals i] getCountdownString:self.b2s];
+        self.labelEventSolo.text = labelString;
     }
     
     if (self.b3s > 0)
     {
         self.b3s = self.b3s-1;
         
-        if (self.timerIsShowing == YES)
-        {
-            NSString *labelString = [[Globals i] getCountdownString:self.b3s];
-            self.labelEventAlliance.text = labelString;
-        }
-        else
-        {
-            self.labelEventAlliance.text = @"Ending in";
-            
-            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
-                                            forState:UIControlStateNormal];
-        }
+        NSString *labelString = [[Globals i] getCountdownString:self.b3s];
+        self.labelEventAlliance.text = labelString;
     }
-    
 }
 
 - (void)showSlide
