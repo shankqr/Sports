@@ -1629,7 +1629,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     UIViewController *controller = [[UIViewController alloc] init];
     controller.view = webView;
     
-    [[Globals i] showTemplate:@[controller] :@"Help" :1];
+    [[Globals i] showTemplate:@[controller] :@"How To Play" :1];
 }
 
 - (void)showFinance

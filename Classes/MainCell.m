@@ -348,7 +348,7 @@
     [self addPosButton:@"INVITE" tag:21 imageDefault:@"button_friends"];
     [self addPosButton:@"FEEDBACK" tag:22 imageDefault:@"button_news"];
 	[self addPosButton:@"MORE" tag:23 imageDefault:@"button_more"];
-	[self addPosButton:@"HELP" tag:24 imageDefault:@"button_help"];
+	[self addPosButton:@"HOW TO PLAY" tag:24 imageDefault:@"button_help"];
     [self addPosButton:@"LOGOUT" tag:25 imageDefault:@"button_logout"];
 }
 

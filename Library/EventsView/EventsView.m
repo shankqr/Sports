@@ -35,7 +35,7 @@
              {
                  NSDictionary *row0 = @{@"h1": (returnArray)[0][@"event_row1"]};
                  
-                 [returnArray insertObject:row0 atIndex:0];
+                 NSDictionary *row1 = @{@"align_top": @"1", @"r1": (returnArray)[0][@"event_row2"], @"r2": (returnArray)[0][@"event_row3"]};
                  
                  //Update time left in seconds for event to end
                  NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
@@ -45,9 +45,14 @@
                  NSTimeInterval endTime = [endDate timeIntervalSince1970];
                  self.b1s = endTime - serverTimeInterval;
                  
-                 NSDictionary *row1 = @{@"align_top": @"1", @"r1": @"Ending in", @"r2": [[Globals i] getCountdownString:self.b1s]};
+                 NSDictionary *row2 = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
                  
+                 NSDictionary *row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp"]]};
+                 
+                 [returnArray insertObject:row0 atIndex:0];
                  [returnArray addObject:row1];
+                 [returnArray addObject:row2];
+                 [returnArray addObject:row3];
                  
                  self.rows = [@[returnArray] mutableCopy];
                  
@@ -81,6 +86,11 @@
                  
                  [self.rows addObject:returnArray];
                  
+                 if (!self.gameTimer.isValid)
+                 {
+                     self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+                 }
+                 
                  [self.tableView reloadData];
                  [self.view setNeedsDisplay];
              }
@@ -92,6 +102,21 @@
 - (void)clearView
 {
     self.rows = nil;
+    [self.tableView reloadData];
+    [self.view setNeedsDisplay];
+}
+
+- (void)onTimer
+{
+    self.b1s = self.b1s-1;
+    
+    [self redrawView];
+}
+
+- (void)redrawView
+{
+    self.rows[0][3] = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
+    
     [self.tableView reloadData];
     [self.view setNeedsDisplay];
 }
@@ -109,7 +134,7 @@
     {
         if (indexPath.section == 0) //Details row
         {
-            returnRow = @{@"align_top": @"1", @"r1": row1[@"event_row2"], @"r2": row1[@"event_row3"]};
+            returnRow = row1;
         }
         else
         {
