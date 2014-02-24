@@ -24,7 +24,7 @@
 #define Header_height (iPad ? 180.0f : 75.0f)
 #define SLIDE_x (iPad ? 0.0f : 0.0f)
 #define SLIDE_y (iPad ? 30.0f : 5.0f)
-#define SLIDE_width (iPad ? 600.0f : 300.0f)
+#define SLIDE_width (iPad ? 600.0f : 260.0f)
 #define SLIDE_height (iPad ? 320.0f : 160.0f)
 #define Marquee_height (iPad ? 40.0f : 21.0f)
 #define Chatpreview_height (iPad ? 110.0f : 55.0f)

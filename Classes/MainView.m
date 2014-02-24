@@ -1521,12 +1521,13 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.eventSoloView = [[EventsView alloc] initWithStyle:UITableViewStylePlain];
         self.eventSoloView.title = @"Solo Event";
-        self.eventSoloView.serviceName = @"GetEventSoloNow";
-        self.eventSoloView.updateOnWillAppear = @"0";
+        self.eventSoloView.isAlliance = @"0";
+        self.eventSoloView.serviceNameDetail = @"GetEventSolo";
+        self.eventSoloView.serviceNameList = @"GetEventSoloNow";
     }
     [self.eventSoloView updateView];
     
-    [[Globals i] showTemplate:@[self.eventSoloView] :@"Solo Event" :1];
+    [[Globals i] showTemplate:@[self.eventSoloView] :@"Solo Tournament" :1];
 }
 
 - (void)showEventAlliance
@@ -1535,12 +1536,13 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.eventAllianceView = [[EventsView alloc] initWithStyle:UITableViewStylePlain];
         self.eventAllianceView.title = @"Alliance Event";
-        self.eventAllianceView.serviceName = @"GetEventAllianceNow";
-        self.eventAllianceView.updateOnWillAppear = @"0";
+        self.eventSoloView.isAlliance = @"1";
+        self.eventSoloView.serviceNameDetail = @"GetEventAlliance";
+        self.eventSoloView.serviceNameList = @"GetEventAllianceNow";
     }
     [self.eventAllianceView updateView];
     
-    [[Globals i] showTemplate:@[self.eventAllianceView] :@"Alliance Event" :1];
+    [[Globals i] showTemplate:@[self.eventAllianceView] :@"Alliance Tournament" :1];
 }
 
 - (void)showSearch

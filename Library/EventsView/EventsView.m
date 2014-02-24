@@ -20,20 +20,10 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
-    
-    if ([self.updateOnWillAppear isEqualToString:@"1"])
-    {
-        [self updateView];
-    }
-}
-
 - (void)updateView
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/%@",
-                       [[Globals i] world_url], self.serviceName];
+                       [[Globals i] world_url], self.serviceNameDetail];
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
@@ -43,15 +33,59 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"h1": @"", @"r1": @"Club (Alliance)", @"c1": @"Rank"};
+                 NSDictionary *row0 = @{@"h1": (returnArray)[0][@"event_row1"]};
+                 
                  [returnArray insertObject:row0 atIndex:0];
                  
+                 //Update time left in seconds for event to end
+                 NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+                 NSString *strDate = (returnArray)[0][@"event_ending"];
+                 strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
+                 NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
+                 NSTimeInterval endTime = [endDate timeIntervalSince1970];
+                 self.b1s = endTime - serverTimeInterval;
+                 
+                 NSDictionary *row1 = @{@"align_top": @"1", @"r1": @"Ending in", @"r2": [[Globals i] getCountdownString:self.b1s]};
+                 
+                 [returnArray addObject:row1];
+                 
                  self.rows = [@[returnArray] mutableCopy];
+                 
+                 [self updateList];
              }
-             
-             [self.tableView reloadData];
-             [self.view setNeedsDisplay];
          }
+     }];
+}
+
+- (void)updateList
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/%@",
+                       [[Globals i] world_url], self.serviceNameList];
+    
+    [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+         if (success)
+         {
+             NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+             
+             if ([returnArray count] > 0)
+             {
+                 NSDictionary *row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Club (Alliance)", @"c1": @"XP Gain"};
+                 if ([self.isAlliance isEqualToString:@"1"])
+                 {
+                     row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Alliance", @"c1": @"XP Gain"};
+                 }
+                 
+                 [returnArray insertObject:row0 atIndex:0];
+                 
+                 [self.rows addObject:returnArray];
+                 
+                 [self.tableView reloadData];
+                 [self.view setNeedsDisplay];
+             }
+         }
+         });
      }];
 }
 
@@ -64,26 +98,43 @@
 
 - (NSDictionary *)getRowData:(NSIndexPath *)indexPath
 {
+    NSDictionary *returnRow;
     NSDictionary *row1 = (self.rows)[indexPath.section][indexPath.row];
     
     if (indexPath.row == 0) //Header row
     {
-        return row1;
+        returnRow = row1;
 	}
     else
     {
-        NSString *r2 = row1[@"club_name"];
-        if ([row1[@"alliance_name"] length] > 2)
+        if (indexPath.section == 0) //Details row
         {
-            r2 = [NSString stringWithFormat:@"(%@)", row1[@"alliance_name"]];
+            returnRow = @{@"align_top": @"1", @"r1": row1[@"event_row2"], @"r2": row1[@"event_row3"]};
         }
         else
         {
-            r2 = @"(NO ALLIANCE)";
+            if ([self.isAlliance isEqualToString:@"1"])
+            {
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"alliance_name"], @"c1": row1[@"xp"]};
+            }
+            else
+            {
+                NSString *r2 = row1[@"club_name"];
+                if ([row1[@"alliance_name"] length] > 2)
+                {
+                    r2 = [NSString stringWithFormat:@"(%@)", row1[@"alliance_name"]];
+                }
+                else
+                {
+                    r2 = @"(NO ALLIANCE)";
+                }
+        
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"club_name"], @"r2": r2, @"c1": row1[@"xp"]};
+            }
         }
-    
-        return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": r2, @"r3": [NSString stringWithFormat:@"%@ XP Gained", row1[@"xp"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
     }
+    
+    return returnRow;
 }
 
 #pragma mark Table Data Source Methods
@@ -110,11 +161,20 @@
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row > 0) //Not Header row
+    if ((indexPath.section > 0) && (indexPath.row > 0)) //Not Details and Header row
     {
         NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
         
-        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        if ([self.isAlliance isEqualToString:@"1"])
+        {
+            NSString *aid = rowData[@"alliance_id"];
+            NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+            [userInfo setObject:aid forKey:@"alliance_id"];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewAlliance"
+                                                                object:self
+                                                              userInfo:userInfo];
+        }
+        else if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
         {
             NSString *selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];

@@ -73,7 +73,7 @@
     NSDictionary *wsData = [Globals i].wsSalesData;
     if (wsData != nil)
     {
-        //Update time left in seconds for sale to end
+        //Update time left in seconds for event to end
         NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
         NSString *strDate = wsData[@"event_ending"];
         strDate = [NSString stringWithFormat:@"%@ -0000", strDate];

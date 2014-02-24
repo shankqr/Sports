@@ -124,6 +124,7 @@
     [self.row1 setNumberOfLines:0];
     [self.row1 setFont:[UIFont fontWithName:DEFAULT_FONT size:R1_FONT_SIZE]];
     [self.row1 setBackgroundColor:[UIColor clearColor]];
+    self.row1.minimumScaleFactor = 1.0;
     [self.row1 setTag:1];
     [self addSubview:self.row1];
     
@@ -132,6 +133,7 @@
     [self.row2 setFont:[UIFont fontWithName:DEFAULT_FONT size:R2_FONT_SIZE]];
     [self.row2 setBackgroundColor:[UIColor clearColor]];
     [self.row2 setTextColor:[UIColor crayolaBrownColor]];
+    self.row2.minimumScaleFactor = 1.0;
     [self.row2 setTag:2];
     [self addSubview:self.row2];
     
@@ -140,6 +142,7 @@
     [self.row3 setFont:[UIFont fontWithName:DEFAULT_FONT size:R3_FONT_SIZE]];
     [self.row3 setBackgroundColor:[UIColor clearColor]];
     [self.row3 setTextColor:[UIColor blackColor]];
+    self.row3.minimumScaleFactor = 1.0;
     [self.row3 setTag:13];
     [self addSubview:self.row3];
     

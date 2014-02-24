@@ -8,9 +8,12 @@
 
 @interface EventsView : UITableViewController
 
-@property (nonatomic, strong) NSArray *rows;
-@property (nonatomic, strong) NSString *serviceName;
-@property (nonatomic, strong) NSString *updateOnWillAppear;
+@property (nonatomic, strong) NSMutableArray *rows;
+@property (nonatomic, strong) NSString *serviceNameDetail;
+@property (nonatomic, strong) NSString *serviceNameList;
+@property (nonatomic, strong) NSString *isAlliance;
+@property (nonatomic, strong) NSTimer *gameTimer;
+@property (nonatomic, assign) NSTimeInterval b1s;
 
 - (void)updateView;
 - (void)clearView;
