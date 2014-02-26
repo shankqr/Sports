@@ -7,18 +7,15 @@
 //
 
 @class MainCell;
+
 @interface RankingSlide : UIViewController 
-{
-	MainCell *mainCell;
-	UILabel *divisionLabel;
-	UILabel *seriesLabel;
-	UILabel *positionLabel;
-	UILabel *undefeatedLabel;
-}
+
 @property (nonatomic, strong) MainCell *mainCell;
 @property (nonatomic, strong) IBOutlet UILabel *divisionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *seriesLabel;
 @property (nonatomic, strong) IBOutlet UILabel *positionLabel;
 @property (nonatomic, strong) IBOutlet UILabel *undefeatedLabel;
+
 - (void)updateView;
+
 @end

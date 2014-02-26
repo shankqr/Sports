@@ -11,11 +11,6 @@
 #import "MainCell.h"
 
 @implementation RankingSlide
-@synthesize mainCell;
-@synthesize divisionLabel;
-@synthesize seriesLabel;
-@synthesize positionLabel;
-@synthesize undefeatedLabel;
 
 - (void)viewDidLoad
 {
@@ -25,15 +20,15 @@
 - (void)updateView
 {
     NSDictionary *wsClubData = [[Globals i] getClubData];
-	divisionLabel.text = wsClubData[@"division"];
-	seriesLabel.text = wsClubData[@"series"];
-	positionLabel.text = wsClubData[@"league_ranking"];
-	undefeatedLabel.text = wsClubData[@"undefeated_counter"];
+	self.divisionLabel.text = wsClubData[@"division"];
+	self.seriesLabel.text = wsClubData[@"series"];
+	self.positionLabel.text = wsClubData[@"league_ranking"];
+	self.undefeatedLabel.text = wsClubData[@"undefeated_counter"];
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainCell changeSlideNow];
+	[self.mainCell changeSlideNow];
 }
 
 @end

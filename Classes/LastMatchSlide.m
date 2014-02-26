@@ -11,14 +11,6 @@
 #import "MainCell.h"
 
 @implementation LastMatchSlide
-@synthesize mainCell;
-@synthesize matchtypeImage;
-@synthesize clubName;
-@synthesize rivalName;
-@synthesize matchMonth;
-@synthesize matchDay;
-@synthesize clubScore;
-@synthesize rivalScore;
 
 - (void)viewDidLoad
 {
@@ -30,10 +22,10 @@
     if([[[Globals i] getMatchPlayedData] count] > 0)
 	{
 		NSDictionary *rowData = [[Globals i] getMatchPlayedData][0];
-		clubName.text = rowData[@"club_home_name"];
-		rivalName.text = rowData[@"club_away_name"];
-		clubScore.text = rowData[@"home_score"];
-		rivalScore.text = rowData[@"away_score"];
+		self.clubName.text = rowData[@"club_home_name"];
+		self.rivalName.text = rowData[@"club_away_name"];
+		self.clubScore.text = rowData[@"home_score"];
+		self.rivalScore.text = rowData[@"away_score"];
 		
 		NSArray *chunks = [rowData[@"match_datetime"] componentsSeparatedByString: @", "];
 		NSArray *chunks2 = [chunks[1] componentsSeparatedByString: @" "];
@@ -41,37 +33,37 @@
 		NSString *monthshort = [monthfull substringWithRange:NSMakeRange(0,3)];
 		NSString *daymonth = chunks2[1];
 		
-		matchMonth.text = [monthshort uppercaseString];
-		matchDay.text = daymonth;
+		self.matchMonth.text = [monthshort uppercaseString];
+		self.matchDay.text = daymonth;
 		
 		if ([rowData[@"match_type_id"] isEqualToString:@"1"])
 		{
-            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_league.png"]];
+            [self.matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_league.png"]];
 		}
 		else if ([rowData[@"match_type_id"] isEqualToString:@"3"])
 		{
-            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_friendly.png"]];
+            [self.matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_friendly.png"]];
 		}
 		else
 		{
-            [matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_cup.png"]];
+            [self.matchtypeImage setImage:[UIImage imageNamed:@"slide_prev_cup.png"]];
 		}
 	}
 	else
 	{
-		clubName.text = @"";
-		rivalName.text = @"";
-		clubScore.text = @"";
-		rivalScore.text = @"";
-		matchMonth.text = @"";
-		matchDay.text = @"";
-        [matchtypeImage setImage:nil];
+		self.clubName.text = @"";
+		self.rivalName.text = @"";
+		self.clubScore.text = @"";
+		self.rivalScore.text = @"";
+		self.matchMonth.text = @"";
+		self.matchDay.text = @"";
+        [self.matchtypeImage setImage:nil];
 	}
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainCell changeSlideNow];
+	[self.mainCell changeSlideNow];
 }
 
 @end

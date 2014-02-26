@@ -196,6 +196,13 @@
 
 - (void)drawCell:(NSDictionary *)rowData cellWidth:(float)cell_width
 {
+    [self.header1 setNumberOfLines:1];
+    [self.row1 setNumberOfLines:0];
+    [self.row2 setNumberOfLines:0];
+    [self.row3 setNumberOfLines:0];
+    [self.col1 setNumberOfLines:1];
+    [self.num1 setNumberOfLines:1];
+    
     self.cellRowData = rowData;
     self.cellWidth = cell_width;
     

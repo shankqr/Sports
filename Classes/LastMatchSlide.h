@@ -7,17 +7,9 @@
 //
 
 @class MainCell;
+
 @interface LastMatchSlide : UIViewController 
-{
-	MainCell *mainCell;
-	UIImageView *matchtypeImage;
-	UILabel *clubName;
-	UILabel *rivalName;
-	UILabel *matchMonth;
-	UILabel *matchDay;
-	UILabel *clubScore;
-	UILabel *rivalScore;
-}
+
 @property (nonatomic, strong) MainCell *mainCell;
 @property (nonatomic, strong) IBOutlet UIImageView *matchtypeImage;
 @property (nonatomic, strong) IBOutlet UILabel *clubName;
@@ -26,5 +18,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *matchDay;
 @property (nonatomic, strong) IBOutlet UILabel *clubScore;
 @property (nonatomic, strong) IBOutlet UILabel *rivalScore;
+
 - (void)updateView;
+
 @end

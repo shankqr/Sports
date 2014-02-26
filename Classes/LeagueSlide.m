@@ -11,12 +11,6 @@
 #import "MainCell.h"
 
 @implementation LeagueSlide
-@synthesize mainCell;
-@synthesize leagueRound;
-@synthesize leagueStartMonth;
-@synthesize leagueStartDay;
-@synthesize leagueEndMonth;
-@synthesize leagueEndDay;
 
 - (void)viewDidLoad
 {
@@ -26,7 +20,7 @@
 - (void)updateView
 {
     NSDictionary *wsSeasonData = [[Globals i] getCurrentSeasonData];
-	leagueRound.text = wsSeasonData[@"league_round"];
+	self.leagueRound.text = wsSeasonData[@"league_round"];
 	
 	NSArray *chunks = [wsSeasonData[@"league_start"] componentsSeparatedByString: @", "];
 	NSArray *chunks2 = [chunks[1] componentsSeparatedByString: @" "];
@@ -34,8 +28,8 @@
 	NSString *monthshort = [monthfull substringWithRange:NSMakeRange(0,3)];
 	NSString *daymonth = chunks2[1];
 	
-	leagueStartMonth.text = [monthshort uppercaseString];
-	leagueStartDay.text = daymonth;
+	self.leagueStartMonth.text = [monthshort uppercaseString];
+	self.leagueStartDay.text = daymonth;
 	
 	chunks = [wsSeasonData[@"league_end"] componentsSeparatedByString: @", "];
 	chunks2 = [chunks[1] componentsSeparatedByString: @" "];
@@ -43,13 +37,13 @@
 	monthshort = [monthfull substringWithRange:NSMakeRange(0,3)];
 	daymonth = chunks2[1];
 	
-	leagueEndMonth.text = [monthshort uppercaseString];
-	leagueEndDay.text = daymonth;
+	self.leagueEndMonth.text = [monthshort uppercaseString];
+	self.leagueEndDay.text = daymonth;
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 
 {
-	[mainCell changeSlideNow];
+	[self.mainCell changeSlideNow];
 }
 
 @end

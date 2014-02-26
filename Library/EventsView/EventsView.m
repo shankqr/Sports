@@ -47,7 +47,7 @@
                  
                  NSDictionary *row2 = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
                  
-                 NSDictionary *row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp"]]};
+                 NSDictionary *row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp_gain"]]};
                  
                  [returnArray insertObject:row0 atIndex:0];
                  [returnArray addObject:row1];
@@ -140,7 +140,7 @@
         {
             if ([self.isAlliance isEqualToString:@"1"])
             {
-                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"alliance_name"], @"c1": row1[@"xp"]};
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"alliance_name"], @"c1": row1[@"xp_gain"]};
             }
             else
             {
@@ -154,7 +154,7 @@
                     r2 = @"(NO ALLIANCE)";
                 }
         
-                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"club_name"], @"r2": r2, @"c1": row1[@"xp"]};
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"club_name"], @"r2": r2, @"c1": row1[@"xp_gain"]};
             }
         }
     }

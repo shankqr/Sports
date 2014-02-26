@@ -307,6 +307,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         
         // + XP to clubData
         [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+[xp_gain integerValue]];
+        [Globals i].wsClubData[@"xp_gain"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i].wsClubData[@"xp_gain"] integerValue]+[xp_gain integerValue]];
         
         NSInteger xp = [[Globals i] getXp];
         
