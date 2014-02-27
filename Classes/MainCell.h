@@ -25,9 +25,11 @@
 @property (nonatomic, strong) UIButton *buttonSale;
 @property (nonatomic, strong) UILabel *labelSale;
 @property (nonatomic, strong) UIButton *buttonEventSolo;
-@property (nonatomic, strong) UILabel *labelEventSolo;
+@property (nonatomic, strong) UILabel *labelEventSolo1;
+@property (nonatomic, strong) UILabel *labelEventSolo2;
 @property (nonatomic, strong) UIButton *buttonEventAlliance;
-@property (nonatomic, strong) UILabel *labelEventAlliance;
+@property (nonatomic, strong) UILabel *labelEventAlliance1;
+@property (nonatomic, strong) UILabel *labelEventAlliance2;
 
 @property (nonatomic, assign) NSInteger timerIndex;
 @property (nonatomic, assign) NSInteger s1;

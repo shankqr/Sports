@@ -459,6 +459,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              
              [self.cell updateEventSoloButton];
              
+             [self.cell updateEventAllianceButton];
+             
              //Show sales if available
              [self showSales];
              

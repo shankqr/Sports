@@ -165,6 +165,8 @@
 @property (nonatomic, strong) AVAudioPlayer *winAudio;
 @property (nonatomic, strong) AVAudioPlayer *loseAudio;
 @property (nonatomic, strong) NSDictionary *wsSalesData;
+@property (nonatomic, strong) NSDictionary *wsEventSolo;
+@property (nonatomic, strong) NSDictionary *wsEventAlliance;
 @property (nonatomic, strong) NSDictionary *wsProductIdentifiers;
 @property (nonatomic, strong) NSMutableDictionary *wsClubData;
 @property (nonatomic, strong) NSDictionary *wsBaseData;
@@ -476,5 +478,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (BOOL)updateSalesData;
 - (NSDateFormatter *)getDateFormat;
 - (void)closeAllTemplate;
+- (BOOL)updateEventSolo;
+- (BOOL)updateEventAlliance;
 
 @end

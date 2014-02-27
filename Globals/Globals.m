@@ -1613,6 +1613,48 @@ static NSOperationQueue *connectionQueue;
     return hasSale;
 }
 
+- (BOOL)updateEventSolo
+{
+    BOOL hasEvent = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventSolo",
+					   self.world_url];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsEventSolo = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasEvent = YES;
+    }
+    else
+    {
+        self.wsEventSolo = nil;
+    }
+    
+    return hasEvent;
+}
+
+- (BOOL)updateEventAlliance
+{
+    BOOL hasEvent = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventAlliance",
+					   self.world_url];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsEventAlliance = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasEvent = YES;
+    }
+    else
+    {
+        self.wsEventAlliance = nil;
+    }
+    
+    return hasEvent;
+}
+
 - (BOOL)updateClubData
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",

@@ -68,9 +68,12 @@
 - (void)updateEventSoloButton
 {
     [self.buttonEventSolo removeFromSuperview];
-    [self.labelEventSolo removeFromSuperview];
+    [self.labelEventSolo1 removeFromSuperview];
+    [self.labelEventSolo2 removeFromSuperview];
     
-    NSDictionary *wsData = [Globals i].wsSalesData;
+    [[Globals i] updateEventSolo];
+    
+    NSDictionary *wsData = [Globals i].wsEventSolo;
     if (wsData != nil)
     {
         //Update time left in seconds for event to end
@@ -80,19 +83,40 @@
         NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
         NSTimeInterval endTime = [endDate timeIntervalSince1970];
         self.b2s = endTime - serverTimeInterval;
-        
-        [self addEventSoloButton:@"Ending in" imageDefault:@"icon_event_solo1.png"];
     }
     else
     {
         self.b2s = 0;
-        [self addEventSoloButton:@"View Results" imageDefault:@"icon_event_solo1.png"];
     }
+    
+    [self addEventSoloButton:@"icon_event_solo1.png"];
 }
 
 - (void)updateEventAllianceButton
 {
+    [self.buttonEventAlliance removeFromSuperview];
+    [self.labelEventAlliance1 removeFromSuperview];
+    [self.labelEventAlliance2 removeFromSuperview];
     
+    [[Globals i] updateEventAlliance];
+    
+    NSDictionary *wsData = [Globals i].wsEventAlliance;
+    if (wsData != nil)
+    {
+        //Update time left in seconds for event to end
+        NSTimeInterval serverTimeInterval = [[Globals i] updateTime];
+        NSString *strDate = wsData[@"event_ending"];
+        strDate = [NSString stringWithFormat:@"%@ -0000", strDate];
+        NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
+        NSTimeInterval endTime = [endDate timeIntervalSince1970];
+        self.b3s = endTime - serverTimeInterval;
+    }
+    else
+    {
+        self.b3s = 0;
+    }
+    
+    [self addEventAllianceButton:@"icon_event_alliance1.png"];
 }
 
 - (void)createAchievementBadges
@@ -280,12 +304,6 @@
             
             [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
                                        forState:UIControlStateNormal];
-            
-            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
-                                            forState:UIControlStateNormal];
-            
-            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
-                                                forState:UIControlStateNormal];
         }
     }
     
@@ -293,16 +311,74 @@
     {
         self.b2s = self.b2s-1;
         
-        NSString *labelString = [[Globals i] getCountdownString:self.b2s];
-        self.labelEventSolo.text = labelString;
+        if (self.timerIsShowing == YES)
+        {
+            self.labelEventSolo1.text = @"Ending in";
+            
+            NSString *labelString = [[Globals i] getCountdownString:self.b2s];
+            self.labelEventSolo2.text = labelString;
+        }
+        else
+        {
+            self.labelEventSolo1.text = @"Solo";
+            self.labelEventSolo2.text = @"Tournament";
+            
+            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
+                                            forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        if (self.timerIsShowing == YES)
+        {
+            self.labelEventSolo1.text = @"View";
+            self.labelEventSolo2.text = @"Results";
+        }
+        else
+        {
+            self.labelEventSolo1.text = @"Solo";
+            self.labelEventSolo2.text = @"Tournament";
+            
+            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
+                                            forState:UIControlStateNormal];
+        }
     }
     
     if (self.b3s > 0)
     {
         self.b3s = self.b3s-1;
         
-        NSString *labelString = [[Globals i] getCountdownString:self.b3s];
-        self.labelEventAlliance.text = labelString;
+        if (self.timerIsShowing == YES)
+        {
+            self.labelEventAlliance1.text = @"Ending in";
+            
+            NSString *labelString = [[Globals i] getCountdownString:self.b2s];
+            self.labelEventAlliance2.text = labelString;
+        }
+        else
+        {
+            self.labelEventAlliance1.text = @"Alliance";
+            self.labelEventAlliance2.text = @"Tournament";
+            
+            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
+                                                forState:UIControlStateNormal];
+        }
+    }
+    else
+    {
+        if (self.timerIsShowing == YES)
+        {
+            self.labelEventAlliance1.text = @"View";
+            self.labelEventAlliance2.text = @"Results";
+        }
+        else
+        {
+            self.labelEventAlliance1.text = @"Alliance";
+            self.labelEventAlliance2.text = @"Tournament";
+            
+            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
+                                                forState:UIControlStateNormal];
+        }
     }
 }
 
@@ -434,10 +510,9 @@
     
     NSInteger column_width = self.frame.size.width / buttons_per_row;
     NSInteger column_start_x = column_width - sizex;
-    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
     
     NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
-    NSInteger posy = 0 * column_height;
+    NSInteger posy = 0;
     
 	self.buttonSale = [[Globals i] buttonWithTitle:@""
                                             target:self
@@ -471,7 +546,7 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
 }
 
-- (void)addEventSoloButton:(NSString *)label imageDefault:(NSString *)imageDefault
+- (void)addEventSoloButton:(NSString *)imageDefault
 {
     UIImage *imgD = [UIImage imageNamed:imageDefault];
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
@@ -479,10 +554,9 @@
     
     NSInteger column_width = self.frame.size.width / buttons_per_row;
     NSInteger column_start_x = column_width - sizex;
-    NSInteger column_height = sizey + menu_label_height + menu_margin_y;
     
     NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
-    NSInteger posy = 1 * column_height;
+    NSInteger posy = 1 * sizey;
     
 	self.buttonEventSolo = [[Globals i] buttonWithTitle:@""
                                             target:self
@@ -497,23 +571,84 @@
     
 	[self addSubview:self.buttonEventSolo];
 	
-	self.labelEventSolo = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey-menu_label_height, column_width, menu_label_height)];
-	self.labelEventSolo.text = label;
-    self.labelEventSolo.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
-	self.labelEventSolo.backgroundColor = [UIColor clearColor];
-	self.labelEventSolo.shadowColor = [UIColor grayColor];
-	self.labelEventSolo.shadowOffset = CGSizeMake(1,1);
-	self.labelEventSolo.textColor = [UIColor whiteColor];
-	self.labelEventSolo.textAlignment = NSTextAlignmentCenter;
-	self.labelEventSolo.numberOfLines = 1;
-	self.labelEventSolo.adjustsFontSizeToFitWidth = YES;
-	self.labelEventSolo.minimumScaleFactor = 0.5f;
-	[self addSubview:self.labelEventSolo];
+	self.labelEventSolo1 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy, column_width, menu_label_height)];
+    self.labelEventSolo1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventSolo1.backgroundColor = [UIColor clearColor];
+	self.labelEventSolo1.shadowColor = [UIColor grayColor];
+	self.labelEventSolo1.shadowOffset = CGSizeMake(1,1);
+	self.labelEventSolo1.textColor = [UIColor whiteColor];
+	self.labelEventSolo1.textAlignment = NSTextAlignmentCenter;
+	self.labelEventSolo1.numberOfLines = 1;
+	self.labelEventSolo1.adjustsFontSizeToFitWidth = YES;
+	self.labelEventSolo1.minimumScaleFactor = 0.5f;
+	[self addSubview:self.labelEventSolo1];
+    
+    self.labelEventSolo2 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+menu_label_height, column_width, menu_label_height)];
+    self.labelEventSolo2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventSolo2.backgroundColor = [UIColor clearColor];
+	self.labelEventSolo2.shadowColor = [UIColor grayColor];
+	self.labelEventSolo2.shadowOffset = CGSizeMake(1,1);
+	self.labelEventSolo2.textColor = [UIColor whiteColor];
+	self.labelEventSolo2.textAlignment = NSTextAlignmentCenter;
+	self.labelEventSolo2.numberOfLines = 1;
+	self.labelEventSolo2.adjustsFontSizeToFitWidth = YES;
+	self.labelEventSolo2.minimumScaleFactor = 0.5f;
+	[self addSubview:self.labelEventSolo2];
 }
 
 - (void)eventSoloButton_tap:(id)sender
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"EventSolo" object:self];
+}
+
+- (void)addEventAllianceButton:(NSString *)imageDefault
+{
+    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
+    NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
+    
+    NSInteger column_width = self.frame.size.width / buttons_per_row;
+    NSInteger column_start_x = column_width - sizex;
+    
+    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
+    NSInteger posy = 2 * sizey;
+    
+	self.buttonEventAlliance = [[Globals i] buttonWithTitle:@""
+                                                 target:self
+                                               selector:@selector(eventAllianceButton_tap:)
+                                                  frame:CGRectMake(posx, posy, sizex, sizey)
+                                                  image:imgD
+                                           imagePressed:nil
+                                          darkTextColor:YES];
+    
+    [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
+                                    forState:UIControlStateNormal];
+    
+	[self addSubview:self.buttonEventAlliance];
+	
+	self.labelEventAlliance1 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy, column_width, menu_label_height)];
+    self.labelEventAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventAlliance1.backgroundColor = [UIColor clearColor];
+	self.labelEventAlliance1.shadowColor = [UIColor grayColor];
+	self.labelEventAlliance1.shadowOffset = CGSizeMake(1,1);
+	self.labelEventAlliance1.textColor = [UIColor whiteColor];
+	self.labelEventAlliance1.textAlignment = NSTextAlignmentCenter;
+	self.labelEventAlliance1.numberOfLines = 1;
+	self.labelEventAlliance1.adjustsFontSizeToFitWidth = YES;
+	self.labelEventAlliance1.minimumScaleFactor = 0.5f;
+	[self addSubview:self.labelEventAlliance1];
+    
+    self.labelEventAlliance2 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+menu_label_height, column_width, menu_label_height)];
+    self.labelEventAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventAlliance2.backgroundColor = [UIColor clearColor];
+	self.labelEventAlliance2.shadowColor = [UIColor grayColor];
+	self.labelEventAlliance2.shadowOffset = CGSizeMake(1,1);
+	self.labelEventAlliance2.textColor = [UIColor whiteColor];
+	self.labelEventAlliance2.textAlignment = NSTextAlignmentCenter;
+	self.labelEventAlliance2.numberOfLines = 1;
+	self.labelEventAlliance2.adjustsFontSizeToFitWidth = YES;
+	self.labelEventAlliance2.minimumScaleFactor = 0.5f;
+	[self addSubview:self.labelEventAlliance2];
 }
 
 - (void)eventAllianceButton_tap:(id)sender
