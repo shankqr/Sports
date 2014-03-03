@@ -61,7 +61,10 @@
         NSTimeInterval saleEndTime = [saleEndDate timeIntervalSince1970];
         self.b1s = saleEndTime - serverTimeInterval;
         
-        [self addSaleButton:@"Sale!" imageDefault:@"icon_sale1"];
+        if (self.b1s > 0)
+        {
+            [self addSaleButton:@"Sale!" imageDefault:@"icon_sale1"];
+        }
     }
 }
 
@@ -305,6 +308,12 @@
             [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
                                        forState:UIControlStateNormal];
         }
+        
+        if (self.b1s == 1)
+        {
+            [self.buttonSale removeFromSuperview];
+            [self.labelSale removeFromSuperview];
+        }
     }
     
     if (self.b2s > 0)
@@ -346,7 +355,7 @@
         {
             self.labelEventAlliance1.text = @"Ending in";
             
-            NSString *labelString = [[Globals i] getCountdownString:self.b2s];
+            NSString *labelString = [[Globals i] getCountdownString:self.b3s];
             self.labelEventAlliance2.text = labelString;
         }
         else
@@ -494,10 +503,7 @@
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
     NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
-    NSInteger column_width = self.frame.size.width / buttons_per_row;
-    NSInteger column_start_x = column_width - sizex;
-    
-    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
+    NSInteger posx = self.frame.size.width - sizex;
     NSInteger posy = 0;
     
 	self.buttonSale = [[Globals i] buttonWithTitle:@""
@@ -513,12 +519,10 @@
     
 	[self addSubview:self.buttonSale];
 	
-	self.labelSale = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey-menu_label_height, column_width, menu_label_height)];
+	self.labelSale = [[UILabel alloc] initWithFrame:CGRectMake(posx, posy+sizey-menu_label_height, sizex, menu_label_height)];
 	self.labelSale.text = label;
-    self.labelSale.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+    self.labelSale.font = [UIFont fontWithName:DEFAULT_FONT size:14.0f*SCALE_IPAD];
 	self.labelSale.backgroundColor = [UIColor clearColor];
-	self.labelSale.shadowColor = [UIColor grayColor];
-	self.labelSale.shadowOffset = CGSizeMake(1,1);
 	self.labelSale.textColor = [UIColor whiteColor];
 	self.labelSale.textAlignment = NSTextAlignmentCenter;
 	self.labelSale.numberOfLines = 1;
@@ -539,11 +543,10 @@
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
     NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
-    NSInteger column_width = self.frame.size.width / buttons_per_row;
-    NSInteger column_start_x = column_width - sizex;
+    NSInteger column_start_x = 10.0f*SCALE_IPAD;
     
-    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
-    NSInteger posy = 1 * sizey;
+    NSInteger posx = self.frame.size.width - sizex;
+    NSInteger posy = 70.0f*SCALE_IPAD;
     
 	self.buttonEventSolo = [[Globals i] buttonWithTitle:@""
                                             target:self
@@ -555,8 +558,8 @@
     
 	[self addSubview:self.buttonEventSolo];
 	
-	self.labelEventSolo1 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy, column_width, menu_label_height)];
-    self.labelEventSolo1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventSolo1 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy, sizex-(2*column_start_x), menu_label_height)];
+    self.labelEventSolo1.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
 	self.labelEventSolo1.backgroundColor = [UIColor clearColor];
 	self.labelEventSolo1.shadowColor = [UIColor grayColor];
 	self.labelEventSolo1.shadowOffset = CGSizeMake(1,1);
@@ -567,8 +570,8 @@
 	self.labelEventSolo1.minimumScaleFactor = 0.5f;
 	[self addSubview:self.labelEventSolo1];
     
-    self.labelEventSolo2 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+menu_label_height, column_width, menu_label_height)];
-    self.labelEventSolo2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+    self.labelEventSolo2 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy+menu_label_height-DEFAULT_CONTENT_SPACING, sizex-(2*column_start_x), menu_label_height)];
+    self.labelEventSolo2.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
 	self.labelEventSolo2.backgroundColor = [UIColor clearColor];
 	self.labelEventSolo2.shadowColor = [UIColor grayColor];
 	self.labelEventSolo2.shadowOffset = CGSizeMake(1,1);
@@ -592,11 +595,10 @@
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
     NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
-    NSInteger column_width = self.frame.size.width / buttons_per_row;
-    NSInteger column_start_x = column_width - sizex;
+    NSInteger column_start_x = 10.0f*SCALE_IPAD;
     
-    NSInteger posx = (buttons_per_row-1) * column_width + column_start_x;
-    NSInteger posy = 2 * sizey;
+    NSInteger posx = self.frame.size.width - sizex;
+    NSInteger posy = 115.0f*SCALE_IPAD;
     
 	self.buttonEventAlliance = [[Globals i] buttonWithTitle:@""
                                                  target:self
@@ -608,8 +610,8 @@
     
 	[self addSubview:self.buttonEventAlliance];
 	
-	self.labelEventAlliance1 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy, column_width, menu_label_height)];
-    self.labelEventAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+	self.labelEventAlliance1 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy, sizex-(2*column_start_x), menu_label_height)];
+    self.labelEventAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
 	self.labelEventAlliance1.backgroundColor = [UIColor clearColor];
 	self.labelEventAlliance1.shadowColor = [UIColor grayColor];
 	self.labelEventAlliance1.shadowOffset = CGSizeMake(1,1);
@@ -620,8 +622,8 @@
 	self.labelEventAlliance1.minimumScaleFactor = 0.5f;
 	[self addSubview:self.labelEventAlliance1];
     
-    self.labelEventAlliance2 = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+menu_label_height, column_width, menu_label_height)];
-    self.labelEventAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
+    self.labelEventAlliance2 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy+menu_label_height-DEFAULT_CONTENT_SPACING, sizex-(2*column_start_x), menu_label_height)];
+    self.labelEventAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
 	self.labelEventAlliance2.backgroundColor = [UIColor clearColor];
 	self.labelEventAlliance2.shadowColor = [UIColor grayColor];
 	self.labelEventAlliance2.shadowOffset = CGSizeMake(1,1);

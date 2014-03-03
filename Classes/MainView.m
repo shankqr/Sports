@@ -1539,9 +1539,9 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.eventAllianceView = [[EventsView alloc] initWithStyle:UITableViewStylePlain];
         self.eventAllianceView.title = @"Alliance Event";
-        self.eventSoloView.isAlliance = @"1";
-        self.eventSoloView.serviceNameDetail = @"GetEventAlliance";
-        self.eventSoloView.serviceNameList = @"GetEventAllianceNow";
+        self.eventAllianceView.isAlliance = @"1";
+        self.eventAllianceView.serviceNameDetail = @"GetEventAlliance";
+        self.eventAllianceView.serviceNameList = @"GetEventAllianceNow";
     }
     [self.eventAllianceView updateView];
     

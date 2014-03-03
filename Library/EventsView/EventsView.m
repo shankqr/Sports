@@ -56,6 +56,13 @@
                  
                  self.rows = [@[returnArray] mutableCopy];
                  
+                 //Add loading header
+                 NSMutableArray *rowLoading = [@[@{@"h1": @"Loading..."}] mutableCopy];
+                 [self.rows addObject:rowLoading];
+                 
+                 [self.tableView reloadData];
+                 [self.view setNeedsDisplay];
+                 
                  [self updateList];
              }
          }
@@ -83,6 +90,9 @@
                  }
                  
                  [returnArray insertObject:row0 atIndex:0];
+                 
+                 //Remove loading row
+                 [self.rows removeObjectAtIndex:1];
                  
                  [self.rows addObject:returnArray];
                  
@@ -140,7 +150,7 @@
         {
             if ([self.isAlliance isEqualToString:@"1"])
             {
-                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"alliance_name"], @"c1": row1[@"xp_gain"]};
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"name"], @"c1": row1[@"xp_gain"]};
             }
             else
             {
