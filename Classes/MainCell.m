@@ -83,13 +83,13 @@
         NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
         NSTimeInterval endTime = [endDate timeIntervalSince1970];
         self.b2s = endTime - serverTimeInterval;
+        
+        [self addEventSoloButton];
     }
     else
     {
         self.b2s = 0;
     }
-    
-    [self addEventSoloButton:@"icon_event_solo1.png"];
 }
 
 - (void)updateEventAllianceButton
@@ -110,13 +110,13 @@
         NSDate *endDate = [[[Globals i] getDateFormat] dateFromString:strDate];
         NSTimeInterval endTime = [endDate timeIntervalSince1970];
         self.b3s = endTime - serverTimeInterval;
+        
+        [self addEventAllianceButton];
     }
     else
     {
         self.b3s = 0;
     }
-    
-    [self addEventAllianceButton:@"icon_event_alliance1.png"];
 }
 
 - (void)createAchievementBadges
@@ -322,9 +322,6 @@
         {
             self.labelEventSolo1.text = @"Solo";
             self.labelEventSolo2.text = @"Tournament";
-            
-            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
-                                            forState:UIControlStateNormal];
         }
     }
     else
@@ -338,9 +335,6 @@
         {
             self.labelEventSolo1.text = @"Solo";
             self.labelEventSolo2.text = @"Tournament";
-            
-            [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
-                                            forState:UIControlStateNormal];
         }
     }
     
@@ -359,9 +353,6 @@
         {
             self.labelEventAlliance1.text = @"Alliance";
             self.labelEventAlliance2.text = @"Tournament";
-            
-            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
-                                                forState:UIControlStateNormal];
         }
     }
     else
@@ -375,9 +366,6 @@
         {
             self.labelEventAlliance1.text = @"Alliance";
             self.labelEventAlliance2.text = @"Tournament";
-            
-            [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
-                                                forState:UIControlStateNormal];
         }
     }
 }
@@ -486,8 +474,6 @@
 	myLabel.text = label;
     myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:MENU_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor clearColor];
-	//myLabel.shadowColor = [UIColor grayColor];
-	//myLabel.shadowOffset = CGSizeMake(1,1);
 	myLabel.textColor = [UIColor whiteColor];
 	myLabel.textAlignment = NSTextAlignmentCenter;
 	myLabel.numberOfLines = 1;
@@ -546,9 +532,10 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"ViewSales" object:self];
 }
 
-- (void)addEventSoloButton:(NSString *)imageDefault
+- (void)addEventSoloButton
 {
-    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    UIImage *imgD = [UIImage imageNamed:@"icon_green_normal"];
+    UIImage *imgH = [UIImage imageNamed:@"icon_green_highlight"];
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
     NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
@@ -563,11 +550,8 @@
                                           selector:@selector(eventSoloButton_tap:)
                                              frame:CGRectMake(posx, posy, sizex, sizey)
                                              image:imgD
-                                      imagePressed:nil
+                                      imagePressed:imgH
                                      darkTextColor:YES];
-    
-    [self.buttonEventSolo setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_solo" duration:1.0]
-                               forState:UIControlStateNormal];
     
 	[self addSubview:self.buttonEventSolo];
 	
@@ -601,9 +585,10 @@
 	[[NSNotificationCenter defaultCenter] postNotificationName:@"EventSolo" object:self];
 }
 
-- (void)addEventAllianceButton:(NSString *)imageDefault
+- (void)addEventAllianceButton
 {
-    UIImage *imgD = [UIImage imageNamed:imageDefault];
+    UIImage *imgD = [UIImage imageNamed:@"icon_yellow_normal"];
+    UIImage *imgH = [UIImage imageNamed:@"icon_yellow_highlight"];
     NSInteger sizex = (imgD.size.width*SCALE_IPAD/2);
     NSInteger sizey = (imgD.size.height*SCALE_IPAD/2);
     
@@ -618,11 +603,8 @@
                                                selector:@selector(eventAllianceButton_tap:)
                                                   frame:CGRectMake(posx, posy, sizex, sizey)
                                                   image:imgD
-                                           imagePressed:nil
+                                           imagePressed:imgH
                                           darkTextColor:YES];
-    
-    [self.buttonEventAlliance setBackgroundImage:[UIImage animatedImageNamed:@"icon_event_alliance" duration:1.0]
-                                    forState:UIControlStateNormal];
     
 	[self addSubview:self.buttonEventAlliance];
 	
