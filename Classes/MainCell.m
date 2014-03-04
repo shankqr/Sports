@@ -559,11 +559,11 @@
 	[self addSubview:self.buttonEventSolo];
 	
 	self.labelEventSolo1 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy, sizex-(2*column_start_x), menu_label_height)];
-    self.labelEventSolo1.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
+    self.labelEventSolo1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
 	self.labelEventSolo1.backgroundColor = [UIColor clearColor];
 	self.labelEventSolo1.shadowColor = [UIColor grayColor];
 	self.labelEventSolo1.shadowOffset = CGSizeMake(1,1);
-	self.labelEventSolo1.textColor = [UIColor whiteColor];
+	self.labelEventSolo1.textColor = [UIColor blackColor];
 	self.labelEventSolo1.textAlignment = NSTextAlignmentCenter;
 	self.labelEventSolo1.numberOfLines = 1;
 	self.labelEventSolo1.adjustsFontSizeToFitWidth = YES;
@@ -571,11 +571,11 @@
 	[self addSubview:self.labelEventSolo1];
     
     self.labelEventSolo2 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy+menu_label_height-DEFAULT_CONTENT_SPACING, sizex-(2*column_start_x), menu_label_height)];
-    self.labelEventSolo2.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
+    self.labelEventSolo2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
 	self.labelEventSolo2.backgroundColor = [UIColor clearColor];
 	self.labelEventSolo2.shadowColor = [UIColor grayColor];
 	self.labelEventSolo2.shadowOffset = CGSizeMake(1,1);
-	self.labelEventSolo2.textColor = [UIColor whiteColor];
+	self.labelEventSolo2.textColor = [UIColor blackColor];
 	self.labelEventSolo2.textAlignment = NSTextAlignmentCenter;
 	self.labelEventSolo2.numberOfLines = 1;
 	self.labelEventSolo2.adjustsFontSizeToFitWidth = YES;
@@ -611,11 +611,11 @@
 	[self addSubview:self.buttonEventAlliance];
 	
 	self.labelEventAlliance1 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy, sizex-(2*column_start_x), menu_label_height)];
-    self.labelEventAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
+    self.labelEventAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
 	self.labelEventAlliance1.backgroundColor = [UIColor clearColor];
 	self.labelEventAlliance1.shadowColor = [UIColor grayColor];
 	self.labelEventAlliance1.shadowOffset = CGSizeMake(1,1);
-	self.labelEventAlliance1.textColor = [UIColor whiteColor];
+	self.labelEventAlliance1.textColor = [UIColor blackColor];
 	self.labelEventAlliance1.textAlignment = NSTextAlignmentCenter;
 	self.labelEventAlliance1.numberOfLines = 1;
 	self.labelEventAlliance1.adjustsFontSizeToFitWidth = YES;
@@ -623,11 +623,11 @@
 	[self addSubview:self.labelEventAlliance1];
     
     self.labelEventAlliance2 = [[UILabel alloc] initWithFrame:CGRectMake(posx+(2*column_start_x), posy+menu_label_height-DEFAULT_CONTENT_SPACING, sizex-(2*column_start_x), menu_label_height)];
-    self.labelEventAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:13.0f*SCALE_IPAD];
+    self.labelEventAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD];
 	self.labelEventAlliance2.backgroundColor = [UIColor clearColor];
 	self.labelEventAlliance2.shadowColor = [UIColor grayColor];
 	self.labelEventAlliance2.shadowOffset = CGSizeMake(1,1);
-	self.labelEventAlliance2.textColor = [UIColor whiteColor];
+	self.labelEventAlliance2.textColor = [UIColor blackColor];
 	self.labelEventAlliance2.textAlignment = NSTextAlignmentCenter;
 	self.labelEventAlliance2.numberOfLines = 1;
 	self.labelEventAlliance2.adjustsFontSizeToFitWidth = YES;

@@ -988,7 +988,7 @@ static NSOperationQueue *connectionQueue;
         SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
         [mySLComposerSheet setInitialText:message];
         [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
-        [mySLComposerSheet addURL:[NSURL URLWithString:@"https://www.tapfantasy.com"]];
+        [mySLComposerSheet addURL:[NSURL URLWithString:@"http://www.tapfantasy.com"]];
         [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
          {
              switch (result)

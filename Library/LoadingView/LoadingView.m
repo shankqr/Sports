@@ -53,11 +53,13 @@
 	self.lblStatus.minimumScaleFactor = 0.5f;
 	[self.view addSubview:self.lblStatus];
     
-    self.lblVersion = [[UILabel alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4)-(60*SCALE_IPAD), (50*SCALE_IPAD), (imgBarBkg.size.width*SCALE_IPAD/2)+(120*SCALE_IPAD), (imgBarBkg.size.height*SCALE_IPAD/2))];
+    self.lblVersion = [[UILabel alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4)-(60*SCALE_IPAD), 0, (imgBarBkg.size.width*SCALE_IPAD/2)+(120*SCALE_IPAD), (imgBarBkg.size.height*SCALE_IPAD/2))];
     self.lblVersion.text = [NSString stringWithFormat:@"Version %@", GAME_VERSION];
     self.lblVersion.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
 	self.lblVersion.backgroundColor = [UIColor clearColor];
-	self.lblVersion.textColor = [UIColor blackColor];
+    self.lblVersion.shadowColor = [UIColor grayColor];
+	self.lblVersion.shadowOffset = CGSizeMake(1,1);
+	self.lblVersion.textColor = [UIColor whiteColor];
 	self.lblVersion.textAlignment = NSTextAlignmentCenter;
 	self.lblVersion.numberOfLines = 1;
 	self.lblVersion.adjustsFontSizeToFitWidth = YES;

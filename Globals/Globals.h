@@ -60,7 +60,7 @@
 #define DEFAULT_FONT_BIG_SIZE 24.0f * SCALE_IPAD
 #define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
 
-#define MENU_FONT_SIZE (iPad ? 32.0f : 16.0f)
+#define MENU_FONT_SIZE (iPad ? 30.0f : 15.0f)
 
 //Main Menu
 #define buttons_per_row (iPad ? 5 : 4)

@@ -800,7 +800,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 - (void)buyProduct:(NSString *)product
 {
     [[Globals i] showLoadingAlert];
-	//[[Globals i] showDialog:@"PROCESSING... Please wait a while."];
 	
 	SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:product]];
 	request.delegate = self;
@@ -870,7 +869,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 	
     [[Globals i] removeLoadingAlert];
-    //[[Globals i] removeDialogBox];
 }
 
 - (void)restoreTransaction:(SKPaymentTransaction *)transaction
@@ -1527,6 +1525,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.eventSoloView.isAlliance = @"0";
         self.eventSoloView.serviceNameDetail = @"GetEventSolo";
         self.eventSoloView.serviceNameList = @"GetEventSoloNow";
+        self.eventSoloView.serviceNameResult = @"GetEventSoloResult";
     }
     [self.eventSoloView updateView];
     
@@ -1542,6 +1541,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.eventAllianceView.isAlliance = @"1";
         self.eventAllianceView.serviceNameDetail = @"GetEventAlliance";
         self.eventAllianceView.serviceNameList = @"GetEventAllianceNow";
+        self.eventAllianceView.serviceNameResult = @"GetEventAllianceResult";
     }
     [self.eventAllianceView updateView];
     

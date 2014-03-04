@@ -45,9 +45,31 @@
                  NSTimeInterval endTime = [endDate timeIntervalSince1970];
                  self.b1s = endTime - serverTimeInterval;
                  
-                 NSDictionary *row2 = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
+                 NSDictionary *row2;
+                 NSDictionary *row3;
                  
-                 NSDictionary *row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp_gain"]]};
+                 if (self.b1s > 0)
+                 {
+                     row2 = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
+                     row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp_gain"]]};
+                 }
+                 else
+                 {
+                     row2 = @{@"r1_color": @"1", @"r1": @"This tournament has ended. Congratulations to all winners listed bellow. Prepare yourselves, as a new tournament will begin soon!"};
+                     if ([[Globals i].wsClubData[@"xp_history"] isEqualToString:@"0"])
+                     {
+                         row3 = @{@"r1": @"Thank you for playing."};
+                     }
+                     else
+                     {
+                         row3 = @{@"r1": [NSString stringWithFormat:@"Your Score was %@ (XP Gain)", [Globals i].wsClubData[@"xp_history"]]};
+                     }
+                 }
+                 
+                 if ([self.isAlliance isEqualToString:@"1"])
+                 {
+                     row3 = @{@"r1": @"Make sure you are a member of an Alliance to participate and win prizes."};
+                 }
                  
                  [returnArray insertObject:row0 atIndex:0];
                  [returnArray addObject:row1];
@@ -63,16 +85,24 @@
                  [self.tableView reloadData];
                  [self.view setNeedsDisplay];
                  
-                 [self updateList];
+                 [self updateList:(returnArray)[0][@"event_id"]];
              }
          }
      }];
 }
 
-- (void)updateList
+- (void)updateList:(NSString *)event_id
 {
-    NSString *wsurl = [NSString stringWithFormat:@"%@/%@",
-                       [[Globals i] world_url], self.serviceNameList];
+    NSString *wsurl;
+    
+    if (self.b1s > 0)
+    {
+        wsurl = [NSString stringWithFormat:@"%@/%@", [[Globals i] world_url], self.serviceNameList];
+    }
+    else
+    {
+        wsurl = [NSString stringWithFormat:@"%@/%@/%@", [[Globals i] world_url], self.serviceNameResult, event_id];
+    }
     
     [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
      {
@@ -96,9 +126,20 @@
                  
                  [self.rows addObject:returnArray];
                  
-                 if (!self.gameTimer.isValid)
+                 if (self.b1s > 0)
                  {
-                     self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+                     if (!self.gameTimer.isValid)
+                     {
+                         self.gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(onTimer) userInfo:nil repeats:YES];
+                     }
+                 }
+                 else
+                 {
+                     if (self.gameTimer.isValid)
+                     {
+                         [self.gameTimer invalidate];
+                         self.gameTimer = nil;
+                     }
                  }
                  
                  [self.tableView reloadData];
