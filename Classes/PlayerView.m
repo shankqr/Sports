@@ -91,8 +91,8 @@
             squadView.sel_player_halfvalue = [numberFormatter stringForObjectValue:number];
             
             dialogBox.titleText = @"Sell Player";
-            dialogBox.whiteText = squadView.sel_player_name;
-            dialogBox.promptText = [NSString stringWithFormat:@"Are you sure you want to sell %@ half the value for $%@?", squadView.sel_player_name, squadView.sel_player_halfvalue];
+            dialogBox.whiteText = @"";
+            dialogBox.promptText = [NSString stringWithFormat:@"+5 XP. Are you sure you want to sell %@ half the value for $%@?", squadView.sel_player_name, squadView.sel_player_halfvalue];
             
             [self.view addSubview:dialogBox.view];
             [dialogBox updateView];
@@ -104,7 +104,7 @@
             dialogBox.dialogType = 2;
             
             dialogBox.titleText = @"Assistant Manager";
-            dialogBox.whiteText = @"Not enough energy";
+            dialogBox.whiteText = @"";
             dialogBox.promptText = @"10 energy is required to sell any player. Refill to full Energy?";
             
             [self.view addSubview:dialogBox.view];
@@ -115,7 +115,7 @@
     {
         [self createDialogBox];
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough players";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = [NSString stringWithFormat:@"You must have at least %ld players left on your team.", (long)minimum_player];
         dialogBox.dialogType = 1;
         [self.view addSubview:dialogBox.view];
@@ -131,7 +131,7 @@
         dialogBox.view.tag = 3;
         dialogBox.dialogType = 2;
         dialogBox.titleText = @"Energize Player";
-        dialogBox.whiteText = squadView.sel_player_name;
+        dialogBox.whiteText = @"";
         dialogBox.promptText = [NSString stringWithFormat:@"Energize %@ for 10 Energy? %@'s Condition will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         [self.view addSubview:dialogBox.view];
@@ -144,7 +144,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough energy";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = @"10 energy is required to Energize any player. Refill to full Energy?";
         
         [self.view addSubview:dialogBox.view];
@@ -160,7 +160,7 @@
         dialogBox.view.tag = 4;
         dialogBox.dialogType = 2;
         dialogBox.titleText = @"Heal Player";
-        dialogBox.whiteText = squadView.sel_player_name;
+        dialogBox.whiteText = @"";
         dialogBox.promptText = [NSString stringWithFormat:@"Heal %@ for 10 Energy? %@'s injury days will decrease by 1.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         [self.view addSubview:dialogBox.view];
@@ -173,7 +173,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough energy";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = @"10 energy is required to Energize any player. Refill to full Energy?";
         
         [self.view addSubview:dialogBox.view];
@@ -189,7 +189,7 @@
     {
         [self createDialogBox];
         dialogBox.titleText = @"Rename Player for 10 Diamonds?";
-        dialogBox.whiteText = @"Enter a new name for this player.";
+        dialogBox.whiteText = @"+5 XP. Enter a new name for this player.";
         dialogBox.promptText = @"";
         dialogBox.dialogType = 4;
         [self.view addSubview:dialogBox.view];
@@ -202,7 +202,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough Diamonds";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = @"10 Diamonds is required to rename a player. Would you like to buy some diamonds?";
         
         [self.view addSubview:dialogBox.view];
@@ -245,8 +245,8 @@
         [self close];
         
         dialogBox.titleText = @"Player Renamed";
-        dialogBox.whiteText = squadView.sel_player_name;
-        dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! player %@ is now called %@.",
+        dialogBox.whiteText = @"";
+        dialogBox.promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ is now called %@.",
                                 squadView.sel_player_name, text];
         dialogBox.dialogType = 1;
         [[squadView.view superview] addSubview:dialogBox.view];
@@ -276,7 +276,7 @@
         
         dialogBox.titleText = @"Send to Special Training";
         dialogBox.whiteText = @"";
-        dialogBox.promptText = [NSString stringWithFormat:@"Send %@ to Special Training for 5 Diamonds? One of %@'s skill will level up after special training.",
+        dialogBox.promptText = [NSString stringWithFormat:@"+5 XP. Send %@ to Special Training for 5 Diamonds? One of %@'s skill will level up after special training.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
         [self.view addSubview:dialogBox.view];
@@ -289,7 +289,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough Diamonds";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = @"5 Diamonds is required for Special Training. Would you like to buy some diamonds?";
         
         [self.view addSubview:dialogBox.view];
@@ -308,8 +308,8 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Give Morale Boost";
-        dialogBox.whiteText = squadView.sel_player_name;
-        dialogBox.promptText = [NSString stringWithFormat:@"Give %@ a Morale Boost for 3 Diamonds? %@'s Morale will increase by 5.",
+        dialogBox.whiteText = @"";
+        dialogBox.promptText = [NSString stringWithFormat:@"+5 XP. Give %@ a Morale Boost for 3 Diamonds? %@'s Morale will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
         [self.view addSubview:dialogBox.view];
@@ -322,7 +322,7 @@
         dialogBox.dialogType = 2;
         
         dialogBox.titleText = @"Assistant Manager";
-        dialogBox.whiteText = @"Not enough Diamonds";
+        dialogBox.whiteText = @"";
         dialogBox.promptText = @"3 Diamonds is required for a Morale Boost. Would you like to buy some diamonds?";
         
         [self.view addSubview:dialogBox.view];
@@ -355,7 +355,7 @@
             
             dialogBox.titleText = @"Player Sold";
             dialogBox.whiteText = @"";
-            dialogBox.promptText = [NSString stringWithFormat:@"Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
+            dialogBox.promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
                                     squadView.sel_player_name, squadView.sel_player_halfvalue, (unsigned long)squadView.players.count];
             dialogBox.dialogType = 1;
             [[squadView.view superview] addSubview:dialogBox.view];
@@ -392,7 +392,8 @@
             [[NSNotificationCenter defaultCenter]
              postNotificationName:@"UpdateHeader"
              object:self];
-            //[[Globals i] updateClubData]; //Club energy deducted
+            
+            //[[Globals i] updateClubData]; //Club energy deducted.
             
             [self updateView:(squadView.players)[squadView.selectedRow]];
             
@@ -458,7 +459,7 @@
                 [squadView normalUpdate];
                 
                 //Update Header
-                [[Globals i] updateClubData]; //Deduct diamonds
+                [[Globals i] updateClubData]; //Deduct diamonds and +5 XP.
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just sent my player %@ to special training.", squadView.sel_player_name];
                 NSString *extra_desc = @"One of your player skill will level up after special training.";
@@ -472,27 +473,27 @@
                 
                 if([returnValue isEqualToString:@"1"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill2]];
+                    promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill2]];
                 }
                 else if([returnValue isEqualToString:@"2"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill3]];
+                    promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill3]];
                 }
                 else if([returnValue isEqualToString:@"3"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill4]];
+                    promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill4]];
                 }
                 else if([returnValue isEqualToString:@"4"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill5]];
+                    promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill5]];
                 }
                 else if([returnValue isEqualToString:@"5"])
                 {
-                    promptText = [NSString stringWithFormat:@"Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill1]];
+                    promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill1]];
                 }
                 
                 dialogBox.titleText = @"Player Improved";
-                dialogBox.whiteText = squadView.sel_player_name;
+                dialogBox.whiteText = @"";
                 dialogBox.promptText = promptText;
                 dialogBox.dialogType = 1;
                 [self.view addSubview:dialogBox.view];
@@ -527,7 +528,7 @@
                 [squadView normalUpdate];
                 
                 //Update Header
-                [[Globals i] updateClubData]; //Diamonds deducted
+                [[Globals i] updateClubData]; //Diamonds deducted and +5 XP.
                 
                 NSString *message = [[NSString alloc] initWithFormat:@"I have just gave my player %@ a Morale Boost.", squadView.sel_player_name];
                 NSString *extra_desc = @"Your player's morale will increase by 5 after giving a Morale Boost.";
@@ -539,10 +540,10 @@
                 
                 NSString *promptText = @"0";
                 
-                promptText = [NSString stringWithFormat:@"Congratulations! player %@ morale has increased by 5.", squadView.sel_player_name];
+                promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ morale has increased by 5.", squadView.sel_player_name];
 
                 dialogBox.titleText = @"Player morale boosted";
-                dialogBox.whiteText = squadView.sel_player_name;
+                dialogBox.whiteText = @"";
                 dialogBox.promptText = promptText;
                 dialogBox.dialogType = 1;
                 [self.view addSubview:dialogBox.view];

@@ -687,7 +687,7 @@
     }
 }
 
-- (void)teamDraw:(NSInteger)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession
+- (void)teamDraw:(int)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession
 {
     double attackerPosPitch = 0.7375;
 	double midfielderPosPitch = 0.4375;

@@ -39,16 +39,6 @@ CGFloat    const MMProgressHUDAnimateOutDurationShort   = 0.35f;
 NSString * const MMProgressHUDFontNameBold = @"HelveticaNeue-Bold";
 NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
 
-#ifdef DEBUG
-    #ifdef MM_HUD_FRAME_DEBUG
-        static const BOOL MMProgressHUDFrameDebugModeEnabled = YES;
-    #else
-        static const BOOL MMProgressHUDFrameDebugModeEnabled = NO;
-    #endif
-#else
-    static const BOOL MMProgressHUDFrameDebugModeEnabled = NO;
-#endif
-
 @interface MMHud()
 
 @property (nonatomic, strong) UIView *progressViewContainer;

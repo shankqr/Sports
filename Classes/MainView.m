@@ -196,9 +196,9 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     [self reloadView];
     
-    //[iRate sharedInstance].eventsUntilPrompt = 50;
-    //[iRate sharedInstance].daysUntilPrompt = 0;
-    //[iRate sharedInstance].remindPeriod = 0;
+    [iRate sharedInstance].eventsUntilPrompt = 25;
+    [iRate sharedInstance].daysUntilPrompt = 0;
+    [iRate sharedInstance].remindPeriod = 0;
 }
 
 - (void)notificationReceived:(NSNotification *)notification

@@ -13,7 +13,7 @@
     SPPoint *vector;    
     SPPoint *movingTo;
     NSInteger rotation;
-    NSInteger team;
+    int team;
     NSInteger steps;    
     double xx;
     double yy;
@@ -32,7 +32,7 @@
 @property (nonatomic, strong) Player *movingToObj;
 @property (nonatomic, strong) SPPoint *vector;
 @property (nonatomic, strong) SPPoint *movingTo;
-@property (nonatomic) NSInteger team;
+@property (nonatomic, assign) int team;
 @property (nonatomic) NSInteger steps;
 @property (nonatomic) double xx;
 @property (nonatomic) double yy;

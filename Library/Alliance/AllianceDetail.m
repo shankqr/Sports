@@ -703,7 +703,7 @@
 {
     NSInteger nextLevel = aAlliance.alliance_level.integerValue + 1;
     
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance account and not from your own club.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
+    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance account.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {

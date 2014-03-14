@@ -21,7 +21,7 @@
     NSInteger player_number;
     NSInteger player_id;
     NSInteger jersey;
-    NSInteger team;
+    int team;
     NSInteger role;
     NSInteger action;
     NSInteger steps;
@@ -46,7 +46,7 @@
 @property (nonatomic) NSInteger player_number;
 @property (nonatomic) NSInteger player_id;
 @property (nonatomic) NSInteger jersey;
-@property (nonatomic) NSInteger team;
+@property (nonatomic, assign) int team;
 @property (nonatomic) NSInteger role;
 @property (nonatomic) NSInteger action;
 @property (nonatomic) NSInteger steps;
@@ -56,8 +56,8 @@
 @property (nonatomic) double xx;
 @property (nonatomic) double yy;
 @property (nonatomic) BOOL scorer;
-- (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(NSInteger)t role:(NSInteger)r name:(NSString*)n;
-+ (Player_hockey *)initPlayer:(NSInteger)player_id number:(NSInteger)number jersey:(NSInteger)jersey team:(NSInteger)team role:(NSInteger)role name:(NSString*)name;
+- (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(int)t role:(NSInteger)r name:(NSString*)n;
++ (Player_hockey *)initPlayer:(NSInteger)player_id number:(NSInteger)number jersey:(NSInteger)jersey team:(int)team role:(NSInteger)role name:(NSString*)name;
 - (void)reset;
 - (void)move;
 - (void)position:(double)proportionAlongPitch proportionDownPitch:(double)proportionDownPitch rightHalf:(BOOL)rightHalf variance:(double)variance;

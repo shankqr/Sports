@@ -353,7 +353,15 @@
         {
             [building1 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_hotel%ld.png", (long)b1]] forState:UIControlStateNormal];
         }
-        building1CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b1*b1+s];
+        
+        long maxb1 = (long)b1*b1+s;
+        
+        if (maxb1 > 10000)
+        {
+            maxb1 = 10000;
+        }
+        
+        building1CashLabel.text = [NSString stringWithFormat:@"+$%ld", maxb1];
     }
     
     NSInteger b2 = [[[Globals i] getClubData][@"building2"] integerValue];
@@ -372,7 +380,15 @@
         {
             [building2 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_food%ld.png", (long)b2]] forState:UIControlStateNormal];
         }
-        building2CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b2*s];
+        
+        long maxb2 = (long)b2*s;
+        
+        if (maxb2 > 5000)
+        {
+            maxb2 = 5000;
+        }
+        
+        building2CashLabel.text = [NSString stringWithFormat:@"+$%ld", maxb2];
     }
     
     NSInteger b3 = [[[Globals i] getClubData][@"building3"] integerValue];
@@ -391,7 +407,15 @@
         {
             [building3 setImage:[UIImage imageNamed:[NSString stringWithFormat:@"building_office%ld.png", (long)b3]] forState:UIControlStateNormal];
         }
-        building3CashLabel.text = [NSString stringWithFormat:@"+$%ld", (long)b3*b1+b2+s];
+        
+        long maxb3 = (long)b3*b1+b2+s;
+        
+        if (maxb3 > 1000)
+        {
+            maxb3 = 1000;
+        }
+        
+        building3CashLabel.text = [NSString stringWithFormat:@"+$%ld", maxb3];
     }
     
     //Stadium code

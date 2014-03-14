@@ -31,7 +31,7 @@
 @synthesize myTextField;
 @synthesize nameTextField;
 
-- (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(NSInteger)t role:(NSInteger)r name:(NSString*)n
+- (id)init:(NSInteger)p_id number:(NSInteger)num jersey:(NSInteger)jer team:(int)t role:(NSInteger)r name:(NSString*)n
 {
     if (self = [super init]) 
     {
@@ -76,7 +76,7 @@
     return self;
 }
 
-+ (Player_hockey *)initPlayer:(NSInteger)player_id number:(NSInteger)number jersey:(NSInteger)jersey team:(NSInteger)team role:(NSInteger)role name:(NSString*)name
++ (Player_hockey *)initPlayer:(NSInteger)player_id number:(NSInteger)number jersey:(NSInteger)jersey team:(int)team role:(NSInteger)role name:(NSString*)name
 {
 	return [[Player_hockey alloc] init:player_id number:number jersey:jersey team:team role:role name:name];
 }

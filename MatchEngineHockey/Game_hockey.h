@@ -77,7 +77,7 @@
 @property (nonatomic, strong) NSMutableDictionary *highlight;
 - (void)onEnterFrame:(SPEnterFrameEvent *)event;
 - (void)ball_out;
-- (void)teamDraw:(NSInteger)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession;
+- (void)teamDraw:(int)team rightHalf:(BOOL)rightHalf hasChance:(BOOL)hasChance hasPossession:(BOOL)hasPossession;
 - (void)clearObservers;
 - (void)getBall;
 - (void)startHighlight;

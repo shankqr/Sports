@@ -8,11 +8,11 @@
 {
     Game_hockey *GameController;
 	SPImage *myImage;
-    NSInteger team;
+    int team;
     NSInteger side;
 }
 @property (nonatomic, strong) Game_hockey *GameController;
-@property (nonatomic) NSInteger team;
+@property (nonatomic, assign) int team;
 @property (nonatomic) NSInteger side;
 - (id)init:(NSInteger)s;
 + (Goal_hockey *)initGoal:(NSInteger)s;
