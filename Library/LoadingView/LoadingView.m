@@ -76,13 +76,6 @@
     
     //start small again
     self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), 0, (self.imgBar.size.height*SCALE_IPAD/2));
-    
-    [UIView animateWithDuration:30.0f
-                     animations:^{
-                         self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), ((self.imgBar.size.width*SCALE_IPAD/2) * 1), (self.imgBar.size.height*SCALE_IPAD/2));
-                     }
-                     completion:^(BOOL finished){
-                     }];
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -91,13 +84,27 @@
     {
         NSDictionary* userInfo = notification.userInfo;
         NSString *status = [userInfo objectForKey:@"status"];
+        NSNumber *percent = [userInfo objectForKey:@"percent"];
         
         //Update label
         self.lblStatus.text = status;
+        
+        //Update bar
+        if (percent != nil)
+        {
+            [self updateBar:percent];
+        }
 
         [self.view setNeedsDisplay];
         [CATransaction flush];
     }
+}
+
+- (void)updateBar:(NSNumber *)p
+{
+    float fullBar = (self.imgBar.size.width*SCALE_IPAD/2);
+    float nowBar = fullBar * [p floatValue];
+    self.barImage.frame = CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(self.imgBar.size.width*SCALE_IPAD/4), (UIScreen.mainScreen.bounds.size.height*bar_y)-(self.imgBar.size.height*SCALE_IPAD/4), nowBar, (self.imgBar.size.height*SCALE_IPAD/2));
 }
 
 - (void)close

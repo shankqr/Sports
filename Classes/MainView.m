@@ -67,7 +67,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)startUp //Called when app opens for the first time
 {
-    [Apsalar event:@"Main_startUp"];
     [Flurry logEvent:@"Main_startUp"];
     
     self.isShowingLogin = NO;
@@ -195,10 +194,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     [self.mainTableView reloadData];
     
     [self reloadView];
-    
-    [iRate sharedInstance].eventsUntilPrompt = 25;
-    [iRate sharedInstance].daysUntilPrompt = 0;
-    [iRate sharedInstance].remindPeriod = 0;
 }
 
 - (void)notificationReceived:(NSNotification *)notification
@@ -382,59 +377,79 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
          {
              NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
              
-             [userInfo setObject:@"Updating Product Identifiers" forKey:@"status"];
+             [userInfo setObject:@"Updating Identifiers" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.1f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateProductIdentifiers]; //This comes first before display dialog if need to upgrade app
              
-             [userInfo setObject:@"Updating Marquee Data" forKey:@"status"];
+             [userInfo setObject:@"Updating Marquee" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.2f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateMarqueeData];
              
-             [userInfo setObject:@"Updating Current Season Data" forKey:@"status"];
+             [userInfo setObject:@"Updating Current Season" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.3f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateCurrentSeasonData]; //For slides
              
-             [userInfo setObject:@"Updating Fixtures Data" forKey:@"status"];
+             [userInfo setObject:@"Updating Fixtures" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.4f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateMatchData];
              
-             [userInfo setObject:@"Updating Match History Data" forKey:@"status"];
+             [userInfo setObject:@"Updating Match History" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.5f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateMatchPlayedData];
              
-             [userInfo setObject:@"Updating Challenges Data" forKey:@"status"];
+             [userInfo setObject:@"Updating Challenges" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.6f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateChallengesData];
              
              [userInfo setObject:@"Updating Products" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.7f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateProducts];//Pre-load products
              
              [userInfo setObject:@"Updating Tasks" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.8f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
              [[Globals i] updateMyAchievementsData];
              [self updateAchievementBadges]; //Show badges
              
-             [userInfo setObject:@"Finalizing Everything" forKey:@"status"];
+             [userInfo setObject:@"Updating Tournaments" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:0.9f] forKey:@"percent"];
              [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
                                                                  object:self
                                                                userInfo:userInfo];
+             
+             [self.cell updateEventSoloButton];
+             
+             [self.cell updateEventAllianceButton];
+             
+             [userInfo setObject:@"Finalizing (may take a while)" forKey:@"status"];
+             [userInfo setObject:[NSNumber numberWithFloat:1.0f] forKey:@"percent"];
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"LoadingStatus"
+                                                                 object:self
+                                                               userInfo:userInfo];
+             
              if (self.header == nil)
              {
                  self.header = [[Header alloc] initWithNibName:@"Header" bundle:nil];
@@ -457,14 +472,14 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              
              [self showMail];
              
-             [self.cell updateEventSoloButton];
-             
-             [self.cell updateEventAllianceButton];
-             
              //Show sales if available
              [self showSales];
              
              [[Globals i] checkVersion];
+             
+             [iRate sharedInstance].eventsUntilPrompt = 30;
+             [iRate sharedInstance].daysUntilPrompt = 0;
+             [iRate sharedInstance].remindPeriod = 0;
              
              [[Globals i] removeLoading];
          }
@@ -479,7 +494,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
          });
      }];
     
-    [Apsalar event:@"Main_loadAllData"];
     [Flurry logEvent:@"Main_loadAllData"];
 }
 
@@ -913,7 +927,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         //Webservice failed
     }
     
-    [Apsalar event:[[Globals i] gettPurchasedProduct]];
     [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
     
 	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
@@ -1237,6 +1250,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	if(self.sparrowView != nil)
 	{
 		[self.sparrowView.view removeFromSuperview];
+        
         [[Globals i] closeTemplate];
         
         [self showMatchReport];
@@ -1803,8 +1817,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)menuButton_tap:(NSInteger)sender
 {
-    [[iRate sharedInstance] logEvent:NO];
-    
 	switch(sender)
 	{
 		case 1:
@@ -1933,6 +1945,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             break;
 		}
 	}
+    
+    [[iRate sharedInstance] logEvent:NO];
 }
 
 - (void)mailDeveloper
@@ -1979,7 +1993,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent:
-            [Apsalar event:@"MailFriendOrDeveloper"];
             [Flurry logEvent:@"MailFriendOrDeveloper"];
             break;
         case MFMailComposeResultFailed:

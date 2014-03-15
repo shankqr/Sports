@@ -651,7 +651,8 @@
         {
             if (rowData[@"t1_height"] != nil)
             {
-                cell_height += [rowData[@"t1_height"] floatValue];
+                CGFloat t1_height = [rowData[@"t1_height"] floatValue] * SCALE_IPAD;
+                cell_height += t1_height;
             }
             else
             {

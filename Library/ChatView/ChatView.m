@@ -37,11 +37,11 @@
         self.keyboardIsShowing = YES;
         if (iPad)
         {
-            self.keyboardBounds = CGRectMake(0, 1024, 768, 264);
+            self.keyboardBounds = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 264);
         }
         else
         {
-            self.keyboardBounds = CGRectMake(0, UIScreen.mainScreen.bounds.size.height, UIScreen.mainScreen.bounds.size.width, 216);
+            self.keyboardBounds = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 216);
         }
         
         [self resizeViewControllerToFitScreen];
@@ -63,7 +63,7 @@
 	[self resizeViewControllerToFitScreen];
 }
 
-- (void)resizeViewControllerToFitScreen 
+- (void)resizeViewControllerToFitScreen
 {
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationBeginsFromCurrentState:YES];
@@ -89,7 +89,7 @@
     self.postTable = tn;
     self.dataSource = ds;
     
-    [self.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    //[self.view setFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     
     [self resizeViewControllerToFitScreen];
     

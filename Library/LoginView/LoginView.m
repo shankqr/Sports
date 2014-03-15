@@ -44,7 +44,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
-        [Apsalar event:@"Login_auto_login"];
         [Flurry logEvent:@"Login_auto_login"];
         [self performSelectorOnMainThread:@selector(LoadMainView)
                                withObject:nil
@@ -239,12 +238,10 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  NSString *gender = user[@"gender"];
                  if ([gender isEqualToString:@"male"])
                  {
-                     [Apsalar setGender:@"m"];
                      [Flurry setGender:@"m"];
                  }
                  else
                  {
-                     [Apsalar setGender:@"f"];
                      [Flurry setGender:@"f"];
                  }
                  
@@ -265,7 +262,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      [[Globals i] setUID:uid];
                      [[Globals i] settLoginBonus:returnValue];
                      
-                     [Apsalar event:@"Login_fb_login"];
                      [Flurry logEvent:@"Login_fb_login"];
                      [self performSelectorOnMainThread:@selector(LoadMainView)
                                             withObject:nil
@@ -289,7 +285,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      {
                          [[Globals i] setUID:uid];
                          
-                         [Apsalar event:@"Login_fb_register"];
                          [Flurry logEvent:@"Login_fb_register"];
                          [self performSelectorOnMainThread:@selector(LoadMainView)
                                                 withObject:nil
@@ -377,7 +372,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
             [[Globals i] setUID:uid];
             [[Globals i] settLoginBonus:returnValue];
             
-            [Apsalar event:@"Login_email_login"];
             [Flurry logEvent:@"Login_email_login"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
@@ -421,7 +415,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] setUID:uid];
             
-            [Apsalar event:@"Login_email_register"];
             [Flurry logEvent:@"Login_email_register"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil

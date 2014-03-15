@@ -135,7 +135,6 @@
 #define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
 #import "Flurry.h"
-#import "Apsalar.h"
 #import "MailView.h"
 #import "ChatView.h"
 #import "DialogBoxView.h"

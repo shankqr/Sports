@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="20" y="0.0" width="260" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <string key="text">There are 10 clubs in the League. During the course of a season, which lasts for five weeks, each club plays the others twice, once at their home stadium and once at their opponent's stadium, for a total of 18 matches. Teams receive three points for a win and one point for a draw. No points are awarded for a loss. Teams are first ranked by point total, then goal differential, and then goals scored. At the end of each season, the club with the most points is crowned champion. If the points are equal, goal differential and then goals scored determine the winner. Finish 1st Gold Trophy and $100K, 2nd Silver Trophy and $50K, 3rd Bronze Trophy and $25K. The top 5 teams are promoted to the higher division and the bottom 5 teams are demoted to a lower division. The best of the best clubs will end up in Division 1! Good Luck.</string>
-                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="16"/>
+                        <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>

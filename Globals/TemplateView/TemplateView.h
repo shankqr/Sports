@@ -27,7 +27,7 @@
 @property (nonatomic, weak) id <TemplateDelegate> delegate;
 - (void)cleanView;
 - (void)updateView;
-- (void)back;
+- (void)backorclose;
 - (void)pushNav:(UIViewController *)view;
 - (UIViewController *)peekFromStack;
 - (IBAction)closeButton_tap:(id)sender;

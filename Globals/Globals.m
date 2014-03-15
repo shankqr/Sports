@@ -618,7 +618,6 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
 {
-    [Apsalar event:title];
     [Flurry logEvent:title];
     
     templateView = [[TemplateView alloc] init];
@@ -641,7 +640,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)backTemplate
 {
-    [(TemplateView *)[self peekViewControllerStack] back];
+    [(TemplateView *)[self peekViewControllerStack] backorclose];
 }
 
 - (void)closeTemplate
@@ -2806,7 +2805,6 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)doBid:(NSString *)player_id :(NSString *)value
 {
-    [Apsalar event:@"DoBid"];
     [Flurry logEvent:@"DoBid"];
     
 	NSString *encodedValue = [self urlEnc:value];

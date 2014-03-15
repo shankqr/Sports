@@ -18,8 +18,6 @@
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    [Apsalar startSession:@"tapfantasy" withKey:@"WlfzEz6F" andURL:url];
-    
     self.facebookSwitching = YES;
     // attempt to extract a token from the url
     return [FBSession.activeSession handleOpenURL:url];
@@ -83,8 +81,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [Apsalar startSession:@"tapfantasy" withKey:@"WlfzEz6F"];
-    
     [FBSession.activeSession handleDidBecomeActive];
     
     [[Globals i] resetLoginReminderNotification];

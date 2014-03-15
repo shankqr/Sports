@@ -27,7 +27,7 @@ static const NSInteger TagOffset = 1000;
 {
     if (self.backActive)
     {
-        [self back];
+        [self backorclose];
     }
     else
     {
@@ -480,7 +480,7 @@ static const NSInteger TagOffset = 1000;
     [self updateCloseButtonStatus];
 }
 
-- (void)back
+- (void)backorclose
 {
     UIViewController *prevVC = [self popFromStack];
     UIViewController *curVC = [self peekFromStack];

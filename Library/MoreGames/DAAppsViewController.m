@@ -103,7 +103,7 @@
         {
             [requestUrlString appendFormat:@"%@/", countryCode];
         }
-        [requestUrlString appendFormat:@"artist/id%li", (long)artistId];
+        [requestUrlString appendFormat:@"artist/id%@", @(artistId)];
         [requestUrlString appendFormat:@"?dataOnly=true"];
         NSURL *requestURL = [[NSURL alloc] initWithString:requestUrlString];
         
@@ -456,7 +456,7 @@
     
     if ([SKStoreProductViewController class])
     {
-        NSDictionary *appParameters = @{SKStoreProductParameterITunesItemIdentifier : [NSString stringWithFormat:@"%ld", (long)appObject.appId]};
+        NSDictionary *appParameters = @{SKStoreProductParameterITunesItemIdentifier : [@(appObject.appId) stringValue]};
         SKStoreProductViewController *productViewController = [[SKStoreProductViewController alloc] init];
         [productViewController setDelegate:self];
         [productViewController loadProductWithParameters:appParameters completionBlock:nil];
@@ -466,7 +466,7 @@
     }
     else
     {
-        NSString *appUrlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%ld?mt=8", (long)appObject.appId];
+        NSString *appUrlString = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id%@?mt=8", @(appObject.appId)];
         NSURL *appURL = [[NSURL alloc] initWithString:appUrlString];
         [[UIApplication sharedApplication] openURL:appURL];
     }
