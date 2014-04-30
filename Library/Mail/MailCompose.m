@@ -39,7 +39,6 @@
     NSDictionary *row20 = @{@"t1": @"Enter text here...", @"t1_height": @"84"};
     NSArray *rows2 = @[rowHeader2, row20];
     
-    //NSDictionary *rowHeader3 = @{@"h1": @"Options"};
     NSDictionary *rowDone = @{@"r1": @"Send", @"r1_center": @"1"};
     NSDictionary *rowCancel = @{@"r1": @"Cancel", @"r1_center": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowDone, rowCancel];

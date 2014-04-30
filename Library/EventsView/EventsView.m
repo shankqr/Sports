@@ -113,10 +113,10 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Club (Alliance)", @"c1": @"XP Gain"};
+                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club (Alliance)", @"c1": @"XP Gain"};
                  if ([self.isAlliance isEqualToString:@"1"])
                  {
-                     row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Alliance", @"c1": @"XP Gain"};
+                     row0 = @{@"n1": @"No.", @"h1": @"Alliance", @"c1": @"XP Gain"};
                  }
                  
                  [returnArray insertObject:row0 atIndex:0];

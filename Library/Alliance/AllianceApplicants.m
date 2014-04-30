@@ -49,7 +49,7 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"h1": @"", @"n1": @"No.", @"r1": @"Club"};
+                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club"};
                  [returnArray insertObject:row0 atIndex:0];
                  
                  self.rows = [@[returnArray] mutableCopy];

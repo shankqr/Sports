@@ -14,15 +14,13 @@
 
 @synthesize titleLabel;
 @synthesize managerNote;
-@synthesize winButton;
-@synthesize loseButton;
 @synthesize selected_matchid;
 @synthesize matches;
+@synthesize winLabel;
+@synthesize loseLabel;
 
 - (void)viewDidLoad
 {
-	winButton.enabled = NO;
-	loseButton.enabled = NO;
 	currMatchIndex = 0;
 }
 
@@ -52,9 +50,12 @@
 		{
 			managerNote.text = rowData[@"challenge_note"];
 		}
-		[winButton setTitle:[NSString stringWithFormat:@"$ %@", [[Globals i] numberFormat:rowData[@"challenge_win"]]] forState:UIControlStateNormal];
-		[loseButton setTitle:[NSString stringWithFormat:@"$ %@", [[Globals i] numberFormat:rowData[@"challenge_lose"]]] forState:UIControlStateNormal];
-		[self.view setNeedsDisplay];
+        
+        NSString *win = [[Globals i] numberFormat:rowData[@"challenge_win"]];
+        NSString *lose = [[Globals i] numberFormat:rowData[@"challenge_lose"]];
+        
+        winLabel.text = [NSString stringWithFormat:@"$ %@", win];
+        loseLabel.text = [NSString stringWithFormat:@"$ %@", lose];
 	}
 	else
 	{
@@ -81,20 +82,12 @@
 	{
 		managerNote.text = rowData[@"challenge_note"];
 	}
-	[winButton setTitle:[NSString stringWithFormat:@"$ %@", [[Globals i] numberFormat:rowData[@"challenge_win"]]] forState:UIControlStateNormal];
-	[loseButton setTitle:[NSString stringWithFormat:@"$ %@", [[Globals i] numberFormat:rowData[@"challenge_lose"]]] forState:UIControlStateNormal];
     
-    [self.view setNeedsDisplay];
-}
-
-- (IBAction)winButton_tap:(id)sender
-{
-
-}
-
-- (IBAction)loseButton_tap:(id)sender
-{
-
+	NSString *win = [[Globals i] numberFormat:rowData[@"challenge_win"]];
+    NSString *lose = [[Globals i] numberFormat:rowData[@"challenge_lose"]];
+    
+    winLabel.text = [NSString stringWithFormat:@"$ %@", win];
+    loseLabel.text = [NSString stringWithFormat:@"$ %@", lose];
 }
 
 - (IBAction)okButton_tap:(id)sender

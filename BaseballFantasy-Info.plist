@@ -44,17 +44,12 @@
 	<key>IBCustomFonts</key>
 	<dict>
 		<key>Helvetica</key>
-		<string>Trebuchet MS</string>
+		<string>TrebuchetMS</string>
 		<key>Helvetica-Bold</key>
-		<string>Trebuchet MS Bold</string>
+		<string>TrebuchetMS-Bold</string>
 	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Trebuchet MS.ttf</string>
-		<string>Trebuchet MS Bold.ttf</string>
-	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIStatusBarHidden</key>

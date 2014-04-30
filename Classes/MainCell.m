@@ -481,7 +481,7 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
-    myLabel.font = [UIFont fontWithName:DEFAULT_FONT size:MENU_FONT_SIZE];
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MENU_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor clearColor];
 	myLabel.textColor = [UIColor whiteColor];
 	myLabel.textAlignment = NSTextAlignmentCenter;
@@ -489,6 +489,17 @@
 	myLabel.adjustsFontSizeToFitWidth = YES;
 	myLabel.minimumScaleFactor = 0.5f;
 	[self addSubview:myLabel];
+    
+    if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.shadowColor = [UIColor blackColor];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
+    {
+        myLabel.textColor = [UIColor whiteColor];
+        myLabel.shadowColor = [UIColor blackColor];
+    }
 }
 
 - (void)posButton_tap:(id)sender

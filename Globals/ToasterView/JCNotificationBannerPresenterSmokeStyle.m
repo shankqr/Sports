@@ -4,6 +4,8 @@
 #import "JCNotificationBannerView.h"
 #import "JCNotificationBannerViewController.h"
 
+#import "Globals.h"
+
 @implementation JCNotificationBannerPresenterSmokeStyle
 
 - (id) init
@@ -62,6 +64,9 @@
     }
   };
   banner.notificationBanner.tapHandler = wrappingTapHandler;
+    
+  //Play sliding up sound
+  [[Globals i] toasterSound];
     
   // Slide it up while fading it in.
   banner.alpha = 0;

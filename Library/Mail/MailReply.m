@@ -23,17 +23,10 @@
 
 - (void)updateView
 {
-    //[self.tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-    
-    //NSDictionary *rowHeader1 = @{@"h1": @"To"};
-    //NSDictionary *row10 = @{@"t1": @"Enter name here..."};
-    //NSArray *rows1 = @[rowHeader1, row10];
-    
     NSDictionary *rowHeader2 = @{@"h1": @"Message"};
     NSDictionary *row20 = @{@"t1": @"Enter text here...", @"t1_height": @"84"};
     NSArray *rows2 = @[rowHeader2, row20];
     
-    //NSDictionary *rowHeader3 = @{@"h1": @"Options"};
     NSDictionary *rowDone = @{@"r1": @"Send", @"r1_center": @"1"};
     NSDictionary *rowCancel = @{@"r1": @"Cancel", @"r1_center": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowDone, rowCancel];

@@ -9,7 +9,6 @@
 
 @interface ChallengeCreateView : UIViewController <UIActionSheetDelegate, UITextViewDelegate>
 {
-	
 	UILabel *titleLabel;
 	UITextView *managerNote;
 	UIButton *winButton;

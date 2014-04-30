@@ -30,6 +30,8 @@
     if (self.messageText == nil)
     {
         self.messageText = [[UITextField alloc] initWithFrame:CGRectZero];
+        self.messageText.borderStyle = UITextBorderStyleBezel;
+        self.messageText.backgroundColor = [UIColor whiteColor];
         [self.view addSubview:self.messageText];
     }
 	self.messageText.delegate = self;

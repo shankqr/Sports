@@ -60,7 +60,7 @@
 #import "iRate.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
-UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate>
+UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
 @end
 
 @implementation MainView
@@ -173,6 +173,26 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
                                                  name:@"EventAlliance"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"ChatWorld"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"ChatAlliance"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"TabChatWorld"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"TabChatAlliance"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -335,6 +355,52 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         
         [self mailCompose:isAlli toID:toID toName:toName];
     }
+    
+    if ([[notification name] isEqualToString:@"ChatWorld"])
+    {
+        self.lblChatWorld1.text = [[Globals i] getFirstChatString];
+        self.lblChatWorld2.text = [[Globals i] getSecondChatString];
+        
+        void (^animationLabel) (void) = ^{
+            self.lblChatWorld2.alpha = 0;
+        };
+        void (^completionLabel) (BOOL) = ^(BOOL f) {
+            self.lblChatWorld2.alpha = 1;
+        };
+        
+        NSUInteger opts =  UIViewAnimationOptionAutoreverse;
+        
+        [UIView animateWithDuration:0.5f delay:0 options:opts
+                         animations:animationLabel completion:completionLabel];
+    }
+    
+    if ([[notification name] isEqualToString:@"ChatAlliance"])
+    {
+        self.lblChatAlliance1.text = [[Globals i] getFirstAllianceChatString];
+        self.lblChatAlliance2.text = [[Globals i] getSecondAllianceChatString];
+        
+        void (^animationLabel) (void) = ^{
+            self.lblChatAlliance2.alpha = 0;
+        };
+        void (^completionLabel) (BOOL) = ^(BOOL f) {
+            self.lblChatAlliance2.alpha = 1;
+        };
+        
+        NSUInteger opts =  UIViewAnimationOptionAutoreverse;
+        
+        [UIView animateWithDuration:0.5f delay:0 options:opts
+                         animations:animationLabel completion:completionLabel];
+    }
+    
+    if ([[notification name] isEqualToString:@"TabChatWorld"])
+    {
+        self.svChat.contentOffset = CGPointMake(0,0);
+    }
+    
+    if ([[notification name] isEqualToString:@"TabChatAlliance"])
+    {
+        self.svChat.contentOffset = CGPointMake(UIScreen.mainScreen.bounds.size.width,0);
+    }
 }
 
 - (void)reloadView //Called after login and when app becomes active from background
@@ -463,10 +529,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              [self createMarquee];
              
              [self createChat];
-             if(!self.chatTimer.isValid)
-             {
-                 self.chatTimer = [NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(onTimerChat) userInfo:nil repeats:YES];
-             }
              
              [self showChallengeBox];
              
@@ -1207,6 +1269,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			}
 			else 
 			{
+                [[Globals i] closeTemplate];
+                
                 [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
 			}
 		}
@@ -1239,6 +1303,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         [self showMatchReport];
     }
+    
+    [[Globals i] closeTemplate];
 }
 
 - (void)removeLiveMatch
@@ -2086,31 +2152,133 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         [self.view addSubview:self.bkgChat];
     }
     
-    //Create chat
-    self.svChat = [[UIScrollView alloc] init];
-    self.svChat.frame = self.bkgChat.frame;
-    self.svChat.backgroundColor = [UIColor clearColor];
-    self.svChat.pagingEnabled = YES;
-    self.svChat.contentSize = CGSizeMake(self.svChat.frame.size.width*2, self.svChat.frame.size.height);
-    self.svChat.showsHorizontalScrollIndicator = NO;
-    self.svChat.showsVerticalScrollIndicator = NO;
-    self.svChat.scrollsToTop = NO;
-    self.svChat.delegate = self;
-    [self.view addSubview:self.svChat];
+    if (self.svChat == nil)
+    {
+        self.svChat = [[UIScrollView alloc] init];
+        self.svChat.frame = self.bkgChat.frame;
+        self.svChat.backgroundColor = [UIColor clearColor];
+        self.svChat.pagingEnabled = YES;
+        self.svChat.contentSize = CGSizeMake(self.svChat.frame.size.width*2, self.svChat.frame.size.height);
+        self.svChat.showsHorizontalScrollIndicator = NO;
+        self.svChat.showsVerticalScrollIndicator = NO;
+        self.svChat.scrollsToTop = NO;
+        self.svChat.delegate = self;
+        [self.view addSubview:self.svChat];
+        UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchChat)];
+        [recognizer setNumberOfTapsRequired:1];
+        [recognizer setNumberOfTouchesRequired:1];
+        [self.svChat addGestureRecognizer:recognizer];
+    }
     
-    float pagecontrol_width = 30.0f*SCALE_IPAD;
-    float pagecontrol_height = 8.0f*SCALE_IPAD;
-    self.pcChat = [[UIPageControl alloc] init];
-    self.pcChat.frame = CGRectMake(self.bkgChat.frame.size.width/2 - pagecontrol_width/2, self.bkgChat.frame.origin.y, pagecontrol_width, pagecontrol_height);
-    self.pcChat.backgroundColor = [UIColor clearColor];
-    self.pcChat.numberOfPages = 2;
-    self.pcChat.currentPage = 0;
-    [self.view addSubview:self.pcChat];
+    if (self.pcChat == nil)
+    {
+        float pagecontrol_width = 30.0f*SCALE_IPAD;
+        float pagecontrol_height = 8.0f*SCALE_IPAD;
+        self.pcChat = [[UIPageControl alloc] init];
+        self.pcChat.frame = CGRectMake(self.bkgChat.frame.size.width/2 - pagecontrol_width/2, self.bkgChat.frame.origin.y, pagecontrol_width, pagecontrol_height);
+        self.pcChat.backgroundColor = [UIColor clearColor];
+        self.pcChat.numberOfPages = 2;
+        self.pcChat.currentPage = 0;
+        [self.view addSubview:self.pcChat];
+    }
     
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchChat)];
-    [recognizer setNumberOfTapsRequired:1];
-    [recognizer setNumberOfTouchesRequired:1];
-    [self.svChat addGestureRecognizer:recognizer];
+    [self loadScrollViewWithPage:0];
+    
+    [self updateChat];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)sender
+{
+    // Switch the indicator when more than 50% of the previous/next page is visible
+    CGFloat pageWidth = self.svChat.frame.size.width;
+    NSInteger page = floor((self.svChat.contentOffset.x - pageWidth/2) / pageWidth) + 1;
+    self.pcChat.currentPage = page;
+	
+    [self loadScrollViewWithPage:page];
+}
+
+- (void)loadScrollViewWithPage:(NSInteger)page
+{
+    float icon_size = 30.0f*SCALE_IPAD;
+    float chat_font_size = 12.0f*SCALE_IPAD;
+    float page_control_height = 5.0f*SCALE_IPAD;
+    
+    if (page == 0)
+    {
+        if (self.ivChatWorldIcon == nil)
+        {
+            self.ivChatWorldIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_chat_world"]];
+            [self.ivChatWorldIcon setFrame:CGRectMake(0, page_control_height, icon_size, icon_size)];
+            [self.svChat addSubview:self.ivChatWorldIcon];
+        }
+        
+        if (self.lblChatWorld1 == nil)
+        {
+            self.lblChatWorld1 = [[UILabel alloc] init];
+            self.lblChatWorld1.frame = CGRectMake(icon_size, page_control_height, UIScreen.mainScreen.bounds.size.width-icon_size, icon_size/2);
+            self.lblChatWorld1.font = [UIFont fontWithName:DEFAULT_FONT size:chat_font_size];
+            self.lblChatWorld1.backgroundColor = [UIColor clearColor];
+            self.lblChatWorld1.textColor = [UIColor whiteColor];
+            self.lblChatWorld1.textAlignment = NSTextAlignmentLeft;
+            self.lblChatWorld1.numberOfLines = 1;
+            self.lblChatWorld1.minimumScaleFactor = 1.0f;
+            [self.svChat addSubview:self.lblChatWorld1];
+        }
+        
+        if (self.lblChatWorld2 == nil)
+        {
+            self.lblChatWorld2 = [[UILabel alloc] init];
+            self.lblChatWorld2.frame = CGRectMake(icon_size, page_control_height+(icon_size/2), UIScreen.mainScreen.bounds.size.width-icon_size, icon_size/2);
+            self.lblChatWorld2.font = [UIFont fontWithName:DEFAULT_FONT size:chat_font_size];
+            self.lblChatWorld2.backgroundColor = [UIColor clearColor];
+            self.lblChatWorld2.textColor = [UIColor whiteColor];
+            self.lblChatWorld2.textAlignment = NSTextAlignmentLeft;
+            self.lblChatWorld2.numberOfLines = 1;
+            self.lblChatWorld2.minimumScaleFactor = 1.0f;
+            [self.svChat addSubview:self.lblChatWorld2];
+        }
+        
+        self.chatState = 1;
+        [self getChat];
+    }
+    else if (page == 1)
+    {
+        if (self.ivChatAllianceIcon == nil)
+        {
+            self.ivChatAllianceIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_chat_alliance"]];
+            [self.ivChatAllianceIcon setFrame:CGRectMake(UIScreen.mainScreen.bounds.size.width, page_control_height, icon_size, icon_size)];
+            [self.svChat addSubview:self.ivChatAllianceIcon];
+        }
+        
+        if (self.lblChatAlliance1 == nil)
+        {
+            self.lblChatAlliance1 = [[UILabel alloc] init];
+            self.lblChatAlliance1.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width+icon_size, page_control_height, UIScreen.mainScreen.bounds.size.width-icon_size, icon_size/2);
+            self.lblChatAlliance1.font = [UIFont fontWithName:DEFAULT_FONT size:chat_font_size];
+            self.lblChatAlliance1.backgroundColor = [UIColor clearColor];
+            self.lblChatAlliance1.textColor = [UIColor whiteColor];
+            self.lblChatAlliance1.textAlignment = NSTextAlignmentLeft;
+            self.lblChatAlliance1.numberOfLines = 1;
+            self.lblChatAlliance1.minimumScaleFactor = 1.0f;
+            [self.svChat addSubview:self.lblChatAlliance1];
+        }
+        
+        if (self.lblChatAlliance2 == nil)
+        {
+            self.lblChatAlliance2 = [[UILabel alloc] init];
+            self.lblChatAlliance2.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width+icon_size, page_control_height+(icon_size/2), UIScreen.mainScreen.bounds.size.width-icon_size, icon_size/2);
+            self.lblChatAlliance2.font = [UIFont fontWithName:DEFAULT_FONT size:chat_font_size];
+            self.lblChatAlliance2.backgroundColor = [UIColor clearColor];
+            self.lblChatAlliance2.textColor = [UIColor whiteColor];
+            self.lblChatAlliance2.textAlignment = NSTextAlignmentLeft;
+            self.lblChatAlliance2.numberOfLines = 1;
+            self.lblChatAlliance2.minimumScaleFactor = 1.0f;
+            [self.svChat addSubview:self.lblChatAlliance2];
+        }
+        
+        self.chatState = 2;
+        [self getChat];
+    }
 }
 
 - (void)touchChat
@@ -2138,7 +2306,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 {
 	if(self.chatView == nil)
     {
-        self.chatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
+        self.chatView = [[ChatView alloc] init];
     }
     self.chatView.title = @"World Chat";
     
@@ -2151,7 +2319,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         if(self.allianceChatView == nil)
         {
-            self.allianceChatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
+            self.allianceChatView = [[ChatView alloc] init];
         }
         self.allianceChatView.title = @"Alliance Chat";
         
@@ -2187,11 +2355,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             [[Globals i] updateAllianceChatData];
         }
     }
-}
-
-- (void)onTimerChat
-{
-    [NSThread detachNewThreadSelector:@selector(getChat) toTarget:self withObject:nil];
 }
 
 #pragma mark Table Data Source Methods

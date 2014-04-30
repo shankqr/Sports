@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>5.8</string>
+	<string>5.9</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>5.8</string>
+	<string>5.9</string>
 	<key>FLURRY_KEY</key>
 	<string>NKG46HM2TJ73T78859MX</string>
 	<key>FacebookAppID</key>
@@ -44,17 +44,12 @@
 	<key>IBCustomFonts</key>
 	<dict>
 		<key>Helvetica</key>
-		<string>Trebuchet MS</string>
+		<string>TrebuchetMS</string>
 		<key>Helvetica-Bold</key>
-		<string>Trebuchet MS Bold</string>
+		<string>TrebuchetMS-Bold</string>
 	</dict>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Trebuchet MS.ttf</string>
-		<string>Trebuchet MS Bold.ttf</string>
-	</array>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIStatusBarHidden</key>

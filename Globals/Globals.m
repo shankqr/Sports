@@ -616,7 +616,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title
 {
-    [self showTemplate:viewControllers :title :4 :0 :nil];
+    [self showTemplate:viewControllers :title :1 :0 :nil];
 }
 
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
@@ -745,7 +745,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
 {
-    ChatView *achatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
+    ChatView *achatView = [[ChatView alloc] init];
     achatView.title = @"Alliance Wall";
     
     [self showTemplate:@[achatView] :@"Alliance Wall"];
@@ -1091,6 +1091,10 @@ static NSOperationQueue *connectionQueue;
     {
         [self.localMailData removeObjectAtIndex:index_to_remove];
         [self settLocalMailData:self.localMailData];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailView"
+                                                            object:self
+                                                          userInfo:nil];
     }
 }
 
@@ -2083,6 +2087,10 @@ static NSOperationQueue *connectionQueue;
     if (wsMailReply.count > 0)
     {
         [self addMailReply:mail_id :wsMailReply];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailDetail"
+                                                            object:self
+                                                          userInfo:nil];
     }
 }
 

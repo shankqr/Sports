@@ -106,12 +106,16 @@ static const NSInteger TagOffset = 1000;
         [self.view addSubview:self.closeButton];
     }
 
-    if (self.frameType == 0) //No borders, fullscreen
+    if (self.frameType == 0) //No borders, fullscreen, shrink close button
     {
         rect.origin.x = 0;
         rect.origin.y = 0;
         rect.size.width = self.view.bounds.size.width;
         rect.size.height = UIScreen.mainScreen.bounds.size.height;
+        
+        UIImage *btn_image = [UIImage imageNamed:@"button_close1"];
+        CGSize btnSize = CGSizeMake(btn_image.size.width*SCALE_IPAD/2, btn_image.size.height*SCALE_IPAD/2);
+        [self.closeButton setFrame:CGRectMake(UIScreen.mainScreen.bounds.size.width-btnSize.width, 0.0f, btnSize.width, btnSize.height)];
     }
     else if (self.frameType == 1) //1 border at top
     {
@@ -309,7 +313,7 @@ static const NSInteger TagOffset = 1000;
 	{
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = TagOffset + index;
-		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:MEDIUM_FONT_SIZE];
+		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MEDIUM_FONT_SIZE];
 		button.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         
 		UIOffset offset = viewController.tabBarItem.titlePositionAdjustment;
@@ -579,8 +583,6 @@ static const NSInteger TagOffset = 1000;
 
 - (void)selectTabButton:(UIButton *)button
 {
-	[button setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
-    
 	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_h"];
 	[button setBackgroundImage:image_h forState:UIControlStateNormal];
 	[button setBackgroundImage:image_h forState:UIControlStateHighlighted];
@@ -590,14 +592,12 @@ static const NSInteger TagOffset = 1000;
 
 - (void)deselectTabButton:(UIButton *)button
 {
-	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    
 	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_h"];
     UIImage *image_n = [[Globals i] dynamicImage:button.frame prefix:@"tab1"];
 	[button setBackgroundImage:image_n forState:UIControlStateNormal];
 	[button setBackgroundImage:image_h forState:UIControlStateHighlighted];
     
-	[button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 	[button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 

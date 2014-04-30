@@ -485,6 +485,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
              
              if([self NSStringIsValidEmail:text])
              {
+                 text = [text lowercaseString];
                  NSString *hexHmac = [text HMACWithSecret:kSecret];
                  NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
                  

@@ -157,7 +157,7 @@
     
     if (indexPath.row == 0) //Header row
     {
-        rowData = @{@"h1": @"", @"n1": @"No.", @"r1": @"Name", @"c1": @"Prestige"};
+        rowData = @{@"n1": @"No.", @"h1": @"Name", @"c1": @"Prestige"};
 	}
     else
     {

@@ -20,6 +20,19 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateMailView"
+                                               object:nil];
+}
+
+- (void)notificationReceived:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"UpdateMailView"])
+    {
+        [self refreshTable];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
