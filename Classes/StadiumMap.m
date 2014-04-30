@@ -100,6 +100,19 @@
     b1s = 0.0;
     b2s = 0.0;
     b3s = 0.0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(notificationReceived:)
+                                                 name:@"UpdateStadium"
+                                               object:nil];
+}
+
+- (void)notificationReceived:(NSNotification *)notification
+{
+    if ([[notification name] isEqualToString:@"UpdateStadium"])
+    {
+        [self updateView];
+    }
 }
 
 - (void)viewDidUnload

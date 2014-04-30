@@ -576,6 +576,7 @@
             if (rand1 == 0)
             {
                 rand1 = arc4random() % 5 + 1;
+
                 //Make sure no 2 clovers in a row
                 if (rand1 == 5)
                 {
@@ -596,6 +597,12 @@
                     {
                         rand2 = arc4random() % 4 + 1;
                     }
+                }
+                
+                //Make sure no 3 in a row
+                if ((rand1 == rand2) && (rand1 == rand3))
+                {
+                    rand1 = 5;
                 }
             }
             

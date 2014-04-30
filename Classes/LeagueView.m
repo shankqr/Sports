@@ -52,29 +52,43 @@
 
 - (IBAction)divisionButton_tap:(id)sender
 {
-    [[Globals i] showDialogBlock:@"Please keyin a Division number:"
+    [[Globals i] showDialogBlock:@"Enter a Division number:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
          if (index == 1) //OK button is clicked
          {
              NSInteger number = [text integerValue];
-             
-             if(number > 0 && number < [[Globals i] getMaxSeries:dialogDivision]+1)
+             dialogDivision = number;
+             if(number > 0 && number < 1001)
              {
-                 dialogSeries = number;
-                 if(!(([Globals i].selectedDivision == dialogDivision)&&
-                      ([Globals i].selectedSeries == dialogSeries)))
-                 {
-                     [[Globals i] showLoadingAlert];
-                     [Globals i].selectedDivision = dialogDivision;
-                     [Globals i].selectedSeries = dialogSeries;
-                     [NSThread detachNewThreadSelector: @selector(getLeagueData) toTarget:self withObject:nil];
-                 }
+                 NSString *dt = [NSString stringWithFormat:@"Enter a Series number range 1 to %ld", (long)[[Globals i] getMaxSeries:dialogDivision]];
+                 
+                 [[Globals i] showDialogBlock:dt
+                                             :5
+                                             :^(NSInteger index, NSString *text)
+                  {
+                      if (index == 1) //OK button is clicked
+                      {
+                          NSInteger number = [text integerValue];
+                          if(number > 0 && number < [[Globals i] getMaxSeries:dialogDivision]+1)
+                          {
+                              dialogSeries = number;
+                              if(!(([Globals i].selectedDivision == dialogDivision)&&
+                                   ([Globals i].selectedSeries == dialogSeries)))
+                              {
+                                  [[Globals i] showLoadingAlert];
+                                  [Globals i].selectedDivision = dialogDivision;
+                                  [Globals i].selectedSeries = dialogSeries;
+                                  [NSThread detachNewThreadSelector: @selector(getLeagueData) toTarget:self withObject:nil];
+                              }
+                          }
+                      }
+                  }];
              }
+             
          }
      }];
-    
 }
 
 - (void)getHomeLeagueData

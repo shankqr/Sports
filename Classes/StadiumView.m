@@ -80,7 +80,7 @@
 			[Globals i].energy=[Globals i].energy-10;
 			[[Globals i] storeEnergy];
 			[[Globals i].mainView buyStadiumSuccess:@"1":@"0"];
-            
+            [self updateView];
             [[Globals i] closeTemplate];
 		}
 		else
@@ -103,7 +103,7 @@
 		if(bal > pval)
 		{
 			[[Globals i].mainView buyStadiumSuccess:@"2":@"0"];
-            
+            [self updateView];
             [[Globals i] closeTemplate];
 		}
 		else

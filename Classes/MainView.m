@@ -1068,7 +1068,9 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	
 	[[Globals i] updateClubData]; //Stadium data updated
     
-    [self.stadiumMap updateView];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateStadium"
+                                                        object:self
+                                                      userInfo:nil];
 	
 	NSString *message = @"I have just upgraded my arena. Come over and play a match with me.";
 	NSString *extra_desc = @"A big portion of club revenue comes from ticket sales of matches played at your stadium. Upgrade your stadium to increase seating capacity and average ticket price per match. ";
@@ -1228,7 +1230,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)startLiveMatch
 {
-	[[Globals i] showDialog:@"PROCESSING... Please wait a while."];
+	[[Globals i] showLoadingAlert];
 	[NSThread detachNewThreadSelector: @selector(liveMatchServer) toTarget:self withObject:nil];
 }
 
@@ -1269,7 +1271,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			}
 			else 
 			{
-                [[Globals i] closeTemplate];
+                [[Globals i] removeLoadingAlert];
                 
                 [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
 			}
@@ -1304,7 +1306,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         [self showMatchReport];
     }
     
-    [[Globals i] closeTemplate];
+    [[Globals i] removeLoadingAlert];
 }
 
 - (void)removeLiveMatch
