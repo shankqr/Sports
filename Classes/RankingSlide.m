@@ -19,11 +19,11 @@
 
 - (void)updateView
 {
-    NSDictionary *wsClubData = [[Globals i] getClubData];
-	self.divisionLabel.text = wsClubData[@"division"];
-	self.seriesLabel.text = wsClubData[@"series"];
-	self.positionLabel.text = wsClubData[@"league_ranking"];
-	self.undefeatedLabel.text = wsClubData[@"undefeated_counter"];
+    NSDictionary *wsClubDict = [[Globals i] getClubData];
+	self.divisionLabel.text = wsClubDict[@"division"];
+	self.seriesLabel.text = wsClubDict[@"series"];
+	self.positionLabel.text = wsClubDict[@"league_ranking"];
+	self.undefeatedLabel.text = wsClubDict[@"undefeated_counter"];
 }
 
 - (void)touchesEnded: (NSSet *) touches withEvent: (UIEvent *) event 

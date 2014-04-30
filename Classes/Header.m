@@ -86,14 +86,14 @@
 
 - (void)drawView
 {
-    NSDictionary *wsClubData = [[Globals i] getClubData];
+    NSDictionary *wsClubDict = [[Globals i] getClubData];
 	
-	self.gold = [wsClubData[@"balance"] integerValue];
-	self.diamond = [wsClubData[@"currency_second"] integerValue];
+	self.gold = [wsClubDict[@"balance"] integerValue];
+	self.diamond = [wsClubDict[@"currency_second"] integerValue];
 	self.level = [[Globals i] getLevel];
 	self.xp = [[Globals i] getXp];
 	self.xp_max = [[Globals i] getXpMax];
-	self.lblGold.text = [[Globals i] shortNumberFormat:wsClubData[@"balance"]];
+	self.lblGold.text = [[Globals i] shortNumberFormat:wsClubDict[@"balance"]];
 	if(self.gold > 0)
 	{
 		self.lblGold.textColor = [UIColor blackColor];
@@ -102,14 +102,14 @@
 	{
 		self.lblGold.textColor = [UIColor whiteColor];
 	}
-	self.lblName.text = wsClubData[@"club_name"];
-	self.lblDiamond.text = [[Globals i] numberFormat:wsClubData[@"currency_second"]];
+	self.lblName.text = wsClubDict[@"club_name"];
+	self.lblDiamond.text = [[Globals i] numberFormat:wsClubDict[@"currency_second"]];
 	self.lblLevel.text = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getLevel]];
 	self.lblExpCounter.text = [NSString stringWithFormat:@"%ld more", (long)self.xp_max-(long)self.xp];
 	
 	float bar = ((float)self.xp-[[Globals i] getXpMaxBefore]) / ((float)self.xp_max-[[Globals i] getXpMaxBefore]);
 	self.pvExp.progress = bar;
-	NSString *logo_url = wsClubData[@"logo_pic"];
+	NSString *logo_url = wsClubDict[@"logo_pic"];
 	if([logo_url length] > 5)
 	{
         NSURL *url = [NSURL URLWithString:logo_url];
@@ -123,7 +123,7 @@
 		[self.iLogo setImage:[UIImage imageNamed:fname]];
 	}
 	
-	self.energy_max = [wsClubData[@"energy"] integerValue];
+	self.energy_max = [wsClubDict[@"energy"] integerValue];
 	self.lblEnergyCounter.text = [NSString stringWithFormat:@"%ld / %ld", (long)[Globals i].energy, (long)self.energy_max];
 	if([Globals i].energy != self.energy_max)
 	{

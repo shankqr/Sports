@@ -129,19 +129,20 @@
             self.mailReply = [[MailReply alloc] initWithStyle:UITableViewStylePlain];
             self.mailReply.mailData = self.mailData;
             [self.mailReply updateView];
-            [[Globals i] pushTemplateNav:self.mailReply];
+
+            [[Globals i] showTemplate:@[self.mailReply] :@"Reply"];
         }
         else if(indexPath.row == 2) //Delete
         {
             NSString *wsurl = [NSString stringWithFormat:@"%@/DeleteMail/%@/%@",
-                               [[Globals i] world_url], self.mailData[@"mail_id"], [[Globals i] wsClubData][@"club_id"]];
+                               [[Globals i] world_url], self.mailData[@"mail_id"], [[Globals i] wsClubDict][@"club_id"]];
             
             [Globals getServerLoading:wsurl :^(BOOL success, NSData *data)
              {
                  if (success)
                  {
                      [[Globals i] deleteLocalMail:self.mailData[@"mail_id"]];
-                     [[Globals i] backTemplate];
+                     [[Globals i] closeTemplate];
                      
                      [[Globals i] showToast:@"Mail Deleted!"
                               optionalTitle:nil

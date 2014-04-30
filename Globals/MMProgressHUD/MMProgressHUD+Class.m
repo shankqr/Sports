@@ -304,16 +304,13 @@
     [[MMProgressHUD sharedHUD] dismissAfterDelay:delay];
 }
 
-+ (void)dismiss
-{
-    if ([NSThread isMainThread] == NO)
-    {
++ (void)dismiss {
+    if ([NSThread isMainThread] == NO) {
         dispatch_sync(dispatch_get_main_queue(), ^{
             [[MMProgressHUD sharedHUD] dismiss];
         });
     }
-    else
-    {
+    else {
         [[MMProgressHUD sharedHUD] dismiss];
     }
 }

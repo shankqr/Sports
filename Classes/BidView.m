@@ -300,7 +300,7 @@
 {
     NSDictionary *row1 = (self.wsBidList)[[indexPath row]];
     
-    if([row1[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+    if([row1[@"club_id"] isEqualToString:[[Globals i] wsClubDict][@"club_id"]])
     {
         return @{@"align_top": @"1", @"r1": row1[@"club_name"], @"r2": [[Globals i] numberFormat:row1[@"bid_value"]], @"c1": [[Globals i] getTimeAgo:row1[@"bid_datetime"]]};
     }

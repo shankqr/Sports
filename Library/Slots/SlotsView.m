@@ -54,7 +54,7 @@
 
 - (void)updateBalanceCredits
 {
-    [gameMechanics setCredits:[[[Globals i] wsClubData][@"currency_second"] intValue]];
+    [gameMechanics setCredits:[[[Globals i] wsClubDict][@"currency_second"] intValue]];
     [self refreshCredits:[NSNumber numberWithBool:NO]];
 }
 
@@ -399,41 +399,41 @@
              }
              else if([result isEqualToString:@"2"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed];
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed];
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else if([result isEqualToString:@"3"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*2;
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*2;
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else if([result isEqualToString:@"4"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*3;
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*3;
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else if([result isEqualToString:@"6"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*5;
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*5;
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else if([result isEqualToString:@"8"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*7;
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*7;
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else if([result isEqualToString:@"10"])
              {
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*9;
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] + [gameMechanics getCoinsUsed]*9;
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              else
              {
                  result = @"0";
                  
                  // - Diamonds used to clubData
-                 int diamonds_balance = [[Globals i].wsClubData[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
-                 [Globals i].wsClubData[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
+                 int diamonds_balance = [[Globals i].wsClubDict[@"currency_second"] intValue] - [gameMechanics getCoinsUsed];
+                 [Globals i].wsClubDict[@"currency_second"] = [NSString stringWithFormat:@"%ld", (long)diamonds_balance];
              }
              
              NSNumber *xp = [NSNumber numberWithInteger:5];

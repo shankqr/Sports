@@ -22,26 +22,26 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubData];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
     
-    if (wsClubData != nil)
+    if (wsClubDict != nil)
     {
-        [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubData[@"training"]]]];
-        teamspirit.text = [NSString stringWithFormat:@"%ld", (long)[wsClubData[@"teamspirit"] integerValue]/2];
-        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubData[@"teamspirit"] integerValue]/10]]];
+        [trainingImage setImage:[UIImage imageNamed:[NSString stringWithFormat:@"training%@.png", wsClubDict[@"training"]]]];
+        teamspirit.text = [NSString stringWithFormat:@"%ld", (long)[wsClubDict[@"teamspirit"] integerValue]/2];
+        [pbteamspirit setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubDict[@"teamspirit"] integerValue]/10]]];
         
-        confidence.text = [NSString stringWithFormat:@"%ld", (long)[wsClubData[@"confidence"] integerValue]/2];
-        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubData[@"confidence"] integerValue]/10]]];
+        confidence.text = [NSString stringWithFormat:@"%ld", (long)[wsClubDict[@"confidence"] integerValue]/2];
+        [pbconfidence setImage:[UIImage imageNamed:[NSString stringWithFormat:@"pbar%ld.png", (long)[wsClubDict[@"confidence"] integerValue]/10]]];
         
-        NSDictionary *row1 = @{@"coach_id": wsClubData[@"coach_id"],
-                               @"coach_name": wsClubData[@"coach_name"],
-                               @"coach_age": wsClubData[@"coach_age"],
-                               @"coach_desc": wsClubData[@"coach_desc"],
-                               @"coach_salary": wsClubData[@"coach_salary"],
-                               @"coach_value": wsClubData[@"coach_value"],
-                               @"coach_skill": wsClubData[@"coach_skill"],
-                               @"coach_leadership": wsClubData[@"coach_leadership"],
-                               @"coach_star": wsClubData[@"coach_star"]};
+        NSDictionary *row1 = @{@"coach_id": wsClubDict[@"coach_id"],
+                               @"coach_name": wsClubDict[@"coach_name"],
+                               @"coach_age": wsClubDict[@"coach_age"],
+                               @"coach_desc": wsClubDict[@"coach_desc"],
+                               @"coach_salary": wsClubDict[@"coach_salary"],
+                               @"coach_value": wsClubDict[@"coach_value"],
+                               @"coach_skill": wsClubDict[@"coach_skill"],
+                               @"coach_leadership": wsClubDict[@"coach_leadership"],
+                               @"coach_star": wsClubDict[@"coach_star"]};
         
         self.coaches = [[NSMutableArray alloc] initWithObjects:row1, nil];
         

@@ -18,12 +18,12 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubData];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
 	stadiumNameLabel.text = @"Good Condition";
-	capacityLabel.text = [[Globals i] numberFormat:wsClubData[@"stadium_capacity"]];
-	ticketLabel.text = [@"$ " stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"average_ticket"]]];
-	levelLabel.text = wsClubData[@"stadium"];
-	rentLabel.text = [@"$ " stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_stadium"]]];
+	capacityLabel.text = [[Globals i] numberFormat:wsClubDict[@"stadium_capacity"]];
+	ticketLabel.text = [@"$ " stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"average_ticket"]]];
+	levelLabel.text = wsClubDict[@"stadium"];
+	rentLabel.text = [@"$ " stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_stadium"]]];
 	
 	[self.view setNeedsDisplay];
 }

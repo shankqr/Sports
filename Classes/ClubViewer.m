@@ -98,42 +98,42 @@
 
 - (void)drawView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
-	if(wsClubData.count > 0)
+	NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
+	if(wsClubDict.count > 0)
 	{
-		[Globals i].selectedClubId = wsClubData[@"club_id"];
+		[Globals i].selectedClubId = wsClubDict[@"club_id"];
 		
-		clubNameLabel.text = wsClubData[@"club_name"];
-        NSString *date = wsClubData[@"date_found"];
+		clubNameLabel.text = wsClubDict[@"club_name"];
+        NSString *date = wsClubDict[@"date_found"];
         if ([date length] > 0)
         {
             date = [date substringToIndex:[date length] - 9];
         }
 		foundedLabel.text = date;
-		stadiumLabel.text = wsClubData[@"stadium"];
-		fansLabel.text = [[Globals i] numberFormat:wsClubData[@"fan_members"]];
-		financeLabel.text = [[Globals i] numberFormat:wsClubData[@"balance"]];
-		sponsorLabel.text = [[Globals i] numberFormat:wsClubData[@"revenue_sponsors"]];
-        NSInteger xp = [wsClubData[@"xp"] integerValue];
+		stadiumLabel.text = wsClubDict[@"stadium"];
+		fansLabel.text = [[Globals i] numberFormat:wsClubDict[@"fan_members"]];
+		financeLabel.text = [[Globals i] numberFormat:wsClubDict[@"balance"]];
+		sponsorLabel.text = [[Globals i] numberFormat:wsClubDict[@"revenue_sponsors"]];
+        NSInteger xp = [wsClubDict[@"xp"] integerValue];
         NSInteger level = [[Globals i] levelFromXp:xp];
 		levelLabel.text = [NSString stringWithFormat:@"%ld", (long)level];
-		divisionLabel.text = wsClubData[@"division"];
-		seriesLabel.text = wsClubData[@"series"];
-		positionLabel.text = wsClubData[@"league_ranking"];
-		coachLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubData[@"coach_id"] integerValue]];
+		divisionLabel.text = wsClubDict[@"division"];
+		seriesLabel.text = wsClubDict[@"series"];
+		positionLabel.text = wsClubDict[@"league_ranking"];
+		coachLabel.text = [NSString stringWithFormat:@"LEVEL %ld", (long)[wsClubDict[@"coach_id"] integerValue]];
 		
-        if([wsClubData[@"alliance_name"] length] > 0)
+        if([wsClubDict[@"alliance_name"] length] > 0)
         {
-            allianceLabel.text = wsClubData[@"alliance_name"];
+            allianceLabel.text = wsClubDict[@"alliance_name"];
         }
         else
         {
             allianceLabel.text = @"Alliance: NONE";
         }
         
-		logo_url = wsClubData[@"logo_pic"];
-		home_url = wsClubData[@"home_pic"];
-		away_url = wsClubData[@"away_pic"];
+		logo_url = wsClubDict[@"logo_pic"];
+		home_url = wsClubDict[@"home_pic"];
+		away_url = wsClubDict[@"away_pic"];
 	
 		[self loadLogo];
 		[self loadHome];
@@ -196,11 +196,11 @@
 
 - (IBAction)mailButton_tap:(id)sender
 {
-    NSDictionary *wsClubData = [[Globals i] getClubInfoData];
+    NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
 
     NSString *isAlli = @"0";
     NSString *toID = [Globals i].selectedClubId;
-    NSString *toName = wsClubData[@"club_name"];
+    NSString *toName = wsClubDict[@"club_name"];
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:isAlli forKey:@"is_alli"];
     [userInfo setObject:toID forKey:@"to_id"];
@@ -212,10 +212,10 @@
 
 - (IBAction)allianceButton_tap:(id)sender
 {
-    NSDictionary *wsClubData = [[Globals i] getClubInfoData];
-    if([wsClubData[@"alliance_name"] length] > 0)
+    NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
+    if([wsClubDict[@"alliance_name"] length] > 0)
     {
-        NSString *aid = wsClubData[@"alliance_id"];
+        NSString *aid = wsClubDict[@"alliance_id"];
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
         [userInfo setObject:aid forKey:@"alliance_id"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewAlliance"

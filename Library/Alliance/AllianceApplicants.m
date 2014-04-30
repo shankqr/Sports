@@ -112,13 +112,13 @@
     {
         NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
         
-        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubDict][@"club_id"]])
         {
             self.selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             
-            if([self.aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
+            if([self.aAlliance.leader_id isEqualToString:[[Globals i] wsClubDict][@"club_id"]]) //You are the leader
             {
-                self.selected_aid = [[NSString alloc] initWithString:[[Globals i] wsClubData][@"alliance_id"]];
+                self.selected_aid = [[NSString alloc] initWithString:[[Globals i] wsClubDict][@"alliance_id"]];
                 self.selected_clubname = rowData[@"club_name"];
                 
                 UIAlertView *alert = [[UIAlertView alloc]

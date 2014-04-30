@@ -24,7 +24,7 @@
 @synthesize moneyAudio;
 @synthesize winAudio;
 @synthesize loseAudio;
-@synthesize wsClubData;
+@synthesize wsClubDict;
 @synthesize wsClubInfoData;
 @synthesize wsReportData;
 @synthesize wsMailData;
@@ -32,10 +32,6 @@
 @synthesize localReportData;
 @synthesize localMailData;
 @synthesize localMailReply;
-@synthesize wsChatData;
-@synthesize wsChatFullData;
-@synthesize wsAllianceChatData;
-@synthesize wsAllianceChatFullData;
 @synthesize wsMyAchievementsData;
 @synthesize wsBaseData;
 @synthesize wsBasesData;
@@ -114,6 +110,11 @@ static Globals *_i;
         self.workingUrl = @"0";
         self.selectedMapTile = @"0";
         self.offsetServerTimeInterval = 0;
+        self.gettingChatWorld = NO;
+        self.gettingChatAlliance = NO;
+        
+        self.wsChatFullArray = [[NSMutableArray alloc] init];
+        self.wsAllianceChatFullArray = [[NSMutableArray alloc] init];
 	}
 	return self;
 }
@@ -385,6 +386,11 @@ static NSOperationQueue *connectionQueue;
     if (datetimestring != nil && [datetimestring length] > 0)
     {
         NSDate *date1 = [[self getDateFormat] dateFromString:[NSString stringWithFormat:@"%@ -0000", datetimestring]];
+        if (date1 == nil)
+        {
+            date1 = [[self getDateFormat] dateFromString:datetimestring];
+        }
+        
         NSDate *date2 = [NSDate date];
         
         if (self.offsetServerTimeInterval != 0) //Calibrate if local time is adjusted
@@ -407,7 +413,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%ld months ago", (long)[breakdownInfo month]];
+                diff = [NSString stringWithFormat:@"%@ months ago", @([breakdownInfo month])];
             }
         }
         else if ([breakdownInfo day] > 0)
@@ -418,7 +424,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%ld days ago", (long)[breakdownInfo day]];
+                diff = [NSString stringWithFormat:@"%@ days ago", @([breakdownInfo day])];
             }
         }
         else if ([breakdownInfo hour] > 0)
@@ -429,7 +435,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%ld hours ago", (long)[breakdownInfo hour]];
+                diff = [NSString stringWithFormat:@"%@ hours ago", @([breakdownInfo hour])];
             }
         }
         else if ([breakdownInfo minute] > 0)
@@ -440,7 +446,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%ld mins ago", (long)[breakdownInfo minute]];
+                diff = [NSString stringWithFormat:@"%@ mins ago", @([breakdownInfo minute])];
             }
         }
         else if ([breakdownInfo second] > 0)
@@ -451,7 +457,7 @@ static NSOperationQueue *connectionQueue;
             }
             else
             {
-                diff = [NSString stringWithFormat:@"%ld secs ago", (long)[breakdownInfo second]];
+                diff = [NSString stringWithFormat:@"%@ secs ago", @([breakdownInfo second])];
             }
         }
         else
@@ -459,7 +465,7 @@ static NSOperationQueue *connectionQueue;
             diff = @"1 sec ago";
         }
     }
-
+    
     return diff;
 }
 
@@ -504,31 +510,22 @@ static NSOperationQueue *connectionQueue;
 
 - (void)createDialogBox
 {
-    if (dialogBox == nil)
+    if (self.dialogBox == nil)
     {
-        dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
+        self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
     }
-}
-
-- (void)removeDialogBox
-{
-	if(dialogBox != nil)
-	{
-		[dialogBox.view removeFromSuperview];
-	}
 }
 
 - (void)showDialog:(NSString *)l1
 {
     [self createDialogBox];
     
-    dialogBox.promptText = l1;
-    dialogBox.whiteText = @"";
-    dialogBox.dialogType = 1;
-    [[self peekViewControllerStack].view addSubview:dialogBox.view];
-    dialogBox.dialogBlock = nil;
+    self.dialogBox.displayText = l1;
+    self.dialogBox.dialogType = 1;
+    self.dialogBox.dialogBlock = nil;
+    [self.dialogBox updateView];
     
-    [dialogBox updateView];
+    [self showTemplate:@[self.dialogBox] :@"" :7];
 }
 
 - (void)showDialogError
@@ -540,43 +537,42 @@ static NSOperationQueue *connectionQueue;
 {
     [self createDialogBox];
     
-    dialogBox.promptText = @"";
-    dialogBox.whiteText = l1;
-    dialogBox.dialogType = type;
-    [[self peekViewControllerStack].view addSubview:dialogBox.view];
-    dialogBox.dialogBlock = block;
+    self.dialogBox.displayText = l1;
+    self.dialogBox.dialogType = type;
+    self.dialogBox.dialogBlock = block;
+    [self.dialogBox updateView];
     
-    [dialogBox updateView];
+    [self showTemplate:@[self.dialogBox] :@"" :7];
 }
 
 - (void)flushViewControllerStack
 {
-    if(viewControllerStack == nil)
+    if(self.viewControllerStack == nil)
     {
-        viewControllerStack = [[NSMutableArray alloc] init];
+        self.viewControllerStack = [[NSMutableArray alloc] init];
     }
     
-    [viewControllerStack removeAllObjects];
+    [self.viewControllerStack removeAllObjects];
 }
 
 - (void)pushViewControllerStack:(UIViewController *)view
 {
-    if(viewControllerStack == nil)
+    if(self.viewControllerStack == nil)
     {
-        viewControllerStack = [[NSMutableArray alloc] init];
+        self.viewControllerStack = [[NSMutableArray alloc] init];
     }
     
-    [viewControllerStack addObject:view];
+    [self.viewControllerStack addObject:view];
 }
 
 - (UIViewController *)popViewControllerStack
 {
     UIViewController *view = nil;
     
-    if ([viewControllerStack count] != 0)
+    if ([self.viewControllerStack count] != 0)
     {
-        view = [viewControllerStack lastObject];
-        [viewControllerStack removeLastObject];
+        view = [self.viewControllerStack lastObject];
+        [self.viewControllerStack removeLastObject];
     }
     
     return view;
@@ -586,9 +582,21 @@ static NSOperationQueue *connectionQueue;
 {
     UIViewController *view = nil;
     
-    if ([viewControllerStack count] != 0)
+    if ([self.viewControllerStack count] != 0)
     {
-        view = [viewControllerStack lastObject];
+        view = [self.viewControllerStack lastObject];
+    }
+    
+    return view;
+}
+
+- (UIViewController *)firstViewControllerStack
+{
+    UIViewController *view = nil;
+    
+    if ([self.viewControllerStack count] != 0)
+    {
+        view = [self.viewControllerStack firstObject];
     }
     
     return view;
@@ -601,51 +609,58 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)currentViewTitle
 {
-    NSString *title = @"";
-    
-    if([[self peekViewControllerStack] isKindOfClass:[TemplateView class]])
-    {
-        TemplateView *view = (TemplateView *)[self peekViewControllerStack];
-        title = [view peekFromStack].title;
-    }
-    else
-    {
-        title = [self peekViewControllerStack].title;
-    }
+    NSString *title = [self peekViewControllerStack].title;
     
     return title;
 }
 
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title
+{
+    [self showTemplate:viewControllers :title :4 :0 :nil];
+}
+
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
+{
+    [self showTemplate:viewControllers :title :frameType :0 :nil];
+}
+
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex
+{
+    [self showTemplate:viewControllers :title :frameType :selectedIndex :nil];
+}
+
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex :(UIViewController *)headerView
 {
     [Flurry logEvent:title];
     
-    templateView = [[TemplateView alloc] init];
+    self.templateView = [[TemplateView alloc] init];
+    self.templateView.delegate = self;
+	self.templateView.viewControllers = viewControllers;
+    self.templateView.title = title;
+    self.templateView.frameType = frameType;
+    self.templateView.selectedIndex = selectedIndex;
+    self.templateView.headerView = headerView;
+    [self.templateView updateView];
     
-    templateView.delegate = self;
-	templateView.viewControllers = viewControllers;
-    templateView.title = title;
-    templateView.frameType = frameType;
+    [[self firstViewControllerStack].view addSubview:self.templateView.view];
     
-    [[self peekViewControllerStack].view addSubview:templateView.view];
+    [self pushViewControllerStack:self.templateView];
     
-    [templateView updateView];
-    [self pushViewControllerStack:templateView];
+    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
+    [userInfo setObject:title forKey:@"title"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTemplateComplete"
+                                                        object:self
+                                                      userInfo:userInfo];
 }
 
-- (void)pushTemplateNav:(UIViewController *)view
+- (void)setTemplateBadgeNumber:(NSUInteger)tabIndex number:(NSUInteger)number
 {
-    [(TemplateView *)[self peekViewControllerStack] pushNav:view];
-}
-
-- (void)backTemplate
-{
-    [(TemplateView *)[self peekViewControllerStack] backorclose];
+    [(TemplateView *)[self peekViewControllerStack] setBadgeNumber:tabIndex number:number];
 }
 
 - (void)closeTemplate
 {
-    if ([self peekViewControllerStack] != nil)
+    if (([self peekViewControllerStack] != nil) && ([self.viewControllerStack count] > 1))
     {
         if([[self peekViewControllerStack] isKindOfClass:[TemplateView class]])
         {
@@ -655,21 +670,44 @@ static NSOperationQueue *connectionQueue;
         [[self peekViewControllerStack].view removeFromSuperview];
         
         [self popViewControllerStack];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"CloseTemplateComplete"
+         object:self];
     }
 }
 
 - (void)closeAllTemplate
 {
-    while ([viewControllerStack count] > 1)
+    while ([self.viewControllerStack count] > 1) //Close all accept MainView
     {
-        if([[self peekViewControllerStack] isKindOfClass:[TemplateView class]])
-        {
-            [(TemplateView *)[self peekViewControllerStack] cleanView];
-        }
-        
-        [[self peekViewControllerStack].view removeFromSuperview];
-        
-        [self popViewControllerStack];
+        [self closeTemplate];
+    }
+}
+
+- (BOOL)mh_tabBarController:(TemplateView *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
+{
+	NSLog(@"mh_tabBarController %@ shouldSelectViewController %@ at index %lu", tabBarController.title, viewController.title, (unsigned long)index);
+    
+	return YES;
+}
+
+- (void)mh_tabBarController:(TemplateView *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
+{
+	NSLog(@"mh_tabBarController %@ didSelectViewController %@ at index %lu", tabBarController.title, viewController.title, (unsigned long)index);
+    
+    if ([viewController.title isEqualToString:@"World Chat"])
+    {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"TabChatWorld"
+         object:self];
+    }
+    
+    if ([viewController.title isEqualToString:@"Alliance Chat"])
+    {
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"TabChatAlliance"
+         object:self];
     }
 }
 
@@ -710,7 +748,7 @@ static NSOperationQueue *connectionQueue;
     ChatView *achatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
     achatView.title = @"Alliance Wall";
     
-    [self pushTemplateNav:achatView];
+    [self showTemplate:@[achatView] :@"Alliance Wall"];
     [achatView updateView:ds table:tn a_id:aid];
 }
 
@@ -720,7 +758,7 @@ static NSOperationQueue *connectionQueue;
     NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
-    [self pushTemplateNav:appsViewController];
+    [[Globals i] showTemplate:@[appsViewController] :@"More Games"];
 }
 
 - (void)showMoreGames
@@ -730,20 +768,6 @@ static NSOperationQueue *connectionQueue;
     [appsViewController loadAppsWithAppIds:values completionBlock:nil];
     
     [self showTemplate:@[appsViewController] :@"More Games" :1];
-}
-
-- (BOOL)mh_tabBarController:(TemplateView *)tabBarController
- shouldSelectViewController:(UIViewController *)viewController
-                    atIndex:(NSUInteger)index
-{
-	return YES;
-}
-
-- (void)mh_tabBarController:(TemplateView *)tabBarController
-    didSelectViewController:(UIViewController *)viewController
-                    atIndex:(NSUInteger)index
-{
-	//NSLog(@"%@ didSelectViewController %@ at index %ld", tabBarController.title, viewController.title, (unsigned long)index);
 }
 
 - (double)Random_next:(double)min to:(double)max
@@ -1379,7 +1403,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)getXp
 {
-    NSInteger xp = [wsClubData[@"xp"] integerValue];
+    NSInteger xp = [wsClubDict[@"xp"] integerValue];
     return xp;
 }
 
@@ -1663,7 +1687,7 @@ static NSOperationQueue *connectionQueue;
     
     if([wsResponse count] > 0)
     {
-        wsClubData = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
         
         [[NSNotificationCenter defaultCenter]
          postNotificationName:@"UpdateHeader"
@@ -1698,7 +1722,7 @@ static NSOperationQueue *connectionQueue;
              NSArray *wsResponse = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
              if([wsResponse count] > 0)
              {
-                 wsClubData = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+                 wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
                  completionBlock(YES, data);
              }
              else
@@ -1733,7 +1757,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateMyAchievementsData
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAchievements/%@", 
-					   [self world_url], wsClubData[@"club_id"]];
+					   [self world_url], wsClubDict[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMyAchievementsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -1741,7 +1765,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateBasesData
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetBases/%@",
-					   [self world_url], wsClubData[@"club_id"]];
+					   [self world_url], wsClubDict[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsBasesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -1771,7 +1795,7 @@ static NSOperationQueue *connectionQueue;
         baseid = self.gettSelectedBaseId;
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/GetBase/%@/%@",
-                           [self world_url], baseid, wsClubData[@"club_id"]];
+                           [self world_url], baseid, wsClubDict[@"club_id"]];
         NSURL *url = [[NSURL alloc] initWithString:wsurl];
         NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
         if (wsResponse.count > 0)
@@ -1826,34 +1850,85 @@ static NSOperationQueue *connectionQueue;
 	return count;
 }
 
-- (NSString *)getLastChatString
+- (NSString *)getFirstChatString
 {
     NSString *message;
     
-    NSInteger i = [wsChatFullData count];
-    if (i == 0)
+    NSInteger i = [self.wsChatFullArray count];
+    
+    if (i > 1)
     {
-        message = @""; //nothing to display
-    }
-    else if (i == 1)
-    {
-        NSDictionary *rowData = wsChatFullData[0];
+        NSDictionary *rowData = self.wsChatFullArray[i-2];
         message = [NSString stringWithFormat:@"%@: %@",
-                             rowData[@"club_name"],
-                             rowData[@"message"]];
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
     }
     else
     {
-        NSDictionary *rowData = wsChatFullData[i-2];
+        message = @"";
+    }
+    
+    return message;
+}
+
+- (NSString *)getSecondChatString
+{
+    NSString *message;
+    
+    NSInteger i = [self.wsChatFullArray count];
+    
+    if (i > 0)
+    {
+        NSDictionary *rowData = self.wsChatFullArray[i-1];
         message = [NSString stringWithFormat:@"%@: %@",
-                             rowData[@"club_name"],
-                             rowData[@"message"]];
-        
-        rowData = wsChatFullData[i-1];
-        message = [NSString stringWithFormat:@"%@\n%@: %@",
-                   message,
                    rowData[@"club_name"],
                    rowData[@"message"]];
+    }
+    else
+    {
+        message = @"";
+    }
+    
+    return message;
+}
+
+- (NSString *)getFirstAllianceChatString
+{
+    NSString *message;
+    
+    NSInteger i = [self.wsAllianceChatFullArray count];
+    
+    if (i > 1)
+    {
+        NSDictionary *rowData = self.wsAllianceChatFullArray[i-2];
+        message = [NSString stringWithFormat:@"%@: %@",
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
+    }
+    else
+    {
+        message = @"";
+    }
+    
+    return message;
+}
+
+- (NSString *)getSecondAllianceChatString
+{
+    NSString *message;
+    
+    NSInteger i = [self.wsAllianceChatFullArray count];
+    
+    if (i > 0)
+    {
+        NSDictionary *rowData = self.wsAllianceChatFullArray[i-1];
+        message = [NSString stringWithFormat:@"%@: %@",
+                   rowData[@"club_name"],
+                   rowData[@"message"]];
+    }
+    else
+    {
+        message = @"";
     }
     
     return message;
@@ -1861,51 +1936,59 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)getLastChatID
 {
-    NSInteger i = [wsChatFullData count];
+    NSInteger i = [self.wsChatFullArray count];
     if(i == 0)
     {
         return @"0"; //tells server to fetch most current
     }
-    else
+    else if(i > 0)
     {
-        NSDictionary *rowData = wsChatFullData[i-1];
+        NSDictionary *rowData = self.wsChatFullArray[i-1];
         return rowData[@"chat_id"];
     }
+    
+    return @"0";
 }
 
 - (NSString *)getLastAllianceChatID
 {
-    NSInteger i = [wsAllianceChatFullData count];
+    NSInteger i = [self.wsAllianceChatFullArray count];
     if(i == 0)
     {
         return @"0"; //tells server to fetch most current
     }
-    else
+    else if(i > 0)
     {
-        NSDictionary *rowData = wsAllianceChatFullData[i-1];
+        NSDictionary *rowData = self.wsAllianceChatFullArray[i-1];
         return rowData[@"chat_id"];
     }
+    
+    return @"0";
 }
 
 - (void)updateChatData
 {
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat1/%@",
+    if (!self.gettingChatWorld)
+    {
+        self.gettingChatWorld = YES;
+        
+        NSString *wsurl = [NSString stringWithFormat:@"%@/GetChat1/%@",
                            [self world_url], [self getLastChatID]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)
          {
              if (success)
              {
-                 self.wsChatData = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
-                 if ([wsChatData count] > 0)
+                 self.wsChatArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+                 if ([self.wsChatArray count] > 0)
                  {
-                     if(wsChatFullData == nil)
+                     if (self.wsChatFullArray == nil)
                      {
-                         wsChatFullData = [[NSMutableArray alloc] initWithArray:wsChatData copyItems:YES];
+                         self.wsChatFullArray = [self.wsChatArray mutableCopy];
                      }
                      else
                      {
-                         [wsChatFullData addObjectsFromArray:wsChatData];
+                         [self.wsChatFullArray addObjectsFromArray:self.wsChatArray];
                      }
                      
                      [[NSNotificationCenter defaultCenter]
@@ -1913,29 +1996,36 @@ static NSOperationQueue *connectionQueue;
                       object:self];
                  }
              }
+             
+             self.gettingChatWorld = NO;
          }];
+    }
 }
 
 - (void)updateAllianceChatData
 {
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceChat/%@/%@",
-                           [self world_url], [self getLastAllianceChatID], wsClubData[@"alliance_id"]];
+    if (!self.gettingChatAlliance)
+    {
+        self.gettingChatAlliance = YES;
+        
+        NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceChat/%@/%@",
+                           [self world_url], [self getLastAllianceChatID], self.wsClubDict[@"alliance_id"]];
         
         [Globals getServer:wsurl :^(BOOL success, NSData *data)
          {
              if (success)
              {
-                 self.wsAllianceChatData = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+                 self.wsAllianceChatArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
                  
-                 if ([wsAllianceChatData count] > 0)
+                 if ([self.wsAllianceChatArray count] > 0)
                  {
-                     if(wsAllianceChatFullData == nil)
+                     if (self.wsAllianceChatFullArray == nil)
                      {
-                         wsAllianceChatFullData = [[NSMutableArray alloc] initWithArray:wsAllianceChatData copyItems:YES];
+                         self.wsAllianceChatFullArray = [self.wsAllianceChatArray mutableCopy];
                      }
                      else
                      {
-                         [wsAllianceChatFullData addObjectsFromArray:wsAllianceChatData];
+                         [self.wsAllianceChatFullArray addObjectsFromArray:self.wsAllianceChatArray];
                      }
                      
                      [[NSNotificationCenter defaultCenter]
@@ -1943,7 +2033,10 @@ static NSOperationQueue *connectionQueue;
                       object:self];
                  }
              }
+             
+             self.gettingChatAlliance = NO;
          }];
+    }
 }
 
 - (void)updateReportData
@@ -1951,8 +2044,8 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetReport/%@/%@/%@",
                            [self world_url],
                            [self gettLastReportId],
-                           wsClubData[@"club_id"],
-                           wsClubData[@"alliance_id"]];
+                           wsClubDict[@"club_id"],
+                           wsClubDict[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsReportData = [[NSMutableArray alloc] initWithContentsOfURL:url];
         
@@ -1967,8 +2060,8 @@ static NSOperationQueue *connectionQueue;
 {
     NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
                            [self world_url],
-                           wsClubData[@"club_id"],
-                           wsClubData[@"alliance_id"]];
+                           wsClubDict[@"club_id"],
+                           wsClubDict[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsMailData = [[NSMutableArray alloc] initWithContentsOfURL:url];
         
@@ -2175,7 +2268,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)storeEnergy
 {
-    NSInteger energy_max = [wsClubData[@"energy"] integerValue];
+    NSInteger energy_max = [wsClubDict[@"energy"] integerValue];
     NSInteger energy_togo = energy_max - energy;
     if (energy_togo > 0)
     {
@@ -2185,7 +2278,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)retrieveEnergy
 {
-	self.energy = [wsClubData[@"e"] integerValue];
+	self.energy = [wsClubDict[@"e"] integerValue];
 	[self storeEnergy];
 	
 	return self.energy;
@@ -2386,134 +2479,134 @@ static NSOperationQueue *connectionQueue;
 	{
         if ([[[Globals i] GameType] isEqualToString:@"hockey"])
         {
-            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(GK)";
-            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"rw"] isEqualToString:row_player_id])
                 cell.position.text = @"(WNG1)";
-            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"lw"] isEqualToString:row_player_id])
                 cell.position.text = @"(WNG2)";
-            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(DEF1)";
-            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(DEF2)";
-            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR1)";
-            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im2"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR2)";
-            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(FWD1)";
-            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(FWD2)";
-            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.GK)";
-            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.DEF)";
-            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.CTR)";
-            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.FWD)";
-            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.WING)";
             else
                 cell.position.text = @" ";
         }
         else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
         {
-            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(PG)";
-            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(SG)";
-            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR)";
-            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(PF)";
-            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SF)";
-            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.PG)";
-            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.SG)";
-            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.CTR)";
-            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.PF)";
-            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.SF)";
             else
                 cell.position.text = @" ";
         }
         else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
         {
-            if([[wsClubData objectForKey:@"gk"] isEqualToString:row_player_id])
+            if([[wsClubDict objectForKey:@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(C)";
-            else if([[wsClubData objectForKey:@"rb"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"rb"] isEqualToString:row_player_id])
                 cell.position.text = @"(RF)";
-            else if([[wsClubData objectForKey:@"lb"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"lb"] isEqualToString:row_player_id])
                 cell.position.text = @"(LF)";
-            else if([[wsClubData objectForKey:@"cd1"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CF)";
-            else if([[wsClubData objectForKey:@"cd2"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SS)";
-            else if([[wsClubData objectForKey:@"im1"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(P)";
-            else if([[wsClubData objectForKey:@"fw1"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(1B)";
-            else if([[wsClubData objectForKey:@"fw2"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(2B)";
-            else if([[wsClubData objectForKey:@"fw3"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"fw3"] isEqualToString:row_player_id])
                 cell.position.text = @"(3B)";
-            else if([[wsClubData objectForKey:@"sgk"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 1)";
-            else if([[wsClubData objectForKey:@"sd"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 2";
-            else if([[wsClubData objectForKey:@"sim"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 3)";
-            else if([[wsClubData objectForKey:@"sfw"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 4)";
-            else if([[wsClubData objectForKey:@"sw"] isEqualToString:row_player_id])
+            else if([[wsClubDict objectForKey:@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 5)";
             else
                 cell.position.text = @" ";
         }
         else
         {
-            if([wsClubData[@"gk"] isEqualToString:row_player_id])
+            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(GK)";
-            else if([wsClubData[@"rb"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"rb"] isEqualToString:row_player_id])
                 cell.position.text = @"(DR)";
-            else if([wsClubData[@"lb"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"lb"] isEqualToString:row_player_id])
                 cell.position.text = @"(DL)";
-            else if([wsClubData[@"rw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"rw"] isEqualToString:row_player_id])
                 cell.position.text = @"(MR)";
-            else if([wsClubData[@"lw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"lw"] isEqualToString:row_player_id])
                 cell.position.text = @"(ML)";
-            else if([wsClubData[@"cd1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC1)";
-            else if([wsClubData[@"cd2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC2)";
-            else if([wsClubData[@"cd3"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"cd3"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC3)";
-            else if([wsClubData[@"im1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC1)";
-            else if([wsClubData[@"im2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im2"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC2)";
-            else if([wsClubData[@"im3"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"im3"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC3)";
-            else if([wsClubData[@"fw1"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC1)";
-            else if([wsClubData[@"fw2"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC2)";
-            else if([wsClubData[@"fw3"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"fw3"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC3)";
-            else if([wsClubData[@"sgk"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.GK)";
-            else if([wsClubData[@"sd"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.DCLR)";
-            else if([wsClubData[@"sim"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.MC)";
-            else if([wsClubData[@"sfw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.SC)";
-            else if([wsClubData[@"sw"] isEqualToString:row_player_id])
+            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.MLR)";
             else
                 cell.position.text = @" ";
@@ -2557,119 +2650,181 @@ static NSOperationQueue *connectionQueue;
     return fname;
 }
 
+- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix
+{
+    float frame_width = frame.size.width;
+    float frame_height = frame.size.height;
+    float offset1 = 0.5f;
+    float offset2 = 1.0f;
+    
+    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_1.png", prefix]];
+    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_2.png", prefix]];
+    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_3.png", prefix]];
+    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_4.png", prefix]];
+    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_5.png", prefix]];
+    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_6.png", prefix]];
+    UIImage *img7 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_7.png", prefix]];
+    UIImage *img8 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_8.png", prefix]];
+    UIImage *img9 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_9.png", prefix]];
+    
+    CGSize imgSize = CGSizeMake(frame_width, frame_height);
+    UIGraphicsBeginImageContext(imgSize);
+    
+    CGSize topSize = CGSizeMake(img1.size.width/2.0f * SCALE_IPAD, img1.size.height/2.0f * SCALE_IPAD);
+    
+    if (!img7 || !img8 || !img9)
+    {
+        if (frame_width > (topSize.width*2.0f))
+        {
+            [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(topSize.width-offset1, topSize.height, frame_width - (topSize.width*2.0f) + offset2, frame_height - topSize.height)];
+        }
+        
+        [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero
+                              resizingMode:UIImageResizingModeStretch]
+         drawInRect:CGRectMake(frame_width - topSize.width, topSize.height, topSize.width, frame_height - topSize.height)];
+        
+        [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero
+                              resizingMode:UIImageResizingModeStretch]
+         drawInRect:CGRectMake(0.0, topSize.height, topSize.width, frame_height - topSize.height)];
+    }
+    else
+    {
+        CGSize bottomSize = CGSizeMake(img4.size.width/2.0f * SCALE_IPAD, img4.size.height/2.0f * SCALE_IPAD);
+        
+        if (frame_width > (bottomSize.width*2.0f))
+        {
+            [img5 drawInRect:CGRectMake(bottomSize.width-offset1, frame_height - bottomSize.height, frame_width - (bottomSize.width*2.0f) + offset2, bottomSize.height)];
+        }
+        [img6 drawInRect:CGRectMake(frame_width - bottomSize.width, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
+        [img4 drawInRect:CGRectMake(0.0f, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
+        
+        if (frame_height > (topSize.height + bottomSize.height))
+        {
+            CGSize midSize = CGSizeMake(img7.size.width/2.0f * SCALE_IPAD, img7.size.height/2.0f * SCALE_IPAD);
+            
+            if (frame_width > (midSize.width*2.0f))
+            {
+                [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                      resizingMode:UIImageResizingModeTile]
+                 drawInRect:CGRectMake(midSize.width-offset1, topSize.height - offset1, frame_width - (midSize.width*2.0f) + offset2, frame_height - topSize.height - bottomSize.height + offset2)];
+            }
+            
+            [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(frame_width - midSize.width, topSize.height - offset1, midSize.width, frame_height - topSize.height - bottomSize.height + offset2)];
+            
+            [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(0.0f, topSize.height - offset1, midSize.width, frame_height - topSize.height - bottomSize.height + offset2)];
+        }
+    }
+    
+    if (frame_width > (topSize.width*2.0f))
+    {
+        [img2 drawInRect:CGRectMake(topSize.width-offset1, 0.0f, frame_width - (topSize.width*2.0f) + offset2, topSize.height)];
+    }
+    [img3 drawInRect:CGRectMake(frame_width - topSize.width, 0.0f, topSize.width, topSize.height)];
+    [img1 drawInRect:CGRectMake(0.0f, 0.0f, topSize.width, topSize.height)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 - (UIButton *)dynamicButtonWithTitle:(NSString *)title
                               target:(id)target
                             selector:(SEL)selector
                                frame:(CGRect)frame
                                 type:(NSString *)type
 {
-    float button_width = frame.size.width;
-    float button_height = frame.size.height;
-    
-    BOOL button_shrink = NO;
-    
     UIButton *button = [[UIButton alloc] initWithFrame:frame];
 	
 	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
 	
-    if ((button_width > 100.0f) && (button_height > 60.0f))
+    if (frame.size.width > 140.0f*SCALE_IPAD)
     {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:DEFAULT_FONT_SMALL_SIZE];
+    }
+    else if (frame.size.width > 80.0f*SCALE_IPAD)
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:DEFAULT_FONT_SIZE];
     }
     else
     {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:10.0f*SCALE_IPAD];
     }
     
-    if (button_height > 80.0f)
-    {
-        button_shrink = NO;
-    }
-    else
-    {
-        button_shrink = YES;
-    }
+    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button.titleLabel.numberOfLines = 0;
+    
+    [button setContentEdgeInsets:UIEdgeInsetsMake(1.0, 1.0, 1.0, 1.0)];
     
 	[button setTitle:title forState:UIControlStateNormal];
     
 	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-
+    
 	button.backgroundColor = [UIColor clearColor];
     
-    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_1.png", type]];
-    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_2.png", type]];
-    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_3.png", type]];
-    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_4.png", type]];
-    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_5.png", type]];
-    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_6.png", type]];
+    UIImage *normalImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@", type]];
+	[button setBackgroundImage:normalImage forState:UIControlStateNormal];
     
-    UIImage *img1_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_1_h.png", type]];
-    UIImage *img2_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_2_h.png", type]];
-    UIImage *img3_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_3_h.png", type]];
-    UIImage *img4_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_4_h.png", type]];
-    UIImage *img5_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_5_h.png", type]];
-    UIImage *img6_h = [UIImage imageNamed:[NSString stringWithFormat:@"btn%@_6_h.png", type]];
-    
-    CGSize btnSize = CGSizeMake(button_width, button_height);
-    UIGraphicsBeginImageContext(btnSize);
-    
-    CGSize newSize = CGSizeMake(img1.size.width, img1.size.height);
-    
-    if (button_shrink)
+    if ([type isEqualToString:@"0"]) //Disabled button
     {
-        float shrink_height = img1.size.height - (80.0f - button_height);
-        if (shrink_height < 21.0f)
-        {
-            shrink_height = 21.0f;
-        }
-        newSize = CGSizeMake(img1.size.width, shrink_height);
+        [button setBackgroundImage:normalImage forState:UIControlStateHighlighted];
     }
-    
-    [img1 drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    [img2 drawInRect:CGRectMake(newSize.width, 0, button_width - (newSize.width*2), newSize.height)];
-    [img3 drawInRect:CGRectMake(button_width - newSize.width, 0, newSize.width, newSize.height)];
-    
-    [[img4 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                          resizingMode:UIImageResizingModeStretch]
-    drawInRect:CGRectMake(0, newSize.height, newSize.width, button_height - newSize.height)];
-    
-    [[img5 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                          resizingMode:UIImageResizingModeStretch]
-    drawInRect:CGRectMake(newSize.width, newSize.height, button_width - (newSize.width*2), button_height - newSize.height)];
-    
-    [[img6 resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                         resizingMode:UIImageResizingModeStretch]
-    drawInRect:CGRectMake(button_width - newSize.width, newSize.height, newSize.width, button_height - newSize.height)];
-
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-	[button setBackgroundImage:newImage forState:UIControlStateNormal];
-    
-    //Draw highlighted image
-    UIGraphicsBeginImageContext(btnSize);
-
-    [img1_h drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
-    [img2_h drawInRect:CGRectMake(newSize.width, 0, button_width - (newSize.width*2), newSize.height)];
-    [img3_h drawInRect:CGRectMake(button_width - newSize.width, 0, newSize.width, newSize.height)];
-    
-    [[img4_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                          resizingMode:UIImageResizingModeStretch]
-     drawInRect:CGRectMake(0, newSize.height, newSize.width, button_height - newSize.height)];
-    
-    [[img5_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                          resizingMode:UIImageResizingModeStretch]
-     drawInRect:CGRectMake(newSize.width, newSize.height, button_width - (newSize.width*2), button_height - newSize.height)];
-    
-    [[img6_h resizableImageWithCapInsets:UIEdgeInsetsMake(0, 0, 27.f, 0)
-                          resizingMode:UIImageResizingModeStretch]
-     drawInRect:CGRectMake(button_width - newSize.width, newSize.height, newSize.width, button_height - newSize.height)];
-    
-    UIImage *newImage_h = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    else
+    {
+        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_h", type]];
+        [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    }
 	
-	[button setBackgroundImage:newImage_h forState:UIControlStateHighlighted];
+	return button;
+}
+
+- (UIButton *)buttonWithTitle:(NSString *)title
+					   target:(id)target
+					 selector:(SEL)selector
+						frame:(CGRect)frame
+                  imageNormal:(UIImage *)imageNormal
+             imageHighlighted:(UIImage *)imageHighlighted
+                imageCentered:(BOOL)imageCentered
+				darkTextColor:(BOOL)darkTextColor
+{
+	UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	
+	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	
+	[button setTitle:title forState:UIControlStateNormal];
+	if (darkTextColor)
+	{
+		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	}
+	else
+	{
+		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	}
+    
+    if (imageCentered)
+    {
+        button.imageView.contentMode = UIViewContentModeCenter;
+    }
+	
+	UIImage *newImage = [imageNormal stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setImage:newImage forState:UIControlStateNormal];
+	
+	UIImage *newHighlightedImage = [imageHighlighted stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setImage:newHighlightedImage forState:UIControlStateHighlighted];
+	
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+	
+    // in case the parent view draws with a custom color or gradient, use a transparent color
+	button.backgroundColor = [UIColor clearColor];
 	
 	return button;
 }
@@ -2793,9 +2948,9 @@ static NSOperationQueue *connectionQueue;
 - (NSString *)doPost:(NSString *)message
 {
 	NSString *encodedMessage = [self urlEnc:message];
-    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
-    NSString *club_id = wsClubData[@"club_id"];
-    NSString *a_id = wsClubData[@"alliance_id"];
+    NSString *encodedClubName = [self urlEnc:wsClubDict[@"club_name"]];
+    NSString *club_id = wsClubDict[@"club_id"];
+    NSString *a_id = wsClubDict[@"alliance_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AlliancePost/%@/%@/%@/%@",
                        WS_URL, a_id, club_id, encodedClubName, encodedMessage];
@@ -2808,8 +2963,8 @@ static NSOperationQueue *connectionQueue;
     [Flurry logEvent:@"DoBid"];
     
 	NSString *encodedValue = [self urlEnc:value];
-    NSString *encodedClubName = [self urlEnc:wsClubData[@"club_name"]];
-    NSString *club_id = wsClubData[@"club_id"];
+    NSString *encodedClubName = [self urlEnc:wsClubDict[@"club_name"]];
+    NSString *club_id = wsClubDict[@"club_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@",
                        WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
@@ -2894,7 +3049,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSDictionary *)getClubData
 {
-	return wsClubData;
+	return wsClubDict;
 }
 
 - (NSDictionary *)getClubInfoData
@@ -2919,7 +3074,7 @@ static NSOperationQueue *connectionQueue;
 {
 	workingSquad = 1;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
-					   WS_URL, wsClubData[@"club_id"]];
+					   WS_URL, wsClubDict[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMySquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 	workingSquad = 0;
@@ -3179,7 +3334,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
-                           WS_URL, wsClubData[@"club_id"], division, series, playing_cup];
+                           WS_URL, wsClubDict[@"club_id"], division, series, playing_cup];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3192,7 +3347,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateWallData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
-                           WS_URL, wsClubData[@"alliance_id"]];
+                           WS_URL, wsClubDict[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3205,7 +3360,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateEventsData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
-                           WS_URL, wsClubData[@"alliance_id"]];
+                           WS_URL, wsClubDict[@"alliance_id"]];
 		NSURL *url = [[NSURL alloc] initWithString:wsurl];
 		wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3218,7 +3373,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateDonationsData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceDonations/%@",
-                       WS_URL, wsClubData[@"alliance_id"]];
+                       WS_URL, wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3231,7 +3386,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateAppliedData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceApply/%@",
-                       WS_URL, wsClubData[@"alliance_id"]];
+                       WS_URL, wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3244,7 +3399,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateMembersData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceMembers/%@",
-                       WS_URL, wsClubData[@"alliance_id"]];
+                       WS_URL, wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
@@ -3257,7 +3412,7 @@ static NSOperationQueue *connectionQueue;
 - (void)updateMarqueeData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMarquee/%@/%@/%@/%@",
-                       WS_URL, wsClubData[@"club_id"], wsClubData[@"division"], wsClubData[@"series"], [self BoolToBit:wsClubData[@"playing_cup"]]];
+                       WS_URL, wsClubDict[@"club_id"], wsClubDict[@"division"], wsClubDict[@"series"], [self BoolToBit:wsClubDict[@"playing_cup"]]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }

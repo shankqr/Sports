@@ -122,7 +122,7 @@
     {
         NSDictionary *rowData = self.rows[indexPath.section][indexPath.row];
         
-        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubDict][@"club_id"]])
         {
             NSString *selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];

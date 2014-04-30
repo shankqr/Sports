@@ -89,7 +89,7 @@
         }
         else if(indexPath.row == 1) //Cancel
         {
-            [[Globals i] backTemplate];
+            [[Globals i] closeTemplate];
             inputTV.text = @"";
         }
     }
@@ -100,9 +100,9 @@
 - (void)replyMail:(UITextView *)textview
 {
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsClubData][@"club_id"],
+                          [[Globals i] wsClubDict][@"club_id"],
                           @"club_id",
-                          [[Globals i] wsClubData][@"club_name"],
+                          [[Globals i] wsClubDict][@"club_name"],
                           @"club_name",
                           self.mailData[@"mail_id"],
                           @"mail_id",
@@ -122,7 +122,7 @@
             {
                 [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
                 [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
-                [[Globals i] backTemplate];
+                [[Globals i] closeTemplate];
                 textview.text = @"";
                 
                 [[Globals i] showToast:@"Message Sent!"

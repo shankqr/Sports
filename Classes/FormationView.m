@@ -245,9 +245,9 @@
 	UIImage *buttonBackground = [UIImage imageNamed:@""];
 	UIImage *buttonBackgroundPressed = [UIImage imageNamed:@""];
 
-	NSDictionary *wsClubData = [[Globals i] getClubData];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
 	
-	NSString *player_id = wsClubData[pos];
+	NSString *player_id = wsClubDict[pos];
 	player_id = player_id;
 	NSString *player_name = @"";
 	NSMutableArray *players = [[Globals i] getMySquadData];

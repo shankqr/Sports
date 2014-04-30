@@ -224,8 +224,7 @@
     [CATransaction commit];
 }
 
-- (void)_dismissWithFadeAnimation
-{
+- (void)_dismissWithFadeAnimation {
     self.hud.layer.anchorPoint = CGPointMake(0.5, 0.5);
     self.hud.layer.transform = CATransform3DIdentity;
     

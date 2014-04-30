@@ -41,18 +41,18 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubData];
-    NSString *date = wsClubData[@"date_found"];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
+    NSString *date = wsClubDict[@"date_found"];
     if ([date length] > 0)
     {
         date = [date substringToIndex:[date length] - 9];
     }
 	foundedLabel.text = date;
-	loginLabel.text = wsClubData[@"last_login"];
-	face_url = wsClubData[@"face_pic"];
-	logo_url = wsClubData[@"logo_pic"];
-	home_url = wsClubData[@"home_pic"];
-	away_url = wsClubData[@"away_pic"];
+	loginLabel.text = wsClubDict[@"last_login"];
+	face_url = wsClubDict[@"face_pic"];
+	logo_url = wsClubDict[@"logo_pic"];
+	home_url = wsClubDict[@"home_pic"];
+	away_url = wsClubDict[@"away_pic"];
 	
 	[self setImages];
 	[self.view setNeedsDisplay];
@@ -91,11 +91,11 @@
 
 - (void)resetImages
 {
-	NSDictionary *wsClubData = [[Globals i] getClubData];
-	logo_url = wsClubData[@"logo_pic"];
-	home_url = wsClubData[@"home_pic"];
-	away_url = wsClubData[@"away_pic"];
-	//face_url = [wsClubData objectForKey:@"face_pic"];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
+	logo_url = wsClubDict[@"logo_pic"];
+	home_url = wsClubDict[@"home_pic"];
+	away_url = wsClubDict[@"away_pic"];
+	//face_url = [wsClubDict objectForKey:@"face_pic"];
 	[self loadLogo];
 	[self loadHome];
 	[self loadAway];

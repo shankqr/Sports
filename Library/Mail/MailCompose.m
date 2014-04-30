@@ -134,9 +134,9 @@
 - (void)sendMail:(UITextView *)textview
 {
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsClubData][@"club_id"],
+                          [[Globals i] wsClubDict][@"club_id"],
                           @"club_id",
-                          [[Globals i] wsClubData][@"club_name"],
+                          [[Globals i] wsClubDict][@"club_name"],
                           @"club_name",
                           self.isAlliance,
                           @"is_alliance",

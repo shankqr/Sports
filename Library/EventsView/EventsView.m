@@ -51,18 +51,18 @@
                  if (self.b1s > 0)
                  {
                      row2 = @{@"r1_color": @"1", @"r1": [NSString stringWithFormat:@"Ending in %@", [[Globals i] getCountdownString:self.b1s]]};
-                     row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubData[@"xp_gain"]]};
+                     row3 = @{@"r1": [NSString stringWithFormat:@"Your Score: %@ (XP Gain)", [Globals i].wsClubDict[@"xp_gain"]]};
                  }
                  else
                  {
                      row2 = @{@"r1_color": @"1", @"r1": @"This tournament has ended. Congratulations to all winners listed bellow. Prepare yourselves, as a new tournament will begin soon!"};
-                     if ([[Globals i].wsClubData[@"xp_history"] isEqualToString:@"0"])
+                     if ([[Globals i].wsClubDict[@"xp_history"] isEqualToString:@"0"])
                      {
                          row3 = @{@"r1": @"Thank you for playing."};
                      }
                      else
                      {
-                         row3 = @{@"r1": [NSString stringWithFormat:@"Your Score was %@ (XP Gain)", [Globals i].wsClubData[@"xp_history"]]};
+                         row3 = @{@"r1": [NSString stringWithFormat:@"Your Score was %@ (XP Gain)", [Globals i].wsClubDict[@"xp_history"]]};
                      }
                  }
                  
@@ -250,7 +250,7 @@
                                                                 object:self
                                                               userInfo:userInfo];
         }
-        else if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubData][@"club_id"]])
+        else if(![rowData[@"club_id"] isEqualToString:[[Globals i] wsClubDict][@"club_id"]])
         {
             NSString *selected_clubid = [[NSString alloc] initWithString:rowData[@"club_id"]];
             NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];

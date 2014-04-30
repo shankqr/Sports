@@ -7,66 +7,98 @@
 //
 
 #import "DialogBoxView.h"
+#import "Globals.h"
 
 @implementation DialogBoxView
 
-- (IBAction)closeButton_tap:(id)sender
+- (void)viewDidLoad
 {
-    if (self.dialogBlock != nil)
-    {
-        self.dialogBlock(0, @"");
-    }
-    
-	[self.view removeFromSuperview];
+	[super viewDidLoad];
 }
 
-- (IBAction)okButton_tap:(id)sender
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
 {
-    [self done];
+    NSDictionary *rowData = (self.rows)[indexPath.section][indexPath.row];
+    
+    return rowData;
+}
+
+#pragma mark Table Data Source Methods
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DynamicCell *dcell = (DynamicCell *)[DynamicCell dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH-DIALOG_CONTENT_MARGIN*2];
+    
+    [dcell.row1_button addTarget:self action:@selector(button1Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    dcell.row1_button.tag = indexPath.row;
+    
+    [dcell.col1_button addTarget:self action:@selector(button2Pressed:) forControlEvents:UIControlEventTouchUpInside];
+    dcell.col1_button.tag = indexPath.row;
+    
+    return dcell;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return [self.rows count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.rows[section] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH-DIALOG_CONTENT_MARGIN*2];
+}
+
+- (void)button1Pressed:(id)sender
+{
+    NSInteger i = [sender tag];
+    
+    if (i == 0)
+    {
+        [self done];
+    }
+}
+
+- (void)button2Pressed:(id)sender
+{
+    NSInteger i = [sender tag];
+    
+    if (i == 0)
+    {
+        [[Globals i] closeTemplate];
+        
+        if (self.dialogBlock != nil)
+        {
+            self.dialogBlock(2, @"");
+        }
+    }
 }
 
 - (void)done
 {
     if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
     {
-        if([self.inputText.text isEqualToString:@""])
+        self.inputCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        UITextView *inputText = (UITextView *)[self.inputCell viewWithTag:7];
+        
+        if([inputText.text length] > 0)
         {
+            [inputText resignFirstResponder];
             
-        }
-        else if ([[self.inputText.text substringWithRange:NSMakeRange(0,1)] isEqualToString:@" "])
-        {
-            UIAlertView *alert = [[UIAlertView alloc]
-                                  initWithTitle:@"Invalid Input"
-                                  message:@"Blank spaces at the begining is not allowed"
-                                  delegate:self
-                                  cancelButtonTitle:@"OK"
-                                  otherButtonTitles:nil];
-            [alert show];
-        }
-        else
-        {
-            self.titleLabel.text = @"";
-            self.whiteLabel.text = @"";
-            self.promptLabel.text = @"";
-            
-            [self.view removeFromSuperview];
-            
-            if (self.delegate != nil && [self.delegate respondsToSelector:@selector(returnText:)])
-            {
-                [self.delegate returnText:self.inputText.text];
-            }
+            [[Globals i] closeTemplate];
             
             if (self.dialogBlock != nil)
             {
-                self.dialogBlock(1, self.inputText.text);
+                self.dialogBlock(1, inputText.text);
             }
         }
     }
     else
     {
-        [self.view removeFromSuperview];
-        
-        [self.delegate returnDialog:self.view.tag];
+        [[Globals i] closeTemplate];
         
         if (self.dialogBlock != nil)
         {
@@ -77,14 +109,10 @@
 
 - (void)updateView
 {
-	self.titleLabel.text = self.titleText;
-    self.whiteLabel.text = self.whiteText;
-	self.promptLabel.text = self.promptText;
-    
-    if (self.dialogType == 0)
-    {
-        [self setup0];
-    }
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if (self.dialogType == 1)
     {
@@ -96,127 +124,49 @@
         [self setup2];
     }
     
-    if (self.dialogType == 4)
+    if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
     {
-        self.inputText.keyboardType = UIKeyboardTypeEmailAddress;
         [self setupInput];
     }
     
-    if (self.dialogType == 5)
-    {
-        self.inputText.keyboardType = UIKeyboardTypeNumberPad;
-        [self setupInput];
-    }
-    
-    if (self.dialogType == 6)
-    {
-        self.inputText.keyboardType = UIKeyboardTypeNamePhonePad;
-        [self setupInput];
-    }
-	
-	[self.view setNeedsDisplay];
-}
-
-- (void)setup0
-{
-    [self.promptLabel setHidden:YES];
-    [self.noButton setHidden:YES];
-    [self.titleLabel setHidden:NO];
-    [self.whiteLabel setHidden:NO];
-    [self.inputText setHidden:YES];
-    [self.yesButton setHidden:YES];
-    [self.closeButton setHidden:YES];
+    [self.tableView reloadData];
 }
 
 - (void)setup1 //OK
 {
-    [self.titleLabel setHidden:NO];
-    [self.whiteLabel setHidden:NO];
-    [self.promptLabel setHidden:NO];
-    [self.inputText setHidden:YES];
-    [self.yesButton setHidden:YES];
-    [self.noButton setHidden:NO];
-    [self.closeButton setHidden:YES];
+    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
+    NSDictionary *row11 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_center": @"1"};
+    NSArray *rows1 = @[row10, row11];
+    self.rows = [@[rows1] mutableCopy];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        CGRect buttonRect = CGRectMake(294, 570, 180, 90);
-        self.noButton.frame = buttonRect;
-        [self.noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
-	}
-    else
-    {
-        CGRect buttonRect = CGRectMake(115, 256, 90, 45);
-        self.noButton.frame = buttonRect;
-        [self.noButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
-    }
+    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3"};
+    NSArray *rows2 = @[row21];
+    [self.rows addObject:rows2];
 }
 
 - (void)setup2 //YES NO
 {
-    [self.titleLabel setHidden:NO];
-    [self.whiteLabel setHidden:NO];
-    [self.promptLabel setHidden:NO];
-    [self.inputText setHidden:YES];
-    [self.yesButton setHidden:NO];
-    [self.noButton setHidden:NO];
-    [self.closeButton setHidden:YES];
+    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
+    NSDictionary *row11 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_center": @"1"};
+    NSArray *rows1 = @[row10, row11];
+    self.rows = [@[rows1] mutableCopy];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        CGRect buttonRect = CGRectMake(166, 570, 180, 90);
-        self.yesButton.frame = buttonRect;
-        [self.yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
-        
-        buttonRect = CGRectMake(422, 570, 180, 90);
-        self.noButton.frame = buttonRect;
-        [self.noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
-    }
-    else
-    {
-        CGRect buttonRect = CGRectMake(50, 256, 90, 45);
-        self.yesButton.frame = buttonRect;
-        [self.yesButton setImage:[UIImage imageNamed:@"button_yes.png"] forState:UIControlStateNormal];
-        
-        buttonRect = CGRectMake(180, 256, 90, 45);
-        self.noButton.frame = buttonRect;
-        [self.noButton setImage:[UIImage imageNamed:@"button_no.png"] forState:UIControlStateNormal];
-    }
+    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"YES", @"r1_button": @"3", @"c1": @"NO", @"c1_button": @"2",};
+    NSArray *rows2 = @[row21];
+    [self.rows addObject:rows2];
 }
 
 - (void)setupInput
 {
-    [self.promptLabel setHidden:YES];
-    [self.noButton setHidden:YES];
+    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
+    NSDictionary *row11 = @{@"h1": self.displayText};
+    NSDictionary *row12 = @{@"t1": @"Enter text here...", @"t1_height": @"36", @"t1_keyboard": [@(self.dialogType) stringValue]};
+    NSArray *rows1 = @[row10, row11, row12];
     
-    [self.titleLabel setHidden:YES];
-    [self.whiteLabel setHidden:NO];
-    [self.inputText setHidden:NO];
-    [self.yesButton setHidden:NO];
-    [self.closeButton setHidden:NO];
+    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3", @"c1": @"CANCEL", @"c1_button": @"2",};
+    NSArray *rows2 = @[row21];
     
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-    {
-        CGRect buttonRect = CGRectMake(294, 570, 180, 90);
-        self.yesButton.frame = buttonRect;
-        [self.yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
-	}
-    else
-    {
-        CGRect buttonRect = CGRectMake(115, 240, 90, 45);
-        self.yesButton.frame = buttonRect;
-        [self.yesButton setImage:[UIImage imageNamed:@"button_ok.png"] forState:UIControlStateNormal];
-    }
-    
-    self.inputText.delegate = self;
-	[self.inputText becomeFirstResponder];
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)theTextField 
-{
-	[self.inputText resignFirstResponder];
-	
-	return YES;
+    self.rows = [@[rows1, rows2] mutableCopy];
 }
 
 @end

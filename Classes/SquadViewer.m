@@ -25,13 +25,13 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
-	if(![selected_clubid isEqualToString:wsClubData[@"club_id"]]) //Check for redundent page load for same id
+	NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
+	if(![selected_clubid isEqualToString:wsClubDict[@"club_id"]]) //Check for redundent page load for same id
 	{
         [[Globals i] showLoadingAlert];
         [NSThread detachNewThreadSelector: @selector(getSquadData) toTarget:self withObject:nil];
 				
-        selected_clubid = wsClubData[@"club_id"];
+        selected_clubid = wsClubDict[@"club_id"];
 	}
 }
 

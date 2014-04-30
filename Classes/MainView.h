@@ -117,7 +117,6 @@
 @property (nonatomic, strong) EventsView *eventSoloView;
 @property (nonatomic, strong) EventsView *eventAllianceView;
 @property (nonatomic, strong) NSTimer *marqueeTimer;
-@property (nonatomic, strong) NSTimer *chatTimer;
 @property (nonatomic, strong) NSMutableArray *marquee;
 @property (nonatomic, strong) UILabel* lblMarquee;
 @property (nonatomic, strong) UILabel* lblChat1;
@@ -126,7 +125,18 @@
 @property (nonatomic, strong) UITabBarController *clubTabBarController;
 @property (nonatomic, strong) UITabBarController *myclubTabBarController;
 @property (nonatomic, strong) UITableView *mainTableView;
+@property (nonatomic, strong) NSTimer *chatTimer;
+@property (nonatomic, strong) UIImageView *bkgChat;
+@property (nonatomic, strong) UILabel *lblChatWorld1;
+@property (nonatomic, strong) UILabel *lblChatWorld2;
+@property (nonatomic, strong) UILabel *lblChatAlliance1;
+@property (nonatomic, strong) UILabel *lblChatAlliance2;
+@property (nonatomic, strong) UIPageControl *pcChat;
+@property (nonatomic, strong) UIScrollView *svChat;
+@property (nonatomic, strong) UIImageView *ivChatWorldIcon;
+@property (nonatomic, strong) UIImageView *ivChatAllianceIcon;
 
+@property (nonatomic, assign) NSInteger chatState;
 @property (nonatomic, assign) NSInteger rowMarquee;
 @property (nonatomic, assign) NSInteger speedMarquee;
 @property (nonatomic, assign) NSInteger currMatchIndex;

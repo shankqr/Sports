@@ -115,7 +115,7 @@
         }
         else if(indexPath.row == 2) //Cancel
         {
-            [[Globals i] backTemplate];
+            [[Globals i] closeTemplate];
             tvName.text = @"";
             tvDesc.text = @"";
         }
@@ -127,9 +127,9 @@
 - (void)postAllianceEdit:(NSString *)tvName withDesc:(NSString *)tvDesc
 {
     NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsClubData][@"club_id"],
+                          [[Globals i] wsClubDict][@"club_id"],
                           @"club_id",
-                          [[Globals i] wsClubData][@"alliance_id"],
+                          [[Globals i] wsClubDict][@"alliance_id"],
                           @"alliance_id",
                           tvName,
                           @"name",
@@ -142,7 +142,6 @@
          dispatch_async(dispatch_get_main_queue(), ^{ //Update UI on main thread
              if (success)
              {
-                 [[Globals i] backTemplate];
                  [[Globals i] closeTemplate];
                  
                  [[NSNotificationCenter defaultCenter]
@@ -171,14 +170,14 @@
              NSDictionary *wspi = [[Globals i] getCurrentSeasonData];
              NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
              
-             NSInteger balDiamonds = [[[Globals i] wsClubData][@"currency_second"] integerValue];
+             NSInteger balDiamonds = [[[Globals i] wsClubDict][@"currency_second"] integerValue];
              
              if (balDiamonds >= reqCurrency1.integerValue)
              {
                  NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                                       [[Globals i] wsClubData][@"club_id"],
+                                       [[Globals i] wsClubDict][@"club_id"],
                                        @"club_id",
-                                       [[Globals i] wsClubData][@"club_name"],
+                                       [[Globals i] wsClubDict][@"club_name"],
                                        @"club_name",
                                        tvName,
                                        @"name",
@@ -193,8 +192,7 @@
                           if (success)
                           {
                               [[Globals i] updateClubData]; //Balance Diamonds will be updated
-                                        
-                              [[Globals i] backTemplate];
+
                               [[Globals i] closeTemplate];
                                        
                               [[NSNotificationCenter defaultCenter]

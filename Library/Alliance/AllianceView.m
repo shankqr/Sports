@@ -230,7 +230,7 @@
         [self.allianceViewer scrollToTop];
         [self.allianceViewer updateView];
         
-        [[Globals i] pushTemplateNav:self.allianceViewer];
+        [[Globals i] showTemplate:@[self.allianceViewer] :@"Alliance"];
     }
     
 	return nil;
@@ -263,7 +263,7 @@
 
 - (void)button1_tap:(id)sender
 {
-    NSInteger alliance_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
+    NSInteger alliance_id = [[[Globals i] wsClubDict][@"alliance_id"] integerValue];
     
     if (alliance_id > 0)
     {
@@ -273,7 +273,8 @@
     {
         self.allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
         [self.allianceCreate updateView:YES];
-        [[Globals i] pushTemplateNav:self.allianceCreate];
+        
+        [[Globals i] showTemplate:@[self.allianceCreate] :@"New Alliance"];
     }
 }
 

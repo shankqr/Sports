@@ -10,7 +10,6 @@
 #define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
 #define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
-#define DIALOG_CONTENT_MARGIN 10.0f * SCALE_IPAD
 #define SCREEN_OFFSET_BOTTOM 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
 #define SCREEN_OFFSET_MAINHEADER_Y (iPad ? 130.0f : 60.0f)
@@ -48,7 +47,7 @@
 #define PBAR3_X (iPad ? 820.0f : 367.0f)
 #define PBAR3_Y (iPad ? 160.0f : 95.0f)
 #define FORMATION_SEGMENT_Y (iPad ? 730.0f : 340.0f)
-
+#define CELL_CONTENT_WIDTH UIScreen.mainScreen.bounds.size.width
 #define TABLE_FOOTER_VIEW_HEIGHT 50.0f * SCALE_IPAD
 #define TABLE_HEADER_VIEW_HEIGHT 44.0f * SCALE_IPAD
 #define DEFAULT_CONTENT_SPACING 5.0f * SCALE_IPAD
@@ -59,8 +58,14 @@
 #define DEFAULT_FONT_SMALL_SIZE 16.0f * SCALE_IPAD
 #define DEFAULT_FONT_BIG_SIZE 24.0f * SCALE_IPAD
 #define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
-
 #define MENU_FONT_SIZE (iPad ? 30.0f : 15.0f)
+
+#define PLUGIN_HEIGHT UIScreen.mainScreen.bounds.size.height - SCREEN_OFFSET_MAINHEADER_Y - SCREEN_OFFSET_BOTTOM
+#define CHART_CONTENT_MARGIN 10.0f * SCALE_IPAD
+#define DIALOG_CONTENT_MARGIN 20.0f * SCALE_IPAD
+#define SMALL_FONT_SIZE 12.0f * SCALE_IPAD
+#define MEDIUM_FONT_SIZE 16.0f * SCALE_IPAD
+#define BIG_FONT_SIZE 24.0f * SCALE_IPAD
 
 //Main Menu
 #define buttons_per_row (iPad ? 5 : 4)
@@ -167,7 +172,7 @@
 @property (nonatomic, strong) NSDictionary *wsEventSolo;
 @property (nonatomic, strong) NSDictionary *wsEventAlliance;
 @property (nonatomic, strong) NSDictionary *wsProductIdentifiers;
-@property (nonatomic, strong) NSMutableDictionary *wsClubData;
+@property (nonatomic, strong) NSMutableDictionary *wsClubDict;
 @property (nonatomic, strong) NSDictionary *wsBaseData;
 @property (nonatomic, strong) NSDictionary *wsWorldData;
 @property (nonatomic, strong) NSDictionary *wsClubInfoData;
@@ -177,10 +182,10 @@
 @property (nonatomic, strong) NSMutableArray *wsMailReply;
 @property (nonatomic, strong) NSMutableArray *localReportData;
 @property (nonatomic, strong) NSMutableArray *localMailData;
-@property (nonatomic, strong) NSMutableArray *wsChatData;
-@property (nonatomic, strong) NSMutableArray *wsChatFullData;
-@property (nonatomic, strong) NSMutableArray *wsAllianceChatData;
-@property (nonatomic, strong) NSMutableArray *wsAllianceChatFullData;
+@property (nonatomic, strong) NSMutableArray *wsChatArray;
+@property (nonatomic, strong) NSMutableArray *wsChatFullArray;
+@property (nonatomic, strong) NSMutableArray *wsAllianceChatArray;
+@property (nonatomic, strong) NSMutableArray *wsAllianceChatFullArray;
 @property (nonatomic, strong) NSMutableArray *wsMyAchievementsData;
 @property (nonatomic, strong) NSMutableArray *wsBasesData;
 @property (nonatomic, strong) NSMutableArray *wsWorldsData;
@@ -243,6 +248,8 @@
 @property (nonatomic, assign) NSInteger selectedSeries;
 @property (nonatomic, assign) NSInteger workingSquad;
 @property (nonatomic, assign) NSInteger energy;
+@property (nonatomic, assign) BOOL gettingChatWorld;
+@property (nonatomic, assign) BOOL gettingChatAlliance;
 typedef void (^returnBlock)(BOOL success, NSData *data);
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
@@ -257,13 +264,15 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showLoadingAlert;
 - (void)removeLoadingAlert;
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename;
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex :(UIViewController *)headerView;
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex;
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType;
+- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title;
 - (void)closeTemplate;
 - (void)showDialog:(NSString *)l1;
 - (void)showDialogBlock:(NSString *)l1 :(NSInteger)type :(DialogBlock)block;
 - (void)showDialogError;
 - (void)createDialogBox;
-- (void)removeDialogBox;
 - (void)setLat:(NSString *)lat;
 - (NSString *)getLat;
 - (void)setLongi:(NSString *)longi;
@@ -290,11 +299,8 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showLogin:(LoginBlock)block;
 - (void)showWorlds;
 - (void)saveLocation;
-- (void)backTemplate;
-- (void)pushTemplateNav:(UIViewController *)view;
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo;
 - (void)updateMyAchievementsData;
-- (NSString *)getLastChatString;
 - (BOOL)updateClubData;
 - (void)getServerClubData:(returnBlock)completionBlock;
 - (void)updateClubInfoData:(NSString *)clubId;
@@ -303,6 +309,10 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSString *)getLastAllianceChatID;
 - (void)updateChatData;
 - (void)updateAllianceChatData;
+- (NSString *)getFirstChatString;
+- (NSString *)getSecondChatString;
+- (NSString *)getFirstAllianceChatString;
+- (NSString *)getSecondAllianceChatString;
 - (void)checkVersion;
 - (void)updateProductIdentifiers;
 - (NSString *)gettSelectedBaseId;
@@ -352,6 +362,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)pushViewControllerStack:(UIViewController *)view;
 - (UIViewController *)popViewControllerStack;
 - (UIViewController *)peekViewControllerStack;
+- (UIViewController *)firstViewControllerStack;
 - (BOOL)isCurrentView:(UIViewController *)view;
 - (void)emailToDeveloper;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
@@ -385,6 +396,8 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
                         image:(UIImage *)image
                  imagePressed:(UIImage *)imagePressed
                 darkTextColor:(BOOL)darkTextColor;
+
+- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix;
 
 - (UIButton *)dynamicButtonWithTitle:(NSString *)title
                               target:(id)target

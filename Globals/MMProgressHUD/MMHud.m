@@ -13,18 +13,11 @@
 #import "MMProgressView-Protocol.h"
 #import "MMRadialProgressView.h"
 
-#define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
-#define SCALE_IPAD (iPad ? 2.0f : 1.0f)
-
 CGFloat    const MMProgressHUDDefaultFontSize           = 16.f;
 
 CGFloat    const MMProgressHUDMaximumWidth              = 300.f;
 CGFloat    const MMProgressHUDMinimumWidth              = 100.f;
 CGFloat    const MMProgressHUDContentPadding            = 5.f;
-
-CGSize const MMProgressHUDDefaultContentAreaSize = { 100.f, 100.f };
-CGSize const MMProgressHUDProgressContentAreaSize = { 40.f, 40.f };
-CGSize const MMProgressHUDProgressMaximumAreaSize = { 200.0f, 200.0f };
 
 CGFloat    const MMProgressHUDAnimateInDurationLong     = 1.5f;
 CGFloat    const MMProgressHUDAnimateInDurationMedium   = 0.75f;
@@ -36,8 +29,23 @@ CGFloat    const MMProgressHUDAnimateOutDurationLong    = 0.75f;
 CGFloat    const MMProgressHUDAnimateOutDurationMedium  = 0.55f;
 CGFloat    const MMProgressHUDAnimateOutDurationShort   = 0.35f;
 
+CGSize const MMProgressHUDDefaultContentAreaSize = { 100.f, 100.f };
+CGSize const MMProgressHUDProgressContentAreaSize = { 40.f, 40.f };
+CGSize const MMProgressHUDProgressMaximumAreaSize = {200.0f, 200.0f};
+
+
 NSString * const MMProgressHUDFontNameBold = @"HelveticaNeue-Bold";
 NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
+
+#ifdef DEBUG
+    #ifdef MM_HUD_FRAME_DEBUG
+        static const BOOL MMProgressHUDFrameDebugModeEnabled = YES;
+    #else
+        static const BOOL MMProgressHUDFrameDebugModeEnabled = NO;
+    #endif
+#else
+    //static const BOOL MMProgressHUDFrameDebugModeEnabled = NO;
+#endif
 
 @interface MMHud()
 
@@ -89,12 +97,44 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
 - (CGSize)titleLabelSizeForTitleText:(NSString *)titleText {
     CGSize titleSize=CGSizeZero;
     NSInteger numberOfLines = 20;
-    CGFloat lineHeight = [titleText sizeWithFont:self.titleLabel.font].height;
+    
+    CGFloat lineHeight;
+    if ([self respondsToSelector:@selector(setTintColor:)]) {
+        NSDictionary *attributes = @{NSFontAttributeName: self.titleLabel.font};
+        lineHeight = [titleText sizeWithAttributes:attributes].height;
+    }
+    else{
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        lineHeight = [titleText sizeWithFont:self.titleLabel.font].height;
+#pragma clang diagnostic pop
+    }
     CGFloat targetWidthIncrementor = 25.f;
     for (CGFloat targetWidth = MMProgressHUDMinimumWidth; numberOfLines > 2; targetWidth += targetWidthIncrementor) {
-        if (targetWidth >= MMProgressHUDMaximumWidth)
+        if (targetWidth >= MMProgressHUDMaximumWidth){
             break;
-        titleSize = [titleText sizeWithFont:self.titleLabel.font constrainedToSize:CGSizeMake(targetWidth, 500.f)];
+        }
+        
+        CGSize boundingRect = CGSizeMake(targetWidth, 500.f);
+        if ([self respondsToSelector:@selector(setTintColor:)]) {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            
+            NSDictionary *attributes = @{NSFontAttributeName: self.titleLabel.font,
+                                         NSParagraphStyleAttributeName : paragraphStyle};
+            
+            titleSize = [titleText boundingRectWithSize:boundingRect
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:attributes
+                                                context:NULL].size;
+        }
+        else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            titleSize = [titleText sizeWithFont:self.titleLabel.font
+                              constrainedToSize:boundingRect];
+#pragma clang diagnostic pop
+        }
         numberOfLines = titleSize.height/lineHeight;
     }
     return titleSize;
@@ -105,8 +145,8 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
         self.completionState == MMProgressHUDCompletionStateNone) {
         self.contentAreaFrame = CGRectMake(0.f,
                                            CGRectGetMaxY(self.titleFrame) + MMProgressHUDContentPadding,
-                                           MMProgressHUDDefaultContentAreaSize.width*SCALE_IPAD,
-                                           MMProgressHUDDefaultContentAreaSize.height*SCALE_IPAD);
+                                           MMProgressHUDDefaultContentAreaSize.width,
+                                           MMProgressHUDDefaultContentAreaSize.height);
     }
     else if (self.completionState == MMProgressHUDCompletionStateError ||
             self.completionState == MMProgressHUDCompletionStateSuccess) {
@@ -139,8 +179,27 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
     for (CGFloat targetWidth = MMProgressHUDMinimumWidth; statusSize.width < statusSize.height + additiveHeightConstant; targetWidth += targetWidthIncrementor) {
         if (targetWidth >= MMProgressHUDMaximumWidth)
             break;
-        statusSize = [self.messageText sizeWithFont:self.statusLabel.font
-                                  constrainedToSize:CGSizeMake(targetWidth, 500.f)];
+        
+        CGSize boundingRect = CGSizeMake(targetWidth, 500.f);
+        if ([self respondsToSelector:@selector(setTintColor:)]) {
+            NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            
+            NSDictionary *attributes = @{NSFontAttributeName: self.statusLabel.font,
+                                         NSParagraphStyleAttributeName : paragraphStyle};
+            
+            statusSize = [self.messageText boundingRectWithSize:boundingRect
+                                                options:NSStringDrawingUsesLineFragmentOrigin
+                                             attributes:attributes
+                                                context:NULL].size;
+        }
+        else {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+            statusSize = [self.messageText sizeWithFont:self.statusLabel.font
+                              constrainedToSize:boundingRect];
+#pragma clang diagnostic pop
+        }
     }
     return statusSize;
 }
@@ -236,11 +295,10 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
     self.needsUpdate = NO;
 }
 
-- (void)configureInitialDisplayAttributes
-{
-    CGColorRef blackColor = CGColorRetain([UIColor darkGrayColor].CGColor);
+- (void)configureInitialDisplayAttributes {
+    CGColorRef blackColor = CGColorRetain([UIColor blackColor].CGColor);
     
-    self.backgroundColor = [UIColor clearColor];
+    self.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.75];
     self.layer.shadowColor  = blackColor;
     self.layer.shadowOpacity = 0.5;
     self.layer.shadowRadius = 15.0f;
@@ -583,7 +641,7 @@ NSString * const MMProgressHUDFontNameNormal = @"HelveticaNeue-Light";
 
 - (void)setProgressViewClass:(Class)progressViewClass {
     if (progressViewClass != Nil) {
-        Protocol *expectedProtocol = @protocol(MMProgressView);
+        Protocol * __unused expectedProtocol = @protocol(MMProgressView);
         
         NSAssert([progressViewClass conformsToProtocol:expectedProtocol], @"Class %@ doesn't conform to %@ protocol", NSStringFromClass(progressViewClass), NSStringFromProtocol(expectedProtocol));
     }

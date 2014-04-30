@@ -16,23 +16,23 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubData];
+	NSDictionary *wsClubDict = [[Globals i] getClubData];
 	
-    if (wsClubData != nil)
+    if (wsClubDict != nil)
     {
-        NSDictionary *row1 = @{@"Item": @"Ticket Sales", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_stadium"]]]};
-        NSDictionary *row2 = @{@"Item": @"Sponsorship", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_sponsors"]]]};
-        NSDictionary *row3 = @{@"Item": @"Transfers Out", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_sales"]]]};
-        NSDictionary *row4 = @{@"Item": @"Investment", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_investments"]]]};
-        NSDictionary *row5 = @{@"Item": @"Competition Prizes", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"revenue_others"]]]};
+        NSDictionary *row1 = @{@"Item": @"Ticket Sales", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"revenue_stadium"]]]};
+        NSDictionary *row2 = @{@"Item": @"Sponsorship", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"revenue_sponsors"]]]};
+        NSDictionary *row3 = @{@"Item": @"Transfers Out", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"revenue_sales"]]]};
+        NSDictionary *row4 = @{@"Item": @"Investment", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"revenue_investments"]]]};
+        NSDictionary *row5 = @{@"Item": @"Competition Prizes", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"revenue_others"]]]};
         
-        NSDictionary *row6 = @{@"Item": @"Construction", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_stadium"]]]};
-        NSDictionary *row7 = @{@"Item": @"Player Wages", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_salary"]]]};
-        NSDictionary *row8 = @{@"Item": @"Transfers In", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_purchases"]]]};
-        NSDictionary *row9 = @{@"Item": @"Win Bonuses", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_interest"]]]};
-        NSDictionary *row10 = @{@"Item": @"Others", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"expenses_others"]]]};
+        NSDictionary *row6 = @{@"Item": @"Construction", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_stadium"]]]};
+        NSDictionary *row7 = @{@"Item": @"Player Wages", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_salary"]]]};
+        NSDictionary *row8 = @{@"Item": @"Transfers In", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_purchases"]]]};
+        NSDictionary *row9 = @{@"Item": @"Win Bonuses", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_interest"]]]};
+        NSDictionary *row10 = @{@"Item": @"Others", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"expenses_others"]]]};
 
-        NSDictionary *row13 = @{@"Item": @"Current Balance", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubData[@"balance"]]]};
+        NSDictionary *row13 = @{@"Item": @"Current Balance", @"Cost": [@"$" stringByAppendingString:[[Globals i] numberFormat:wsClubDict[@"balance"]]]};
         
         self.revenue = @[row1, row2, row3, row4, row5];
         self.expense = @[row6, row7, row8, row9, row10];

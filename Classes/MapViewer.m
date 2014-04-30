@@ -43,15 +43,15 @@
 
 - (void)updateView
 {
-	NSDictionary *wsClubData = [[Globals i] getClubInfoData];
-	if(![selected_clubid isEqualToString:wsClubData[@"club_id"]]) //Check for redundent page load for same id
+	NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
+	if(![selected_clubid isEqualToString:wsClubDict[@"club_id"]]) //Check for redundent page load for same id
 	{
-		managerLabel.text = wsClubData[@"fb_name"];
-		face_url = wsClubData[@"face_pic"];
+		managerLabel.text = wsClubDict[@"fb_name"];
+		face_url = wsClubDict[@"face_pic"];
 		
-		if(![wsClubData[@"fb_pic"] isEqualToString:@""])
+		if(![wsClubDict[@"fb_pic"] isEqualToString:@""])
 		{
-			NSURL *url = [NSURL URLWithString:wsClubData[@"fb_pic"]];
+			NSURL *url = [NSURL URLWithString:wsClubDict[@"fb_pic"]];
 			NSData *data = [NSData dataWithContentsOfURL:url];
 			UIImage *img = [[UIImage alloc] initWithData:data];
 			[managerImage setImage:img];
@@ -67,10 +67,10 @@
 		}
 		
 		CLLocationCoordinate2D location;
-		location.longitude = [wsClubData[@"longitude"] floatValue];
-		location.latitude = [wsClubData[@"latitude"] floatValue];
+		location.longitude = [wsClubDict[@"longitude"] floatValue];
+		location.latitude = [wsClubDict[@"latitude"] floatValue];
 		
-        NSString *date = wsClubData[@"date_found"];
+        NSString *date = wsClubDict[@"date_found"];
         if ([date length] > 0)
         {
             date = [date substringToIndex:[date length] - 9];
@@ -78,9 +78,9 @@
         
 		clubAnnotation = [[CSMapAnnotation alloc] 
 						initWithCoordinate:location
-						title:wsClubData[@"club_name"]
+						title:wsClubDict[@"club_name"]
 						subtitle:date
-						imagepath:wsClubData[@"logo_pic"]];
+						imagepath:wsClubDict[@"logo_pic"]];
 		
 		[mapView addAnnotation:clubAnnotation];
 		
@@ -98,7 +98,7 @@
 		
 		[mapView selectAnnotation:clubAnnotation animated:YES];
 		
-		selected_clubid = wsClubData[@"club_id"];
+		selected_clubid = wsClubDict[@"club_id"];
 	}
 }
 
@@ -140,11 +140,11 @@
 
 - (IBAction)mailButton_tap:(id)sender
 {
-    NSDictionary *wsClubData = [[Globals i] getClubInfoData];
+    NSDictionary *wsClubDict = [[Globals i] getClubInfoData];
 
     NSString *isAlli = @"0";
     NSString *toID = [Globals i].selectedClubId;
-    NSString *toName = wsClubData[@"club_name"];
+    NSString *toName = wsClubDict[@"club_name"];
     NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
     [userInfo setObject:isAlli forKey:@"is_alli"];
     [userInfo setObject:toID forKey:@"to_id"];

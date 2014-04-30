@@ -76,7 +76,7 @@
 
 - (void)generateRowData
 {
-    if([aAlliance.alliance_id isEqualToString:[[Globals i] wsClubData][@"alliance_id"]]) //You are in this alliance
+    if([aAlliance.alliance_id isEqualToString:[[Globals i] wsClubDict][@"alliance_id"]]) //You are in this alliance
     {
         self.isMyAlliance = YES;
     }
@@ -85,7 +85,7 @@
         self.isMyAlliance = NO;
     }
     
-    if([aAlliance.leader_id isEqualToString:[[Globals i] wsClubData][@"club_id"]]) //You are the leader
+    if([aAlliance.leader_id isEqualToString:[[Globals i] wsClubDict][@"club_id"]]) //You are the leader
     {
         self.isLeader = YES;
     }
@@ -230,8 +230,8 @@
                  if (success)
                  {
                      NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
-                     [Globals i].wsAllianceChatFullData = returnArray;
-                     [[Globals i] pushChatVC:[Globals i].wsAllianceChatFullData table:@"alliance_wall" a_id:aAlliance.alliance_id];
+                     [Globals i].wsAllianceChatFullArray = returnArray;
+                     [[Globals i] pushChatVC:[Globals i].wsAllianceChatFullArray table:@"alliance_wall" a_id:aAlliance.alliance_id];
                  }
              }];
         }
@@ -299,7 +299,8 @@
             }
             allianceMembers.aAlliance = self.aAlliance;
             [allianceMembers updateView];
-            [[Globals i] pushTemplateNav:allianceMembers];
+            
+            [[Globals i] showTemplate:@[allianceMembers] :@"Members"];
         }
         else if(indexPath.row == 4) //Applicants
         {
@@ -309,7 +310,8 @@
             }
             allianceApplicants.aAlliance = self.aAlliance;
             [allianceApplicants updateView];
-            [[Globals i] pushTemplateNav:allianceApplicants];
+            
+            [[Globals i] showTemplate:@[allianceApplicants] :@"Applicants"];
         }
         else if(indexPath.row == 5) //Donations
         {
@@ -319,7 +321,8 @@
             }
             allianceDonations.aAlliance = self.aAlliance;
             [allianceDonations updateView];
-            [[Globals i] pushTemplateNav:allianceDonations];
+            
+            [[Globals i] showTemplate:@[allianceDonations] :@"Donations"];
         }
         else if(indexPath.row == 6) //Events
         {
@@ -329,7 +332,8 @@
             }
             allianceEvents.aAlliance = self.aAlliance;
             [allianceEvents updateView];
-            [[Globals i] pushTemplateNav:allianceEvents];
+            
+            [[Globals i] showTemplate:@[allianceEvents] :@"Events"];
         }
         else if(indexPath.row == 9) //Donate Diamonds
         {
@@ -404,7 +408,7 @@
              if ((number > 0) && (bal >= number))
              {
                  NSString *a_id = aAlliance.alliance_id;
-                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
+                 NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
                  
                  NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditFirstprize/%@/%@/%@",
                                     [[Globals i] world_url], a_id, club_id, text];
@@ -444,7 +448,7 @@
              if ((number > 0) && (bal >= number))
              {
                  NSString *a_id = aAlliance.alliance_id;
-                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
+                 NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
                  
                  NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AllianceEditSecondprize/%@/%@/%@",
                                     [[Globals i] world_url], a_id, club_id, text];
@@ -535,12 +539,13 @@
     allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
     allianceCreate.descriptionText = aAlliance.description;
     [allianceCreate updateView:NO];
-    [[Globals i] pushTemplateNav:allianceCreate];
+    
+    [[Globals i] showTemplate:@[allianceCreate] :@"Edit Alliance"];
 }
 
 - (void)joinButton_tap
 {
-    NSInteger a_id = [[[Globals i] wsClubData][@"alliance_id"] integerValue];
+    NSInteger a_id = [[[Globals i] wsClubDict][@"alliance_id"] integerValue];
     
     if (a_id > 0)
     {
@@ -549,8 +554,8 @@
     else
     {
         NSString *a_id = aAlliance.alliance_id;
-        NSString *club_id = [[Globals i] wsClubData][@"club_id"];
-        NSString *club_name = [[Globals i] wsClubData][@"club_name"];
+        NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
+        NSString *club_name = [[Globals i] wsClubDict][@"club_name"];
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceApply/%@/%@/%@",
                            [[Globals i] world_url], a_id, club_id, club_name];
@@ -585,8 +590,8 @@
 - (void)leaveAlliance
 {
     NSString *a_id = aAlliance.alliance_id;
-    NSString *club_id = [[Globals i] wsClubData][@"club_id"];
-    NSString *club_name = [[Globals i] wsClubData][@"club_name"];
+    NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
+    NSString *club_name = [[Globals i] wsClubDict][@"club_name"];
     
     NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceResign/%@/%@/%@",
                         [[Globals i] world_url], a_id, club_id, club_name];
@@ -603,7 +608,6 @@
                   {
                       [[Globals i] updateClubData]; //alliance id = 0 updated
                       
-                      [[Globals i] backTemplate];
                       [[Globals i] closeTemplate];
                       
                       [[NSNotificationCenter defaultCenter]
@@ -624,13 +628,13 @@
          if (index == 1) //OK button is clicked
          {
              NSInteger number = [text integerValue];
-             NSInteger bal = [[[Globals i] wsClubData][@"currency_second"] integerValue];
+             NSInteger bal = [[[Globals i] wsClubDict][@"currency_second"] integerValue];
              
              if ((number > 0) && (bal >= number))
              {
                  NSString *a_id = aAlliance.alliance_id;
-                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
-                 NSString *club_name = [[Globals i] wsClubData][@"club_name"];
+                 NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
+                 NSString *club_name = [[Globals i] wsClubDict][@"club_name"];
 
                  NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/0/%ld",
                                     [[Globals i] world_url], a_id, club_id, club_name, (long)number];
@@ -666,13 +670,13 @@
          if (index == 1) //OK button is clicked
          {
              NSInteger number = [text integerValue];
-             NSInteger bal = [[[Globals i] wsClubData][@"balance"] integerValue];
+             NSInteger bal = [[[Globals i] wsClubDict][@"balance"] integerValue];
              
              if ((number > 0) && (bal >= number))
              {
                  NSString *a_id = aAlliance.alliance_id;
-                 NSString *club_id = [[Globals i] wsClubData][@"club_id"];
-                 NSString *club_name = [[Globals i] wsClubData][@"club_name"];
+                 NSString *club_id = [[Globals i] wsClubDict][@"club_id"];
+                 NSString *club_name = [[Globals i] wsClubDict][@"club_name"];
                  
                  NSString *wsurl = [NSString stringWithFormat:@"%@/AllianceDonate/%@/%@/%@/%ld/0",
                                     [[Globals i] world_url], a_id, club_id, club_name, (long)number];

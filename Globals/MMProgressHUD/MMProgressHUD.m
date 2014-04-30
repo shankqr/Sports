@@ -25,6 +25,8 @@
 #error MMProgressHUD uses APIs only available in iOS 5.0+
 #endif
 
+//static const BOOL kMMProgressHUDDebugMode = NO;
+
 NSString * const MMProgressHUDDefaultConfirmationMessage = @"Cancel?";
 NSString * const MMProgressHUDAnimationShow = @"mm-progress-hud-present-animation";
 NSString * const MMProgressHUDAnimationDismiss = @"mm-progress-hud-dismiss-animation";
@@ -244,7 +246,7 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
 - (void)setProgress:(CGFloat)progress {
     [self.hud setProgress:progress animated:YES];
     
-    self.hud.accessibilityValue = [NSString stringWithFormat:@"%li%%", (long)(progress/1.f*100)];
+    self.hud.accessibilityValue = [NSString stringWithFormat:@"%i%%", (int)(progress/1.f*100)];
     UIAccessibilityPostNotification(UIAccessibilityScreenChangedNotification, [NSString stringWithFormat:@"%@ %@", self.hud.accessibilityLabel, self.hud.accessibilityValue]);
 }
 
@@ -368,7 +370,8 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
         
         if (self.presentationViewController == nil) {
             self.presentationViewController = [[MMProgressHUDViewController alloc] init];
-            [self.presentationViewController setView:self];
+            if (self.presentationViewController.view != self)
+                [self.presentationViewController setView:self];
         }
         
         [self.window setRootViewController:self.presentationViewController];
@@ -545,14 +548,12 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
     self.dismissDelayTimer = [NSTimer scheduledTimerWithTimeInterval:delay target:self selector:@selector(dismiss) userInfo:nil repeats:NO];
 }
 
-- (void)dismiss
-{
+- (void)dismiss {
     NSAssert([NSThread isMainThread], @"Dismiss method should be run on main thread!");
     
     MMHudLog(@"Dismissing...");
     
-    switch (self.presentationStyle)
-    {
+    switch (self.presentationStyle) {
         case MMProgressHUDPresentationStyleDrop:
             [self _dismissWithDropAnimation];
             break;
@@ -588,26 +589,18 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
     }
     
     MMProgressHUD * __weak weakSelf = self;
-    
-    if (!self.queuedDismissAnimation)
-    {
+    if (!self.queuedDismissAnimation) {
         [self _fadeOutAndCleanUp];
-    }
-    else
-    {
+    } else {
         void (^oldCompletion)(void) = [self.showAnimationCompletion copy];
         self.showAnimationCompletion = ^{
-            
             MMProgressHUD * strongSelf = weakSelf;
             if (strongSelf)
             {
                 [strongSelf _fadeOutAndCleanUp];
             }
-            
             if (oldCompletion)
-            {
                 oldCompletion();
-            }
         };
     }
 }
@@ -631,6 +624,9 @@ CGSize const MMProgressHUDDefaultImageSize = {37.f, 37.f};
          self.animationImages = nil;
          self.progress = 0.f;
          self.hud.completionState = MMProgressHUDCompletionStateNone;
+         [self.presentationViewController removeFromParentViewController];
+         [self removeFromSuperview];
+         self.presentationViewController.view = nil;
          self.presentationViewController = nil;
          
          [self.window setHidden:YES], self.window = nil;

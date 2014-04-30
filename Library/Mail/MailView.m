@@ -125,7 +125,7 @@
          object:self];
     }
     
-    [[Globals i] pushTemplateNav:self.mailDetail];
+    [[Globals i] showTemplate:@[self.mailDetail] :@"Mail"];
     
     [self.mailDetail scrollUp];
 

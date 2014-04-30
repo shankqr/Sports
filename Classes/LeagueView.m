@@ -19,24 +19,6 @@
 @synthesize dialogSeries;
 @synthesize leagues;
 @synthesize selected_clubid;
-@synthesize dialogBox;
-
-- (void)createDialogBox
-{
-    if (dialogBox == nil)
-    {
-        dialogBox = [[DialogBoxView alloc] initWithNibName:@"DialogBoxView" bundle:nil];
-        dialogBox.delegate = self;
-    }
-}
-
-- (void)removeDialogBox
-{
-	if(dialogBox != nil)
-	{
-		[dialogBox.view removeFromSuperview];
-	}
-}
 
 - (void)updateView
 {
@@ -70,49 +52,29 @@
 
 - (IBAction)divisionButton_tap:(id)sender
 {
-    [self createDialogBox];
-	dialogBox.titleText = @"Division #";
-	dialogBox.whiteText = @"Please keyin a division number";
-	dialogBox.dialogType = 5;
-	[self.view addSubview:dialogBox.view];
-	[dialogBox updateView];
-}
-
-- (void)returnText:(NSString *)text
-{
-	NSUInteger number = [text integerValue];
-	
-	if([dialogBox.titleText isEqualToString:@"Series #"])
-	{
-		if(number > 0 && number < [[Globals i] getMaxSeries:dialogDivision]+1)
-		{
-			dialogSeries = number;
-			if(!(([Globals i].selectedDivision == dialogDivision)&&
-				 ([Globals i].selectedSeries == dialogSeries)))
-			{
-				[[Globals i] showLoadingAlert];
-				[Globals i].selectedDivision = dialogDivision;
-				[Globals i].selectedSeries = dialogSeries;
-				[NSThread detachNewThreadSelector: @selector(getLeagueData) toTarget:self withObject:nil];
-			}
-		}
-        
-		[self removeDialogBox];
-	}
-	else 
-	{
-		dialogDivision = number;
-		[self removeDialogBox];
-		if(number > 0 && number < 1001)
-		{
-            [self createDialogBox];
-            dialogBox.titleText = @"Series #";
-            dialogBox.whiteText = [NSString stringWithFormat:@"Keyin a series number range 1 to %ld", (long)[[Globals i] getMaxSeries:dialogDivision]];
-            dialogBox.dialogType = 5;
-            [self.view addSubview:dialogBox.view];
-            [dialogBox updateView];
-		}
-	}
+    [[Globals i] showDialogBlock:@"Please keyin a Division number:"
+                                :5
+                                :^(NSInteger index, NSString *text)
+     {
+         if (index == 1) //OK button is clicked
+         {
+             NSInteger number = [text integerValue];
+             
+             if(number > 0 && number < [[Globals i] getMaxSeries:dialogDivision]+1)
+             {
+                 dialogSeries = number;
+                 if(!(([Globals i].selectedDivision == dialogDivision)&&
+                      ([Globals i].selectedSeries == dialogSeries)))
+                 {
+                     [[Globals i] showLoadingAlert];
+                     [Globals i].selectedDivision = dialogDivision;
+                     [Globals i].selectedSeries = dialogSeries;
+                     [NSThread detachNewThreadSelector: @selector(getLeagueData) toTarget:self withObject:nil];
+                 }
+             }
+         }
+     }];
+    
 }
 
 - (void)getHomeLeagueData

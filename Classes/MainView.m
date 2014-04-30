@@ -301,8 +301,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         NSInteger xp_max = [[Globals i] getXpMax];
         
         // + XP to clubData
-        [Globals i].wsClubData[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+[xp_gain integerValue]];
-        [Globals i].wsClubData[@"xp_gain"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i].wsClubData[@"xp_gain"] integerValue]+[xp_gain integerValue]];
+        [Globals i].wsClubDict[@"xp"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getXp]+[xp_gain integerValue]];
+        [Globals i].wsClubDict[@"xp_gain"] = [NSString stringWithFormat:@"%ld", (long)[[Globals i].wsClubDict[@"xp_gain"] integerValue]+[xp_gain integerValue]];
         
         NSInteger xp = [[Globals i] getXp];
         
@@ -585,7 +585,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.trophyViewer.title = @"Trophies";
         self.trophyViewer.tabBarItem.image = [UIImage imageNamed:@"tab_trophy"];
     }
-    self.trophyViewer.selected_trophy = [[Globals i] wsClubData][@"club_id"];
+    self.trophyViewer.selected_trophy = [[Globals i] wsClubDict][@"club_id"];
     
     if (self.myclubTabBarController == nil)
     {
@@ -1207,8 +1207,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			}
 			else 
 			{
-                [[Globals i] removeDialogBox];
-                
                 [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
 			}
 		}
@@ -1241,8 +1239,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         [self showMatchReport];
     }
-    
-    [[Globals i] removeDialogBox];
 }
 
 - (void)removeLiveMatch
@@ -1583,7 +1579,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)showCup
 {
-    if([[[Globals i] wsClubData][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
+    if([[[Globals i] wsClubDict][@"alliance_id"] isEqualToString:@"0"]) //Not in any alliance
     {
         if (self.allianceView == nil)
         {
@@ -1596,7 +1592,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     }
     else
     {
-        NSString *aid = [[Globals i] wsClubData][@"alliance_id"];
+        NSString *aid = [[Globals i] wsClubDict][@"alliance_id"];
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
         [userInfo setObject:aid forKey:@"alliance_id"];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ViewAlliance"
@@ -2083,53 +2079,73 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)createChat
 {
-    if (self.lblChat1 == nil)
+    if (self.bkgChat == nil)
     {
-        self.lblChat1 = [[UILabel alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chatpreview_height, SCREEN_WIDTH, Chatpreview_height)];
-        self.lblChat1.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
-        self.lblChat1.textAlignment = NSTextAlignmentLeft;
-        self.lblChat1.textColor = [UIColor grayColor];
-        self.lblChat1.backgroundColor = [UIColor whiteColor];
-        self.lblChat1.layer.borderColor = [UIColor blackColor].CGColor;
-        self.lblChat1.layer.borderWidth = 2.0;
-        self.lblChat1.numberOfLines = 0;
-        self.lblChat1.tag = 999;
-        self.lblChat1.userInteractionEnabled = YES;
-        [self.view addSubview:self.lblChat1];
-        
-        UIButton *chatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        chatButton.frame = CGRectMake(UIScreen.mainScreen.bounds.size.width-(55*SCALE_IPAD), UIScreen.mainScreen.bounds.size.height-Marquee_height-Chatpreview_height, (55*SCALE_IPAD), (55*SCALE_IPAD));
-        [chatButton setBackgroundImage:[UIImage imageNamed:@"button_chat"] forState:UIControlStateNormal];
-        [chatButton setAlpha:0.5];
-        [chatButton addTarget:self action:@selector(showChat) forControlEvents:UIControlEventTouchDown];
-        [self.view addSubview:chatButton];
+        self.bkgChat = [[UIImageView alloc] initWithFrame:CGRectMake(0, UIScreen.mainScreen.bounds.size.height-Marquee_height-Chatpreview_height, SCREEN_WIDTH, Chatpreview_height)];
+        [self.bkgChat setImage:[UIImage imageNamed:@"bkg_chat"]];
+        [self.view addSubview:self.bkgChat];
     }
+    
+    //Create chat
+    self.svChat = [[UIScrollView alloc] init];
+    self.svChat.frame = self.bkgChat.frame;
+    self.svChat.backgroundColor = [UIColor clearColor];
+    self.svChat.pagingEnabled = YES;
+    self.svChat.contentSize = CGSizeMake(self.svChat.frame.size.width*2, self.svChat.frame.size.height);
+    self.svChat.showsHorizontalScrollIndicator = NO;
+    self.svChat.showsVerticalScrollIndicator = NO;
+    self.svChat.scrollsToTop = NO;
+    self.svChat.delegate = self;
+    [self.view addSubview:self.svChat];
+    
+    float pagecontrol_width = 30.0f*SCALE_IPAD;
+    float pagecontrol_height = 8.0f*SCALE_IPAD;
+    self.pcChat = [[UIPageControl alloc] init];
+    self.pcChat.frame = CGRectMake(self.bkgChat.frame.size.width/2 - pagecontrol_width/2, self.bkgChat.frame.origin.y, pagecontrol_width, pagecontrol_height);
+    self.pcChat.backgroundColor = [UIColor clearColor];
+    self.pcChat.numberOfPages = 2;
+    self.pcChat.currentPage = 0;
+    [self.view addSubview:self.pcChat];
+    
+    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchChat)];
+    [recognizer setNumberOfTapsRequired:1];
+    [recognizer setNumberOfTouchesRequired:1];
+    [self.svChat addGestureRecognizer:recognizer];
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+- (void)touchChat
 {
-    if ([[Globals i] isCurrentView:self])
+    if (self.chatState == 2)
     {
-        UITouch *touch = [[event allTouches] anyObject];
-        if (CGRectContainsPoint([self.lblChat1 frame], [touch locationInView:self.view]))
-        {
-            [self showChat];
-        }
+        [self showChat:YES];
+    }
+    else
+    {
+        [self showChat:NO];
     }
 }
 
-- (void)showChat
+- (void)updateChat
+{
+    if(!self.chatTimer.isValid)
+    {
+        self.chatTimer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(getChat) userInfo:nil repeats:YES];
+    }
+    [self getChat];
+}
+
+- (void)showChat:(BOOL)goto_alliance_tab
 {
 	if(self.chatView == nil)
     {
         self.chatView = [[ChatView alloc] initWithNibName:@"ChatView" bundle:nil];
     }
-    self.chatView.title = @"World";
+    self.chatView.title = @"World Chat";
     
-    if([[Globals i].wsClubData[@"alliance_id"] isEqualToString:@"0"])
+    if([[Globals i].wsClubDict[@"alliance_id"] isEqualToString:@"0"])
     {
         [[Globals i] showTemplate:@[self.chatView] :@"Chat" :1];
-        [self.chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
+        [self.chatView updateView:[Globals i].wsChatFullArray table:@"chat" a_id:@"0"];
     }
     else
     {
@@ -2139,39 +2155,43 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         }
         self.allianceChatView.title = @"Alliance Chat";
         
-        [[Globals i] showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :1];
+        if (goto_alliance_tab)
+        {
+            [[Globals i] showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :1 :1];
+        }
+        else
+        {
+            [[Globals i] showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :1 :0];
+        }
         
-        [self.chatView updateView:[[Globals i] wsChatFullData] table:@"chat" a_id:@"0"];
+        [self.chatView updateView:[Globals i].wsChatFullArray table:@"chat" a_id:@"0"];
         
-        NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllianceWall/%@",
-                           [[Globals i] world_url], [Globals i].wsClubData[@"alliance_id"]];
-        [Globals getServer:wsurl :^(BOOL success, NSData *data)
-         {
-             if (success)
-             {
-                 NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
-                 [Globals i].wsAllianceChatFullData = returnArray;
-                 [self.allianceChatView updateView:[Globals i].wsAllianceChatFullData table:@"alliance_wall" a_id:[Globals i].wsClubData[@"alliance_id"]];
-             }
-         }];
+        [self.allianceChatView updateView:[Globals i].wsAllianceChatFullArray table:@"alliance_chat" a_id:[Globals i].wsClubDict[@"alliance_id"]];
+    }
+}
+
+- (void)getChat
+{
+    if (self.chatState == 1)
+    {
+        [[Globals i] updateChatData];
+    }
+    else if (self.chatState == 2)
+    {
+        if([[[Globals i] wsClubDict][@"alliance_id"] isEqualToString:@"0"]) //Not in an alliance
+        {
+            self.lblChatAlliance1.text = @"Join an Alliance to chat here";
+        }
+        else
+        {
+            [[Globals i] updateAllianceChatData];
+        }
     }
 }
 
 - (void)onTimerChat
 {
     [NSThread detachNewThreadSelector:@selector(getChat) toTarget:self withObject:nil];
-}
-
-- (void)getChat
-{
-    [[Globals i] updateChatData];
-    self.lblChat1.text = [[Globals i] getLastChatString];
-    
-    //Alliance chat only if the view is open
-    if([[[Globals i] currentViewTitle] isEqualToString:@"Alliance Chat"])
-    {
-        [[Globals i] updateAllianceChatData];
-    }
 }
 
 #pragma mark Table Data Source Methods
