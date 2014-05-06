@@ -243,16 +243,22 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, TABLE_HEADER_VIEW_HEIGHT)];
-    [headerView setBackgroundColor:[UIColor blackColor]];
-
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, TABLE_HEADER_VIEW_HEIGHT)];
+    [headerView setBackgroundColor:[UIColor grayColor]];
+    
+    CGFloat button_width = 280.0f*SCALE_IPAD;
+    CGFloat button_height = 44.0f*SCALE_IPAD;
+    CGFloat button_x = (UIScreen.mainScreen.bounds.size.width - button_width)/2;
+    CGFloat button_y = (TABLE_HEADER_VIEW_HEIGHT - button_height);
+    
     UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance"
-                                                    target:self
-                                                  selector:@selector(button1_tap:)
-                                                     frame:CGRectMake(20*SCALE_IPAD, 5*SCALE_IPAD, 280*SCALE_IPAD, 46*SCALE_IPAD)
-                                                      type:@"1"];
+                                                     target:self
+                                                   selector:@selector(button1_tap:)
+                                                      frame:CGRectMake(button_x, button_y, button_width, button_height)
+                                                       type:@"3"];
     
     [headerView addSubview:button1];
+    
     return headerView;
 }
 

@@ -149,7 +149,6 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@class WorldsView;
 @class LoadingView;
 @class PlayerCell;
 @class MainView;
@@ -158,7 +157,6 @@
 
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) LoginView *loginView;
-@property (nonatomic, strong) WorldsView *worldsView;
 @property (nonatomic, strong) DialogBoxView *dialogBox;
 @property (nonatomic, strong) TemplateView *templateView;
 @property (nonatomic, strong) LoadingView *loadingView;
@@ -250,7 +248,9 @@
 @property (nonatomic, assign) NSInteger energy;
 @property (nonatomic, assign) BOOL gettingChatWorld;
 @property (nonatomic, assign) BOOL gettingChatAlliance;
+
 typedef void (^returnBlock)(BOOL success, NSData *data);
+
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)getServer:(NSString *)wsurl :(returnBlock)completionBlock;
@@ -272,7 +272,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showDialog:(NSString *)l1;
 - (void)showDialogBlock:(NSString *)l1 :(NSInteger)type :(DialogBlock)block;
 - (void)showDialogError;
-- (void)createDialogBox;
 - (void)setLat:(NSString *)lat;
 - (NSString *)getLat;
 - (void)setLongi:(NSString *)longi;
@@ -297,7 +296,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag;
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error;
 - (void)showLogin:(LoginBlock)block;
-- (void)showWorlds;
 - (void)saveLocation;
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo;
 - (void)updateMyAchievementsData;
@@ -315,8 +313,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSString *)getSecondAllianceChatString;
 - (void)checkVersion;
 - (void)updateProductIdentifiers;
-- (NSString *)gettSelectedBaseId;
-- (void)settSelectedBaseId:(NSString *)bid;
 - (NSString *)gettPurchasedProduct;
 - (void)settPurchasedProduct:(NSString *)type;
 - (NSString *)getCountdownString:(NSTimeInterval)differenceSeconds;
@@ -330,19 +326,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSString *)numberFormat:(NSString *)val;
 - (NSString *)gettLoginBonus;
 - (void)settLoginBonus:(NSString *)amount;
-- (void)updateBasesData;
-- (void)updateBaseData;
-- (void)updateMainView:(NSString *)base_id;
-- (NSDictionary *)gettSelectedWorldData;
-- (void)settSelectedWorldData:(NSDictionary *)wd;
-- (void)updateWorldsData;
-- (void)updateReportData;
-- (NSInteger)getReportBadgeNumber;
-- (NSMutableArray *)gettLocalReportData;
-- (void)settLocalReportData:(NSMutableArray *)rd;
-- (void)addLocalReportData:(NSMutableArray *)rd;
-- (NSString *)gettLastReportId;
-- (void)settLastReportId:(NSString *)rid;
 - (NSDictionary *)gettLocalMailReply;
 - (void)settLocalMailReply:(NSDictionary *)rd;
 - (NSArray *)findMailReply:(NSString *)mail_id;
@@ -357,7 +340,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)addMailReply:(NSString *)mail_id :(NSArray *)mail_reply;
 - (void)deleteLocalMail:(NSString *)mail_id;
 - (void)replyCounterPlus:(NSString *)mail_id;
-- (void)refreshSelectedWorldData;
 - (void)flushViewControllerStack;
 - (void)pushViewControllerStack:(UIViewController *)view;
 - (UIViewController *)popViewControllerStack;
@@ -369,6 +351,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)pushMoreGamesVC;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
 - (NSString *)currentViewTitle;
+
 //SPORTS
 - (NSString *)getFaceImageName:(NSString *)player_id;
 - (NSString *)GameType;
@@ -486,7 +469,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showMoreGames;
 - (void)showLoading;
 - (void)removeLoading;
-
 - (BOOL)updateSalesData;
 - (NSDateFormatter *)getDateFormat;
 - (void)closeAllTemplate;

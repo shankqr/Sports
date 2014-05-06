@@ -151,7 +151,7 @@
     NSArray *rows1 = @[row10, row11];
     self.rows = [@[rows1] mutableCopy];
     
-    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"YES", @"r1_button": @"3", @"c1": @"NO", @"c1_button": @"2",};
+    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"YES", @"r1_button": @"3", @"c1": @"NO", @"c1_button": @"3",};
     NSArray *rows2 = @[row21];
     [self.rows addObject:rows2];
 }
@@ -163,7 +163,7 @@
     NSDictionary *row12 = @{@"nofooter": @"1", @"t1": @"Enter text here...", @"t1_height": @"36", @"t1_keyboard": [@(self.dialogType) stringValue]};
     NSArray *rows1 = @[row10, row11, row12];
     
-    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3", @"c1": @"CANCEL", @"c1_button": @"2",};
+    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3", @"c1": @"CANCEL", @"c1_button": @"3",};
     NSArray *rows2 = @[row21];
     
     self.rows = [@[rows1, rows2] mutableCopy];

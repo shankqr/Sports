@@ -281,8 +281,14 @@
     }
     else
     {
+        CGFloat f_spacing = 0.0f;
+        if (rowData[@"footer_spacing"] != nil && ![rowData[@"footer_spacing"] isEqualToString:@""])
+        {
+            f_spacing = [rowData[@"footer_spacing"] floatValue]*SCALE_IPAD;
+        }
+        
         [self.footerImage setImage:[UIImage imageNamed:@"skin_footer_cell"]];
-        [self.footerImage setFrame:CGRectMake(0, cell_height-1.0*SCALE_IPAD, cell_width, 1.0*SCALE_IPAD)];
+        [self.footerImage setFrame:CGRectMake(f_spacing, (cell_height-1.0)*SCALE_IPAD, cell_width-f_spacing*2, 1.0*SCALE_IPAD)];
     }
     
     [self.selectedImage setFrame:CGRectMake(0, 0, cell_width, cell_height)];
@@ -296,6 +302,7 @@
     {
         rowData[@"r1"] = rowData[@"h1"];
         
+        rowData[@"nofooter"] = @"1";
         [self.footerImage setImage:nil];
         
         [self.backgroundImage setImage:[UIImage imageNamed:@"skin_header_cell"]];
@@ -386,6 +393,15 @@
         r1_length -= n1_width + CELL_CONTENT_SPACING;
         
         [self.num1 setText:rowData[@"n1"]];
+        
+        if ([rowData[@"n1_center"] isEqualToString:@"0"])
+        {
+            self.num1.textAlignment = NSTextAlignmentLeft;
+        }
+        else
+        {
+            self.num1.textAlignment = NSTextAlignmentCenter;
+        }
     }
     
     if (!self.img2)
@@ -523,7 +539,7 @@
                 if (rowData[@"c1_button"] != nil) //c1 is a button instead of label
                 {
                     button_width = 125.0f*SCALE_IPAD;
-                    button_x = CELL_CONTENT_MARGIN;
+                    button_x = (cell_width - (button_width*2.0f + CELL_CONTENT_MARGIN))/2.0f;
                 }
                 
                 self.row1_button = [[Globals i] dynamicButtonWithTitle:rowData[@"r1"]
@@ -697,11 +713,35 @@
     
     if ((rowData[@"i1"] != nil) && ![rowData[@"i1"] isEqualToString:@""])
     {
-        [self.img1 setFrame:CGRectMake(CELL_CONTENT_MARGIN, top_image1_y, n1_width, n1_width)];
+        CGFloat i_x = CELL_CONTENT_MARGIN;
+        CGFloat i_y = top_image1_y;
+        CGFloat i_width = n1_width;
+        CGFloat i_height = n1_width;
+        
+        if (rowData[@"r1"] == nil) //Full image cell
+        {
+            UIImage *img1 = [UIImage imageNamed:rowData[@"i1"]];
+            CGSize imgSize = CGSizeMake(img1.size.width/2.0f * SCALE_IPAD, img1.size.height/2.0f * SCALE_IPAD);
+            
+            if (imgSize.width > cell_width)
+            {
+                i_width = cell_width;
+                i_x = 0.0f;
+            }
+            else
+            {
+                i_width = imgSize.width;
+                i_x = (cell_width-imgSize.width)/2.0f;
+            }
+            
+            i_height = imgSize.height;
+        }
+        
+        [self.img1 setFrame:CGRectMake(i_x, i_y, i_width, i_height)];
         
         if ((rowData[@"i1_over"] != nil) && ![rowData[@"i1_over"] isEqualToString:@""])
         {
-            [self.img1_over setFrame:CGRectMake(CELL_CONTENT_MARGIN, top_image1_y, n1_width, n1_width)];
+            [self.img1_over setFrame:CGRectMake(i_x, i_y, i_width, i_height)];
         }
         else
         {
@@ -731,7 +771,8 @@
                 {
                     button_width = 125.0f*SCALE_IPAD;
                     button_height = 35.0f*SCALE_IPAD;
-                    button_x = button_width + CELL_CONTENT_MARGIN*2;
+                    CGFloat start_x = (cell_width - (button_width*2.0f + CELL_CONTENT_MARGIN))/2.0f;
+                    button_x = start_x + button_width + CELL_CONTENT_MARGIN;
                     button_y = CELL_CONTENT_MARGIN;
                 }
                 
@@ -909,6 +950,14 @@
     
     if (rowData[@"i1"] != nil)
     {
+        if (rowData[@"r1"] == nil) //Full image cell
+        {
+            UIImage *img1 = [UIImage imageNamed:rowData[@"i1"]];
+            CGFloat i_height = img1.size.height/2.0f * SCALE_IPAD;
+            
+            return i_height + CELL_CONTENT_SPACING*2;
+        }
+        
         r1_length -= n1_width + CELL_CONTENT_SPACING;
     }
     else if (rowData[@"n1"] != nil)

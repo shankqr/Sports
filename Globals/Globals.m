@@ -7,7 +7,6 @@
 //
 
 #import "Globals.h"
-#import "WorldsView.h"
 #import "LoadingView.h"
 #import "PlayerCell.h"
 #import "DAAppsViewController.h"
@@ -49,7 +48,6 @@
 @synthesize templateView;
 @synthesize wsWorldData;
 @synthesize wsWorldsData;
-@synthesize worldsView;
 @synthesize loginView;
 @synthesize lastReportId;
 @synthesize lastMailId;
@@ -311,10 +309,6 @@ static NSOperationQueue *connectionQueue;
     [self settLocalMailReply:[[NSDictionary alloc] init]];
     [self settLastMailId:@"0"];
     [self settLocalMailData:[[NSMutableArray alloc] init]];
-    
-    [self settLastReportId:@"0"];
-    [self settLocalReportData:[[NSMutableArray alloc] init]];
-    [self settSelectedBaseId:@"0"];
 }
 
 - (NSTimeInterval)updateTime
@@ -508,17 +502,9 @@ static NSOperationQueue *connectionQueue;
      tapHandler:^{}];
 }
 
-- (void)createDialogBox
-{
-    if (self.dialogBox == nil)
-    {
-        self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
-    }
-}
-
 - (void)showDialog:(NSString *)l1
 {
-    [self createDialogBox];
+    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
     
     self.dialogBox.displayText = l1;
     self.dialogBox.dialogType = 1;
@@ -535,7 +521,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showDialogBlock:(NSString *)l1 :(NSInteger)type :(DialogBlock)block
 {
-    [self createDialogBox];
+    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
     
     self.dialogBox.displayText = l1;
     self.dialogBox.dialogType = type;
@@ -709,22 +695,6 @@ static NSOperationQueue *connectionQueue;
          postNotificationName:@"TabChatAlliance"
          object:self];
     }
-}
-
-- (void)showWorlds
-{
-    if (worldsView == nil)
-    {
-        worldsView = [[WorldsView alloc] initWithStyle:UITableViewStylePlain];
-        worldsView.title = @"Select World 1";
-        [worldsView updateView];
-    }
-    
-    [self showTemplate:@[worldsView] :@"Select World" :1];
-    
-    //Disable the Buy button
-    templateView.buyButton.hidden = YES;
-    templateView.currencyLabel.hidden = YES;
 }
 
 - (void)showLoading
@@ -1200,111 +1170,6 @@ static NSOperationQueue *connectionQueue;
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (NSString *)gettLastReportId
-{
-    lastReportId = [[NSUserDefaults standardUserDefaults] objectForKey:@"Reportid"];
-    if (lastReportId == nil)
-    {
-        lastReportId = @"0";
-    }
-    
-    return lastReportId;
-}
-
-- (void)settLastReportId:(NSString *)rid
-{
-    lastReportId = rid;
-    [[NSUserDefaults standardUserDefaults] setObject:lastReportId forKey:@"Reportid"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSMutableArray *)gettLocalReportData
-{
-    self.localReportData = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"ReportData"];
-    if (self.localReportData == nil)
-    {
-        self.localReportData = [[NSMutableArray alloc] init];
-    }
-    
-    NSMutableArray *fullMutable = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *obj in localReportData)
-    {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:obj copyItems:YES];
-        [fullMutable addObject:dic];
-    }
-    
-    return fullMutable;
-}
-
-- (void)settLocalReportData:(NSMutableArray *)rd
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"ReportData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)addLocalReportData:(NSMutableArray *)rd
-{
-    if ([self gettLocalReportData] == nil)
-    {
-        self.localReportData = [[NSMutableArray alloc] init];
-    }
-    
-    [self.localReportData addObjectsFromArray:rd];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:localReportData forKey:@"ReportData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSDictionary *)gettSelectedWorldData
-{
-    self.wsWorldData = [[NSUserDefaults standardUserDefaults] objectForKey:@"WorldData"];
-    
-    return self.wsWorldData;
-}
-
-- (void)refreshSelectedWorldData
-{
-    [self gettSelectedWorldData];
-    
-    NSString *wsurl = [NSString stringWithFormat:@"%@/GetWorld/%@",
-					   WS_URL, wsWorldData[@"world_id"]];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    
-	self.wsWorldData = [[NSMutableDictionary alloc] initWithContentsOfURL:url];
-    
-    [[NSUserDefaults standardUserDefaults] setObject:wsWorldData forKey:@"WorldData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)settSelectedWorldData:(NSDictionary *)wd
-{
-    self.wsWorldData = [[NSDictionary alloc] initWithDictionary:wd copyItems:YES];
-
-    [[NSUserDefaults standardUserDefaults] setObject:wsWorldData forKey:@"WorldData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    //[self.loginView updateWorldLabel];
-}
-
-- (NSString *)gettSelectedBaseId
-{
-    selectedBaseId = [[NSUserDefaults standardUserDefaults] objectForKey:@"Baseid"];
-    if (selectedBaseId == nil)
-    {
-        selectedBaseId = @"0";
-    }
-    
-    return selectedBaseId;
-}
-
-- (void)settSelectedBaseId:(NSString *)bid
-{
-    selectedBaseId = bid;
-    [[NSUserDefaults standardUserDefaults] setObject:selectedBaseId forKey:@"Baseid"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 - (NSString *)gettPurchasedProduct
 {
     purchasedProductString = [[NSUserDefaults standardUserDefaults] objectForKey:@"PurchasedProduct"];
@@ -1577,12 +1442,6 @@ static NSOperationQueue *connectionQueue;
     return countdown;
 }
 
-- (void)updateMainView:(NSString *)base_id
-{
-    [self settSelectedBaseId:base_id];
-    [self updateBaseData];
-}
-
 - (void)checkVersion
 {
     if (self.wsProductIdentifiers != nil)
@@ -1766,58 +1625,6 @@ static NSOperationQueue *connectionQueue;
 	wsMyAchievementsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
-- (void)updateBasesData
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetBases/%@",
-					   [self world_url], wsClubDict[@"club_id"]];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsBasesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-}
-
-- (void)updateWorldsData
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAllWorld",
-					   WS_URL];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsWorldsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-}
-
-- (void)updateBaseData
-{
-    NSString *baseid = @"0";
-    
-    if ([self.gettSelectedBaseId isEqualToString:@"0"])
-    {
-        [self updateBasesData];
-        wsBaseData = [[NSDictionary alloc] initWithDictionary:wsBasesData[0] copyItems:YES];
-        
-        baseid = [[Globals i] wsBaseData][@"base_id"];
-        [self settSelectedBaseId:baseid];
-    }
-    else
-    {
-        baseid = self.gettSelectedBaseId;
-        
-        NSString *wsurl = [NSString stringWithFormat:@"%@/GetBase/%@/%@",
-                           [self world_url], baseid, wsClubDict[@"club_id"]];
-        NSURL *url = [[NSURL alloc] initWithString:wsurl];
-        NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-        if (wsResponse.count > 0)
-        {
-            wsBaseData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-        }
-        else
-        {
-            [self updateBasesData];
-            wsBaseData = [[NSDictionary alloc] initWithDictionary:wsBasesData[0] copyItems:YES];
-            
-            baseid = [[Globals i] wsBaseData][@"base_id"];
-            [self settSelectedBaseId:baseid];
-        }
-        
-    }
-}
-
 - (NSInteger)getMailBadgeNumber
 {
 	NSInteger count = 0;
@@ -1825,24 +1632,6 @@ static NSOperationQueue *connectionQueue;
 	if([localMailData count] > 0)
 	{
 		for(NSDictionary *rowData in localMailData)
-		{
-			if([rowData[@"open_read"] isEqualToString:@"0"])
-			{
-                count = count + 1;
-			}
-		}
-	}
-	
-	return count;
-}
-
-- (NSInteger)getReportBadgeNumber
-{
-	NSInteger count = 0;
-	
-	if([localReportData count] > 0)
-	{
-		for(NSDictionary *rowData in localReportData)
 		{
 			if([rowData[@"open_read"] isEqualToString:@"0"])
 			{
@@ -2041,23 +1830,6 @@ static NSOperationQueue *connectionQueue;
              self.gettingChatAlliance = NO;
          }];
     }
-}
-
-- (void)updateReportData
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetReport/%@/%@/%@",
-                           [self world_url],
-                           [self gettLastReportId],
-                           wsClubDict[@"club_id"],
-                           wsClubDict[@"alliance_id"]];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsReportData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-        
-        if (wsReportData.count > 0)
-        {
-            [self settLastReportId:(wsReportData)[0][@"report_id"]];
-            [self addLocalReportData:wsReportData];
-        }
 }
 
 - (void)updateMailData //Get all mail from mail_id=0 because need to see if there is reply
@@ -2787,7 +2559,7 @@ static NSOperationQueue *connectionQueue;
     }
     else
     {
-        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_h", type]];
+        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_hvr", type]];
         [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
     }
 	

@@ -25,7 +25,6 @@ typedef void (^LoginBlock)(NSInteger status);
 - (IBAction)emailLogin:(UIButton *)sender;
 - (IBAction)emailRegister:(UIButton *)sender;
 - (IBAction)forgotPassword:(UIButton *)sender;
-- (IBAction)worldSelect:(UIButton *)sender;
 - (IBAction)contactSupport:(UIButton *)sender;
 - (void)tryLogin;
 - (void)tryloginFb;

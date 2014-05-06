@@ -80,21 +80,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     }
 }
 
-- (IBAction)worldSelect:(UIButton *)sender
-{
-    if (self.launchWithInternet)
-    {
-        [[Globals i] showWorlds];
-    }
-    else
-    {
-        if ([self updateView])
-        {
-            [[Globals i] showWorlds];
-        }
-    }
-}
-
 - (IBAction)emailLogin:(UIButton *)sender
 {
     if (self.launchWithInternet)
