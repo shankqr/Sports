@@ -236,7 +236,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                  NSString *email = user[@"email"];
                  
                  NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/0/%@/%@/%@",
-                                    WS_URL, uid, email, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
+                                    WS_URL, uid, email, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDtoken]];
                  NSURL *url = [[NSURL alloc] initWithString:wsurl];
                  NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
                  
@@ -261,7 +261,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
                      NSString *timezone = user[@"timezone"];
                      
                      NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
-                                                              WS_URL, [[Globals i] GameId], uid, @"0", fid, email, name, username, gender, timezone, [[Globals i] getDevicetoken]];
+                                                              WS_URL, [[Globals i] GameId], uid, @"0", fid, email, name, username, gender, timezone, [[Globals i] getDtoken]];
                      NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                      NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
                      returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:nil];
@@ -346,7 +346,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString* hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
-                           WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDevicetoken]];
+                           WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDtoken]];
         NSURL *url = [[NSURL alloc] initWithString:wsurl];
         NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
         
@@ -391,7 +391,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString* hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
-                              WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDevicetoken]];
+                              WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDtoken]];
         NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
         NSString *returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:nil];

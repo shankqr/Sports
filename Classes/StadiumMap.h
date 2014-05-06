@@ -21,7 +21,6 @@
 @property (nonatomic, strong) IBOutlet NSString *s5;
 @property (nonatomic, strong) IBOutlet NSString *s6;
 @property (nonatomic, strong) IBOutlet NSString *s7;
-@property (nonatomic, strong) IBOutlet UILabel *progressBar1;
 @property (nonatomic, strong) IBOutlet UIImageView *stadiumMap;
 @property (nonatomic, strong) IBOutlet UIImageView *stadiumPitch;
 @property (nonatomic, strong) IBOutlet UIImageView *stadiumSection0;
@@ -65,7 +64,6 @@
 - (IBAction)building2_tap:(id)sender;
 - (IBAction)building3_tap:(id)sender;
 - (void)updateView;
-- (void)upgradeBuilding:(NSInteger)type;
 - (void)updateBuildingTimer;
 - (void)harvestBuilding:(NSInteger)type;
 - (void)updateHarverstTimeLeft;

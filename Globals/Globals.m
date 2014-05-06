@@ -17,86 +17,6 @@
 #import <Accounts/Accounts.h>
 
 @implementation Globals
-@synthesize viewControllerStack;
-@synthesize buttonAudio;
-@synthesize backAudio;
-@synthesize moneyAudio;
-@synthesize winAudio;
-@synthesize loseAudio;
-@synthesize wsClubDict;
-@synthesize wsClubInfoData;
-@synthesize wsReportData;
-@synthesize wsMailData;
-@synthesize wsMailReply;
-@synthesize localReportData;
-@synthesize localMailData;
-@synthesize localMailReply;
-@synthesize wsMyAchievementsData;
-@synthesize wsBaseData;
-@synthesize wsBasesData;
-@synthesize workingUrl;
-@synthesize selectedClubId;
-@synthesize selectedBaseId;
-@synthesize purchasedProductString;
-@synthesize loginBonus;
-@synthesize latitude;
-@synthesize longitude;
-@synthesize devicetoken;
-@synthesize uid;
-@synthesize selectedMapTile;
-@synthesize dialogBox;
-@synthesize templateView;
-@synthesize wsWorldData;
-@synthesize wsWorldsData;
-@synthesize loginView;
-@synthesize lastReportId;
-@synthesize lastMailId;
-@synthesize loginNotification;
-@synthesize loadingView;
-@synthesize wsSquadData;
-@synthesize wsMySquadData;
-@synthesize wsMatchData;
-@synthesize wsMatchPlayedData;
-@synthesize wsMatchHighlightsData;
-@synthesize wsChallengesData;
-@synthesize wsChallengedData;
-@synthesize wsLeagueData;
-@synthesize wsMatchFixturesData;
-@synthesize wsNewsData;
-@synthesize wsMarqueeData;
-@synthesize wsFriendsData;
-@synthesize wsCurrentSeasonData;
-@synthesize wsPlayerInfoData;
-@synthesize wsMatchInfoData;
-@synthesize wsLeagueScorersData;
-@synthesize wsPromotionData;
-@synthesize wsCupScorersData;
-@synthesize wsCupFixturesData;
-@synthesize wsWallData;
-@synthesize wsEventsData;
-@synthesize wsDonationsData;
-@synthesize wsAppliedData;
-@synthesize wsMembersData;
-@synthesize wsAllianceCupFixturesData;
-@synthesize wsMapClubsData;
-@synthesize wsNearClubsData;
-@synthesize wsPlayerSaleData;
-@synthesize wsCoachData;
-@synthesize wsProductsData;
-@synthesize wsTrophyData;
-@synthesize wsAllianceData;
-@synthesize challengeMatchId;
-@synthesize selectedPos;
-@synthesize selectedPlayer;
-@synthesize selectedDivision;
-@synthesize selectedSeries;
-@synthesize purchasedPlayerId;
-@synthesize purchasedCoachId;
-@synthesize workingSquad;
-@synthesize wsCupRounds;
-@synthesize energy;
-@synthesize acceptedMatch;
-@synthesize mainView;
 
 static Globals *_i;
 
@@ -106,7 +26,6 @@ static Globals *_i;
 	{
         self.selectedClubId = @"0";
         self.workingUrl = @"0";
-        self.selectedMapTile = @"0";
         self.offsetServerTimeInterval = 0;
         self.gettingChatWorld = NO;
         self.gettingChatAlliance = NO;
@@ -133,7 +52,7 @@ static NSOperationQueue *connectionQueue;
 {
     dispatch_once(&once, ^{
         connectionQueue = [[NSOperationQueue alloc] init];
-        [connectionQueue setMaxConcurrentOperationCount:2];
+        [connectionQueue setMaxConcurrentOperationCount:1];
         [connectionQueue setName:@"com.tapfantasy.connectionqueue"];
     });
     return connectionQueue;
@@ -147,17 +66,17 @@ static NSOperationQueue *connectionQueue;
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error || !response || !data)
-        {
-            NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
-            completionBlock(NO, nil);
-        }
-        else
-        {
-            completionBlock(YES, data);
-        }
-   }];
+     {
+         if (error || !response || !data)
+         {
+             NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
+             completionBlock(NO, nil);
+         }
+         else
+         {
+             completionBlock(YES, data);
+         }
+     }];
 }
 
 + (void)getServerLoading:(NSString *)wsurl :(returnBlock)completionBlock
@@ -194,7 +113,7 @@ static NSOperationQueue *connectionQueue;
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    NSString *postLength = [NSString stringWithFormat:@"%ld", (unsigned long)[postData length]];
+    NSString *postLength = [@([postData length]) stringValue];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [[Globals i] world_url], service]]];
     [request setHTTPMethod:@"POST"];
@@ -205,17 +124,17 @@ static NSOperationQueue *connectionQueue;
     [NSURLConnection sendAsynchronousRequest:request
                                        queue:self.connectionQueue
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-    {
-        if (error || !response || !data)
-        {
-            NSLog(@"Error posting to %@: %@ %@", service, error, [error localizedDescription]);
-            completionBlock(NO, nil);
-        }
-        else
-        {
-            completionBlock(YES, data);
-        }
-   }];
+     {
+         if (error || !response || !data)
+         {
+             NSLog(@"Error posting to %@: %@ %@", service, error, [error localizedDescription]);
+             completionBlock(NO, nil);
+         }
+         else
+         {
+             completionBlock(YES, data);
+         }
+     }];
 }
 
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock
@@ -227,7 +146,7 @@ static NSOperationQueue *connectionQueue;
                                                        options:NSJSONWritingPrettyPrinted
                                                          error:&error];
     
-    NSString *postLength = [NSString stringWithFormat:@"%ld", (unsigned long)[postData length]];
+    NSString *postLength = [@([postData length]) stringValue];
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     [request setURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/%@", [[Globals i] world_url], service]]];
     [request setHTTPMethod:@"POST"];
@@ -258,32 +177,17 @@ static NSOperationQueue *connectionQueue;
 	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_ID"];
 }
 
-- (NSString	*)GameType
-{
-	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_TYPE"];
-}
-
-- (NSString	*)GameUrl
-{
-	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
-}
-
 - (NSString	*)UID
 {
-    uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserUID"];
+    self.uid = [[NSUserDefaults standardUserDefaults] objectForKey:@"UserUID"];
     
-    return uid;
-}
-
-- (NSString	*)world_url
-{
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
+    return self.uid;
 }
 
 - (void)setUID:(NSString *)user_uid
 {
-    uid = user_uid;
-    [[NSUserDefaults standardUserDefaults] setObject:uid forKey:@"UserUID"];
+    self.uid = user_uid;
+    [[NSUserDefaults standardUserDefaults] setObject:self.uid forKey:@"UserUID"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     if (![user_uid isEqualToString:@""])
@@ -302,13 +206,6 @@ static NSOperationQueue *connectionQueue;
         [[NSUserDefaults standardUserDefaults] setObject:user_uid forKey:@"PrevUID"];
         [[NSUserDefaults standardUserDefaults] synchronize];
     }
-}
-
-- (void)resetUserDefaults
-{
-    [self settLocalMailReply:[[NSDictionary alloc] init]];
-    [self settLastMailId:@"0"];
-    [self settLocalMailData:[[NSMutableArray alloc] init]];
 }
 
 - (NSTimeInterval)updateTime
@@ -341,36 +238,8 @@ static NSOperationQueue *connectionQueue;
     
     NSDate *localdatetime = [NSDate date];
     NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:self.offsetServerTimeInterval];
-
+    
     return [dateFormater stringFromDate:serverdatetime];
-}
-
-- (NSString *)getServerDateTimeString
-{
-    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
-    [dateFormater setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    //[dateFormater setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
-    [dateFormater setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss"];
-    
-    NSDate *localdatetime = [NSDate date];
-    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:self.offsetServerTimeInterval];
-    
-    NSString *datenow = [dateFormater stringFromDate:serverdatetime];
-    return datenow;
-}
-
-- (NSDateFormatter *)getDateFormat
-{
-    if (self.dateFormat == nil)
-    {
-        self.dateFormat = [[NSDateFormatter alloc] init];
-        [self.dateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-        [self.dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-        //[self.dateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
-        [self.dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
-    }
-    
-    return self.dateFormat;
 }
 
 - (NSString *)getTimeAgo:(NSString *)datetimestring
@@ -494,7 +363,7 @@ static NSOperationQueue *connectionQueue;
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename
 {
     [JCNotificationCenter sharedCenter].presenter = [JCNotificationBannerPresenterSmokeStyle new];
-
+    
     [JCNotificationCenter
      enqueueNotificationWithMessage:message
      title:title
@@ -525,6 +394,17 @@ static NSOperationQueue *connectionQueue;
     
     self.dialogBox.displayText = l1;
     self.dialogBox.dialogType = type;
+    self.dialogBox.dialogBlock = block;
+    [self.dialogBox updateView];
+    
+    [self showTemplate:@[self.dialogBox] :@"" :7];
+}
+
+- (void)showDialogBlock:(NSMutableArray *)rows :(DialogBlock)block
+{
+    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
+    
+    self.dialogBox.rows = rows;
     self.dialogBox.dialogBlock = block;
     [self.dialogBox updateView];
     
@@ -697,598 +577,202 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-- (void)showLoading
+- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix
 {
-    loadingView = [[LoadingView alloc] init];
-    loadingView.title = @"Loading";
-    [[self peekViewControllerStack].view addSubview:loadingView.view];
-    [loadingView updateView];
-}
-
-- (void)removeLoading
-{
-    if (loadingView != nil)
+    float frame_width = frame.size.width;
+    float frame_height = frame.size.height;
+    float offset_w1 = 0.5f;
+    float offset_w2 = 1.0f;
+    float offset_h1 = 0.5f;
+    float offset_h2 = 1.0f;
+    
+    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_1.png", prefix]];
+    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_2.png", prefix]];
+    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_3.png", prefix]];
+    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_4.png", prefix]];
+    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_5.png", prefix]];
+    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_6.png", prefix]];
+    UIImage *img7 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_7.png", prefix]];
+    UIImage *img8 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_8.png", prefix]];
+    UIImage *img9 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_9.png", prefix]];
+    
+    if (((int)img1.size.width % 2 == 0) && ((int)img4.size.width % 2 == 0)) //even width
     {
-        [loadingView close];
+        offset_w1 = 0.0f;
+        offset_w2 = 0.0f;
     }
+    
+    if (((int)img1.size.height % 2 == 0) && ((int)img4.size.height % 2 == 0)) //even height
+    {
+        offset_h1 = 0.0f;
+        offset_h2 = 0.0f;
+    }
+    
+    CGSize imgSize = CGSizeMake(frame_width, frame_height);
+    UIGraphicsBeginImageContext(imgSize);
+    
+    CGSize topSize = CGSizeMake(img1.size.width/2.0f * SCALE_IPAD, img1.size.height/2.0f * SCALE_IPAD);
+    
+    if (!img7 || !img8 || !img9)
+    {
+        if (frame_width > (topSize.width*2.0f))
+        {
+            [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(topSize.width-offset_w1, topSize.height, frame_width - (topSize.width*2.0f) + offset_w2, frame_height - topSize.height)];
+        }
+        
+        [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero
+                              resizingMode:UIImageResizingModeStretch]
+         drawInRect:CGRectMake(frame_width - topSize.width, topSize.height, topSize.width, frame_height - topSize.height)];
+        
+        [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero
+                              resizingMode:UIImageResizingModeStretch]
+         drawInRect:CGRectMake(0.0, topSize.height, topSize.width, frame_height - topSize.height)];
+    }
+    else
+    {
+        CGSize bottomSize = CGSizeMake(img4.size.width/2.0f * SCALE_IPAD, img4.size.height/2.0f * SCALE_IPAD);
+        
+        if (frame_width > (bottomSize.width*2.0f))
+        {
+            [img5 drawInRect:CGRectMake(bottomSize.width-offset_w1, frame_height - bottomSize.height, frame_width - (bottomSize.width*2.0f) + offset_w2, bottomSize.height)];
+        }
+        [img6 drawInRect:CGRectMake(frame_width - bottomSize.width, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
+        [img4 drawInRect:CGRectMake(0.0f, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
+        
+        if (frame_height > (topSize.height + bottomSize.height))
+        {
+            CGSize midSize = CGSizeMake(img7.size.width/2.0f * SCALE_IPAD, img7.size.height/2.0f * SCALE_IPAD);
+            
+            if (frame_width > (midSize.width*2.0f))
+            {
+                [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                      resizingMode:UIImageResizingModeTile]
+                 drawInRect:CGRectMake(midSize.width-offset_w1, topSize.height - offset_h1, frame_width - (midSize.width*2.0f) + offset_w2, frame_height - topSize.height - bottomSize.height + offset_h2)];
+            }
+            
+            [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(frame_width - midSize.width, topSize.height - offset_h1, midSize.width, frame_height - topSize.height - bottomSize.height + offset_h2)];
+            
+            [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
+                                  resizingMode:UIImageResizingModeStretch]
+             drawInRect:CGRectMake(0.0f, topSize.height - offset_h1, midSize.width, frame_height - topSize.height - bottomSize.height + offset_h2)];
+        }
+    }
+    
+    if (frame_width > (topSize.width*2.0f))
+    {
+        [img2 drawInRect:CGRectMake(topSize.width-offset_w1, 0.0f, frame_width - (topSize.width*2.0f) + offset_w2, topSize.height)];
+    }
+    [img3 drawInRect:CGRectMake(frame_width - topSize.width, 0.0f, topSize.width, topSize.height)];
+    [img1 drawInRect:CGRectMake(0.0f, 0.0f, topSize.width, topSize.height)];
+    
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
 }
 
-- (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
+- (UIButton *)dynamicButtonWithTitle:(NSString *)title
+                              target:(id)target
+                            selector:(SEL)selector
+                               frame:(CGRect)frame
+                                type:(NSString *)type
 {
-    ChatView *achatView = [[ChatView alloc] init];
-    achatView.title = @"Alliance Wall";
+    UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	
+	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	
+    if (frame.size.width > 140.0f*SCALE_IPAD)
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MEDIUM_FONT_SIZE];
+    }
+    else if (frame.size.width > 80.0f*SCALE_IPAD)
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:SMALL_FONT_SIZE];
+    }
+    else
+    {
+        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:10.0f*SCALE_IPAD];
+    }
     
-    [self showTemplate:@[achatView] :@"Alliance Wall"];
-    [achatView updateView:ds table:tn a_id:aid];
+    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    button.titleLabel.textAlignment = NSTextAlignmentCenter;
+    button.titleLabel.numberOfLines = 0;
+    
+    [button setContentEdgeInsets:UIEdgeInsetsMake(1.0, 1.0, 1.0, 1.0)];
+    
+	[button setTitle:title forState:UIControlStateNormal];
+    
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+    
+	button.backgroundColor = [UIColor clearColor];
+    
+    UIImage *normalImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@", type]];
+	[button setBackgroundImage:normalImage forState:UIControlStateNormal];
+    
+    if ([type isEqualToString:@"0"]) //Disabled button
+    {
+        [button setBackgroundImage:normalImage forState:UIControlStateHighlighted];
+    }
+    else
+    {
+        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_hvr", type]];
+        [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
+    }
+	
+	return button;
 }
 
-- (void)pushMoreGamesVC
+- (UIButton *)buttonWithTitle:(NSString *)title
+					   target:(id)target
+					 selector:(SEL)selector
+						frame:(CGRect)frame
+                  imageNormal:(UIImage *)imageNormal
+             imageHighlighted:(UIImage *)imageHighlighted
+                imageCentered:(BOOL)imageCentered
+				darkTextColor:(BOOL)darkTextColor
 {
-    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
-    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
+	UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	
+	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+	
+	[button setTitle:title forState:UIControlStateNormal];
+	if (darkTextColor)
+	{
+		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+	}
+	else
+	{
+		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	}
     
-    [[Globals i] showTemplate:@[appsViewController] :@"More Games"];
-}
-
-- (void)showMoreGames
-{
-    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
-    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
-    
-    [self showTemplate:@[appsViewController] :@"More Games" :1];
+    if (imageCentered)
+    {
+        button.imageView.contentMode = UIViewContentModeCenter;
+    }
+	
+	UIImage *newImage = [imageNormal stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setImage:newImage forState:UIControlStateNormal];
+	
+	UIImage *newHighlightedImage = [imageHighlighted stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
+	[button setImage:newHighlightedImage forState:UIControlStateHighlighted];
+	
+	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
+	
+    // in case the parent view draws with a custom color or gradient, use a transparent color
+	button.backgroundColor = [UIColor clearColor];
+	
+	return button;
 }
 
 - (double)Random_next:(double)min to:(double)max
 {
     return ((double)arc4random() / UINT_MAX) * (max-min) + min;
-}
-
-- (void)initSound
-{
-	//Setup button sound
-	NSURL *url1 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_button.aif", [[NSBundle mainBundle] resourcePath]]];
-	buttonAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url1 error:nil];
-    buttonAudio.numberOfLoops = 0;
-    buttonAudio.volume = 1.0;
-	
-	//Setup back sound
-	NSURL *url2 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_toaster.aac", [[NSBundle mainBundle] resourcePath]]];
-	backAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url2 error:nil];
-	backAudio.numberOfLoops = 0;
-    backAudio.volume = 1.0;
-    
-    //Setup money sound
-	NSURL *url4 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_cash.caf", [[NSBundle mainBundle] resourcePath]]];
-	moneyAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url4 error:nil];
-	moneyAudio.numberOfLoops = 0;
-    moneyAudio.volume = 1.0;
-    
-    //Setup win sound
-	NSURL *url5 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd_goal.caf", [[NSBundle mainBundle] resourcePath]]];
-	winAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url5 error:nil];
-	winAudio.numberOfLoops = 0;
-    winAudio.volume = 1.0;
-    
-    //Setup lose sound
-	NSURL *url6 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd0.caf", [[NSBundle mainBundle] resourcePath]]];
-	loseAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url6 error:nil];
-	loseAudio.numberOfLoops = 0;
-    loseAudio.volume = 1.0;
-}
-
-- (void)buttonSound
-{
-	[buttonAudio play];
-}
-
-- (void)toasterSound
-{
-	[backAudio play];
-}
-
-- (void)moneySound
-{
-	[moneyAudio play];
-}
-
-- (void)winSound
-{
-	[winAudio play];
-}
-
-- (void)loseSound
-{
-	[loseAudio play];
-}
-
-- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
-{
-	if(flag)
-    {
-		NSLog(@"Did finish playing");
-	}
-    else
-    {
-		NSLog(@"Did NOT finish playing");
-	}
-}
-
-- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
-{
-	NSLog(@"%@", [error description]);
-}
-
-#pragma mark PushNotification
-- (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    NSString *alertMsg;
-    
-    if( userInfo[@"aps"][@"alert"] != nil)
-    {
-        alertMsg = userInfo[@"aps"][@"alert"];
-    }
-    else
-    {
-        alertMsg = @"{no alert message in dictionary}";
-    }
-
-    [self showDialog:alertMsg];
-}
-
-- (void)scheduleNotification:(NSDate *)f_date :(NSString *)alert_body
-{
-    Class cls = NSClassFromString(@"UILocalNotification");
-    if (cls != nil)
-    {
-        //[[UIApplication sharedApplication] cancelAllLocalNotifications];
-        NSMutableArray *Arr = [[NSMutableArray alloc] initWithArray:[[UIApplication sharedApplication]scheduledLocalNotifications]];
-        for (NSInteger k=0; k<[Arr count]; k++)
-        {
-            UILocalNotification *not = Arr[k];
-            NSString *msgString = [not.userInfo valueForKey:@"key"];
-            if([msgString isEqualToString:alert_body])
-            {
-                [[UIApplication sharedApplication] cancelLocalNotification:not];
-            }
-        }
-        
-        UILocalNotification *notif = [[cls alloc] init];
-        notif.fireDate = f_date;
-        notif.timeZone = [NSTimeZone defaultTimeZone];
-        notif.alertBody = alert_body;
-        notif.alertAction = @"Show";
-        notif.soundName = UILocalNotificationDefaultSoundName;
-        notif.applicationIconBadgeNumber = 1;
-		
-        NSDictionary *userDict = @{@"key": alert_body};
-        notif.userInfo = userDict;
-		
-        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
-    }
-}
-
-- (void)resetLoginReminderNotification
-{
-    //Remove all future notifications
-    NSString *notificationId = @"login_reminder";
-    for(UILocalNotification *notify in [[UIApplication sharedApplication] scheduledLocalNotifications])
-    {
-        if([[notify.userInfo objectForKey:@"ID"] isEqualToString:notificationId])
-        {
-            [[UIApplication sharedApplication] cancelLocalNotification:notify];
-        }
-    }
-    
-    //Create new future notifcations for 3 days, 7 days and 15 days
-    if (loginNotification == nil)
-    {
-        loginNotification = [[UILocalNotification alloc] init];
-    }
-    loginNotification.timeZone = [NSTimeZone defaultTimeZone];
-    loginNotification.soundName = @"sound_toaster.aac";
-    NSDictionary *userDict = @{@"ID": @"login_reminder"};
-    loginNotification.userInfo = userDict;
-    
-    loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*3];
-    loginNotification.alertBody = @"Your players misses you! It's been 3 days since they last saw you. Login now and catch up with them.";
-    [[UIApplication sharedApplication] scheduleLocalNotification:loginNotification];
-    
-    loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*7];
-    loginNotification.alertBody = @"Your players misses you! It's been a week since they last saw you. Login now and catch up with them.";
-    [[UIApplication sharedApplication] scheduleLocalNotification:loginNotification];
-    
-    loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*15];
-    loginNotification.alertBody = @"Your players misses you! It's been 2 weeks since they last saw you. Login now and catch up with them.";
-    [[UIApplication sharedApplication] scheduleLocalNotification:loginNotification];
-}
-
-#pragma mark -
-#pragma mark CLLocationManagerDelegate methods
-
-- (void)saveLocation
-{
-    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
-    locationManager.delegate = self;
-    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-    // We don't want to be notified of small changes in location, preferring to use our
-    // last cached results, if any.
-    locationManager.distanceFilter = 50;
-    [locationManager startUpdatingLocation];
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-    didUpdateToLocation:(CLLocation *)newLocation
-           fromLocation:(CLLocation *)oldLocation
-{
-    if (!oldLocation ||
-        (oldLocation.coordinate.latitude != newLocation.coordinate.latitude &&
-         oldLocation.coordinate.longitude != newLocation.coordinate.longitude &&
-         newLocation.horizontalAccuracy <= 100.0))
-    {
-        NSString *lati = [NSString stringWithFormat:@"%g", newLocation.coordinate.latitude];
-		NSString *longi = [NSString stringWithFormat:@"%g", newLocation.coordinate.longitude];
-        
-        if (![lati isEqual: @"0"])
-        {
-            [self setLat:lati];
-        }
-        
-        if (![longi isEqual: @"0"])
-        {
-            [self setLongi:longi];
-        }
-    }
-    
-    //Flurry track geo
-    [Flurry setLatitude:newLocation.coordinate.latitude
-              longitude:newLocation.coordinate.longitude
-     horizontalAccuracy:newLocation.horizontalAccuracy
-       verticalAccuracy:newLocation.verticalAccuracy];
-}
-
-- (void)locationManager:(CLLocationManager *)manager
-       didFailWithError:(NSError *)error
-{
-	NSLog(@"%@", error);
-}
-
-- (void)showLogin:(LoginBlock)block
-{
-    if (loginView == nil)
-    {
-        loginView = [[LoginView alloc] initWithNibName:@"LoginView" bundle:nil];
-        loginView.title = @"Login";
-    }
-    loginView.loginBlock = block;
-    
-    [self showTemplate:@[loginView] :@"Login" :0];
-    
-    //Disable the Buy & Close button
-    templateView.buyButton.hidden = YES;
-    templateView.currencyLabel.hidden = YES;
-    templateView.closeButton.hidden = YES;
-    
-    [loginView updateView];
-}
-
-- (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
-{
-    /*
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-    {
-        SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        [mySLComposerSheet setInitialText:message];
-        [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
-        [mySLComposerSheet addURL:[NSURL URLWithString:@"http://www.tapfantasy.com"]];
-        [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
-         {
-             switch (result)
-             {
-                 case SLComposeViewControllerResultCancelled:
-                     NSLog(@"Post Canceled");
-                     break;
-                 case SLComposeViewControllerResultDone:
-                     NSLog(@"Post Sucessful");
-                     break;
-                 default:
-                     break;
-             }
-         }];
-        
-        [[self peekViewControllerStack] presentViewController:mySLComposerSheet animated:YES completion:nil];
-    }
-    */
-}
-
-- (NSDictionary *)gettLocalMailReply
-{
-    self.localMailReply = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"MailReply"];
-    if (self.localMailReply == nil)
-    {
-        self.localMailReply = [[NSDictionary alloc] init];
-    }
-    
-    return self.localMailReply;
-}
-
-- (void)settLocalMailReply:(NSDictionary *)rd
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[[NSDictionary alloc] initWithDictionary:rd copyItems:YES] forKey:@"MailReply"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSArray *)findMailReply:(NSString *)mail_id
-{
-    self.localMailReply = [self gettLocalMailReply];
-    
-    return [self.localMailReply objectForKey:mail_id];
-}
-
-- (void)addMailReply:(NSString *)mail_id :(NSArray *)mail_reply
-{
-    self.localMailReply = [self gettLocalMailReply];
-    NSMutableDictionary *mdReply = [[NSMutableDictionary alloc] initWithDictionary:self.localMailReply copyItems:YES];
-    [mdReply setObject:mail_reply forKey:mail_id];
-    
-    [self settLocalMailReply:mdReply];
-}
-
-- (void)deleteLocalMail:(NSString *)mail_id
-{
-    self.localMailReply = [self gettLocalMailReply];
-    
-    if ([self.localMailReply count] > 0)
-    {
-        NSMutableDictionary *mdReply = [[NSMutableDictionary alloc] initWithDictionary:self.localMailReply copyItems:YES];
-        [mdReply removeObjectForKey:mail_id];
-        [self settLocalMailReply:mdReply];
-    }
-    
-    self.localMailData = [self gettLocalMailData];
-    NSInteger count = [self.localMailData count];
-    NSInteger index_to_remove = -1;
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        if ([localMailData[i][@"mail_id"] isEqualToString:mail_id])
-        {
-            index_to_remove = i;
-        }
-    }
-    
-    if (index_to_remove > -1)
-    {
-        [self.localMailData removeObjectAtIndex:index_to_remove];
-        [self settLocalMailData:self.localMailData];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailView"
-                                                            object:self
-                                                          userInfo:nil];
-    }
-}
-
-- (void)replyCounterPlus:(NSString *)mail_id
-{
-    self.localMailData = [self gettLocalMailData];
-    NSInteger count = [self.localMailData count];
-
-    for (NSUInteger i = 0; i < count; i++)
-    {
-        if ([localMailData[i][@"mail_id"] isEqualToString:mail_id])
-        {
-            NSInteger rcounter = [localMailData[i][@"reply_counter"] integerValue] + 1;
-            localMailData[i][@"reply_counter"] = [NSString stringWithFormat:@"%ld", (long)rcounter];
-            
-            [self settLocalMailData:self.localMailData];
-        }
-    }
-}
-
-- (NSString *)gettLastMailId
-{
-    lastMailId = [[NSUserDefaults standardUserDefaults] objectForKey:@"Mailid"];
-    if (lastMailId == nil)
-    {
-        lastMailId = @"0";
-    }
-    
-    return lastMailId;
-}
-
-- (void)settLastMailId:(NSString *)mid
-{
-    lastMailId = mid;
-    [[NSUserDefaults standardUserDefaults] setObject:lastMailId forKey:@"Mailid"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSMutableArray *)gettLocalMailData
-{
-    self.localMailData = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"MailData"];
-    if (self.localMailData == nil)
-    {
-        self.localMailData = [[NSMutableArray alloc] init];
-    }
-    
-    NSMutableArray *fullMutable = [[NSMutableArray alloc] init];
-    
-    for (NSDictionary *obj in localMailData)
-    {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:obj copyItems:YES];
-        [fullMutable addObject:dic];
-    }
-    
-    return fullMutable;
-}
-
-- (void)settLocalMailData:(NSMutableArray *)rd
-{
-    [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"MailData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void)addLocalMailData:(NSMutableArray *)rd
-{
-    self.localMailData = [self gettLocalMailData];
-    
-    if (self.localMailData == nil)
-    {
-        self.localMailData = [[NSMutableArray alloc] init];
-    }
-    
-    //Check old mails if there is any replies
-    for (NSUInteger i = 0; i < [self.localMailData count]; i++)
-    {
-        NSString *local_mail_id = self.localMailData[i][@"mail_id"];
-        
-        //Search newly fetched mail for match with local mail
-        for (NSUInteger j = 0; j < [rd count]; j++)
-        {
-            if ([rd[j][@"mail_id"] isEqualToString:local_mail_id]) //Match found
-            {
-                //Reply counter is not same
-                if (![rd[j][@"reply_counter"] isEqualToString:localMailData[i][@"reply_counter"]])
-                {
-                    self.localMailData[i][@"open_read"] = @"0";
-                    self.localMailData[i][@"reply_counter"] = rd[i][@"reply_counter"];
-                }
-            }
-        }
-    }
-    
-    //Add new mails to localMailData
-    for (NSInteger i = [rd count]-1; i > -1; i--)
-    {
-        if ([rd[i][@"mail_id"] integerValue] > [[self gettLastMailId] integerValue])
-        {
-            [self.localMailData insertObject:rd[i] atIndex:0];
-        }
-    }
-    
-    [[NSUserDefaults standardUserDefaults] setObject:localMailData forKey:@"MailData"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)gettPurchasedProduct
-{
-    purchasedProductString = [[NSUserDefaults standardUserDefaults] objectForKey:@"PurchasedProduct"];
-    if (purchasedProductString == nil)
-    {
-        purchasedProductString = @"0";
-    }
-    
-    return purchasedProductString;
-}
-
-- (void)settPurchasedProduct:(NSString *)type
-{
-    purchasedProductString = type;
-    [[NSUserDefaults standardUserDefaults] setObject:purchasedProductString forKey:@"PurchasedProduct"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)gettLoginBonus
-{
-    loginBonus = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginBonus"];
-    if (loginBonus == nil)
-    {
-        loginBonus = @"0";
-    }
-    
-    return loginBonus;
-}
-
-- (void)settLoginBonus:(NSString *)amount
-{
-    loginBonus = amount;
-    [[NSUserDefaults standardUserDefaults] setObject:loginBonus forKey:@"LoginBonus"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)getDevicetoken
-{
-    devicetoken = [[NSUserDefaults standardUserDefaults] objectForKey:@"Devicetoken"];
-    if (devicetoken == nil)
-    {
-        devicetoken = @"0";
-    }
-    
-    return devicetoken;
-}
-
-- (void)setDevicetoken:(NSString *)dt
-{
-    devicetoken = dt;
-    [[NSUserDefaults standardUserDefaults] setObject:devicetoken forKey:@"Devicetoken"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)getLat
-{
-    latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"Latitude"];
-    if (latitude == nil)
-    {
-        latitude = @"0";
-    }
-    
-    return latitude;
-}
-
-- (void)setLat:(NSString *)lat
-{
-    latitude = lat;
-    [[NSUserDefaults standardUserDefaults] setObject:latitude forKey:@"Latitude"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)getLongi
-{
-    longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"Longitude"];
-    if (longitude == nil)
-    {
-        longitude = @"0";
-    }
-    
-    return longitude;
-}
-
-- (void)setLongi:(NSString *)longi
-{
-    longitude = longi;
-    [[NSUserDefaults standardUserDefaults] setObject:longitude forKey:@"Longitude"];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSInteger)xpFromLevel:(NSInteger)level
-{
-    return (level-1)*(level-1)*10;
-}
-
-- (NSInteger)levelFromXp:(NSInteger)xp
-{
-    return sqrt(xp/10) + 1;
-}
-
-- (NSInteger)getXp
-{
-    NSInteger xp = [wsClubDict[@"xp"] integerValue];
-    return xp;
-}
-
-- (NSInteger)getXpMax
-{
-    return [self xpFromLevel:[self getLevel]+1];
-}
-
-- (NSInteger)getXpMaxBefore
-{
-    return [self xpFromLevel:[self getLevel]];
-}
-
-- (NSInteger)getLevel
-{
-    return [self levelFromXp:[self getXp]];
 }
 
 - (NSString *)intString:(NSInteger)val
@@ -1442,205 +926,88 @@ static NSOperationQueue *connectionQueue;
     return countdown;
 }
 
-- (void)checkVersion
+#pragma mark PushNotification
+- (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    if (self.wsProductIdentifiers != nil)
+    NSString *alertMsg;
+    
+    if( userInfo[@"aps"][@"alert"] != nil)
     {
-        float latest_version = [self.wsProductIdentifiers[@"latest_version"] floatValue];
-        float this_version = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] floatValue];
-        
-        if (latest_version > this_version)
+        alertMsg = userInfo[@"aps"][@"alert"];
+    }
+    else
+    {
+        alertMsg = @"{no alert message in dictionary}";
+    }
+    
+    [self showDialog:alertMsg];
+}
+
+- (void)scheduleNotification:(NSDate *)f_date :(NSString *)alert_body
+{
+    Class cls = NSClassFromString(@"UILocalNotification");
+    if (cls != nil)
+    {
+        //[[UIApplication sharedApplication] cancelAllLocalNotifications];
+        NSMutableArray *Arr = [[NSMutableArray alloc] initWithArray:[[UIApplication sharedApplication]scheduledLocalNotifications]];
+        for (NSInteger k=0; k<[Arr count]; k++)
         {
-            [self showDialogBlock:@"New Version Available. Upgrade to latest version?"
-                                 :2
-                                 :^(NSInteger index, NSString *text)
-             {
-                 if(index == 1) //YES
-                 {
-                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.wsProductIdentifiers[@"url_app"]]];
-                 }
-             }];
+            UILocalNotification *not = Arr[k];
+            NSString *msgString = [not.userInfo valueForKey:@"key"];
+            if([msgString isEqualToString:alert_body])
+            {
+                [[UIApplication sharedApplication] cancelLocalNotification:not];
+            }
+        }
+        
+        UILocalNotification *notif = [[cls alloc] init];
+        notif.fireDate = f_date;
+        notif.timeZone = [NSTimeZone defaultTimeZone];
+        notif.alertBody = alert_body;
+        notif.alertAction = @"Show";
+        notif.soundName = UILocalNotificationDefaultSoundName;
+        notif.applicationIconBadgeNumber = 1;
+		
+        NSDictionary *userDict = @{@"key": alert_body};
+        notif.userInfo = userDict;
+		
+        [[UIApplication sharedApplication] scheduleLocalNotification:notif];
+    }
+}
+
+- (void)resetLoginReminderNotification
+{
+    //Remove all future notifications
+    NSString *notificationId = @"login_reminder";
+    for(UILocalNotification *notify in [[UIApplication sharedApplication] scheduledLocalNotifications])
+    {
+        if([[notify.userInfo objectForKey:@"ID"] isEqualToString:notificationId])
+        {
+            [[UIApplication sharedApplication] cancelLocalNotification:notify];
         }
     }
-}
-
-- (void)updateProductIdentifiers
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/ProductIdentifiers/%@", 
-					   WS_URL, [self GameId]];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	self.wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-}
-
-- (NSDictionary *)getProductIdentifiers
-{
-	return self.wsProductIdentifiers;
-}
-
-- (BOOL)updateSalesData
-{
-    BOOL hasSale = NO;
     
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetSales",
-					   WS_URL];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    if (wsResponse.count > 0)
+    //Create new future notifcations for 3 days, 7 days and 15 days
+    if (self.loginNotification == nil)
     {
-        self.wsSalesData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-        hasSale = YES;
+        self.loginNotification = [[UILocalNotification alloc] init];
     }
-    else
-    {
-        self.wsSalesData = nil;
-    }
+    self.loginNotification.timeZone = [NSTimeZone defaultTimeZone];
+    self.loginNotification.soundName = @"sound_toaster.aac";
+    NSDictionary *userDict = @{@"ID": @"login_reminder"};
+    self.loginNotification.userInfo = userDict;
     
-    return hasSale;
-}
-
-- (BOOL)updateEventSolo
-{
-    BOOL hasEvent = NO;
+    self.loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*3];
+    self.loginNotification.alertBody = @"Your players misses you! It's been 3 days since they last saw you. Login now and catch up with them.";
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.loginNotification];
     
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventSolo",
-					   self.world_url];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    if (wsResponse.count > 0)
-    {
-        self.wsEventSolo = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-        hasEvent = YES;
-    }
-    else
-    {
-        self.wsEventSolo = nil;
-    }
+    self.loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*7];
+    self.loginNotification.alertBody = @"Your players misses you! It's been a week since they last saw you. Login now and catch up with them.";
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.loginNotification];
     
-    return hasEvent;
-}
-
-- (BOOL)updateEventAlliance
-{
-    BOOL hasEvent = NO;
-    
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventAlliance",
-					   self.world_url];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    if (wsResponse.count > 0)
-    {
-        self.wsEventAlliance = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-        hasEvent = YES;
-    }
-    else
-    {
-        self.wsEventAlliance = nil;
-    }
-    
-    return hasEvent;
-}
-
-- (BOOL)updateClubData
-{
-    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
-                   WS_URL, self.UID];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-    
-    if([wsResponse count] > 0)
-    {
-        wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-        
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"UpdateHeader"
-         object:self]; //Update to header
-        
-        return YES;
-    }
-    else
-    {
-        return NO;
-    }
-}
-
-- (void)getServerClubData:(returnBlock)completionBlock
-{
-    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
-                       WS_URL, self.UID];
-    NSURL *url = [NSURL URLWithString:[wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSURLRequest* request = [NSURLRequest requestWithURL:url];
-    
-    [NSURLConnection sendAsynchronousRequest:request
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-     {
-         if (error || !response || !data)
-         {
-             NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
-             completionBlock(NO, nil);
-         }
-         else
-         {
-             NSArray *wsResponse = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
-             if([wsResponse count] > 0)
-             {
-                 wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-                 completionBlock(YES, data);
-             }
-             else
-             {
-                 completionBlock(NO, nil);
-             }
-         }
-     }];
-}
-
-- (void)updateClubInfoData: (NSString *) clubId
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetClubInfo/%@", 
-					   WS_URL, clubId];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsClubInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-}
-
-- (void)updateClubInfoFb: (NSString *)fb_id
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetClubFB/%@", 
-					   WS_URL, fb_id];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	if(wsResponse.count > 0)
-	{
-		wsClubInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
-	}
-}
-
-- (void)updateMyAchievementsData
-{
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAchievements/%@", 
-					   [self world_url], wsClubDict[@"club_id"]];
-	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsMyAchievementsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-}
-
-- (NSInteger)getMailBadgeNumber
-{
-	NSInteger count = 0;
-	
-	if([localMailData count] > 0)
-	{
-		for(NSDictionary *rowData in localMailData)
-		{
-			if([rowData[@"open_read"] isEqualToString:@"0"])
-			{
-                count = count + 1;
-			}
-		}
-	}
-	
-	return count;
+    self.loginNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:60*60*24*15];
+    self.loginNotification.alertBody = @"Your players misses you! It's been 2 weeks since they last saw you. Login now and catch up with them.";
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.loginNotification];
 }
 
 - (NSString *)getFirstChatString
@@ -1832,33 +1199,301 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
+- (NSString *)getDtoken
+{
+    self.devicetoken = [[NSUserDefaults standardUserDefaults] objectForKey:@"Devicetoken"];
+    if (self.devicetoken == nil)
+    {
+        self.devicetoken = @"0";
+    }
+    
+    return self.devicetoken;
+}
+
+- (void)setDtoken:(NSString *)dt
+{
+    self.devicetoken = dt;
+    [[NSUserDefaults standardUserDefaults] setObject:self.devicetoken forKey:@"Devicetoken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)getLat
+{
+    self.latitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"Latitude"];
+    if (self.latitude == nil)
+    {
+        self.latitude = @"0";
+    }
+    
+    return self.latitude;
+}
+
+- (void)setLat:(NSString *)lat
+{
+    self.latitude = lat;
+    [[NSUserDefaults standardUserDefaults] setObject:self.latitude forKey:@"Latitude"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)getLongi
+{
+    self.longitude = [[NSUserDefaults standardUserDefaults] objectForKey:@"Longitude"];
+    if (self.longitude == nil)
+    {
+        self.longitude = @"0";
+    }
+    
+    return self.longitude;
+}
+
+- (void)setLongi:(NSString *)longi
+{
+    self.longitude = longi;
+    [[NSUserDefaults standardUserDefaults] setObject:self.longitude forKey:@"Longitude"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)gettLoginBonus
+{
+    self.loginBonus = [[NSUserDefaults standardUserDefaults] objectForKey:@"LoginBonus"];
+    if (self.loginBonus == nil)
+    {
+        self.loginBonus = @"0";
+    }
+    
+    return self.loginBonus;
+}
+
+- (void)settLoginBonus:(NSString *)amount
+{
+    self.loginBonus = amount;
+    [[NSUserDefaults standardUserDefaults] setObject:self.loginBonus forKey:@"LoginBonus"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)gettPurchasedProduct
+{
+    self.purchasedProductString = [[NSUserDefaults standardUserDefaults] objectForKey:@"PurchasedProduct"];
+    if (self.purchasedProductString == nil)
+    {
+        self.purchasedProductString = @"0";
+    }
+    
+    return self.purchasedProductString;
+}
+
+- (void)settPurchasedProduct:(NSString *)type
+{
+    self.purchasedProductString = type;
+    [[NSUserDefaults standardUserDefaults] setObject:self.purchasedProductString forKey:@"PurchasedProduct"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+//MAIL
+
+- (NSDictionary *)gettLocalMailReply
+{
+    self.localMailReplyDict = [[NSUserDefaults standardUserDefaults] dictionaryForKey:@"MailReply"];
+    if (self.localMailReplyDict == nil)
+    {
+        self.localMailReplyDict = [[NSDictionary alloc] init];
+    }
+    
+    return self.localMailReplyDict;
+}
+
+- (void)settLocalMailReply:(NSDictionary *)rd
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSDictionary alloc] initWithDictionary:rd copyItems:YES] forKey:@"MailReply"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSArray *)findMailReply:(NSString *)mail_id
+{
+    self.localMailReplyDict = [self gettLocalMailReply];
+    
+    return [self.localMailReplyDict objectForKey:mail_id];
+}
+
+- (void)addMailReply:(NSString *)mail_id :(NSArray *)mail_reply
+{
+    self.localMailReplyDict = [self gettLocalMailReply];
+    NSMutableDictionary *mdReply = [[NSMutableDictionary alloc] initWithDictionary:self.localMailReplyDict copyItems:YES];
+    [mdReply setObject:mail_reply forKey:mail_id];
+    
+    [self settLocalMailReply:mdReply];
+}
+
+- (void)deleteLocalMail:(NSString *)mail_id
+{
+    self.localMailReplyDict = [self gettLocalMailReply];
+    
+    if ([self.localMailReplyDict count] > 0)
+    {
+        NSMutableDictionary *mdReply = [[NSMutableDictionary alloc] initWithDictionary:self.localMailReplyDict copyItems:YES];
+        [mdReply removeObjectForKey:mail_id];
+        [self settLocalMailReply:mdReply];
+    }
+    
+    self.localMailArray = [self gettLocalMailData];
+    NSInteger count = [self.localMailArray count];
+    NSInteger index_to_remove = -1;
+    for (NSUInteger i = 0; i < count; i++)
+    {
+        if ([self.localMailArray[i][@"mail_id"] isEqualToString:mail_id])
+        {
+            index_to_remove = i;
+        }
+    }
+    
+    if (index_to_remove > -1)
+    {
+        [self.localMailArray removeObjectAtIndex:index_to_remove];
+        [self settLocalMailData:self.localMailArray];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailView"
+                                                            object:self
+                                                          userInfo:nil];
+    }
+}
+
+- (void)replyCounterPlus:(NSString *)mail_id
+{
+    self.localMailArray = [self gettLocalMailData];
+    NSInteger count = [self.localMailArray count];
+    
+    for (NSUInteger i = 0; i < count; i++)
+    {
+        if ([self.localMailArray[i][@"mail_id"] isEqualToString:mail_id])
+        {
+            NSInteger rcounter = [self.localMailArray[i][@"reply_counter"] intValue] + 1;
+            self.localMailArray[i][@"reply_counter"] = [@(rcounter) stringValue];
+            
+            [self settLocalMailData:self.localMailArray];
+        }
+    }
+}
+
+- (NSString *)gettLastMailId
+{
+    self.lastMailId = [[NSUserDefaults standardUserDefaults] objectForKey:@"Mailid"];
+    if (self.lastMailId == nil)
+    {
+        self.lastMailId = @"0";
+    }
+    
+    return self.lastMailId;
+}
+
+- (void)settLastMailId:(NSString *)mid
+{
+    self.lastMailId = mid;
+    [[NSUserDefaults standardUserDefaults] setObject:self.lastMailId forKey:@"Mailid"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSMutableArray *)gettLocalMailData
+{
+    self.localMailArray = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"MailData"];
+    if (self.localMailArray == nil)
+    {
+        self.localMailArray = [[NSMutableArray alloc] init];
+    }
+    
+    NSMutableArray *fullMutable = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *obj in self.localMailArray)
+    {
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:obj copyItems:YES];
+        [fullMutable addObject:dic];
+    }
+    
+    return fullMutable;
+}
+
+- (void)settLocalMailData:(NSMutableArray *)rd
+{
+    [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"MailData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"UpdateMailBadge"
+     object:self];
+}
+
+- (void)addLocalMailData:(NSMutableArray *)rd
+{
+    self.localMailArray = [self gettLocalMailData];
+    
+    if (self.localMailArray == nil)
+    {
+        self.localMailArray = [[NSMutableArray alloc] init];
+    }
+    
+    //Check old mails if there is any replies
+    for (NSUInteger i = 0; i < [self.localMailArray count]; i++)
+    {
+        NSString *local_mail_id = self.localMailArray[i][@"mail_id"];
+        
+        //Search newly fetched mail for match with local mail
+        for (NSUInteger j = 0; j < [rd count]; j++)
+        {
+            if ([rd[j][@"mail_id"] isEqualToString:local_mail_id]) //Match found
+            {
+                //Reply counter is not same
+                if (![rd[j][@"reply_counter"] isEqualToString:self.localMailArray[i][@"reply_counter"]])
+                {
+                    self.localMailArray[i][@"open_read"] = @"0";
+                    self.localMailArray[i][@"reply_counter"] = rd[i][@"reply_counter"];
+                }
+            }
+        }
+    }
+    
+    //Add new mails to localMailArray
+    for (NSInteger i = [rd count]-1; i > -1; i--)
+    {
+        if ([rd[i][@"mail_id"] intValue] > [[self gettLastMailId] intValue])
+        {
+            [self.localMailArray insertObject:rd[i] atIndex:0];
+        }
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:self.localMailArray forKey:@"MailData"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"UpdateMailBadge"
+     object:self];
+}
+
 - (void)updateMailData //Get all mail from mail_id=0 because need to see if there is reply
 {
-    NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
-                           [self world_url],
-                           wsClubDict[@"club_id"],
-                           wsClubDict[@"alliance_id"]];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsMailData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-        
-        if (wsMailData.count > 0)
-        {
-            [self addLocalMailData:wsMailData];
-            [self settLastMailId:(wsMailData)[0][@"mail_id"]];
-        }
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
+                       [self world_url],
+                       self.wsClubDict[@"club_id"],
+                       self.wsClubDict[@"alliance_id"]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsMailArray = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    
+    if (self.wsMailArray.count > 0)
+    {
+        [self addLocalMailData:self.wsMailArray];
+        [self settLastMailId:(self.wsMailArray)[0][@"mail_id"]];
+    }
 }
 
 - (void)updateMailReply:(NSString *)mail_id
 {
 	NSString *wsurl = [NSString stringWithFormat:@"%@/GetMailReply/%@",
-                           [self world_url],
-                           mail_id];
+                       [self world_url],
+                       mail_id];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsMailReply = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsMailReplyArray = [[NSMutableArray alloc] initWithContentsOfURL:url];
     
-    if (wsMailReply.count > 0)
+    if (self.wsMailReplyArray.count > 0)
     {
-        [self addMailReply:mail_id :wsMailReply];
+        [self addMailReply:mail_id :self.wsMailReplyArray];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailDetail"
                                                             object:self
@@ -1866,7 +1501,514 @@ static NSOperationQueue *connectionQueue;
     }
 }
 
-// SPORTS GLOBAL
+- (NSInteger)getMailBadgeNumber
+{
+	NSInteger count = 0;
+	
+	if([self.localMailArray count] > 0)
+	{
+		for(NSDictionary *rowData in self.localMailArray)
+		{
+			if([rowData[@"open_read"] isEqualToString:@"0"])
+			{
+                count = count + 1;
+			}
+		}
+	}
+	
+	return count;
+}
+
+
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//END OF SAME CODE
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+- (NSString	*)GameType
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_TYPE"];
+}
+
+- (NSString	*)GameUrl
+{
+	return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
+}
+
+- (NSString	*)world_url
+{
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"];
+}
+
+- (void)resetUserDefaults
+{
+    [self settLocalMailReply:[[NSDictionary alloc] init]];
+    [self settLastMailId:@"0"];
+    [self settLocalMailData:[[NSMutableArray alloc] init]];
+}
+
+- (NSString *)getServerDateTimeString
+{
+    NSDateFormatter *dateFormater = [[NSDateFormatter alloc] init];
+    [dateFormater setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    //[dateFormater setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+    [dateFormater setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss"];
+    
+    NSDate *localdatetime = [NSDate date];
+    NSDate *serverdatetime = [localdatetime dateByAddingTimeInterval:self.offsetServerTimeInterval];
+    
+    NSString *datenow = [dateFormater stringFromDate:serverdatetime];
+    return datenow;
+}
+
+- (NSDateFormatter *)getDateFormat
+{
+    if (self.dateFormat == nil)
+    {
+        self.dateFormat = [[NSDateFormatter alloc] init];
+        [self.dateFormat setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+        [self.dateFormat setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        //[self.dateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss Z"];
+        [self.dateFormat setDateFormat:@"EEEE, MMMM d, yyyy HH:mm:ss Z"];
+    }
+    
+    return self.dateFormat;
+}
+
+- (void)showLoading
+{
+    self.loadingView = [[LoadingView alloc] init];
+    self.loadingView.title = @"Loading";
+    [[self peekViewControllerStack].view addSubview:self.loadingView.view];
+    [self.loadingView updateView];
+}
+
+- (void)removeLoading
+{
+    if (self.loadingView != nil)
+    {
+        [self.loadingView close];
+    }
+}
+
+- (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid
+{
+    ChatView *achatView = [[ChatView alloc] init];
+    achatView.title = @"Alliance Wall";
+    
+    [self showTemplate:@[achatView] :@"Alliance Wall"];
+    [achatView updateView:ds table:tn a_id:aid];
+}
+
+- (void)pushMoreGamesVC
+{
+    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
+    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
+    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
+    
+    [[Globals i] showTemplate:@[appsViewController] :@"More Games"];
+}
+
+- (void)showMoreGames
+{
+    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
+    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
+    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
+    
+    [self showTemplate:@[appsViewController] :@"More Games" :1];
+}
+
+- (void)initSound
+{
+	//Setup button sound
+	NSURL *url1 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_button.aif", [[NSBundle mainBundle] resourcePath]]];
+	self.buttonAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url1 error:nil];
+    self.buttonAudio.numberOfLoops = 0;
+    self.buttonAudio.volume = 1.0;
+	
+	//Setup back sound
+	NSURL *url2 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_toaster.aac", [[NSBundle mainBundle] resourcePath]]];
+	self.backAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url2 error:nil];
+	self.backAudio.numberOfLoops = 0;
+    self.backAudio.volume = 1.0;
+    
+    //Setup money sound
+	NSURL *url4 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_cash.caf", [[NSBundle mainBundle] resourcePath]]];
+	self.moneyAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url4 error:nil];
+	self.moneyAudio.numberOfLoops = 0;
+    self.moneyAudio.volume = 1.0;
+    
+    //Setup win sound
+	NSURL *url5 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd_goal.caf", [[NSBundle mainBundle] resourcePath]]];
+	self.winAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url5 error:nil];
+	self.winAudio.numberOfLoops = 0;
+    self.winAudio.volume = 1.0;
+    
+    //Setup lose sound
+	NSURL *url6 = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/sound_crowd0.caf", [[NSBundle mainBundle] resourcePath]]];
+	self.loseAudio = [[AVAudioPlayer alloc] initWithContentsOfURL:url6 error:nil];
+	self.loseAudio.numberOfLoops = 0;
+    self.loseAudio.volume = 1.0;
+}
+
+- (void)buttonSound
+{
+	[self.buttonAudio play];
+}
+
+- (void)toasterSound
+{
+	[self.backAudio play];
+}
+
+- (void)moneySound
+{
+	[self.moneyAudio play];
+}
+
+- (void)winSound
+{
+	[self.winAudio play];
+}
+
+- (void)loseSound
+{
+	[self.loseAudio play];
+}
+
+- (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag
+{
+	if(flag)
+    {
+		NSLog(@"Did finish playing");
+	}
+    else
+    {
+		NSLog(@"Did NOT finish playing");
+	}
+}
+
+- (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error
+{
+	NSLog(@"%@", [error description]);
+}
+
+#pragma mark -
+#pragma mark CLLocationManagerDelegate methods
+
+- (void)saveLocation
+{
+    CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+    locationManager.delegate = self;
+    locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    // We don't want to be notified of small changes in location, preferring to use our
+    // last cached results, if any.
+    locationManager.distanceFilter = 50;
+    [locationManager startUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+    didUpdateToLocation:(CLLocation *)newLocation
+           fromLocation:(CLLocation *)oldLocation
+{
+    if (!oldLocation ||
+        (oldLocation.coordinate.latitude != newLocation.coordinate.latitude &&
+         oldLocation.coordinate.longitude != newLocation.coordinate.longitude &&
+         newLocation.horizontalAccuracy <= 100.0))
+    {
+        NSString *lati = [NSString stringWithFormat:@"%g", newLocation.coordinate.latitude];
+		NSString *longi = [NSString stringWithFormat:@"%g", newLocation.coordinate.longitude];
+        
+        if (![lati isEqual: @"0"])
+        {
+            [self setLat:lati];
+        }
+        
+        if (![longi isEqual: @"0"])
+        {
+            [self setLongi:longi];
+        }
+    }
+    
+    //Flurry track geo
+    [Flurry setLatitude:newLocation.coordinate.latitude
+              longitude:newLocation.coordinate.longitude
+     horizontalAccuracy:newLocation.horizontalAccuracy
+       verticalAccuracy:newLocation.verticalAccuracy];
+}
+
+- (void)locationManager:(CLLocationManager *)manager
+       didFailWithError:(NSError *)error
+{
+	NSLog(@"%@", error);
+}
+
+- (void)showLogin:(LoginBlock)block
+{
+    if (self.loginView == nil)
+    {
+        self.loginView = [[LoginView alloc] initWithNibName:@"LoginView" bundle:nil];
+        self.loginView.title = @"Login";
+    }
+    self.loginView.loginBlock = block;
+    
+    [self showTemplate:@[self.loginView] :@"Login" :0];
+    
+    //Disable the Buy & Close button
+    self.templateView.buyButton.hidden = YES;
+    self.templateView.currencyLabel.hidden = YES;
+    self.templateView.closeButton.hidden = YES;
+    
+    [self.loginView updateView];
+}
+
+- (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
+{
+    /*
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
+    {
+        SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+        [mySLComposerSheet setInitialText:message];
+        [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
+        [mySLComposerSheet addURL:[NSURL URLWithString:@"http://www.tapfantasy.com"]];
+        [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
+         {
+             switch (result)
+             {
+                 case SLComposeViewControllerResultCancelled:
+                     NSLog(@"Post Canceled");
+                     break;
+                 case SLComposeViewControllerResultDone:
+                     NSLog(@"Post Sucessful");
+                     break;
+                 default:
+                     break;
+             }
+         }];
+        
+        [[self peekViewControllerStack] presentViewController:mySLComposerSheet animated:YES completion:nil];
+    }
+    */
+}
+
+- (NSInteger)xpFromLevel:(NSInteger)level
+{
+    return (level-1)*(level-1)*10;
+}
+
+- (NSInteger)levelFromXp:(NSInteger)xp
+{
+    return sqrt(xp/10) + 1;
+}
+
+- (NSInteger)getXp
+{
+    NSInteger xp = [self.wsClubDict[@"xp"] integerValue];
+    return xp;
+}
+
+- (NSInteger)getXpMax
+{
+    return [self xpFromLevel:[self getLevel]+1];
+}
+
+- (NSInteger)getXpMaxBefore
+{
+    return [self xpFromLevel:[self getLevel]];
+}
+
+- (NSInteger)getLevel
+{
+    return [self levelFromXp:[self getXp]];
+}
+
+- (void)checkVersion
+{
+    if (self.wsProductIdentifiers != nil)
+    {
+        float latest_version = [self.wsProductIdentifiers[@"latest_version"] floatValue];
+        float this_version = [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] floatValue];
+        
+        if (latest_version > this_version)
+        {
+            [self showDialogBlock:@"New Version Available. Upgrade to latest version?"
+                                 :2
+                                 :^(NSInteger index, NSString *text)
+             {
+                 if(index == 1) //YES
+                 {
+                     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.wsProductIdentifiers[@"url_app"]]];
+                 }
+             }];
+        }
+    }
+}
+
+- (void)updateProductIdentifiers
+{
+	NSString *wsurl = [NSString stringWithFormat:@"%@/ProductIdentifiers/%@", 
+					   WS_URL, [self GameId]];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	self.wsProductIdentifiers = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (NSDictionary *)getProductIdentifiers
+{
+	return self.wsProductIdentifiers;
+}
+
+- (BOOL)updateSalesData
+{
+    BOOL hasSale = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetSales",
+					   WS_URL];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsSalesData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasSale = YES;
+    }
+    else
+    {
+        self.wsSalesData = nil;
+    }
+    
+    return hasSale;
+}
+
+- (BOOL)updateEventSolo
+{
+    BOOL hasEvent = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventSolo",
+					   self.world_url];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsEventSolo = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasEvent = YES;
+    }
+    else
+    {
+        self.wsEventSolo = nil;
+    }
+    
+    return hasEvent;
+}
+
+- (BOOL)updateEventAlliance
+{
+    BOOL hasEvent = NO;
+    
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetEventAlliance",
+					   self.world_url];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    if (wsResponse.count > 0)
+    {
+        self.wsEventAlliance = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        hasEvent = YES;
+    }
+    else
+    {
+        self.wsEventAlliance = nil;
+    }
+    
+    return hasEvent;
+}
+
+- (BOOL)updateClubData
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
+                   WS_URL, self.UID];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+    
+    if([wsResponse count] > 0)
+    {
+        self.wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+        
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"UpdateHeader"
+         object:self]; //Update to header
+        
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
+- (void)getServerClubData:(returnBlock)completionBlock
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/GetClub/%@",
+                       WS_URL, self.UID];
+    NSURL *url = [NSURL URLWithString:[wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSURLRequest* request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if (error || !response || !data)
+         {
+             NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
+             completionBlock(NO, nil);
+         }
+         else
+         {
+             NSArray *wsResponse = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+             if([wsResponse count] > 0)
+             {
+                 self.wsClubDict = [[NSMutableDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+                 completionBlock(YES, data);
+             }
+             else
+             {
+                 completionBlock(NO, nil);
+             }
+         }
+     }];
+}
+
+- (void)updateClubInfoData: (NSString *) clubId
+{
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetClubInfo/%@", 
+					   WS_URL, clubId];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	self.wsClubInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+}
+
+- (void)updateClubInfoFb: (NSString *)fb_id
+{
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetClubFB/%@", 
+					   WS_URL, fb_id];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
+	if(wsResponse.count > 0)
+	{
+		self.wsClubInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+	}
+}
+
+- (void)updateMyAchievementsData
+{
+	NSString *wsurl = [NSString stringWithFormat:@"%@/GetAchievements/%@", 
+					   [self world_url], self.wsClubDict[@"club_id"]];
+	NSURL *url = [[NSURL alloc] initWithString:wsurl];
+	self.wsMyAchievementsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+}
 
 - (NSString *)PlayerSkill1
 {
@@ -2030,26 +2172,26 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)gettAccepted
 {
-    acceptedMatch = [[NSUserDefaults standardUserDefaults] objectForKey:@"AcceptedMatch"];
-    if (acceptedMatch == nil)
+    self.acceptedMatch = [[NSUserDefaults standardUserDefaults] objectForKey:@"AcceptedMatch"];
+    if (self.acceptedMatch == nil)
     {
-        acceptedMatch = @"0";
+        self.acceptedMatch = @"0";
     }
     
-    return acceptedMatch;
+    return self.acceptedMatch;
 }
 
 - (void)settAccepted:(NSString *)match_id
 {
-    acceptedMatch = match_id;
-    [[NSUserDefaults standardUserDefaults] setObject:acceptedMatch forKey:@"AcceptedMatch"];
+    self.acceptedMatch = match_id;
+    [[NSUserDefaults standardUserDefaults] setObject:self.acceptedMatch forKey:@"AcceptedMatch"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)storeEnergy
 {
-    NSInteger energy_max = [wsClubDict[@"energy"] integerValue];
-    NSInteger energy_togo = energy_max - energy;
+    NSInteger energy_max = [self.wsClubDict[@"energy"] integerValue];
+    NSInteger energy_togo = energy_max - self.energy;
     if (energy_togo > 0)
     {
         [self scheduleNotification:[[NSDate date] dateByAddingTimeInterval:energy_togo*180] :@"Your energy is full! Train your players and level up now!"];
@@ -2058,7 +2200,7 @@ static NSOperationQueue *connectionQueue;
 
 - (NSInteger)retrieveEnergy
 {
-	self.energy = [wsClubDict[@"e"] integerValue];
+	self.energy = [self.wsClubDict[@"e"] integerValue];
 	[self storeEnergy];
 	
 	return self.energy;
@@ -2259,134 +2401,134 @@ static NSOperationQueue *connectionQueue;
 	{
         if ([[[Globals i] GameType] isEqualToString:@"hockey"])
         {
-            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
+            if([self.wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(GK)";
-            else if([wsClubDict[@"rw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"rw"] isEqualToString:row_player_id])
                 cell.position.text = @"(WNG1)";
-            else if([wsClubDict[@"lw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"lw"] isEqualToString:row_player_id])
                 cell.position.text = @"(WNG2)";
-            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(DEF1)";
-            else if([wsClubDict[@"cd2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(DEF2)";
-            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR1)";
-            else if([wsClubDict[@"im2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im2"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR2)";
-            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(FWD1)";
-            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(FWD2)";
-            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.GK)";
-            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.DEF)";
-            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.CTR)";
-            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.FWD)";
-            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.WING)";
             else
                 cell.position.text = @" ";
         }
         else if ([[[Globals i] GameType] isEqualToString:@"basketball"])
         {
-            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
+            if([self.wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(PG)";
-            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(SG)";
-            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CTR)";
-            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(PF)";
-            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SF)";
-            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.PG)";
-            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.SG)";
-            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.CTR)";
-            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.PF)";
-            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(B.SF)";
             else
                 cell.position.text = @" ";
         }
         else if ([[[Globals i] GameType] isEqualToString:@"baseball"])
         {
-            if([[wsClubDict objectForKey:@"gk"] isEqualToString:row_player_id])
+            if([[self.wsClubDict objectForKey:@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(C)";
-            else if([[wsClubDict objectForKey:@"rb"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"rb"] isEqualToString:row_player_id])
                 cell.position.text = @"(RF)";
-            else if([[wsClubDict objectForKey:@"lb"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"lb"] isEqualToString:row_player_id])
                 cell.position.text = @"(LF)";
-            else if([[wsClubDict objectForKey:@"cd1"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(CF)";
-            else if([[wsClubDict objectForKey:@"cd2"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SS)";
-            else if([[wsClubDict objectForKey:@"im1"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(P)";
-            else if([[wsClubDict objectForKey:@"fw1"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(1B)";
-            else if([[wsClubDict objectForKey:@"fw2"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(2B)";
-            else if([[wsClubDict objectForKey:@"fw3"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"fw3"] isEqualToString:row_player_id])
                 cell.position.text = @"(3B)";
-            else if([[wsClubDict objectForKey:@"sgk"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 1)";
-            else if([[wsClubDict objectForKey:@"sd"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 2";
-            else if([[wsClubDict objectForKey:@"sim"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 3)";
-            else if([[wsClubDict objectForKey:@"sfw"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 4)";
-            else if([[wsClubDict objectForKey:@"sw"] isEqualToString:row_player_id])
+            else if([[self.wsClubDict objectForKey:@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Bench 5)";
             else
                 cell.position.text = @" ";
         }
         else
         {
-            if([wsClubDict[@"gk"] isEqualToString:row_player_id])
+            if([self.wsClubDict[@"gk"] isEqualToString:row_player_id])
                 cell.position.text = @"(GK)";
-            else if([wsClubDict[@"rb"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"rb"] isEqualToString:row_player_id])
                 cell.position.text = @"(DR)";
-            else if([wsClubDict[@"lb"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"lb"] isEqualToString:row_player_id])
                 cell.position.text = @"(DL)";
-            else if([wsClubDict[@"rw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"rw"] isEqualToString:row_player_id])
                 cell.position.text = @"(MR)";
-            else if([wsClubDict[@"lw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"lw"] isEqualToString:row_player_id])
                 cell.position.text = @"(ML)";
-            else if([wsClubDict[@"cd1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd1"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC1)";
-            else if([wsClubDict[@"cd2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd2"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC2)";
-            else if([wsClubDict[@"cd3"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"cd3"] isEqualToString:row_player_id])
                 cell.position.text = @"(DC3)";
-            else if([wsClubDict[@"im1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im1"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC1)";
-            else if([wsClubDict[@"im2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im2"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC2)";
-            else if([wsClubDict[@"im3"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"im3"] isEqualToString:row_player_id])
                 cell.position.text = @"(MC3)";
-            else if([wsClubDict[@"fw1"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw1"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC1)";
-            else if([wsClubDict[@"fw2"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw2"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC2)";
-            else if([wsClubDict[@"fw3"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"fw3"] isEqualToString:row_player_id])
                 cell.position.text = @"(SC3)";
-            else if([wsClubDict[@"sgk"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sgk"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.GK)";
-            else if([wsClubDict[@"sd"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sd"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.DCLR)";
-            else if([wsClubDict[@"sim"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sim"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.MC)";
-            else if([wsClubDict[@"sfw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sfw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.SC)";
-            else if([wsClubDict[@"sw"] isEqualToString:row_player_id])
+            else if([self.wsClubDict[@"sw"] isEqualToString:row_player_id])
                 cell.position.text = @"(Sub.MLR)";
             else
                 cell.position.text = @" ";
@@ -2428,185 +2570,6 @@ static NSOperationQueue *connectionQueue;
     }
     
     return fname;
-}
-
-- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix
-{
-    float frame_width = frame.size.width;
-    float frame_height = frame.size.height;
-    float offset1 = 0.5f;
-    float offset2 = 1.0f;
-    
-    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_1.png", prefix]];
-    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_2.png", prefix]];
-    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_3.png", prefix]];
-    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_4.png", prefix]];
-    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_5.png", prefix]];
-    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_6.png", prefix]];
-    UIImage *img7 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_7.png", prefix]];
-    UIImage *img8 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_8.png", prefix]];
-    UIImage *img9 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_9.png", prefix]];
-    
-    CGSize imgSize = CGSizeMake(frame_width, frame_height);
-    UIGraphicsBeginImageContext(imgSize);
-    
-    CGSize topSize = CGSizeMake(img1.size.width/2.0f * SCALE_IPAD, img1.size.height/2.0f * SCALE_IPAD);
-    
-    if (!img7 || !img8 || !img9)
-    {
-        if (frame_width > (topSize.width*2.0f))
-        {
-            [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(topSize.width-offset1, topSize.height, frame_width - (topSize.width*2.0f) + offset2, frame_height - topSize.height)];
-        }
-        
-        [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero
-                              resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(frame_width - topSize.width, topSize.height, topSize.width, frame_height - topSize.height)];
-        
-        [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero
-                              resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(0.0, topSize.height, topSize.width, frame_height - topSize.height)];
-    }
-    else
-    {
-        CGSize bottomSize = CGSizeMake(img4.size.width/2.0f * SCALE_IPAD, img4.size.height/2.0f * SCALE_IPAD);
-        
-        if (frame_width > (bottomSize.width*2.0f))
-        {
-            [img5 drawInRect:CGRectMake(bottomSize.width-offset1, frame_height - bottomSize.height, frame_width - (bottomSize.width*2.0f) + offset2, bottomSize.height)];
-        }
-        [img6 drawInRect:CGRectMake(frame_width - bottomSize.width, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
-        [img4 drawInRect:CGRectMake(0.0f, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
-        
-        if (frame_height > (topSize.height + bottomSize.height))
-        {
-            CGSize midSize = CGSizeMake(img7.size.width/2.0f * SCALE_IPAD, img7.size.height/2.0f * SCALE_IPAD);
-            
-            if (frame_width > (midSize.width*2.0f))
-            {
-                [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                      resizingMode:UIImageResizingModeTile]
-                 drawInRect:CGRectMake(midSize.width-offset1, topSize.height - offset1, frame_width - (midSize.width*2.0f) + offset2, frame_height - topSize.height - bottomSize.height + offset2)];
-            }
-            
-            [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(frame_width - midSize.width, topSize.height - offset1, midSize.width, frame_height - topSize.height - bottomSize.height + offset2)];
-            
-            [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(0.0f, topSize.height - offset1, midSize.width, frame_height - topSize.height - bottomSize.height + offset2)];
-        }
-    }
-    
-    if (frame_width > (topSize.width*2.0f))
-    {
-        [img2 drawInRect:CGRectMake(topSize.width-offset1, 0.0f, frame_width - (topSize.width*2.0f) + offset2, topSize.height)];
-    }
-    [img3 drawInRect:CGRectMake(frame_width - topSize.width, 0.0f, topSize.width, topSize.height)];
-    [img1 drawInRect:CGRectMake(0.0f, 0.0f, topSize.width, topSize.height)];
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
-- (UIButton *)dynamicButtonWithTitle:(NSString *)title
-                              target:(id)target
-                            selector:(SEL)selector
-                               frame:(CGRect)frame
-                                type:(NSString *)type
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	
-	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	
-    if (frame.size.width > 140.0f*SCALE_IPAD)
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:DEFAULT_FONT_SMALL_SIZE];
-    }
-    else if (frame.size.width > 80.0f*SCALE_IPAD)
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:DEFAULT_FONT_SIZE];
-    }
-    else
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:10.0f*SCALE_IPAD];
-    }
-    
-    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    button.titleLabel.numberOfLines = 0;
-    
-    [button setContentEdgeInsets:UIEdgeInsetsMake(1.0, 1.0, 1.0, 1.0)];
-    
-	[button setTitle:title forState:UIControlStateNormal];
-    
-	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-    
-	button.backgroundColor = [UIColor clearColor];
-    
-    UIImage *normalImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@", type]];
-	[button setBackgroundImage:normalImage forState:UIControlStateNormal];
-    
-    if ([type isEqualToString:@"0"]) //Disabled button
-    {
-        [button setBackgroundImage:normalImage forState:UIControlStateHighlighted];
-    }
-    else
-    {
-        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_hvr", type]];
-        [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
-    }
-	
-	return button;
-}
-
-- (UIButton *)buttonWithTitle:(NSString *)title
-					   target:(id)target
-					 selector:(SEL)selector
-						frame:(CGRect)frame
-                  imageNormal:(UIImage *)imageNormal
-             imageHighlighted:(UIImage *)imageHighlighted
-                imageCentered:(BOOL)imageCentered
-				darkTextColor:(BOOL)darkTextColor
-{
-	UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	
-	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	
-	[button setTitle:title forState:UIControlStateNormal];
-	if (darkTextColor)
-	{
-		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	}
-	else
-	{
-		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	}
-    
-    if (imageCentered)
-    {
-        button.imageView.contentMode = UIViewContentModeCenter;
-    }
-	
-	UIImage *newImage = [imageNormal stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setImage:newImage forState:UIControlStateNormal];
-	
-	UIImage *newHighlightedImage = [imageHighlighted stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setImage:newHighlightedImage forState:UIControlStateHighlighted];
-	
-	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-	
-    // in case the parent view draws with a custom color or gradient, use a transparent color
-	button.backgroundColor = [UIColor clearColor];
-	
-	return button;
 }
 
 - (UIButton *)buttonWithTitle:(NSString *)title
@@ -2728,9 +2691,9 @@ static NSOperationQueue *connectionQueue;
 - (NSString *)doPost:(NSString *)message
 {
 	NSString *encodedMessage = [self urlEnc:message];
-    NSString *encodedClubName = [self urlEnc:wsClubDict[@"club_name"]];
-    NSString *club_id = wsClubDict[@"club_id"];
-    NSString *a_id = wsClubDict[@"alliance_id"];
+    NSString *encodedClubName = [self urlEnc:self.wsClubDict[@"club_name"]];
+    NSString *club_id = self.wsClubDict[@"club_id"];
+    NSString *a_id = self.wsClubDict[@"alliance_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/AlliancePost/%@/%@/%@/%@",
                        WS_URL, a_id, club_id, encodedClubName, encodedMessage];
@@ -2743,8 +2706,8 @@ static NSOperationQueue *connectionQueue;
     [Flurry logEvent:@"DoBid"];
     
 	NSString *encodedValue = [self urlEnc:value];
-    NSString *encodedClubName = [self urlEnc:wsClubDict[@"club_name"]];
-    NSString *club_id = wsClubDict[@"club_id"];
+    NSString *encodedClubName = [self urlEnc:self.wsClubDict[@"club_name"]];
+    NSString *club_id = self.wsClubDict[@"club_id"];
     
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/DoBid/%@/%@/%@/%@/%@",
                        WS_URL, self.UID, club_id, encodedClubName, player_id, encodedValue];
@@ -2819,22 +2782,22 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsCurrentSeasonData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+	self.wsCurrentSeasonData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
 - (NSDictionary *)getCurrentSeasonData
 {
-	return wsCurrentSeasonData;
+	return self.wsCurrentSeasonData;
 }
 
 - (NSDictionary *)getClubData
 {
-	return wsClubDict;
+	return self.wsClubDict;
 }
 
 - (NSDictionary *)getClubInfoData
 {
-	return wsClubInfoData;
+	return self.wsClubInfoData;
 }
 
 - (void)updateSquadData:(NSString *)clubId
@@ -2842,32 +2805,32 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
                        WS_URL, clubId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsSquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.wsSquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getSquadData
 {
-	return wsSquadData;
+	return self.wsSquadData;
 }
 
 - (void)updateMySquadData
 {
-	workingSquad = 1;
+	self.workingSquad = 1;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayers/%@",
-					   WS_URL, wsClubDict[@"club_id"]];
+					   WS_URL, self.wsClubDict[@"club_id"]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsMySquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
-	workingSquad = 0;
+	self.wsMySquadData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.workingSquad = 0;
 }
 
 - (NSMutableArray *)getMySquadData
 {
-	return wsMySquadData;
+	return self.wsMySquadData;
 }
 
 - (NSMutableArray *)getMyAchievementsData
 {
-	return wsMyAchievementsData;
+	return self.wsMyAchievementsData;
 }
 
 - (void)updateAllianceData
@@ -2875,21 +2838,21 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAlliance",
 					   WS_URL];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsAllianceData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.wsAllianceData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getAllianceData
 {
-	return wsAllianceData;
+	return self.wsAllianceData;
 }
 
 - (NSInteger)getAchievementsBadge
 {
 	NSInteger count = 0;
 	
-	if([wsMyAchievementsData count] > 0)
+	if([self.wsMyAchievementsData count] > 0)
 	{
-		for(NSDictionary *rowData in wsMyAchievementsData)
+		for(NSDictionary *rowData in self.wsMyAchievementsData)
 		{
 			if(![rowData[@"club_id"] isEqualToString:@"0"])
 			{
@@ -2907,37 +2870,37 @@ static NSOperationQueue *connectionQueue;
 - (void)updateProducts
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetProducts", WS_URL];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsProductsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsProductsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getProducts
 {
-	return wsProductsData;
+	return self.wsProductsData;
 }
 
 - (void)updatePlayerSaleData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetPlayersBid", WS_URL];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsPlayerSaleData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsPlayerSaleData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getPlayerSaleData
 {
-	return wsPlayerSaleData;
+	return self.wsPlayerSaleData;
 }
 
 - (void)updateCoachData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetCoaches", WS_URL];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsCoachData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsCoachData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getCoachData
 {
-	return wsCoachData;
+	return self.wsCoachData;
 }
 
 - (void)updatePlayerInfoData:(NSString *)playerId
@@ -2946,12 +2909,12 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, playerId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsPlayerInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+	self.wsPlayerInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
 - (NSDictionary *)getPlayerInfoData
 {
-	return wsPlayerInfoData;
+	return self.wsPlayerInfoData;
 }
 
 - (void)updateMatchInfoData:(NSString *)matchId
@@ -2960,38 +2923,38 @@ static NSOperationQueue *connectionQueue;
 					   WS_URL, matchId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
 	NSArray *wsResponse = [[NSArray alloc] initWithContentsOfURL:url];
-	wsMatchInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
+	self.wsMatchInfoData = [[NSDictionary alloc] initWithDictionary:wsResponse[0] copyItems:YES];
 }
 
 - (NSDictionary *)getMatchInfoData
 {
-	return wsMatchInfoData;
+	return self.wsMatchInfoData;
 }
 
 - (void)updateMatchData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchUpcomings/%@",
                            WS_URL, self.UID];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsMatchData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsMatchData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMatchData
 {
-	return wsMatchData;
+	return self.wsMatchData;
 }
 
 - (void)updateMatchPlayedData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchPlayeds/%@",
                            WS_URL, self.UID];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsMatchPlayedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsMatchPlayedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMatchPlayedData
 {
-	return wsMatchPlayedData;
+	return self.wsMatchPlayedData;
 }
 
 - (void)updateMatchHighlightsData:(NSString *)matchId
@@ -2999,90 +2962,90 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchHighlights/%@",
 					   WS_URL, matchId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsMatchHighlightsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.wsMatchHighlightsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMatchHighlightsData
 {
-	return wsMatchHighlightsData;
+	return self.wsMatchHighlightsData;
 }
 
 - (void)updateChallengesData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallenge/%@",
                            WS_URL, self.UID];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsChallengesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsChallengesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getChallengesData
 {
-	return wsChallengesData;
+	return self.wsChallengesData;
 }
 
 - (void)updateChallengedData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetChallengeds/%@",
                            WS_URL, self.UID];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsChallengedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsChallengedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getChallengedData
 {
-	return wsChallengedData;
+	return self.wsChallengedData;
 }
 
 - (void)updateLeagueData:(NSString *)division : (NSString *)series
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetSeries/%@/%@",
                            WS_URL, division, series];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsLeagueData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsLeagueData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getLeagueData
 {
-	return wsLeagueData;
+	return self.wsLeagueData;
 }
 
 - (void)updatePromotionData:(NSString *)division
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeaguePromotion/%@",
                            WS_URL, division];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsPromotionData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsPromotionData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getPromotionData
 {
-	return wsPromotionData;
+	return self.wsPromotionData;
 }
 
 - (void)updateLeagueScorersData:(NSString *)division :(NSString *)top
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetLeagueTopScorers/%@/%@",
                            WS_URL, division, top];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsLeagueScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsLeagueScorersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getLeagueScorersData
 {
-	return wsLeagueScorersData;
+	return self.wsLeagueScorersData;
 }
 
 - (void)updateMatchFixturesData:(NSString *)division :(NSString *)series
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMatchFixtures/%@/%@",
                            WS_URL, division, series];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsMatchFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsMatchFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMatchFixturesData
 {
-	return wsMatchFixturesData;
+	return self.wsMatchFixturesData;
 }
 
 - (void)updateAllianceCupFixturesData:(NSString *)a_id round:(NSString *)round
@@ -3090,12 +3053,12 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceCupFixtures/%@/%@",
 						   WS_URL, a_id, round];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsAllianceCupFixturesData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getAllianceCupFixturesData
 {
-	return wsAllianceCupFixturesData;
+	return self.wsAllianceCupFixturesData;
 }
 
 - (void)updateTrophyData:(NSString *)clubId
@@ -3103,103 +3066,103 @@ static NSOperationQueue *connectionQueue;
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetTrophy/%@",
 					   WS_URL, clubId];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsTrophyData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.wsTrophyData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getTrophyData
 {
-	return wsTrophyData;
+	return self.wsTrophyData;
 }
 
 - (void)updateNewsData:(NSString *)division :(NSString *)series :(NSString *)playing_cup
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetNews/%@/%@/%@/%@",
-                           WS_URL, wsClubDict[@"club_id"], division, series, playing_cup];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+                           WS_URL, self.wsClubDict[@"club_id"], division, series, playing_cup];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsNewsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getNewsData
 {
-	return wsNewsData;
+	return self.wsNewsData;
 }
 
 - (void)updateWallData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceWall/%@",
-                           WS_URL, wsClubDict[@"alliance_id"]];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+                           WS_URL, self.wsClubDict[@"alliance_id"]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsWallData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getWallData
 {
-	return wsWallData;
+	return self.wsWallData;
 }
 
 - (void)updateEventsData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceEvents/%@",
-                           WS_URL, wsClubDict[@"alliance_id"]];
-		NSURL *url = [[NSURL alloc] initWithString:wsurl];
-		wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+                           WS_URL, self.wsClubDict[@"alliance_id"]];
+    NSURL *url = [[NSURL alloc] initWithString:wsurl];
+    self.wsEventsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getEventsData
 {
-	return wsEventsData;
+	return self.wsEventsData;
 }
 
 - (void)updateDonationsData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceDonations/%@",
-                       WS_URL, wsClubDict[@"alliance_id"]];
+                       WS_URL, self.wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsDonationsData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getDonationsData
 {
-	return wsDonationsData;
+	return self.wsDonationsData;
 }
 
 - (void)updateAppliedData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceApply/%@",
-                       WS_URL, wsClubDict[@"alliance_id"]];
+                       WS_URL, self.wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsAppliedData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getAppliedData
 {
-	return wsAppliedData;
+	return self.wsAppliedData;
 }
 
 - (void)updateMembersData
 {
     NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetAllianceMembers/%@",
-                       WS_URL, wsClubDict[@"alliance_id"]];
+                       WS_URL, self.wsClubDict[@"alliance_id"]];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    self.wsMembersData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMembersData
 {
-	return wsMembersData;
+	return self.wsMembersData;
 }
 
 - (void)updateMarqueeData
 {
 	NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/GetMarquee/%@/%@/%@/%@",
-                       WS_URL, wsClubDict[@"club_id"], wsClubDict[@"division"], wsClubDict[@"series"], [self BoolToBit:wsClubDict[@"playing_cup"]]];
+                       WS_URL, self.wsClubDict[@"club_id"], self.wsClubDict[@"division"], self.wsClubDict[@"series"], [self BoolToBit:self.wsClubDict[@"playing_cup"]]];
 	NSURL *url = [[NSURL alloc] initWithString:wsurl];
-	wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
+	self.wsMarqueeData = [[NSMutableArray alloc] initWithContentsOfURL:url];
 }
 
 - (NSMutableArray *)getMarqueeData
 {
-	return wsMarqueeData;
+	return self.wsMarqueeData;
 }
 
 @end

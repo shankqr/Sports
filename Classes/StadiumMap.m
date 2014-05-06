@@ -22,7 +22,6 @@
 @synthesize s5;
 @synthesize s6;
 @synthesize s7;
-@synthesize progressBar1;
 @synthesize stadiumMap;
 @synthesize stadiumPitch;
 @synthesize stadiumSection0;
@@ -89,8 +88,6 @@
     building2CashLabel.hidden = YES;
     building3CashLabel.hidden = YES;
     
-    progressBar1 = [[UILabel alloc] init];
-    progressBar1.backgroundColor = [UIColor greenColor];
     building1.tag = 0;
     building2.tag = 0;
     building3.tag = 0;
@@ -608,84 +605,6 @@
             [self updateView];
         }
     }
-}
-
-- (void)upgradeBuilding:(NSInteger)type
-{
-    if (type == 1) 
-    {
-        building1TimerLabel.text = @".";
-        timer1.hidden = YES;
-        [building1 setAlpha:0.3];
-        building1.tag = 1;
-        
-        progressBar1.frame = CGRectMake(PBAR1_X,PBAR1_Y,PBAR_SMALL,PBAR_SMALL);//starts small
-        [self.view addSubview:progressBar1];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:20];
-        [UIView setAnimationDidStopSelector:@selector(upgrade1DidStop:finished:context:)];
-        progressBar1.frame = CGRectMake(PBAR1_X,PBAR1_Y,PBAR_BIG,PBAR_SMALL);//ends big
-        
-        [building1 setAlpha:1.0];
-    }
-    if (type == 2) 
-    {
-        building2TimerLabel.text = @".";
-        timer2.hidden = YES;
-        [building2 setAlpha:0.3];
-        building2.tag = 1;
-        
-        progressBar1.frame = CGRectMake(PBAR2_X,PBAR2_Y,PBAR_SMALL,PBAR_SMALL);//starts small
-        [self.view addSubview:progressBar1];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:20];
-        [UIView setAnimationDidStopSelector:@selector(upgrade2DidStop:finished:context:)];
-        progressBar1.frame = CGRectMake(PBAR2_X,PBAR2_Y,PBAR_BIG,PBAR_SMALL);//ends big
-        
-        [building2 setAlpha:1.0];
-    }
-    if (type == 3) 
-    {
-        building3TimerLabel.text = @".";
-        timer3.hidden = YES;
-        [building3 setAlpha:0.3];
-        building3.tag = 1;
-        
-        progressBar1.frame = CGRectMake(PBAR3_X,PBAR3_Y,PBAR_SMALL,PBAR_SMALL);//starts small
-        [self.view addSubview:progressBar1];
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDelegate:self];
-        [UIView setAnimationDuration:20];
-        [UIView setAnimationDidStopSelector:@selector(upgrade3DidStop:finished:context:)];
-        progressBar1.frame = CGRectMake(PBAR3_X,PBAR3_Y,PBAR_BIG,PBAR_SMALL);//ends big
-        
-        [building3 setAlpha:1.0];
-    }
-    
-    [UIView commitAnimations];
-}
-
-- (void)upgrade1DidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-    [building1 setAlpha:1.0];
-    building1.tag = 0;
-    [progressBar1 removeFromSuperview];
-}
-
-- (void)upgrade2DidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-    [building2 setAlpha:1.0];
-    building2.tag = 0;
-    [progressBar1 removeFromSuperview];
-}
-
-- (void)upgrade3DidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
-{
-    [building3 setAlpha:1.0];
-    building3.tag = 0;
-    [progressBar1 removeFromSuperview];
 }
 
 - (void)b1DidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context

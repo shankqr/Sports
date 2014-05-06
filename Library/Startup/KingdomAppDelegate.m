@@ -76,7 +76,7 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
 	NSString *s1 = [devToken description];
 	NSString *s2 = [s1 stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"< >"]];
 	NSString *s3 = [s2 stringByReplacingOccurrencesOfString:@" " withString:@""];
-	[[Globals i] setDevicetoken:s3];
+	[[Globals i] setDtoken:s3];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

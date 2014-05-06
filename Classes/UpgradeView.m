@@ -143,7 +143,6 @@
 			if([[Globals i] updateClubData]) //Diamonds deducted for upgrade
 			{
                 [[Globals i].mainView.stadiumMap updateView];
-                [[Globals i].mainView.stadiumMap upgradeBuilding:buildingType];
                 
                 [[Globals i] closeTemplate];
 			}
