@@ -1383,13 +1383,13 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
-         if (index == 1)
+         if (index == 1) //YES
          {
              [Globals i].challengeMatchId = a[self.currMatchIndex][@"match_id"];
              [self reportMatch];
          }
          
-         if (index == 0)
+         if (index == 2) //NO
          {
              self.currMatchIndex = self.currMatchIndex + 1;
              if([a count] > self.currMatchIndex)

@@ -72,7 +72,7 @@
 	{
 		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
-		if((bal > hireCost) && ([Globals i].energy > 9))
+		if((bal >= hireCost) && ([Globals i].energy > 9))
 		{
 			[Globals i].energy = [Globals i].energy - 10;
 			[[Globals i] storeEnergy];

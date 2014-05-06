@@ -576,10 +576,6 @@
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
-         if(index == 0) //NO
-         {
-             //Do nothing
-         }
          if(index == 1) //YES
          {
              [self leaveAlliance];
@@ -604,7 +600,7 @@
                                          :1
                                          :^(NSInteger index, NSString *text)
               {
-                  if(index == 0) //OK
+                  if(index == 1) //OK
                   {
                       [[Globals i] updateClubData]; //alliance id = 0 updated
                       
@@ -711,10 +707,6 @@
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
-         if(index == 0) //NO
-         {
-             //Do nothing
-         }
          if(index == 1) //YES
          {
              [self upgradeAlliance];

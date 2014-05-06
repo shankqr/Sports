@@ -245,7 +245,7 @@
 		NSInteger pval = [self.sel_coach_value integerValue];
 		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
-		if(bal > pval)
+		if(bal >= pval)
 		{
 			[Globals i].purchasedCoachId = self.sel_coach_id;
 			[[Globals i].mainView buyCoachSuccess];

@@ -120,7 +120,7 @@
     }
     NSInteger bal = [[[Globals i] getClubData][@"currency_second"] integerValue];
     
-    if(bal > cost)
+    if(bal >= cost)
     {
         NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/Upgrade2/%@/%ld",
 						   WS_URL, [[Globals i] UID], (long)buildingType];

@@ -288,7 +288,7 @@
         }
         
         [self.footerImage setImage:[UIImage imageNamed:@"skin_footer_cell"]];
-        [self.footerImage setFrame:CGRectMake(f_spacing, (cell_height-1.0)*SCALE_IPAD, cell_width-f_spacing*2, 1.0*SCALE_IPAD)];
+        [self.footerImage setFrame:CGRectMake(f_spacing, cell_height-(1.0*SCALE_IPAD), cell_width-f_spacing*2, 1.0*SCALE_IPAD)];
     }
     
     [self.selectedImage setFrame:CGRectMake(0, 0, cell_width, cell_height)];

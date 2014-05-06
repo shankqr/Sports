@@ -75,7 +75,7 @@
 		NSInteger cost = [[[Globals i] getClubData][@"stadium"] integerValue]*5000;
 		NSInteger bal = [[[Globals i] getClubData][@"balance"] integerValue];
 		
-		if((bal > cost) && ([Globals i].energy > 9))
+		if((bal >= cost) && ([Globals i].energy > 9))
 		{
 			[Globals i].energy=[Globals i].energy-10;
 			[[Globals i] storeEnergy];
