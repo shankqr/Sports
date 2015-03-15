@@ -497,8 +497,6 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex :(UIViewController *)headerView
 {
-    [Flurry logEvent:title];
-    
     self.templateView = [[TemplateView alloc] init];
     self.templateView.delegate = self;
 	self.templateView.viewControllers = viewControllers;
@@ -1734,12 +1732,6 @@ static NSOperationQueue *connectionQueue;
             [self setLongi:longi];
         }
     }
-    
-    //Flurry track geo
-    [Flurry setLatitude:newLocation.coordinate.latitude
-              longitude:newLocation.coordinate.longitude
-     horizontalAccuracy:newLocation.horizontalAccuracy
-       verticalAccuracy:newLocation.verticalAccuracy];
 }
 
 - (void)locationManager:(CLLocationManager *)manager
@@ -1769,31 +1761,7 @@ static NSOperationQueue *connectionQueue;
 
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture
 {
-    /*
-    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook])
-    {
-        SLComposeViewController *mySLComposerSheet = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
-        [mySLComposerSheet setInitialText:message];
-        [mySLComposerSheet addImage:[UIImage imageNamed:picture]];
-        [mySLComposerSheet addURL:[NSURL URLWithString:@"http://www.tapfantasy.com"]];
-        [mySLComposerSheet setCompletionHandler:^(SLComposeViewControllerResult result)
-         {
-             switch (result)
-             {
-                 case SLComposeViewControllerResultCancelled:
-                     NSLog(@"Post Canceled");
-                     break;
-                 case SLComposeViewControllerResultDone:
-                     NSLog(@"Post Sucessful");
-                     break;
-                 default:
-                     break;
-             }
-         }];
-        
-        [[self peekViewControllerStack] presentViewController:mySLComposerSheet animated:YES completion:nil];
-    }
-    */
+
 }
 
 - (NSInteger)xpFromLevel:(NSInteger)level
@@ -2703,8 +2671,6 @@ static NSOperationQueue *connectionQueue;
 
 - (NSString *)doBid:(NSString *)player_id :(NSString *)value
 {
-    [Flurry logEvent:@"DoBid"];
-    
 	NSString *encodedValue = [self urlEnc:value];
     NSString *encodedClubName = [self urlEnc:self.wsClubDict[@"club_name"]];
     NSString *club_id = self.wsClubDict[@"club_id"];

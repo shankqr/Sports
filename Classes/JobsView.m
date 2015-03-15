@@ -20,7 +20,6 @@
 
 - (void)viewDidLoad
 {
-    self.wantsFullScreenLayout = YES;
 	offset = 0;
 }
 

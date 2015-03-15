@@ -139,7 +139,6 @@
 #define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
-#import "Flurry.h"
 #import "MailView.h"
 #import "ChatView.h"
 #import "DialogBoxView.h"

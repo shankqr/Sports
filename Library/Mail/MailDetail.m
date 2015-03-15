@@ -69,8 +69,6 @@
     NSDictionary *row1 = @{@"r1": self.mailData[@"club_name"], @"r2": self.mailData[@"message"], @"r3": [[Globals i] getTimeAgo:self.mailData[@"date_posted"]]};
     NSArray *rows1 = @[rowHeader1, row1];
     
-    [Flurry logEvent:@"Mail_Open" withParameters:row1];
-    
     NSArray *rows2 = [[Globals i] findMailReply:self.mailData[@"mail_id"]];
     NSDictionary *rowData;
     NSMutableArray *rowTemp = [[NSMutableArray alloc] init];

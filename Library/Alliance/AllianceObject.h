@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSString *score;
 @property (nonatomic, strong) NSString *logo_id;
 @property (nonatomic, strong) NSString *flag_id;
-@property (nonatomic, strong) NSString *description;
+@property (nonatomic, strong) NSString *alliance_description;
 @property (nonatomic, strong) NSString *leader_firstname;
 @property (nonatomic, strong) NSString *leader_secondname;
 @property (nonatomic, strong) NSString *cup_name;

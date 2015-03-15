@@ -7,7 +7,6 @@
 //
 
 #import "LoginView.h"
-#import <FacebookSDK/FacebookSDK.h>
 #import "Globals.h"
 #import "NSString+HMAC.h"
 
@@ -44,14 +43,9 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 {
     if ([[Globals i] UID] != nil && [[[Globals i] UID] length] > 1) //AutoLogin
     {
-        [Flurry logEvent:@"Login_auto_login"];
         [self performSelectorOnMainThread:@selector(LoadMainView)
                                withObject:nil
                             waitUntilDone:YES];
-    }
-    else
-    {
-        [FBSession.activeSession closeAndClearTokenInformation];
     }
     
     return YES;
@@ -63,21 +57,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     
     self.lblWorld.text = wname;
     [self.ivFlag setImage:[UIImage imageNamed:[NSString stringWithFormat:@"flag_%@.png", [Globals i].wsWorldData[@"flag_id"]]]];
-}
-
-- (IBAction)fbLogin:(UIButton *)sender
-{
-    if (self.launchWithInternet)
-    {
-        [self openSessionWithAllowLoginUI:YES];
-    }
-    else
-    {
-        if ([self updateView])
-        {
-            [self openSessionWithAllowLoginUI:YES];
-        }
-    }
 }
 
 - (IBAction)emailLogin:(UIButton *)sender
@@ -130,183 +109,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     [[Globals i] emailToDeveloper];
 }
 
-#pragma mark - FBLoginViewDelegate
-- (NSString *)FBErrorCodeDescription:(FBErrorCode) code
-{
-    switch(code){
-        case FBErrorInvalid :{
-            return @"FBErrorInvalid";
-        }
-        case FBErrorOperationCancelled:{
-            return @"FBErrorOperationCancelled";
-        }
-        case FBErrorLoginFailedOrCancelled:{
-            return @"FBErrorLoginFailedOrCancelled";
-        }
-        case FBErrorRequestConnectionApi:{
-            return @"FBErrorRequestConnectionApi";
-        }case FBErrorProtocolMismatch:{
-            return @"FBErrorProtocolMismatch";
-        }
-        case FBErrorHTTPError:{
-            return @"FBErrorHTTPError";
-        }
-        case FBErrorNonTextMimeTypeReturned:{
-            return @"FBErrorNonTextMimeTypeReturned";
-        }
-        default:
-            return @"[Unknown]";
-    }
-}
-
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI
-{
-    NSArray *permissions = [[NSArray alloc] initWithObjects:@"email", nil];
-    return [FBSession openActiveSessionWithReadPermissions:permissions
-                                              allowLoginUI:allowLoginUI
-                                         completionHandler:^(FBSession *session, FBSessionState state, NSError *error)
-    {
-        [self sessionStateChanged:session state:state error:error];
-    }];
-}
-
-- (void)sessionStateChanged:(FBSession *)session
-                      state:(FBSessionState)state
-                      error:(NSError *)error
-{
-    switch (state)
-    {
-        case FBSessionStateOpen:
-        {
-            [[Globals i] showLoadingAlert];
-            [self tryloginFb];
-        }
-            break;
-        case FBSessionStateClosed:
-        {
-            [FBSession.activeSession closeAndClearTokenInformation];
-        }
-            break;
-        case FBSessionStateClosedLoginFailed:
-        {
-            [FBSession.activeSession closeAndClearTokenInformation];
-        }
-            break;
-        default:
-            break;
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:SCSessionStateChangedNotification
-                                                        object:session];
-    
-    if (error)
-    {
-        NSString *errorMessage = error.localizedDescription;
-        if (error.code == FBErrorLoginFailedOrCancelled)
-        {
-            errorMessage = @"Facebook Login Failed! Make sure you've allowed this App to use Facebook in Settings > Facebook.";
-        }
-        
-        [[Globals i] showDialog:errorMessage];
-    }
-}
-
-- (void)tryloginFb
-{
-    if (FBSession.activeSession.isOpen)
-    {
-        [[FBRequest requestForMe] startWithCompletionHandler:
-         ^(FBRequestConnection *connection, NSDictionary<FBGraphUser> *user, NSError *error)
-        {
-             if (!error)
-             {
-                 NSString *gender = user[@"gender"];
-                 if ([gender isEqualToString:@"male"])
-                 {
-                     [Flurry setGender:@"m"];
-                 }
-                 else
-                 {
-                     [Flurry setGender:@"f"];
-                 }
-                 
-                 NSString *fid = user[@"id"];
-                 NSString *hexHmac = [fid HMACWithSecret:kSecret];
-                 NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
-                 NSString *email = user[@"email"];
-                 
-                 NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/0/%@/%@/%@",
-                                    WS_URL, uid, email, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDtoken]];
-                 NSURL *url = [[NSURL alloc] initWithString:wsurl];
-                 NSString *returnValue = [[NSString alloc] initWithContentsOfURL:url encoding:NSASCIIStringEncoding error:nil];
-                 
-                 NSInteger retval = [returnValue integerValue];
-                 
-                 if(retval > -1) //Has an active facebook id registered
-                 {
-                     [[Globals i] setUID:uid];
-                     [[Globals i] settLoginBonus:returnValue];
-                     
-                     [Flurry logEvent:@"Login_fb_login"];
-                     [self performSelectorOnMainThread:@selector(LoadMainView)
-                                            withObject:nil
-                                         waitUntilDone:YES];
-                     
-                     [[Globals i] removeLoadingAlert];
-                 }
-                 else if(retval == -1)
-                 {
-                     NSString *name = user[@"name"];
-                     NSString *username = user[@"username"];
-                     NSString *timezone = user[@"timezone"];
-                     
-                     NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
-                                                              WS_URL, [[Globals i] GameId], uid, @"0", fid, email, name, username, gender, timezone, [[Globals i] getDtoken]];
-                     NSString *wsurlreg2 = [wsurlreg stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-                     NSURL *urlreg = [[NSURL alloc] initWithString:wsurlreg2];
-                     returnValue = [[NSString alloc] initWithContentsOfURL:urlreg encoding:NSASCIIStringEncoding error:nil];
-                     
-                     if([returnValue isEqualToString:@"1"]) //Register new uid success
-                     {
-                         [[Globals i] setUID:uid];
-                         
-                         [Flurry logEvent:@"Login_fb_register"];
-                         [self performSelectorOnMainThread:@selector(LoadMainView)
-                                                withObject:nil
-                                             waitUntilDone:YES];
-                         
-                         [[Globals i] removeLoadingAlert];
-                     }
-                     else
-                     {
-                         [[Globals i] removeLoadingAlert];
-                         
-                         [[Globals i] showDialogError];
-                     }
-                 }
-                 else
-                 {
-                     [[Globals i] removeLoadingAlert];
-                     
-                     [[Globals i] showDialogError];
-                     }
-             }
-             else
-             {
-                 [[Globals i] removeLoadingAlert];
-                 
-                 [[Globals i] showDialogError];
-             }
-         }];
-    }
-    else
-    {
-        [[Globals i] removeLoadingAlert];
-        
-        [[Globals i] showDialogError];
-    }
-}
-
 #pragma mark -
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
 {
@@ -357,7 +159,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
             [[Globals i] setUID:uid];
             [[Globals i] settLoginBonus:returnValue];
             
-            [Flurry logEvent:@"Login_email_login"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
                                 waitUntilDone:YES];
@@ -400,7 +201,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] setUID:uid];
             
-            [Flurry logEvent:@"Login_email_register"];
             [self performSelectorOnMainThread:@selector(LoadMainView)
                                    withObject:nil
                                 waitUntilDone:YES];
@@ -501,8 +301,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)LoadMainView
 {
-    [Flurry setUserID:[[Globals i] UID]];
-    
     [[Globals i] closeTemplate];
     
     if (self.loginBlock != nil)

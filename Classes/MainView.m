@@ -57,7 +57,6 @@
 #import "SalesView.h"
 #import "JobLevelup.h"
 #import "MailCompose.h"
-#import "iRate.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
 UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
@@ -67,8 +66,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)startUp //Called when app opens for the first time
 {
-    [Flurry logEvent:@"Main_startUp"];
-    
     self.isShowingLogin = NO;
     
     self.title = @"MainView";
@@ -539,10 +536,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              
              [[Globals i] checkVersion];
              
-             [iRate sharedInstance].eventsUntilPrompt = 30;
-             [iRate sharedInstance].daysUntilPrompt = 0;
-             [iRate sharedInstance].remindPeriod = 0;
-             
              [[Globals i] removeLoading];
          }
          else
@@ -555,8 +548,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
          }
          });
      }];
-    
-    [Flurry logEvent:@"Main_loadAllData"];
 }
 
 - (void)handleDidReceiveRemoteNotification:(NSDictionary *)userInfo
@@ -988,8 +979,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         //Webservice failed
     }
-    
-    [Flurry logEvent:[[Globals i] gettPurchasedProduct]];
     
 	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
 	{
@@ -2009,8 +1998,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             break;
 		}
 	}
-    
-    [[iRate sharedInstance] logEvent:NO];
 }
 
 - (void)mailDeveloper
@@ -2057,7 +2044,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent:
-            [Flurry logEvent:@"MailFriendOrDeveloper"];
             break;
         case MFMailComposeResultFailed:
             break;
@@ -2083,7 +2069,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			}
 			NSDictionary *rowData = (self.marquee)[self.rowMarquee];
 			self.lblMarquee.text = rowData[@"headline"];
-			self.textSizeMarquee = [[self.lblMarquee text] sizeWithFont:[self.lblMarquee font]];
+			self.textSizeMarquee = [[self.lblMarquee text] sizeWithAttributes:@{NSFontAttributeName: [self.lblMarquee font]}];
 		}
 		self.lblMarquee.frame = CGRectMake(self.posxMarquee, UIScreen.mainScreen.bounds.size.height-Marquee_height, self.textSizeMarquee.width, Marquee_height);
 	}
@@ -2135,7 +2121,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.rowMarquee = [self.marquee count]-1;
         NSDictionary *rowData = [[Globals i] getMarqueeData][self.rowMarquee];
         self.lblMarquee.text = rowData[@"headline"];
-        self.textSizeMarquee = [[self.lblMarquee text] sizeWithFont:[self.lblMarquee font]];
+        self.textSizeMarquee = [[self.lblMarquee text] sizeWithAttributes:@{NSFontAttributeName: [self.lblMarquee font]}];
         
         self.marqueeTimer = [NSTimer scheduledTimerWithTimeInterval:0.02 target:self selector:@selector(onTimerMarquee) userInfo:nil repeats:YES];
         NSRunLoop *runloop = [NSRunLoop currentRunLoop];

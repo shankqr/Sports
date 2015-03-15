@@ -20,14 +20,11 @@ typedef void (^LoginBlock)(NSInteger status);
 
 - (BOOL)updateView;
 - (void)updateWorldLabel;
-- (BOOL)openSessionWithAllowLoginUI:(BOOL)allowLoginUI;
-- (IBAction)fbLogin:(UIButton *)sender;
 - (IBAction)emailLogin:(UIButton *)sender;
 - (IBAction)emailRegister:(UIButton *)sender;
 - (IBAction)forgotPassword:(UIButton *)sender;
 - (IBAction)contactSupport:(UIButton *)sender;
 - (void)tryLogin;
-- (void)tryloginFb;
 - (void)tryRegister;
 - (void)LoadMainView;
 - (void)loginEmail;

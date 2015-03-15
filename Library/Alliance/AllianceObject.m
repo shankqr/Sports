@@ -28,7 +28,7 @@
 		self.score = [aDictionary valueForKey:@"score"];
         self.logo_id = [aDictionary valueForKey:@"logo_id"];
         self.flag_id = [aDictionary valueForKey:@"flag_id"];
-        self.description = [aDictionary valueForKey:@"introduction_text"];
+        self.alliance_description = [aDictionary valueForKey:@"introduction_text"];
         self.leader_firstname = [aDictionary valueForKey:@"leader_firstname"];
         self.leader_secondname = [aDictionary valueForKey:@"leader_secondname"];
         self.cup_name = [aDictionary valueForKey:@"cup_name"];
@@ -65,7 +65,7 @@
     selfs.score = [self.score copy];
     selfs.logo_id = [self.logo_id copy];
     selfs.flag_id = [self.flag_id copy];
-    selfs.description = [self.description copy];
+    selfs.alliance_description = [self.alliance_description copy];
     selfs.leader_firstname = [self.leader_firstname copy];
     selfs.leader_secondname = [self.leader_secondname copy];
     selfs.cup_name = [self.cup_name copy];

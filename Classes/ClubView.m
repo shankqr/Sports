@@ -186,63 +186,11 @@
 
 -(IBAction)managerImageButton_tap:(id)sender
 {
-	if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-	{
-		sourceActionSheet = [[UIActionSheet alloc]
-					   initWithTitle:@"Picture Source Options"
-					   delegate:self
-					   cancelButtonTitle:@"Cancel"
-					   destructiveButtonTitle:@"Reset"
-					   otherButtonTitles:@"Facebook", @"Camera", nil];
-	}
-	else
-	{
-		sourceActionSheet = [[UIActionSheet alloc]
-					   initWithTitle:@"Picture Source Options"
-					   delegate:self
-					   cancelButtonTitle:@"Cancel"
-					   destructiveButtonTitle:@"Reset"
-					   otherButtonTitles:@"Facebook", nil];
-	}
-	sourceActionSheet.tag = 4;
-	[sourceActionSheet showInView:self.view];
-}
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	pickerTag = [actionSheet tag];
-	if(pickerTag > 0 && pickerTag < 5)
-	{
-		if(buttonIndex == 0) //RESET
-		{
-            if(pickerTag == 4)
-			{
-				[self loadOwner];
-			}
-		}
-		if(buttonIndex == 1) //Go to store or load facebook pic
-		{
-			if(pickerTag == 4) //Owner Picture Facebook
-			{
-				if(![[[Globals i] getClubData][@"fb_pic"] isEqualToString:@""])
-				{
-					NSURL *url = [NSURL URLWithString:[[Globals i] getClubData][@"fb_pic"]];
-					NSData *data = [NSData dataWithContentsOfURL:url];
-					UIImage *img = [[UIImage alloc] initWithData:data];
-					[ownerImage setImage:img forState:UIControlStateNormal];
-					[ImageHelper saveImage: img: @"/owner.png"];
-				}
-			}
-		}
-		if(buttonIndex == 2) //Camera
-        {
-			if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
-			{
-				picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-				[self presentViewController:picker animated:YES completion:nil];
-			}
-		}
-	}
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
 }
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info

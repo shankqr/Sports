@@ -169,7 +169,7 @@
     NSDictionary *row47 = @{@"r1": @"Cup Current Round", @"r2": aAlliance.cup_round, @"i2": @"arrow_right"};
     NSDictionary *row48 = @{@"r1": @"Cup Previous First Place", @"r2": aAlliance.cup_first_name, @"i2": @"arrow_right"};
     NSDictionary *row49 = @{@"r1": @"Cup Previous Second Place", @"r2": aAlliance.cup_second_name, @"i2": @"arrow_right"};
-    NSDictionary *row50 = @{@"r1": @"Alliance Description", @"r2": aAlliance.description};
+    NSDictionary *row50 = @{@"r1": @"Alliance Description", @"r2": aAlliance.alliance_description};
     NSArray *rows3 = @[row30, row31, row32, row33, row34, row35, row36, row37, row38, row39, row40, row41, row42, row44, row45, row46, row47, row48, row49, row50];
     
     self.rows = @[rows3, rows1];
@@ -537,7 +537,7 @@
     aAlliance = nil; //Causes this page to reload from server after description is edited
     
     allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
-    allianceCreate.descriptionText = aAlliance.description;
+    allianceCreate.descriptionText = aAlliance.alliance_description;
     [allianceCreate updateView:NO];
     
     [[Globals i] showTemplate:@[allianceCreate] :@"Edit Alliance"];

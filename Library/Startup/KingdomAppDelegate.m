@@ -9,33 +9,12 @@
 #import "KingdomAppDelegate.h"
 #import "MainView.h"
 #import "Globals.h"
-#import <FacebookSDK/FacebookSDK.h>
 
 @implementation KingdomAppDelegate
 
 - (BOOL)application:(UIApplication *)application
-            openURL:(NSURL *)url
-  sourceApplication:(NSString *)sourceApplication
-         annotation:(id)annotation
-{
-    self.facebookSwitching = YES;
-    // attempt to extract a token from the url
-    return [FBSession.activeSession handleOpenURL:url];
-}
-
-- (void)applicationWillTerminate:(UIApplication*)application
-{
-    [FBSession.activeSession close];
-}
-
-- (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    NSString *api_key = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"FLURRY_KEY"];
-    [Flurry setCrashReportingEnabled:YES];
-    [Flurry startSession:api_key];
-    
-    self.facebookSwitching = NO;
     self.beenSleeping = NO;
     
 	// launchOptions has the incoming notification if we're being launched after the user tapped "view"
@@ -81,15 +60,9 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [FBSession.activeSession handleDidBecomeActive];
-    
     [[Globals i] resetLoginReminderNotification];
     
-    if (self.facebookSwitching)
-    {
-        self.facebookSwitching = NO;
-    }
-    else if (self.beenSleeping)
+    if (self.beenSleeping)
     {
         self.beenSleeping = NO;
         
