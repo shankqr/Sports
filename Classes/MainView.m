@@ -950,14 +950,66 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	[self doTransaction:transaction];
 }
 
+- (NSString *)base64forData:(NSData *)theData
+{
+    const uint8_t* input = (const uint8_t*)[theData bytes];
+    NSInteger length = [theData length];
+    static char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
+    NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
+    uint8_t* output = (uint8_t*)data.mutableBytes;
+    NSInteger i;
+    for (i=0; i < length; i += 3) {
+        NSInteger value = 0;
+        NSInteger j;
+        for (j = i; j < (i + 3); j++) {
+            value <<= 8;
+            
+            if (j < length) {
+                value |= (0xFF & input[j]);
+            }
+        }
+        NSInteger theIndex = (i / 3) * 4;
+        output[theIndex + 0] =                    table[(value >> 18) & 0x3F];
+        output[theIndex + 1] =                    table[(value >> 12) & 0x3F];
+        output[theIndex + 2] = (i + 1) < length ? table[(value >> 6)  & 0x3F] : '=';
+        output[theIndex + 3] = (i + 2) < length ? table[(value >> 0)  & 0x3F] : '=';
+    }
+    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+}
+
 - (void)doTransaction:(SKPaymentTransaction *)transaction;
 {
     [[Globals i] removeLoadingAlert];
     
+    NSString *json = @"0";
+    NSURL *receiptUrl = [[NSBundle mainBundle] appStoreReceiptURL];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[receiptUrl path]])
+    {
+        NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
+        NSString *receiptString = [self base64forData:receiptData];
+        
+        if (receiptString != nil)
+        {
+            NSArray *objects = [[NSArray alloc] initWithObjects:receiptString, nil];
+            NSArray *keys = [[NSArray alloc] initWithObjects:@"receipt-data", nil];
+            NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
+            
+            NSError *error = nil;
+            NSData *postData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error];
+            if (!postData)
+            {
+                NSLog(@"Got an error: %@", error);
+            }
+            else
+            {
+                json = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+            }
+        }
+    }
+    
     NSError *error = nil;
     NSStringEncoding encoding;
-    NSString *json = [[Globals i] encode:(uint8_t *)transaction.transactionReceipt.bytes length:transaction.transactionReceipt.length];    
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ReportError/%@/%@/%@", 
+    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ReportError/%@/%@/%@",
                        WS_URL, [[Globals i] gettPurchasedProduct], [[Globals i] UID], json];
     NSURL *url = [[NSURL alloc] initWithString:wsurl];
     NSString *returnValue  = [[NSString alloc] initWithContentsOfURL:url
@@ -1884,7 +1936,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 		}
         case 3:
 		{
-			[self showSlots];
+			[self showHelp];
             break;
 		}
         case 4:
@@ -1988,11 +2040,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			break;
 		}
         case 24:
-		{
-            [self showHelp];
-            break;
-		}
-        case 25:
 		{
 			[self logoutButton];
             break;

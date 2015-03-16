@@ -323,13 +323,7 @@ static const NSInteger TagOffset = 1000;
         
 		[button addTarget:self action:@selector(tabButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         
-        CustomBadge *badge = [CustomBadge customBadgeWithString:@"0"
-                                                withStringColor:[UIColor whiteColor]
-                                                 withInsetColor:[UIColor redColor]
-                                                 withBadgeFrame:NO
-                                            withBadgeFrameColor:[UIColor whiteColor]
-                                                      withScale:0.75*SCALE_IPAD
-                                                    withShining:YES];
+        CustomBadge *badge = [CustomBadge customBadgeWithString:@"0" withScale:SCALE_IPAD];
         
         [badge setFrame:CGRectMake(0, 0, badge.frame.size.width, badge.frame.size.height)];
         badge.hidden = YES;
@@ -583,7 +577,7 @@ static const NSInteger TagOffset = 1000;
 
 - (void)selectTabButton:(UIButton *)button
 {
-	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_h"];
+	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_hvr"];
 	[button setBackgroundImage:image_h forState:UIControlStateNormal];
 	[button setBackgroundImage:image_h forState:UIControlStateHighlighted];
 	
@@ -592,7 +586,7 @@ static const NSInteger TagOffset = 1000;
 
 - (void)deselectTabButton:(UIButton *)button
 {
-	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_h"];
+	UIImage *image_h = [[Globals i] dynamicImage:button.frame prefix:@"tab1_hvr"];
     UIImage *image_n = [[Globals i] dynamicImage:button.frame prefix:@"tab1"];
 	[button setBackgroundImage:image_n forState:UIControlStateNormal];
 	[button setBackgroundImage:image_h forState:UIControlStateHighlighted];

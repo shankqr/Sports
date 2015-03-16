@@ -9,8 +9,6 @@
 @interface MailReply : UITableViewController
 
 @property (nonatomic, strong) NSDictionary *mailData;
-@property (nonatomic, strong) NSArray *rows;
-@property (nonatomic, strong) UITableViewCell *inputCell;
 
 - (void)updateView;
 

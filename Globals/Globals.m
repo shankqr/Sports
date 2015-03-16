@@ -137,6 +137,66 @@ static NSOperationQueue *connectionQueue;
      }];
 }
 
++ (void)getServerLoadingNew:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock
+{
+    dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showLoadingAlert];});
+    
+    NSString *wsurl = [NSString stringWithFormat:@"%@/%@%@",
+                       [Globals i].world_url, service_name, param];
+    
+    wsurl = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:wsurl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] removeLoadingAlert];});
+         if (error || !response || !data)
+         {
+             completionBlock(NO, nil);
+             dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showDialogError];});
+         }
+         else
+         {
+             completionBlock(YES, data);
+         }
+     }];
+}
+
++ (void)getSpLoading:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock
+{
+    dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showLoadingAlert];});
+    
+    NSString *wsurl = [NSString stringWithFormat:@"%@/%@%@",
+                       [Globals i].world_url, service_name, param];
+    
+    wsurl = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:wsurl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] removeLoadingAlert];});
+         if (error || !response || !data)
+         {
+             completionBlock(NO, nil);
+             dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showDialogError];});
+         }
+         else
+         {
+             NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+             if ([returnValue isEqualToString:@"1"]) //Stored Proc Success
+             {
+                 completionBlock(YES, data);
+             }
+         }
+     }];
+}
+
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showLoadingAlert];});
@@ -577,95 +637,80 @@ static NSOperationQueue *connectionQueue;
 
 - (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix
 {
-    float frame_width = frame.size.width;
-    float frame_height = frame.size.height;
-    float offset_w1 = 0.5f;
-    float offset_w2 = 1.0f;
-    float offset_h1 = 0.5f;
-    float offset_h2 = 1.0f;
+    NSInteger frame_width = frame.size.width;
+    NSInteger frame_height = frame.size.height;
+    
+    if (!iPad) //Double up
+    {
+        frame_width = frame_width*2;
+        frame_height = frame_height*2;
+    }
     
     UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_1.png", prefix]];
     UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_2.png", prefix]];
     UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_3.png", prefix]];
+    
     UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_4.png", prefix]];
     UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_5.png", prefix]];
     UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_6.png", prefix]];
+    
     UIImage *img7 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_7.png", prefix]];
     UIImage *img8 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_8.png", prefix]];
     UIImage *img9 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_9.png", prefix]];
     
-    if (((int)img1.size.width % 2 == 0) && ((int)img4.size.width % 2 == 0)) //even width
-    {
-        offset_w1 = 0.0f;
-        offset_w2 = 0.0f;
-    }
-    
-    if (((int)img1.size.height % 2 == 0) && ((int)img4.size.height % 2 == 0)) //even height
-    {
-        offset_h1 = 0.0f;
-        offset_h2 = 0.0f;
-    }
-    
     CGSize imgSize = CGSizeMake(frame_width, frame_height);
     UIGraphicsBeginImageContext(imgSize);
     
-    CGSize topSize = CGSizeMake(img1.size.width/2.0f * SCALE_IPAD, img1.size.height/2.0f * SCALE_IPAD);
-    
-    if (!img7 || !img8 || !img9)
+    if (!img4 || !img5 || !img6)
     {
-        if (frame_width > (topSize.width*2.0f))
+        if (frame_width > (img1.size.width + img3.size.width))
         {
-            [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero
+            [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
                                   resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(topSize.width-offset_w1, topSize.height, frame_width - (topSize.width*2.0f) + offset_w2, frame_height - topSize.height)];
+             drawInRect:CGRectMake(img1.size.width, img1.size.height, frame_width - (img1.size.width + img3.size.width), frame_height - img1.size.height)];
         }
         
-        [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero
+        [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
                               resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(frame_width - topSize.width, topSize.height, topSize.width, frame_height - topSize.height)];
+         drawInRect:CGRectMake(frame_width - img3.size.width, img3.size.height, img3.size.width, frame_height - img3.size.height)];
         
-        [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero
+        [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
                               resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(0.0, topSize.height, topSize.width, frame_height - topSize.height)];
+         drawInRect:CGRectMake(0.0f, img1.size.height, img1.size.width, frame_height - img1.size.height)];
     }
     else
     {
-        CGSize bottomSize = CGSizeMake(img4.size.width/2.0f * SCALE_IPAD, img4.size.height/2.0f * SCALE_IPAD);
-        
-        if (frame_width > (bottomSize.width*2.0f))
+        if (frame_width > (img7.size.width + img9.size.width))
         {
-            [img5 drawInRect:CGRectMake(bottomSize.width-offset_w1, frame_height - bottomSize.height, frame_width - (bottomSize.width*2.0f) + offset_w2, bottomSize.height)];
+            [[img8  resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
+             drawInRect:CGRectMake(img7.size.width, frame_height - img7.size.height, frame_width - (img7.size.width + img9.size.width), img7.size.height)];
         }
-        [img6 drawInRect:CGRectMake(frame_width - bottomSize.width, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
-        [img4 drawInRect:CGRectMake(0.0f, frame_height - bottomSize.height, bottomSize.width, bottomSize.height)];
+        [img9 drawInRect:CGRectMake(frame_width - img9.size.width, frame_height - img9.size.height, img9.size.width, img9.size.height)];
+        [img7 drawInRect:CGRectMake(0.0f, frame_height - img7.size.height, img7.size.width, img7.size.height)];
         
-        if (frame_height > (topSize.height + bottomSize.height))
+        if (frame_height > (img1.size.height + img7.size.height))
         {
-            CGSize midSize = CGSizeMake(img7.size.width/2.0f * SCALE_IPAD, img7.size.height/2.0f * SCALE_IPAD);
-            
-            if (frame_width > (midSize.width*2.0f))
+            if (frame_width > (img4.size.width + img6.size.width))
             {
-                [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                      resizingMode:UIImageResizingModeTile]
-                 drawInRect:CGRectMake(midSize.width-offset_w1, topSize.height - offset_h1, frame_width - (midSize.width*2.0f) + offset_w2, frame_height - topSize.height - bottomSize.height + offset_h2)];
+                [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
+                 drawInRect:CGRectMake(img4.size.width, img1.size.height, frame_width - (img4.size.width + img6.size.width), frame_height - img1.size.height - img7.size.height)];
             }
             
-            [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(frame_width - midSize.width, topSize.height - offset_h1, midSize.width, frame_height - topSize.height - bottomSize.height + offset_h2)];
+            [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
+             drawInRect:CGRectMake(frame_width - img6.size.width, img3.size.height, img6.size.width, frame_height - img3.size.height - img9.size.height)];
             
-            [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(0.0f, topSize.height - offset_h1, midSize.width, frame_height - topSize.height - bottomSize.height + offset_h2)];
+            [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
+             drawInRect:CGRectMake(0.0f, img1.size.height, img4.size.width, frame_height - img1.size.height - img7.size.height)];
         }
     }
     
-    if (frame_width > (topSize.width*2.0f))
+    if (frame_width > (img1.size.width + img3.size.width))
     {
-        [img2 drawInRect:CGRectMake(topSize.width-offset_w1, 0.0f, frame_width - (topSize.width*2.0f) + offset_w2, topSize.height)];
+        [[img2 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
+         drawInRect:CGRectMake(img1.size.width, 0.0f, frame_width - (img1.size.width + img3.size.width), img1.size.height)];
     }
-    [img3 drawInRect:CGRectMake(frame_width - topSize.width, 0.0f, topSize.width, topSize.height)];
-    [img1 drawInRect:CGRectMake(0.0f, 0.0f, topSize.width, topSize.height)];
+    [img3 drawInRect:CGRectMake(frame_width - img3.size.width, 0.0f, img3.size.width, img3.size.height)];
+    [img1 drawInRect:CGRectMake(0.0f, 0.0f, img1.size.width, img1.size.height)];
     
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -700,6 +745,7 @@ static NSOperationQueue *connectionQueue;
     button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
     button.titleLabel.textAlignment = NSTextAlignmentCenter;
     button.titleLabel.numberOfLines = 0;
+    [button.titleLabel setTextColor:[UIColor blackColor]];
     
     [button setContentEdgeInsets:UIEdgeInsetsMake(1.0, 1.0, 1.0, 1.0)];
     
@@ -1349,9 +1395,7 @@ static NSOperationQueue *connectionQueue;
         [self.localMailArray removeObjectAtIndex:index_to_remove];
         [self settLocalMailData:self.localMailArray];
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailView"
-                                                            object:self
-                                                          userInfo:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailView" object:self];
     }
 }
 
@@ -1392,18 +1436,19 @@ static NSOperationQueue *connectionQueue;
 
 - (NSMutableArray *)gettLocalMailData
 {
-    self.localMailArray = [[NSUserDefaults standardUserDefaults] mutableArrayValueForKey:@"MailData"];
-    if (self.localMailArray == nil)
-    {
-        self.localMailArray = [[NSMutableArray alloc] init];
-    }
-    
     NSMutableArray *fullMutable = [[NSMutableArray alloc] init];
     
-    for (NSDictionary *obj in self.localMailArray)
+    NSArray *lclMail = [[NSUserDefaults standardUserDefaults] arrayForKey:@"MailData"];
+    if (lclMail.count > 0)
     {
-        NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:obj copyItems:YES];
-        [fullMutable addObject:dic];
+        for (NSDictionary *obj in lclMail)
+        {
+            if ([obj isKindOfClass:[NSDictionary class]])
+            {
+                NSMutableDictionary *dic = [[NSMutableDictionary alloc] initWithDictionary:obj copyItems:YES];
+                [fullMutable addObject:dic];
+            }
+        }
     }
     
     return fullMutable;
@@ -1411,22 +1456,15 @@ static NSOperationQueue *connectionQueue;
 
 - (void)settLocalMailData:(NSMutableArray *)rd
 {
-    [[NSUserDefaults standardUserDefaults] setObject:[[NSMutableArray alloc] initWithArray:rd copyItems:YES] forKey:@"MailData"];
+    [[NSUserDefaults standardUserDefaults] setObject:rd forKey:@"MailData"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"UpdateMailBadge"
-     object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailBadge" object:self];
 }
 
 - (void)addLocalMailData:(NSMutableArray *)rd
 {
     self.localMailArray = [self gettLocalMailData];
-    
-    if (self.localMailArray == nil)
-    {
-        self.localMailArray = [[NSMutableArray alloc] init];
-    }
     
     //Check old mails if there is any replies
     for (NSUInteger i = 0; i < [self.localMailArray count]; i++)
@@ -1438,20 +1476,23 @@ static NSOperationQueue *connectionQueue;
         {
             if ([rd[j][@"mail_id"] isEqualToString:local_mail_id]) //Match found
             {
-                //Reply counter is not same
-                if (![rd[j][@"reply_counter"] isEqualToString:self.localMailArray[i][@"reply_counter"]])
+                NSUInteger newmail_reply_counter = [rd[j][@"reply_counter"] integerValue];
+                NSUInteger oldmail_reply_counter = [self.localMailArray[i][@"reply_counter"] integerValue];
+                
+                //Reply counter is bigger
+                if (newmail_reply_counter > oldmail_reply_counter)
                 {
-                    self.localMailArray[i][@"open_read"] = @"0";
-                    self.localMailArray[i][@"reply_counter"] = rd[i][@"reply_counter"];
+                    self.localMailArray[i][@"open_read"] = @"0"; //Set as not read
+                    self.localMailArray[i][@"reply_counter"] = [@(newmail_reply_counter) stringValue]; //update reply_counter
                 }
             }
         }
     }
     
-    //Add new mails to localMailArray
-    for (NSInteger i = [rd count]-1; i > -1; i--)
+    //Add new mails to top of localMailArray
+    for (NSInteger i = 0; i < [rd count]; i++)
     {
-        if ([rd[i][@"mail_id"] intValue] > [[self gettLastMailId] intValue])
+        if ([rd[i][@"mail_id"] integerValue] > [[self gettLastMailId] integerValue])
         {
             [self.localMailArray insertObject:rd[i] atIndex:0];
         }
@@ -1463,58 +1504,90 @@ static NSOperationQueue *connectionQueue;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"UpdateMailBadge"
      object:self];
+    
+    NSString *m_id = (rd)[0][@"mail_id"];
+    [[Globals i] settLastMailId:m_id];
 }
 
-- (void)updateMailData //Get all mail from mail_id=0 because need to see if there is reply
+- (BOOL)setMailNotRead:(NSString *)mail_id
 {
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetMail/0/%@/%@",
-                       [self world_url],
-                       self.wsClubDict[@"club_id"],
-                       self.wsClubDict[@"alliance_id"]];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    self.wsMailArray = [[NSMutableArray alloc] initWithContentsOfURL:url];
+    BOOL result = NO;
     
-    if (self.wsMailArray.count > 0)
+    self.localMailArray = [self gettLocalMailData];
+    
+    for (NSUInteger i = 0; i < [self.localMailArray count]; i++)
     {
-        [self addLocalMailData:self.wsMailArray];
-        [self settLastMailId:(self.wsMailArray)[0][@"mail_id"]];
+        NSString *local_mail_id = self.localMailArray[i][@"mail_id"];
+        if ([local_mail_id isEqualToString:mail_id]) //Match found
+        {
+            result = YES;
+            NSInteger replycount = [self.localMailArray[i][@"reply_counter"] integerValue] + 1;
+            self.localMailArray[i][@"open_read"] = @"0"; //Set as not read
+            self.localMailArray[i][@"reply_counter"] = [@(replycount) stringValue]; //update reply_counter
+            
+            NSDictionary *replyRow = [[NSDictionary alloc] initWithDictionary:self.localMailArray[i] copyItems:YES];
+            [self.localMailArray removeObjectAtIndex:i];
+            [self.localMailArray insertObject:replyRow atIndex:0]; //Move to the top
+        }
     }
+    
+    if (result)
+    {
+        [[NSUserDefaults standardUserDefaults] setObject:self.localMailArray forKey:@"MailData"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    return result;
 }
 
 - (void)updateMailReply:(NSString *)mail_id
 {
-	NSString *wsurl = [NSString stringWithFormat:@"%@/GetMailReply/%@",
-                       [self world_url],
+    NSString *service_name = @"GetMailReply";
+    NSString *wsurl = [NSString stringWithFormat:@"/%@",
                        mail_id];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    self.wsMailReplyArray = [[NSMutableArray alloc] initWithContentsOfURL:url];
     
-    if (self.wsMailReplyArray.count > 0)
-    {
-        [self addMailReply:mail_id :self.wsMailReplyArray];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailDetail"
-                                                            object:self
-                                                          userInfo:nil];
-    }
+    [Globals getServerLoadingNew:service_name :wsurl :^(BOOL success, NSData *data)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{
+             if (success)
+             {
+                 NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+                 
+                 if (returnArray.count > 0)
+                 {
+                     self.wsMailReplyArray = [[NSMutableArray alloc] initWithArray:returnArray copyItems:YES];
+                     
+                     [self addMailReply:mail_id :self.wsMailReplyArray];
+                     
+                     [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateMailDetail"
+                                                                         object:self
+                                                                       userInfo:nil];
+                 }
+             }
+         });
+     }];
 }
 
 - (NSInteger)getMailBadgeNumber
 {
-	NSInteger count = 0;
-	
-	if([self.localMailArray count] > 0)
-	{
-		for(NSDictionary *rowData in self.localMailArray)
-		{
-			if([rowData[@"open_read"] isEqualToString:@"0"])
-			{
-                count = count + 1;
-			}
-		}
-	}
-	
-	return count;
+    NSInteger count = 0;
+    
+    NSArray *lclMail = [[NSUserDefaults standardUserDefaults] arrayForKey:@"MailData"];
+    if ([lclMail count] > 0)
+    {
+        for (NSDictionary *rowData in lclMail)
+        {
+            if ([rowData isKindOfClass:[NSDictionary class]])
+            {
+                if ([rowData[@"open_read"] isEqualToString:@"0"])
+                {
+                    count = count + 1;
+                }
+            }
+        }
+    }
+    
+    return count;
 }
 
 

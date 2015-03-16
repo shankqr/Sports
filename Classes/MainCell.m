@@ -126,13 +126,8 @@
 {
     if (self.achievementsBadge == nil)
     {
-        self.achievementsBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]]
-                                               withStringColor:[UIColor whiteColor]
-                                                withInsetColor:[UIColor redColor]
-                                                withBadgeFrame:YES
-                                           withBadgeFrameColor:[UIColor whiteColor]
-                                                     withScale:SCALE_IPAD
-                                                   withShining:YES];
+        NSString *str_num = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getAchievementsBadge]];
+        self.achievementsBadge = [CustomBadge customBadgeWithString:str_num withScale:SCALE_IPAD];
         
         [self.achievementsBadge setFrame:[self getBadgeFrame:2 width:self.achievementsBadge.frame.size.width height:self.achievementsBadge.frame.size.height]];
         
@@ -159,13 +154,8 @@
 {
     if (self.mailBadge == nil)
     {
-        self.mailBadge = [CustomBadge customBadgeWithString:[NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]]
-                                               withStringColor:[UIColor whiteColor]
-                                                withInsetColor:[UIColor redColor]
-                                                withBadgeFrame:YES
-                                           withBadgeFrameColor:[UIColor whiteColor]
-                                                     withScale:SCALE_IPAD
-                                                   withShining:YES];
+        NSString *str_num = [NSString stringWithFormat:@"%ld", (long)[[Globals i] getMailBadgeNumber]];
+        self.mailBadge = [CustomBadge customBadgeWithString:str_num withScale:SCALE_IPAD];
         
         [self.mailBadge setFrame:[self getBadgeFrame:1 width:self.mailBadge.frame.size.width height:self.mailBadge.frame.size.height]];
         
@@ -304,10 +294,10 @@
         else
         {
             self.labelSale.text = @"SALE!";
-            
-            [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
-                                       forState:UIControlStateNormal];
         }
+        
+        [self.buttonSale setImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
+                                   forState:UIControlStateNormal];
         
         if (self.b1s == 1)
         {
@@ -400,7 +390,7 @@
 {
     [self addPosButton:@"MAIL" tag:1 imageDefault:@"button_mails"];
     [self addPosButton:@"TASK" tag:2 imageDefault:@"button_achievements"];
-    [self addPosButton:@"SLOTS" tag:3 imageDefault:@"button_slot"];
+    [self addPosButton:@"HOW TO PLAY" tag:3 imageDefault:@"button_help"];
     [self addPosButton:@"TRAINING" tag:4 imageDefault:@"button_train"];
     [self addPosButton:@"TRANSFERS" tag:5 imageDefault:@"button_transfer"];
 	[self addPosButton:@"SQUAD" tag:6 imageDefault:@"button_squad"];
@@ -421,8 +411,7 @@
     [self addPosButton:@"INVITE" tag:21 imageDefault:@"button_friends"];
     [self addPosButton:@"FEEDBACK" tag:22 imageDefault:@"button_news"];
 	[self addPosButton:@"MORE" tag:23 imageDefault:@"button_more"];
-	[self addPosButton:@"HOW TO PLAY" tag:24 imageDefault:@"button_help"];
-    [self addPosButton:@"LOGOUT" tag:25 imageDefault:@"button_logout"];
+    [self addPosButton:@"LOGOUT" tag:24 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag
@@ -525,7 +514,7 @@
                                       imagePressed:nil
                                      darkTextColor:YES];
     
-    [self.buttonSale setBackgroundImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
+    [self.buttonSale setImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
                                forState:UIControlStateNormal];
     
 	[self addSubview:self.buttonSale];

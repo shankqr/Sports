@@ -41,7 +41,8 @@
             segment.selectedSegmentIndex = 1;
             UIFont *font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
             NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                                   forKey:UITextAttributeFont];
+                                                                   forKey:NSFontAttributeName];
+            
             [segment setTitleTextAttributes:attributes
                                    forState:UIControlStateNormal];
             [segment addTarget:self
@@ -66,7 +67,7 @@
             segment.selectedSegmentIndex = 1;
             UIFont *font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
             NSDictionary *attributes = [NSDictionary dictionaryWithObject:font
-                                                                   forKey:UITextAttributeFont];
+                                                                   forKey:NSFontAttributeName];
             [segment setTitleTextAttributes:attributes
                                    forState:UIControlStateNormal];
             [segment addTarget:self

@@ -9,6 +9,13 @@
 #import "MailReply.h"
 #import "Globals.h"
 
+@interface MailReply ()
+
+@property (nonatomic, strong) NSMutableArray *rows;
+@property (nonatomic, strong) UITableViewCell *inputCell;
+
+@end
+
 @implementation MailReply
 
 - (void)viewDidLoad
@@ -19,6 +26,15 @@
     [self.tableView setBackgroundColor:[UIColor clearColor]];
     self.tableView.backgroundView = nil;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    self.tableView.delaysContentTouches = NO;
+    for (id obj in self.tableView.subviews)
+    {
+        if ([obj respondsToSelector:@selector(setDelaysContentTouches:)])
+        {
+            [obj setDelaysContentTouches:NO];
+        }
+    }
 }
 
 - (void)updateView
@@ -27,14 +43,77 @@
     NSDictionary *row20 = @{@"t1": @"Enter text here...", @"t1_height": @"84"};
     NSArray *rows2 = @[rowHeader2, row20];
     
-    NSDictionary *rowDone = @{@"r1": @"Send", @"r1_center": @"1"};
-    NSDictionary *rowCancel = @{@"r1": @"Cancel", @"r1_center": @"1", @"r1_color": @"1"};
+    //NSDictionary *rowHeader3 = @{@"h1": @"Options"};
+    NSDictionary *rowDone = @{@"r1": @"Send", @"r1_align": @"1"};
+    NSDictionary *rowCancel = @{@"r1": @"Cancel", @"r1_align": @"1", @"r1_color": @"1"};
     NSArray *rows3 = @[rowDone, rowCancel];
     
-    self.rows = @[rows2, rows3];
+    self.rows = [@[rows2, rows3] mutableCopy];
     
 	[self.tableView reloadData];
-	[self.view setNeedsDisplay];
+}
+
+- (void)replyMail:(UITextView *)textview
+{
+    NSString *is_alliance = self.mailData[@"is_alliance"];
+    
+    if (is_alliance == nil) //its from db
+    {
+        NSString *alliance_id = self.mailData[@"alliance_id"];
+        if ([alliance_id isEqualToString:@"-1"])
+        {
+            is_alliance = @"0";
+        }
+        else
+        {
+            is_alliance = @"1";
+        }
+    }
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [Globals i].wsClubDict[@"club_id"],
+                          @"club_id",
+                          [Globals i].wsClubDict[@"club_name"],
+                          @"club_name",
+                          [Globals i].wsClubDict[@"logo_pic"],
+                          @"logo_pic",
+                          self.mailData[@"mail_id"],
+                          @"mail_id",
+                          self.mailData[@"club_id"],
+                          @"from_id",
+                          self.mailData[@"reply_counter"],
+                          @"reply_counter",
+                          textview.text,
+                          @"message",
+                          self.mailData[@"to_id"],
+                          @"to_id",
+                          is_alliance,
+                          @"is_alliance",
+                          nil];
+    
+    NSString *service_name = @"PostMailReply";
+    [Globals postServerLoading:dict :service_name :^(BOOL success, NSData *data)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{// IMPORTANT - Only update the UI on the main thread
+             
+             if (success)
+             {
+                 NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 if ([returnValue isEqualToString:@"1"]) //Stored Proc Success
+                 {
+                     [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
+                     [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
+                     [[Globals i] closeTemplate];
+                     textview.text = @"";
+                     
+                     [[Globals i] showToast:@"Message Sent!"
+                              optionalTitle:nil
+                              optionalImage:@"tick_yes"];
+                 }
+                 
+             }
+         });
+     }];
 }
 
 - (NSDictionary *)getRowData:(NSIndexPath *)indexPath
@@ -45,7 +124,9 @@
 #pragma mark Table Data Source Methods
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
 {
-    return [DynamicCell dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    DynamicCell *dcell = (DynamicCell *)[DynamicCell dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    
+    return dcell;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -83,51 +164,12 @@
         else if(indexPath.row == 1) //Cancel
         {
             [[Globals i] closeTemplate];
+            
             inputTV.text = @"";
         }
     }
     
 	return nil;
-}
-
-- (void)replyMail:(UITextView *)textview
-{
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [[Globals i] wsClubDict][@"club_id"],
-                          @"club_id",
-                          [[Globals i] wsClubDict][@"club_name"],
-                          @"club_name",
-                          self.mailData[@"mail_id"],
-                          @"mail_id",
-                          self.mailData[@"club_id"],
-                          @"from_id",
-                          self.mailData[@"reply_counter"],
-                          @"reply_counter",
-                          textview.text,
-                          @"message",
-                          nil];
-    
-    [Globals postServerLoading:dict :@"PostMailReply" :^(BOOL success, NSData *data)
-    {
-        dispatch_async(dispatch_get_main_queue(), ^{// IMPORTANT - Only update the UI on the main thread
-
-            if (success)
-            {
-                [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
-                [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
-                [[Globals i] closeTemplate];
-                textview.text = @"";
-                
-                [[Globals i] showToast:@"Message Sent!"
-                         optionalTitle:nil
-                         optionalImage:@"tick_yes"];
-            }
-            else
-            {
-                [[Globals i] showDialogError];
-            }
-        });
-    }];
 }
 
 @end

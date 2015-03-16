@@ -253,6 +253,10 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)getServer:(NSString *)wsurl :(returnBlock)completionBlock;
 + (void)getServerLoading:(NSString *)wsurl :(returnBlock)completionBlock;
+
++ (void)getServerLoadingNew:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock;
++ (void)getSpLoading:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock;
+
 + (Globals *)i;
 + (NSOperationQueue *)connectionQueue;
 - (NSString *)GameId;
@@ -327,7 +331,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSDictionary *)gettLocalMailReply;
 - (void)settLocalMailReply:(NSDictionary *)rd;
 - (NSArray *)findMailReply:(NSString *)mail_id;
-- (void)updateMailData;
 - (void)updateMailReply:(NSString *)mail_id;
 - (NSInteger)getMailBadgeNumber;
 - (NSMutableArray *)gettLocalMailData;

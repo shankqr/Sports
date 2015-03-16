@@ -6,12 +6,7 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-@class MailDetail;
-
 @interface MailView : UITableViewController
-
-@property (nonatomic, strong) NSMutableArray *rows;
-@property (nonatomic, strong) MailDetail *mailDetail;
 
 - (void)updateView;
 
