@@ -1,3 +1,4 @@
+
 #import "JCNotificationBannerWindow.h"
 
 @implementation JCNotificationBannerWindow
@@ -14,18 +15,18 @@
   return self;
 }
 
-- (UIView*) hitTest:(CGPoint)point withEvent:(UIEvent *)event
+- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event
 {
-  UIView* superHitView = [super hitTest:point withEvent:event];
+  UIView *superHitView = [super hitTest:point withEvent:event];
   if (superHitView == bannerView)
   {
     return bannerView;
   }
   else
   {
-    UIWindow* nextWindow;
+    UIWindow *nextWindow;
     BOOL encounteredBannerWindow = NO;
-    for (UIWindow* window in [[UIApplication sharedApplication].windows reverseObjectEnumerator])
+    for (UIWindow *window in [[UIApplication sharedApplication].windows reverseObjectEnumerator])
     {
       if (encounteredBannerWindow && ![window isKindOfClass:[JCNotificationBannerWindow class]])
       {

@@ -204,7 +204,7 @@
 {
     NSDictionary *row1 = (self.staff)[[indexPath row]];
     
-    return @{@"align_top": @"1", @"r1": row1[@"Position"], @"r2": row1[@"Desc"], @"c1": [NSString stringWithFormat:@"Total: %@", row1[@"Employed"]], @"i1": row1[@"Image"]};
+    return @{@"align_top": @"1", @"r1": row1[@"Position"], @"r2": row1[@"Desc"], @"c1": [NSString stringWithFormat:@"Total: %@", row1[@"Employed"]], @"c1_ratio": @"3", @"i1": row1[@"Image"]};
 }
 
 #pragma mark Table Data Source Methods

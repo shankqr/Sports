@@ -79,6 +79,32 @@ static NSOperationQueue *connectionQueue;
      }];
 }
 
+//Used for mail and report dont show loading and dont track
++ (void)getServerNew:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock
+{
+    NSString *wsurl = [NSString stringWithFormat:@"%@/%@%@",
+                       [Globals i].world_url, service_name, param];
+    
+    wsurl = [wsurl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSURL *url = [NSURL URLWithString:wsurl];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+     {
+         if (error || !response || !data)
+         {
+             NSLog(@"Error posting to %@: %@ %@", wsurl, error, [error localizedDescription]);
+             completionBlock(NO, nil);
+         }
+         else
+         {
+             completionBlock(YES, data);
+         }
+     }];
+}
+
 + (void)getServerLoading:(NSString *)wsurl :(returnBlock)completionBlock
 {
     dispatch_async(dispatch_get_main_queue(), ^{[[Globals i] showLoadingAlert];});
@@ -422,12 +448,25 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename
 {
+    NSMutableDictionary *dict_cell;
+    
+    if (title == nil)
+    {
+        title = @"Success!";
+    }
+    
+    dict_cell = [@{@"r1": title, @"r2": message, @"r1_align": @"1", @"r1_bold": @"1", @"r1_color": @"2", @"r2_color": @"2", @"nofooter": @"1"} mutableCopy];
+    
+    if (imagename != nil)
+    {
+        [dict_cell addEntriesFromDictionary:@{@"n1_width": @"60", @"i1": imagename, @"i1_aspect": @"1"}];
+    }
+    
     [JCNotificationCenter sharedCenter].presenter = [JCNotificationBannerPresenterSmokeStyle new];
     
     [JCNotificationCenter
-     enqueueNotificationWithMessage:message
-     title:title
-     image:imagename
+     enqueueNotificationWithMessage:dict_cell
+     animationType:@"1"
      tapHandler:^{}];
 }
 
@@ -563,7 +602,7 @@ static NSOperationQueue *connectionQueue;
     self.templateView.title = title;
     self.templateView.frameType = frameType;
     self.templateView.selectedIndex = selectedIndex;
-    self.templateView.headerView = headerView;
+    //self.templateView.headerView = headerView;
     [self.templateView updateView];
     
     [[self firstViewControllerStack].view addSubview:self.templateView.view];
@@ -1824,9 +1863,6 @@ static NSOperationQueue *connectionQueue;
     
     [self showTemplate:@[self.loginView] :@"Login" :0];
     
-    //Disable the Buy & Close button
-    self.templateView.buyButton.hidden = YES;
-    self.templateView.currencyLabel.hidden = YES;
     self.templateView.closeButton.hidden = YES;
     
     [self.loginView updateView];

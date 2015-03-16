@@ -49,7 +49,7 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club", @"c1": @"Level"};
+                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club", @"c1": @"Level", @"c1_ratio": @"3"};
                  [returnArray insertObject:row0 atIndex:0];
                  
                  self.rows = [@[returnArray] mutableCopy];
@@ -85,11 +85,11 @@
         
         if([rowData[@"club_id"] isEqualToString:[[Globals i] wsClubDict][@"club_id"]]) //You are in this row
         {
-            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1};
+            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1, @"c1_ratio": @"3"};
         }
         else
         {
-            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1, @"i2": @"arrow_right"};
+            return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1, @"c1_ratio": @"3", @"i2": @"arrow_right"};
         }
     }
 }

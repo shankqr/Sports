@@ -1,3 +1,4 @@
+
 #import "JCNotificationBannerPresenter.h"
 
 @interface JCNotificationBannerPresenterSmokeStyle : JCNotificationBannerPresenter

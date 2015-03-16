@@ -6,8 +6,6 @@
 //
 //
 
-#import <UIKit/UIKit.h>
-
 @interface JCNotificationBannerViewController : UIViewController
 
 @end

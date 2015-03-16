@@ -157,7 +157,7 @@
     
     if (indexPath.row == 0) //Header row
     {
-        rowData = @{@"n1": @"No.", @"h1": @"Name", @"c1": @"Prestige"};
+        rowData = @{@"n1": @"No.", @"h1": @"Name", @"c1": @"Prestige", @"c1_ratio": @"3"};
 	}
     else
     {
@@ -178,7 +178,7 @@
             
             NSString *points = [[Globals i] numberFormat:(self.allianceArray)[index][@"score"]];
             
-            rowData = @{@"n1": [NSString stringWithFormat:@"%ld", (long)index+1], @"r1": r1, @"r2": members, @"c1": points, @"i2": @"arrow_right"};
+            rowData = @{@"n1": [NSString stringWithFormat:@"%ld", (long)index+1], @"r1": r1, @"r2": members, @"c1": points, @"c1_ratio": @"3", @"i2": @"arrow_right"};
         }
     }
     

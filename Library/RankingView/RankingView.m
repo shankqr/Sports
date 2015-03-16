@@ -43,7 +43,7 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"h1": @"Club (Alliance)", @"c1": @"Rank"};
+                 NSDictionary *row0 = @{@"h1": @"Club (Alliance)", @"c1": @"Rank", @"c1_ratio": @"4"};
                  [returnArray insertObject:row0 atIndex:0];
                  
                  self.rows = [@[returnArray] mutableCopy];
@@ -83,7 +83,7 @@
             r1 = [NSString stringWithFormat:@"%@ (%@)", row1[@"club_name"], row1[@"alliance_name"]];
         }
     
-        return @{@"align_top": @"1", @"r1": r1, @"r2": [NSString stringWithFormat:@"Level %@, Division:%@", c1, row1[@"division"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
+        return @{@"align_top": @"1", @"r1": r1, @"r2": [NSString stringWithFormat:@"Level %@, Division:%@", c1, row1[@"division"]], @"c1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"c1_ratio": @"4", @"i1": [NSString stringWithFormat:@"c%@.png", row1[@"logo_pic"]]};
     }
 }
 

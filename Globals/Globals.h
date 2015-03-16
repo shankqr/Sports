@@ -62,7 +62,6 @@
 
 #define PLUGIN_HEIGHT UIScreen.mainScreen.bounds.size.height - SCREEN_OFFSET_MAINHEADER_Y - SCREEN_OFFSET_BOTTOM
 #define CHART_CONTENT_MARGIN 10.0f * SCALE_IPAD
-#define DIALOG_CONTENT_MARGIN 20.0f * SCALE_IPAD
 #define SMALL_FONT_SIZE 12.0f * SCALE_IPAD
 #define MEDIUM_FONT_SIZE 16.0f * SCALE_IPAD
 #define BIG_FONT_SIZE 24.0f * SCALE_IPAD
@@ -135,6 +134,9 @@
 #define Subs_y2_baseball (iPad ? 580.0f : 240.0f)
 #define Subs_y3_baseball (iPad ? 180.0f : 50.0f)
 
+#define DIALOG_CONTENT_MARGIN (20.0f*SCALE_IPAD)
+#define DIALOG_CELL_WIDTH (CELL_CONTENT_WIDTH - DIALOG_CONTENT_MARGIN*3)
+
 #define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
 #define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
@@ -145,6 +147,7 @@
 #import "TemplateView.h"
 #import "LoginView.h"
 #import "DynamicCell.h"
+#import "DCFineTuneSlider.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -251,9 +254,11 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 
 + (void)postServer:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
 + (void)postServerLoading:(NSDictionary *)dict :(NSString *)service :(returnBlock)completionBlock;
+
 + (void)getServer:(NSString *)wsurl :(returnBlock)completionBlock;
 + (void)getServerLoading:(NSString *)wsurl :(returnBlock)completionBlock;
 
++ (void)getServerNew:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock;
 + (void)getServerLoadingNew:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock;
 + (void)getSpLoading:(NSString *)service_name :(NSString *)param :(returnBlock)completionBlock;
 

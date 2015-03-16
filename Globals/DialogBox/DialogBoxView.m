@@ -9,64 +9,105 @@
 #import "DialogBoxView.h"
 #import "Globals.h"
 
+@interface DialogBoxView ()
+
+@property (nonatomic, strong) UIButton *button1;
+@property (nonatomic, strong) UIButton *button2;
+@property (nonatomic, strong) UITableViewCell *inputCell;
+
+@property (nonatomic, assign) NSInteger verticalOffset;
+@property (nonatomic, assign) NSInteger keyboardType;
+
+@end
+
 @implementation DialogBoxView
 
-- (void)viewDidLoad
+- (void)updateView
 {
-	[super viewDidLoad];
-}
-
-- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
-{
-    NSDictionary *rowData = (self.rows)[indexPath.section][indexPath.row];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
+    self.tableView.backgroundView = nil;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    return rowData;
-}
-
-#pragma mark Table Data Source Methods
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    DynamicCell *dcell = (DynamicCell *)[DynamicCell dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH-DIALOG_CONTENT_MARGIN*2];
+    self.tableView.delaysContentTouches = NO;
+    for (id obj in self.tableView.subviews)
+    {
+        if ([obj respondsToSelector:@selector(setDelaysContentTouches:)])
+        {
+            [obj setDelaysContentTouches:NO];
+        }
+    }
     
-    [dcell.row1_button addTarget:self action:@selector(button1Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    dcell.row1_button.tag = indexPath.row;
+    if (self.dialogType == 1)
+    {
+        [self setup1];
+    }
     
-    [dcell.col1_button addTarget:self action:@selector(button2Pressed:) forControlEvents:UIControlEventTouchUpInside];
-    dcell.col1_button.tag = indexPath.row;
+    if (self.dialogType == 2)
+    {
+        [self setup2];
+    }
     
-    return dcell;
+    if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
+    {
+        [self setupInput];
+    }
+    
+    [self.tableView reloadData];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (void)setup1 //OK
 {
-    return [self.rows count];
+    NSDictionary *row101 = @{@"nofooter": @"1", @"r1": @" ", @"r1_align": @"1"};
+    NSDictionary *row102 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_align": @"1"};
+    NSArray *rows1 = @[row101, row102];
+    self.rows = [@[rows1] mutableCopy];
+    
+    NSDictionary *row201 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3"};
+    NSArray *rows2 = @[row201];
+    [self.rows addObject:rows2];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (void)setup2 //YES NO
 {
-    return [self.rows[section] count];
+    NSDictionary *row101 = @{@"nofooter": @"1", @"r1": @" ", @"r1_align": @"1"};
+    NSDictionary *row102 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_align": @"1"};
+    NSArray *rows1 = @[row101, row102];
+    self.rows = [@[rows1] mutableCopy];
+    
+    NSDictionary *row201 = @{@"nofooter": @"1", @"r1": @"YES", @"r1_button": @"3", @"c1": @"NO", @"c1_button": @"3",};
+    NSArray *rows2 = @[row201];
+    [self.rows addObject:rows2];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)setupInput
 {
-    return [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH-DIALOG_CONTENT_MARGIN*2];
+    NSDictionary *row101 = @{@"nofooter": @"1", @"r1": @" ", @"r1_align": @"1"};
+    NSDictionary *row102 = @{@"nofooter": @"1", @"r1": self.displayText};
+    NSDictionary *row103 = @{@"nofooter": @"1", @"t1": @" ", @"t1_keyboard": [@(self.dialogType) stringValue]};
+    NSArray *rows1 = @[row101, row102, row103];
+    
+    NSDictionary *row201 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3", @"c1": @"CANCEL", @"c1_button": @"3",};
+    NSArray *rows2 = @[row201];
+    
+    self.rows = [@[rows1, rows2] mutableCopy];
 }
 
-- (void)button1Pressed:(id)sender
+- (void)button1_tap:(id)sender
 {
     NSInteger i = [sender tag];
     
-    if (i == 0)
+    if (i == 201)
     {
         [self done];
     }
 }
 
-- (void)button2Pressed:(id)sender
+- (void)button2_tap:(id)sender
 {
     NSInteger i = [sender tag];
     
-    if (i == 0)
+    if (i == 201)
     {
         [[Globals i] closeTemplate];
         
@@ -82,7 +123,7 @@
     if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
     {
         self.inputCell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
-        UITextView *inputText = (UITextView *)[self.inputCell viewWithTag:7];
+        UITextField *inputText = (UITextField *)[self.inputCell viewWithTag:6];
         
         if([inputText.text length] > 0)
         {
@@ -107,66 +148,40 @@
     }
 }
 
-- (void)updateView
+- (NSDictionary *)getRowData:(NSIndexPath *)indexPath
 {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    [self.tableView setBackgroundColor:[UIColor clearColor]];
-    self.tableView.backgroundView = nil;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    NSDictionary *rowData = (self.rows)[indexPath.section][indexPath.row];
     
-    if (self.dialogType == 1)
-    {
-        [self setup1];
-    }
-    
-    if (self.dialogType == 2)
-    {
-        [self setup2];
-    }
-    
-    if ((self.dialogType == 4) || (self.dialogType == 5) || (self.dialogType == 6))
-    {
-        [self setupInput];
-    }
-    
-    [self.tableView reloadData];
+    return rowData;
 }
 
-- (void)setup1 //OK
+#pragma mark Table Data Source Methods
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
-    NSDictionary *row11 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_center": @"1"};
-    NSArray *rows1 = @[row10, row11];
-    self.rows = [@[rows1] mutableCopy];
+    DynamicCell *dcell = (DynamicCell *)[DynamicCell dynamicCell:self.tableView rowData:[self getRowData:indexPath] cellWidth:DIALOG_CELL_WIDTH];
     
-    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3"};
-    NSArray *rows2 = @[row21];
-    [self.rows addObject:rows2];
+    [dcell.cellview.rv_a.btn addTarget:self action:@selector(button1_tap:) forControlEvents:UIControlEventTouchUpInside];
+    dcell.cellview.rv_a.btn.tag = (indexPath.section+1)*100 + (indexPath.row+1);
+    
+    [dcell.cellview.rv_c.btn addTarget:self action:@selector(button2_tap:) forControlEvents:UIControlEventTouchUpInside];
+    dcell.cellview.rv_c.btn.tag = (indexPath.section+1)*100 + (indexPath.row+1);
+    
+    return dcell;
 }
 
-- (void)setup2 //YES NO
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
-    NSDictionary *row11 = @{@"nofooter": @"1", @"r1": self.displayText, @"r1_center": @"1"};
-    NSArray *rows1 = @[row10, row11];
-    self.rows = [@[rows1] mutableCopy];
-    
-    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"YES", @"r1_button": @"3", @"c1": @"NO", @"c1_button": @"3",};
-    NSArray *rows2 = @[row21];
-    [self.rows addObject:rows2];
+    return [self.rows count];
 }
 
-- (void)setupInput
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSDictionary *row10 = @{@"nofooter": @"1", @"r1": @" ", @"r1_center": @"1"};
-    NSDictionary *row11 = @{@"nofooter": @"1", @"r1": self.displayText};
-    NSDictionary *row12 = @{@"nofooter": @"1", @"t1": @"Enter text here...", @"t1_height": @"36", @"t1_keyboard": [@(self.dialogType) stringValue]};
-    NSArray *rows1 = @[row10, row11, row12];
-    
-    NSDictionary *row21 = @{@"nofooter": @"1", @"r1": @"OK", @"r1_button": @"3", @"c1": @"CANCEL", @"c1_button": @"3",};
-    NSArray *rows2 = @[row21];
-    
-    self.rows = [@[rows1, rows2] mutableCopy];
+    return [self.rows[section] count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:DIALOG_CELL_WIDTH];
 }
 
 @end

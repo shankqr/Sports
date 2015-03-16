@@ -1,25 +1,19 @@
-#import <Foundation/Foundation.h>
+
 #import "JCNotificationBanner.h"
 
 @class JCNotificationBannerPresenter;
 
 @interface JCNotificationCenter : NSObject
 
-@property (nonatomic) JCNotificationBannerPresenter* presenter;
+@property (nonatomic) JCNotificationBannerPresenter *presenter;
 
-+ (JCNotificationCenter*) sharedCenter;
++ (JCNotificationCenter *)sharedCenter;
 
 /** Adds notification to queue with given parameters. */
-+ (void) enqueueNotificationWithMessage:(NSString*)message
-                                  title:(NSString*)title
-                                  image:(NSString*)imagename
-                             tapHandler:(JCNotificationBannerTapHandlingBlock)tapHandler;
++ (void)enqueueNotificationWithMessage:(NSDictionary *)dictCell
+                         animationType:(NSString *)animationType
+                            tapHandler:(JCNotificationBannerTapHandlingBlock)tapHandler;
 
-- (void) enqueueNotificationWithMessage:(NSString*)message
-                                  title:(NSString*)title
-                                  image:(NSString*)imagename
-                             tapHandler:(JCNotificationBannerTapHandlingBlock)tapHandler;
-
-- (void) enqueueNotification:(JCNotificationBanner*)notification;
+- (void)enqueueNotification:(JCNotificationBanner *)notification;
 
 @end

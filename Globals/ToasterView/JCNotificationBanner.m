@@ -1,38 +1,27 @@
+
 #import "JCNotificationBanner.h"
 
 @implementation JCNotificationBanner
 
-@synthesize title;
-@synthesize message;
-@synthesize imagename;
-@synthesize timeout;
+@synthesize dict_cell;
+@synthesize animation_type;
 @synthesize tapHandler;
 
-- (JCNotificationBanner*) initWithTitle:(NSString*)_title
-                                message:(NSString*)_message
-                                  image:(NSString*)_imagename
-                             tapHandler:(JCNotificationBannerTapHandlingBlock)_tapHandler
+- (JCNotificationBanner *) initWithDict:(NSDictionary *)dictCell
+                         animation_type:(NSString *)animationType
+                             tapHandler:(JCNotificationBannerTapHandlingBlock)handler
 {
-    return [self initWithTitle:_title message:_message image:_imagename timeout:1.0 tapHandler:_tapHandler];
-}
+    self = [super init];
 
-
-- (JCNotificationBanner*) initWithTitle:(NSString*)_title
-                                message:(NSString*)_message
-                                  image:(NSString*)_imagename
-                                timeout:(NSTimeInterval)_timeout
-                             tapHandler:(JCNotificationBannerTapHandlingBlock)_tapHandler
-{
-  self = [super init];
-  if (self)
-  {
-    self.title = _title;
-    self.message = _message;
-    self.imagename = _imagename;
-    self.timeout = _timeout;
-    self.tapHandler = _tapHandler;
-  }
-  return self;
+    if (self)
+    {
+        self.dict_cell = dictCell;
+        self.animation_type = animationType;
+        self.timeout = 1.0;
+        self.tapHandler = handler;
+    }
+    
+    return self;
 }
 
 @end

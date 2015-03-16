@@ -1,15 +1,12 @@
-#import <UIKit/UIKit.h>
+
 #import <QuartzCore/QuartzCore.h>
 #import "JCNotificationBanner.h"
 
 @interface JCNotificationBannerView : UIView
 
-@property (nonatomic) JCNotificationBanner* notificationBanner;
-@property (nonatomic) UIImageView* iconImageView;
-@property (nonatomic) UILabel* titleLabel;
-@property (nonatomic) UILabel* messageLabel;
+@property (nonatomic) JCNotificationBanner *notificationBanner;
 
-- (id) initWithNotification:(JCNotificationBanner*)notification;
-- (BOOL) getCurrentPresentingStateAndAtomicallySetPresentingState:(BOOL)state;
+- (id)initWithNotification:(JCNotificationBanner *)notification;
+- (BOOL)getCurrentPresentingStateAndAtomicallySetPresentingState:(BOOL)state;
 
 @end

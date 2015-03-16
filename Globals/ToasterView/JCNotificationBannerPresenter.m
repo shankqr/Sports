@@ -1,3 +1,4 @@
+
 #import "JCNotificationBannerPresenter.h"
 #import "JCNotificationBannerPresenter_Private.h"
 #import "JCNotificationBannerView.h"
@@ -10,7 +11,7 @@
 // JCNotificationCenter calls this whenever a presenter
 // is about to be used to present one or more notifications.
 // It is guaranteed to be called exactly once before presentNotification:finished:.
-- (void) willBeginPresentingNotifications
+- (void)willBeginPresentingNotifications
 {
   bannerWindow = [self newWindow];
 }
@@ -19,7 +20,7 @@
 // using a presenter to present notifications.
 // It is guaranteed to be called exactly once after
 // one or more calls to presentNotification:finished:.
-- (void) didFinishPresentingNotifications
+- (void)didFinishPresentingNotifications
 {
   bannerWindow.hidden = YES;
   [bannerWindow removeFromSuperview];
@@ -29,9 +30,9 @@
 
 // Override this method in your subclass if your notification
 // style uses a window.
-- (void) presentNotification:(JCNotificationBanner*)notification
-                    inWindow:(JCNotificationBannerWindow*)window
-                    finished:(JCNotificationBannerPresenterFinishedBlock)finished
+- (void)presentNotification:(JCNotificationBanner*)notification
+                   inWindow:(JCNotificationBannerWindow*)window
+                   finished:(JCNotificationBannerPresenterFinishedBlock)finished
 {
   // Abstract. Override this and call finished() whenever you are
   // done showing the notification.
@@ -43,8 +44,8 @@
 //
 // If you do not require a window, override -willBeginPresentingNotifications,
 // -didFinishPresentingNotifications, and do whatever windowless thing you like.
-- (void) presentNotification:(JCNotificationBanner*)notification
-                    finished:(JCNotificationBannerPresenterFinishedBlock)finished
+- (void)presentNotification:(JCNotificationBanner*)notification
+                   finished:(JCNotificationBannerPresenterFinishedBlock)finished
 {
   [self presentNotification:notification
                    inWindow:bannerWindow
@@ -53,9 +54,9 @@
 
 #pragma mark - View helpers
 
-- (JCNotificationBannerWindow*) newWindow
+- (JCNotificationBannerWindow *)newWindow
 {
-  JCNotificationBannerWindow* window = [[JCNotificationBannerWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+  JCNotificationBannerWindow *window = [[JCNotificationBannerWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   window.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   window.userInteractionEnabled = YES;
   window.autoresizesSubviews = YES;
@@ -64,18 +65,18 @@
   return window;
 }
 
-- (UIView*) newContainerViewForNotification:(JCNotificationBanner*)notification
+- (UIView *)newContainerViewForNotification:(JCNotificationBanner *)notification
 {
-  UIView* container = [UIView new];
+  UIView *container = [UIView new];
   container.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
   container.userInteractionEnabled = YES;
   container.opaque = NO;
   return container;
 }
 
-- (JCNotificationBannerView*) newBannerViewForNotification:(JCNotificationBanner*)notification
+- (JCNotificationBannerView *)newBannerViewForNotification:(JCNotificationBanner *)notification
 {
-  JCNotificationBannerView* view = [[JCNotificationBannerView alloc]
+  JCNotificationBannerView *view = [[JCNotificationBannerView alloc]
                                     initWithNotification:notification];
   view.userInteractionEnabled = YES;
   view.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin

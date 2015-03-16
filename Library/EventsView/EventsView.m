@@ -113,10 +113,10 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club (Alliance)", @"c1": @"XP Gain"};
+                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club (Alliance)", @"c1": @"XP Gain", @"c1_ratio": @"3"};
                  if ([self.isAlliance isEqualToString:@"1"])
                  {
-                     row0 = @{@"n1": @"No.", @"h1": @"Alliance", @"c1": @"XP Gain"};
+                     row0 = @{@"n1": @"No.", @"h1": @"Alliance", @"c1": @"XP Gain", @"c1_ratio": @"3"};
                  }
                  
                  [returnArray insertObject:row0 atIndex:0];
@@ -191,7 +191,7 @@
         {
             if ([self.isAlliance isEqualToString:@"1"])
             {
-                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"name"], @"c1": row1[@"xp_gain"]};
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"name"], @"c1": row1[@"xp_gain"], @"c1_ratio": @"3"};
             }
             else
             {
@@ -205,7 +205,7 @@
                     r2 = @"(NO ALLIANCE)";
                 }
         
-                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"club_name"], @"r2": r2, @"c1": row1[@"xp_gain"]};
+                returnRow = @{@"align_top": @"1", @"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": row1[@"club_name"], @"r2": r2, @"c1": row1[@"xp_gain"], @"c1_ratio": @"3"};
             }
         }
     }

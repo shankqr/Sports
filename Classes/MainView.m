@@ -617,10 +617,6 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     }
     
     [[Globals i] showTemplate:@[self.buyView] :@"Buy Diamonds" :1];
-    
-    //Disable the Buy button
-    [Globals i].templateView.buyButton.hidden = YES;
-    [Globals i].templateView.currencyLabel.hidden = YES;
 }
 
 - (void)showClub
@@ -1806,14 +1802,14 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if (self.homeStore == nil)
     {
         self.homeStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
-        self.homeStore.title = @"Home Jerseys";
+        self.homeStore.title = @"Home";
         self.homeStore.filter = @"Home";
     }
     
     if (self.awayStore == nil)
     {
         self.awayStore = [[StoreOthersView alloc] initWithStyle:UITableViewStylePlain];
-        self.awayStore.title = @"Away Jerseys";
+        self.awayStore.title = @"Away";
         self.awayStore.filter = @"Away";
     }
     

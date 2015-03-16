@@ -62,7 +62,28 @@
 
 - (void)updateView
 {
-    [self refreshTable];
+    //Get all mail from mail_id=0 because need to see if there is reply
+    NSString *service_name = @"GetMail";
+    NSString *wsurl = [NSString stringWithFormat:@"/0/%@/%@",
+                       [Globals i].wsClubDict[@"club_id"],
+                       [Globals i].wsClubDict[@"alliance_id"]];
+    
+    [Globals getServerNew:service_name :wsurl :^(BOOL success, NSData *data)
+     {
+         if (success)
+         {
+             NSMutableArray *returnArray = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:nil error:nil];
+             
+             if ([returnArray count] > 0)
+             {
+                 [Globals i].wsMailArray = [[NSMutableArray alloc] initWithArray:returnArray copyItems:YES];
+                 
+                 [[Globals i] addLocalMailData:[Globals i].wsMailArray];
+                 
+                 [self refreshTable];
+             }
+         }
+     }];
 }
 
 - (void)refreshTable

@@ -21,7 +21,7 @@ static const NSInteger TagOffset = 1000;
 
 - (void)cleanView
 {
-    [self.contentContainerView.subviews makeObjectsPerformSelector: @selector(removeFromSuperview)];
+    [self.contentContainerView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.tabButtonsContainerView removeFromSuperview];
     [self.contentContainerView removeFromSuperview];
 }
@@ -41,7 +41,7 @@ static const NSInteger TagOffset = 1000;
 
 - (void)updateView
 {
-    CGRect full_frame = CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height);
+    CGRect full_frame = CGRectMake(0.0f, 0.0f, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height);
 
     self.view = [[UIView alloc] initWithFrame:full_frame];
     self.view.backgroundColor = [[UIColor alloc] initWithRed:0./255 green:0./255 blue:0./255 alpha:0.6];
@@ -57,24 +57,23 @@ static const NSInteger TagOffset = 1000;
                                                  name:@"CloseAllTemplate"
                                                object:nil];
     
+    if (self.ivBkgHeader == nil)
+    {
+        self.ivBkgHeader = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bkg_header"]];
+        [self.view addSubview:self.ivBkgHeader];
+    }
+    
+    [self.ivBkgHeader setFrame:CGRectMake(0, 0, self.view.bounds.size.width, SCREEN_OFFSET_MAINHEADER_Y)];
+    
     if (self.backgroundImage == nil)
     {
         self.backgroundImage = [[UIImageView alloc] initWithFrame:full_frame];
         [self.view addSubview:self.backgroundImage];
     }
     
-    if (UIScreen.mainScreen.bounds.size.height == 568)
-    {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"skin_default_4.png"]];
-    }
-    else if (UIScreen.mainScreen.bounds.size.height == 1024)
-    {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"skin_default_ipad.png"]];
-    }
-    else
-    {
-        [self.backgroundImage setImage:[UIImage imageNamed:@"skin_default.png"]];
-    }
+    //Change to dynamic soon
+    [self.backgroundImage setImage:[UIImage imageNamed:@"skin_default.png"]];
+    [self.backgroundImage setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
     
     CGFloat side_spacing = 56.0*SCALE_IPAD;
     CGRect title_frame = CGRectMake(side_spacing, 8.0f*SCALE_IPAD, UIScreen.mainScreen.bounds.size.width-side_spacing*2, 30*SCALE_IPAD);
@@ -106,16 +105,17 @@ static const NSInteger TagOffset = 1000;
         [self.view addSubview:self.closeButton];
     }
 
-    if (self.frameType == 0) //No borders, fullscreen, shrink close button
+    if (self.frameType == 0) //No borders, fullscreen
     {
         rect.origin.x = 0;
         rect.origin.y = 0;
         rect.size.width = self.view.bounds.size.width;
         rect.size.height = UIScreen.mainScreen.bounds.size.height;
         
-        UIImage *btn_image = [UIImage imageNamed:@"button_close1"];
-        CGSize btnSize = CGSizeMake(btn_image.size.width*SCALE_IPAD/2, btn_image.size.height*SCALE_IPAD/2);
-        [self.closeButton setFrame:CGRectMake(UIScreen.mainScreen.bounds.size.width-btnSize.width, 0.0f, btnSize.width, btnSize.height)];
+        [self.view setBackgroundColor:[UIColor blackColor]];
+        [self.ivBkgHeader setImage:nil];
+        [self.backgroundImage setImage:nil];
+        [self.titleLabel setText:@""];
     }
     else if (self.frameType == 1) //1 border at top
     {
@@ -123,6 +123,8 @@ static const NSInteger TagOffset = 1000;
         rect.origin.y = SCREEN_OFFSET_MAINHEADER_Y;
         rect.size.width = self.view.bounds.size.width;
         rect.size.height = UIScreen.mainScreen.bounds.size.height - SCREEN_OFFSET_MAINHEADER_Y;
+        
+        //[self.backgroundImage setFrame:rect];
     }
     else if (self.frameType == 2) //Fullscreen and no close button
     {
@@ -133,6 +135,13 @@ static const NSInteger TagOffset = 1000;
         
         self.closeButton.enabled = NO;
         self.closeButton.hidden = YES;
+        
+        [self.view setBackgroundColor:[UIColor blackColor]];
+        [self.ivBkgHeader setImage:nil];
+        [self.backgroundImage setImage:nil];
+        [self.titleLabel setText:@""];
+        
+        [self.view setFrame:rect];
     }
     else if (self.frameType == 3) //Fullscreen chart dialog box
     {
@@ -145,6 +154,8 @@ static const NSInteger TagOffset = 1000;
         
         UIImage *bkg_image = [[Globals i] dynamicImage:full_frame prefix:@"bkg6"];
         [self.backgroundImage setImage:bkg_image];
+        
+        [self.ivBkgHeader setImage:nil];
         
         UIImage *btn_image = [UIImage imageNamed:@"button_close2"];
         CGSize btnSize = CGSizeMake(btn_image.size.width * SCALE_IPAD, btn_image.size.height * SCALE_IPAD);
@@ -169,43 +180,28 @@ static const NSInteger TagOffset = 1000;
         self.closeButton.enabled = NO;
         self.closeButton.hidden = YES;
         
-        if (iPad)
-        {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"skin_plugin_ipad.png"]];
-        }
-        else
-        {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"skin_plugin_4.png"]];
-        }
-        [self.backgroundImage setFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
+        [self.ivBkgHeader setImage:nil];
+        
+        [self.backgroundImage setFrame:rect];
     }
     else if (self.frameType == 5) //MainView as background (overlap header above)
     {
-        [self.view setFrame:CGRectMake(SCREEN_OFFSET_X,
-                                       0,
-                                       UIScreen.mainScreen.bounds.size.width,
-                                       UIScreen.mainScreen.bounds.size.height - SCREEN_OFFSET_BOTTOM)];
-        
-        rect.origin.x = 0;
-        rect.origin.y = 0;
+        rect.origin.x = SCREEN_OFFSET_X;
+        rect.origin.y = 0.0f;
         rect.size.width = self.view.bounds.size.width;
-        rect.size.height = self.view.bounds.size.height;
+        rect.size.height = self.view.bounds.size.height - SCREEN_OFFSET_BOTTOM;
         
         self.titleLabel.hidden = YES;
         self.closeButton.enabled = NO;
         self.closeButton.hidden = YES;
         
-        if (iPad)
-        {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"skin_plugin_ipad.png"]];
-        }
-        else
-        {
-            [self.backgroundImage setImage:[UIImage imageNamed:@"skin_plugin_4.png"]];
-        }
-        [self.backgroundImage setFrame:CGRectMake(0, SCREEN_OFFSET_MAINHEADER_Y, self.view.bounds.size.width, self.view.bounds.size.height-SCREEN_OFFSET_MAINHEADER_Y)];
-    }
-    else if (self.frameType == 6 || self.frameType == 7) //Table fit to screen dialog box style
+        [self.ivBkgHeader setImage:nil];
+        
+        [self.backgroundImage setFrame:rect];
+        
+        [self.view setFrame:rect];
+    } //Table fit to screen dialog box style (7 is without close button, 8 is without always ontop, 9 map dialog)
+    else if (self.frameType == 6 || self.frameType == 7 || self.frameType == 8 || self.frameType == 9)
     {
         CGFloat height = 0;
         CGFloat width = 0;
@@ -236,35 +232,47 @@ static const NSInteger TagOffset = 1000;
         rect.size.width = width;
         rect.size.height = height;
         
-        CGFloat spacing = 10.0f*SCALE_IPAD;
-        
         self.titleLabel.hidden = YES;
         
-        if (self.frameType == 6)
-        {
-            [self.closeButton setFrame:CGRectMake(rect.origin.x+width+spacing-self.closeButton.bounds.size.width, rect.origin.y-spacing, self.closeButton.bounds.size.width, self.closeButton.bounds.size.height)];
-            [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_close2"] forState:UIControlStateNormal];
-            [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_close2_hvr"] forState:UIControlStateHighlighted];
-        }
-        else
-        {
-            self.closeButton.hidden = YES;
-        }
-        
+        CGFloat spacing = 10.0f*SCALE_IPAD;
+        UIImage *btn_image = [UIImage imageNamed:@"button_close2"];
+        CGSize btnSize = CGSizeMake(btn_image.size.width * SCALE_IPAD, btn_image.size.height * SCALE_IPAD);
+        [self.closeButton setFrame:CGRectMake(rect.origin.x+rect.size.width+spacing*2-btnSize.width, rect.origin.y-spacing, btnSize.width, btnSize.height)];
+        [self.closeButton setBackgroundImage:btn_image forState:UIControlStateNormal];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_close2_hvr"] forState:UIControlStateHighlighted];
+
         UIImage *bkg_image = [[Globals i] dynamicImage:rect prefix:@"bkg6"];
         [self.backgroundImage setImage:bkg_image];
         [self.backgroundImage setFrame:rect];
+        
+        [self.ivBkgHeader setImage:nil];
     }
     
     if (self.headerView != nil) //Has a header view
     {
-        [self.view addSubview:self.headerView.view];
-        
-        rect.origin.y = rect.origin.y + self.headerView.view.frame.size.height;
-        rect.size.height = rect.size.height - self.headerView.view.frame.size.height;
+        if ([self.headerView[0] isKindOfClass:[UITableViewController class]])
+        {
+            UITableViewController *tvc = (UITableViewController *)self.headerView[0];
+            CGRect table_rect = [tvc.tableView rectForSection:[tvc.tableView numberOfSections] - 1];
+            CGFloat table_height = CGRectGetMaxY(table_rect);
+            tvc.tableView.scrollEnabled = NO;
+            
+            rect.origin.y = rect.origin.y + table_height;
+            rect.size.height = rect.size.height - table_height;
+            
+            [((UITableViewController *)self.headerView[0]).view setFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, table_height)];
+            [self.view addSubview:((UITableViewController *)self.headerView[0]).view];
+        }
+        else
+        {
+            [self.view addSubview:((UIViewController *)self.headerView[0]).view];
+            
+            rect.origin.y = rect.origin.y + ((UIViewController *)self.headerView[0]).view.frame.size.height;
+            rect.size.height = rect.size.height - ((UIViewController *)self.headerView[0]).view.frame.size.height;
+        }
     }
     
-    if([self.viewControllers count] > 1) //Tab buttons above
+    if ([self.viewControllers count] > 1) //Tab buttons above
     {
         [self.tabButtonsContainerView setFrame:rect];
         self.tabButtonsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -274,7 +282,46 @@ static const NSInteger TagOffset = 1000;
         rect.size.height = rect.size.height - self.tabBarHeight;
     }
     
+    if (self.frameType == 6 || self.frameType == 7 || self.frameType == 8 || self.frameType == 9) //Table fit to screen dialog box style
+    {
+        CGFloat dialog_width = UIScreen.mainScreen.bounds.size.width-DIALOG_CONTENT_MARGIN*3;
+        rect.origin.x = (UIScreen.mainScreen.bounds.size.width-dialog_width)/2.0f;
+    }
+    else if (self.frameType == 3) //Chart dialog box style
+    {
+        CGFloat dialog_width = UIScreen.mainScreen.bounds.size.width-CHART_CONTENT_MARGIN*3;
+        rect.origin.x = (UIScreen.mainScreen.bounds.size.width-dialog_width)/2.0f;
+    }
+    
+    if (self.frameType == 7)
+    {
+        self.closeButton.hidden = YES;
+    }
+    
+    if (self.frameType == 9) //Dialog box ontop of map
+    {
+        CGFloat spacing = 10.0f*SCALE_IPAD;
+        
+        rect = CGRectMake(rect.origin.x, spacing*8, rect.size.width, rect.size.height);
+        
+        [self.view setFrame:rect];
+        self.view.backgroundColor = [UIColor clearColor];
+        
+        rect = CGRectMake(-spacing, -spacing, rect.size.width, rect.size.height);
+        
+        [self.backgroundImage setFrame:rect];
+        
+        UIImage *btn_image = [UIImage imageNamed:@"button_close2"];
+        CGSize btnSize = CGSizeMake(btn_image.size.width * SCALE_IPAD, btn_image.size.height * SCALE_IPAD);
+        [self.closeButton setFrame:CGRectMake(rect.origin.x+rect.size.width+spacing*2-btnSize.width, rect.origin.y-spacing, btnSize.width, btnSize.height)];
+        [self.closeButton setBackgroundImage:btn_image forState:UIControlStateNormal];
+        [self.closeButton setBackgroundImage:[UIImage imageNamed:@"button_close2_hvr"] forState:UIControlStateHighlighted];
+    
+        rect = CGRectMake(0.0f, 0.0f, rect.size.width, rect.size.height);
+    }
+    
     [self.contentContainerView setFrame:rect];
+    [self.contentContainerView removeFromSuperview];
 	[self.view addSubview:self.contentContainerView];
     
     //Resize all viewcontrollers to fit content frame
@@ -286,13 +333,8 @@ static const NSInteger TagOffset = 1000;
     [self.view bringSubviewToFront:self.closeButton]; //Make sure close button is always infront
 
 	[self reloadTabButtons];
-}
-
-- (void)viewWillLayoutSubviews
-{
-	[super viewWillLayoutSubviews];
     
-	[self layoutTabButtons];
+    [self layoutTabButtons];
 }
 
 - (void)reloadTabButtons
@@ -313,7 +355,7 @@ static const NSInteger TagOffset = 1000;
 	{
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = TagOffset + index;
-		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MEDIUM_FONT_SIZE];
+		button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT size:MEDIUM_FONT_SIZE];
 		button.titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
         
 		UIOffset offset = viewController.tabBarItem.titlePositionAdjustment;
@@ -339,13 +381,14 @@ static const NSInteger TagOffset = 1000;
 {
     UIButton *tabButton = (UIButton *)[self.tabButtonsContainerView viewWithTag:TagOffset + tabIndex];
     
-    for(UIView *viewRef in tabButton.subviews)
+    for (UIView *viewRef in tabButton.subviews)
     {
-        if([viewRef isKindOfClass:[CustomBadge class]])
+        if ([viewRef isKindOfClass:[CustomBadge class]])
         {
             CustomBadge *tabBadge = (CustomBadge *)viewRef;
             [tabBadge autoBadgeSizeWithString:[@(number) stringValue]];
-            [tabBadge setFrame:CGRectMake(tabButton.frame.size.width-tabBadge.frame.size.width, 0, tabBadge.frame.size.width, tabBadge.frame.size.height)];
+            CGRect rect = CGRectMake(tabButton.frame.size.width-tabBadge.frame.size.width, 0, tabBadge.frame.size.width, tabBadge.frame.size.height);
+            [tabBadge setFrame:rect];
             tabBadge.hidden = NO;
             
             if (number == 0)
@@ -398,7 +441,7 @@ static const NSInteger TagOffset = 1000;
 	UIViewController *oldSelectedViewController = self.selectedViewController;
     
 	// Remove the old child view controllers.
-	for (UIViewController *viewController in _viewControllers)
+	for (UIViewController *viewController in self.viewControllers)
 	{
 		[viewController willMoveToParentViewController:nil];
 		[viewController removeFromParentViewController];
@@ -408,12 +451,12 @@ static const NSInteger TagOffset = 1000;
     
 	// This follows the same rules as UITabBarController for trying to
 	// re-select the previously selected view controller.
-	NSUInteger newIndex = [_viewControllers indexOfObject:oldSelectedViewController];
+	NSUInteger newIndex = [self.viewControllers indexOfObject:oldSelectedViewController];
 	if (newIndex != NSNotFound)
     {
 		_selectedIndex = newIndex;
     }
-	else if (newIndex < [_viewControllers count])
+	else if (newIndex < [self.viewControllers count])
     {
 		_selectedIndex = newIndex;
     }
@@ -423,7 +466,7 @@ static const NSInteger TagOffset = 1000;
     }
     
 	// Add the new child view controllers.
-	for (UIViewController *viewController in _viewControllers)
+	for (UIViewController *viewController in self.viewControllers)
 	{
 		[self addChildViewController:viewController];
 		[viewController didMoveToParentViewController:self];
@@ -592,7 +635,7 @@ static const NSInteger TagOffset = 1000;
 	[button setBackgroundImage:image_h forState:UIControlStateHighlighted];
     
 	[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	[button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
+	//[button setTitleShadowColor:[UIColor whiteColor] forState:UIControlStateNormal];
 }
 
 - (CGFloat)tabBarHeight

@@ -49,7 +49,7 @@
              
              if ([returnArray count] > 0)
              {
-                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club", @"c1": @"Diamonds"};
+                 NSDictionary *row0 = @{@"n1": @"No.", @"h1": @"Club", @"c1": @"Diamonds", @"c1_ratio": @"3"};
                  [returnArray insertObject:row0 atIndex:0];
                  
                  self.rows = [@[returnArray] mutableCopy];
@@ -81,7 +81,7 @@
         NSString *r1 = rowData[@"club_name"];
         NSString *c1 = [[Globals i] numberFormat:rowData[@"currency_second"]];
         
-        return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1};
+        return @{@"n1": [NSString stringWithFormat:@"%ld", (long)indexPath.row], @"r1": r1, @"c1": c1, @"c1_ratio": @"3"};
     }
 }
 

@@ -60,7 +60,7 @@
 		rowData = (self.finance)[indexPath.row];
 	}
     
-    return @{@"align_top": @"1", @"r1": rowData[@"Item"], @"c1": rowData[@"Cost"]};
+    return @{@"align_top": @"1", @"r1": rowData[@"Item"], @"c1": rowData[@"Cost"], @"c1_ratio": @"3"};
 }
 
 #pragma mark Table Data Source Methods
