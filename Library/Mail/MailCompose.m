@@ -116,16 +116,12 @@
              
              if (success)
              {
-                 NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                 if([returnValue integerValue] > 0) //Stored Proc Success for mailcompose return mail_id
-                 {
-                     [[Globals i] closeTemplate];
-                     textview.text = @"";
-                     
-                     [[Globals i] showToast:@"Message Sent!"
-                              optionalTitle:nil
-                              optionalImage:@"tick_yes"];
-                 }
+                 [[Globals i] closeTemplate];
+                 textview.text = @"";
+                 
+                 [[Globals i] showToast:@"Message Sent!"
+                          optionalTitle:nil
+                          optionalImage:@"tick_yes"];
              }
          });
      }];
@@ -167,9 +163,9 @@
         UITextField *tvName = (UITextField *)[self.inputCell1 viewWithTag:6];
         UITextView *tvMessage = (UITextView *)[self.inputCell2 viewWithTag:7];
         
-        if(indexPath.row == 0) //Send Mail
+        if (indexPath.row == 0) //Send Mail
         {
-            if([tvMessage.text length] > 0)
+            if ([tvMessage.text length] > 0)
             {
                 [tvMessage resignFirstResponder];
                 
@@ -179,7 +175,7 @@
                 tvMessage.text = @"";
             }
         }
-        else if(indexPath.row == 1) //Cancel
+        else if (indexPath.row == 1) //Cancel
         {
             [[Globals i] closeTemplate];
             

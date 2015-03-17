@@ -115,8 +115,8 @@
         {
             content = row1[@"message"];
             
-            NSInteger MINLENGTH = 30;
-            content = ([content length]>MINLENGTH ? [content substringToIndex:MINLENGTH] : content);
+            //NSInteger MINLENGTH = 30;
+            //content = ([content length]>MINLENGTH ? [content substringToIndex:MINLENGTH] : content);
         }
         else
         {
@@ -216,7 +216,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	return [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    CGFloat height = [DynamicCell dynamicCellHeight:[self getRowData:indexPath] cellWidth:CELL_CONTENT_WIDTH];
+    
+	return height;
 }
 
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath

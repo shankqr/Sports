@@ -63,21 +63,6 @@
     return cell;
 }
 
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size
-{
-    return [CellView textHeight:text lblWidth:label_width fontSize:font_size];
-}
-
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width font:(UIFont*)font
-{
-    return [CellView textHeight:text lblWidth:label_width font:font];
-}
-
-+ (CGFloat)textWidth:(NSString *)text font:(UIFont*)font
-{
-    return [CellView textWidth:text font:font];
-}
-
 + (CGFloat)dynamicCellHeight:(NSDictionary *)rd cellWidth:(float)cell_width
 {
     return [CellView dynamicCellHeight:rd cellWidth:cell_width];

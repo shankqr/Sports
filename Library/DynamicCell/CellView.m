@@ -725,43 +725,6 @@
     }
 }
 
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size
-{
-    CGSize constraint = CGSizeMake(label_width, CGFLOAT_MAX);
-    CGRect size = [text boundingRectWithSize:constraint
-                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                  attributes:@{NSFontAttributeName:[UIFont fontWithName:DEFAULT_FONT size:font_size]}
-                                     context:nil];
-    
-    CGFloat height = size.size.height*1.1f;
-    
-    return MAX(height, font_size+CELL_CONTENT_SPACING);
-}
-
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width font:(UIFont*)font
-{
-    CGSize constraint = CGSizeMake(label_width, CGFLOAT_MAX);
-    CGRect size = [text boundingRectWithSize:constraint
-                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                  attributes:@{NSFontAttributeName:font}
-                                     context:nil];
-    
-    CGFloat height = size.size.height*1.1f;
-    
-    return MAX(height, font.pointSize+CELL_CONTENT_SPACING);
-}
-
-+ (CGFloat)textWidth:(NSString *)text font:(UIFont*)font
-{
-    CGSize constraint = CGSizeMake(0.0f, CGFLOAT_MAX);
-    CGRect size = [text boundingRectWithSize:constraint
-                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
-                                  attributes:@{NSFontAttributeName:font}
-                                     context:nil];
-    
-    return size.size.width;
-}
-
 + (CGFloat)dynamicCellHeight:(NSDictionary *)rd cellWidth:(float)cell_width
 {
     NSMutableDictionary *rowData = [rd mutableCopy];

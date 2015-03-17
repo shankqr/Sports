@@ -98,9 +98,9 @@
              
              if (success)
              {
-                 NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                 if ([returnValue isEqualToString:@"1"]) //Stored Proc Success
-                 {
+                 //NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 //if ([returnValue isEqualToString:@"1"]) //Stored Proc Success
+                 //{
                      [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
                      [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
                      [[Globals i] closeTemplate];
@@ -109,7 +109,7 @@
                      [[Globals i] showToast:@"Message Sent!"
                               optionalTitle:nil
                               optionalImage:@"tick_yes"];
-                 }
+                 //}
                  
              }
          });

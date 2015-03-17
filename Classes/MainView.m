@@ -595,16 +595,17 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)mailCompose:(NSString *)isAlli toID:(NSString *)toid toName:(NSString *)toname
 {
-    if(self.mailCompose == nil)
+    if (self.mailCompose == nil)
     {
         self.mailCompose = [[MailCompose alloc] initWithStyle:UITableViewStylePlain];
     }
-    self.mailCompose.title = @"Mail";
+    self.mailCompose.title = @"Message";
     self.mailCompose.isAlliance = isAlli;
     self.mailCompose.toID = toid;
     self.mailCompose.toName = toname;
     
     [[Globals i] showTemplate:@[self.mailCompose] :@"Message" :1];
+    [self.mailCompose updateView];
 }
 
 - (void)showBuy

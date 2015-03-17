@@ -82,12 +82,19 @@
         font_type = DEFAULT_FONT_BOLD;
     }
     UIFont *font_ui = [UIFont fontWithName:font_type size:font_size];
+    [self.row1 setFont:font_ui];
+    
+    CGRect r1_frame = CGRectMake(0.0f, 0.0f, self.frame_view.size.width, 0.0f);
+    [self.row1 setFrame:r1_frame];
+    [self.row1 setText:self.rowData[r1]];
+    [self.row1 sizeToFit];
+    CGFloat r1_height = self.row1.frame.size.height;
     
     CGFloat height;
     if ((self.rowData[r1_marquee] == nil) || [self.rowData[r1_marquee] isEqualToString:@""])
     {
         self.row1.labelize = YES;
-        height = [DynamicCell textHeight:self.rowData[r1] lblWidth:self.frame_view.size.width font:font_ui];
+        height = r1_height;
     }
     else
     {
@@ -161,7 +168,7 @@
         [self.btn removeFromSuperview];
     }
     
-    CGFloat text_width = [DynamicCell textWidth:self.rowData[r1] font:font_ui];
+    CGFloat text_width = [self textWidth:self.rowData[r1] font:font_ui];
     CGFloat icon_x = 0.0f;
     if ((self.rowData[r1_align] != nil) && ![self.rowData[r1_align] isEqualToString:@""])
     {
@@ -195,7 +202,6 @@
     }
     
     [self.row1 setFrame:frame];
-    [self.row1 setText:self.rowData[r1]];
     
     if (self.rowData[r1_bkg] != nil && ![self.rowData[r1_bkg] isEqualToString:@""])
     {
@@ -230,8 +236,6 @@
     {
         [self.row1_bkg removeFromSuperview];
     }
-    
-    [self.row1 setFont:font_ui];
     
     if (self.rowData[r1_icon] != nil && ![self.rowData[r1_icon] isEqualToString:@""])
     {
@@ -310,7 +314,7 @@
         {
             self.row2 = [[UILabel alloc] initWithFrame:CGRectZero];
             [self.row2 setNumberOfLines:0];
-            [self.row2 setFont:[UIFont fontWithName:DEFAULT_FONT size:MEDIUM_FONT_SIZE-SCALE_IPAD]];
+            [self.row2 setFont:[UIFont fontWithName:DEFAULT_FONT size:15.0f*SCALE_IPAD]];
             [self.row2 setBackgroundColor:[UIColor clearColor]];
             [self.row2 setTextColor:[UIColor darkGrayColor]];
             self.row2.minimumScaleFactor = 1.0;
@@ -318,7 +322,7 @@
             [self.row2 setLineBreakMode:NSLineBreakByClipping];
         }
         
-        CGFloat font_size = 15.0f*SCALE_IPAD;;
+        CGFloat font_size = 15.0f*SCALE_IPAD;
         NSString *font_type = DEFAULT_FONT;
         if ((self.rowData[r2_font] != nil) && ![self.rowData[r2_font] isEqualToString:@""])
         {
@@ -332,9 +336,16 @@
         UIFont *font_ui = [UIFont fontWithName:font_type size:font_size];
         
         CGFloat r2_width = self.frame_view.size.width;
-        CGFloat r2_height = [DynamicCell textHeight:self.rowData[r2] lblWidth:self.frame_view.size.width font:font_ui];
+        CGFloat r2_height = 0.0f;
         CGFloat r2_y = height;
         CGFloat r2_x = 0.0f;
+        
+        CGRect r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
+        [self.row2 setFrame:r2_frame];
+        [self.row2 setFont:font_ui];
+        [self.row2 setText:self.rowData[r2]];
+        [self.row2 sizeToFit];
+        r2_height = self.row2.frame.size.height;
         
         if ((self.rowData[button] != nil) && ![self.rowData[button] isEqualToString:@""])
         {
@@ -351,11 +362,9 @@
             r2_x = CELL_CONTENT_SPACING;
             r2_y = r2_y + CELL_CONTENT_SPACING*2;
             r2_width = r2_width - CELL_CONTENT_SPACING*2.0f;
+            
+            r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
         }
-        
-        CGRect r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
-        [self.row2 setFrame:r2_frame];
-        [self.row2 setText:self.rowData[r2]];
         
         //Grow the view to fit r2
         height = height + r2_height;
@@ -395,7 +404,7 @@
         
         [self addSubview:self.row2];
         
-        CGFloat text_width = [DynamicCell textWidth:self.rowData[r2] font:font_ui];
+        CGFloat text_width = [self textWidth:self.rowData[r2] font:font_ui];
         CGFloat icon_x = 0.0f;
         if ((self.rowData[r2_align] != nil) && ![self.rowData[r2_align] isEqualToString:@""])
         {
@@ -579,6 +588,17 @@
     [self.row2_icon removeFromSuperview];
     
     [self setFrame:CGRectZero];
+}
+
+- (CGFloat)textWidth:(NSString *)text font:(UIFont*)font
+{
+    CGSize constraint = CGSizeMake(0.0f, CGFLOAT_MAX);
+    CGRect size = [text boundingRectWithSize:constraint
+                                     options:(NSStringDrawingUsesLineFragmentOrigin|NSStringDrawingUsesFontLeading)
+                                  attributes:@{NSFontAttributeName:font}
+                                     context:nil];
+    
+    return size.size.width;
 }
 
 @end

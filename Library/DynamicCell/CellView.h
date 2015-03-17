@@ -23,8 +23,5 @@
 - (void)drawCell:(NSDictionary *)rd cellWidth:(float)cell_width;
 
 + (CGFloat)dynamicCellHeight:(NSDictionary *)rd cellWidth:(float)cell_width;
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width fontSize:(CGFloat)font_size;
-+ (CGFloat)textHeight:(NSString *)text lblWidth:(CGFloat)label_width font:(UIFont*)font;
-+ (CGFloat)textWidth:(NSString *)text font:(UIFont*)font;
 
 @end
