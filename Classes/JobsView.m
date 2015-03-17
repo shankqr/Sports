@@ -162,12 +162,16 @@
 
 - (void)updateView
 {
-	NSMutableArray *jobs_array = [[NSUserDefaults standardUserDefaults] objectForKey:@"jobs1"];
-	if (jobs_array.count>0)
+	NSArray *jobs_array = [[NSUserDefaults standardUserDefaults] objectForKey:@"jobs1"];
+	if (jobs_array.count > 0)
 	{
-		if (self.jobs.count<1)
+		if (self.jobs.count < 1)
 		{
-			self.jobs = jobs_array;
+			self.jobs = [[NSMutableArray alloc] init];
+            for (NSDictionary *dict in jobs_array)
+            {
+                [self.jobs addObject:[dict mutableCopy]];
+            }
 		}
 	}
 	else
@@ -208,15 +212,17 @@
 - (void)safeRow:(NSInteger)row :(NSInteger)percent
 {
 	NSMutableDictionary *rowData = (self.jobs)[row];
-	NSInteger l = [rowData[@"Level"] integerValue];
-	NSInteger p = [rowData[@"Percent"] integerValue] + percent;
-	if (p>99) 
+	NSInteger job_level = [rowData[@"Level"] integerValue];
+	NSInteger job_percent = [rowData[@"Percent"] integerValue] + percent;
+	
+    if (job_percent > 99)
 	{
-		l=l+1;
-		[rowData setValue:[[NSString alloc] initWithFormat:@"%ld", (long)l] forKey:@"Level"];
-		p=p-100;
+		job_level = job_level + 1;
+		[rowData setValue:@(job_level) forKey:@"Level"];
+		job_percent = 0;
 	}
-	[rowData setValue:[[NSString alloc] initWithFormat:@"%ld", (long)p] forKey:@"Percent"];
+    
+	[rowData setValue:@(job_percent) forKey:@"Percent"];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:self.jobs forKey:@"jobs1"];
 }

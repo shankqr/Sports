@@ -87,14 +87,13 @@
     CGRect r1_frame = CGRectMake(0.0f, 0.0f, self.frame_view.size.width, 0.0f);
     [self.row1 setFrame:r1_frame];
     [self.row1 setText:self.rowData[r1]];
-    [self.row1 sizeToFit];
-    CGFloat r1_height = self.row1.frame.size.height;
     
-    CGFloat height;
+    CGFloat height = 0.0f;
     if ((self.rowData[r1_marquee] == nil) || [self.rowData[r1_marquee] isEqualToString:@""])
     {
         self.row1.labelize = YES;
-        height = r1_height;
+        [self.row1 sizeToFit];
+        height = self.row1.frame.size.height;
     }
     else
     {
@@ -356,11 +355,11 @@
             self.rowData[r2_align] = @"1";
             self.rowData[r2_color] = @"2";
             
-            height = self.btn.frame.size.height + CELL_CONTENT_SPACING;
+            r2_height = self.btn.frame.size.height + CELL_CONTENT_SPACING;
             
             //Adjust label to fit button nicely
             r2_x = CELL_CONTENT_SPACING;
-            r2_y = r2_y + CELL_CONTENT_SPACING*2;
+            r2_y = r2_y + CELL_CONTENT_SPACING*2.0f;
             r2_width = r2_width - CELL_CONTENT_SPACING*2.0f;
             
             r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
@@ -476,7 +475,7 @@
             }
             else if ([self.rowData[r2_color] isEqualToString:@"4"])
             {
-                [self.row2 setTextColor:[UIColor brownColor]];
+                [self.row2 setTextColor:[UIColor cinnamonColor]];
             }
             else if ([self.rowData[r2_color] isEqualToString:@"5"])
             {
@@ -489,7 +488,7 @@
         }
         else
         {
-            [self.row2 setTextColor:[UIColor blackColor]];
+            [self.row2 setTextColor:[UIColor cinnamonColor]];
         }
     }
     else
@@ -515,7 +514,7 @@
         [self.slider setFrame:r2_frame];
         
         //Grow the view to fit r2
-        height = height + 20.0f * SCALE_IPAD;
+        height = height + 20.0f*SCALE_IPAD;
         [self setFrame:CGRectMake(self.frame_view.origin.x, self.frame_view.origin.y, self.frame_view.size.width, height)];
         
         [self addSubview:self.slider];

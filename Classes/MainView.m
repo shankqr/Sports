@@ -983,51 +983,42 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if ([[NSFileManager defaultManager] fileExistsAtPath:[receiptUrl path]])
     {
         NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
-        NSString *receiptString = [self base64forData:receiptData];
-        
-        if (receiptString != nil)
-        {
-            NSArray *objects = [[NSArray alloc] initWithObjects:receiptString, nil];
-            NSArray *keys = [[NSArray alloc] initWithObjects:@"receipt-data", nil];
-            NSDictionary *dictionary = [[NSDictionary alloc] initWithObjects:objects forKeys:keys];
-            
-            NSError *error = nil;
-            NSData *postData = [NSJSONSerialization dataWithJSONObject:dictionary options:NSJSONWritingPrettyPrinted error:&error];
-            if (!postData)
-            {
-                NSLog(@"Got an error: %@", error);
-            }
-            else
-            {
-                json = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
-            }
-        }
+        json = [self base64forData:receiptData];
     }
     
-    NSError *error = nil;
-    NSStringEncoding encoding;
-    NSString *wsurl = [[NSString alloc] initWithFormat:@"%@/ReportError/%@/%@/%@",
-                       WS_URL, [[Globals i] gettPurchasedProduct], [[Globals i] UID], json];
-    NSURL *url = [[NSURL alloc] initWithString:wsurl];
-    NSString *returnValue  = [[NSString alloc] initWithContentsOfURL:url
-                                                        usedEncoding:&encoding 
-                                                               error:&error];
-    if([returnValue isEqualToString:@"1"])
-    {
-        if([[Globals i] updateClubData]) //After buying effect
-        {
-            [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
-        }
-        else
-        {
-            //Update failed
-            [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
-        }
-    }
-    else
-    {
-        //Webservice failed
-    }
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                          [[Globals i] gettPurchasedProduct],
+                          @"error_id",
+                          [Globals i].UID,
+                          @"uid",
+                          json,
+                          @"json",
+                          nil];
+    
+    NSString *service_name = @"PostReportError";
+    [Globals postServerLoading:dict :service_name :^(BOOL success, NSData *data)
+     {
+         dispatch_async(dispatch_get_main_queue(), ^{// IMPORTANT - Only update the UI on the main thread
+             
+             if (success)
+             {
+                 NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                 if ([returnValue isEqualToString:@"1"]) //Receipt Success
+                 {
+                     if ([[Globals i] updateClubData]) //After buying effect
+                     {
+                         [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
+                     }
+                     else
+                     {
+                         //Update failed
+                         [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
+                     }
+                 }
+                 
+             }
+         });
+     }];
     
 	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
 	{
@@ -1058,9 +1049,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                                 WS_URL, [Globals i].wsSalesData[@"sale_id"], [[Globals i] UID], json];
          
          NSURL *url2 = [[NSURL alloc] initWithString:wsurl2];
-         NSString *returnValue2  = [[NSString alloc] initWithContentsOfURL:url2
-                                                             usedEncoding:&encoding
-                                                                    error:&error];
+         NSString *returnValue2  = [[NSString alloc] initWithContentsOfURL:url2];
+        
         if([returnValue2 isEqualToString:@"1"])
         {
             if([[Globals i] updateClubData]) //After buying effect
