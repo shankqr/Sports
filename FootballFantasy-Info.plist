@@ -45,7 +45,7 @@
 		<string>TrebuchetMS-Bold</string>
 	</dict>
 	<key>LSRequiresIPhoneOS</key>
-	<false/>
+	<true/>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UIStatusBarHidden</key>

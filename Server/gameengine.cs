@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using JdSoft.Apple.Apns.Notifications;
 using JdSoft.Apple.AppStore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 [ServiceContract]
 [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
@@ -94,7 +95,7 @@ public partial class GameEngine
 
             if (sql_command.Length > 0)
             {
-                if (ReceiptVerify(uid, json))
+                if (ReceiptVer(json))
                 {
                 	result = "1";
                 	
@@ -119,6 +120,49 @@ public partial class GameEngine
 
             }
 
+        }
+        
+        WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
+        byte[] returnBytes = encoding.GetBytes(result);
+        return new MemoryStream(returnBytes);
+    }
+	
+	[OperationContract]
+	[WebInvoke(UriTemplate="/PostRegisterSale", Method="POST", BodyStyle=WebMessageBodyStyle.WrappedRequest)]
+	public Stream PostRegisterSale(Stream streamdata)
+    {
+		string result = "0";
+		
+        StreamReader reader = new StreamReader(streamdata);
+    	string sr = reader.ReadToEnd();
+    	reader.Close();
+    	reader.Dispose();
+    	
+    	Dictionary<string, string> dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(sr);
+    	
+    	string error_id = dic["error_id"];
+    	string uid = dic["uid"];
+    	string json = dic["json"];
+    	
+        using (SqlConnection cn = new SqlConnection(GetConnectionString()))
+        {
+            string sql_command = string.Empty;
+			sql_command = "EXEC usp_RegisterSale '" + uid + "', " + error_id;
+
+            if (ReceiptVer(json))
+            {
+            	result = "1";
+            	
+                using (SqlCommand cmd = new SqlCommand(sql_command, cn))
+                {
+                    cn.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            else
+            {
+                //Cheat Detected
+            }
         }
         
         WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
@@ -820,7 +864,58 @@ public partial class GameEngine
             return string.Empty;
         }
     }
-
+    
+    private bool ReceiptVer(string receiptData)
+	{
+	    string returnmessage = "";
+	    try
+	    {
+	        var json = new JObject(new JProperty("receipt-data", receiptData)).ToString();
+			
+	        ASCIIEncoding ascii = new ASCIIEncoding();
+	        byte[] postBytes = Encoding.UTF8.GetBytes(json);
+			
+	        string url_1 = "https://sandbox.itunes.apple.com/verifyReceipt";
+        	string url_2 = "https://buy.itunes.apple.com/verifyReceipt";
+        	
+	        var request = HttpWebRequest.Create(url_2);
+	        request.Method = "POST";
+	        request.ContentType = "application/json";
+	        request.ContentLength = postBytes.Length;
+			
+	        using (var stream = request.GetRequestStream())
+	        {
+	            stream.Write(postBytes, 0, postBytes.Length);
+	            stream.Flush();
+	        }
+			
+	        var sendresponse = request.GetResponse();
+			
+	        string sendresponsetext = "";
+	        using (var streamReader = new StreamReader(sendresponse.GetResponseStream()))
+	        {
+	            sendresponsetext = streamReader.ReadToEnd().Trim();
+	        }
+	        returnmessage = sendresponsetext;
+			
+	    }
+	    catch (Exception ex)
+	    {
+	        ex.Message.ToString();
+	    }
+	    
+	    var o = JObject.Parse(returnmessage);
+		int status = (int)o["status"];
+		
+		bool result = false;
+		if (status == 0)
+		{
+			result = true;
+		}
+	    
+		return result;
+    }
+	
     private bool ReceiptVerify(string uid, string receiptData)
     {
     	string url_1 = "https://sandbox.itunes.apple.com/verifyReceipt";
@@ -829,7 +924,7 @@ public partial class GameEngine
         string toPost = string.Format(@"{{""receipt-data"":""{0}""}}", receiptData);
         Receipt receipt = null;
 
-        string post = PostRequest(url_1, toPost);
+        string post = PostRequest(url_2, toPost);
 
         if (!string.IsNullOrEmpty(post))
         {

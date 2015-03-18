@@ -947,44 +947,21 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	[self doTransaction:transaction];
 }
 
-- (NSString *)base64forData:(NSData *)theData
-{
-    const uint8_t* input = (const uint8_t*)[theData bytes];
-    NSInteger length = [theData length];
-    static char table[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
-    NSMutableData* data = [NSMutableData dataWithLength:((length + 2) / 3) * 4];
-    uint8_t* output = (uint8_t*)data.mutableBytes;
-    NSInteger i;
-    for (i=0; i < length; i += 3) {
-        NSInteger value = 0;
-        NSInteger j;
-        for (j = i; j < (i + 3); j++) {
-            value <<= 8;
-            
-            if (j < length) {
-                value |= (0xFF & input[j]);
-            }
-        }
-        NSInteger theIndex = (i / 3) * 4;
-        output[theIndex + 0] =                    table[(value >> 18) & 0x3F];
-        output[theIndex + 1] =                    table[(value >> 12) & 0x3F];
-        output[theIndex + 2] = (i + 1) < length ? table[(value >> 6)  & 0x3F] : '=';
-        output[theIndex + 3] = (i + 2) < length ? table[(value >> 0)  & 0x3F] : '=';
-    }
-    return [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-}
-
 - (void)doTransaction:(SKPaymentTransaction *)transaction;
 {
     [[Globals i] removeLoadingAlert];
+    
     
     NSString *json = @"0";
     NSURL *receiptUrl = [[NSBundle mainBundle] appStoreReceiptURL];
     if ([[NSFileManager defaultManager] fileExistsAtPath:[receiptUrl path]])
     {
-        NSData *receiptData = [NSData dataWithContentsOfURL:receiptUrl];
-        json = [self base64forData:receiptData];
+        NSData *receipt = [NSData dataWithContentsOfURL:receiptUrl];
+        json = [receipt base64EncodedStringWithOptions:0];
     }
+
+    
+    //NSString *json = [[Globals i] encode:(uint8_t *)transaction.transactionReceipt.bytes length:transaction.transactionReceipt.length];
     
     NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
                           [[Globals i] gettPurchasedProduct],
@@ -1020,54 +997,65 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
          });
      }];
     
-	if([[[Globals i] gettPurchasedProduct] integerValue] < 9)
+	if ([[[Globals i] gettPurchasedProduct] integerValue] < 9)
 	{
-        if([[[Globals i] gettPurchasedProduct] integerValue] != 0)
+        if ([[[Globals i] gettPurchasedProduct] integerValue] != 0)
         {
             [self buyStaffSuccess:@"0":json];
         }
 	}
-	else if([[[Globals i] gettPurchasedProduct] integerValue] == 9)
+	else if ([[[Globals i] gettPurchasedProduct] integerValue] == 9)
 	{
 		[self buyStadiumSuccess:@"0":json];
 	}
-	else if([[[Globals i] gettPurchasedProduct] integerValue] == 10)
+	else if ([[[Globals i] gettPurchasedProduct] integerValue] == 10)
 	{
 		[self renameClubPurchaseSuccess:@"0":json];
 	}
-	else if([[[Globals i] gettPurchasedProduct] integerValue] == 13)
+	else if ([[[Globals i] gettPurchasedProduct] integerValue] == 13)
 	{
 		[self buyResetClub];
 	}
-	else if([[[Globals i] gettPurchasedProduct] integerValue] == 14)
+	else if ([[[Globals i] gettPurchasedProduct] integerValue] == 14)
 	{
         [self refillEnergySuccess:@"0":json];
 	}
-    else if([[[Globals i] gettPurchasedProduct] integerValue] == 1000) //Sale!
+    else if ([[[Globals i] gettPurchasedProduct] integerValue] == 1000) //Sale!
     {
-         NSString *wsurl2 = [NSString stringWithFormat:@"%@/RegisterSale/%@/%@/%@",
-                                WS_URL, [Globals i].wsSalesData[@"sale_id"], [[Globals i] UID], json];
-         
-         NSURL *url2 = [[NSURL alloc] initWithString:wsurl2];
-         NSString *returnValue2  = [[NSString alloc] initWithContentsOfURL:url2];
+        NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [Globals i].wsSalesData[@"sale_id"],
+                              @"error_id",
+                              [Globals i].UID,
+                              @"uid",
+                              json,
+                              @"json",
+                              nil];
         
-        if([returnValue2 isEqualToString:@"1"])
-        {
-            if([[Globals i] updateClubData]) //After buying effect
-            {
-                [[Globals i] closeAllTemplate];
-                [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
-            }
-            else
-            {
-                //Update failed
-                [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
-            }
-        }
-        else
-        {
-            //Webservice failed
-        }
+        NSString *service_name = @"PostRegisterSale";
+        [Globals postServerLoading:dict :service_name :^(BOOL success, NSData *data)
+         {
+             dispatch_async(dispatch_get_main_queue(), ^{// IMPORTANT - Only update the UI on the main thread
+                 
+                 if (success)
+                 {
+                     NSString *returnValue = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                     if ([returnValue isEqualToString:@"1"]) //Receipt Success
+                     {
+                         if ([[Globals i] updateClubData]) //After buying effect
+                         {
+                             [[Globals i] closeAllTemplate];
+                             [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
+                         }
+                         else
+                         {
+                             //Update failed
+                             [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
+                         }
+                     }
+                     
+                 }
+             });
+         }];
     }
 }
 

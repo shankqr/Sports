@@ -38468,8 +38468,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = FootballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "2c6f0080-a439-48ae-a4b4-05bc3f84a87a";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2c6f0080-a439-48ae-a4b4-05bc3f84a87a";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
@@ -38500,8 +38500,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = FootballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "05B3D15D-E286-4DB1-847E-5ADFF94B097A";
+				PROVISIONING_PROFILE = "2c6f0080-a439-48ae-a4b4-05bc3f84a87a";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "2c6f0080-a439-48ae-a4b4-05bc3f84a87a";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
@@ -38533,8 +38533,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = BaseballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "da080737-006f-4446-b4af-b7ada2d3a0f7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "da080737-006f-4446-b4af-b7ada2d3a0f7";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
@@ -38549,7 +38549,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Tapfantasy Sdn. Bhd.";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -38565,8 +38565,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = BaseballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9082FF07-4842-4F48-B178-37DECAE52C30";
+				PROVISIONING_PROFILE = "da080737-006f-4446-b4af-b7ada2d3a0f7";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "da080737-006f-4446-b4af-b7ada2d3a0f7";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
@@ -38598,8 +38598,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = BasketballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "fa81b9e9-f3a1-495e-be6d-9c3e31ba9910";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fa81b9e9-f3a1-495e-be6d-9c3e31ba9910";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
@@ -38630,8 +38630,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = BasketballFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BE57B82B-2903-4D66-BA24-106FBA6222F9";
+				PROVISIONING_PROFILE = "fa81b9e9-f3a1-495e-be6d-9c3e31ba9910";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "fa81b9e9-f3a1-495e-be6d-9c3e31ba9910";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
@@ -38663,8 +38663,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = HockeyFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "b156e5b6-41f5-4211-aeaf-51452308504b";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "b156e5b6-41f5-4211-aeaf-51452308504b";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
@@ -38695,8 +38695,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = HockeyFantasy;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "411D7229-AF4B-43A1-8743-622B7C302C78";
+				PROVISIONING_PROFILE = "b156e5b6-41f5-4211-aeaf-51452308504b";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "b156e5b6-41f5-4211-aeaf-51452308504b";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
@@ -38728,8 +38728,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = HockeyManager;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "e055ef42-67de-4572-ba26-fdfddf77e629";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e055ef42-67de-4572-ba26-fdfddf77e629";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
@@ -38760,8 +38760,8 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = HockeyManager;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5E6F22C0-BD6E-44AD-98DF-AF4FFB3FAC44";
+				PROVISIONING_PROFILE = "e055ef42-67de-4572-ba26-fdfddf77e629";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "e055ef42-67de-4572-ba26-fdfddf77e629";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "${SPARROW_SRC}/**";
 			};
