@@ -211,7 +211,7 @@
         
         bkg_width = bkg_width & ~1;
         bkg_height = bkg_height & ~1;
-
+        
         CGRect bkg_frame = CGRectMake(bkg_x, bkg_y, bkg_width, bkg_height);
         if (self.rowData[r1_bkg_expand] != nil && ![self.rowData[r1_bkg_expand] isEqualToString:@""])
         {
@@ -333,6 +333,7 @@
             font_type = DEFAULT_FONT_BOLD;
         }
         UIFont *font_ui = [UIFont fontWithName:font_type size:font_size];
+        [self.row2 setFont:font_ui];
         
         CGFloat r2_width = self.frame_view.size.width;
         CGFloat r2_height = 0.0f;
@@ -341,7 +342,6 @@
         
         CGRect r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
         [self.row2 setFrame:r2_frame];
-        [self.row2 setFont:font_ui];
         [self.row2 setText:self.rowData[r2]];
         [self.row2 sizeToFit];
         r2_height = self.row2.frame.size.height;
@@ -355,15 +355,16 @@
             self.rowData[r2_align] = @"1";
             self.rowData[r2_color] = @"2";
             
-            r2_height = self.btn.frame.size.height + CELL_CONTENT_SPACING;
+            height = self.btn.frame.size.height;
             
             //Adjust label to fit button nicely
             r2_x = CELL_CONTENT_SPACING;
             r2_y = r2_y + CELL_CONTENT_SPACING*2.0f;
             r2_width = r2_width - CELL_CONTENT_SPACING*2.0f;
-            
-            r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
         }
+        
+        r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
+        [self.row2 setFrame:r2_frame];
         
         //Grow the view to fit r2
         height = height + r2_height;
@@ -505,13 +506,13 @@
         CGFloat r2_y = height + r2_height;
         CGFloat r2_x = 0.0f;
         
-        CGRect r2_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
+        CGRect slider_frame = CGRectMake(r2_x, r2_y, r2_width, r2_height);
         
         if (self.slider == nil)
         {
             self.slider = [[DCFineTuneSlider alloc] initWithFrame:CGRectZero];
         }
-        [self.slider setFrame:r2_frame];
+        [self.slider setFrame:slider_frame];
         
         //Grow the view to fit r2
         height = height + 20.0f*SCALE_IPAD;

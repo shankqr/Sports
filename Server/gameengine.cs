@@ -267,7 +267,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -313,7 +313,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -347,7 +347,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -379,7 +379,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -402,7 +402,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1636,7 +1636,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 6 match_id, match_type_id, challenge_datetime, challenge_note, challenge_win, challenge_lose, challenge_draw, club_home, club_home_name, club_away, club_away_name FROM View_Match WHERE club_home_uid='" + uid + "' AND match_type_id=3 AND match_played=0 ORDER BY challenge_datetime DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1657,7 +1657,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 6 match_id, match_type_id, challenge_datetime, challenge_note, challenge_win, challenge_lose, challenge_draw, club_home, club_home_name, club_away, club_away_name FROM View_Match WHERE club_away_uid='" + uid + "' AND match_type_id=3 AND match_played=0 ORDER BY challenge_datetime DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1678,7 +1678,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 20 match_id, match_type_id, match_datetime, club_home, club_home_name, club_away, club_away_name, club_winner, club_loser, home_score, away_score, challenge_win, challenge_lose, spectators, ticket_sales FROM View_Match WHERE (club_home_uid = '" + uid + "' OR club_away_uid = '" + uid + "') AND match_played = 1 AND match_datetime > GETUTCDATE()-30 ORDER BY match_id DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1699,7 +1699,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 match_id, match_type_id, match_datetime, club_home, club_home_name, club_away, club_away_name, club_winner, club_loser, home_score, away_score FROM View_Match WHERE (club_home_uid = '" + uid + "' OR club_away_uid = '" + uid + "') AND match_played = 1 ORDER BY match_datetime DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1720,7 +1720,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 10 match_id, match_type_id, match_datetime, club_home, club_home_name, club_away, club_away_name FROM View_Match WHERE (club_home_uid = '" + uid + "' OR club_away_uid = '" + uid + "') AND match_type_id <> 3 AND match_played = 0 ORDER BY match_datetime ASC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -1741,7 +1741,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 match_id, match_type_id, match_datetime, club_home, club_home_name, club_away, club_away_name FROM View_Match WHERE (club_home_uid = '" + uid + "' OR club_away_uid = '" + uid + "') AND match_type_id <> 3 AND match_played = 0 ORDER BY match_datetime ASC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2569,7 +2569,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(@"SELECT * FROM event_solo WHERE event_starting < GETUTCDATE() AND event_active = 1 ORDER BY event_id DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2590,7 +2590,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(@"SELECT * FROM event_alliance WHERE event_starting < GETUTCDATE() AND event_active = 1 ORDER BY event_id DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2611,7 +2611,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(@"SELECT TOP(20) club_id, club_name, alliance_id, alliance_name, logo_pic, xp, xp_gain FROM View_ClubInfo ORDER BY xp_gain DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2632,7 +2632,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(@"SELECT TOP(20) * FROM View_AllianceEvent ORDER BY xp_gain DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2658,7 +2658,6 @@ public partial class GameEngine
         	
             using (SqlCommand cmd = new SqlCommand(@"SELECT TOP(20) club_id, club_name, alliance_id, alliance_name, logo_pic, xp, xp_history as xp_gain FROM View_ClubInfo ORDER BY xp_history DESC", cn))
             {
-                cmd.ExecuteNonQuery();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2684,7 +2683,6 @@ public partial class GameEngine
         	
             using (SqlCommand cmd = new SqlCommand(@"SELECT TOP(20) * FROM View_AllianceEventResult ORDER BY xp_gain DESC", cn))
             {
-                cmd.ExecuteNonQuery();
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2705,7 +2703,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(@"SELECT * FROM sales WHERE sale_starting < GETUTCDATE() AND sale_ending > GETUTCDATE() ORDER BY sale_id DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2761,7 +2759,7 @@ public partial class GameEngine
  					FROM View_Alliance WHERE total_members > 0 ORDER BY score DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2784,7 +2782,7 @@ public partial class GameEngine
                       cup_second_name, total_members, score, row_number() over (order by score desc) as rank FROM View_Alliance WHERE alliance_id=" + alliance_id, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2805,7 +2803,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, club_name, fan_members, xp, longitude, latitude, logo_pic FROM club WHERE alliance_id=" + alliance_id + " ORDER BY xp DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2846,7 +2844,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 30 * FROM alliance_event WHERE alliance_id=" + alliance_id + " ORDER BY event_id DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2867,7 +2865,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, max(club_name) club_name, SUM(currency_first) AS currency_first, SUM(currency_second) AS currency_second FROM alliance_donation WHERE alliance_id=" + alliance_id + " GROUP BY club_id ORDER BY currency_second DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -2959,7 +2957,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT DISTINCT club_id, club_name, alliance_id FROM alliance_apply WHERE alliance_id=" + alliance_id, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3352,7 +3350,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, date_found, club_name, coach_id, stadium, balance, revenue_sponsors, fan_members, xp, division, series, league_ranking, longitude, latitude, home_pic, away_pic, logo_pic, fb_pic, fb_name FROM club WHERE fb_id='" + fb_uid + "' OR fb_name='" + name + "'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3385,7 +3383,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(sql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3406,7 +3404,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 1 club_id, date_found, club_name, coach_id, stadium, balance, revenue_sponsors, fan_members, xp, division, series, league_ranking, longitude, latitude, home_pic, away_pic, logo_pic, fb_pic, fb_name FROM club WHERE uid LIKE '%" + fb_id + "'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3427,7 +3425,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM trophy WHERE club_id=" + club_id, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3448,7 +3446,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM player WHERE club_id=" + club_id + " ORDER BY player_id", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3475,7 +3473,7 @@ public partial class GameEngine
                 using (SqlCommand cmd = new SqlCommand(strSql, cn))
                 {
                     cn.Open();
-                    cmd.ExecuteNonQuery();
+
                     SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
                     adapter.Fill(dt);
@@ -3583,7 +3581,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3797,7 +3795,6 @@ public partial class GameEngine
 
                     using (SqlCommand cmd = new SqlCommand(strSql, cn))
                     {
-                        cmd.ExecuteNonQuery();
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable dt = new DataTable();
                         adapter.Fill(dt);
@@ -3837,7 +3834,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3867,7 +3864,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand(strSql, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3907,7 +3904,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM coach ORDER BY coach_star DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3928,7 +3925,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM product WHERE type!='Others' ORDER BY product_star DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3949,7 +3946,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM season", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3970,7 +3967,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM identifier WHERE game_id='" + game_id + "'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -3991,7 +3988,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM View_Club WHERE uid='" + uid + "'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4012,7 +4009,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM player WHERE player_id=" + player_id, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4033,7 +4030,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM player WHERE club_id=-1 ORDER BY player_goals DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4054,7 +4051,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM player WHERE club_id=0 ORDER BY player_goals DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4075,7 +4072,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM View_Match WHERE match_id = " + match_id, cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4096,7 +4093,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT match_id, match_type_id, match_played, match_datetime, season_week, club_home, club_home_name, club_away, club_away_name, club_winner, club_loser, home_score, away_score FROM View_Match WHERE division=" + division + " AND series=" + series + " AND match_type_id=1 ORDER BY season_week ASC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4117,7 +4114,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT MAX(season_week) FROM match WHERE match_type_id=2", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4138,7 +4135,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT match_id, match_type_id, match_played, match_datetime, season_week, club_home, club_home_name, club_away, club_away_name, club_winner, club_loser, home_score, away_score FROM View_Match WHERE season_week=" + round + " AND match_type_id=2 ORDER BY match_datetime DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4160,7 +4157,7 @@ public partial class GameEngine
         	using (SqlCommand cmd = new SqlCommand("SELECT match_id, match_type_id, match_played, match_datetime, season_week, club_home, club_home_name, club_away, club_away_name, club_winner, club_loser, home_score, away_score FROM View_Match WHERE season_week=" + round + " AND match_type_id=" + mtype.ToString() + " ORDER BY match_datetime DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4181,7 +4178,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT * FROM match_highlight WHERE match_id=" + match_id + " ORDER BY match_minute ASC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4202,7 +4199,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP " + top + " club_id, player_id, player_name, player_age, player_salary, player_value, COUNT(player_id) AS Score FROM View_MatchHighlightPlayer WHERE (highlight_type_id = 1 OR highlight_type_id = 2) AND division = " + division + " AND match_type_id = 1 GROUP BY player_id, player_name, player_age, player_salary, player_value, club_id ORDER BY Score DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4223,7 +4220,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP " + top + " club_id, player_id, player_name, player_age, player_salary, player_value, COUNT(player_id) AS Score FROM View_MatchHighlightPlayer WHERE (highlight_type_id = 1 OR highlight_type_id = 2) AND match_type_id = 2 GROUP BY player_id, player_name, player_age, player_salary, player_value, club_id ORDER BY Score DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4244,7 +4241,7 @@ public partial class GameEngine
 			using (SqlCommand cmd = new SqlCommand("SELECT * FROM View_ClubInfo WHERE club_name LIKE '%"+name+"%' AND club_name NOT LIKE 'CLUB %' ORDER BY xp DESC", cn))
 			{
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4265,7 +4262,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, club_name, fan_members, longitude, latitude, logo_pic FROM club WHERE uid != '0' AND club_name NOT LIKE 'CLUB %'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4286,7 +4283,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, club_name, fan_members, xp, longitude, latitude, logo_pic FROM club WHERE uid != '0' AND longitude != 0 AND latitude != 0 AND xp > 100 AND club_name NOT LIKE 'CLUB %'", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4307,7 +4304,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT club_id, club_name, division, xp, alliance_name, logo_pic FROM View_Club WHERE uid != '0' AND uid != '1' AND division < 4 ORDER BY division ASC, xp DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -4328,7 +4325,7 @@ public partial class GameEngine
             using (SqlCommand cmd = new SqlCommand("SELECT TOP 200 club_id, club_name, division, xp, alliance_name, logo_pic FROM View_Club WHERE uid != '0' AND uid != '1' ORDER BY xp DESC", cn))
             {
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
