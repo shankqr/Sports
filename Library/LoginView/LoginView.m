@@ -145,7 +145,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString *hexHmac = [fid HMACWithSecret:kSecret];
         NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
         NSString *email = self.emailText.text;
-        NSString* hexPassword = [self stringToHex:self.passwordText.text];
+        NSString *hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurl = [NSString stringWithFormat:@"%@/Login/%@/%@/%@/%@/%@/%@",
                            WS_URL, uid, email, hexPassword, [[Globals i] getLat], [[Globals i] getLongi], [[Globals i] getDtoken]];
@@ -189,7 +189,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         NSString *hexHmac = [fid HMACWithSecret:kSecret];
         NSString *uid = [[[Globals i] GameId] stringByAppendingString:hexHmac];
         NSString *email = self.emailText.text;
-        NSString* hexPassword = [self stringToHex:self.passwordText.text];
+        NSString *hexPassword = [self stringToHex:self.passwordText.text];
         
         NSString *wsurlreg = [NSString stringWithFormat:@"%@/Register2/%@/%@/%@/%@/%@/%@/%@/%@/%@/%@",
                               WS_URL, [[Globals i] GameId], uid, hexPassword, @"0", email, @"0", @"0", @"0", @"0", [[Globals i] getDtoken]];
