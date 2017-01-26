@@ -50,13 +50,18 @@
 #import "RankingView.h"
 #import "EventsView.h"
 #import "SearchView.h"
-#import "Sparrow.h"
-#import "Game.h"
-#import "Game_hockey.h"
 #import "SlotsView.h"
 #import "SalesView.h"
 #import "JobLevelup.h"
 #import "MailCompose.h"
+#import <Chartboost/Chartboost.h>
+#import "HelpshiftCore.h"
+#import "HelpshiftSupport.h"
+
+//Sparrow shit
+//#import <Sparrow/Sparrow.h>
+//#import "Game.h"
+//#import "Game_hockey.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
 UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
@@ -66,6 +71,9 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)startUp //Called when app opens for the first time
 {
+    // Method to cache MoreApps on iOS
+    [Chartboost cacheMoreApps:CBLocationDefault];
+    
     self.isShowingLogin = NO;
     
     self.title = @"MainView";
@@ -1299,42 +1307,14 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 {
     [[Globals i] updateMatchHighlightsData:[Globals i].challengeMatchId];
     
-    if ([[[Globals i] GameType] isEqualToString:@"football"])
-    {
-        [SPAudioEngine start];
-        self.sparrowView = [[SPViewController alloc] init];
-        self.sparrowView.multitouchEnabled = YES;
-        [self.sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:NO];
-        
-        [[Globals i] showTemplate:@[self.sparrowView] :@"Live Match" :2];
-    }
-    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
-    {
-        [SPAudioEngine start];
-        self.sparrowView = [[SPViewController alloc] init];
-        self.sparrowView.multitouchEnabled = YES;
-        [self.sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:NO];
-        
-        [[Globals i] showTemplate:@[self.sparrowView] :@"Live Match" :2];
-    }
-    else
-    {
-        [self showMatchReport];
-    }
+    [self showMatchReport];
     
     [[Globals i] removeLoadingAlert];
 }
 
 - (void)removeLiveMatch
 {
-	if(self.sparrowView != nil)
-	{
-		[self.sparrowView.view removeFromSuperview];
-        
-        [[Globals i] closeTemplate];
-        
-        [self showMatchReport];
-    }
+
 }
 
 - (void)reportMatch
@@ -2001,17 +1981,17 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 		}
         case 21:
 		{
-            [self mailFriends];
+            [self inviteFriends];
 			break;
 		}
 		case 22:
 		{
-            [self mailDeveloper];
+            [self emailToDeveloper];
 			break;
 		}
 		case 23:
 		{
-			[[Globals i] showMoreGames];
+			[self showMoreGames];
 			break;
 		}
         case 24:
@@ -2022,34 +2002,47 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	}
 }
 
-- (void)mailDeveloper
+- (void)emailToDeveloper
 {
-    NSString *subject = [NSString stringWithFormat:@"%@(Version %@)",
-                        GAME_NAME,
-                        GAME_VERSION];
-    
-    if([MFMailComposeViewController canSendMail])
-    {
-        MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
-        mailCont.mailComposeDelegate = self;
-        [mailCont setToRecipients:[NSArray arrayWithObject:@"support@tapfantasy.com"]];
-        [mailCont setSubject:subject];
-        [mailCont setMessageBody:@"" isHTML:NO];
-        [self presentViewController:mailCont animated:YES completion:nil];
-    }
+    [HelpshiftSupport showConversation:self withOptions:nil];
 }
 
-- (void)mailFriends
+- (void)showMoreGames
+{
+    [Chartboost showMoreApps:self location:CBLocationDefault];
+}
+
+- (void)inviteFriends
 {
     NSString *appUrl = [Globals i].wsProductIdentifiers[@"url_app"];
     NSString *m = [NSString stringWithFormat:@"Play the best sports manager game! Download here: %@ Download now and receive 25 Diamonds FREE!", appUrl];
+    NSString *m_encoded = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(
+                                                                                                NULL,
+                                                                                                (CFStringRef)m,
+                                                                                                NULL,
+                                                                                                (CFStringRef)@"!*'();:@&=+$,/?%#[]",
+                                                                                                kCFStringEncodingUTF8 ));
     
-    if([MFMailComposeViewController canSendMail])
+    NSString *str_twitter = [NSString stringWithFormat:@"twitter://post?message=%@", m_encoded];
+    NSURL *twitterURL = [NSURL URLWithString:str_twitter];
+    
+    
+    
+    NSString *str_whatsapp = [NSString stringWithFormat:@"whatsapp://send?text=%@", m_encoded];
+    NSURL *whatsappURL = [NSURL URLWithString:str_whatsapp];
+
+    if ([[UIApplication sharedApplication] canOpenURL:whatsappURL])
+    {
+        [[UIApplication sharedApplication] openURL:whatsappURL];
+    }
+    else if ([[UIApplication sharedApplication] canOpenURL:twitterURL])
+    {
+        [[UIApplication sharedApplication] openURL:twitterURL];
+    }
+    else if ([MFMailComposeViewController canSendMail])
     {
         MFMailComposeViewController *mailCont = [[MFMailComposeViewController alloc] init];
         mailCont.mailComposeDelegate = self;
-        //[mailCont setToRecipients:[NSArray arrayWithObject:@"support@tapfantasy.com"]];
-        //[mailCont setSubject:@""];
         [mailCont setMessageBody:m isHTML:NO];
         [self presentViewController:mailCont animated:YES completion:nil];
     }

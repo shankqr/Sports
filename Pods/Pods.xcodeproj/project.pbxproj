@@ -1,0 +1,868 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F815DCCAEDC542722AE3ECA13C5476B /* Pods-FootballFantasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = EBE6A220B59CF1C5F64566277086BD24 /* Pods-FootballFantasy-dummy.m */; };
+		37CC375170B4B78CF3DBDD6BCE7391B5 /* Pods-HockeyFantasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D3A37EDD2413B67850AB317E862D9C /* Pods-HockeyFantasy-dummy.m */; };
+		48C44E3134D9D1B260AAB381336AECF0 /* Pods-BaseballFantasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 78027E8CE7BBF582AD328528BC693D1F /* Pods-BaseballFantasy-dummy.m */; };
+		6A17311451080E558FF9E810268899B1 /* Pods-BasketballFantasy-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 08B024EC34588770E6F025C0336D2A73 /* Pods-BasketballFantasy-dummy.m */; };
+		6BDF2DE3912F393565CA110A6E5187AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		B376810FB38196D11D85A71D479D3550 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		C5E72FA5B2DAE3F9F2CA2AB95397437C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		CC57A4B457F2B4797EF4DB49103AB621 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+		CC8305AF4EA7B4D2B9A6F35CE329594E /* Pods-HockeyManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DA71C9D4A12D2AEFBEEDF3ACB1FBB9B9 /* Pods-HockeyManager-dummy.m */; };
+		D8C18ADBB21412F76E6AA2AAE7EBC76A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04F2B634127BF0456A2C48092ADDCEB4 /* Pods-FootballFantasy-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-FootballFantasy-acknowledgements.markdown"; sourceTree = "<group>"; };
+		05FD7DCAB4CAB7BC2F2AA70B93B76833 /* CLSAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSAttributes.h; path = iOS/Crashlytics.framework/Headers/CLSAttributes.h; sourceTree = "<group>"; };
+		060D9143476952CB4443B3F9B41C0FFE /* Pods-HockeyFantasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HockeyFantasy.release.xcconfig"; sourceTree = "<group>"; };
+		08B024EC34588770E6F025C0336D2A73 /* Pods-BasketballFantasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BasketballFantasy-dummy.m"; sourceTree = "<group>"; };
+		0AF4D49752B74E6A181E88C2DAFEC042 /* Fabric.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Fabric.h; path = iOS/Fabric.framework/Headers/Fabric.h; sourceTree = "<group>"; };
+		194EDE89F2C6B3E73C103F5C96AE440F /* libPods-HockeyManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-HockeyManager.a"; path = "libPods-HockeyManager.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2857D4F5F34305490F91017E7D878BD7 /* Pods-HockeyFantasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HockeyFantasy.debug.xcconfig"; sourceTree = "<group>"; };
+		2E10AA9E4F414DED21103F5B85A26E33 /* Pods-BaseballFantasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BaseballFantasy.release.xcconfig"; sourceTree = "<group>"; };
+		2FF0EB6AE84FDF5141AD13F157F039D5 /* Pods-HockeyManager-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HockeyManager-frameworks.sh"; sourceTree = "<group>"; };
+		325981AA1A721C385874596BE1C6CDEF /* HelpshiftCore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HelpshiftCore.h; path = "helpshift-sdk-ios-v5.9.1/HelpshiftCore.h"; sourceTree = "<group>"; };
+		341E78F5886BD544FAB9C634A50C6B83 /* CLSReport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSReport.h; path = iOS/Crashlytics.framework/Headers/CLSReport.h; sourceTree = "<group>"; };
+		34395C892D5E462243A7FF3BBEEB9144 /* Pods-BaseballFantasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BaseballFantasy.debug.xcconfig"; sourceTree = "<group>"; };
+		3B2C93D9AF6143803CFF0E1ABF59AB38 /* Pods-BaseballFantasy-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BaseballFantasy-acknowledgements.markdown"; sourceTree = "<group>"; };
+		3E72470F7E6848DCB60B9AF0F871D692 /* Answers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Answers.h; path = iOS/Crashlytics.framework/Headers/Answers.h; sourceTree = "<group>"; };
+		4ECE55F636F99C5E228E45F230985D0D /* Pods-BasketballFantasy-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasketballFantasy-resources.sh"; sourceTree = "<group>"; };
+		502A50893EF6D917DDCEB93BB5B4DDE8 /* Pods-FootballFantasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FootballFantasy.debug.xcconfig"; sourceTree = "<group>"; };
+		502EF0135824B189140CE2D433932220 /* HelpshiftInbox.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HelpshiftInbox.h; path = "helpshift-sdk-ios-v5.9.1/HelpshiftInbox.h"; sourceTree = "<group>"; };
+		544E974EF8A3452B3431CE98051C10AD /* HsLocalization.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = HsLocalization.bundle; path = "helpshift-sdk-ios-v5.9.1/HsLocalization.bundle"; sourceTree = "<group>"; };
+		5A90F801216E292A8CF578BE53E7A28F /* Pods-FootballFantasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-FootballFantasy.release.xcconfig"; sourceTree = "<group>"; };
+		5F59EFD67237E6D8ABF35D330FAF8F67 /* Pods-HockeyFantasy-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HockeyFantasy-acknowledgements.plist"; sourceTree = "<group>"; };
+		65D3A37EDD2413B67850AB317E862D9C /* Pods-HockeyFantasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HockeyFantasy-dummy.m"; sourceTree = "<group>"; };
+		6D9EF4F4482C8E85CFC1A4745C40F6AF /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Fabric.framework; path = iOS/Fabric.framework; sourceTree = "<group>"; };
+		75815B4D0CA8ED5E83F2DA6AEAC379FF /* Pods-FootballFantasy-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-FootballFantasy-acknowledgements.plist"; sourceTree = "<group>"; };
+		77CC85FBB6697E300B917052F87F9BA6 /* Pods-BaseballFantasy-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseballFantasy-resources.sh"; sourceTree = "<group>"; };
+		78027E8CE7BBF582AD328528BC693D1F /* Pods-BaseballFantasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BaseballFantasy-dummy.m"; sourceTree = "<group>"; };
+		7AB201AED6D910D2A5F83FBF501ADFEB /* libPods-HockeyFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-HockeyFantasy.a"; path = "libPods-HockeyFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8212B383C2AF7EDE32C2DEBBEB939669 /* Crashlytics.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Crashlytics.h; path = iOS/Crashlytics.framework/Headers/Crashlytics.h; sourceTree = "<group>"; };
+		839CED6D26F39F05016090CAFB5C9211 /* HelpshiftSupport.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HelpshiftSupport.h; path = "helpshift-sdk-ios-v5.9.1/HelpshiftSupport.h"; sourceTree = "<group>"; };
+		872B336563F75EA6BA97669915C547DD /* Pods-BasketballFantasy-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BasketballFantasy-frameworks.sh"; sourceTree = "<group>"; };
+		875872BDE3F326C9BC2537E21DB1C81C /* FABAttributes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FABAttributes.h; path = iOS/Fabric.framework/Headers/FABAttributes.h; sourceTree = "<group>"; };
+		8B33CA61A806851F69AEB9B1372BAADD /* Pods-BaseballFantasy-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BaseballFantasy-acknowledgements.plist"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9B3EE9CDD25EEDBF633491603F37507C /* Pods-BasketballFantasy-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BasketballFantasy-acknowledgements.plist"; sourceTree = "<group>"; };
+		9EA77025601203D27E5F53558833F000 /* Pods-BaseballFantasy-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseballFantasy-frameworks.sh"; sourceTree = "<group>"; };
+		9F84F72A7C25840AEE95E3A7AD4FB897 /* libPods-BasketballFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BasketballFantasy.a"; path = "libPods-BasketballFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A59DE12E9956F3ECF92D279834FF18FC /* Pods-FootballFantasy-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FootballFantasy-frameworks.sh"; sourceTree = "<group>"; };
+		A71AB29B9C52087F5BFFB9940AB8884D /* Pods-HockeyFantasy-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HockeyFantasy-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B18F577881E2871FA06BF239AF850883 /* Pods-HockeyManager-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HockeyManager-resources.sh"; sourceTree = "<group>"; };
+		B24B281DF7C30223EB2E98BEFAAD2E54 /* libPods-FootballFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-FootballFantasy.a"; path = "libPods-FootballFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B38D4FE33E9BE876E1492A4D3239D8D7 /* Pods-HockeyManager-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-HockeyManager-acknowledgements.plist"; sourceTree = "<group>"; };
+		B3B55BB6769798399CB3A4712945BD73 /* Pods-BasketballFantasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasketballFantasy.release.xcconfig"; sourceTree = "<group>"; };
+		B4B28D257B519FF418DC1FE5E76FEB8F /* Pods-FootballFantasy-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-FootballFantasy-resources.sh"; sourceTree = "<group>"; };
+		B8DAEF34AC98B04107B447B02BB39675 /* HsUIResourceBundle.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = HsUIResourceBundle.bundle; path = "helpshift-sdk-ios-v5.9.1/HsUIResourceBundle.bundle"; sourceTree = "<group>"; };
+		BD672C3E388957D51EAEB331239F4F55 /* HelpshiftConfigDark.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = HelpshiftConfigDark.plist; path = "helpshift-sdk-ios-v5.9.1/HSThemes/HelpshiftConfigDark.plist"; sourceTree = "<group>"; };
+		C1A7C79F5354B0A7AE3E0E2B77C678FA /* libPods-BaseballFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BaseballFantasy.a"; path = "libPods-BaseballFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C72656B9861C07AE909E3B8020C4C4DD /* Pods-BasketballFantasy-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BasketballFantasy-acknowledgements.markdown"; sourceTree = "<group>"; };
+		C79800F4E5E75733D8E9E5F5C2F1BC96 /* Pods-HockeyFantasy-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HockeyFantasy-resources.sh"; sourceTree = "<group>"; };
+		C9E44AEE6993FFE7E4EE18449445B206 /* Pods-HockeyFantasy-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-HockeyFantasy-frameworks.sh"; sourceTree = "<group>"; };
+		CB26C71664685CFD566536947EC35239 /* HelpshiftAll.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HelpshiftAll.h; path = "helpshift-sdk-ios-v5.9.1/HelpshiftAll.h"; sourceTree = "<group>"; };
+		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CC5F031B3FC84B56F9F1947DA7E3460B /* CLSLogging.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSLogging.h; path = iOS/Crashlytics.framework/Headers/CLSLogging.h; sourceTree = "<group>"; };
+		CFB0D886D23F936FA48C5972E76765C1 /* CLSStackFrame.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CLSStackFrame.h; path = iOS/Crashlytics.framework/Headers/CLSStackFrame.h; sourceTree = "<group>"; };
+		D23F9B92CE653A8A6719D163CCA6766E /* Helpshift.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Helpshift.h; path = "helpshift-sdk-ios-v5.9.1/Helpshift.h"; sourceTree = "<group>"; };
+		D8782F4B800BB93FEBCD3965323EB1BC /* Pods-BasketballFantasy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BasketballFantasy.debug.xcconfig"; sourceTree = "<group>"; };
+		D89C2F82C0E276C759C505A2007821CB /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = iOS/Crashlytics.framework; sourceTree = "<group>"; };
+		D8EA5F2866CB8210980D6002542A18B9 /* Pods-HockeyManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HockeyManager.debug.xcconfig"; sourceTree = "<group>"; };
+		DA71C9D4A12D2AEFBEEDF3ACB1FBB9B9 /* Pods-HockeyManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-HockeyManager-dummy.m"; sourceTree = "<group>"; };
+		EAF6525E55C40DB231E2DE028A2798A6 /* Pods-HockeyManager-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-HockeyManager-acknowledgements.markdown"; sourceTree = "<group>"; };
+		EBAEAD392F65D56F728926E46BED9934 /* HelpshiftCampaigns.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = HelpshiftCampaigns.h; path = "helpshift-sdk-ios-v5.9.1/HelpshiftCampaigns.h"; sourceTree = "<group>"; };
+		EBE6A220B59CF1C5F64566277086BD24 /* Pods-FootballFantasy-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-FootballFantasy-dummy.m"; sourceTree = "<group>"; };
+		ED69E0FEAAB7C72F1EF520EF8DF34651 /* HelpshiftConfig.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = HelpshiftConfig.plist; path = "helpshift-sdk-ios-v5.9.1/HSThemes/HelpshiftConfig.plist"; sourceTree = "<group>"; };
+		EDA098AC3C87C20166EC2D27DC621BC8 /* ANSCompatibility.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ANSCompatibility.h; path = iOS/Crashlytics.framework/Headers/ANSCompatibility.h; sourceTree = "<group>"; };
+		F4F059CFEAA0C8EFBFF6863EA6904546 /* Pods-HockeyManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-HockeyManager.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3C9147A332545997EE4EE6707E29EF05 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6BDF2DE3912F393565CA110A6E5187AC /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4DF3C9FB8CA31FD5639BF85650043A62 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D8C18ADBB21412F76E6AA2AAE7EBC76A /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C7CF4B74920E9561F100FC0652CDB75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B376810FB38196D11D85A71D479D3550 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		618700D984A6199168A4B0DCE6DDC275 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5E72FA5B2DAE3F9F2CA2AB95397437C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D94157721FA186A4A3635A2BD3E699C7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC57A4B457F2B4797EF4DB49103AB621 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0AE4F58EB403AF7856BCFE9A7C1AD3E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D89C2F82C0E276C759C505A2007821CB /* Crashlytics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0DA6924F0253F8BB1AC2405F8FD1BAB6 /* Fabric */ = {
+			isa = PBXGroup;
+			children = (
+				875872BDE3F326C9BC2537E21DB1C81C /* FABAttributes.h */,
+				0AF4D49752B74E6A181E88C2DAFEC042 /* Fabric.h */,
+				1EDCC0E98674017034EFE2CB879E74B7 /* Frameworks */,
+			);
+			name = Fabric;
+			path = Fabric;
+			sourceTree = "<group>";
+		};
+		1EDCC0E98674017034EFE2CB879E74B7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D9EF4F4482C8E85CFC1A4745C40F6AF /* Fabric.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2D0C7876795CFD72299146C05AD3B882 /* Crashlytics */ = {
+			isa = PBXGroup;
+			children = (
+				EDA098AC3C87C20166EC2D27DC621BC8 /* ANSCompatibility.h */,
+				3E72470F7E6848DCB60B9AF0F871D692 /* Answers.h */,
+				05FD7DCAB4CAB7BC2F2AA70B93B76833 /* CLSAttributes.h */,
+				CC5F031B3FC84B56F9F1947DA7E3460B /* CLSLogging.h */,
+				341E78F5886BD544FAB9C634A50C6B83 /* CLSReport.h */,
+				CFB0D886D23F936FA48C5972E76765C1 /* CLSStackFrame.h */,
+				8212B383C2AF7EDE32C2DEBBEB939669 /* Crashlytics.h */,
+				0AE4F58EB403AF7856BCFE9A7C1AD3E8 /* Frameworks */,
+			);
+			name = Crashlytics;
+			path = Crashlytics;
+			sourceTree = "<group>";
+		};
+		4FC562E194D6E377EF0CF107658B8FDC /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				ED69E0FEAAB7C72F1EF520EF8DF34651 /* HelpshiftConfig.plist */,
+				BD672C3E388957D51EAEB331239F4F55 /* HelpshiftConfigDark.plist */,
+				544E974EF8A3452B3431CE98051C10AD /* HsLocalization.bundle */,
+				B8DAEF34AC98B04107B447B02BB39675 /* HsUIResourceBundle.bundle */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		52AE76BFF2BBC6956AB55DE3245C0AE1 /* Pods-HockeyManager */ = {
+			isa = PBXGroup;
+			children = (
+				EAF6525E55C40DB231E2DE028A2798A6 /* Pods-HockeyManager-acknowledgements.markdown */,
+				B38D4FE33E9BE876E1492A4D3239D8D7 /* Pods-HockeyManager-acknowledgements.plist */,
+				DA71C9D4A12D2AEFBEEDF3ACB1FBB9B9 /* Pods-HockeyManager-dummy.m */,
+				2FF0EB6AE84FDF5141AD13F157F039D5 /* Pods-HockeyManager-frameworks.sh */,
+				B18F577881E2871FA06BF239AF850883 /* Pods-HockeyManager-resources.sh */,
+				D8EA5F2866CB8210980D6002542A18B9 /* Pods-HockeyManager.debug.xcconfig */,
+				F4F059CFEAA0C8EFBFF6863EA6904546 /* Pods-HockeyManager.release.xcconfig */,
+			);
+			name = "Pods-HockeyManager";
+			path = "Target Support Files/Pods-HockeyManager";
+			sourceTree = "<group>";
+		};
+		60B9BC3A7AE1622089A7C3712A5403D0 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A7AF3451101E9B6DF87430530351E6C0 /* Pods-BaseballFantasy */,
+				828096B15807E4E0EA32017BA909FBDB /* Pods-BasketballFantasy */,
+				D3365DF6FC8C63FC76567C2B48EA0630 /* Pods-FootballFantasy */,
+				D5DB7DE8054A39AFA3A3D5C746A16A0E /* Pods-HockeyFantasy */,
+				52AE76BFF2BBC6956AB55DE3245C0AE1 /* Pods-HockeyManager */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		72F675ED42EA2F2462F4E611E91957A3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C1A7C79F5354B0A7AE3E0E2B77C678FA /* libPods-BaseballFantasy.a */,
+				9F84F72A7C25840AEE95E3A7AD4FB897 /* libPods-BasketballFantasy.a */,
+				B24B281DF7C30223EB2E98BEFAAD2E54 /* libPods-FootballFantasy.a */,
+				7AB201AED6D910D2A5F83FBF501ADFEB /* libPods-HockeyFantasy.a */,
+				194EDE89F2C6B3E73C103F5C96AE440F /* libPods-HockeyManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				B066EB90954FC1F67E4E2F21F246800D /* Pods */,
+				72F675ED42EA2F2462F4E611E91957A3 /* Products */,
+				60B9BC3A7AE1622089A7C3712A5403D0 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		828096B15807E4E0EA32017BA909FBDB /* Pods-BasketballFantasy */ = {
+			isa = PBXGroup;
+			children = (
+				C72656B9861C07AE909E3B8020C4C4DD /* Pods-BasketballFantasy-acknowledgements.markdown */,
+				9B3EE9CDD25EEDBF633491603F37507C /* Pods-BasketballFantasy-acknowledgements.plist */,
+				08B024EC34588770E6F025C0336D2A73 /* Pods-BasketballFantasy-dummy.m */,
+				872B336563F75EA6BA97669915C547DD /* Pods-BasketballFantasy-frameworks.sh */,
+				4ECE55F636F99C5E228E45F230985D0D /* Pods-BasketballFantasy-resources.sh */,
+				D8782F4B800BB93FEBCD3965323EB1BC /* Pods-BasketballFantasy.debug.xcconfig */,
+				B3B55BB6769798399CB3A4712945BD73 /* Pods-BasketballFantasy.release.xcconfig */,
+			);
+			name = "Pods-BasketballFantasy";
+			path = "Target Support Files/Pods-BasketballFantasy";
+			sourceTree = "<group>";
+		};
+		A7AF3451101E9B6DF87430530351E6C0 /* Pods-BaseballFantasy */ = {
+			isa = PBXGroup;
+			children = (
+				3B2C93D9AF6143803CFF0E1ABF59AB38 /* Pods-BaseballFantasy-acknowledgements.markdown */,
+				8B33CA61A806851F69AEB9B1372BAADD /* Pods-BaseballFantasy-acknowledgements.plist */,
+				78027E8CE7BBF582AD328528BC693D1F /* Pods-BaseballFantasy-dummy.m */,
+				9EA77025601203D27E5F53558833F000 /* Pods-BaseballFantasy-frameworks.sh */,
+				77CC85FBB6697E300B917052F87F9BA6 /* Pods-BaseballFantasy-resources.sh */,
+				34395C892D5E462243A7FF3BBEEB9144 /* Pods-BaseballFantasy.debug.xcconfig */,
+				2E10AA9E4F414DED21103F5B85A26E33 /* Pods-BaseballFantasy.release.xcconfig */,
+			);
+			name = "Pods-BaseballFantasy";
+			path = "Target Support Files/Pods-BaseballFantasy";
+			sourceTree = "<group>";
+		};
+		B066EB90954FC1F67E4E2F21F246800D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2D0C7876795CFD72299146C05AD3B882 /* Crashlytics */,
+				0DA6924F0253F8BB1AC2405F8FD1BAB6 /* Fabric */,
+				B6D522BE781FA20F4F1B136D36A670FF /* Helpshift */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B6D522BE781FA20F4F1B136D36A670FF /* Helpshift */ = {
+			isa = PBXGroup;
+			children = (
+				D23F9B92CE653A8A6719D163CCA6766E /* Helpshift.h */,
+				CB26C71664685CFD566536947EC35239 /* HelpshiftAll.h */,
+				EBAEAD392F65D56F728926E46BED9934 /* HelpshiftCampaigns.h */,
+				325981AA1A721C385874596BE1C6CDEF /* HelpshiftCore.h */,
+				502EF0135824B189140CE2D433932220 /* HelpshiftInbox.h */,
+				839CED6D26F39F05016090CAFB5C9211 /* HelpshiftSupport.h */,
+				4FC562E194D6E377EF0CF107658B8FDC /* Resources */,
+			);
+			name = Helpshift;
+			path = Helpshift;
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D3365DF6FC8C63FC76567C2B48EA0630 /* Pods-FootballFantasy */ = {
+			isa = PBXGroup;
+			children = (
+				04F2B634127BF0456A2C48092ADDCEB4 /* Pods-FootballFantasy-acknowledgements.markdown */,
+				75815B4D0CA8ED5E83F2DA6AEAC379FF /* Pods-FootballFantasy-acknowledgements.plist */,
+				EBE6A220B59CF1C5F64566277086BD24 /* Pods-FootballFantasy-dummy.m */,
+				A59DE12E9956F3ECF92D279834FF18FC /* Pods-FootballFantasy-frameworks.sh */,
+				B4B28D257B519FF418DC1FE5E76FEB8F /* Pods-FootballFantasy-resources.sh */,
+				502A50893EF6D917DDCEB93BB5B4DDE8 /* Pods-FootballFantasy.debug.xcconfig */,
+				5A90F801216E292A8CF578BE53E7A28F /* Pods-FootballFantasy.release.xcconfig */,
+			);
+			name = "Pods-FootballFantasy";
+			path = "Target Support Files/Pods-FootballFantasy";
+			sourceTree = "<group>";
+		};
+		D5DB7DE8054A39AFA3A3D5C746A16A0E /* Pods-HockeyFantasy */ = {
+			isa = PBXGroup;
+			children = (
+				A71AB29B9C52087F5BFFB9940AB8884D /* Pods-HockeyFantasy-acknowledgements.markdown */,
+				5F59EFD67237E6D8ABF35D330FAF8F67 /* Pods-HockeyFantasy-acknowledgements.plist */,
+				65D3A37EDD2413B67850AB317E862D9C /* Pods-HockeyFantasy-dummy.m */,
+				C9E44AEE6993FFE7E4EE18449445B206 /* Pods-HockeyFantasy-frameworks.sh */,
+				C79800F4E5E75733D8E9E5F5C2F1BC96 /* Pods-HockeyFantasy-resources.sh */,
+				2857D4F5F34305490F91017E7D878BD7 /* Pods-HockeyFantasy.debug.xcconfig */,
+				060D9143476952CB4443B3F9B41C0FFE /* Pods-HockeyFantasy.release.xcconfig */,
+			);
+			name = "Pods-HockeyFantasy";
+			path = "Target Support Files/Pods-HockeyFantasy";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A9ECFC3A89E6339C8AABF77690DFB73A /* Pods-HockeyManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ACFA622764FB117237E8E48E260E3F58 /* Build configuration list for PBXNativeTarget "Pods-HockeyManager" */;
+			buildPhases = (
+				1DCD7B125724F6F057B57F7B9AFE3926 /* Sources */,
+				D94157721FA186A4A3635A2BD3E699C7 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-HockeyManager";
+			productName = "Pods-HockeyManager";
+			productReference = 194EDE89F2C6B3E73C103F5C96AE440F /* libPods-HockeyManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		ACC87449A5BE811DB21C6C44E4142DDC /* Pods-BaseballFantasy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CB60F1845DAEF76A850A8F509B84B86 /* Build configuration list for PBXNativeTarget "Pods-BaseballFantasy" */;
+			buildPhases = (
+				3F4AD8C4E0CE6FCF78711D021EE3E9F5 /* Sources */,
+				5C7CF4B74920E9561F100FC0652CDB75 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-BaseballFantasy";
+			productName = "Pods-BaseballFantasy";
+			productReference = C1A7C79F5354B0A7AE3E0E2B77C678FA /* libPods-BaseballFantasy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		B1AB5A5C98A1457FC2F6FE5287BF4E50 /* Pods-HockeyFantasy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58273C89731ECA7EF6D2A2DF7D4D7ED3 /* Build configuration list for PBXNativeTarget "Pods-HockeyFantasy" */;
+			buildPhases = (
+				491F0FF2C5B31FCFCA2FF9FD3F6E82D8 /* Sources */,
+				3C9147A332545997EE4EE6707E29EF05 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-HockeyFantasy";
+			productName = "Pods-HockeyFantasy";
+			productReference = 7AB201AED6D910D2A5F83FBF501ADFEB /* libPods-HockeyFantasy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		C96C1C3C29D2E3A0CBE11572132402C7 /* Pods-FootballFantasy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1783B0D91DA271B3325017F51EFE1AF8 /* Build configuration list for PBXNativeTarget "Pods-FootballFantasy" */;
+			buildPhases = (
+				D34D81F7CC543CF6714027958447E4C1 /* Sources */,
+				4DF3C9FB8CA31FD5639BF85650043A62 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-FootballFantasy";
+			productName = "Pods-FootballFantasy";
+			productReference = B24B281DF7C30223EB2E98BEFAAD2E54 /* libPods-FootballFantasy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		F2E80A9F293C406CD1C88170B322F609 /* Pods-BasketballFantasy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FB59FC6F453CB876EA7965A20A9C71DF /* Build configuration list for PBXNativeTarget "Pods-BasketballFantasy" */;
+			buildPhases = (
+				C1255CEFD617EE39065627372B33B5CA /* Sources */,
+				618700D984A6199168A4B0DCE6DDC275 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-BasketballFantasy";
+			productName = "Pods-BasketballFantasy";
+			productReference = 9F84F72A7C25840AEE95E3A7AD4FB897 /* libPods-BasketballFantasy.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0700;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 72F675ED42EA2F2462F4E611E91957A3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ACC87449A5BE811DB21C6C44E4142DDC /* Pods-BaseballFantasy */,
+				F2E80A9F293C406CD1C88170B322F609 /* Pods-BasketballFantasy */,
+				C96C1C3C29D2E3A0CBE11572132402C7 /* Pods-FootballFantasy */,
+				B1AB5A5C98A1457FC2F6FE5287BF4E50 /* Pods-HockeyFantasy */,
+				A9ECFC3A89E6339C8AABF77690DFB73A /* Pods-HockeyManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1DCD7B125724F6F057B57F7B9AFE3926 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC8305AF4EA7B4D2B9A6F35CE329594E /* Pods-HockeyManager-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3F4AD8C4E0CE6FCF78711D021EE3E9F5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48C44E3134D9D1B260AAB381336AECF0 /* Pods-BaseballFantasy-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		491F0FF2C5B31FCFCA2FF9FD3F6E82D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37CC375170B4B78CF3DBDD6BCE7391B5 /* Pods-HockeyFantasy-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C1255CEFD617EE39065627372B33B5CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A17311451080E558FF9E810268899B1 /* Pods-BasketballFantasy-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D34D81F7CC543CF6714027958447E4C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F815DCCAEDC542722AE3ECA13C5476B /* Pods-FootballFantasy-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		015A368F878AC3E2CEAE21DDE8026304 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		0534384D3C4121248B7E83F03244E115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E10AA9E4F414DED21103F5B85A26E33 /* Pods-BaseballFantasy.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		2016E80B8572070BDE75EFDE1A6873F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F4F059CFEAA0C8EFBFF6863EA6904546 /* Pods-HockeyManager.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		44CDBB6D11DE06DB64D6268622BDC47E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		5A1D3F454762FA357BC858C5B6E103AF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8EA5F2866CB8210980D6002542A18B9 /* Pods-HockeyManager.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		728D3E6D4860C76CC4608068341B244E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D8782F4B800BB93FEBCD3965323EB1BC /* Pods-BasketballFantasy.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		7515BB9FE426B1D17A8F68205142504F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 502A50893EF6D917DDCEB93BB5B4DDE8 /* Pods-FootballFantasy.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8EB0B5A5FACE7A2E5D174F5A383ACDBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B3B55BB6769798399CB3A4712945BD73 /* Pods-BasketballFantasy.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		925356B6D212538F2495BA3421EDB150 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 34395C892D5E462243A7FF3BBEEB9144 /* Pods-BaseballFantasy.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		A7AC56883DBECC5EFA1CFEC8B9EDAB59 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A90F801216E292A8CF578BE53E7A28F /* Pods-FootballFantasy.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		B2FCB748912239A45A16D11533CDDAC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 060D9143476952CB4443B3F9B41C0FFE /* Pods-HockeyFantasy.release.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		DB1F9D3A516CEEB6B97015F926053DCF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2857D4F5F34305490F91017E7D878BD7 /* Pods-HockeyFantasy.debug.xcconfig */;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1783B0D91DA271B3325017F51EFE1AF8 /* Build configuration list for PBXNativeTarget "Pods-FootballFantasy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7515BB9FE426B1D17A8F68205142504F /* Debug */,
+				A7AC56883DBECC5EFA1CFEC8B9EDAB59 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				015A368F878AC3E2CEAE21DDE8026304 /* Debug */,
+				44CDBB6D11DE06DB64D6268622BDC47E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58273C89731ECA7EF6D2A2DF7D4D7ED3 /* Build configuration list for PBXNativeTarget "Pods-HockeyFantasy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DB1F9D3A516CEEB6B97015F926053DCF /* Debug */,
+				B2FCB748912239A45A16D11533CDDAC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CB60F1845DAEF76A850A8F509B84B86 /* Build configuration list for PBXNativeTarget "Pods-BaseballFantasy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				925356B6D212538F2495BA3421EDB150 /* Debug */,
+				0534384D3C4121248B7E83F03244E115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ACFA622764FB117237E8E48E260E3F58 /* Build configuration list for PBXNativeTarget "Pods-HockeyManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5A1D3F454762FA357BC858C5B6E103AF /* Debug */,
+				2016E80B8572070BDE75EFDE1A6873F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FB59FC6F453CB876EA7965A20A9C71DF /* Build configuration list for PBXNativeTarget "Pods-BasketballFantasy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				728D3E6D4860C76CC4608068341B244E /* Debug */,
+				8EB0B5A5FACE7A2E5D174F5A383ACDBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

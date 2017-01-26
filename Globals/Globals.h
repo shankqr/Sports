@@ -352,9 +352,7 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (UIViewController *)peekViewControllerStack;
 - (UIViewController *)firstViewControllerStack;
 - (BOOL)isCurrentView:(UIViewController *)view;
-- (void)emailToDeveloper;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
-- (void)pushMoreGamesVC;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
 - (NSString *)currentViewTitle;
 
@@ -472,7 +470,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (NSMutableArray *)getMembersData;
 - (void)updateAllianceCupFixturesData:(NSString *)a_id round:(NSString *)round;
 - (NSMutableArray *)getAllianceCupFixturesData;
-- (void)showMoreGames;
 - (void)showLoading;
 - (void)removeLoading;
 - (BOOL)updateSalesData;

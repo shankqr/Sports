@@ -9,12 +9,30 @@
 #import "KingdomAppDelegate.h"
 #import "MainView.h"
 #import "Globals.h"
+#import <Fabric/Fabric.h>
+#import <Crashlytics/Crashlytics.h>
+#import <Chartboost/Chartboost.h>
+#import "HelpshiftCore.h"
+#import "HelpshiftSupport.h"
 
 @implementation KingdomAppDelegate
 
 - (BOOL)application:(UIApplication *)application
 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Fabric with:@[[Crashlytics class]]];
+    
+    // Helpshift
+    [HelpshiftCore initializeWithProvider:[HelpshiftSupport sharedInstance]];
+    [HelpshiftCore installForApiKey:@"53313a53f1f7ec35f7ceb6d518db3a02"
+                         domainName:@"tapfantasy.helpshift.com"
+                              appID:@"tapfantasy_platform_20170126042011891-c22c552fb240d45"];
+    
+    // Initialize the Chartboost library
+    [Chartboost startWithAppId:@"58897dfc43150f3e9caf1b8b"
+                  appSignature:@"0f753289525659aa013e0f6fa032de9fec920fcd"
+                      delegate:self];
+    
     self.beenSleeping = NO;
     
 	// launchOptions has the incoming notification if we're being launched after the user tapped "view"

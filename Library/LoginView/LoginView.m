@@ -104,11 +104,6 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
     }
 }
 
-- (IBAction)contactSupport:(UIButton *)sender
-{
-    [[Globals i] emailToDeveloper];
-}
-
 #pragma mark -
 -(BOOL) NSStringIsValidEmail:(NSString *)checkString
 {

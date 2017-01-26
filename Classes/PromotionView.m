@@ -23,7 +23,7 @@
 
 - (void)viewDidLoad
 {
-    if (UIScreen.mainScreen.bounds.size.height != 568 && !iPad)
+    if (UIScreen.mainScreen.bounds.size.height != 568 && !(iPad))
     {
         [table setFrame:CGRectMake(0, table.frame.origin.y, 320, UIScreen.mainScreen.bounds.size.height-table.frame.origin.y)];
     }

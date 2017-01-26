@@ -78,21 +78,6 @@ _Pragma("clang diagnostic pop") \
     }
 }
 
-- (NSUInteger)supportedInterfaceOrientations {
-    MMProgressHUDWindow *win = (MMProgressHUDWindow *)self.view.window;
-    UIViewController *rootViewController = win.oldWindow.rootViewController;
-    
-    if ([win isKindOfClass:[MMProgressHUDWindow class]] &&
-        [rootViewController respondsToSelector:@selector(supportedInterfaceOrientations)]) {
-        return [rootViewController supportedInterfaceOrientations];
-    }
-    else {
-        MMHudWLog(@"Root view controller for your application cannot be found! Defaulting to liberal rotation handling for your device!");
-    }
-    
-    return [super supportedInterfaceOrientations];
-}
-
 - (BOOL)shouldAutorotate {
     MMProgressHUDWindow *win = (MMProgressHUDWindow *)self.view.window;
     UIViewController *rootViewController = win.oldWindow.rootViewController;

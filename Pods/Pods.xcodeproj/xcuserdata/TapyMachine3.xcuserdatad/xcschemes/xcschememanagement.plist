@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-BaseballFantasy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-BasketballFantasy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-FootballFantasy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-HockeyFantasy.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-HockeyManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>A9ECFC3A89E6339C8AABF77690DFB73A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ACC87449A5BE811DB21C6C44E4142DDC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B1AB5A5C98A1457FC2F6FE5287BF4E50</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C96C1C3C29D2E3A0CBE11572132402C7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F2E80A9F293C406CD1C88170B322F609</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

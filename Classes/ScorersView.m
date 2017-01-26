@@ -29,7 +29,7 @@
 		}
 	}
     
-    if(![[Globals i].wsLeagueData count] > 0)
+    if(!([[Globals i].wsLeagueData count] > 0))
     {
         [[Globals i] showDialog:@"Select the Table tab button bellow to load a League first."];
     }

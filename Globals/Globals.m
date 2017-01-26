@@ -9,7 +9,6 @@
 #import "Globals.h"
 #import "LoadingView.h"
 #import "PlayerCell.h"
-#import "DAAppsViewController.h"
 #import "MMProgressHUD.h"
 #import "JCNotificationCenter.h"
 #import "JCNotificationBannerPresenterSmokeStyle.h"
@@ -418,15 +417,6 @@ static NSOperationQueue *connectionQueue;
     return diff;
 }
 
-- (void)emailToDeveloper
-{
-    NSString *mailto = [NSString stringWithFormat:@"mailto://support@tapfantasy.com?subject=%@(Version %@)",
-                        GAME_NAME,
-                        GAME_VERSION];
-    
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[mailto stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]]];
-}
-
 - (void)showLoadingAlert
 {
     NSArray *images = @[[UIImage imageNamed:@"g1_0.png"],
@@ -679,7 +669,7 @@ static NSOperationQueue *connectionQueue;
     NSInteger frame_width = frame.size.width;
     NSInteger frame_height = frame.size.height;
     
-    if (!iPad) //Double up
+    if (!(iPad)) //Double up
     {
         frame_width = frame_width*2;
         frame_height = frame_height*2;
@@ -1713,24 +1703,6 @@ static NSOperationQueue *connectionQueue;
     
     [self showTemplate:@[achatView] :@"Alliance Wall"];
     [achatView updateView:ds table:tn a_id:aid];
-}
-
-- (void)pushMoreGamesVC
-{
-    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
-    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
-    
-    [[Globals i] showTemplate:@[appsViewController] :@"More Games"];
-}
-
-- (void)showMoreGames
-{
-    DAAppsViewController *appsViewController = [[DAAppsViewController alloc] init];
-    NSArray *values = [self.wsProductIdentifiers[@"promote_apps"] componentsSeparatedByString:@","];
-    [appsViewController loadAppsWithAppIds:values completionBlock:nil];
-    
-    [self showTemplate:@[appsViewController] :@"More Games" :1];
 }
 
 - (void)initSound
