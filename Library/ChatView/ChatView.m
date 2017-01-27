@@ -88,7 +88,7 @@
     
 	if (self.keyboardIsShowing)
     {
-        CGPoint p = [self.view convertPoint:self.view.frame.origin toView:[[Globals i] firstViewControllerStack].view];
+        CGPoint p = [self.view convertPoint:self.view.frame.origin toView:[UIManager.i firstViewControllerStack].view];
         
         float view_y = p.y;
         float bottom_offset = UIScreen.mainScreen.bounds.size.height-self.view.frame.size.height-view_y;
@@ -253,7 +253,7 @@
             [self keyboardWillHide];
         }
         
-        [[Globals i] closeTemplate];
+        [UIManager.i closeTemplate];
         
         //Show club viewer
         NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];

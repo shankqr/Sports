@@ -176,12 +176,13 @@
 		lastname = chunks[0];
 	}
 	
-	UIButton *button = [[Globals i] buttonWithTitle:@""
+	UIButton *button = [UIManager.i buttonWithTitle:@""
                                              target:self
                                            selector:@selector(posButton_tap:)
                                               frame:CGRectMake(posx, posy, 60*SCALE_IPAD, 40*SCALE_IPAD)
-                                              image:buttonBackground
-                                       imagePressed:buttonBackgroundPressed
+                                        imageNormal:buttonBackground
+                                   imageHighlighted:buttonBackgroundPressed
+                                      imageCentered:NO
                                       darkTextColor:YES];
 	
     [button setImage:[UIImage imageNamed:@"jerseypos.png"] forState:UIControlStateNormal];
@@ -235,7 +236,7 @@
     }
     [squadSelecter updateView];
     
-    [[Globals i] showTemplate:@[squadSelecter] :@"Select a Player" :1];
+    [UIManager.i showTemplate:@[squadSelecter] :@"Select a Player" :10];
 	
 }
 

@@ -13,7 +13,6 @@
 #import "NextMatchSlide.h"
 #import "RankingSlide.h"
 #import "LastMatchSlide.h"
-#import "CustomBadge.h"
 
 @implementation MainCell
 
@@ -408,10 +407,12 @@
     [self addPosButton:@"RANKINGS" tag:18 imageDefault:@"button_leaderboard"];
     [self addPosButton:@"SEARCH" tag:19 imageDefault:@"button_search"];
 	[self addPosButton:@"WORLD" tag:20 imageDefault:@"button_map"];
-    [self addPosButton:@"INVITE" tag:21 imageDefault:@"button_friends"];
-    [self addPosButton:@"FEEDBACK" tag:22 imageDefault:@"button_news"];
-	[self addPosButton:@"MORE" tag:23 imageDefault:@"button_more"];
-    [self addPosButton:@"LOGOUT" tag:24 imageDefault:@"button_logout"];
+    
+    [self addPosButton:@"SLOTS" tag:21 imageDefault:@"button_slot"];
+    [self addPosButton:@"INVITE" tag:22 imageDefault:@"button_friends"];
+    [self addPosButton:@"FEEDBACK" tag:23 imageDefault:@"button_news"];
+	[self addPosButton:@"MORE" tag:24 imageDefault:@"button_more"];
+    [self addPosButton:@"LOGOUT" tag:25 imageDefault:@"button_logout"];
 }
 
 - (CGRect)getBadgeFrame:(NSInteger)tag
@@ -456,12 +457,13 @@
     NSInteger button_row = ((tag-1) / buttons_per_row);
     NSInteger posy = button_row * column_height + menu_start_y;
     
-	UIButton *button = [[Globals i] buttonWithTitle:@""
+	UIButton *button = [UIManager.i buttonWithTitle:@""
                                              target:self
                                            selector:@selector(posButton_tap:)
                                               frame:CGRectMake(posx, posy, sizex, sizey)
-                                              image:imgD
-                                       imagePressed:imgH
+                                        imageNormal:imgD
+                                   imageHighlighted:imgH
+                                      imageCentered:NO
                                       darkTextColor:YES];
     
 	button.tag = tag;
@@ -470,7 +472,7 @@
 	UILabel *myLabel = [[UILabel alloc] initWithFrame:CGRectMake(posx-column_start_x, posy+sizey, column_width, menu_label_height)];
 	myLabel.tag = tag;
 	myLabel.text = label;
-    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MENU_FONT_SIZE];
+    myLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:DEFAULT_FONT_SIZE];
 	myLabel.backgroundColor = [UIColor clearColor];
 	myLabel.textColor = [UIColor whiteColor];
 	myLabel.textAlignment = NSTextAlignmentCenter;
@@ -506,12 +508,13 @@
     NSInteger posx = self.frame.size.width - sizex;
     NSInteger posy = 0;
     
-	self.buttonSale = [[Globals i] buttonWithTitle:@""
+	self.buttonSale = [UIManager.i buttonWithTitle:@""
                                             target:self
                                           selector:@selector(saleButton_tap:)
                                              frame:CGRectMake(posx, posy, sizex, sizey)
-                                             image:imgD
-                                      imagePressed:nil
+                                       imageNormal:imgD
+                                  imageHighlighted:nil
+                                     imageCentered:NO
                                      darkTextColor:YES];
     
     [self.buttonSale setImage:[UIImage animatedImageNamed:@"icon_sale" duration:1.0]
@@ -548,13 +551,14 @@
     NSInteger posx = self.frame.size.width - sizex;
     NSInteger posy = 70.0f*SCALE_IPAD;
     
-	self.buttonEventSolo = [[Globals i] buttonWithTitle:@""
-                                            target:self
-                                          selector:@selector(eventSoloButton_tap:)
-                                             frame:CGRectMake(posx, posy, sizex, sizey)
-                                             image:imgD
-                                      imagePressed:imgH
-                                     darkTextColor:YES];
+	self.buttonEventSolo = [UIManager.i buttonWithTitle:@""
+                                                 target:self
+                                               selector:@selector(eventSoloButton_tap:)
+                                                  frame:CGRectMake(posx, posy, sizex, sizey)
+                                            imageNormal:imgD
+                                       imageHighlighted:imgH
+                                          imageCentered:NO
+                                          darkTextColor:YES];
     
 	[self addSubview:self.buttonEventSolo];
 	
@@ -600,13 +604,14 @@
     NSInteger posx = self.frame.size.width - sizex;
     NSInteger posy = 115.0f*SCALE_IPAD;
     
-	self.buttonEventAlliance = [[Globals i] buttonWithTitle:@""
-                                                 target:self
-                                               selector:@selector(eventAllianceButton_tap:)
-                                                  frame:CGRectMake(posx, posy, sizex, sizey)
-                                                  image:imgD
-                                           imagePressed:imgH
-                                          darkTextColor:YES];
+	self.buttonEventAlliance = [UIManager.i buttonWithTitle:@""
+                                                     target:self
+                                                   selector:@selector(eventAllianceButton_tap:)
+                                                      frame:CGRectMake(posx, posy, sizex, sizey)
+                                                imageNormal:imgD
+                                           imageHighlighted:imgH
+                                              imageCentered:NO
+                                              darkTextColor:YES];
     
 	[self addSubview:self.buttonEventAlliance];
 	

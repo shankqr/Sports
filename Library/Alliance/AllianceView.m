@@ -230,7 +230,7 @@
         [self.allianceViewer scrollToTop];
         [self.allianceViewer updateView];
         
-        [[Globals i] showTemplate:@[self.allianceViewer] :@"Alliance"];
+        [UIManager.i showTemplate:@[self.allianceViewer] :@"Alliance" :10];
     }
     
 	return nil;
@@ -251,11 +251,11 @@
     CGFloat button_x = (UIScreen.mainScreen.bounds.size.width - button_width)/2;
     CGFloat button_y = (TABLE_HEADER_VIEW_HEIGHT - button_height);
     
-    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Create New Alliance"
+    UIButton *button1 = [UIManager.i dynamicButtonWithTitle:@"Create New Alliance"
                                                      target:self
                                                    selector:@selector(button1_tap:)
                                                       frame:CGRectMake(button_x, button_y, button_width, button_height)
-                                                       type:@"3"];
+                                                       type:@"2"];
     
     [headerView addSubview:button1];
     
@@ -273,14 +273,14 @@
     
     if (alliance_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Create! You are currently a member of an existing Alliance, resign from that Alliance first to Create a new one."];
+        [UIManager.i showDialog:@"Unable to Create! You are currently a member of an existing Alliance, resign from that Alliance first to Create a new one."];
     }
     else
     {
         self.allianceCreate = [[AllianceCreate alloc] initWithStyle:UITableViewStylePlain];
         [self.allianceCreate updateView:YES];
         
-        [[Globals i] showTemplate:@[self.allianceCreate] :@"New Alliance"];
+        [UIManager.i showTemplate:@[self.allianceCreate] :@"New Alliance" :10];
     }
 }
 

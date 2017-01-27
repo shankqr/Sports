@@ -219,7 +219,7 @@
     
     [self keyboardWillHide];
     
-	[[Globals i] closeTemplate];
+	[UIManager.i closeTemplate];
 }
 
 - (IBAction)sendClicked

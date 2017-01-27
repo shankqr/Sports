@@ -24,7 +24,7 @@
 {
     [[Globals i] updateClubData];
     
-	[[Globals i] closeTemplate];
+	[UIManager.i closeTemplate];
 }
 
 @end

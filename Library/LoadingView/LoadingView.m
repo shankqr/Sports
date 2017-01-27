@@ -44,7 +44,7 @@
     
     self.lblStatus = [[UILabel alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4)-(60*SCALE_IPAD), (UIScreen.mainScreen.bounds.size.height*bar_y)-(imgBarBkg.size.height*SCALE_IPAD/4)-(30*SCALE_IPAD), (imgBarBkg.size.width*SCALE_IPAD/2)+(120*SCALE_IPAD), (imgBarBkg.size.height*SCALE_IPAD/2))];
     self.lblStatus.text = @"Loading...";
-    self.lblStatus.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
+    self.lblStatus.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	self.lblStatus.backgroundColor = [UIColor clearColor];
 	self.lblStatus.textColor = [UIColor blackColor];
 	self.lblStatus.textAlignment = NSTextAlignmentCenter;
@@ -55,7 +55,7 @@
     
     self.lblVersion = [[UILabel alloc] initWithFrame:CGRectMake((UIScreen.mainScreen.bounds.size.width/2)-(imgBarBkg.size.width*SCALE_IPAD/4)-(60*SCALE_IPAD), 0, (imgBarBkg.size.width*SCALE_IPAD/2)+(120*SCALE_IPAD), (imgBarBkg.size.height*SCALE_IPAD/2))];
     self.lblVersion.text = [NSString stringWithFormat:@"Version %@", GAME_VERSION];
-    self.lblVersion.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SMALL_SIZE];
+    self.lblVersion.font = [UIFont fontWithName:DEFAULT_FONT size:DEFAULT_FONT_SIZE];
 	self.lblVersion.backgroundColor = [UIColor clearColor];
     self.lblVersion.shadowColor = [UIColor grayColor];
 	self.lblVersion.shadowOffset = CGSizeMake(1,1);

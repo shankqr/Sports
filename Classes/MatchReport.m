@@ -191,7 +191,7 @@
         //Display to gamer
         if(![challenge_money isEqualToString:@"0"])
         {
-            [[Globals i] showDialog:challenge_money];
+            [UIManager.i showDialog:challenge_money];
         }
     }
 }

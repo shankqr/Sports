@@ -190,7 +190,7 @@
                  NSInteger totalmembers = [self.aAlliance.total_members integerValue] - 1;
                  self.aAlliance.total_members = [NSString stringWithFormat:@"%ld", (long)totalmembers];
                  
-                 [[Globals i] showDialog:@"Success! The Club will be informed in the News that they have been Kicked Out."];
+                 [UIManager.i showDialog:@"Success! The Club will be informed in the News that they have been Kicked Out."];
              }
          }];
     }

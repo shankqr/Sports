@@ -164,7 +164,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] removeLoadingAlert];
             
-            [[Globals i] showDialog:@"Invalid Email or Password. If have not Registered, please tap on +Register button."];
+            [UIManager.i showDialog:@"Invalid Email or Password. If have not Registered, please tap on +Register button."];
         }
         else
         {
@@ -206,7 +206,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         {
             [[Globals i] removeLoadingAlert];
             
-            [[Globals i] showDialog:@"The email you entered is already registered. Tap on Login instead."];
+            [UIManager.i showDialog:@"The email you entered is already registered. Tap on Login instead."];
         }
         
 	}
@@ -223,12 +223,12 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         }
         else
         {
-            [[Globals i] showDialog:@"Invalid Password. Password should be at least 4 to 12 characters."];
+            [UIManager.i showDialog:@"Invalid Password. Password should be at least 4 to 12 characters."];
         }
     }
     else
     {
-        [[Globals i] showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
+        [UIManager.i showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
 
     }
 }
@@ -244,18 +244,18 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
         }
         else
         {
-            [[Globals i] showDialog:@"Invalid Password. Password should be at least 4 to 12 characters."];
+            [UIManager.i showDialog:@"Invalid Password. Password should be at least 4 to 12 characters."];
         }
     }
     else
     {
-        [[Globals i] showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
+        [UIManager.i showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
     }
 }
 
 - (void)passwordReset
 {
-    [[Globals i] showDialogBlock:@"Please enter your login Email"
+    [UIManager.i showDialogBlock:@"Please enter your login Email"
                                 :4
                                 :^(NSInteger index, NSString *text)
      {
@@ -277,18 +277,18 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
              }
              else
              {
-                 [[Globals i] showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
+                 [UIManager.i showDialog:@"Invalid Email. Please enter a valid Email (Example: john@gmail.com)"];
                  
                  return;
              }
              
              if([returnValue isEqualToString:@"1"])
              {
-                 [[Globals i] showDialog:@"Please check the Email you sent us. We have sent an email to you with a link to your password. If you can't find it, it might be in your Spam folder."];
+                 [UIManager.i showDialog:@"Please check the Email you sent us. We have sent an email to you with a link to your password. If you can't find it, it might be in your Spam folder."];
              }
              else
              {
-                 [[Globals i] showDialog:@"Sorry, the Email you entered does not have an account with us."];
+                 [UIManager.i showDialog:@"Sorry, the Email you entered does not have an account with us."];
              }
          }
      }];
@@ -296,7 +296,7 @@ NSString *const SCSessionStateChangedNotification = @"com.tapf:SCSessionStateCha
 
 - (void)LoadMainView
 {
-    [[Globals i] closeTemplate];
+    [UIManager.i closeTemplate];
     
     if (self.loginBlock != nil)
     {

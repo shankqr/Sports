@@ -144,7 +144,7 @@
 			{
                 [[Globals i].mainView.stadiumMap updateView];
                 
-                [[Globals i] closeTemplate];
+                [UIManager.i closeTemplate];
 			}
 		}
     }

@@ -1,0 +1,6 @@
+framework module UIManager {
+  umbrella header "UIManager.h"
+
+  export *
+  module * { export * }
+}

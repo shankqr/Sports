@@ -81,7 +81,7 @@
 			[[Globals i] storeEnergy];
 			[[Globals i].mainView buyStadiumSuccess:@"1":@"0"];
             [self updateView];
-            [[Globals i] closeTemplate];
+            [UIManager.i closeTemplate];
 		}
 		else
 		{
@@ -104,7 +104,7 @@
 		{
 			[[Globals i].mainView buyStadiumSuccess:@"2":@"0"];
             [self updateView];
-            [[Globals i] closeTemplate];
+            [UIManager.i closeTemplate];
 		}
 		else
 		{

@@ -300,7 +300,7 @@
             allianceMembers.aAlliance = self.aAlliance;
             [allianceMembers updateView];
             
-            [[Globals i] showTemplate:@[allianceMembers] :@"Members"];
+            [UIManager.i showTemplate:@[allianceMembers] :@"Members" :10];
         }
         else if(indexPath.row == 4) //Applicants
         {
@@ -311,7 +311,7 @@
             allianceApplicants.aAlliance = self.aAlliance;
             [allianceApplicants updateView];
             
-            [[Globals i] showTemplate:@[allianceApplicants] :@"Applicants"];
+            [UIManager.i showTemplate:@[allianceApplicants] :@"Applicants" :10];
         }
         else if(indexPath.row == 5) //Donations
         {
@@ -322,7 +322,7 @@
             allianceDonations.aAlliance = self.aAlliance;
             [allianceDonations updateView];
             
-            [[Globals i] showTemplate:@[allianceDonations] :@"Donations"];
+            [UIManager.i showTemplate:@[allianceDonations] :@"Donations" :10];
         }
         else if(indexPath.row == 6) //Events
         {
@@ -333,7 +333,7 @@
             allianceEvents.aAlliance = self.aAlliance;
             [allianceEvents updateView];
             
-            [[Globals i] showTemplate:@[allianceEvents] :@"Events"];
+            [UIManager.i showTemplate:@[allianceEvents] :@"Events" :10];
         }
         else if(indexPath.row == 9) //Donate Diamonds
         {
@@ -396,7 +396,7 @@
 
 - (void)setPrize1
 {
-    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+    [UIManager.i showDialogBlock:@"Please keyin an amount:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
@@ -428,7 +428,7 @@
              }
              else
              {
-                 [[Globals i] showDialog:@"Insufficient balance in Alliance account, please donate more funds to this Alliance."];
+                 [UIManager.i showDialog:@"Insufficient balance in Alliance account, please donate more funds to this Alliance."];
              }
          }
      }];
@@ -436,7 +436,7 @@
 
 - (void)setPrize2
 {
-    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+    [UIManager.i showDialogBlock:@"Please keyin an amount:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
@@ -468,7 +468,7 @@
              }
              else
              {
-                 [[Globals i] showDialog:@"Insufficient balance in Alliance account, please donate more funds to this Alliance."];
+                 [UIManager.i showDialog:@"Insufficient balance in Alliance account, please donate more funds to this Alliance."];
              }
          }
      }];
@@ -508,13 +508,13 @@
     }
     else if (cur_round == 1)
     {
-        [[Globals i] showTemplate:@[allianceCup0] :@"Cup Matches" :1];
+        [UIManager.i showTemplate:@[allianceCup0] :@"Cup Matches" :10];
         allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
     }
     else if (cur_round == 2)
     {
-        [[Globals i] showTemplate:@[allianceCup0, allianceCup1] :@"Cup Matches" :1];
+        [UIManager.i showTemplate:@[allianceCup0, allianceCup1] :@"Cup Matches" :10];
         allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
         allianceCup1.alliance_id = aAlliance.alliance_id;
@@ -522,7 +522,7 @@
     }
     else if (cur_round > 2)
     {
-        [[Globals i] showTemplate:@[allianceCup0, allianceCup1, allianceCup2] :@"Cup Matches" :1];
+        [UIManager.i showTemplate:@[allianceCup0, allianceCup1, allianceCup2] :@"Cup Matches" :10];
         allianceCup0.alliance_id = aAlliance.alliance_id;
         [self.allianceCup0 updateView];
         allianceCup1.alliance_id = aAlliance.alliance_id;
@@ -540,7 +540,7 @@
     allianceCreate.descriptionText = aAlliance.alliance_description;
     [allianceCreate updateView:NO];
     
-    [[Globals i] showTemplate:@[allianceCreate] :@"Edit Alliance"];
+    [UIManager.i showTemplate:@[allianceCreate] :@"Edit Alliance" :10];
 }
 
 - (void)joinButton_tap
@@ -549,7 +549,7 @@
     
     if (a_id > 0)
     {
-        [[Globals i] showDialog:@"Unable to Join! You are currently a member of another Alliance, resign from that Alliance first to Join this one."];
+        [UIManager.i showDialog:@"Unable to Join! You are currently a member of another Alliance, resign from that Alliance first to Join this one."];
     }
     else
     {
@@ -564,7 +564,7 @@
          {
              if (success)
              {
-                 [[Globals i] showDialog:@"A request to join has been sent to the Leader. You will be informed once accepted."];
+                 [UIManager.i showDialog:@"A request to join has been sent to the Leader. You will be informed once accepted."];
              }
          }];
     }
@@ -572,7 +572,7 @@
 
 - (void)leaveButton_tap
 {
-    [[Globals i] showDialogBlock:@"Are you sure you want to leave this Alliance?"
+    [UIManager.i showDialogBlock:@"Are you sure you want to leave this Alliance?"
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -596,7 +596,7 @@
      {
          if (success)
          {
-             [[Globals i] showDialogBlock:@"You are Out! Now you are free to join other Alliance if you wish."
+             [UIManager.i showDialogBlock:@"You are Out! Now you are free to join other Alliance if you wish."
                                          :1
                                          :^(NSInteger index, NSString *text)
               {
@@ -604,7 +604,7 @@
                   {
                       [[Globals i] updateClubData]; //alliance id = 0 updated
                       
-                      [[Globals i] closeTemplate];
+                      [UIManager.i closeTemplate];
                       
                       [[NSNotificationCenter defaultCenter]
                        postNotificationName:@"GotoAlliance"
@@ -617,7 +617,7 @@
 
 - (void)donateDiamonds
 {
-    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+    [UIManager.i showDialogBlock:@"Please keyin an amount:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
@@ -643,7 +643,7 @@
                           self.aAlliance = nil;
                           [self updateView];
                           
-                          [[Globals i] showDialog:@"Thanks. The Alliance members remembers your contribution."];
+                          [UIManager.i showDialog:@"Thanks. The Alliance members remembers your contribution."];
                       }
                   }];
              }
@@ -659,7 +659,7 @@
 
 - (void)donateFunds
 {
-    [[Globals i] showDialogBlock:@"Please keyin an amount:"
+    [UIManager.i showDialogBlock:@"Please keyin an amount:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
@@ -685,7 +685,7 @@
                           self.aAlliance = nil;
                           [self updateView];
                           
-                          [[Globals i] showDialog:@"Thanks. The Alliance members remembers your contribution."];
+                          [UIManager.i showDialog:@"Thanks. The Alliance members remembers your contribution."];
                       }
                   }];
              }
@@ -703,7 +703,7 @@
 {
     NSInteger nextLevel = aAlliance.alliance_level.integerValue + 1;
     
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance account.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
+    [UIManager.i showDialogBlock:[NSString stringWithFormat:@"Upgrade Alliance to Level %@ for %@ Diamonds. Diamonds will be deducted from Alliance account.", [[Globals i] intString:nextLevel], [[Globals i] intString:nextLevel]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -730,13 +730,13 @@
                  self.aAlliance = nil;
                  [self updateView];
             
-                 [[Globals i] showDialog:@"Upgrade Success! Your Alliance has Leveled UP. Now more members can join to increase the fun and ranking."];
+                 [UIManager.i showDialog:@"Upgrade Success! Your Alliance has Leveled UP. Now more members can join to increase the fun and ranking."];
              }
          }];
     }
     else
     {
-        [[Globals i] showDialog:@"Insufficient Diamonds to upgrade. Please donate more Diamonds."];
+        [UIManager.i showDialog:@"Insufficient Diamonds to upgrade. Please donate more Diamonds."];
     }
 }
 

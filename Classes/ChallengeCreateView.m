@@ -177,7 +177,7 @@
 
 - (IBAction)cancelButton_tap:(id)sender
 {
-	[[Globals i] closeTemplate];
+	[UIManager.i closeTemplate];
 }
 
 - (IBAction)okButton_tap:(id)sender
@@ -193,7 +193,7 @@
 	{
         [NSThread detachNewThreadSelector:@selector(challengeClub) toTarget:self withObject:nil];
         
-        [[Globals i] closeTemplate];
+        [UIManager.i closeTemplate];
     }
 	else
 	{

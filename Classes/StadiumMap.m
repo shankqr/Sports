@@ -131,7 +131,7 @@
     {
         stadiumView = [[StadiumView alloc] initWithNibName:@"StadiumView" bundle:nil];
     }
-    [[Globals i] showTemplate:@[stadiumView] :@"Stadium" :1];
+    [UIManager.i showTemplate:@[stadiumView] :@"Stadium" :10];
     [self.stadiumView updateView];
 }
 
@@ -141,7 +141,7 @@
     {
         upgradeView = [[UpgradeView alloc] initWithNibName:@"UpgradeView" bundle:nil];
     }
-    [[Globals i] showTemplate:@[upgradeView] :@"Upgrade Building" :1];
+    [UIManager.i showTemplate:@[upgradeView] :@"Upgrade Building" :10];
     [self.upgradeView updateView:type];
 }
 

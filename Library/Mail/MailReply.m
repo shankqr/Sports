@@ -103,7 +103,7 @@
                  //{
                      [[Globals i] replyCounterPlus:self.mailData[@"mail_id"]]; //Since we r the one that reply, no need to show red dot
                      [[Globals i] updateMailReply:self.mailData[@"mail_id"]]; //To show our reply and fetch latest reply from server
-                     [[Globals i] closeTemplate];
+                     [UIManager.i closeTemplate];
                      textview.text = @"";
                      
                      [[Globals i] showToast:@"Message Sent!"
@@ -163,7 +163,7 @@
         }
         else if(indexPath.row == 1) //Cancel
         {
-            [[Globals i] closeTemplate];
+            [UIManager.i closeTemplate];
             
             inputTV.text = @"";
         }

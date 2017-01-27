@@ -250,7 +250,7 @@
         }
         
         self.mailDetail.title = @"Mail";
-        [[Globals i] showTemplate:@[self.mailDetail] :self.mailDetail.title];
+        [UIManager.i showTemplate:@[self.mailDetail] :self.mailDetail.title :10];
         [self.mailDetail updateView];
         
         [self.mailDetail scrollUp];
@@ -269,11 +269,11 @@
     CGFloat button_x = (UIScreen.mainScreen.bounds.size.width - button_width)/2;
     CGFloat button_y = (TABLE_HEADER_VIEW_HEIGHT - button_height);
     
-    UIButton *button1 = [[Globals i] dynamicButtonWithTitle:@"Mark all as Read!"
+    UIButton *button1 = [UIManager.i dynamicButtonWithTitle:@"Mark all as Read!"
                                                     target:self
                                                   selector:@selector(button1_tap:)
                                                      frame:CGRectMake(button_x, button_y, button_width, button_height)
-                                                      type:@"3"];
+                                                      type:@"2"];
     
     [headerView addSubview:button1];
     

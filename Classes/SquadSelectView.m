@@ -59,11 +59,11 @@
 	
 	if([rowData[@"card_red"] integerValue] == 1)
 	{
-        [[Globals i] showDialog:@"This player has a red card (suspended for 1 cup/league match), and can't be assigned to this position at the moment."];
+        [UIManager.i showDialog:@"This player has a red card (suspended for 1 cup/league match), and can't be assigned to this position at the moment."];
     }
     else if([rowData[@"player_condition"] integerValue] == 2)
 	{
-        [[Globals i] showDialog:@"This player is injured and can't be assigned to this position at the moment. You can HEAL to reduce injury time."];
+        [UIManager.i showDialog:@"This player is injured and can't be assigned to this position at the moment. You can HEAL to reduce injury time."];
     }
     else
     {
@@ -83,7 +83,7 @@
 {
 	if(buttonIndex == 1)
 	{
-        [[Globals i] closeTemplate];
+        [UIManager.i closeTemplate];
         
 		if (self.delegate != nil && [self.delegate respondsToSelector:@selector(playerSelected:)])
 		{

@@ -62,7 +62,7 @@
 		currMatchIndex = 0;
         [[Globals i].mainView updateChallenge];
         
-		[[Globals i] closeTemplate];
+		[UIManager.i closeTemplate];
 	}
 }
 
@@ -102,7 +102,7 @@
 	if(bal > pval)
 	{
 		[Globals i].challengeMatchId = selected_matchid;
-        [[Globals i] closeTemplate];
+        [UIManager.i closeTemplate];
 		[[Globals i].mainView startLiveMatch];
 	}
 	else
@@ -129,7 +129,7 @@
 
 - (IBAction)challengeButton_tap:(id)sender
 {
-    [[Globals i] closeTemplate];
+    [UIManager.i closeTemplate];
 	[[Globals i].mainView showChallenge:(self.matches)[currMatchIndex][@"club_home"]];
 
     currMatchIndex = 0;

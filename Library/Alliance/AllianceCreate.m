@@ -110,12 +110,12 @@
             }
             else
             {
-                [[Globals i] showDialog:@"Invalid Input! Name must be at least 3 characters long, and do not leave Description blank."];
+                [UIManager.i showDialog:@"Invalid Input! Name must be at least 3 characters long, and do not leave Description blank."];
             }
         }
         else if(indexPath.row == 2) //Cancel
         {
-            [[Globals i] closeTemplate];
+            [UIManager.i closeTemplate];
             tvName.text = @"";
             tvDesc.text = @"";
         }
@@ -142,7 +142,7 @@
          dispatch_async(dispatch_get_main_queue(), ^{ //Update UI on main thread
              if (success)
              {
-                 [[Globals i] closeTemplate];
+                 [UIManager.i closeTemplate];
                  
                  [[NSNotificationCenter defaultCenter]
                   postNotificationName:@"GotoAlliance"
@@ -161,7 +161,7 @@
     NSDictionary *wspi = [[Globals i] getCurrentSeasonData];
     NSString *reqCurrency1 = wspi[@"alliance_require_currency2"];
     
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"Form a new Alliance for %@ Diamonds only.", [[Globals i] numberFormat:reqCurrency1]]
+    [UIManager.i showDialogBlock:[NSString stringWithFormat:@"Form a new Alliance for %@ Diamonds only.", [[Globals i] numberFormat:reqCurrency1]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -193,13 +193,13 @@
                           {
                               [[Globals i] updateClubData]; //Balance Diamonds will be updated
 
-                              [[Globals i] closeTemplate];
+                              [UIManager.i closeTemplate];
                                        
                               [[NSNotificationCenter defaultCenter]
                                         postNotificationName:@"GotoAlliance"
                                         object:self];
                               
-                              [[Globals i] showDialog:@"Congratulations on creating an Alliance. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];
+                              [UIManager.i showDialog:@"Congratulations on creating an Alliance. Don't forget to set the winning prizes and invite as many club as posible. Good luck and have fun!"];
   
                               [[Globals i] showToast:@"Alliance Created Successfully!"
                                        optionalTitle:nil

@@ -157,7 +157,7 @@
             self.mailReply.title = @"Reply";
             [self.mailReply updateView];
 
-            [[Globals i] showTemplate:@[self.mailReply] :self.mailReply.title];
+            [UIManager.i showTemplate:@[self.mailReply] :self.mailReply.title :10];
         }
         else if(indexPath.row == 2) //Delete
         {
@@ -171,7 +171,7 @@
                  {
                      [[Globals i] deleteLocalMail:self.mailData[@"mail_id"]];
                      
-                     [[Globals i] closeTemplate];
+                     [UIManager.i closeTemplate];
                      
                      [[Globals i] showToast:@"Mail Deleted!"
                               optionalTitle:nil

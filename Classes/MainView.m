@@ -54,7 +54,6 @@
 #import "SalesView.h"
 #import "JobLevelup.h"
 #import "MailCompose.h"
-#import <Chartboost/Chartboost.h>
 #import "HelpshiftCore.h"
 #import "HelpshiftSupport.h"
 
@@ -71,14 +70,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)startUp //Called when app opens for the first time
 {
-    // Method to cache MoreApps on iOS
-    [Chartboost cacheMoreApps:CBLocationDefault];
-    
     self.isShowingLogin = NO;
     
     self.title = @"MainView";
     [Globals i].mainView = self;
-    [[Globals i] pushViewControllerStack:self];
+    [UIManager.i pushViewControllerStack:self];
     [Globals i].selectedClubId = @"0";
 	[Globals i].workingUrl = @"0";
 	[Globals i].challengeMatchId = @"0";
@@ -192,12 +188,12 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
-                                                 name:@"TabChatWorld"
+                                                 name:@"TabWorld Chat"
                                                object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notificationReceived:)
-                                                 name:@"TabChatAlliance"
+                                                 name:@"TabAlliance Chat"
                                                object:nil];
     
     [[Globals i] saveLocation]; //causes reload again if NO is selected to share location
@@ -300,7 +296,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.allianceDetail.alliance_id = aid;
         [self.allianceDetail updateView];
         self.allianceDetail.title = @"Alliance";
-        [[Globals i] showTemplate:@[self.allianceDetail] :@"Alliance" :1];
+        [UIManager.i showTemplate:@[self.allianceDetail] :@"Alliance" :10];
     }
     
     if ([[notification name] isEqualToString:@"ViewSales"])
@@ -397,12 +393,12 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                          animations:animationLabel completion:completionLabel];
     }
     
-    if ([[notification name] isEqualToString:@"TabChatWorld"])
+    if ([[notification name] isEqualToString:@"TabWorld Chat"])
     {
         self.svChat.contentOffset = CGPointMake(0,0);
     }
     
-    if ([[notification name] isEqualToString:@"TabChatAlliance"])
+    if ([[notification name] isEqualToString:@"TabAlliance Chat"])
     {
         self.svChat.contentOffset = CGPointMake(UIScreen.mainScreen.bounds.size.width,0);
     }
@@ -437,7 +433,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)loadAllData
 {
-    [[Globals i] closeAllTemplate];
+    [UIManager.i closeAllTemplate];
     
     [[Globals i] showLoading];
     
@@ -565,7 +561,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     if( userInfo[@"aps"][@"alert"] != nil)
     {
         alertMsg = userInfo[@"aps"][@"alert"];
-        [[Globals i] showDialog:alertMsg];
+        [UIManager.i showDialog:alertMsg];
     }
     
     [NSThread detachNewThreadSelector:@selector(reloadNotification) toTarget:self withObject:nil];
@@ -612,7 +608,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     self.mailCompose.toID = toid;
     self.mailCompose.toName = toname;
     
-    [[Globals i] showTemplate:@[self.mailCompose] :@"Message" :1];
+    [UIManager.i showTemplate:@[self.mailCompose] :@"Message" :10];
     [self.mailCompose updateView];
 }
 
@@ -625,7 +621,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         [self.buyView updateView];
     }
     
-    [[Globals i] showTemplate:@[self.buyView] :@"Buy Diamonds" :1];
+    [UIManager.i showTemplate:@[self.buyView] :@"Buy Diamonds" :10];
 }
 
 - (void)showClub
@@ -653,7 +649,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     self.myclubTabBarController.viewControllers = @[self.clubView, self.trophyViewer];
     [self.myclubTabBarController setSelectedIndex:0];
-    [[Globals i] showTemplate:@[self.myclubTabBarController] :@"Club Details" :1];
+    [UIManager.i showTemplate:@[self.myclubTabBarController] :@"Club Details" :10];
     [self.clubView updateView];
 }
 
@@ -701,7 +697,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     self.clubTabBarController.viewControllers = @[self.clubViewer, self.mapViewer, self.squadViewer, self.trophyViewer];
     [self.clubTabBarController setSelectedIndex:0];
-    [[Globals i] showTemplate:@[self.clubTabBarController] :@"Club Details" :1];
+    [UIManager.i showTemplate:@[self.clubTabBarController] :@"Club Details" :10];
     [self.clubViewer updateViewId:club_id];
 }
 
@@ -750,7 +746,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     self.leagueTabBarController.viewControllers = @[self.overView, self.leagueView, self.fixturesView, self.promotionView, self.scorersView];
     [self.leagueTabBarController setSelectedIndex:0];
-    [[Globals i] showTemplate:@[self.leagueTabBarController] :@"League" :1];
+    [UIManager.i showTemplate:@[self.leagueTabBarController] :@"League" :10];
     [self.overView updateView];
 }
 
@@ -785,7 +781,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     self.tacticsTabBarController.viewControllers = @[self.formationView, self.subsView, self.tacticsView];
     [self.tacticsTabBarController setSelectedIndex:0];
-    [[Globals i] showTemplate:@[self.tacticsTabBarController] :@"Formations" :1];
+    [UIManager.i showTemplate:@[self.tacticsTabBarController] :@"Formations" :10];
     [self.formationView updateView];
 }
 
@@ -936,7 +932,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	
 	if (transaction.error.code != SKErrorPaymentCancelled)
 	{
-        [[Globals i] showDialog:@"Please try again now."];
+        [UIManager.i showDialog:@"Please try again now."];
 	}
 	[[SKPaymentQueue defaultQueue] finishTransaction: transaction];
 	
@@ -992,12 +988,12 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                  {
                      if ([[Globals i] updateClubData]) //After buying effect
                      {
-                         [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
+                         [UIManager.i showDialog:@"Purchase Success! Thank you for supporting our Games!"];
                      }
                      else
                      {
                          //Update failed
-                         [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
+                         [UIManager.i showDialog:@"Purchase Success! Please restart device to take effect."];
                      }
                  }
                  
@@ -1051,13 +1047,13 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                      {
                          if ([[Globals i] updateClubData]) //After buying effect
                          {
-                             [[Globals i] closeAllTemplate];
-                             [[Globals i] showDialog:@"Purchase Success! Thank you for supporting our Games!"];
+                             [UIManager.i closeAllTemplate];
+                             [UIManager.i showDialog:@"Purchase Success! Thank you for supporting our Games!"];
                          }
                          else
                          {
                              //Update failed
-                             [[Globals i] showDialog:@"Purchase Success! Please restart device to take effect."];
+                             [UIManager.i showDialog:@"Purchase Success! Please restart device to take effect."];
                          }
                      }
                      
@@ -1077,7 +1073,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 {
 	[[Globals i] buyProduct:@"9":virtualMoney:json];
     
-    [[Globals i] showDialog:@"You have upgraded your stadium. +5 XP"];
+    [UIManager.i showDialog:@"You have upgraded your stadium. +5 XP"];
     
     NSNumber *xp = [NSNumber numberWithInteger:5];
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
@@ -1107,7 +1103,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:virtualMoney:json];
     
-    [[Globals i] showDialog:@"You have just hired a staff. +5 XP"];
+    [UIManager.i showDialog:@"You have just hired a staff. +5 XP"];
     
     NSNumber *xp = [NSNumber numberWithInteger:5];
     NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
@@ -1139,7 +1135,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)renameDialog
 {
-    [[Globals i] showDialogBlock:@"Please enter a name for your Club"
+    [UIManager.i showDialogBlock:@"Please enter a name for your Club"
                                 :6
                                 :^(NSInteger index, NSString *text)
      {
@@ -1156,7 +1152,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
              if([returnValue isEqualToString:@"1"])
              {
                  [[Globals i] updateClubData]; //club_name changed and money or diamonds deducted
-                 [[Globals i] showDialog:@"Your club name has been changed successfully."];
+                 [UIManager.i showDialog:@"Your club name has been changed successfully."];
              }
              else
              {
@@ -1195,7 +1191,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	[[Globals i] resetClub];
 	[[Globals i] updateClubData]; //Club have been reseted
     
-    [[Globals i] showDialog:@"Your club has been reset successfully."];
+    [UIManager.i showDialog:@"Your club has been reset successfully."];
 	
 	NSString *message = @"I have just reset my club!";
 	NSString *extra_desc = @"You can reset your club if you want to start again from scratch. ";
@@ -1208,7 +1204,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:@"1":@"0"];
     
-    [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
+    [UIManager.i showDialog:@"Purchase and upgrades for your club is completed."];
 	
 	[[Globals i] updateClubData]; //Something has been updated
 	[self resetClubImages];
@@ -1219,7 +1215,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	NSString *productId = [[Globals i] gettPurchasedProduct];
 	[[Globals i] buyProduct:productId:@"2":@"0"];
     
-    [[Globals i] showDialog:@"Purchase and upgrades for your club is completed."];
+    [UIManager.i showDialog:@"Purchase and upgrades for your club is completed."];
 	
 	[[Globals i] updateClubData]; //Something has been updated
 	[self resetClubImages];
@@ -1297,7 +1293,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 			{
                 [[Globals i] removeLoadingAlert];
                 
-                [[Globals i] showDialog:@"Club is playing a match now, try accept again."];
+                [UIManager.i showDialog:@"Club is playing a match now, try accept again."];
 			}
 		}
 	}
@@ -1331,7 +1327,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.matchReport = [[MatchReport alloc] initWithNibName:@"MatchReport" bundle:nil];
     }
-    [[Globals i] showTemplate:@[self.matchReport] :@"Match Report" :1];
+    [UIManager.i showTemplate:@[self.matchReport] :@"Match Report" :10];
     [self.matchReport redrawView];
 }
 
@@ -1375,7 +1371,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)confirmViewMatch:(NSMutableArray *)a
 {
-    [[Globals i] showDialogBlock:[NSString stringWithFormat:@"%@ has accepted your Challenge. View the match report?", a[self.currMatchIndex][@"club_away_name"]]
+    [UIManager.i showDialogBlock:[NSString stringWithFormat:@"%@ has accepted your Challenge. View the match report?", a[self.currMatchIndex][@"club_away_name"]]
                                 :2
                                 :^(NSInteger index, NSString *text)
      {
@@ -1407,7 +1403,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 	self.jobLevelup.fansText = [[NSString alloc] initWithFormat:@"+%ld", (long)[[Globals i] getLevel]*10];
 	self.jobLevelup.energyText = [[NSString alloc] initWithFormat:@"+%d", 5];
     
-    [[Globals i] showTemplate:@[self.jobLevelup] :@"Level Up" :0];
+    [UIManager.i showTemplate:@[self.jobLevelup] :@"Level Up" :0];
 	[self.jobLevelup updateView];
 }
 
@@ -1419,7 +1415,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         {
             self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
         }
-        [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
+        [UIManager.i showTemplate:@[self.salesView] :@"Promotion" :0];
         [self.salesView updateView];
         
         [self.cell updateSalesButton];
@@ -1447,7 +1443,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
                          {
                              self.salesView = [[SalesView alloc] initWithNibName:@"SalesView" bundle:nil];
                          }
-                         [[Globals i] showTemplate:@[self.salesView] :@"Promotion" :0];
+                         [UIManager.i showTemplate:@[self.salesView] :@"Promotion" :0];
                          [self.salesView updateView];
                  
                          [self.cell updateSalesButton];
@@ -1466,7 +1462,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.jobRefill = [[JobRefill alloc] initWithNibName:@"JobRefill" bundle:nil];
         self.jobRefill.titleText = @"REFILL ENERGY?";
     }
-    [[Globals i] showTemplate:@[self.jobRefill] :@"Energy Refill" :1];
+    [UIManager.i showTemplate:@[self.jobRefill] :@"Energy Refill" :10];
 	[self.jobRefill updateView];
 }
 
@@ -1476,7 +1472,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.staffView = [[StaffView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [[Globals i] showTemplate:@[self.staffView] :@"Staff" :1];
+    [UIManager.i showTemplate:@[self.staffView] :@"Staff" :10];
     [self.staffView updateView];
 }
 
@@ -1486,7 +1482,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.trainingView = [[TrainingView alloc] initWithNibName:@"TrainingView" bundle:nil];
     }
-    [[Globals i] showTemplate:@[self.trainingView] :@"Coach" :1];
+    [UIManager.i showTemplate:@[self.trainingView] :@"Coach" :10];
     [self.trainingView updateView];
 }
 
@@ -1496,7 +1492,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.clubMapView = [[ClubMapView alloc] init];
     }
-    [[Globals i] showTemplate:@[self.clubMapView] :@"Map" :1];
+    [UIManager.i showTemplate:@[self.clubMapView] :@"Map" :10];
     [self.clubMapView updateView];
 }
 
@@ -1506,7 +1502,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.squadView = [[SquadView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [[Globals i] showTemplate:@[self.squadView] :@"Squad" :1];
+    [UIManager.i showTemplate:@[self.squadView] :@"Squad" :10];
     [self.squadView updateView];
 }
 
@@ -1533,7 +1529,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.matchChallengeView.filter = @"Challenge";
     }
     
-    [[Globals i] showTemplate:@[self.matchView, self.matchPlayedView, self.matchChallengeView] :@"Fixtures" :1];
+    [UIManager.i showTemplate:@[self.matchView, self.matchPlayedView, self.matchChallengeView] :@"Fixtures" :10];
     [self.matchView updateView];
     [self.matchPlayedView updateView];
     [self.matchChallengeView updateView];
@@ -1545,7 +1541,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.achievementsView = [[AchievementsView alloc] initWithStyle:UITableViewStylePlain];
     }
-    [[Globals i] showTemplate:@[self.achievementsView] :@"Task" :1];
+    [UIManager.i showTemplate:@[self.achievementsView] :@"Task" :10];
     [self.achievementsView updateView];
     
     [self updateAchievementBadges];
@@ -1557,7 +1553,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.storePlayer = [[StorePlayerView alloc] initWithStyle:UITableViewStylePlain];
     }
-	[[Globals i] showTemplate:@[self.storePlayer] :@"Transfers" :1];
+	[UIManager.i showTemplate:@[self.storePlayer] :@"Transfers" :10];
     [self.storePlayer updateView];
 }
 
@@ -1587,7 +1583,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     self.allianceView.title = @"Top Alliance";
     self.allianceView.updateOnWillAppear = @"1";
     
-    [[Globals i] showTemplate:@[self.rvTopDivision, self.rvTopLevel, self.allianceView] :@"Rankings" :1];
+    [UIManager.i showTemplate:@[self.rvTopDivision, self.rvTopLevel, self.allianceView] :@"Rankings" :10];
 }
 
 - (void)showEventSolo
@@ -1603,7 +1599,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     }
     [self.eventSoloView updateView];
     
-    [[Globals i] showTemplate:@[self.eventSoloView] :@"Solo Tournament" :1];
+    [UIManager.i showTemplate:@[self.eventSoloView] :@"Solo Tournament" :10];
 }
 
 - (void)showEventAlliance
@@ -1619,7 +1615,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     }
     [self.eventAllianceView updateView];
     
-    [[Globals i] showTemplate:@[self.eventAllianceView] :@"Alliance Tournament" :1];
+    [UIManager.i showTemplate:@[self.eventAllianceView] :@"Alliance Tournament" :10];
 }
 
 - (void)showSearch
@@ -1638,7 +1634,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     self.allianceView.title = @"Alliance";
     self.allianceView.updateOnWillAppear = @"1";
     
-    [[Globals i] showTemplate:@[self.svClubs, self.allianceView] :@"Search" :1];
+    [UIManager.i showTemplate:@[self.svClubs, self.allianceView] :@"Search" :10];
 }
 
 - (void)showCup
@@ -1652,7 +1648,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.allianceView.title = @"Alliance";
         self.allianceView.updateOnWillAppear = @"1";
         
-        [[Globals i] showTemplate:@[self.allianceView] :@"Alliance" :1];
+        [UIManager.i showTemplate:@[self.allianceView] :@"Alliance" :10];
     }
     else
     {
@@ -1672,7 +1668,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
     }
     
-    [[Globals i] showTemplate:@[self.challengeBox] :@"Challenge" :0];
+    [UIManager.i showTemplate:@[self.challengeBox] :@"Challenge" :0];
 	[self.challengeBox updateView];
     
     [self checkAccepted];
@@ -1706,7 +1702,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     UIViewController *controller = [[UIViewController alloc] init];
     controller.view = webView;
     
-    [[Globals i] showTemplate:@[controller] :@"How To Play" :1];
+    [UIManager.i showTemplate:@[controller] :@"How To Play" :10];
 }
 
 - (void)showFinance
@@ -1715,7 +1711,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.financeView = [[FinanceView alloc] initWithStyle:UITableViewStylePlain];
     }
-	[[Globals i] showTemplate:@[self.financeView] :@"Finance" :1];
+	[UIManager.i showTemplate:@[self.financeView] :@"Finance" :10];
     [self.financeView updateView];
 }
 
@@ -1725,7 +1721,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.fansView = [[FansView alloc] initWithNibName:@"FansView" bundle:nil];
     }
-	[[Globals i] showTemplate:@[self.fansView] :@"Fans" :1];
+	[UIManager.i showTemplate:@[self.fansView] :@"Fans" :10];
     [self.fansView updateView];
 }
 
@@ -1735,7 +1731,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.jobsView = [[JobsView alloc] initWithNibName:@"JobsView" bundle:nil];
     }
-    [[Globals i] showTemplate:@[self.jobsView] :@"Training" :1];
+    [UIManager.i showTemplate:@[self.jobsView] :@"Training" :10];
     [self.jobsView updateView];
 }
 
@@ -1745,7 +1741,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.storeCoach = [[StoreCoachView alloc] initWithStyle:UITableViewStylePlain];
     }
-	[[Globals i] showTemplate:@[self.storeCoach] :@"Job Board" :1];
+	[UIManager.i showTemplate:@[self.storeCoach] :@"Job Board" :10];
     [self.storeCoach updateView];
 }
 
@@ -1772,7 +1768,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.awayStore.filter = @"Away";
     }
     
-    [[Globals i] showTemplate:@[self.emblemStore, self.homeStore, self.awayStore] :@"Club Store" :1];
+    [UIManager.i showTemplate:@[self.emblemStore, self.homeStore, self.awayStore] :@"Club Store" :10];
     [self.emblemStore updateView];
     [self.homeStore updateView];
     [self.awayStore updateView];
@@ -1787,7 +1783,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.emblemStore.filter = @"Emblem";
     }
 
-    [[Globals i] showTemplate:@[self.emblemStore] :@"Emblems" :1];
+    [UIManager.i showTemplate:@[self.emblemStore] :@"Emblems" :10];
     [self.emblemStore updateView];
 }
 
@@ -1800,7 +1796,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.homeStore.filter = @"Home";
     }
 
-    [[Globals i] showTemplate:@[self.homeStore] :@"Home Jerseys" :1];
+    [UIManager.i showTemplate:@[self.homeStore] :@"Home Jerseys" :10];
     [self.homeStore updateView];
 }
 
@@ -1813,7 +1809,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.awayStore.filter = @"Away";
     }
 
-    [[Globals i] showTemplate:@[self.awayStore] :@"Away Jerseys" :1];
+    [UIManager.i showTemplate:@[self.awayStore] :@"Away Jerseys" :10];
     [self.awayStore updateView];
 }
 
@@ -1826,7 +1822,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         self.fundStore.filter = @"Funds";
     }
 
-	[[Globals i] showTemplate:@[self.fundStore] :@"Get Funds" :1];
+	[UIManager.i showTemplate:@[self.fundStore] :@"Get Funds" :10];
     [self.fundStore updateView];
 }
 
@@ -1839,7 +1835,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     self.mailView.title = @"Mail";
     [self.mailView updateView];
     
-    [[Globals i] showTemplate:@[self.mailView] :@"Mail" :1];
+    [UIManager.i showTemplate:@[self.mailView] :@"Mail" :10];
     
     [self updateMailBadges];
 }
@@ -1853,7 +1849,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     [Globals i].selectedClubId = club_id;
     [self.challengeCreate updateView];
 
-    [[Globals i] showTemplate:@[self.challengeCreate] :@"Challenge" :0];
+    [UIManager.i showTemplate:@[self.challengeCreate] :@"Challenge" :0];
 }
 
 - (void)showStadiumMap
@@ -1862,7 +1858,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.stadiumMap = [[StadiumMap alloc] initWithNibName:@"StadiumMap" bundle:nil];
     }
-    [[Globals i] showTemplate:@[self.stadiumMap] :@"Stadium" :0];
+    [UIManager.i showTemplate:@[self.stadiumMap] :@"Stadium" :0];
     [self.stadiumMap updateView];
 }
 
@@ -1872,7 +1868,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     {
         self.slotsView = [[SlotsView alloc] initWithNibName:@"SlotsView" bundle:nil];
     }
-    [[Globals i] showTemplate:@[self.slotsView] :@"Slots" :0];
+    [UIManager.i showTemplate:@[self.slotsView] :@"Slots" :0];
 }
 
 - (void)menuButton_tap:(NSInteger)sender
@@ -1979,26 +1975,31 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
             [self showMap];
 			break;
 		}
-        case 21:
+        case 22:
 		{
             [self inviteFriends];
 			break;
 		}
-		case 22:
+		case 23:
 		{
             [self emailToDeveloper];
 			break;
 		}
-		case 23:
+		case 24:
 		{
 			[self showMoreGames];
 			break;
 		}
-        case 24:
+        case 25:
 		{
 			[self logoutButton];
             break;
 		}
+        case 21:
+        {
+            [self showSlots];
+            break;
+        }
 	}
 }
 
@@ -2009,7 +2010,8 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 
 - (void)showMoreGames
 {
-    [Chartboost showMoreApps:self location:CBLocationDefault];
+    NSString *simple = @"itms-apps://itunes.apple.com/app/id968999539";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:simple]];
 }
 
 - (void)inviteFriends
@@ -2315,7 +2317,7 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     
     if([[Globals i].wsClubDict[@"alliance_id"] isEqualToString:@"0"])
     {
-        [[Globals i] showTemplate:@[self.chatView] :@"Chat" :1];
+        [UIManager.i showTemplate:@[self.chatView] :@"Chat" :10];
         [self.chatView updateView:[Globals i].wsChatFullArray table:@"chat" a_id:@"0"];
     }
     else
@@ -2328,11 +2330,11 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
         
         if (goto_alliance_tab)
         {
-            [[Globals i] showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :1 :1];
+            [UIManager.i showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :10 :1];
         }
         else
         {
-            [[Globals i] showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :1 :0];
+            [UIManager.i showTemplate:@[self.chatView, self.allianceChatView] :@"Chat" :10 :0];
         }
         
         [self.chatView updateView:[Globals i].wsChatFullArray table:@"chat" a_id:@"0"];

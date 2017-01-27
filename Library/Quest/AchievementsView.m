@@ -159,7 +159,7 @@
     NSString *task_tutorial = rowData[@"tutorial"];
     NSString *reward = rowData[@"reward"];
     
-    [[Globals i] showDialog:[NSString stringWithFormat:@"%@ Reward: $%@ ", task_tutorial, [[Globals i] numberFormat:reward]]];
+    [UIManager.i showDialog:[NSString stringWithFormat:@"%@ Reward: $%@ ", task_tutorial, [[Globals i] numberFormat:reward]]];
     
 	return nil;
 }

@@ -52,7 +52,7 @@
 
 - (IBAction)divisionButton_tap:(id)sender
 {
-    [[Globals i] showDialogBlock:@"Enter a Division number:"
+    [UIManager.i showDialogBlock:@"Enter a Division number:"
                                 :5
                                 :^(NSInteger index, NSString *text)
      {
@@ -64,7 +64,7 @@
              {
                  NSString *dt = [NSString stringWithFormat:@"Enter a Series number range 1 to %ld", (long)[[Globals i] getMaxSeries:dialogDivision]];
                  
-                 [[Globals i] showDialogBlock:dt
+                 [UIManager.i showDialogBlock:dt
                                              :5
                                              :^(NSInteger index, NSString *text)
                   {

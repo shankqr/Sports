@@ -9,9 +9,6 @@
 #import "Globals.h"
 #import "LoadingView.h"
 #import "PlayerCell.h"
-#import "MMProgressHUD.h"
-#import "JCNotificationCenter.h"
-#import "JCNotificationBannerPresenterSmokeStyle.h"
 #import <Social/Social.h>
 #import <Accounts/Accounts.h>
 
@@ -419,21 +416,48 @@ static NSOperationQueue *connectionQueue;
 
 - (void)showLoadingAlert
 {
-    NSArray *images = @[[UIImage imageNamed:@"g1_0.png"],
-                        [UIImage imageNamed:@"g1_1.png"],
-                        [UIImage imageNamed:@"g1_2.png"],
-                        [UIImage imageNamed:@"g1_3.png"],
-                        [UIImage imageNamed:@"g1_4.png"],
-                        [UIImage imageNamed:@"g1_5.png"]];
+    NSLog(@"Showing Loading Alert");
+    NSArray *imageNames = @[@"g1_0", @"g1_1", @"g1_2", @"g1_3", @"g1_4", @"g1_5"];
     
-    [[MMProgressHUD sharedHUD] setOverlayMode:MMProgressHUDWindowOverlayModeLinear];
-    [MMProgressHUD setPresentationStyle:MMProgressHUDPresentationStyleFade];
-    [MMProgressHUD showWithTitle:nil status:nil images:images];
+    CGFloat l_width = 0.0;
+    CGFloat l_height = 0.0;
+    NSMutableArray *images = [[NSMutableArray alloc] init];
+    for (int i = 0; i < imageNames.count; i++)
+    {
+        UIImage *l_image = [UIImage imageNamed:[imageNames objectAtIndex:i]];
+        l_width = l_image.size.width/2.0f * SCALE_IPAD;
+        l_height = l_image.size.height/2.0f * SCALE_IPAD;
+        
+        if (!(iPad))
+        {
+            CGSize scaleSize = CGSizeMake(l_width, l_height);
+            UIGraphicsBeginImageContextWithOptions(scaleSize, NO, 0.0);
+            [l_image drawInRect:CGRectMake(0, 0, scaleSize.width, scaleSize.height)];
+            l_image = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+        }
+        
+        [images addObject:l_image];
+    }
+    
+    if (self.spinImageView == nil)
+    {
+        self.spinImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, UIScreen.mainScreen.bounds.size.width, UIScreen.mainScreen.bounds.size.height)];
+        self.spinImageView.animationImages = images;
+        self.spinImageView.userInteractionEnabled = YES;
+        self.spinImageView.contentMode = UIViewContentModeCenter;
+        self.spinImageView.animationDuration = 1.0;
+    }
+    
+    [[UIManager.i firstViewControllerStack].view addSubview:self.spinImageView];
+    [self.spinImageView startAnimating];
 }
 
 - (void)removeLoadingAlert
 {
-    [MMProgressHUD dismiss];
+    NSLog(@"Removing Loading Alert");
+    
+    [self.spinImageView removeFromSuperview];
 }
 
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename
@@ -460,387 +484,9 @@ static NSOperationQueue *connectionQueue;
      tapHandler:^{}];
 }
 
-- (void)showDialog:(NSString *)l1
-{
-    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
-    
-    self.dialogBox.displayText = l1;
-    self.dialogBox.dialogType = 1;
-    self.dialogBox.dialogBlock = nil;
-    [self.dialogBox updateView];
-    
-    [self showTemplate:@[self.dialogBox] :@"" :7];
-}
-
 - (void)showDialogError
 {
-    [self showDialog:@"Sorry, there was an internet connection issue or your session has timed out. Please retry."];
-}
-
-- (void)showDialogBlock:(NSString *)l1 :(NSInteger)type :(DialogBlock)block
-{
-    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
-    
-    self.dialogBox.displayText = l1;
-    self.dialogBox.dialogType = type;
-    self.dialogBox.dialogBlock = block;
-    [self.dialogBox updateView];
-    
-    [self showTemplate:@[self.dialogBox] :@"" :7];
-}
-
-- (void)showDialogBlock:(NSMutableArray *)rows :(DialogBlock)block
-{
-    self.dialogBox = [[DialogBoxView alloc] initWithStyle:UITableViewStylePlain];
-    
-    self.dialogBox.rows = rows;
-    self.dialogBox.dialogBlock = block;
-    [self.dialogBox updateView];
-    
-    [self showTemplate:@[self.dialogBox] :@"" :7];
-}
-
-- (void)flushViewControllerStack
-{
-    if(self.viewControllerStack == nil)
-    {
-        self.viewControllerStack = [[NSMutableArray alloc] init];
-    }
-    
-    [self.viewControllerStack removeAllObjects];
-}
-
-- (void)pushViewControllerStack:(UIViewController *)view
-{
-    if(self.viewControllerStack == nil)
-    {
-        self.viewControllerStack = [[NSMutableArray alloc] init];
-    }
-    
-    [self.viewControllerStack addObject:view];
-}
-
-- (UIViewController *)popViewControllerStack
-{
-    UIViewController *view = nil;
-    
-    if ([self.viewControllerStack count] != 0)
-    {
-        view = [self.viewControllerStack lastObject];
-        [self.viewControllerStack removeLastObject];
-    }
-    
-    return view;
-}
-
-- (UIViewController *)peekViewControllerStack
-{
-    UIViewController *view = nil;
-    
-    if ([self.viewControllerStack count] != 0)
-    {
-        view = [self.viewControllerStack lastObject];
-    }
-    
-    return view;
-}
-
-- (UIViewController *)firstViewControllerStack
-{
-    UIViewController *view = nil;
-    
-    if ([self.viewControllerStack count] != 0)
-    {
-        view = [self.viewControllerStack firstObject];
-    }
-    
-    return view;
-}
-
-- (BOOL)isCurrentView:(UIViewController *)view
-{
-    return ([self peekViewControllerStack] == view);
-}
-
-- (NSString *)currentViewTitle
-{
-    NSString *title = [self peekViewControllerStack].title;
-    
-    return title;
-}
-
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title
-{
-    [self showTemplate:viewControllers :title :1 :0 :nil];
-}
-
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType
-{
-    [self showTemplate:viewControllers :title :frameType :0 :nil];
-}
-
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex
-{
-    [self showTemplate:viewControllers :title :frameType :selectedIndex :nil];
-}
-
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex :(UIViewController *)headerView
-{
-    self.templateView = [[TemplateView alloc] init];
-    self.templateView.delegate = self;
-	self.templateView.viewControllers = viewControllers;
-    self.templateView.title = title;
-    self.templateView.frameType = frameType;
-    self.templateView.selectedIndex = selectedIndex;
-    //self.templateView.headerView = headerView;
-    [self.templateView updateView];
-    
-    [[self firstViewControllerStack].view addSubview:self.templateView.view];
-    
-    [self pushViewControllerStack:self.templateView];
-    
-    NSMutableDictionary* userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:title forKey:@"title"];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"ShowTemplateComplete"
-                                                        object:self
-                                                      userInfo:userInfo];
-}
-
-- (void)setTemplateBadgeNumber:(NSUInteger)tabIndex number:(NSUInteger)number
-{
-    [(TemplateView *)[self peekViewControllerStack] setBadgeNumber:tabIndex number:number];
-}
-
-- (void)closeTemplate
-{
-    if (([self peekViewControllerStack] != nil) && ([self.viewControllerStack count] > 1))
-    {
-        if([[self peekViewControllerStack] isKindOfClass:[TemplateView class]])
-        {
-            [(TemplateView *)[self peekViewControllerStack] cleanView];
-        }
-        
-        [[self peekViewControllerStack].view removeFromSuperview];
-        
-        [self popViewControllerStack];
-        
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"CloseTemplateComplete"
-         object:self];
-    }
-}
-
-- (void)closeAllTemplate
-{
-    while ([self.viewControllerStack count] > 1) //Close all accept MainView
-    {
-        [self closeTemplate];
-    }
-}
-
-- (BOOL)mh_tabBarController:(TemplateView *)tabBarController shouldSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
-{
-	NSLog(@"mh_tabBarController %@ shouldSelectViewController %@ at index %lu", tabBarController.title, viewController.title, (unsigned long)index);
-    
-	return YES;
-}
-
-- (void)mh_tabBarController:(TemplateView *)tabBarController didSelectViewController:(UIViewController *)viewController atIndex:(NSUInteger)index
-{
-	NSLog(@"mh_tabBarController %@ didSelectViewController %@ at index %lu", tabBarController.title, viewController.title, (unsigned long)index);
-    
-    if ([viewController.title isEqualToString:@"World Chat"])
-    {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"TabChatWorld"
-         object:self];
-    }
-    
-    if ([viewController.title isEqualToString:@"Alliance Chat"])
-    {
-        [[NSNotificationCenter defaultCenter]
-         postNotificationName:@"TabChatAlliance"
-         object:self];
-    }
-}
-
-- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix
-{
-    NSInteger frame_width = frame.size.width;
-    NSInteger frame_height = frame.size.height;
-    
-    if (!(iPad)) //Double up
-    {
-        frame_width = frame_width*2;
-        frame_height = frame_height*2;
-    }
-    
-    UIImage *img1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_1.png", prefix]];
-    UIImage *img2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_2.png", prefix]];
-    UIImage *img3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_3.png", prefix]];
-    
-    UIImage *img4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_4.png", prefix]];
-    UIImage *img5 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_5.png", prefix]];
-    UIImage *img6 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_6.png", prefix]];
-    
-    UIImage *img7 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_7.png", prefix]];
-    UIImage *img8 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_8.png", prefix]];
-    UIImage *img9 = [UIImage imageNamed:[NSString stringWithFormat:@"%@_9.png", prefix]];
-    
-    CGSize imgSize = CGSizeMake(frame_width, frame_height);
-    UIGraphicsBeginImageContext(imgSize);
-    
-    if (!img4 || !img5 || !img6)
-    {
-        if (frame_width > (img1.size.width + img3.size.width))
-        {
-            [[img8 resizableImageWithCapInsets:UIEdgeInsetsZero
-                                  resizingMode:UIImageResizingModeStretch]
-             drawInRect:CGRectMake(img1.size.width, img1.size.height, frame_width - (img1.size.width + img3.size.width), frame_height - img1.size.height)];
-        }
-        
-        [[img9 resizableImageWithCapInsets:UIEdgeInsetsZero
-                              resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(frame_width - img3.size.width, img3.size.height, img3.size.width, frame_height - img3.size.height)];
-        
-        [[img7 resizableImageWithCapInsets:UIEdgeInsetsZero
-                              resizingMode:UIImageResizingModeStretch]
-         drawInRect:CGRectMake(0.0f, img1.size.height, img1.size.width, frame_height - img1.size.height)];
-    }
-    else
-    {
-        if (frame_width > (img7.size.width + img9.size.width))
-        {
-            [[img8  resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
-             drawInRect:CGRectMake(img7.size.width, frame_height - img7.size.height, frame_width - (img7.size.width + img9.size.width), img7.size.height)];
-        }
-        [img9 drawInRect:CGRectMake(frame_width - img9.size.width, frame_height - img9.size.height, img9.size.width, img9.size.height)];
-        [img7 drawInRect:CGRectMake(0.0f, frame_height - img7.size.height, img7.size.width, img7.size.height)];
-        
-        if (frame_height > (img1.size.height + img7.size.height))
-        {
-            if (frame_width > (img4.size.width + img6.size.width))
-            {
-                [[img5 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
-                 drawInRect:CGRectMake(img4.size.width, img1.size.height, frame_width - (img4.size.width + img6.size.width), frame_height - img1.size.height - img7.size.height)];
-            }
-            
-            [[img6 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
-             drawInRect:CGRectMake(frame_width - img6.size.width, img3.size.height, img6.size.width, frame_height - img3.size.height - img9.size.height)];
-            
-            [[img4 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
-             drawInRect:CGRectMake(0.0f, img1.size.height, img4.size.width, frame_height - img1.size.height - img7.size.height)];
-        }
-    }
-    
-    if (frame_width > (img1.size.width + img3.size.width))
-    {
-        [[img2 resizableImageWithCapInsets:UIEdgeInsetsZero resizingMode:UIImageResizingModeTile]
-         drawInRect:CGRectMake(img1.size.width, 0.0f, frame_width - (img1.size.width + img3.size.width), img1.size.height)];
-    }
-    [img3 drawInRect:CGRectMake(frame_width - img3.size.width, 0.0f, img3.size.width, img3.size.height)];
-    [img1 drawInRect:CGRectMake(0.0f, 0.0f, img1.size.width, img1.size.height)];
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
-
-- (UIButton *)dynamicButtonWithTitle:(NSString *)title
-                              target:(id)target
-                            selector:(SEL)selector
-                               frame:(CGRect)frame
-                                type:(NSString *)type
-{
-    UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	
-	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	
-    if (frame.size.width > 140.0f*SCALE_IPAD)
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:MEDIUM_FONT_SIZE];
-    }
-    else if (frame.size.width > 80.0f*SCALE_IPAD)
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:SMALL_FONT_SIZE];
-    }
-    else
-    {
-        button.titleLabel.font = [UIFont fontWithName:DEFAULT_FONT_BOLD size:10.0f*SCALE_IPAD];
-    }
-    
-    button.titleLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    button.titleLabel.textAlignment = NSTextAlignmentCenter;
-    button.titleLabel.numberOfLines = 0;
-    [button.titleLabel setTextColor:[UIColor blackColor]];
-    
-    [button setContentEdgeInsets:UIEdgeInsetsMake(1.0, 1.0, 1.0, 1.0)];
-    
-	[button setTitle:title forState:UIControlStateNormal];
-    
-	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-    
-	button.backgroundColor = [UIColor clearColor];
-    
-    UIImage *normalImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@", type]];
-	[button setBackgroundImage:normalImage forState:UIControlStateNormal];
-    
-    if ([type isEqualToString:@"0"]) //Disabled button
-    {
-        [button setBackgroundImage:normalImage forState:UIControlStateHighlighted];
-    }
-    else
-    {
-        UIImage *highlightImage = [self dynamicImage:frame prefix:[NSString stringWithFormat:@"btn%@_hvr", type]];
-        [button setBackgroundImage:highlightImage forState:UIControlStateHighlighted];
-    }
-	
-	return button;
-}
-
-- (UIButton *)buttonWithTitle:(NSString *)title
-					   target:(id)target
-					 selector:(SEL)selector
-						frame:(CGRect)frame
-                  imageNormal:(UIImage *)imageNormal
-             imageHighlighted:(UIImage *)imageHighlighted
-                imageCentered:(BOOL)imageCentered
-				darkTextColor:(BOOL)darkTextColor
-{
-	UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	
-	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	
-	[button setTitle:title forState:UIControlStateNormal];
-	if (darkTextColor)
-	{
-		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	}
-	else
-	{
-		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	}
-    
-    if (imageCentered)
-    {
-        button.imageView.contentMode = UIViewContentModeCenter;
-    }
-	
-	UIImage *newImage = [imageNormal stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setImage:newImage forState:UIControlStateNormal];
-	
-	UIImage *newHighlightedImage = [imageHighlighted stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setImage:newHighlightedImage forState:UIControlStateHighlighted];
-	
-	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-	
-    // in case the parent view draws with a custom color or gradient, use a transparent color
-	button.backgroundColor = [UIColor clearColor];
-	
-	return button;
+    [UIManager.i showDialog:@"Sorry, there was an internet connection issue or your session has timed out. Please retry."];
 }
 
 - (double)Random_next:(double)min to:(double)max
@@ -1013,7 +659,7 @@ static NSOperationQueue *connectionQueue;
         alertMsg = @"{no alert message in dictionary}";
     }
     
-    [self showDialog:alertMsg];
+    [UIManager.i showDialog:alertMsg];
 }
 
 - (void)scheduleNotification:(NSDate *)f_date :(NSString *)alert_body
@@ -1684,7 +1330,7 @@ static NSOperationQueue *connectionQueue;
 {
     self.loadingView = [[LoadingView alloc] init];
     self.loadingView.title = @"Loading";
-    [[self peekViewControllerStack].view addSubview:self.loadingView.view];
+    [[UIManager.i peekViewControllerStack].view addSubview:self.loadingView.view];
     [self.loadingView updateView];
 }
 
@@ -1701,7 +1347,7 @@ static NSOperationQueue *connectionQueue;
     ChatView *achatView = [[ChatView alloc] init];
     achatView.title = @"Alliance Wall";
     
-    [self showTemplate:@[achatView] :@"Alliance Wall"];
+    [UIManager.i showTemplate:@[achatView] :@"Alliance Wall" :10];
     [achatView updateView:ds table:tn a_id:aid];
 }
 
@@ -1833,9 +1479,9 @@ static NSOperationQueue *connectionQueue;
     }
     self.loginView.loginBlock = block;
     
-    [self showTemplate:@[self.loginView] :@"Login" :0];
+    [UIManager.i showTemplate:@[self.loginView] :@"Login" :2];
     
-    self.templateView.closeButton.hidden = YES;
+    //UIManager.i.templateView.closeButton.hidden = YES;
     
     [self.loginView updateView];
 }
@@ -1885,7 +1531,7 @@ static NSOperationQueue *connectionQueue;
         
         if (latest_version > this_version)
         {
-            [self showDialogBlock:@"New Version Available. Upgrade to latest version?"
+            [UIManager.i showDialogBlock:@"New Version Available. Upgrade to latest version?"
                                  :2
                                  :^(NSInteger index, NSString *text)
              {
@@ -2621,52 +2267,15 @@ static NSOperationQueue *connectionQueue;
     return fname;
 }
 
-- (UIButton *)buttonWithTitle:(NSString *)title
-					   target:(id)target
-					 selector:(SEL)selector
-						frame:(CGRect)frame
-						image:(UIImage *)image
-				 imagePressed:(UIImage *)imagePressed
-				darkTextColor:(BOOL)darkTextColor
-{
-	UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	
-	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-	
-	[button setTitle:title forState:UIControlStateNormal];
-	if (darkTextColor)
-	{
-		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-	}
-	else
-	{
-		[button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	}
-	
-	UIImage *newImage = [image stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setBackgroundImage:newImage forState:UIControlStateNormal];
-	
-	UIImage *newPressedImage = [imagePressed stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-	[button setBackgroundImage:newPressedImage forState:UIControlStateHighlighted];
-	
-	[button addTarget:target action:selector forControlEvents:UIControlEventTouchUpInside];
-	
-    // in case the parent view draws with a custom color or gradient, use a transparent color
-	button.backgroundColor = [UIColor clearColor];
-	
-	return button;
-}
-
 - (NSString *)urlEnc:(NSString *)str
 {
-	NSString *escaped = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-	escaped = [escaped stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
-	escaped = [escaped stringByReplacingOccurrencesOfString:@"/" withString:@"="];
-	escaped = [escaped stringByReplacingOccurrencesOfString:@":" withString:@";"];
-	escaped = [escaped stringByReplacingOccurrencesOfString:@"?" withString:@","];
-	
-	return escaped;
+    NSString *escaped = [str stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    escaped = [escaped stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
+    escaped = [escaped stringByReplacingOccurrencesOfString:@"/" withString:@"="];
+    escaped = [escaped stringByReplacingOccurrencesOfString:@":" withString:@";"];
+    escaped = [escaped stringByReplacingOccurrencesOfString:@"?" withString:@","];
+    
+    return escaped;
 }
 
 - (void)buyProduct:(NSString *)productId :(NSString *)isVirtualMoney :(NSString *)json

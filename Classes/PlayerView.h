@@ -1,6 +1,4 @@
 
-#import "DialogBoxView.h"
-
 @class SquadView;
 
 @interface PlayerView : UIViewController 

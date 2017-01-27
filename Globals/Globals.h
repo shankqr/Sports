@@ -6,19 +6,12 @@
 //  Copyright 2010 TapFantasy. All rights reserved.
 //
 
-#define ARC4RANDOM_MAX 0x100000000LL
 #define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
 #define SCREEN_WIDTH (iPad ? 768.0f : 320.0f)
-#define SCREEN_OFFSET_BOTTOM 0.0f * SCALE_IPAD
-#define SCREEN_OFFSET_X 0.0f * SCALE_IPAD
-#define SCREEN_OFFSET_MAINHEADER_Y (iPad ? 130.0f : 60.0f)
-#define SCREEN_OFFSET_DIALOGHEADER_Y 15.0f * SCALE_IPAD
 #define ARRAY_FLAGS [NSArray arrayWithObjects: @" ", @"Afghanistan", @"Aland Islands", @"Albania", @"Algeria", @"American Samoa", @"Andorra", @"Angola", @"Anguilla", @"Antarctica", @"Antigua and Barbuda", @"Argentina", @"Armenia", @"Aruba", @"Australia", @"Austria", @"Azerbaijan", @"Bahamas", @"Bahrain", @"Bangladesh", @"Barbados", @"Belarus", @"Belgium", @"Belize", @"Benin", @"Bermuda", @"Bhutan", @"BIOT", @"Bolivia", @"Bosnian", @"Botswana", @"Bouvet Island", @"Brazil", @"British Antarctic Territory", @"British Virgin Islands", @"Brunei", @"Bulgaria", @"Burkina Faso", @"Burma", @"Burundi", @"Cambodia", @"Cameroon", @"Canada", @"Cape Verde", @"Cayman Islands", @"CentralAfricanRepublic", @"Chad", @"Chile", @"China", @"Christmas Island", @"Cocos Islands", @"Colombia", @"Comoros", @"Congo", @"Congo Kinshasa", @"Cook Islands", @"Costa Rica", @"Croatian", @"Cuba", @"Cyprus", @"Czech Republic", @"Denmark", @"Djibouti", @"Dominican Republic", @"Dominicana", @"East Timor", @"Ecuador", @"Egypt", @"El Salvador", @"England", @"Equatorial Guinea", @"Eritrea", @"Estonia", @"Ethiopia", @"European Union", @"Ex Yugoslavia", @"Falkland Islands", @"Faroe Islands", @"Fiji", @"Finland", @"France", @"French Polynesia", @"French Southern Territories", @"Gabon", @"Gambia", @"Georgia", @"Germany", @"Ghana", @"Gibraltar", @"Greece", @"Greenland", @"Grenada", @"Guadeloupe", @"Guam", @"Guatemala", @"Guernsey", @"Guinea Bissau", @"Guinea", @"Guyana", @"Haiti", @"Holy see", @"Honduras", @"Hong Kong", @"Hungary", @"Iceland", @"India", @"Indonesia", @"Iran", @"Iraq", @"Ireland", @"Isle of Man", @"Israel", @"Italy", @"Ivory Coast", @"Jamaica", @"Jan Mayen", @"Japan", @"Jarvis Island", @"Jersey", @"Jordan", @"Kazakhstan", @"Kenya", @"Kiribati", @"Korea", @"Kosovo", @"Kuwait", @"Kyrgyzstan", @"Laos", @"Latvia", @"Lebanon", @"Lesotho", @"Liberia", @"Libya", @"Liechtenstein", @"Lithuania", @"Luxembourg", @"Macau", @"Macedonia", @"Madagascar", @"Malawi", @"Malaysia", @"Maldives", @"Mali", @"Malta", @"Marshall Islands", @"Martinique", @"Mauritania", @"Mauritius", @"Mayotte", @"Mexico", @"Micronesia", @"Moldova", @"Monaco", @"Mongolia", @"Montenegro", @"Montserrat", @"Morocco", @"Mozambique", @"Myanmar", @"Namibia", @"Nauru", @"Nepal", @"Netherlands Antilles", @"Netherlands", @"New Caledonia", @"New Zealand", @"Nicaragua", @"Niger", @"Nigeria", @"Niue", @"Norfolk Island", @"North Korea", @"Northern Ireland", @"Northern Mariana Islands", @"Norway", @"Oman", @"Pakistan", @"Palau", @"Palestinian Territory", @"Panama", @"Papua New Guinea", @"Paraguay", @"Peru", @"Philippines", @"Pitcairn", @"Poland", @"Portugal", @"Puerto Rico", @"Qatar", @"Reunion", @"Romania", @"Russia", @"Rwanda", @"Saint Pierre and Miquelon", @"Saint Vincent and the Grenadines", @"Saint Barthelemy", @"Saint Helena Dependencies", @"Saint Helena", @"Saint Kitts and Nevis", @"Saint Lucia", @"Saint Martin", @"Samoa", @"San Marino", @"Sao Tome and Principe", @"Saudi Arabia", @"Scotland", @"Senegal", @"Serbia", @"Seychelles", @"Sierra Leone", @"Singapore", @"Slovakia", @"Slovenia", @"SMOM", @"Solomon Islands", @"Somalia", @"South Africa", @"South Georgia", @"Spain", @"SPM", @"Sri Lanka", @"Sudan", @"Suriname", @"Svalbard", @"SVG", @"Swaziland", @"Sweden", @"Switzerland", @"Syria", @"Taiwan", @"Tajikistan", @"Tanzania", @"Thailand", @"Timor Leste", @"Togo", @"Tokelau", @"Tonga", @"Trinidad and Tobago", @"Tunisia", @"Turkey", @"Turkmenistan", @"Turks and Caicos Islands", @"Tuvalu", @"Uganda", @"Ukraine", @"United Arab Emirates", @"United Kingdom", @"United States", @"Uruguay", @"Uzbekistan", @"Vanuatu", @"Vatican City", @"Venezuela", @"Vietnam", @"Virgin Islands", @"Wales", @"Wallis and Futuna", @"Western Sahara", @"Yemen", @"Zambia", @"Zimbabwe", nil]
 #define STAR_FULL @"icon_star.png"
 #define STAR_HALF @"icon_halfstar.png"
-#define HeaderSquadSelect_height (iPad ? 75.0f : 50.0f)
-#define HeaderSquad_height (iPad ? 180.0f : 75.0f)
 #define Maintable_height (iPad ? 1400.0f : 850.0f)
 #define Header_height (iPad ? 180.0f : 75.0f)
 #define SLIDE_x (iPad ? 0.0f : 0.0f)
@@ -38,33 +31,11 @@
 #define TacticsView_frame_y (iPad ? 100.0f : 15.0f)
 #define BID_CEILING (iPad ? 381.0f : 191.0f)
 #define BID_BUTTON_WIDTH (iPad ? 144.0f : 72.0f)
-#define PBAR_SMALL (iPad ? 20.0f : 10.0f)
-#define PBAR_BIG (iPad ? 120.0f : 60.0f)
-#define PBAR1_X (iPad ? 45.0f : 20.0f)
-#define PBAR1_Y (iPad ? 80.0f : 35.0f)
-#define PBAR2_X (iPad ? 135.0f : 52.0f)
-#define PBAR2_Y (iPad ? 545.0f : 243.0f)
-#define PBAR3_X (iPad ? 820.0f : 367.0f)
-#define PBAR3_Y (iPad ? 160.0f : 95.0f)
 #define FORMATION_SEGMENT_Y (iPad ? 730.0f : 340.0f)
-#define CELL_CONTENT_WIDTH UIScreen.mainScreen.bounds.size.width
 #define TABLE_FOOTER_VIEW_HEIGHT 50.0f * SCALE_IPAD
 #define TABLE_HEADER_VIEW_HEIGHT 44.0f * SCALE_IPAD
 #define DEFAULT_CONTENT_SPACING 5.0f * SCALE_IPAD
-
-#define DEFAULT_FONT @"TrebuchetMS"
-#define DEFAULT_FONT_BOLD @"TrebuchetMS-Bold"
-#define DEFAULT_FONT_SIZE 18.0f * SCALE_IPAD
-#define DEFAULT_FONT_SMALL_SIZE 14.0f * SCALE_IPAD
-#define DEFAULT_FONT_BIG_SIZE 22.0f * SCALE_IPAD
-#define MINIMUM_FONT_SIZE 1.0f * SCALE_IPAD
-#define MENU_FONT_SIZE (iPad ? 28.0f : 14.0f)
-
-#define PLUGIN_HEIGHT UIScreen.mainScreen.bounds.size.height - SCREEN_OFFSET_MAINHEADER_Y - SCREEN_OFFSET_BOTTOM
-#define CHART_CONTENT_MARGIN 10.0f * SCALE_IPAD
-#define SMALL_FONT_SIZE 12.0f * SCALE_IPAD
-#define MEDIUM_FONT_SIZE 16.0f * SCALE_IPAD
-#define BIG_FONT_SIZE 24.0f * SCALE_IPAD
+#define DEFAULT_FONT_BIG_SIZE 18.0f * SCALE_IPAD
 
 //Main Menu
 #define buttons_per_row (iPad ? 5 : 4)
@@ -134,34 +105,28 @@
 #define Subs_y2_baseball (iPad ? 580.0f : 240.0f)
 #define Subs_y3_baseball (iPad ? 180.0f : 50.0f)
 
-#define DIALOG_CONTENT_MARGIN (20.0f*SCALE_IPAD)
-#define DIALOG_CELL_WIDTH (CELL_CONTENT_WIDTH - DIALOG_CONTENT_MARGIN*3)
-
 #define GAME_NAME [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"]
 #define GAME_VERSION [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 #define WS_URL [[[NSBundle mainBundle] infoDictionary] objectForKey:@"GAME_URL"]
 
 #import "MailView.h"
 #import "ChatView.h"
-#import "DialogBoxView.h"
-#import "TemplateView.h"
 #import "LoginView.h"
-#import "DynamicCell.h"
-#import "DCFineTuneSlider.h"
 #import <AVFoundation/AVFoundation.h>
 #import <CoreLocation/CoreLocation.h>
+#import <UIManager/UIManager.h>
 
 @class LoadingView;
 @class PlayerCell;
 @class MainView;
 
-@interface Globals : NSObject <AVAudioPlayerDelegate, CLLocationManagerDelegate, TemplateDelegate>
+@interface Globals : NSObject <AVAudioPlayerDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, strong) MainView *mainView;
 @property (nonatomic, strong) LoginView *loginView;
-@property (nonatomic, strong) DialogBoxView *dialogBox;
-@property (nonatomic, strong) TemplateView *templateView;
 @property (nonatomic, strong) LoadingView *loadingView;
+@property (nonatomic, strong) UIImageView *spinImageView;
+
 @property (nonatomic, strong) NSMutableArray *viewControllerStack;
 @property (nonatomic, strong) AVAudioPlayer *buttonAudio;
 @property (nonatomic, strong) AVAudioPlayer *backAudio;
@@ -271,13 +236,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)showLoadingAlert;
 - (void)removeLoadingAlert;
 - (void)showToast:(NSString *)message optionalTitle:(NSString *)title optionalImage:(NSString *)imagename;
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex :(UIViewController *)headerView;
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType :(NSInteger)selectedIndex;
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title :(NSInteger)frameType;
-- (void)showTemplate:(NSArray *)viewControllers :(NSString *)title;
-- (void)closeTemplate;
-- (void)showDialog:(NSString *)l1;
-- (void)showDialogBlock:(NSString *)l1 :(NSInteger)type :(DialogBlock)block;
 - (void)showDialogError;
 - (void)setLat:(NSString *)lat;
 - (NSString *)getLat;
@@ -346,15 +304,8 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)addMailReply:(NSString *)mail_id :(NSArray *)mail_reply;
 - (void)deleteLocalMail:(NSString *)mail_id;
 - (void)replyCounterPlus:(NSString *)mail_id;
-- (void)flushViewControllerStack;
-- (void)pushViewControllerStack:(UIViewController *)view;
-- (UIViewController *)popViewControllerStack;
-- (UIViewController *)peekViewControllerStack;
-- (UIViewController *)firstViewControllerStack;
-- (BOOL)isCurrentView:(UIViewController *)view;
 - (void)pushChatVC:(NSMutableArray *)ds table:(NSString *)tn a_id:(NSString *)aid;
 - (void)fbPublishStory:(NSString *)message :(NSString *)caption :(NSString *)picture;
-- (NSString *)currentViewTitle;
 
 //SPORTS
 - (NSString *)getFaceImageName:(NSString *)player_id;
@@ -375,22 +326,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 						indexPath:(NSIndexPath *)indexPath
 					  playerArray:(NSMutableArray *)players
 						 checkPos:(BOOL)checkPos;
-
-- (UIButton *)buttonWithTitle:(NSString *)title
-                       target:(id)target
-                     selector:(SEL)selector
-                        frame:(CGRect)frame
-                        image:(UIImage *)image
-                 imagePressed:(UIImage *)imagePressed
-                darkTextColor:(BOOL)darkTextColor;
-
-- (UIImage *)dynamicImage:(CGRect)frame prefix:(NSString *)prefix;
-
-- (UIButton *)dynamicButtonWithTitle:(NSString *)title
-                              target:(id)target
-                            selector:(SEL)selector
-                               frame:(CGRect)frame
-                                type:(NSString *)type;
 
 - (NSString *)urlEnc:(NSString *)str;
 - (void)buyProduct:(NSString *)productId :(NSString *)isVirtualMoney :(NSString *)json;
@@ -474,7 +409,6 @@ typedef void (^returnBlock)(BOOL success, NSData *data);
 - (void)removeLoading;
 - (BOOL)updateSalesData;
 - (NSDateFormatter *)getDateFormat;
-- (void)closeAllTemplate;
 - (BOOL)updateEventSolo;
 - (BOOL)updateEventAlliance;
 

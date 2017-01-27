@@ -224,7 +224,7 @@
     }
     else
     {
-        [[Globals i] showDialog:@"This club is not a member of any Alliance, please invite the manager to join your Alliance!"];
+        [UIManager.i showDialog:@"This club is not a member of any Alliance, please invite the manager to join your Alliance!"];
     }
 }
 

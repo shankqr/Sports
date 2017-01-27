@@ -122,7 +122,7 @@
                     {
                         challengeBox = [[ChallengeView alloc] initWithNibName:@"ChallengeView" bundle:nil];
                     }
-					[[Globals i] showTemplate:@[challengeBox] :@"Challenge" :0];
+					[UIManager.i showTemplate:@[challengeBox] :@"Challenge" :0];
 					[challengeBox viewChallenge:selected_row];
 					break;
 				}

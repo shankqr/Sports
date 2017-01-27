@@ -116,7 +116,7 @@
              
              if (success)
              {
-                 [[Globals i] closeTemplate];
+                 [UIManager.i closeTemplate];
                  textview.text = @"";
                  
                  [[Globals i] showToast:@"Message Sent!"
@@ -177,7 +177,7 @@
         }
         else if (indexPath.row == 1) //Cancel
         {
-            [[Globals i] closeTemplate];
+            [UIManager.i closeTemplate];
             
             tvName.text = @"";
             tvMessage.text = @"";

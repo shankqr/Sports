@@ -50,7 +50,7 @@
 
 - (void)close
 {
-	[[Globals i] closeTemplate];
+	[UIManager.i closeTemplate];
 }
 
 - (IBAction)sellButton_tap:(id)sender
@@ -85,7 +85,7 @@
             [numberFormatter setGroupingSeparator:@","];
             squadView.sel_player_halfvalue = [numberFormatter stringForObjectValue:number];
             
-            [[Globals i] showDialogBlock:[NSString stringWithFormat:@"+5 XP. Are you sure you want to sell %@ half the value for $%@?", squadView.sel_player_name, squadView.sel_player_halfvalue]
+            [UIManager.i showDialogBlock:[NSString stringWithFormat:@"+5 XP. Are you sure you want to sell %@ half the value for $%@?", squadView.sel_player_name, squadView.sel_player_halfvalue]
                                         :2
                                         :^(NSInteger index, NSString *text)
              {
@@ -107,7 +107,7 @@
                      
                      [self close];
                      
-                     [[Globals i] showDialog:[NSString stringWithFormat:@"+5 XP. Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
+                     [UIManager.i showDialog:[NSString stringWithFormat:@"+5 XP. Congratulations! you managed to sell %@ to a 3rd world country for $%@. You now have %ld players left on your team.",
                                               squadView.sel_player_name, squadView.sel_player_halfvalue, (unsigned long)squadView.players.count]];
 
                  }
@@ -115,7 +115,7 @@
         }
         else
         {
-            [[Globals i] showDialogBlock:@"10 energy is required to sell any player. Refill to full Energy?"
+            [UIManager.i showDialogBlock:@"10 energy is required to sell any player. Refill to full Energy?"
                                         :2
                                         :^(NSInteger index, NSString *text)
              {
@@ -135,7 +135,7 @@
     }
     else
     {
-        [[Globals i] showDialog:[NSString stringWithFormat:@"You must have at least %ld players left on your team.", (long)minimum_player]];
+        [UIManager.i showDialog:[NSString stringWithFormat:@"You must have at least %ld players left on your team.", (long)minimum_player]];
     }
 }
 
@@ -146,7 +146,7 @@
         NSString *dt = [NSString stringWithFormat:@"Energize %@ for 10 Energy? %@'s Condition will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [[Globals i] showDialogBlock:dt
+        [UIManager.i showDialogBlock:dt
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -171,7 +171,7 @@
     }
     else
     {
-        [[Globals i] showDialogBlock:@"10 energy is required to Energize any player. Refill to full Energy?"
+        [UIManager.i showDialogBlock:@"10 energy is required to Energize any player. Refill to full Energy?"
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -197,7 +197,7 @@
         NSString *dt = [NSString stringWithFormat:@"Heal %@ for 10 Energy? %@'s injury days will decrease by 1.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [[Globals i] showDialogBlock:dt
+        [UIManager.i showDialogBlock:dt
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -220,7 +220,7 @@
     }
     else
     {
-        [[Globals i] showDialogBlock:@"10 energy is required to Heal any player. Refill to full Energy?"
+        [UIManager.i showDialogBlock:@"10 energy is required to Heal any player. Refill to full Energy?"
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -245,7 +245,7 @@
     
     if(totalDiamonds > 9)
     {
-        [[Globals i] showDialogBlock:@"+5 XP. Rename Player for 10 Diamonds? Enter a new name for this player."
+        [UIManager.i showDialogBlock:@"+5 XP. Rename Player for 10 Diamonds? Enter a new name for this player."
                                     :4
                                     :^(NSInteger index, NSString *text)
          {
@@ -280,19 +280,19 @@
                      
                      [self close];
                      
-                     [[Globals i] showDialog:[NSString stringWithFormat:@"+5 XP. Congratulations! player %@ is now called %@.",
+                     [UIManager.i showDialog:[NSString stringWithFormat:@"+5 XP. Congratulations! player %@ is now called %@.",
                                               squadView.sel_player_name, text]];
                  }
                  else
                  {
-                     [[Globals i] showDialog:@"NAME NOT VALID. Try again and enter another name."];
+                     [UIManager.i showDialog:@"NAME NOT VALID. Try again and enter another name."];
                  }
              }
          }];
     }
     else
     {
-        [[Globals i] showDialogBlock:@"10 Diamonds is required to rename a player. Would you like to buy some diamonds"
+        [UIManager.i showDialogBlock:@"10 Diamonds is required to rename a player. Would you like to buy some diamonds"
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -317,7 +317,7 @@
         NSString *dt = [NSString stringWithFormat:@"+5 XP. Send %@ to Special Training for 5 Diamonds? One of %@'s skill will level up after special training.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [[Globals i] showDialogBlock:dt
+        [UIManager.i showDialogBlock:dt
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -333,7 +333,7 @@
                  
                  if([returnValue isEqualToString:@"0"])
                  {
-                     [[Globals i] showDialog:@"Player NOT VALID. Please select another player."];
+                     [UIManager.i showDialog:@"Player NOT VALID. Please select another player."];
                  }
                  else
                  {
@@ -372,14 +372,14 @@
                          promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ has level up his %@ skills.", squadView.sel_player_name, [[Globals i] PlayerSkill1]];
                      }
                      
-                     [[Globals i] showDialog:promptText];
+                     [UIManager.i showDialog:promptText];
                  }
              }
          }];
     }
     else
     {
-        [[Globals i] showDialogBlock:@"5 Diamonds is required for Special Training. Would you like to buy some diamonds?"
+        [UIManager.i showDialogBlock:@"5 Diamonds is required for Special Training. Would you like to buy some diamonds?"
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -404,7 +404,7 @@
         NSString *dt = [NSString stringWithFormat:@"+5 XP. Give %@ a Morale Boost for 3 Diamonds? %@'s Morale will increase by 5.",
                                 squadView.sel_player_name, squadView.sel_player_name];
         
-        [[Globals i] showDialogBlock:dt
+        [UIManager.i showDialogBlock:dt
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
@@ -420,7 +420,7 @@
                  
                  if([returnValue isEqualToString:@"0"])
                  {
-                     [[Globals i] showDialog:@"Player NOT VALID. Please select another player."];
+                     [UIManager.i showDialog:@"Player NOT VALID. Please select another player."];
                  }
                  else
                  {
@@ -440,14 +440,14 @@
                      
                      promptText = [NSString stringWithFormat:@"+5 XP. Congratulations! player %@ morale has increased by 5.", squadView.sel_player_name];
                      
-                     [[Globals i] showDialog:promptText];
+                     [UIManager.i showDialog:promptText];
                  }
              }
          }];
     }
     else
     {
-        [[Globals i] showDialogBlock:@"3 Diamonds is required for a Morale Boost. Would you like to buy some diamonds?"
+        [UIManager.i showDialogBlock:@"3 Diamonds is required for a Morale Boost. Would you like to buy some diamonds?"
                                     :2
                                     :^(NSInteger index, NSString *text)
          {
