@@ -1,5 +1,5 @@
 
-#import "Sparrow.h"
+#import <Sparrow/Sparrow.h>
 
 @class Ball_hockey;
 @class Player_hockey;

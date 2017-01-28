@@ -10,6 +10,48 @@
 		18605A1EA08DBCA6213194EE /* libPods-FootballFantasy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 60267EF8A0CC9D4E81246B80 /* libPods-FootballFantasy.a */; };
 		259574472E99CBCE0D5081F2 /* libPods-HockeyFantasy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A198CC32C8B615B839CA5C /* libPods-HockeyFantasy.a */; };
 		60823DAC22951A793D4DAB35 /* libPods-HockeyManager.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 170B03DC26FC20D3527B30FE /* libPods-HockeyManager.a */; };
+		6C2FD1251E3D034700B11C7C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A51E3C558900F6D59A /* AudioToolbox.framework */; };
+		6C2FD1261E3D035900B11C7C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A71E3C55BC00F6D59A /* OpenAL.framework */; };
+		6C2FD1271E3D036800B11C7C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A91E3C55EE00F6D59A /* GLKit.framework */; };
+		6C2FD1281E3D037B00B11C7C /* Sparrow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A11E3C54AB00F6D59A /* Sparrow.framework */; };
+		6C2FD1291E3D039D00B11C7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C77069B1E3C6804006E3EB9 /* QuartzCore.framework */; };
+		6C2FD12A1E3D03AB00B11C7C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C77069D1E3C680C006E3EB9 /* OpenGLES.framework */; };
+		6C2FD1401E3D03E200B11C7C /* Ball_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD12D1E3D03E200B11C7C /* Ball_hockey.m */; };
+		6C2FD1411E3D03E200B11C7C /* engine_ball_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD12F1E3D03E200B11C7C /* engine_ball_hockey.png */; };
+		6C2FD1421E3D03E200B11C7C /* engine_ball_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1301E3D03E200B11C7C /* engine_ball_hockey@2x.png */; };
+		6C2FD1431E3D03E200B11C7C /* engine_goal_left_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1311E3D03E200B11C7C /* engine_goal_left_hockey.png */; };
+		6C2FD1441E3D03E200B11C7C /* engine_goal_left_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1321E3D03E200B11C7C /* engine_goal_left_hockey@2x.png */; };
+		6C2FD1451E3D03E200B11C7C /* engine_goal_right_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1331E3D03E200B11C7C /* engine_goal_right_hockey.png */; };
+		6C2FD1461E3D03E200B11C7C /* engine_goal_right_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1341E3D03E200B11C7C /* engine_goal_right_hockey@2x.png */; };
+		6C2FD1471E3D03E200B11C7C /* engine_header_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1351E3D03E200B11C7C /* engine_header_hockey.png */; };
+		6C2FD1481E3D03E200B11C7C /* engine_header_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1361E3D03E200B11C7C /* engine_header_hockey@2x.png */; };
+		6C2FD1491E3D03E200B11C7C /* engine_pitch_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1371E3D03E200B11C7C /* engine_pitch_hockey.png */; };
+		6C2FD14A1E3D03E200B11C7C /* engine_pitch_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1381E3D03E200B11C7C /* engine_pitch_hockey@2x.png */; };
+		6C2FD14B1E3D03E200B11C7C /* Game_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13A1E3D03E200B11C7C /* Game_hockey.m */; };
+		6C2FD14C1E3D03E200B11C7C /* Goal_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13C1E3D03E200B11C7C /* Goal_hockey.m */; };
+		6C2FD14D1E3D03E200B11C7C /* Player_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13E1E3D03E200B11C7C /* Player_hockey.m */; };
+		6C2FD14E1E3D03E200B11C7C /* sound_shoot_hockey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD13F1E3D03E200B11C7C /* sound_shoot_hockey.caf */; };
+		6C2FD14F1E3D040400B11C7C /* Ball_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD12D1E3D03E200B11C7C /* Ball_hockey.m */; };
+		6C2FD1501E3D040400B11C7C /* Game_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13A1E3D03E200B11C7C /* Game_hockey.m */; };
+		6C2FD1511E3D040400B11C7C /* Goal_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13C1E3D03E200B11C7C /* Goal_hockey.m */; };
+		6C2FD1521E3D040400B11C7C /* Player_hockey.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C2FD13E1E3D03E200B11C7C /* Player_hockey.m */; };
+		6C2FD1531E3D042E00B11C7C /* engine_ball_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD12F1E3D03E200B11C7C /* engine_ball_hockey.png */; };
+		6C2FD1541E3D042E00B11C7C /* engine_ball_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1301E3D03E200B11C7C /* engine_ball_hockey@2x.png */; };
+		6C2FD1551E3D042E00B11C7C /* engine_goal_left_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1311E3D03E200B11C7C /* engine_goal_left_hockey.png */; };
+		6C2FD1561E3D042E00B11C7C /* engine_goal_left_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1321E3D03E200B11C7C /* engine_goal_left_hockey@2x.png */; };
+		6C2FD1571E3D042E00B11C7C /* engine_goal_right_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1331E3D03E200B11C7C /* engine_goal_right_hockey.png */; };
+		6C2FD1581E3D042E00B11C7C /* engine_goal_right_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1341E3D03E200B11C7C /* engine_goal_right_hockey@2x.png */; };
+		6C2FD1591E3D042E00B11C7C /* engine_header_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1351E3D03E200B11C7C /* engine_header_hockey.png */; };
+		6C2FD15A1E3D042E00B11C7C /* engine_header_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1361E3D03E200B11C7C /* engine_header_hockey@2x.png */; };
+		6C2FD15B1E3D042E00B11C7C /* engine_pitch_hockey.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1371E3D03E200B11C7C /* engine_pitch_hockey.png */; };
+		6C2FD15C1E3D042E00B11C7C /* engine_pitch_hockey@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD1381E3D03E200B11C7C /* engine_pitch_hockey@2x.png */; };
+		6C2FD15D1E3D042E00B11C7C /* sound_shoot_hockey.caf in Resources */ = {isa = PBXBuildFile; fileRef = 6C2FD13F1E3D03E200B11C7C /* sound_shoot_hockey.caf */; };
+		6C2FD15E1E3D0AAF00B11C7C /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A51E3C558900F6D59A /* AudioToolbox.framework */; };
+		6C2FD15F1E3D0AB700B11C7C /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A71E3C55BC00F6D59A /* OpenAL.framework */; };
+		6C2FD1601E3D0ACC00B11C7C /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A91E3C55EE00F6D59A /* GLKit.framework */; };
+		6C2FD1611E3D0AD900B11C7C /* Sparrow.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C81B7A11E3C54AB00F6D59A /* Sparrow.framework */; };
+		6C2FD1621E3D0AE600B11C7C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C77069B1E3C6804006E3EB9 /* QuartzCore.framework */; };
+		6C2FD1631E3D0AEF00B11C7C /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C77069D1E3C680C006E3EB9 /* OpenGLES.framework */; };
 		6C73E7C21E3AE86800628D09 /* UIManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C73E7C11E3AE86800628D09 /* UIManager.framework */; };
 		6C73E7C31E3AE86800628D09 /* UIManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6C73E7C11E3AE86800628D09 /* UIManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6C73E7C51E3AE88400628D09 /* UIManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C73E7C11E3AE86800628D09 /* UIManager.framework */; };
@@ -11860,6 +11902,26 @@
 		5B1B892BE8FDAD12C2DA49B3 /* Pods-HockeyFantasy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HockeyFantasy.release.xcconfig"; path = "Pods/Target Support Files/Pods-HockeyFantasy/Pods-HockeyFantasy.release.xcconfig"; sourceTree = "<group>"; };
 		60267EF8A0CC9D4E81246B80 /* libPods-FootballFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FootballFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6941DBEC31AA1D42B05865A3 /* libPods-BasketballFantasy.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BasketballFantasy.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C2FD12C1E3D03E200B11C7C /* Ball_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Ball_hockey.h; sourceTree = "<group>"; };
+		6C2FD12D1E3D03E200B11C7C /* Ball_hockey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Ball_hockey.m; sourceTree = "<group>"; };
+		6C2FD12E1E3D03E200B11C7C /* Defines_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Defines_hockey.h; sourceTree = "<group>"; };
+		6C2FD12F1E3D03E200B11C7C /* engine_ball_hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = engine_ball_hockey.png; sourceTree = "<group>"; };
+		6C2FD1301E3D03E200B11C7C /* engine_ball_hockey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "engine_ball_hockey@2x.png"; sourceTree = "<group>"; };
+		6C2FD1311E3D03E200B11C7C /* engine_goal_left_hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = engine_goal_left_hockey.png; sourceTree = "<group>"; };
+		6C2FD1321E3D03E200B11C7C /* engine_goal_left_hockey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "engine_goal_left_hockey@2x.png"; sourceTree = "<group>"; };
+		6C2FD1331E3D03E200B11C7C /* engine_goal_right_hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = engine_goal_right_hockey.png; sourceTree = "<group>"; };
+		6C2FD1341E3D03E200B11C7C /* engine_goal_right_hockey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "engine_goal_right_hockey@2x.png"; sourceTree = "<group>"; };
+		6C2FD1351E3D03E200B11C7C /* engine_header_hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = engine_header_hockey.png; sourceTree = "<group>"; };
+		6C2FD1361E3D03E200B11C7C /* engine_header_hockey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "engine_header_hockey@2x.png"; sourceTree = "<group>"; };
+		6C2FD1371E3D03E200B11C7C /* engine_pitch_hockey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = engine_pitch_hockey.png; sourceTree = "<group>"; };
+		6C2FD1381E3D03E200B11C7C /* engine_pitch_hockey@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "engine_pitch_hockey@2x.png"; sourceTree = "<group>"; };
+		6C2FD1391E3D03E200B11C7C /* Game_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Game_hockey.h; sourceTree = "<group>"; };
+		6C2FD13A1E3D03E200B11C7C /* Game_hockey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Game_hockey.m; sourceTree = "<group>"; };
+		6C2FD13B1E3D03E200B11C7C /* Goal_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Goal_hockey.h; sourceTree = "<group>"; };
+		6C2FD13C1E3D03E200B11C7C /* Goal_hockey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Goal_hockey.m; sourceTree = "<group>"; };
+		6C2FD13D1E3D03E200B11C7C /* Player_hockey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player_hockey.h; sourceTree = "<group>"; };
+		6C2FD13E1E3D03E200B11C7C /* Player_hockey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player_hockey.m; sourceTree = "<group>"; };
+		6C2FD13F1E3D03E200B11C7C /* sound_shoot_hockey.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sound_shoot_hockey.caf; sourceTree = "<group>"; };
 		6C73E7C11E3AE86800628D09 /* UIManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UIManager.framework; sourceTree = "<group>"; };
 		6C7573001E39B69D00EDB99B /* Chartboost.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Chartboost.framework; sourceTree = "<group>"; };
 		6C7573021E39CAA700EDB99B /* BaseballFantasy-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "BaseballFantasy-Info.plist"; sourceTree = "<group>"; };
@@ -18453,6 +18515,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2FD12A1E3D03AB00B11C7C /* OpenGLES.framework in Frameworks */,
+				6C2FD1291E3D039D00B11C7C /* QuartzCore.framework in Frameworks */,
+				6C2FD1281E3D037B00B11C7C /* Sparrow.framework in Frameworks */,
+				6C2FD1271E3D036800B11C7C /* GLKit.framework in Frameworks */,
+				6C2FD1261E3D035900B11C7C /* OpenAL.framework in Frameworks */,
+				6C2FD1251E3D034700B11C7C /* AudioToolbox.framework in Frameworks */,
 				6CE1957E1E39D30200F4EB58 /* Chartboost.framework in Frameworks */,
 				6CAD23AE1E38E7900055D149 /* AVFoundation.framework in Frameworks */,
 				90DDC61E18ABEC63003FBAFF /* MessageUI.framework in Frameworks */,
@@ -18475,6 +18543,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2FD1631E3D0AEF00B11C7C /* OpenGLES.framework in Frameworks */,
+				6C2FD1621E3D0AE600B11C7C /* QuartzCore.framework in Frameworks */,
+				6C2FD1611E3D0AD900B11C7C /* Sparrow.framework in Frameworks */,
+				6C2FD1601E3D0ACC00B11C7C /* GLKit.framework in Frameworks */,
+				6C2FD15F1E3D0AB700B11C7C /* OpenAL.framework in Frameworks */,
+				6C2FD15E1E3D0AAF00B11C7C /* AudioToolbox.framework in Frameworks */,
 				6CAD23B11E38E7BC0055D149 /* AVFoundation.framework in Frameworks */,
 				90DDC61F18ABEC6B003FBAFF /* MessageUI.framework in Frameworks */,
 				90348774185BB6C5006AAA6B /* SystemConfiguration.framework in Frameworks */,
@@ -18539,6 +18613,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				6C2FD12B1E3D03E200B11C7C /* MatchEngineHockey */,
 				6C7706731E3C5F70006E3EB9 /* MatchEngine */,
 				6CB3AC3F1E3B5A3F001F7334 /* Slots */,
 				080E96DDFE201D6D7F000001 /* Classes */,
@@ -18595,6 +18670,33 @@
 				170B03DC26FC20D3527B30FE /* libPods-HockeyManager.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6C2FD12B1E3D03E200B11C7C /* MatchEngineHockey */ = {
+			isa = PBXGroup;
+			children = (
+				6C2FD12C1E3D03E200B11C7C /* Ball_hockey.h */,
+				6C2FD12D1E3D03E200B11C7C /* Ball_hockey.m */,
+				6C2FD12E1E3D03E200B11C7C /* Defines_hockey.h */,
+				6C2FD12F1E3D03E200B11C7C /* engine_ball_hockey.png */,
+				6C2FD1301E3D03E200B11C7C /* engine_ball_hockey@2x.png */,
+				6C2FD1311E3D03E200B11C7C /* engine_goal_left_hockey.png */,
+				6C2FD1321E3D03E200B11C7C /* engine_goal_left_hockey@2x.png */,
+				6C2FD1331E3D03E200B11C7C /* engine_goal_right_hockey.png */,
+				6C2FD1341E3D03E200B11C7C /* engine_goal_right_hockey@2x.png */,
+				6C2FD1351E3D03E200B11C7C /* engine_header_hockey.png */,
+				6C2FD1361E3D03E200B11C7C /* engine_header_hockey@2x.png */,
+				6C2FD1371E3D03E200B11C7C /* engine_pitch_hockey.png */,
+				6C2FD1381E3D03E200B11C7C /* engine_pitch_hockey@2x.png */,
+				6C2FD1391E3D03E200B11C7C /* Game_hockey.h */,
+				6C2FD13A1E3D03E200B11C7C /* Game_hockey.m */,
+				6C2FD13B1E3D03E200B11C7C /* Goal_hockey.h */,
+				6C2FD13C1E3D03E200B11C7C /* Goal_hockey.m */,
+				6C2FD13D1E3D03E200B11C7C /* Player_hockey.h */,
+				6C2FD13E1E3D03E200B11C7C /* Player_hockey.m */,
+				6C2FD13F1E3D03E200B11C7C /* sound_shoot_hockey.caf */,
+			);
+			path = MatchEngineHockey;
 			sourceTree = "<group>";
 		};
 		6C7706731E3C5F70006E3EB9 /* MatchEngine */ = {
@@ -32397,6 +32499,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2FD1531E3D042E00B11C7C /* engine_ball_hockey.png in Resources */,
+				6C2FD1541E3D042E00B11C7C /* engine_ball_hockey@2x.png in Resources */,
+				6C2FD1551E3D042E00B11C7C /* engine_goal_left_hockey.png in Resources */,
+				6C2FD1561E3D042E00B11C7C /* engine_goal_left_hockey@2x.png in Resources */,
+				6C2FD1571E3D042E00B11C7C /* engine_goal_right_hockey.png in Resources */,
+				6C2FD1581E3D042E00B11C7C /* engine_goal_right_hockey@2x.png in Resources */,
+				6C2FD1591E3D042E00B11C7C /* engine_header_hockey.png in Resources */,
+				6C2FD15A1E3D042E00B11C7C /* engine_header_hockey@2x.png in Resources */,
+				6C2FD15B1E3D042E00B11C7C /* engine_pitch_hockey.png in Resources */,
+				6C2FD15C1E3D042E00B11C7C /* engine_pitch_hockey@2x.png in Resources */,
+				6C2FD15D1E3D042E00B11C7C /* sound_shoot_hockey.caf in Resources */,
 				6CB3ACD51E3B5E60001F7334 /* fx-appear.wav in Resources */,
 				6CB3ACD61E3B5E60001F7334 /* fx-arm-pulled.wav in Resources */,
 				6CB3ACD71E3B5E60001F7334 /* fx-coin-dropping.wav in Resources */,
@@ -35171,6 +35284,7 @@
 				90347EDC185BB6C5006AAA6B /* c468.png in Resources */,
 				908D8FF718B34D7800463CDC /* z757.jpg in Resources */,
 				908D8AC018B34D7700463CDC /* z356.jpg in Resources */,
+				6C2FD1441E3D03E200B11C7C /* engine_goal_left_hockey@2x.png in Resources */,
 				90F8AD5E1910BE1900EA99E8 /* x35.png in Resources */,
 				908D8CAF18B34D7800463CDC /* z504.jpg in Resources */,
 				90347EE3185BB6C5006AAA6B /* LeagueSlide~ipad.xib in Resources */,
@@ -35546,6 +35660,7 @@
 				908D8D6618B34D7800463CDC /* z56.jpg in Resources */,
 				908D8F1318B34D7800463CDC /* z689.jpg in Resources */,
 				908D8A5A18B34D7700463CDC /* z325.jpg in Resources */,
+				6C2FD1461E3D03E200B11C7C /* engine_goal_right_hockey@2x.png in Resources */,
 				908D927F18B34D7800463CDC /* z951.jpg in Resources */,
 				9034804C185BB6C5006AAA6B /* c279.png in Resources */,
 				90F8C0BE1910BE1A00EA99E8 /* job_cell.png in Resources */,
@@ -35602,6 +35717,7 @@
 				9034806E185BB6C5006AAA6B /* JobsView.xib in Resources */,
 				908D8D2D18B34D7800463CDC /* z542.jpg in Resources */,
 				908D8D7518B34D7800463CDC /* z564.jpg in Resources */,
+				6C2FD1421E3D03E200B11C7C /* engine_ball_hockey@2x.png in Resources */,
 				90348071185BB6C5006AAA6B /* j36.png in Resources */,
 				908D898518B34D7700463CDC /* z261.jpg in Resources */,
 				908D8D8418B34D7800463CDC /* z569.jpg in Resources */,
@@ -35712,6 +35828,7 @@
 				903480DE185BB6C5006AAA6B /* c30.png in Resources */,
 				908D898818B34D7700463CDC /* z262.jpg in Resources */,
 				908D92EB18B34D7800463CDC /* z984.jpg in Resources */,
+				6C2FD14E1E3D03E200B11C7C /* sound_shoot_hockey.caf in Resources */,
 				903480E0185BB6C5006AAA6B /* tactic_0.png in Resources */,
 				908D8F4F18B34D7800463CDC /* z706.jpg in Resources */,
 				903480E1185BB6C5006AAA6B /* c9.png in Resources */,
@@ -35955,6 +36072,7 @@
 				903481F5185BB6C5006AAA6B /* j37.png in Resources */,
 				908D8CAC18B34D7800463CDC /* z503.jpg in Resources */,
 				908D8C8218B34D7800463CDC /* z491.jpg in Resources */,
+				6C2FD1481E3D03E200B11C7C /* engine_header_hockey@2x.png in Resources */,
 				90F8B8121910BE1900EA99E8 /* flag_146.png in Resources */,
 				903481F9185BB6C5006AAA6B /* c281.png in Resources */,
 				908D899718B34D7700463CDC /* z267.jpg in Resources */,
@@ -36129,6 +36247,7 @@
 				908D8A9F18B34D7700463CDC /* z346.jpg in Resources */,
 				908D8CD918B34D7800463CDC /* z517.jpg in Resources */,
 				908D8F9D18B34D7800463CDC /* z73.jpg in Resources */,
+				6C2FD14A1E3D03E200B11C7C /* engine_pitch_hockey@2x.png in Resources */,
 				90F8C7941910BE1A00EA99E8 /* m141.png in Resources */,
 				9034828A185BB6C5006AAA6B /* c184.png in Resources */,
 				90F8BA6A1910BE1900EA99E8 /* flag_20.png in Resources */,
@@ -36445,6 +36564,7 @@
 				90F8B4981910BE1900EA99E8 /* skin_cell2.png in Resources */,
 				90F8C2DA1910BE1A00EA99E8 /* button_decline.png in Resources */,
 				90F8B7041910BE1900EA99E8 /* flag_121.png in Resources */,
+				6C2FD1491E3D03E200B11C7C /* engine_pitch_hockey.png in Resources */,
 				908D922E18B34D7800463CDC /* z927.jpg in Resources */,
 				90348383185BB6C5006AAA6B /* JobsView~ipad.xib in Resources */,
 				908D929A18B34D7800463CDC /* z96.jpg in Resources */,
@@ -36645,6 +36765,7 @@
 				908D92A618B34D7800463CDC /* z963.jpg in Resources */,
 				9034845A185BB6C5006AAA6B /* c56.png in Resources */,
 				6CB3AC7E1E3B5A3F001F7334 /* fx-jackpot.mp3 in Resources */,
+				6C2FD1411E3D03E200B11C7C /* engine_ball_hockey.png in Resources */,
 				908D916B18B34D7800463CDC /* z869.jpg in Resources */,
 				90F8C78A1910BE1A00EA99E8 /* m140.png in Resources */,
 				9034845D185BB6C5006AAA6B /* c199.png in Resources */,
@@ -36717,6 +36838,7 @@
 				90F8BFF61910BE1A00EA99E8 /* flag_92.png in Resources */,
 				6C7706911E3C5F70006E3EB9 /* engine_pitch@2x.png in Resources */,
 				908D91AD18B34D7800463CDC /* z889.jpg in Resources */,
+				6C2FD1471E3D03E200B11C7C /* engine_header_hockey.png in Resources */,
 				90F8C0781910BE1A00EA99E8 /* icon_money.png in Resources */,
 				90F8B3EE1910BE1900EA99E8 /* car201.png in Resources */,
 				90F8BD4E1910BE1900EA99E8 /* flag_30.png in Resources */,
@@ -36766,6 +36888,7 @@
 				908D8BA718B34D7700463CDC /* z425.jpg in Resources */,
 				908D8D9318B34D7800463CDC /* z573.jpg in Resources */,
 				908D890D18B34D7700463CDC /* z225.jpg in Resources */,
+				6C2FD1431E3D03E200B11C7C /* engine_goal_left_hockey.png in Resources */,
 				903484CF185BB6C5006AAA6B /* c258.png in Resources */,
 				908D8CE818B34D7800463CDC /* z521.jpg in Resources */,
 				908D8DB418B34D7800463CDC /* z583.jpg in Resources */,
@@ -37068,6 +37191,7 @@
 				908D88CB18B34D7700463CDC /* z205.jpg in Resources */,
 				903485EC185BB6C5006AAA6B /* c371.png in Resources */,
 				903485EF185BB6C5006AAA6B /* c131.png in Resources */,
+				6C2FD1451E3D03E200B11C7C /* engine_goal_right_hockey.png in Resources */,
 				908D89B218B34D7700463CDC /* z275.jpg in Resources */,
 				90F8B81C1910BE1900EA99E8 /* flag_147.png in Resources */,
 				90F8BD761910BE1900EA99E8 /* flag_34.png in Resources */,
@@ -37958,6 +38082,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C2FD14F1E3D040400B11C7C /* Ball_hockey.m in Sources */,
+				6C2FD1501E3D040400B11C7C /* Game_hockey.m in Sources */,
+				6C2FD1511E3D040400B11C7C /* Goal_hockey.m in Sources */,
+				6C2FD1521E3D040400B11C7C /* Player_hockey.m in Sources */,
 				6CB3ACD41E3B5CFB001F7334 /* MainView.m in Sources */,
 				6CB3ACAF1E3B5B49001F7334 /* Audio.m in Sources */,
 				6CB3ACB11E3B5B49001F7334 /* GameMechanics.m in Sources */,
@@ -38060,6 +38188,7 @@
 				90348702185BB6C5006AAA6B /* StadiumView.m in Sources */,
 				90348703185BB6C5006AAA6B /* FansView.m in Sources */,
 				90A925BE18AFFDD200338574 /* UIColor+Crayola.m in Sources */,
+				6C2FD14D1E3D03E200B11C7C /* Player_hockey.m in Sources */,
 				90A9251418AFFDD200338574 /* AllianceDonations.m in Sources */,
 				90A9252818AFFDD200338574 /* AllianceMembers.m in Sources */,
 				90348708185BB6C5006AAA6B /* FinanceView.m in Sources */,
@@ -38099,6 +38228,7 @@
 				90348732185BB6C5006AAA6B /* StorePlayerView.m in Sources */,
 				6CB3ACAB1E3B5A3F001F7334 /* SlotsView.m in Sources */,
 				90A926B818AFFDD300338574 /* KingdomAppDelegate.m in Sources */,
+				6C2FD14C1E3D03E200B11C7C /* Goal_hockey.m in Sources */,
 				90348733185BB6C5006AAA6B /* StoreCoachView.m in Sources */,
 				90348734185BB6C5006AAA6B /* StoreOthersView.m in Sources */,
 				90A9250A18AFFDD200338574 /* AllianceDetail.m in Sources */,
@@ -38109,6 +38239,7 @@
 				9034873B185BB6C5006AAA6B /* SubsView.m in Sources */,
 				9034873F185BB6C5006AAA6B /* JobsCell.m in Sources */,
 				90A925D218AFFDD200338574 /* UIView+Glow.m in Sources */,
+				6C2FD14B1E3D03E200B11C7C /* Game_hockey.m in Sources */,
 				90348740185BB6C5006AAA6B /* JobsView.m in Sources */,
 				90348741185BB6C5006AAA6B /* SquadViewer.m in Sources */,
 				90348742185BB6C5006AAA6B /* MapViewer.m in Sources */,
@@ -38129,6 +38260,7 @@
 				90A9256E18AFFDD200338574 /* BuyView.m in Sources */,
 				90A923B418AFFD9A00338574 /* Globals.m in Sources */,
 				90A9261818AFFDD200338574 /* MailDetail.m in Sources */,
+				6C2FD1401E3D03E200B11C7C /* Ball_hockey.m in Sources */,
 				90A9262C18AFFDD200338574 /* MailView.m in Sources */,
 				90A925C818AFFDD200338574 /* UIFont+IBCustomFonts.m in Sources */,
 				90A9257818AFFDD200338574 /* ChatView.m in Sources */,

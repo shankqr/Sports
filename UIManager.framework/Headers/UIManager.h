@@ -22,8 +22,6 @@
 #import <UIManager/MarqueeLabel.h>
 #import <UIManager/ProgressView.h>
 
-typedef void (^DialogBlock)(NSInteger index, NSString *text);
-
 #define iPad UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad
 #define SCALE_IPAD (iPad ? 2.0f : 1.0f)
 #define CHART_CONTENT_MARGIN (10.0f*SCALE_IPAD)

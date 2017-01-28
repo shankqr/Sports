@@ -754,6 +754,15 @@
     self.actionCountdown = 50;
 }
 
+- (CGFloat) angleToPoint:(SPPoint *)startingPoint secondPoint:(SPPoint *) endingPoint
+{
+    CGPoint originPoint = CGPointMake(endingPoint.x - startingPoint.x, endingPoint.y - startingPoint.y); // get origin point to origin by subtracting end from start
+    float bearingRadians = atan2f(originPoint.y, originPoint.x); // get bearing in radians
+    float bearingDegrees = bearingRadians * (180.0 / M_PI); // convert to degrees
+    bearingDegrees = (bearingDegrees > 0.0 ? bearingDegrees : (360.0 + bearingDegrees)); // correct discontinuity
+    return bearingDegrees;
+}
+
 - (void)shoot
 {
     [GameController playSoundShoot];
@@ -767,7 +776,7 @@
         return;
     }
     SPPoint *towardsGoal = [SPPoint pointWithX:attackingGoal.x-self.xx y:attackingGoal.y-self.yy];
-    if ([self.vector angleToPoint:towardsGoal] < 60) 
+    if ([self angleToPoint:self.vector secondPoint:towardsGoal] < 60)
     {
         if ([(GameController.highlight)[@"type_id"] integerValue]<3) 
         {
@@ -874,7 +883,7 @@
             }
             if ((fabs(self.vector.x) > 0) && (fabs(self.vector.y) > 0) && (urgency>0))
             {
-                double angle = [self.vector angleToPoint:vector_player];
+                double angle = [self angleToPoint:self.vector secondPoint:vector_player];
                 if (angle > 90)
                 {
                     continue;

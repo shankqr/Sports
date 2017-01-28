@@ -29,9 +29,7 @@ didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
                               appID:@"tapfantasy_platform_20170126042011891-c22c552fb240d45"];
     
     // Initialize the Chartboost library
-    [Chartboost startWithAppId:@"58897dfc43150f3e9caf1b8b"
-                  appSignature:@"0f753289525659aa013e0f6fa032de9fec920fcd"
-                      delegate:self];
+    //[Chartboost startWithAppId:@"58897dfc43150f3e9caf1b8b" appSignature:@"0f753289525659aa013e0f6fa032de9fec920fcd" delegate:self];
     
     self.beenSleeping = NO;
     

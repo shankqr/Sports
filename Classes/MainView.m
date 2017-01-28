@@ -59,8 +59,8 @@
 
 //Sparrow shit (comment out for baseball & basketball)
 #import <Sparrow/Sparrow.h>
-#import "Game.h"
-//#import "Game_hockey.h"
+//#import "Game.h"
+#import "Game_hockey.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
 UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeViewControllerDelegate, UIScrollViewDelegate>
@@ -1306,23 +1306,21 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
     //(comment out for baseball & basketball)
     if ([[[Globals i] GameType] isEqualToString:@"football"])
     {
-        [SPAudioEngine start];
-        self.sparrowView = [[SPViewController alloc] init];
-        self.sparrowView.multitouchEnabled = YES;
-        [self.sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:NO];
-        
-        [UIManager.i showTemplate:@[self.sparrowView] :@"Live Match" :2];
-    }
-    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
-    {
         /*
         [SPAudioEngine start];
         self.sparrowView = [[SPViewController alloc] init];
         self.sparrowView.multitouchEnabled = YES;
-        [self.sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:NO];
-        
+        [self.sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:NO];
         [UIManager.i showTemplate:@[self.sparrowView] :@"Live Match" :2];
         */
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        [SPAudioEngine start];
+        self.sparrowView = [[SPViewController alloc] init];
+        self.sparrowView.multitouchEnabled = YES;
+        [self.sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:NO];
+        [UIManager.i showTemplate:@[self.sparrowView] :@"Live Match" :2];
     }
     else
     {

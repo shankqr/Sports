@@ -192,12 +192,12 @@
     
     [pitch removeChild:ball];
     
-    self.players = [[NSMutableArray alloc] initWithObjects:nil];
-    self.homeTeam = [[NSMutableArray alloc] initWithObjects:nil];
-    self.awayTeam = [[NSMutableArray alloc] initWithObjects:nil];
+    self.players = [[NSMutableArray alloc] init];
+    self.homeTeam = [[NSMutableArray alloc] init];
+    self.awayTeam = [[NSMutableArray alloc] init];
     
     NSInteger player_row = 0;
-    NSMutableDictionary *playerRowforID = [[NSMutableDictionary alloc] initWithObjectsAndKeys:nil];
+    NSMutableDictionary *playerRowforID = [[NSMutableDictionary alloc] init];
     
     NSDictionary *wsMatchData = [[Globals i] getMatchInfoData];
     NSString *club_home_uid = wsMatchData[@"club_home_uid"];
@@ -527,7 +527,7 @@
     awayLogo.y = 0;
     [pitch addChild:awayLogo];
     
-    self.highlights = [[NSMutableArray alloc] initWithObjects: nil];
+    self.highlights = [[NSMutableArray alloc] init];
     NSArray *wsMatchHighlights = [[NSMutableArray alloc] initWithArray:[[Globals i] getMatchHighlightsData] copyItems:YES];
     NSInteger highlight_total = 0;
     for(NSDictionary *rowData in wsMatchHighlights)
