@@ -25,6 +25,7 @@
 @class AllianceView;
 @class AllianceDetail;
 @class MainCell;
+@class SPViewController;
 @class StorePlayerView;
 @class StoreCoachView;
 @class StoreOthersView;
@@ -75,6 +76,7 @@
 @property (nonatomic, strong) AllianceView *allianceView;
 @property (nonatomic, strong) AllianceDetail *allianceDetail;
 @property (nonatomic, strong) MainCell *cell;
+@property (nonatomic, strong) SPViewController *sparrowView;
 @property (nonatomic, strong) StorePlayerView *storePlayer;
 @property (nonatomic, strong) StoreCoachView *storeCoach;
 @property (nonatomic, strong) StoreOthersView *fundStore;

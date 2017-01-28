@@ -57,9 +57,9 @@
 #import "HelpshiftCore.h"
 #import "HelpshiftSupport.h"
 
-//Sparrow shit
-//#import <Sparrow/Sparrow.h>
-//#import "Game.h"
+//Sparrow shit (comment out for baseball & basketball)
+#import <Sparrow/Sparrow.h>
+#import "Game.h"
 //#import "Game_hockey.h"
 
 @interface MainView () <SKProductsRequestDelegate, SKPaymentTransactionObserver, UITabBarControllerDelegate,
@@ -1303,14 +1303,46 @@ UIAlertViewDelegate, UITableViewDataSource, UITableViewDelegate, MFMailComposeVi
 {
     [[Globals i] updateMatchHighlightsData:[Globals i].challengeMatchId];
     
-    [self showMatchReport];
+    //(comment out for baseball & basketball)
+    if ([[[Globals i] GameType] isEqualToString:@"football"])
+    {
+        [SPAudioEngine start];
+        self.sparrowView = [[SPViewController alloc] init];
+        self.sparrowView.multitouchEnabled = YES;
+        [self.sparrowView startWithRoot:[Game class] supportHighResolutions:YES doubleOnPad:NO];
+        
+        [UIManager.i showTemplate:@[self.sparrowView] :@"Live Match" :2];
+    }
+    else if ([[[Globals i] GameType] isEqualToString:@"hockey"])
+    {
+        /*
+        [SPAudioEngine start];
+        self.sparrowView = [[SPViewController alloc] init];
+        self.sparrowView.multitouchEnabled = YES;
+        [self.sparrowView startWithRoot:[Game_hockey class] supportHighResolutions:YES doubleOnPad:NO];
+        
+        [UIManager.i showTemplate:@[self.sparrowView] :@"Live Match" :2];
+        */
+    }
+    else
+    {
+        [self showMatchReport];
+    }
     
     [[Globals i] removeLoadingAlert];
 }
 
 - (void)removeLiveMatch
 {
-
+    //(comment out for baseball & basketball)
+    if (self.sparrowView != nil)
+    {
+        [self.sparrowView.view removeFromSuperview];
+        
+        [UIManager.i closeTemplate];
+        
+        [self showMatchReport];
+    }
 }
 
 - (void)reportMatch
