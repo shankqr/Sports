@@ -20,7 +20,7 @@ public partial class GameEngine
 {
 	private string GetConnectionString()
     {
-        return @"Data Source=(local);Initial Catalog=football;User ID=sa;Password=H1d@y@tul88";
+        return @"Data Source=(local);Initial Catalog=hockey;User ID=sa;Password=Sp1d3rm@n12";
     }
 	
 	[WebGet(UriTemplate = "PasswordRequest/{game_id}/{uid}/{email}")]
@@ -60,7 +60,7 @@ public partial class GameEngine
 	                r1.Close();
 	            }
 	            
-	            result = SendMessage(email, "Password for App", "Click on this link to see your password: http://football.tapfantasy.com/football/GetPassword/" + request_id);
+	            result = SendMessage(email, "Password for App", "Click on this link to see your password: http://hockey.tapfantasy.com/hockey/GetPassword/" + request_id);
         	}
         }
 
@@ -70,71 +70,18 @@ public partial class GameEngine
         return new MemoryStream(returnBytes);
     }
 	
-	[WebGet(UriTemplate = "LoginFromFacebook/{uid}/{fb_id}")]
-    public Stream LoginFromFacebook(string uid, string fb_id) //Facebook App specefic
-    {
-        using (SqlConnection cn = new SqlConnection(GetConnectionString()))
-        {
-            using (SqlCommand cmd = new SqlCommand("SELECT club_id, club_name, last_login FROM club WHERE uid='" + uid + "'", cn))
-            {
-                cn.Open();
-                string cid = string.Empty;
-                string cname = string.Empty;
-                string last_login = string.Empty;
-                string sql_update_club = string.Empty;
-                string result = "0";
-
-                SqlDataReader r1 = cmd.ExecuteReader();
-                while (r1.Read())
-                {
-                    if (!(r1.IsDBNull(0)))
-                    {
-                        cid = r1["club_id"].ToString();
-                        cname = r1["club_name"].ToString();
-                        last_login = r1["last_login"].ToString();
-                    }
-                }
-                r1.Close();
-
-                if ((cid.Length > 0) && (cid != "0"))
-                {
-                	result = "1"; //No dailly login bonus
-                	sql_update_club = "UPDATE club SET fb_id='" + fb_id + "', last_login=GETUTCDATE() WHERE uid='" + uid + "'";
-                    
-                    Thread oThread = new Thread(new ParameterizedThreadStart(ExecuteNonQuery));
-                    oThread.Start(sql_update_club);
-
-                    Thread oThread2 = new Thread(new ParameterizedThreadStart(ExecuteNonQuery));
-                    oThread2.Start("INSERT INTO chat VALUES (" + cid + ", N'" + cname + "', 'Manager has just logged in from Facebook.', GETUTCDATE(), 0, '')");
-                }
-
-                Encoding encoding = Encoding.UTF8;
-                WebOperationContext.Current.OutgoingResponse.ContentType = "text/plain";
-                byte[] returnBytes = encoding.GetBytes(result);
-                return new MemoryStream(returnBytes);
-            }
-        }
-    }
-	
 	private void Push(string gameid, string devtoken, string message)
     {
-        string p12File = "fmcpush.p12";
-
-        if (gameid == "4")
-            p12File = "ffpush.p12";
+        string p12File = "";
 
         if (gameid == "3")
-            p12File = "fmhdpush.p12";
+            p12File = "hmhdpush.p12";
 
-        if(gameid == "2")
-            p12File = "fmpush.p12";
+        if (gameid == "2")
+            p12File = "hfpush.p12";
 
         if (gameid == "1")
-            p12File = "ffcpush.p12";
-
-        if (gameid == "0")
-            p12File = "fmcpush.p12";
-
+            p12File = "hmpush.p12";
 
         if (devtoken != "0" && devtoken != "(null)" && devtoken != "" && message.Length>0)
         {
@@ -165,28 +112,13 @@ public partial class GameEngine
             switch (fid)
             {
                 case "1":
-                    sql1 = "UPDATE club SET cd3=0, im3=0, fw3=0";
+                    sql1 = "UPDATE club SET rb=0, lb=0, cd3=0, rw=0, lw=0, im2=0, im3=0, fw3=0";
                     break;
                 case "2":
-                    sql1 = "UPDATE club SET cd3=0, im2=0, im3=0";
+                    sql1 = "UPDATE club SET rb=0, lb=0, cd2=0, cd3=0, rw=0, lw=0, im3=0, fw3=0";
                     break;
                 case "3":
-                    sql1 = "UPDATE club SET cd2=0, cd3=0, im3=0";
-                    break;
-                case "4":
-                    sql1 = "UPDATE club SET im3=0, fw2=0, fw3=0";
-                    break;
-                case "5":
-                    sql1 = "UPDATE club SET im2=0, im3=0, fw3=0";
-                    break;
-                case "6":
-                    sql1 = "UPDATE club SET cd2=0, cd3=0, fw3=0";
-                    break;
-                case "7":
-                    sql1 = "UPDATE club SET cd3=0, fw2=0, fw3=0";
-                    break;
-                default:
-                    sql1 = "UPDATE club SET cd3=0, im3=0, fw3=0";
+                    sql1 = "UPDATE club SET rb=0, lb=0, cd2=0, cd3=0, im3=0, fw1=0, fw2=0, fw3=0";
                     break;
             }
 
@@ -309,29 +241,14 @@ public partial class GameEngine
             	string sql1 = string.Empty;
 	            switch (formation)
 	            {
-	                case "1":
-	                    sql1 = "UPDATE club SET cd3=0, im3=0, fw3=0";
+		            case "1":
+	                    sql1 = "UPDATE club SET rb=0, lb=0, cd3=0, rw=0, lw=0, im2=0, im3=0, fw3=0";
 	                    break;
 	                case "2":
-	                    sql1 = "UPDATE club SET cd3=0, im2=0, im3=0";
+	                    sql1 = "UPDATE club SET rb=0, lb=0, cd2=0, cd3=0, rw=0, lw=0, im3=0, fw3=0";
 	                    break;
 	                case "3":
-	                    sql1 = "UPDATE club SET cd2=0, cd3=0, im3=0";
-	                    break;
-	                case "4":
-	                    sql1 = "UPDATE club SET im3=0, fw2=0, fw3=0";
-	                    break;
-	                case "5":
-	                    sql1 = "UPDATE club SET im2=0, im3=0, fw3=0";
-	                    break;
-	                case "6":
-	                    sql1 = "UPDATE club SET cd2=0, cd3=0, fw3=0";
-	                    break;
-	                case "7":
-	                    sql1 = "UPDATE club SET cd3=0, fw2=0, fw3=0";
-	                    break;
-	                default:
-	                    sql1 = "UPDATE club SET cd3=0, im3=0, fw3=0";
+	                    sql1 = "UPDATE club SET rb=0, lb=0, cd2=0, cd3=0, im3=0, fw1=0, fw2=0, fw3=0";
 	                    break;
 	            }
 	            
@@ -574,6 +491,7 @@ public partial class GameEngine
         }
     }
     
+	
     private void UpdateLeaguePosition(object dt)
     {
         SqlConnection cn = new SqlConnection(GetConnectionString());
@@ -602,7 +520,7 @@ public partial class GameEngine
             {
                 cmd.CommandTimeout = 0;
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -628,7 +546,7 @@ public partial class GameEngine
             {
                 cmd.CommandTimeout = 0;
                 cn.Open();
-                cmd.ExecuteNonQuery();
+
                 SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
@@ -646,4 +564,5 @@ public partial class GameEngine
             }
         }
     }
+	
 }
