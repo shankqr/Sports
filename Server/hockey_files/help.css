@@ -1,0 +1,67 @@
+body {
+	color: #999999;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 18px;
+	margin-bottom: 15px;
+}
+
+.help-links {
+list-style-type: none;
+width:260px;
+height:auto;
+background:url(http://cdn.nordeus.com/wpctopeleven/themes/topeleven/images/help-links-bg.png) repeat;
+border:1px solid #24282a;
+padding:15px;
+}
+
+.help-links
+li {
+border-top:1px #474747 dotted;
+line-height:31px;
+padding:1px 6px;
+}
+
+.help-links li:first-child {
+border-top:none;
+}
+
+.help-links li
+a {
+font-family:Arial,Helvetica,sans-serif;
+font-size:14px;
+font-weight:700;
+color:#11bfeb;
+text-decoration:none;
+}
+
+.help-links li a
+img {
+float:left;
+margin:6px 12px 0 0;
+}
+
+p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 16.0px Cambria}
+table.t2 {width: 245.0px; border-collapse: collapse}
+td.td10 {width: 79.0px; background-color: #00ff00; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td11 {width: 78.0px; background-color: #0080ff; border-style: solid; border-width: 0.0px 1.0px 1.0px 1.0px; border-color: #000000 #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td12 {width: 43.0px; background-color: #0080ff; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td13 {width: 79.0px; background-color: #0080ff; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td14 {width: 78.0px; background-color: #ff0000; border-style: solid; border-width: 0.0px 1.0px 1.0px 1.0px; border-color: #000000 #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td15 {width: 43.0px; background-color: #ff0000; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td16 {width: 79.0px; background-color: #ff0000; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td17 {width: 78.0px; background-color: #ff6600; border-style: solid; border-width: 0.0px 1.0px 1.0px 1.0px; border-color: #000000 #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td18 {width: 43.0px; background-color: #ff6600; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td19 {width: 79.0px; background-color: #ff6600; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td2 {width: 78.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 1.0px; border-color: #6d6d6d #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td3 {width: 43.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 0.0px; border-color: #6d6d6d #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td4 {width: 79.0px; border-style: solid; border-width: 1.0px 1.0px 1.0px 0.0px; border-color: #6d6d6d #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td5 {width: 78.0px; background-color: #ffcc00; border-style: solid; border-width: 0.0px 1.0px 1.0px 1.0px; border-color: #000000 #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td6 {width: 43.0px; background-color: #ffcc00; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td7 {width: 79.0px; background-color: #ffcc00; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td8 {width: 78.0px; background-color: #00ff00; border-style: solid; border-width: 0.0px 1.0px 1.0px 1.0px; border-color: #000000 #6d6d6d #6d6d6d #6d6d6d; padding: 0.0px 7.0px 0.0px 7.0px}
+td.td9 {width: 43.0px; background-color: #00ff00; border-style: solid; border-width: 0.0px 1.0px 1.0px 0.0px; border-color: #000000 #6d6d6d #6d6d6d #000000; padding: 0.0px 7.0px 0.0px 7.0px}
+
+.tableText {
+	color: #000;
+}
